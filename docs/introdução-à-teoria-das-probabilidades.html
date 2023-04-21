@@ -349,6 +349,22 @@ div.csl-indent {
 <li class="chapter" data-level="8.2" data-path="assimetria-e-curtose.html"><a href="assimetria-e-curtose.html#curtose"><i class="fa fa-check"></i><b>8.2</b> Curtose</a></li>
 <li class="chapter" data-level="8.3" data-path="assimetria-e-curtose.html"><a href="assimetria-e-curtose.html#testando-o-raciocínio"><i class="fa fa-check"></i><b>8.3</b> Testando o raciocínio</a></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html"><i class="fa fa-check"></i><b>9</b> Distribuições Amostrais</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#pacotes-necessários-para-este-capítulo"><i class="fa fa-check"></i><b>9.1</b> Pacotes necessários para este capítulo</a></li>
+<li class="chapter" data-level="9.2" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuições-populacional-e-amostral"><i class="fa fa-check"></i><b>9.2</b> Distribuições populacional e amostral</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuição-populacional"><i class="fa fa-check"></i><b>9.2.1</b> Distribuição populacional</a></li>
+<li class="chapter" data-level="9.2.2" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuição-amostral"><i class="fa fa-check"></i><b>9.2.2</b> Distribuição amostral</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#erros-amostrais-e-não-amostrais"><i class="fa fa-check"></i><b>9.3</b> Erros amostrais e não amostrais</a></li>
+<li class="chapter" data-level="9.4" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#média-e-desvio-padrão-da-média"><i class="fa fa-check"></i><b>9.4</b> Média e desvio padrão da média</a></li>
+<li class="chapter" data-level="9.5" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#teorema-do-limite-central"><i class="fa fa-check"></i><b>9.5</b> Teorema do Limite Central</a></li>
+<li class="chapter" data-level="9.6" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#proporções-populacional-e-amostral"><i class="fa fa-check"></i><b>9.6</b> Proporções populacional e amostral</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuição-amostral-da-proporção-amostral"><i class="fa fa-check"></i><b>9.6.1</b> Distribuição amostral da proporção amostral</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="referências.html"><a href="referências.html"><i class="fa fa-check"></i>Referências</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -681,12 +697,12 @@ Figure 7.5: Função densidade de probabilidade.
 </ul>
 <p>Com esta função é possível, por exemplo, gerar 10 observações de uma distribuição normal:</p>
 <div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="introdução-à-teoria-das-probabilidades.html#cb430-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1]  0.04048564  0.10184313 -1.30877362 -0.73711652 -0.79571939 -2.06250860
-##  [7] -1.09979938  0.53917849 -1.82644233  0.39050027</code></pre>
+<pre><code>##  [1] -0.91994345 -0.27281657  0.43853163  0.74180116  1.69662931  1.44171557
+##  [7] -0.03124111 -1.38129756 -2.17156323  0.37060882</code></pre>
 <p>No entanto, deve-se notar que, se não especificar uma “semente” (<code>seed</code>), a saída não será reproduzível:</p>
 <div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="introdução-à-teoria-das-probabilidades.html#cb432-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1] -1.7080842 -0.2412949  0.7065323 -0.2308702 -0.4613271  0.9598556
-##  [7]  0.4102955  0.1708584 -0.9490435 -0.7935124</code></pre>
+<pre><code>##  [1]  1.6805073  1.7071090 -1.7909469  1.4287801 -0.2798680  0.3234541
+##  [7] -0.8200259  0.4497751 -0.8964432 -1.0510664</code></pre>
 <p>Pode-se usar a função <code>set.seed()</code> para tornar o código reproduzível. O valor da “semente” (número) não é importante desde que seja consistente na sua utilização. O que é verdadeiramente importante é que o código seja reproduzido fielmente.</p>
 <p>Para ilustrar, será construído dois conjuntos de 10 números que serão recebidos pelos objetos <em>x</em> e <em>y</em>. Para gerar o conjunto de números <em>x</em>, sera usado o número <code>123</code> como “semente”. A “semente” funciona como uma espécie de marca. Para o <em>y</em> não será usado a <code>set.seed()</code>.</p>
 <div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="introdução-à-teoria-das-probabilidades.html#cb434-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>

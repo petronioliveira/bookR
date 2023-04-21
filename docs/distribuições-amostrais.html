@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 9 Distribuições Amostrais | Introdução à Bioestatística usando o R</title>
+  <meta name="description" content="Capítulo 9 Distribuições Amostrais | Introdução à Bioestatística usando o R" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 9 Distribuições Amostrais | Introdução à Bioestatística usando o R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 9 Distribuições Amostrais | Introdução à Bioestatística usando o R" />
+  
+  
+  
+
+<meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
+
+
+<meta name="date" content="2023-04-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="assimetria-e-curtose.html"/>
+<link rel="next" href="referências.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">bookR</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#importância-da-bioestatística"><i class="fa fa-check"></i><b>1.1</b> Importância da Bioestatística</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#sec-historia"><i class="fa fa-check"></i><b>1.2</b> Pílulas históricas da Estatística</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#história-resumida-do-r"><i class="fa fa-check"></i><b>1.3</b> História resumida do R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html"><i class="fa fa-check"></i><b>2</b> Natureza dos Dados</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-e-dados"><i class="fa fa-check"></i><b>2.1</b> Variáveis e Dados</a></li>
+<li class="chapter" data-level="2.2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#população-e-amostra"><i class="fa fa-check"></i><b>2.2</b> População e Amostra</a></li>
+<li class="chapter" data-level="2.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#estimativas-e-parâmetros"><i class="fa fa-check"></i><b>2.3</b> Estimativas e Parâmetros</a></li>
+<li class="chapter" data-level="2.4" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escalas-de-medição"><i class="fa fa-check"></i><b>2.4</b> Escalas de medição</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-nominal"><i class="fa fa-check"></i><b>2.4.1</b> Escala Nominal</a></li>
+<li class="chapter" data-level="2.4.2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-ordinal"><i class="fa fa-check"></i><b>2.4.2</b> Escala Ordinal</a></li>
+<li class="chapter" data-level="2.4.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-intervalar"><i class="fa fa-check"></i><b>2.4.3</b> Escala Intervalar</a></li>
+<li class="chapter" data-level="2.4.4" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-de-razão"><i class="fa fa-check"></i><b>2.4.4</b> Escala de Razão</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#tipos-de-variáveis"><i class="fa fa-check"></i><b>2.5</b> Tipos de Variáveis</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-numéricas"><i class="fa fa-check"></i><b>2.5.1</b> Variáveis Numéricas</a></li>
+<li class="chapter" data-level="2.5.2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-categóricas"><i class="fa fa-check"></i><b>2.5.2</b> Variáveis Categóricas</a></li>
+<li class="chapter" data-level="2.5.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#como-identificar-o-tipo-da-variável"><i class="fa fa-check"></i><b>2.5.3</b> Como identificar o tipo da variável?</a></li>
+<li class="chapter" data-level="2.5.4" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-dependentes-e-independentes"><i class="fa fa-check"></i><b>2.5.4</b> Variáveis Dependentes e Independentes</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html"><i class="fa fa-check"></i><b>3</b> Produção dos Dados</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#processo-de-pesquisa"><i class="fa fa-check"></i><b>3.1</b> Processo de Pesquisa</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#questão-de-pesquisa"><i class="fa fa-check"></i><b>3.1.1</b> Questão de Pesquisa</a></li>
+<li class="chapter" data-level="3.1.2" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#hipótese-de-pesquisa"><i class="fa fa-check"></i><b>3.1.2</b> Hipótese de Pesquisa</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#processo-de-amostragem"><i class="fa fa-check"></i><b>3.2</b> Processo de Amostragem</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#amostras-probabilística"><i class="fa fa-check"></i><b>3.2.1</b> Amostras probabilística</a></li>
+<li class="chapter" data-level="3.2.2" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#amostras-não-probabilísticas"><i class="fa fa-check"></i><b>3.2.2</b> Amostras não probabilísticas</a></li>
+<li class="chapter" data-level="3.2.3" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#tamanho-amostral"><i class="fa fa-check"></i><b>3.2.3</b> Tamanho amostral</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#principais-delineamentos-de-pesquisa"><i class="fa fa-check"></i><b>3.3</b> Principais Delineamentos de Pesquisa</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#elementos-básicos-de-um-delineamento-de-pesquisa"><i class="fa fa-check"></i><b>3.3.1</b> Elementos básicos de um delineamento de pesquisa</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#estudos-observacionais"><i class="fa fa-check"></i><b>3.4</b> Estudos Observacionais</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#relato-de-caso-ou-série-de-casos"><i class="fa fa-check"></i><b>3.4.1</b> Relato de Caso ou Série de casos</a></li>
+<li class="chapter" data-level="3.4.2" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#estudos-transversais-ou-seccionais"><i class="fa fa-check"></i><b>3.4.2</b> Estudos Transversais ou Seccionais</a></li>
+<li class="chapter" data-level="3.4.3" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#estudos-caso-controle"><i class="fa fa-check"></i><b>3.4.3</b> Estudos Caso-Controle</a></li>
+<li class="chapter" data-level="3.4.4" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#estudos-de-coorte"><i class="fa fa-check"></i><b>3.4.4</b> Estudos de Coorte</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#ensaios-clínicos"><i class="fa fa-check"></i><b>3.5</b> Ensaios Clínicos</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#características-de-um-ensaio-clínico"><i class="fa fa-check"></i><b>3.5.1</b> Características de um ensaio clínico</a></li>
+<li class="chapter" data-level="3.5.2" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#elementos-básicos-de-um-ensaio-clínico"><i class="fa fa-check"></i><b>3.5.2</b> Elementos básicos de um ensaio clínico</a></li>
+<li class="chapter" data-level="3.5.3" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#ensaios-clínicos-de-equivalência-e-não-inferioridade"><i class="fa fa-check"></i><b>3.5.3</b> Ensaios clínicos de equivalência e não inferioridade</a></li>
+<li class="chapter" data-level="3.5.4" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#outros-tipos-de-ensaios-clínicos"><i class="fa fa-check"></i><b>3.5.4</b> Outros tipos de ensaios clínicos</a></li>
+<li class="chapter" data-level="3.5.5" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#fases-de-um-ensaio-clínico"><i class="fa fa-check"></i><b>3.5.5</b> Fases de um ensaio clínico</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html"><i class="fa fa-check"></i><b>4</b> Ambiente do R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#instalação-do-r-básico"><i class="fa fa-check"></i><b>4.1</b> Instalação do R básico</a></li>
+<li class="chapter" data-level="4.2" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#rstudio"><i class="fa fa-check"></i><b>4.2</b> RStudio</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#instalação-do-r-studio"><i class="fa fa-check"></i><b>4.2.1</b> Instalação do R Studio</a></li>
+<li class="chapter" data-level="4.2.2" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#iniciando-o-rstudio"><i class="fa fa-check"></i><b>4.2.2</b> Iniciando o RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#pacotes"><i class="fa fa-check"></i><b>4.3</b> Pacotes</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#repositório-de-pacotes"><i class="fa fa-check"></i><b>4.3.1</b> Repositório de pacotes</a></li>
+<li class="chapter" data-level="4.3.2" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#instalação-de-um-novo-pacote"><i class="fa fa-check"></i><b>4.3.2</b> Instalação de um novo pacote</a></li>
+<li class="chapter" data-level="4.3.3" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#atualização-dos-pacotes"><i class="fa fa-check"></i><b>4.3.3</b> Atualização dos pacotes</a></li>
+<li class="chapter" data-level="4.3.4" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#instalando-e-carregando-mais-de-um-pacote"><i class="fa fa-check"></i><b>4.3.4</b> Instalando e carregando mais de um pacote</a></li>
+<li class="chapter" data-level="4.3.5" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#citação-de-pacotes-em-publicações"><i class="fa fa-check"></i><b>4.3.5</b> Citação de pacotes em publicações</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#diretório-de-trabalho"><i class="fa fa-check"></i><b>4.4</b> Diretório de trabalho</a></li>
+<li class="chapter" data-level="4.5" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#projeto"><i class="fa fa-check"></i><b>4.5</b> Projeto</a></li>
+<li class="chapter" data-level="4.6" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#o-r-como-calculadora"><i class="fa fa-check"></i><b>4.6</b> O R como calculadora</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#operadores"><i class="fa fa-check"></i><b>4.6.1</b> Operadores</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#objetos"><i class="fa fa-check"></i><b>4.7</b> Objetos</a></li>
+<li class="chapter" data-level="4.8" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#funções"><i class="fa fa-check"></i><b>4.8</b> Funções</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#criando-funções"><i class="fa fa-check"></i><b>4.8.1</b> Criando funções</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#classes"><i class="fa fa-check"></i><b>4.9</b> Classes</a></li>
+<li class="chapter" data-level="4.10" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#sec-vetores"><i class="fa fa-check"></i><b>4.10</b> Vetores</a>
+<ul>
+<li class="chapter" data-level="4.10.1" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#tipos-de-vetores"><i class="fa fa-check"></i><b>4.10.1</b> Tipos de vetores</a></li>
+</ul></li>
+<li class="chapter" data-level="4.11" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#sec-dataframes"><i class="fa fa-check"></i><b>4.11</b> Dataframes</a></li>
+<li class="chapter" data-level="4.12" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#sec-fatores"><i class="fa fa-check"></i><b>4.12</b> Fatores</a>
+<ul>
+<li class="chapter" data-level="4.12.1" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#criando-fatores"><i class="fa fa-check"></i><b>4.12.1</b> Criando fatores</a></li>
+<li class="chapter" data-level="4.12.2" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#salvando-o-dataframe-criado"><i class="fa fa-check"></i><b>4.12.2</b> Salvando o dataframe criado</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html"><i class="fa fa-check"></i><b>5</b> Manipulando os dados no R Studio</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#importando-dados-de-outros-softwares"><i class="fa fa-check"></i><b>5.1</b> Importando dados de outros <em>softwares</em></a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#sec-csv"><i class="fa fa-check"></i><b>5.1.1</b> Importando dados de um arquivo CSV</a></li>
+<li class="chapter" data-level="5.1.2" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#sec-xlsx"><i class="fa fa-check"></i><b>5.1.2</b> Importando um arquivo do Excel</a></li>
+<li class="chapter" data-level="5.1.3" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#importando-arquivos-com-o-rstudio"><i class="fa fa-check"></i><b>5.1.3</b> Importando arquivos com o RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#sec-tibble"><i class="fa fa-check"></i><b>5.2</b> Tibble</a></li>
+<li class="chapter" data-level="5.3" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#sec-mater"><i class="fa fa-check"></i><b>5.3</b> Pacote <code>dplyr</code></a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#função-select"><i class="fa fa-check"></i><b>5.3.1</b> Função <code>select()</code></a></li>
+<li class="chapter" data-level="5.3.2" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#função-filter"><i class="fa fa-check"></i><b>5.3.2</b> Função <code>filter()</code></a></li>
+<li class="chapter" data-level="5.3.3" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#função-mutate"><i class="fa fa-check"></i><b>5.3.3</b> Função <code>mutate()</code></a></li>
+<li class="chapter" data-level="5.3.4" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#função-sample_n"><i class="fa fa-check"></i><b>5.3.4</b> Função <code>sample_n()</code></a></li>
+<li class="chapter" data-level="5.3.5" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#função-slice"><i class="fa fa-check"></i><b>5.3.5</b> Função <code>slice()</code></a></li>
+<li class="chapter" data-level="5.3.6" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#função-arrange"><i class="fa fa-check"></i><b>5.3.6</b> Função <code>arrange()</code></a></li>
+<li class="chapter" data-level="5.3.7" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#função-count"><i class="fa fa-check"></i><b>5.3.7</b> Função <code>count()</code></a></li>
+<li class="chapter" data-level="5.3.8" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#operador-pipe"><i class="fa fa-check"></i><b>5.3.8</b> Operador pipe %&gt;%</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#manipulação-de-datas"><i class="fa fa-check"></i><b>5.4</b> Manipulação de datas</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#operações-com-datas"><i class="fa fa-check"></i><b>5.4.1</b> Operações com datas</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html"><i class="fa fa-check"></i><b>6</b> Descrevendo os dados</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#dados-brutos"><i class="fa fa-check"></i><b>6.1</b> Dados brutos</a></li>
+<li class="chapter" data-level="6.2" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#medidas-resumidoras"><i class="fa fa-check"></i><b>6.2</b> Medidas resumidoras</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#medidas-de-tendência-central"><i class="fa fa-check"></i><b>6.2.1</b> Medidas de tendência central</a></li>
+<li class="chapter" data-level="6.2.2" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#medidas-de-dispersão"><i class="fa fa-check"></i><b>6.2.2</b> Medidas de Dispersão</a></li>
+<li class="chapter" data-level="6.2.3" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#escolha-da-medida-resumidora"><i class="fa fa-check"></i><b>6.2.3</b> Escolha da medida resumidora</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#tabelas"><i class="fa fa-check"></i><b>6.3</b> Tabelas</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#sec-freq"><i class="fa fa-check"></i><b>6.3.1</b> Tabelas de Frequência</a></li>
+<li class="chapter" data-level="6.3.2" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#tabelas-de-contingência"><i class="fa fa-check"></i><b>6.3.2</b> Tabelas de contingência</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#gráficos"><i class="fa fa-check"></i><b>6.4</b> Gráficos</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#gráfico-de-setores"><i class="fa fa-check"></i><b>6.4.1</b> Gráfico de setores</a></li>
+<li class="chapter" data-level="6.4.2" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#gráfico-de-barras"><i class="fa fa-check"></i><b>6.4.2</b> Gráfico de barras</a></li>
+<li class="chapter" data-level="6.4.3" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#gráfico-de-barra-de-erro"><i class="fa fa-check"></i><b>6.4.3</b> Gráfico de barra de erro</a></li>
+<li class="chapter" data-level="6.4.4" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#histograma"><i class="fa fa-check"></i><b>6.4.4</b> Histograma</a></li>
+<li class="chapter" data-level="6.4.5" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#boxplot"><i class="fa fa-check"></i><b>6.4.5</b> Boxplot</a></li>
+<li class="chapter" data-level="6.4.6" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#gráfico-de-dispersão"><i class="fa fa-check"></i><b>6.4.6</b> Gráfico de Dispersão</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#introdução-ao-ggplot2"><i class="fa fa-check"></i><b>6.5</b> Introdução ao <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#dados"><i class="fa fa-check"></i><b>6.5.1</b> Dados</a></li>
+<li class="chapter" data-level="6.5.2" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#ggplot"><i class="fa fa-check"></i><b>6.5.2</b> <code>ggplot</code></a></li>
+<li class="chapter" data-level="6.5.3" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#tipos-de-geoms"><i class="fa fa-check"></i><b>6.5.3</b> Tipos de <code>geoms</code></a></li>
+<li class="chapter" data-level="6.5.4" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#modificando-argumentos-do-geom"><i class="fa fa-check"></i><b>6.5.4</b> Modificando argumentos do <code>geom</code></a></li>
+<li class="chapter" data-level="6.5.5" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#reta-de-ajuste-em-um-gráfico-de-dispersão"><i class="fa fa-check"></i><b>6.5.5</b> Reta de ajuste em um gráfico de dispersão</a></li>
+<li class="chapter" data-level="6.5.6" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#filtrando-dados-para-o-gráfico"><i class="fa fa-check"></i><b>6.5.6</b> Filtrando dados para o gráfico</a></li>
+<li class="chapter" data-level="6.5.7" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#resumo-dos-dados-usando-o-geom"><i class="fa fa-check"></i><b>6.5.7</b> Resumo dos dados usando o geom</a></li>
+<li class="chapter" data-level="6.5.8" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#incluindo-barras-de-erro"><i class="fa fa-check"></i><b>6.5.8</b> Incluindo barras de erro</a></li>
+<li class="chapter" data-level="6.5.9" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#incluindo-mais-de-um-grupo-no-gráfico"><i class="fa fa-check"></i><b>6.5.9</b> Incluindo mais de um grupo no gráfico</a></li>
+<li class="chapter" data-level="6.5.10" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#modificando-o-tema"><i class="fa fa-check"></i><b>6.5.10</b> Modificando o tema</a></li>
+<li class="chapter" data-level="6.5.11" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#trabalhando-com-os-eixos"><i class="fa fa-check"></i><b>6.5.11</b> Trabalhando com os eixos</a></li>
+<li class="chapter" data-level="6.5.12" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#modificação-das-cores"><i class="fa fa-check"></i><b>6.5.12</b> Modificação das cores</a></li>
+<li class="chapter" data-level="6.5.13" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#exemplo-final-gráfico-de-barra-de-erro-com-colunas"><i class="fa fa-check"></i><b>6.5.13</b> Exemplo final: Gráfico de barra de erro com colunas</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html"><i class="fa fa-check"></i><b>7</b> Introdução à Teoria das Probabilidades</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#introdução-1"><i class="fa fa-check"></i><b>7.1</b> Introdução</a></li>
+<li class="chapter" data-level="7.2" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#processo-aleatório"><i class="fa fa-check"></i><b>7.2</b> Processo aleatório</a></li>
+<li class="chapter" data-level="7.3" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#definição-frequentista-de-probabilidade"><i class="fa fa-check"></i><b>7.3</b> Definição frequentista de probabilidade</a></li>
+<li class="chapter" data-level="7.4" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#propriedades-das-probabilidades"><i class="fa fa-check"></i><b>7.4</b> Propriedades das probabilidades</a></li>
+<li class="chapter" data-level="7.5" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#distribuição-de-probabilidades"><i class="fa fa-check"></i><b>7.5</b> Distribuição de Probabilidades</a></li>
+<li class="chapter" data-level="7.6" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#distribuição-normal"><i class="fa fa-check"></i><b>7.6</b> Distribuição Normal</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#características-da-distribuição-normal"><i class="fa fa-check"></i><b>7.6.1</b> Características da distribuição normal</a></li>
+<li class="chapter" data-level="7.6.2" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#sec-dnp"><i class="fa fa-check"></i><b>7.6.2</b> Distribuição normal padronizada</a></li>
+<li class="chapter" data-level="7.6.3" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#regra-empírica-68-95-99.7"><i class="fa fa-check"></i><b>7.6.3</b> Regra Empírica 68-95-99.7</a></li>
+<li class="chapter" data-level="7.6.4" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#exercitando-o-raciocínio-com-a-curva-normal"><i class="fa fa-check"></i><b>7.6.4</b> Exercitando o raciocínio com a curva normal</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#distribuição-binomial"><i class="fa fa-check"></i><b>7.7</b> Distribuição Binomial</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#média-e-desvio-padrão-da-distribuição-binomial"><i class="fa fa-check"></i><b>7.7.1</b> Média e desvio padrão da distribuição binomial</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#distribuição-de-poisson"><i class="fa fa-check"></i><b>7.8</b> Distribuição de Poisson</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="assimetria-e-curtose.html"><a href="assimetria-e-curtose.html"><i class="fa fa-check"></i><b>8</b> Assimetria e Curtose</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="assimetria-e-curtose.html"><a href="assimetria-e-curtose.html#assimetria"><i class="fa fa-check"></i><b>8.1</b> Assimetria</a></li>
+<li class="chapter" data-level="8.2" data-path="assimetria-e-curtose.html"><a href="assimetria-e-curtose.html#curtose"><i class="fa fa-check"></i><b>8.2</b> Curtose</a></li>
+<li class="chapter" data-level="8.3" data-path="assimetria-e-curtose.html"><a href="assimetria-e-curtose.html#testando-o-raciocínio"><i class="fa fa-check"></i><b>8.3</b> Testando o raciocínio</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html"><i class="fa fa-check"></i><b>9</b> Distribuições Amostrais</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#pacotes-necessários-para-este-capítulo"><i class="fa fa-check"></i><b>9.1</b> Pacotes necessários para este capítulo</a></li>
+<li class="chapter" data-level="9.2" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuições-populacional-e-amostral"><i class="fa fa-check"></i><b>9.2</b> Distribuições populacional e amostral</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuição-populacional"><i class="fa fa-check"></i><b>9.2.1</b> Distribuição populacional</a></li>
+<li class="chapter" data-level="9.2.2" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuição-amostral"><i class="fa fa-check"></i><b>9.2.2</b> Distribuição amostral</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#erros-amostrais-e-não-amostrais"><i class="fa fa-check"></i><b>9.3</b> Erros amostrais e não amostrais</a></li>
+<li class="chapter" data-level="9.4" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#média-e-desvio-padrão-da-média"><i class="fa fa-check"></i><b>9.4</b> Média e desvio padrão da média</a></li>
+<li class="chapter" data-level="9.5" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#teorema-do-limite-central"><i class="fa fa-check"></i><b>9.5</b> Teorema do Limite Central</a></li>
+<li class="chapter" data-level="9.6" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#proporções-populacional-e-amostral"><i class="fa fa-check"></i><b>9.6</b> Proporções populacional e amostral</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuição-amostral-da-proporção-amostral"><i class="fa fa-check"></i><b>9.6.1</b> Distribuição amostral da proporção amostral</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referências.html"><a href="referências.html"><i class="fa fa-check"></i>Referências</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introdução à Bioestatística usando o R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="distribuições-amostrais" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Capítulo 9</span> Distribuições Amostrais<a href="distribuições-amostrais.html#distribuições-amostrais" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="pacotes-necessários-para-este-capítulo" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Pacotes necessários para este capítulo<a href="distribuições-amostrais.html#pacotes-necessários-para-este-capítulo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="distribuições-amostrais.html#cb508-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr,</span>
+<span id="cb508-2"><a href="distribuições-amostrais.html#cb508-2" aria-hidden="true" tabindex="-1"></a>               ggplot2,</span>
+<span id="cb508-3"><a href="distribuições-amostrais.html#cb508-3" aria-hidden="true" tabindex="-1"></a>               kableExtra,</span>
+<span id="cb508-4"><a href="distribuições-amostrais.html#cb508-4" aria-hidden="true" tabindex="-1"></a>               knitr,</span>
+<span id="cb508-5"><a href="distribuições-amostrais.html#cb508-5" aria-hidden="true" tabindex="-1"></a>               readxl)</span></code></pre></div>
+</div>
+<div id="distribuições-populacional-e-amostral" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Distribuições populacional e amostral<a href="distribuições-amostrais.html#distribuições-populacional-e-amostral" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><em>Estatísticas da amostra</em>, como a média, a mediana, a moda e o desvio padrão, são medidas numéricas de resumo calculadas para dados de uma amostra. Por outro lado, as mesmas medidas numéricas de resumo calculadas para dados populacionais são chamadas de <em>parâmetros populacionais</em>.</p>
+<p>Um parâmetro populacional é sempre uma constante, enquanto uma estatística de amostra é sempre uma variável aleatória. Como cada variável aleatória deve possuir uma distribuição de probabilidade, cada estatística de amostra possui uma distribuição de probabilidade. A distribuição de probabilidade de uma estatística de amostra é mais comumente chamada de <em>distribuição amostral</em>. Os conceitos abordados neste capítulo são a base da <em>estatística inferencial</em>.</p>
+<div id="distribuição-populacional" class="section level3 hasAnchor" number="9.2.1">
+<h3><span class="header-section-number">9.2.1</span> Distribuição populacional<a href="distribuições-amostrais.html#distribuição-populacional" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A distribuição populacional é a distribuição de probabilidade derivada das informações sobre todos os elementos de uma população.</p>
+<p>O conjunto de dados de 1368 observações de puérperas e recém-nascidos da Maternidade-escola do Hospital Geral de Caxias do Sul, RS, será, para fins didáticos, considerado a <em>população</em>. O gráfico, abaixo, mostra a distribuição da <code>altura</code> das puérperas dessa ‘população’ (Figura <a href="distribuições-amostrais.html#fig:alturapop">9.1</a>).</p>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="distribuições-amostrais.html#cb509-1" aria-hidden="true" tabindex="-1"></a>mater <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>)</span>
+<span id="cb509-2"><a href="distribuições-amostrais.html#cb509-2" aria-hidden="true" tabindex="-1"></a>media <span class="ot">=</span> <span class="fu">mean</span>(mater<span class="sc">$</span>altura, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span>
+<span id="cb509-3"><a href="distribuições-amostrais.html#cb509-3" aria-hidden="true" tabindex="-1"></a>dp <span class="ot">=</span> <span class="fu">sd</span>(mater<span class="sc">$</span>altura, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:alturapop"></span>
+<img src="bookdownproj_files/figure-html/alturapop-1.png" alt="Histograma da altura de 1368 puérperas" width="70%" height="70%" />
+<p class="caption">
+Figure 9.1: Histograma da altura de 1368 puérperas
+</p>
+</div>
+<p>Os valores da média e do desvio padrão calculados para essa população fornecem os valores dos parâmetros populacionais <span class="math inline">\(\mu\)</span> e <span class="math inline">\(\sigma\)</span>. Esses valores são <span class="math inline">\(\mu =\)</span> 1.598m e <span class="math inline">\(\sigma =\)</span> 0.065m.</p>
+</div>
+<div id="distribuição-amostral" class="section level3 hasAnchor" number="9.2.2">
+<h3><span class="header-section-number">9.2.2</span> Distribuição amostral<a href="distribuições-amostrais.html#distribuição-amostral" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Conforme mencionado no início deste capítulo, o valor de um parâmetro da população é sempre constante. Por exemplo, para qualquer conjunto de dados populacionais, há apenas um valor para a média populacional, <span class="math inline">\(\mu\)</span>.</p>
+<p>No entanto, não se pode dizer o mesmo sobre a média amostral. Amostras diferentes do mesmo tamanho, retiradas da mesma população, produzem valores diferentes da média amostral, <span class="math inline">\(\bar{x}\)</span>. O valor da média amostral, para qualquer amostra, dependerá dos elementos incluídos nessa amostra. Em decorrência, a média amostral é uma variável aleatória. Portanto, como outras variáveis aleatórias, a média amostral possui uma distribuição de probabilidade, que é mais comumente chamada de <em>distribuição amostral da média</em>.</p>
+<p>Outras estatísticas de amostra, como mediana, moda e desvio padrão, também possuem distribuições amostrais. Em geral, a distribuição de probabilidades de uma amostra é denominada de distribuição amostral.</p>
+<p>Voltando à variável altura das puérperas da Maternidade do HGCS, convencionada a priori como a população de interesse. Isso raramente acontece na vida real. Reunir informação sobre uma população inteira costuma ser muito custoso ou impossível. Por essa razão, a prática é selecionar apenas uma amostra da população e a usar para compreender as suas características.</p>
+<p>Usando a função <code>slice_sample()</code> do pacote <code>dplyr</code>, será extraída uma amostra de n = 30 da população e calculada a média e o desvio padrão:</p>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="distribuições-amostrais.html#cb510-1" aria-hidden="true" tabindex="-1"></a>mater <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb510-2"><a href="distribuições-amostrais.html#cb510-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(altura)</span>
+<span id="cb510-3"><a href="distribuições-amostrais.html#cb510-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb510-4"><a href="distribuições-amostrais.html#cb510-4" aria-hidden="true" tabindex="-1"></a>amostra1 <span class="ot">&lt;-</span> mater <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">30</span>)</span>
+<span id="cb510-5"><a href="distribuições-amostrais.html#cb510-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb510-6"><a href="distribuições-amostrais.html#cb510-6" aria-hidden="true" tabindex="-1"></a>media1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(amostra1<span class="sc">$</span>altura, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span>
+<span id="cb510-7"><a href="distribuições-amostrais.html#cb510-7" aria-hidden="true" tabindex="-1"></a>dp1 <span class="ot">&lt;-</span>  <span class="fu">sd</span>(amostra1<span class="sc">$</span>altura, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span>
+<span id="cb510-8"><a href="distribuições-amostrais.html#cb510-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(media1, dp1))</span></code></pre></div>
+<pre><code>## [1] 1.59600000 0.07636573</code></pre>
+<p>A amostra1 tem média igual a $1.596 e desvio padrão igual a 0.076. Se este processo for repetido várias vezes, ninguém ficará surpreso se, a cada amostra aleatória, a média amostral for diferente das anteriores, gerando médias e desvios padrão diferentes.</p>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="distribuições-amostrais.html#cb512-1" aria-hidden="true" tabindex="-1"></a>amostra2 <span class="ot">&lt;-</span> mater <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">30</span>)</span>
+<span id="cb512-2"><a href="distribuições-amostrais.html#cb512-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb512-3"><a href="distribuições-amostrais.html#cb512-3" aria-hidden="true" tabindex="-1"></a>media2 <span class="ot">&lt;-</span> <span class="fu">mean</span>(amostra2<span class="sc">$</span>altura, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span>
+<span id="cb512-4"><a href="distribuições-amostrais.html#cb512-4" aria-hidden="true" tabindex="-1"></a>dp2 <span class="ot">&lt;-</span>  <span class="fu">sd</span>(amostra2<span class="sc">$</span>altura, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span>
+<span id="cb512-5"><a href="distribuições-amostrais.html#cb512-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(media2, dp2))</span></code></pre></div>
+<pre><code>## [1] 1.58266667 0.07362221</code></pre>
+<p>À medida que o número de amostras possíveis forem aumentando, elas constituem uma distribuição cuja média, média das médias, <span class="math inline">\(\bar{x}_{\bar{x}}\)</span>, é igual a média populacional, <span class="math inline">\(\mu\)</span>. Essa distribuição, no caso da média, recebe o nome de <em>distribuição amostral das médias</em>.</p>
+<p>Agora, para exemplificar este conceito, serão geradas 5000 amostras e calculada a média de cada uma das amostras de n = 30 que constituirão a distribuição, mostrada no gráfico da Figura <a href="distribuições-amostrais.html#fig:dam">9.2</a>.</p>
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="distribuições-amostrais.html#cb514-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extraindo 5000 amostras</span></span>
+<span id="cb514-2"><a href="distribuições-amostrais.html#cb514-2" aria-hidden="true" tabindex="-1"></a>amostras5000 <span class="ot">&lt;-</span> <span class="fu">rep</span> (<span class="dv">0</span>, <span class="dv">5000</span>)</span>
+<span id="cb514-3"><a href="distribuições-amostrais.html#cb514-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5000</span>) {</span>
+<span id="cb514-4"><a href="distribuições-amostrais.html#cb514-4" aria-hidden="true" tabindex="-1"></a>  amostra <span class="ot">&lt;-</span> mater <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">slice_sample</span> (<span class="at">n =</span> <span class="dv">30</span>) </span>
+<span id="cb514-5"><a href="distribuições-amostrais.html#cb514-5" aria-hidden="true" tabindex="-1"></a>  amostras5000 [i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(amostra<span class="sc">$</span>altura)</span>
+<span id="cb514-6"><a href="distribuições-amostrais.html#cb514-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb514-7"><a href="distribuições-amostrais.html#cb514-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Media e desvio padrão das 5000 amostras</span></span>
+<span id="cb514-8"><a href="distribuições-amostrais.html#cb514-8" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span> (<span class="fu">mean</span> (amostras5000), <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 1.598</code></pre>
+<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="distribuições-amostrais.html#cb516-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span> (<span class="fu">sd</span> (amostras5000), <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 0.012</code></pre>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:dam"></span>
+<img src="bookdownproj_files/figure-html/dam-1.png" alt="Distribuição amostral das médias de 5000 amostras de n = 30" width="70%" height="70%" />
+<p class="caption">
+Figure 9.2: Distribuição amostral das médias de 5000 amostras de n = 30
+</p>
+</div>
+<p>Se a média, <span class="math inline">\(\bar{x}_{\bar{x}}\)</span>, dessas 5000 amostras de n = 30, for comparada com a média populacional, <span class="math inline">\(\mu\)</span>, observa-se que até 3 dígitos decimais não há uma diferença. Entretanto, o desvio padrão é bem menor (0.012) que o da população (0.065).</p>
+</div>
+</div>
+<div id="erros-amostrais-e-não-amostrais" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Erros amostrais e não amostrais<a href="distribuições-amostrais.html#erros-amostrais-e-não-amostrais" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Normalmente, amostras diferentes selecionadas da mesma população darão resultados diferentes porque contêm elementos diferentes. Isso é evidente nas medias das amostra1 e amostra2, 1.596m e 1.583m, respectivamente, comparadas com a média da população igual a 1.598m .</p>
+<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="distribuições-amostrais.html#cb518-1" aria-hidden="true" tabindex="-1"></a>erro1 <span class="ot">&lt;-</span> <span class="fu">abs</span>(<span class="fu">mean</span>(amostra1<span class="sc">$</span>altura, <span class="at">na.rm =</span><span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fu">mean</span>(mater<span class="sc">$</span>altura, <span class="at">na.rm =</span><span class="cn">TRUE</span>))</span>
+<span id="cb518-2"><a href="distribuições-amostrais.html#cb518-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(erro1, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 0.002</code></pre>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="distribuições-amostrais.html#cb520-1" aria-hidden="true" tabindex="-1"></a>erro2 <span class="ot">&lt;-</span> <span class="fu">abs</span>(<span class="fu">mean</span>(amostra2<span class="sc">$</span>altura, <span class="at">na.rm =</span><span class="cn">TRUE</span>) <span class="sc">-</span> <span class="fu">mean</span>(mater<span class="sc">$</span>altura, <span class="at">na.rm =</span><span class="cn">TRUE</span>))</span>
+<span id="cb520-2"><a href="distribuições-amostrais.html#cb520-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(erro2, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 0.015</code></pre>
+<p>Se outras amostras forem extraídas, o resultado obtido de qualquer amostra geralmente será diferente do resultado obtido da população correspondente. A diferença (erro) entre o valor de uma estatística amostral obtida de uma amostra e o valor do parâmetro populacional correspondente, é chamada de <em>erro amostral</em>. Observe que essa diferença representa o erro amostral apenas se a amostra for aleatória e não houver nenhum erro não amostral. Caso contrário, apenas uma parte dessa diferença será devido ao erro de amostragem.</p>
+<p><span class="math display">\[
+\mu = \bar{x}_{i} + erro \quad amostral
+\]</span></p>
+<p>É importante lembrar que o erro amostral ocorre devido ao acaso. Os erros que ocorrem por outros motivos, como erros cometidos durante a coleta, registro e tabulação dos dados, são chamados de <em>erros não amostrais</em>. Esses erros ocorrem, em geral, por causa de erros humanos e não por acaso.</p>
+</div>
+<div id="média-e-desvio-padrão-da-média" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> Média e desvio padrão da média<a href="distribuições-amostrais.html#média-e-desvio-padrão-da-média" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A média e o desvio padrão calculados para a distribuição amostral da média são chamados de <em>média (<span class="math inline">\(\mu_{\bar{x}}\)</span>)</em> e <em>desvio padrão (<span class="math inline">\(\sigma_{\bar{x}}\)</span>) da média</em>. Na verdade, a média e o desvio padrão da média são, respectivamente, a média e o desvio padrão das médias de todas as amostras do mesmo tamanho selecionadas de uma população. O desvio padrão da média é, comumente, chamado de <em>erro padrão da média</em> (<span class="math inline">\(\sigma_{\bar{x}}\)</span>).</p>
+<p>A média amostral, <span class="math inline">\(\bar{x}\)</span>, é chamada de <em>estimador</em> da média da população, <span class="math inline">\(\mu\)</span>. Quando o valor esperado (ou média) de uma estatística amostral é igual ao valor do parâmetro populacional correspondente, essa estatística amostral é considerada um estimador não enviesado, consistente.</p>
+<p>Para a média amostral <span class="math inline">\(\bar{x}\)</span>, <span class="math inline">\(\mu_{\bar{x}} = \mu\)</span>. Logo, <span class="math inline">\(\bar{x}\)</span>, é um estimador imparcial de <span class="math inline">\(\mu\)</span>. Esta é uma propriedade muito importante que um estimador deve possuir. No entanto, o desvio padrão da média, <span class="math inline">\(\sigma_{\bar{x}}\)</span>, não é igual ao desvio padrão, <span class="math inline">\(\sigma\)</span>, da distribuição populacional (a menos que n = 1). O desvio padrão da média amostral é igual ao desvio padrão da população dividido pela raiz quadrada do tamanho amostral:</p>
+<p><span class="math display">\[
+\sigma_{\bar{x}} = \frac {\sigma}{\sqrt{n}}
+\]</span></p>
+<p>A dispersão da distribuição amostral da média é menor do que dispersão da distribuição populacional correspondente, como mostrado acima. Em outras palavras, <span class="math inline">\(\sigma_{\bar{x}} &lt; \sigma\)</span>. Isso é visível na fórmula do <span class="math inline">\(\sigma_{\bar{x}}\)</span> . Quando <em>n</em> é maior que 1, o que geralmente é verdadeiro, o denominador em <span class="math inline">\(\frac {\sigma}{\sqrt{n}}\)</span> é maior que 1. Desta forma, <span class="math inline">\(\sigma_{\bar{x}}\)</span> é menor que <span class="math inline">\(\sigma\)</span>. O desvio padrão da distribuição amostral da média diminui à medida que o tamanho amostral aumenta.</p>
+<p>Sempre que o <em>n</em> for grande, em geral &gt; 30 <span class="citation">(93)</span>, pode ser assumido que a distribuição será uma curva normal e que o desvio padrão da amostra (<em>s</em>) é um estimador não enviesado do desvio padrão populacional (<span class="math inline">\(\sigma\)</span>). Então, o erro padrão da média (<span class="math inline">\(\sigma_{\bar{x}}\)</span>) pode ser estimado pelo <span class="math inline">\(EP_{\bar{x}}\)</span>:</p>
+<p><span class="math display">\[
+EP_{\bar{x}} = \frac {s}{\sqrt{n}}
+\]</span></p>
+</div>
+<div id="teorema-do-limite-central" class="section level2 hasAnchor" number="9.5">
+<h2><span class="header-section-number">9.5</span> Teorema do Limite Central<a href="distribuições-amostrais.html#teorema-do-limite-central" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Na maioria das vezes, a população da qual as amostras são extraídas não é normalmente distribuída. Em tais casos, a forma da distribuição amostral de X é inferida de um teorema muito importante chamado <em>teorema do limite central</em>. De acordo com este teorema para um grande tamanho de amostra (&gt; 30), a distribuição amostral da média é aproximadamente normal, independentemente da forma da distribuição da população <span class="citation">(93)</span>. Esta aproximação tornar-se-á mais acurada à medida que aumenta o tamanho amostral:</p>
+<ul>
+<li>a média da distribuição amostral, <span class="math inline">\(\mu_{\bar{x}}\)</span>, é igual a média populacional, <span class="math inline">\(\mu\)</span>;</li>
+<li>desvio padrão da distribuição amostral, <span class="math inline">\(\sigma_{\bar{x}}\)</span>, é igual a <span class="math inline">\(\frac {\sigma}{\sqrt{n}}\)</span>;</li>
+<li>o erro padrão da média, <span class="math inline">\(\sigma_{\bar{x}}\)</span>, é sempre menor que o desvio padrão populacional, <span class="math inline">\(\sigma\)</span> (Figura <a href="distribuições-amostrais.html#fig:standard">9.3</a>).</li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:standard"></span>
+<img src="https://i.imgur.com/I2CxksB.png" alt="Erro padrão versus desvio padrão." width="70%" />
+<p class="caption">
+Figure 9.3: Erro padrão versus desvio padrão.
+</p>
+</div>
+<p>Se for tomado como exemplo a variável <code>renda</code>, do conjunto de dados <code>dadosMater.xlsx</code>, que representa a renda familiar em salários mínimos (SM. Como foi feito anteriormente, suponha que essa variável seja a população de estudo. Ela tem as seguintes medidas resumidoras e de assimetria:</p>
+<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="distribuições-amostrais.html#cb522-1" aria-hidden="true" tabindex="-1"></a>mater <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>)</span>
+<span id="cb522-2"><a href="distribuições-amostrais.html#cb522-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb522-3"><a href="distribuições-amostrais.html#cb522-3" aria-hidden="true" tabindex="-1"></a>media.sm <span class="ot">&lt;-</span> <span class="fu">mean</span> (mater<span class="sc">$</span>renda, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb522-4"><a href="distribuições-amostrais.html#cb522-4" aria-hidden="true" tabindex="-1"></a>media.sm</span></code></pre></div>
+<pre><code>## [1] 2.224949</code></pre>
+<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="distribuições-amostrais.html#cb524-1" aria-hidden="true" tabindex="-1"></a>dp.sm <span class="ot">&lt;-</span> <span class="fu">sd</span>(mater<span class="sc">$</span>renda, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb524-2"><a href="distribuições-amostrais.html#cb524-2" aria-hidden="true" tabindex="-1"></a>dp.sm</span></code></pre></div>
+<pre><code>## [1] 1.226359</code></pre>
+<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="distribuições-amostrais.html#cb526-1" aria-hidden="true" tabindex="-1"></a>mediana.sm <span class="ot">&lt;-</span> <span class="fu">median</span>(mater<span class="sc">$</span>renda, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb526-2"><a href="distribuições-amostrais.html#cb526-2" aria-hidden="true" tabindex="-1"></a>mediana.sm</span></code></pre></div>
+<pre><code>## [1] 1.92</code></pre>
+<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="distribuições-amostrais.html#cb528-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(moments<span class="sc">::</span><span class="fu">skewness</span>(mater<span class="sc">$</span>renda))</span></code></pre></div>
+<pre><code>## [1] 2.223336</code></pre>
+<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="distribuições-amostrais.html#cb530-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(moments<span class="sc">::</span><span class="fu">kurtosis</span>(mater<span class="sc">$</span>renda))</span></code></pre></div>
+<pre><code>## [1] 11.22392</code></pre>
+<p>O desvio padrão é grande em relação à média, com um coeficiente de variação de 55.1185153% e uma mediana &lt; média. Estas métricas junto com os coeficientes de assimetria e curtose apontam para a assimetria positiva da variável <code>renda familiar</code>. O gráfico da Figura <a href="distribuições-amostrais.html#fig:skewpos">9.4</a> confirma esta afirmação:</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:skewpos"></span>
+<img src="bookdownproj_files/figure-html/skewpos-1.png" alt="Distribuição assimétrica positiva" width="70%" height="70%" />
+<p class="caption">
+Figure 9.4: Distribuição assimétrica positiva
+</p>
+</div>
+<p>Os valores da média e do desvio padrão calculados para a distribuição de probabilidade dessa população fornecem os valores dos parâmetros populacionais <span class="math inline">\(\mu\)</span> e <span class="math inline">\(\sigma\)</span>. Esses valores são <span class="math inline">\(\mu =\)</span> 2.225m e <span class="math inline">\(\sigma =\)</span> 1.226m.</p>
+<p>Se extrairmos múltiplas amostras dessa população, observa-se a modificação do formato da distribuição à medida que aumenta o tamanho amostral, se aproximando progressivamente do modelo normal, com um número grande de amostras.</p>
+<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="distribuições-amostrais.html#cb532-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extraindo 1000 amostras</span></span>
+<span id="cb532-2"><a href="distribuições-amostrais.html#cb532-2" aria-hidden="true" tabindex="-1"></a>amostras1000 <span class="ot">&lt;-</span> <span class="fu">rep</span> (<span class="dv">0</span>, <span class="dv">1000</span>)</span>
+<span id="cb532-3"><a href="distribuições-amostrais.html#cb532-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>) {</span>
+<span id="cb532-4"><a href="distribuições-amostrais.html#cb532-4" aria-hidden="true" tabindex="-1"></a>  amostra.sm <span class="ot">&lt;-</span> <span class="fu">sample</span> (mater<span class="sc">$</span>renda, <span class="dv">30</span>) </span>
+<span id="cb532-5"><a href="distribuições-amostrais.html#cb532-5" aria-hidden="true" tabindex="-1"></a>  amostras1000 [i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(amostra.sm)</span>
+<span id="cb532-6"><a href="distribuições-amostrais.html#cb532-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb532-7"><a href="distribuições-amostrais.html#cb532-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Media e desvio padrão das 1000 amostras</span></span>
+<span id="cb532-8"><a href="distribuições-amostrais.html#cb532-8" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span> (<span class="fu">mean</span> (amostras1000), <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 2.221</code></pre>
+<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="distribuições-amostrais.html#cb534-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span> (<span class="fu">sd</span> (amostras1000), <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 0.22</code></pre>
+<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="distribuições-amostrais.html#cb536-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span> (<span class="fu">median</span>(amostras1000), <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 2.218</code></pre>
+<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb538-1"><a href="distribuições-amostrais.html#cb538-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(moments<span class="sc">::</span><span class="fu">skewness</span>(amostras1000))</span></code></pre></div>
+<pre><code>## [1] 0.2404874</code></pre>
+<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb540-1"><a href="distribuições-amostrais.html#cb540-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(moments<span class="sc">::</span><span class="fu">kurtosis</span>(amostras1000))</span></code></pre></div>
+<pre><code>## [1] 2.857316</code></pre>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:semskew"></span>
+<img src="bookdownproj_files/figure-html/semskew-1.png" alt="Distribuição praticamente normal" width="70%" height="70%" />
+<p class="caption">
+Figure 9.5: Distribuição praticamente normal
+</p>
+</div>
+<p>Ou seja, extraindo-se 1000 amostras de n = 30 e calculando as mesmas métricas anteriores, verifica-se que, agora, a variável está com distribuição praticamente normal (Figura <a href="distribuições-amostrais.html#fig:semskew">9.5</a>).</p>
+</div>
+<div id="proporções-populacional-e-amostral" class="section level2 hasAnchor" number="9.6">
+<h2><span class="header-section-number">9.6</span> Proporções populacional e amostral<a href="distribuições-amostrais.html#proporções-populacional-e-amostral" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>O conceito de proporção é o mesmo que o conceito de frequência relativa e o conceito de probabilidade de sucesso em um experimento binomial, discutidos anteriormente, na distribuição binomial.</p>
+<p>A frequência relativa de uma categoria ou classe dá a proporção da amostra ou população que pertence a essa categoria ou classe. Da mesma forma, a probabilidade de sucesso em um experimento binomial representa a proporção da amostra ou população que possui uma determinada característica.</p>
+<p>A proporção populacional, representada por <em>p</em>, é obtida considerando a razão entre o número de elementos em uma população com uma característica específica e o número total de elementos na população. A proporção amostral, denotada por <span class="math inline">\(\hat{p}\)</span> (pronuncia-se p-chapéu), fornece uma proporção semelhante para uma amostra.</p>
+<p><span class="math display">\[
+p = \frac{X}{N} \quad e \quad \hat{p}= \frac{x}{n}
+\]</span>
+onde,</p>
+<ul>
+<li><em>N</em> = número total de elementos em uma população</li>
+<li><em>n</em> = número total de elementos em uma amostra</li>
+<li><em>X</em> = número de elementos na população que possui determinada característica</li>
+<li><em>x</em> = número de elementos na amostra que possui determinada característica</li>
+</ul>
+<p>Como no caso da média, a diferença entre a proporção amostral e a proporção populacional correspondente, determina o <em>erro amostral</em>, assumindo que a amostra é aleatória e nenhum erro não amostral foi cometido. Ou seja,</p>
+<p><span class="math display">\[
+erro \quad amostral = \hat{p} - p
+\]</span></p>
+<p>No conjunto de dados <code>dadosMater.xlsx</code>, pserá veriificado a proporção de fumantes com:</p>
+<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="distribuições-amostrais.html#cb542-1" aria-hidden="true" tabindex="-1"></a>mater <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>)</span>
+<span id="cb542-2"><a href="distribuições-amostrais.html#cb542-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb542-3"><a href="distribuições-amostrais.html#cb542-3" aria-hidden="true" tabindex="-1"></a>mater<span class="sc">$</span>fumo <span class="ot">&lt;-</span> <span class="fu">factor</span> (mater<span class="sc">$</span>fumo, </span>
+<span id="cb542-4"><a href="distribuições-amostrais.html#cb542-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">levels =</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">2</span>), </span>
+<span id="cb542-5"><a href="distribuições-amostrais.html#cb542-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">label =</span> <span class="fu">c</span> (<span class="st">&quot;sim&quot;</span>, <span class="st">&quot;não&quot;</span>))</span>
+<span id="cb542-6"><a href="distribuições-amostrais.html#cb542-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb542-7"><a href="distribuições-amostrais.html#cb542-7" aria-hidden="true" tabindex="-1"></a>fumo <span class="ot">&lt;-</span> <span class="fu">with</span>(mater, <span class="fu">table</span>(fumo))</span>
+<span id="cb542-8"><a href="distribuições-amostrais.html#cb542-8" aria-hidden="true" tabindex="-1"></a>fr.fumo <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(fumo)</span></code></pre></div>
+<p>Assim, a proporção de gestantes fumantes foi de 0.22.</p>
+<p>Considerando que este resultado fosse desconhecido e que as mulheres da maternidade do HGCS fosse a população, para verificar a proporção de mulheres fumantes, se extrairá uma amostra de <em>n</em> = 100 (Tabela <a href="distribuições-amostrais.html#tab:tabfumo">9.1</a>).</p>
+<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="distribuições-amostrais.html#cb543-1" aria-hidden="true" tabindex="-1"></a>amostra.fumo <span class="ot">&lt;-</span> mater <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">100</span>)</span>
+<span id="cb543-2"><a href="distribuições-amostrais.html#cb543-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb543-3"><a href="distribuições-amostrais.html#cb543-3" aria-hidden="true" tabindex="-1"></a>tabagismo <span class="ot">&lt;-</span> <span class="fu">with</span>(amostra.fumo, <span class="fu">table</span>(fumo))</span>
+<span id="cb543-4"><a href="distribuições-amostrais.html#cb543-4" aria-hidden="true" tabindex="-1"></a>fr <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(tabagismo)</span>
+<span id="cb543-5"><a href="distribuições-amostrais.html#cb543-5" aria-hidden="true" tabindex="-1"></a>fp <span class="ot">&lt;-</span> fr<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb543-6"><a href="distribuições-amostrais.html#cb543-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb543-7"><a href="distribuições-amostrais.html#cb543-7" aria-hidden="true" tabindex="-1"></a>tab.fumo <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">n =</span> tabagismo,</span>
+<span id="cb543-8"><a href="distribuições-amostrais.html#cb543-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">fr =</span> <span class="fu">round</span>(fr, <span class="dv">2</span>),</span>
+<span id="cb543-9"><a href="distribuições-amostrais.html#cb543-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">fp =</span> <span class="fu">round</span>(fp, <span class="dv">2</span>))</span>
+<span id="cb543-10"><a href="distribuições-amostrais.html#cb543-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb543-11"><a href="distribuições-amostrais.html#cb543-11" aria-hidden="true" tabindex="-1"></a>tab.fumo <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(tab.fumo)</span></code></pre></div>
+<table class="table lightable-classic" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: Cambria; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:tabfumo">Table 9.1: </span>Proporção de Tabagismo nas gestantes
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+</th>
+<th style="text-align:right;font-weight: bold;">
+n
+</th>
+<th style="text-align:right;font-weight: bold;">
+Freq. Relativa
+</th>
+<th style="text-align:right;font-weight: bold;">
+Freq. Percentual
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 2cm; ">
+sim
+</td>
+<td style="text-align:right;width: 1.5cm; ">
+23
+</td>
+<td style="text-align:right;width: 5cm; ">
+0.23
+</td>
+<td style="text-align:right;width: 5cm; ">
+23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 2cm; ">
+não
+</td>
+<td style="text-align:right;width: 1.5cm; ">
+77
+</td>
+<td style="text-align:right;width: 5cm; ">
+0.77
+</td>
+<td style="text-align:right;width: 5cm; ">
+77
+</td>
+</tr>
+</tbody>
+</table>
+<p>A proporção de uma amostra é uma variável aleatória: varia de amostra para amostra de uma forma que não pode ser prevista com certeza. Foi visto que esta variável aleatória é escrita como <span class="math inline">\(\hat{p}\)</span>. E que tem uma média <span class="math inline">\(\mu_{\hat{p}}\)</span> e um desvio padrão <span class="math inline">\(\sigma_{\hat{p}}\)</span>.</p>
+<p>Suponha que amostras aleatórias de tamanho <em>n</em> sejam retiradas de uma população na qual a proporção com uma característica de interesse seja <em>p</em>. A média e o desvio padrão da proporção amostral <span class="math inline">\(\hat{p}\)</span> satisfazem</p>
+<p><span class="math display">\[
+\mu_{\hat{p}} = p \quad e \quad  \sigma_{\hat{p}}= \sqrt{\frac{pq}{n}}
+\]</span></p>
+<p>O Teorema do Limite Central também se aplica aqui. No entanto, a condição de que a amostra seja grande é um pouco mais complicada do que apenas ter um tamanho de pelo menos 30.</p>
+<div id="distribuição-amostral-da-proporção-amostral" class="section level3 hasAnchor" number="9.6.1">
+<h3><span class="header-section-number">9.6.1</span> Distribuição amostral da proporção amostral<a href="distribuições-amostrais.html#distribuição-amostral-da-proporção-amostral" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Para amostras grandes, a proporção amostral é aproximadamente normalmente distribuída, com média <span class="math inline">\(\mu_{\hat{p}} = p\)</span> e desvio padrão <span class="math inline">\(\sigma_{\hat{p}}= \sqrt{\frac{pq}{n}}\)</span>.</p>
+<p>Uma amostra é grande se o intervalo [<span class="math inline">\(p - 3\sigma_{\hat{p}}\)</span>, <span class="math inline">\(p + 3\sigma_{\hat{p}}\)</span>] estiver totalmente dentro do intervalo [0,1].</p>
+<p>Na prática, <em>p</em> não é conhecido, portanto, <span class="math inline">\(\sigma_{\hat{p}}\)</span> também não é. Nesse caso, para verificar se a amostra é suficientemente grande, substitui-se o valor de <em>p</em> pelo valor conhecido de <span class="math inline">\(\hat{p}\)</span>. Isso significa verificar se o intervalo encontra-se totalmente dentro do intervalo [0,1], usando:</p>
+<p><span class="math display">\[
+\left(\hat{p} - 3 \times\sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}, \quad \hat{p} + 3\times\sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}\right)
+\]</span></p>
+<p>Transportando os dados da amostra de gestantes, para a fórmula e usando o R para o cálculo, tem-se:</p>
+<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb544-1"><a href="distribuições-amostrais.html#cb544-1" aria-hidden="true" tabindex="-1"></a>p.chapeu <span class="ot">&lt;-</span> tab.fumo[<span class="dv">1</span>,<span class="dv">2</span>]</span>
+<span id="cb544-2"><a href="distribuições-amostrais.html#cb544-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> tab.fumo[<span class="dv">1</span>,<span class="dv">1</span>] <span class="sc">+</span> tab.fumo[<span class="dv">2</span>,<span class="dv">1</span>]</span>
+<span id="cb544-3"><a href="distribuições-amostrais.html#cb544-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb544-4"><a href="distribuições-amostrais.html#cb544-4" aria-hidden="true" tabindex="-1"></a>li <span class="ot">&lt;-</span> p.chapeu <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span><span class="fu">sqrt</span>((p.chapeu<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p.chapeu))<span class="sc">/</span>n)</span>
+<span id="cb544-5"><a href="distribuições-amostrais.html#cb544-5" aria-hidden="true" tabindex="-1"></a>li</span></code></pre></div>
+<pre><code>## [1] 0.1037502</code></pre>
+<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb546-1"><a href="distribuições-amostrais.html#cb546-1" aria-hidden="true" tabindex="-1"></a>ls <span class="ot">&lt;-</span> p.chapeu <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span><span class="fu">sqrt</span>((p.chapeu<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p.chapeu))<span class="sc">/</span>n)</span>
+<span id="cb546-2"><a href="distribuições-amostrais.html#cb546-2" aria-hidden="true" tabindex="-1"></a>ls</span></code></pre></div>
+<pre><code>## [1] 0.3562498</code></pre>
+<p>Dessa forma, tem-se que a amostra de n = 100 é aceitável para uma população onde <em>p</em> = 0.22</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="assimetria-e-curtose.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="referências.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/petronioliveira/bookR/edit/main/09-distAmostrais.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/petronioliveira/bookR/blob/main/09-distAmostrais.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
