@@ -343,6 +343,12 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#distribuição-de-poisson"><i class="fa fa-check"></i><b>7.8</b> Distribuição de Poisson</a></li>
 </ul></li>
+<li class="chapter" data-level="8" data-path="assimetria-e-curtose.html"><a href="assimetria-e-curtose.html"><i class="fa fa-check"></i><b>8</b> Assimetria e Curtose</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="assimetria-e-curtose.html"><a href="assimetria-e-curtose.html#assimetria"><i class="fa fa-check"></i><b>8.1</b> Assimetria</a></li>
+<li class="chapter" data-level="8.2" data-path="assimetria-e-curtose.html"><a href="assimetria-e-curtose.html#curtose"><i class="fa fa-check"></i><b>8.2</b> Curtose</a></li>
+<li class="chapter" data-level="8.3" data-path="assimetria-e-curtose.html"><a href="assimetria-e-curtose.html#testando-o-raciocínio"><i class="fa fa-check"></i><b>8.3</b> Testando o raciocínio</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="referências.html"><a href="referências.html"><i class="fa fa-check"></i>Referências</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -732,29 +738,29 @@ Será acrescentado a variável <code>imc</code>, no banco de dados mater1, usand
 <p>Usando a função <code>str()</code>, verifica-se a estrutura deste pequeno conjunto de dados que pode ser considerado uma miniatura do original (2.7%).</p>
 <div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="manipulando-os-dados-no-r-studio.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(meninos1)</span></code></pre></div>
 <pre><code>## tibble [20 × 10] (S3: tbl_df/tbl/data.frame)
-##  $ idadeMae : num [1:20] 44 21 35 32 38 39 17 20 25 20 ...
-##  $ altura   : num [1:20] 1.5 1.48 1.65 1.65 1.55 1.6 1.62 1.73 1.65 1.58 ...
-##  $ peso     : num [1:20] 70 65 59.5 60 82 78 74 61 80 62 ...
-##  $ anosEst  : num [1:20] 11 4 6 7 5 9 7 6 5 8 ...
-##  $ renda    : num [1:20] 1.92 0.84 2.41 1.45 1.69 3.61 1.2 2.89 0.72 1.93 ...
-##  $ ig       : num [1:20] 29 39 40 39 32 29 41 35 37 26 ...
-##  $ tipoParto: Factor w/ 2 levels &quot;normal&quot;,&quot;cesareo&quot;: 1 1 2 1 1 2 1 1 2 1 ...
-##  $ fumo     : Factor w/ 2 levels &quot;sim&quot;,&quot;não&quot;: 1 2 2 1 2 2 2 2 1 1 ...
-##  $ pesoRN   : num [1:20] 1075 3060 3165 3345 1950 ...
+##  $ idadeMae : num [1:20] 31 31 30 18 41 22 26 18 20 34 ...
+##  $ altura   : num [1:20] 1.48 1.51 1.61 1.55 1.58 1.65 1.46 1.62 1.56 1.68 ...
+##  $ peso     : num [1:20] 58 48 90.5 53 103 70 64.5 69 58.5 61 ...
+##  $ anosEst  : num [1:20] 8 4 11 8 4 8 8 8 4 7 ...
+##  $ renda    : num [1:20] 3.61 1.2 4.1 1.92 1.92 3.13 3.13 2.89 1.18 2.89 ...
+##  $ ig       : num [1:20] 39 39 39 36 37 40 41 33 38 35 ...
+##  $ tipoParto: Factor w/ 2 levels &quot;normal&quot;,&quot;cesareo&quot;: 2 2 2 2 2 2 2 1 1 1 ...
+##  $ fumo     : Factor w/ 2 levels &quot;sim&quot;,&quot;não&quot;: 2 2 2 2 2 1 1 2 1 1 ...
+##  $ pesoRN   : num [1:20] 3130 3160 4150 2435 3920 ...
 ##  $ sexo     : Factor w/ 2 levels &quot;masc&quot;,&quot;fem&quot;: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
 <p>Uma outra função semelhante a esta é <code>sample_frac()</code>. Ela usa os mesmos argumentos que a sample_n(), modificando o argumento size, onde se informa a fração desejada até 1 (100%). Por exemplo, para se ter uma amostra de tamanho semelhante a anterior, há necessidade de selecionar, aproximadamente, uma fração de 0.027 da amostra.</p>
 <div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="manipulando-os-dados-no-r-studio.html#cb173-1" aria-hidden="true" tabindex="-1"></a>meninos2 <span class="ot">&lt;-</span> <span class="fu">sample_frac</span>(meninos, <span class="fl">0.027</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="manipulando-os-dados-no-r-studio.html#cb174-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(meninos2)</span></code></pre></div>
 <pre><code>## tibble [20 × 10] (S3: tbl_df/tbl/data.frame)
-##  $ idadeMae : num [1:20] 24 28 41 24 33 24 24 28 32 27 ...
-##  $ altura   : num [1:20] 1.65 1.71 1.58 1.6 1.58 1.76 1.49 1.58 1.7 1.55 ...
-##  $ peso     : num [1:20] 56.5 71 103 52 70 75 60 47 46 59 ...
-##  $ anosEst  : num [1:20] 6 11 4 9 11 10 11 8 8 11 ...
-##  $ renda    : num [1:20] 0.92 2.41 1.92 2.41 1.93 2.41 2.41 1.69 2.41 3.61 ...
-##  $ ig       : num [1:20] 40 41 37 38 34 39 38 38 40 39 ...
-##  $ tipoParto: Factor w/ 2 levels &quot;normal&quot;,&quot;cesareo&quot;: 2 1 2 1 2 1 2 1 1 1 ...
-##  $ fumo     : Factor w/ 2 levels &quot;sim&quot;,&quot;não&quot;: 2 2 2 2 2 2 2 2 2 2 ...
-##  $ pesoRN   : num [1:20] 3020 4120 3920 3260 2500 ...
+##  $ idadeMae : num [1:20] 18 38 31 19 27 28 18 15 34 43 ...
+##  $ altura   : num [1:20] 1.53 1.57 1.62 1.58 1.6 1.55 1.65 1.54 1.55 1.53 ...
+##  $ peso     : num [1:20] 58 66 45 56.5 70 53 53 46 46 63.5 ...
+##  $ anosEst  : num [1:20] 9 11 8 7 6 11 7 8 3 5 ...
+##  $ renda    : num [1:20] 1.2 1.2 1.08 1.2 0.72 2.41 1.92 1.92 2.77 2.41 ...
+##  $ ig       : num [1:20] 39 35 40 40 41 37 39 39 39 40 ...
+##  $ tipoParto: Factor w/ 2 levels &quot;normal&quot;,&quot;cesareo&quot;: 1 2 1 2 1 1 1 2 1 2 ...
+##  $ fumo     : Factor w/ 2 levels &quot;sim&quot;,&quot;não&quot;: 2 1 2 2 2 1 2 2 1 2 ...
+##  $ pesoRN   : num [1:20] 2790 2585 2660 3500 3380 ...
 ##  $ sexo     : Factor w/ 2 levels &quot;masc&quot;,&quot;fem&quot;: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
 <p>É importante mencionar que toda vez que estas funções forem executadas elas irão gerar amostras diferentes. Então, por exemplo, não se deve esperar que a média dos pesos dos recém-nascidos de amostras diferentes sejam iguais. No capítulo sobre <code>Distribuições Amostrais</code>, este assunto voltará à cena.</p>
 <p>As funções <code>sample_n()</code> e <code>sample_frac()</code> estão com os dias contados, pois foram substituídas por <code>slice_sample()</code> do conjunto de funções que acompanham a função <code>slice()</code></p>
@@ -804,26 +810,26 @@ Será acrescentado a variável <code>imc</code>, no banco de dados mater1, usand
 <pre><code>## # A tibble: 20 × 10
 ##    idadeMae altura  peso anosEst renda    ig tipoParto fumo  pesoRN sexo 
 ##       &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;
-##  1       19   1.56  68         8  1.69    39 cesareo   não     3150 masc 
-##  2       35   1.55  53         7  3.61    39 normal    não     3395 masc 
-##  3       39   1.57  75         3  1.92    41 cesareo   não     3935 masc 
-##  4       33   1.55  68.7       3  3.13    36 cesareo   não     2620 masc 
-##  5       28   1.62  68         4  2.41    40 normal    não     1425 masc 
-##  6       23   1.53  70        12  1.81    38 cesareo   não     2870 masc 
-##  7       21   1.63  60        10  1.92    39 normal    não     3830 masc 
-##  8       18   1.65  53         7  1.92    39 normal    não     2790 masc 
-##  9       38   1.7   55         8  2.41    39 cesareo   não     3040 masc 
-## 10       36   1.55  53         4  1.92    36 cesareo   não     2840 masc 
-## 11       22   1.59  63         6  2.41    39 cesareo   não     3300 masc 
-## 12       29   1.6   91         2  2.41    39 normal    não     3270 masc 
-## 13       18   1.59  65        11  2.17    39 normal    não     3380 masc 
-## 14       27   1.78  64        13  2.41    35 normal    sim     1930 masc 
-## 15       21   1.56  50         9  1.2     36 normal    não     2490 masc 
-## 16       28   1.53  78         8  0.96    40 normal    sim     2780 masc 
-## 17       28   1.62  77         8  1.69    40 cesareo   não     3895 masc 
-## 18       21   1.46  48         7  1.92    40 normal    não     2825 masc 
-## 19       26   1.52  54         7  1.93    39 cesareo   sim     2845 masc 
-## 20       33   1.44  47.2       2  1.92    39 cesareo   sim     3415 masc</code></pre>
+##  1       22   1.6   63        11  2.17    40 cesareo   não     4315 masc 
+##  2       24   1.55  63         7  0.72    37 cesareo   não     3410 masc 
+##  3       27   1.61  72         5  1.2     41 normal    não     2990 masc 
+##  4       32   1.65  60         8  0.96    34 normal    sim     1990 masc 
+##  5       43   1.43  62        10  2.65    39 cesareo   não     3540 masc 
+##  6       40   1.59  69.8       8  4.82    37 cesareo   não     2845 masc 
+##  7       45   1.55  53        11  2.41    39 normal    sim     3180 masc 
+##  8       35   1.55  53        11  3.61    39 normal    não     3650 masc 
+##  9       38   1.55  55         1  2.41    39 normal    não     2865 masc 
+## 10       38   1.59  56.6       4  7.23    40 cesareo   não     3335 masc 
+## 11       34   1.55  75         1  1.92    41 normal    não     2580 masc 
+## 12       29   1.56  54        11  2.41    38 cesareo   não     3050 masc 
+## 13       21   1.64  57        10  1.45    37 normal    não     3105 masc 
+## 14       19   1.67  45         8  0.92    37 normal    não     2745 masc 
+## 15       28   1.6   58         4  1.92    37 normal    não     3100 masc 
+## 16       22   1.58  64         8  1.93    40 normal    não     3190 masc 
+## 17       20   1.56  58.5       4  1.18    38 normal    sim     2890 masc 
+## 18       33   1.53  70        10  0.6     37 cesareo   não     2965 masc 
+## 19       27   1.6   60         8  2.41    37 cesareo   sim     3100 masc 
+## 20       21   1.62  65        11  1.93    39 normal    sim     2955 masc</code></pre>
 <p>Para maiores informações em relação a estas funções consulte a ajuda (<code>?slice()</code>).</p>
 </div>
 <div id="função-arrange" class="section level3 hasAnchor" number="5.3.6">
@@ -834,51 +840,51 @@ Será acrescentado a variável <code>imc</code>, no banco de dados mater1, usand
 <pre><code>## # A tibble: 20 × 10
 ##    idadeMae altura  peso anosEst renda    ig tipoParto fumo  pesoRN sexo 
 ##       &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;
-##  1       20   1.58  62         8  1.93    26 normal    sim      900 masc 
-##  2       44   1.5   70        11  1.92    29 normal    sim     1075 masc 
-##  3       39   1.6   78         9  3.61    29 cesareo   não     1195 masc 
-##  4       38   1.55  82         5  1.69    32 normal    não     1950 masc 
-##  5       25   1.55  53         9  1.92    35 cesareo   não     2225 masc 
-##  6       17   1.62  74         7  1.2     41 normal    não     2450 masc 
-##  7       32   1.6   66.2       7  0.87    36 normal    não     2670 masc 
-##  8       20   1.73  61         6  2.89    35 normal    não     2740 masc 
-##  9       25   1.66  57         6  1.69    35 normal    sim     2950 masc 
-## 10       21   1.48  65         4  0.84    39 normal    não     3060 masc 
-## 11       22   1.65  60         7  1.45    40 cesareo   não     3120 masc 
-## 12       35   1.65  59.5       6  2.41    40 cesareo   não     3165 masc 
-## 13       26   1.55  50        11  2.41    39 cesareo   não     3200 masc 
-## 14       32   1.65  60         7  1.45    39 normal    sim     3345 masc 
-## 15       36   1.8   70        11  2.89    40 normal    não     3375 masc 
-## 16       37   1.64  69         7  2.41    40 cesareo   não     3520 masc 
-## 17       16   1.65  60         6  0.92    40 cesareo   não     3540 masc 
-## 18       23   1.62  45         9  1.33    39 normal    não     3590 masc 
-## 19       25   1.65  80         5  0.72    37 cesareo   sim     3985 masc 
-## 20       27   1.57  60         9  3.61    39 cesareo   não     4215 masc</code></pre>
+##  1       24   1.51  70         8  1.92    25 cesareo   não      830 masc 
+##  2       18   1.55  53         8  1.92    36 cesareo   não     2435 masc 
+##  3       18   1.62  69         8  2.89    33 normal    não     2525 masc 
+##  4       34   1.68  61         7  2.89    35 normal    sim     2640 masc 
+##  5       25   1.53  70         4  1.45    39 normal    sim     2870 masc 
+##  6       20   1.56  58.5       4  1.18    38 normal    sim     2890 masc 
+##  7       24   1.55  53         6  1.92    40 cesareo   sim     2940 masc 
+##  8       20   1.73  65         8  1.92    41 normal    sim     3065 masc 
+##  9       31   1.48  58         8  3.61    39 cesareo   não     3130 masc 
+## 10       31   1.51  48         4  1.2     39 cesareo   não     3160 masc 
+## 11       20   1.58  57        10  1.93    40 cesareo   não     3160 masc 
+## 12       24   1.45  48         5  1.92    39 normal    não     3175 masc 
+## 13       26   1.46  64.5       8  3.13    41 cesareo   sim     3290 masc 
+## 14       22   1.65  70         8  3.13    40 cesareo   sim     3440 masc 
+## 15       35   1.65  60        11  2.89    37 normal    não     3470 masc 
+## 16       41   1.51  99         3  0.72    37 cesareo   sim     3510 masc 
+## 17       40   1.58  90         4  1.2     40 cesareo   não     3765 masc 
+## 18       24   1.76  75        10  2.41    39 normal    não     3910 masc 
+## 19       41   1.58 103         4  1.92    37 cesareo   não     3920 masc 
+## 20       30   1.61  90.5      11  4.1     39 cesareo   não     4150 masc</code></pre>
 <p>Para a ordem decrescente, colocar a função <code>desc()</code>, dentro da função <code>arrange()</code></p>
 <div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="manipulando-os-dados-no-r-studio.html#cb186-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(meninos1, <span class="fu">desc</span>(pesoRN))</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 10
 ##    idadeMae altura  peso anosEst renda    ig tipoParto fumo  pesoRN sexo 
 ##       &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;
-##  1       27   1.57  60         9  3.61    39 cesareo   não     4215 masc 
-##  2       25   1.65  80         5  0.72    37 cesareo   sim     3985 masc 
-##  3       23   1.62  45         9  1.33    39 normal    não     3590 masc 
-##  4       16   1.65  60         6  0.92    40 cesareo   não     3540 masc 
-##  5       37   1.64  69         7  2.41    40 cesareo   não     3520 masc 
-##  6       36   1.8   70        11  2.89    40 normal    não     3375 masc 
-##  7       32   1.65  60         7  1.45    39 normal    sim     3345 masc 
-##  8       26   1.55  50        11  2.41    39 cesareo   não     3200 masc 
-##  9       35   1.65  59.5       6  2.41    40 cesareo   não     3165 masc 
-## 10       22   1.65  60         7  1.45    40 cesareo   não     3120 masc 
-## 11       21   1.48  65         4  0.84    39 normal    não     3060 masc 
-## 12       25   1.66  57         6  1.69    35 normal    sim     2950 masc 
-## 13       20   1.73  61         6  2.89    35 normal    não     2740 masc 
-## 14       32   1.6   66.2       7  0.87    36 normal    não     2670 masc 
-## 15       17   1.62  74         7  1.2     41 normal    não     2450 masc 
-## 16       25   1.55  53         9  1.92    35 cesareo   não     2225 masc 
-## 17       38   1.55  82         5  1.69    32 normal    não     1950 masc 
-## 18       39   1.6   78         9  3.61    29 cesareo   não     1195 masc 
-## 19       44   1.5   70        11  1.92    29 normal    sim     1075 masc 
-## 20       20   1.58  62         8  1.93    26 normal    sim      900 masc</code></pre>
+##  1       30   1.61  90.5      11  4.1     39 cesareo   não     4150 masc 
+##  2       41   1.58 103         4  1.92    37 cesareo   não     3920 masc 
+##  3       24   1.76  75        10  2.41    39 normal    não     3910 masc 
+##  4       40   1.58  90         4  1.2     40 cesareo   não     3765 masc 
+##  5       41   1.51  99         3  0.72    37 cesareo   sim     3510 masc 
+##  6       35   1.65  60        11  2.89    37 normal    não     3470 masc 
+##  7       22   1.65  70         8  3.13    40 cesareo   sim     3440 masc 
+##  8       26   1.46  64.5       8  3.13    41 cesareo   sim     3290 masc 
+##  9       24   1.45  48         5  1.92    39 normal    não     3175 masc 
+## 10       31   1.51  48         4  1.2     39 cesareo   não     3160 masc 
+## 11       20   1.58  57        10  1.93    40 cesareo   não     3160 masc 
+## 12       31   1.48  58         8  3.61    39 cesareo   não     3130 masc 
+## 13       20   1.73  65         8  1.92    41 normal    sim     3065 masc 
+## 14       24   1.55  53         6  1.92    40 cesareo   sim     2940 masc 
+## 15       20   1.56  58.5       4  1.18    38 normal    sim     2890 masc 
+## 16       25   1.53  70         4  1.45    39 normal    sim     2870 masc 
+## 17       34   1.68  61         7  2.89    35 normal    sim     2640 masc 
+## 18       18   1.62  69         8  2.89    33 normal    não     2525 masc 
+## 19       18   1.55  53         8  1.92    36 cesareo   não     2435 masc 
+## 20       24   1.51  70         8  1.92    25 cesareo   não      830 masc</code></pre>
 </div>
 <div id="função-count" class="section level3 hasAnchor" number="5.3.7">
 <h3><span class="header-section-number">5.3.7</span> Função <code>count()</code><a href="manipulando-os-dados-no-r-studio.html#função-count" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -972,7 +978,7 @@ Será acrescentado a variável <code>imc</code>, no banco de dados mater1, usand
 <div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="manipulando-os-dados-no-r-studio.html#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="fu">today</span>()</span></code></pre></div>
 <pre><code>## [1] &quot;2023-04-21&quot;</code></pre>
 <div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="manipulando-os-dados-no-r-studio.html#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="fu">now</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;2023-04-21 15:52:26 -03&quot;</code></pre>
+<pre><code>## [1] &quot;2023-04-21 17:22:19 -03&quot;</code></pre>
 <div id="operações-com-datas" class="section level3 hasAnchor" number="5.4.1">
 <h3><span class="header-section-number">5.4.1</span> Operações com datas<a href="manipulando-os-dados-no-r-studio.html#operações-com-datas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Intervalos</strong></p>

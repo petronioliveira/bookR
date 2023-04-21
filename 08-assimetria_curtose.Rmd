@@ -1,0 +1,161 @@
+# Assimetria e Curtose
+
+## Assimetria  
+
+A assimetria analisa a proximidade ou o afastamento de um conjunto de dados quantitativos em relação à distribuição normal. Mede o grau de afastamento de uma distribuição em relação a um eixo central (geralmente a média).   
+
+Quando a curva é simétrica, a média, a mediana e a moda coincidem, num mesmo ponto, havendo um perfeito equilíbrio na distribuição. Quando o equilíbrio não acontece, isto é, a média, a mediana e a moda recaem em pontos diferentes da distribuição esta será assimétrica; enviesada a direita ou esquerda. podendo-se caracterizar como curvas assimétricas à direita ou à esquerda. Quando a distribuição é assimétrica à esquerda ou assimetria negativa, a cauda da curva localiza-se à esquerda, desviando a média para este lado (Figura \@ref(fig:skew)). Na assimetria positiva, ocorre o contrário, a cauda está localizada à direita e da mesma forma a média [@peat2014descriptive].
+
+```{r skew, echo = FALSE, out.width = '80%', fig.align = 'center', fig.cap="Assimetria", fig.pos="H"}
+ knitr::include_graphics("https://i.imgur.com/KRTdQ5v.png")
+```
+
+O *R* dispões de diversas maneiras para o cálculo do *coeficiente de assimetria* (*g*1). O coeficiente de assimetria é um método numérico estatístico para medir a assimetria da distribuição ou conjunto de dados. Ele fala sobre a posição da maioria dos valores de dados na distribuição em torno do valor médio.   
+
+Quando a $assimetria = 0$, tem-se uma distribuição simétrica e a média, a mediana e a moda coincidem; quando a ${assimetria} < {0}$, ${média} < {mediana} < {moda}$, a distribuição tem *assimetria negativa* e quando a ${assimetria} > {0}$, ${média} > {mediana} > {moda}$, a distribuição tem *assimetria positiva*. A Tabela \@ref(tab:assimetria) sugere uma forma de interpretar o coeficiente de assimetria [@george2020asymmetry].
+
+```{r assimetria, echo=FALSE, message=FALSE, warning=FALSE}
+library (kableExtra)
+
+g1 <- c("-1 a +1", "-1 a -2 e +1 a +2", "-2 a -3 e +2 a +3", "< -3 ou > +3")
+assimetria <- c("leve", "moderada", "importante", "grave")
+
+options(knitr.kable.NA = '')
+knitr::kable(data.frame(g1,assimetria),
+             col.names = c("g1", "Assimetria"),
+             booktabs = TRUE,
+             caption = "Interpretação do g1") %>% 
+  kableExtra::kable_styling(full_width = F,
+                            latex_options = "hold_position",
+                            bootstrap_options = "striped") %>% 
+  kableExtra::kable_classic(html_font = "Cambria") %>% 
+  kableExtra::column_spec(1, width = "5cm") %>% 
+  kableExtra::row_spec(0, bold = TRUE)
+```
+
+Como exemplo, de avaliação do coeficiente de assimetria, será usada a distribuição da variável `altura`, correspondente a altura em metros de 1368 parturientes da Maternidade do HGCS (`dadosMater.xlsx`), já mostrado anteriormente (Figura \@ref(fig:histnormal)), repetido aqui com um boxplot sobreposto (Figura \@ref(fig:histbxp)):
+
+```{r histbxp, warning=FALSE, out.width="70%", out.height="70%", fig.align="center", fig.cap="Posição de uma mulher com 1,50m comparando duas populações", fig.pos="H"}
+# Dados
+mater <- readxl::read_excel("Arquivos/dadosMater.xlsx")
+
+# Estruturação do layout do gráfico
+layout(matrix(c(1,2), nrow = 2 , ncol =1, byrow = TRUE), heights = c(1, 8))
+
+# Boxplot
+par (mar=c (0, 4.3, 1.1, 2))
+boxplot (mater$altura, 
+         horizontal = TRUE, 
+         ylim = c (1.4, 1.9), 
+         xaxt = "n", 
+         col = "lightblue", 
+         frame = FALSE)
+
+#Histograma
+par (mar=c (4, 4.3, 1.1, 2))
+hist (mater$altura, 
+      breaks=15,
+      col = "lightblue",
+      border = "black",
+      main = "",
+      xlab = "Altura das Puérperas (m)",
+      ylab = "Frequência",
+      xlim = c(1.4,1.9),
+      las = 1)
+box(bty = "L")
+
+# Restauração do padrão
+par (mar = c(5, 4, 4, 2) + 0.1)
+```
+
+Observando o formato da distribuição no histograma e do boxplot, conclui-se que a variável `altura` tem uma assimetria positiva, provocada por alguns *outliers*, como uma mulher com altura de 1,85m. Para examinar os `outliers`, pode-se verificar as estatísticas do boxplot, que entregam as estatísticas dos 5 números (min, P25, mediana, P75 e max), o total de observações, o limite inferior e superior do intervalo de confiança de 95% e os valores aípicos (`outliers`):
+
+```{r}
+boxplot.stats(mater$altura)
+```
+
+O formato formato dos dados se ajusta bem, como visto na Figura \@ref(fig:histbxp), ao modelo normal e os pressupostos deste modelo poderiam ser aplicados a estes dados.  
+
+O valor da assimetria (`skewness`) pode ser obtida com a função `skewness()` do pacote `moments` [@komsta2022moments].
+
+```{r}
+moments::skewness(mater$altura)
+```
+
+O resultado da saída, confirmam a impressão visual, a variável altura tem uma distribuição praticamente simétrica. Esta conclusão tambem pode ser feita, analisando as medidas resumidoras dessa variável:
+
+```{r}
+media <- mean(mater$altura, na.rm = TRUE)
+round(media, 2)
+dp <- sd(mater$altura, na.rm = TRUE)
+round(dp,3)
+mediana <-  median (mater$altura, na.rm = TRUE)
+mediana
+coefVar <- dp/media
+round(coefVar, 3)
+```
+
+Os resultados mostram um desvio padrão  pequeno, média igual à mediana e um coeficiente de variação igual a `r round(dp/media, 3)`, muito próximo de 0, características consideradas pertencentes a uma amostra que provavelmente se ajusta à distribuição normal.  
+
+## Curtose  
+
+É o grau de achatamento de uma distribuição, em relação a distribuição normal. A curtose indica como o pico e as caudas de uma distribuição diferem da distribuição normal. A assimetria mede essencialmente a simetria da distribuição, enquanto a curtose determina o peso das caudas da distribuição. Portanto, é uma medida dos tamanhos combinados das duas caudas; mede a quantidade de probabilidade nas caudas.  
+
+Uma curtose em excesso é uma medida que compara a curtose de uma distribuição com a curtose de uma distribuição normal. A curtose de uma distribuição normal é igual a 3. Portanto, o excesso de curtose é determinado subtraindo 3 da curtose:
+
+$$
+Excesso \space de \space curtose = curtose - 3
+$$
+
+Os dados que seguem uma *distribuição mesocúrtica* mostram um excesso de curtose de zero ou próximo de zero. Isso significa que se os dados seguem uma distribuição normal, eles seguem uma distribuição mesocúrtica. A *distribuição leptocúrtica* mostra caudas pesadas em ambos os lados, indicando grandes valores discrepantes. Uma *distribuição leptocúrtica* manifesta uma curtose excessiva positiva. Uma *distribuição platicúrtica* mostra uma curtose excessiva negativa, revela uma distribuição com cauda plana (Figura \@ref(fig:curtose)).
+
+```{r curtose, echo = FALSE, out.width = '60%', fig.align = 'center', fig.cap="Assimetria", fig.pos="H"}
+ knitr::include_graphics("https://i.imgur.com/78c7qs8.png")
+```
+
+A função `kurtosis()`, também do pacote `moments`, pode ser usada para o cálculo do coeficiente de curtose e do resultado deve-se subtrair o valor 3.
+
+```{r}
+moments::kurtosis(mater$altura)
+```
+
+Se o coeficiente de curtose é maior do que 3, há um excesso de curtose e a distribuição dos dados é *leptocúrtica* com um pico mais acentuado no gráfico. O resultado do exemplo aponta para uma distribuição leptocúrtica, pois existe um pequeno excesso de curtose (`moments::kurtosis(mater$altura) - 3`). Quando o coeficiente de curtose é menor do que 3, a distribuição é *platicúrtica* e a curva fica mais achatada. Quando o coeficiente de curtose é igual a 3, ou próximo de 3, a distribuição é *mesocúrtica*, como a distribuição normal.
+
+## Testando o raciocínio  
+
+1. Criar um conjunto de dados com distribuição normal com média 0 e desvio padrão 1 e n = 100000
+
+```{r}
+# Criação da variável n100000
+n100000 <- rnorm(100000, mean = 0, sd = 1)
+```
+
+2. Construa um histograma (Figura \@ref(fig:histn)) com curva normal sobreposta:
+
+```{r histn, warning=FALSE, out.width="70%", out.height="70%", fig.align="center", fig.cap="Histograma com curva normal", fig.pos="H"}
+library(ggplot2)
+ggplot() +
+  geom_histogram(aes(x = n100000,
+                     y =..density..), 
+                 bins = 20,
+                 fill='tomato',
+                 col=alpha('red',0.2)) + 
+  geom_function(fun=dnorm,
+                args=list(mean=0,sd=1), 
+                col='dodgerblue4',
+                lwd=1,
+                lty=2) + 
+  labs(x='X',    
+       y='Densidade de probabilidade',
+       caption = "PFOF")+
+  theme_bw() 
+```
+
+3. Observe a skewness e a kurtosis
+
+```{r}
+print(moments::skewness(n100000))
+print(moments::kurtosis(n100000))
+```
+
+Como era de se esperar, usando a `rnorm()`, a distribuição é um exemplo de distribuição normal, $skewness \approx 0$ e $kurtosis \approx 3$. Observe que a cada vez que os comandos forem executados, os resultados serão discretamente diferentes. Para evitar isso, deve-se usar `set.seed()`, veja a seção \@ref(sec-dnp). Faça o teste!
