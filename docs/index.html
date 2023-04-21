@@ -4,27 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>YOUR TITLE HERE</title>
-  <meta name="description" content="YOUR TITLE HERE" />
-  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+  <title>Introdução à Bioestatística usando o R</title>
+  <meta name="description" content="Introdução à Bioestatística usando o R" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="YOUR TITLE HERE" />
+  <meta property="og:title" content="Introdução à Bioestatística usando o R" />
   <meta property="og:type" content="book" />
-  
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="YOUR TITLE HERE" />
+  <meta name="twitter:title" content="Introdução à Bioestatística usando o R" />
   
   
   
 
-<meta name="author" content="YOUR NAME HERE" />
+<meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2020-08-10" />
+<meta name="date" content="2023-04-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,8 @@
   
 
 <link rel="next" href="the-pool-of-tears.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,9 +49,34 @@
 
 
 
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -66,12 +91,18 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">SHORT TITLE HERE</a></li>
+<li><a href="./">bookR</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Down the rabbit-hole</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#importância-da-bioestatística"><i class="fa fa-check"></i><b>1.1</b> Importância da Bioestatística</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#sec-historia"><i class="fa fa-check"></i><b>1.2</b> Pílulas históricas da Estatística</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#história-resumida-do-r"><i class="fa fa-check"></i><b>1.3</b> História resumida do R</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="the-pool-of-tears.html"><a href="the-pool-of-tears.html"><i class="fa fa-check"></i><b>2</b> The pool of tears</a></li>
 <li class="chapter" data-level="3" data-path="a-caucus-race-and-a-long-tale.html"><a href="a-caucus-race-and-a-long-tale.html"><i class="fa fa-check"></i><b>3</b> A caucus-race and a long tale</a></li>
+<li class="chapter" data-level="" data-path="referências.html"><a href="referências.html"><i class="fa fa-check"></i>Referências</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -83,7 +114,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">YOUR TITLE HERE</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introdução à Bioestatística usando o R</a>
           </h1>
         </div>
 
@@ -92,13 +123,124 @@
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">YOUR TITLE HERE</h1>
-<p class="author"><em>YOUR NAME HERE</em></p>
-<p class="date"><em>2020-08-10</em></p>
+<h1 class="title">Introdução à Bioestatística usando o R</h1>
+<p class="author"><em>Petrônio Fagundes de Oliveira Filho</em></p>
+<p class="date"><em>2023-04-21</em></p>
 </div>
-<div id="down-the-rabbit-hole" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Down the rabbit-hole</h1>
+<div id="introdução" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Capítulo 1</span> Introdução<a href="index.html#introdução" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="importância-da-bioestatística" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Importância da Bioestatística<a href="index.html#importância-da-bioestatística" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Os indivíduos variam em relação as suas características biológicas, psicológicas e sociais na saúde e na doença. Esta variabilidade gera uma grande quantidade de incertezas.</p>
+<p>A Bioestatística, estatística aplicada às ciências biológicas e da saúde, é a ferramenta utilizada pelos pesquisadores para trabalhar com essas incertezas advindas da variabilidade. Várias definições foram escritas para a estatística, uma delas é a seguinte <span class="citation">(1)</span>:</p>
+<blockquote>
+<p><font size=3> Estatística é a disciplina interessada com o tratamento dos dados numéricos obtidos a partir de grupos de indivíduos </font></p>
+</blockquote>
+<p>A Bioestatística lida com a variabilidade humana utilizando técnicas estatísticas quantitativas <span class="citation">(2)</span> que ajudam a diminuir a ignorância em relação a esta diversidade. A compreensão da variabilidade humana torna a medicina mais ciência, diminuindo as incertezas, na tentativa de verificar se os resultados encontrados de fato existem ou são apenas obra do acaso.</p>
+<p>Na década de 1990, houve um acesso maior aos computadores. Os profissionais da saúde não estatísticos passaram a ter mais interesse no campo da bioestatística. Isto gerou uma onda que facilitou o aparecimento de novas ferramentas estatísticas de ponta. Apesar disso, o conhecimento da Bioestatística permanece restrito aos especialistas na área.</p>
+<p>Nos últimos anos, os pacotes de softwares foram aprimorados, tornando-se mais amigáveis e diminuindo significativamente o pânico ao se defrontar com uma série de números uma vez que a maioria deles exige apenas conhecimento básico de matemática.</p>
+<p>Para a tomada de decisão em saúde é fundamental o acúmulo de conhecimento adquirido através da prática clínica, geradora da experiência do profissional, do intercâmbio com os pares e da análise adequada das evidências científicas publicadas em periódicos de qualidade. Para atingir este objetivo, é fundamental o conhecimento de bioestatística, incluindo aqui que o pensamento que deve nortear os profissionais da saúde ao lidar com o ser humano é o <em>pensamento probabilístico</em>.</p>
+</div>
+<div id="sec-historia" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Pílulas históricas da Estatística<a href="index.html#sec-historia" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<blockquote>
+<p><font size=3> A história deve começar em algum lugar, mas a história não tem começo <span class="citation">(3)</span> </font></p>
+</blockquote>
+<p>Entretanto, é natural, que se trace as raízes voltando ao passado, tanto quanto possível. Alguns referem-se à curiosidade em relação ao registro de dados à dinastia Shank, na China, possivelmente no século XIII a.c, com a realização de censos populacionais. Há relatos bíblicos de possíveis censos realizados por Moisés (1491 a.C.) e por Davi (1017 a.C.).</p>
+<p>Os romanos e os gregos já realizavam censos por volta do século VIII a IV a.C. Em 578-534 a.C., o imperador <em>Servo Túlio</em> mandou realizar um censo de população masculina adulta e suas propriedades que serviu para estabelecer o recrutamento para o exército, para o exercício dos direitos políticos e para o pagamento de impostos. Os romanos fizeram 72 censos entre 555 a.C. e 72 d.C. A punição para quem não respondia, geralmente era a morte! Na Idade Média, na Europa, existem registros de diversos censos: durante o domínio muçulmano, na Península Ibérica, nos séculos VII a XV; no reinado de Carlos Magno (712-814) e ainda o maior registro estatístico feito na época, o <em>Domesday Book</em> (Figura <a href="index.html#fig:domesday">1.1</a>), realizado na Inglaterra, por Guilherme I <span class="citation">(3)</span> , o Conquistador, onde registravam nascimentos, mortes, batismos e casamentos. Houve, também, recenseamentos nas repúblicas italianas no século XII ao XIII <span class="citation">(4)</span>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:domesday"></span>
+<img src="https://imgur.com/NYbAP67.png" alt="Domesday Book" width="40%" />
+<p class="caption">
+Figure 1.1: Domesday Book
+</p>
+</div>
+<p><em>John Graunt</em> (24/04/1620 - 18/04/1674) foi um cientista britânico a quem se deve vários estudos demográficos ingleses. Foi o precursor da construção de Tábuas de Mortalidade. Realizou estudos com William Petty (1623 - 1687), economista britânico que propôs a <em>aritmética política</em>.</p>
+<p>Em 1791, <em>Sir John Sinclair</em> (1754 - 1835) concebeu um plano de uma pesquisa empírica na Escócia para fornecer informações estatísticas. Foi a primeira vez que o termo estatística foi usado em inglês.</p>
+<p><em>Girolamo Cardano</em> (24/09/1501 - 21/09/1576) foi um médico, matemático, físico e filósofo italiano. É tido como o primeiro a introduzir ideias gerais da teoria das equações algébricas e as primeiras regras da probabilidade, descritas no livro <em>Liber de Ludo Aleae</em>, publicado em 1663. Descreveu pela primeira vez a clínica da febre tifoide. Foi amigo de Leonardo da Vinci.</p>
+<p><em>Pierre-Simon Laplace</em>, Marquês Laplace (23/03/1749 - 05/03/1927) foi um matemático, astrônomo e físico francês. Embora conduzisse pesquisas substanciais sobre física, outro tema principal dos esforços de sua vida foi a teoria das probabilidades. Em seu <em>Essai philosophique sur les probabilités</em>, Laplace projetou um sistema matemático de raciocínio indutivo baseado em probabilidades, que hoje coincidem com as ideias bayesianas.</p>
+<p><em>Antoine Gombaud</em>, conhecido como Chevalier de Méré (1607 - 1684) foi um nobre e jogador. Como não tinha mais sucesso nos jogos de azar, buscou ajuda de Blaise Pascal (19/06/1623 – 19/08/1662), matemático, físico francês, que se correspondeu com Pierre Fermat (matemático e cientista francês), nascendo desta colaboração a teoria matemática das probabilidades (1812). Blaise Pascal foi mais tarde chamado de o Pai da Teoria das Probabilidades.</p>
+<p>A moderna teoria das probabilidades foi atribuída a <em>Abraham De Moivre</em> (25/05/1667 – 27/11/1754), matemático francês, que adquiriu fama por seus estudos na trigonometria, teoria das probabilidades e pela equação da curva normal. Em 1742, Thomas Bayes (1701 – 07/04/1761, matemático e pastor presbiteriano, inglês, desenvolveu o Teorema de Bayes que descreve a probabilidade de um evento ocorrer, baseado em um conhecimento <em>a priori</em>.</p>
+<p><em>Adrien-Marie Legendre</em> (18/09/1752 - 10/01/1833) foi um matemático francês. Em 1783, tornou-se membro adjunto da <em>Academie des Sciences</em>, instituição que esteve na vanguarda dos desenvolvimentos científicos dos séculos XVII e XVIII. Fez importantes contribuições à estatística, à teoria dos números e à álgebra abstrata.</p>
+<p><em>Johann Carl Friedrich Gauss</em> (30/04/1777 - 23/02/1855) foi um matemático, astrônomo e físico alemão (Figura <a href="index.html#fig:gauss">1.2</a>) que contribuiu em diversas áreas das ciências como teoria dos números, estatística, geometria diferencial, eletrostática, astronomia e ótica. Muitos referem-se a ele como o Príncipe da Matemática, o mais notável dos matemáticos. Descobriu o método dos mínimos quadrados e a lei de Gauss da distribuição normal de erros e sua curva em formato de sino, hoje tão familiar para todos que trabalham com estatística.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:gauss"></span>
+<img src="https://imgur.com/Pk9Il89.png" alt="Johann Carl Friedrich Gauss" width="30%" />
+<p class="caption">
+Figure 1.2: Johann Carl Friedrich Gauss
+</p>
+</div>
+<p><em>Lambert Adolphe Jacques Quételet</em> (22/02/1796 - 17/02/1874) foi um astrônomo, matemático, demógrafo e estatístico francês. Seu trabalho se concentrou em estatística social, criando regras de determinação de propensão ao crime</p>
+<p><em>Francis Galton</em> (16/02/1822 – 17/01/1911) foi um antropólogo, matemático e estatístico inglês. Entre muitos artigos e livros, criou o conceito estatístico de correlação e da regressão à média. Ele foi o primeiro a aplicar métodos estatísticos para o estudo das diferenças e herança humanas de inteligência. Criou o conceito de eugenia e afirmava que era possível a melhoria da espécie por seleção artificial. Acreditava que a raça humana poderia ser melhorada caso fossem evitados relacionamentos indesejáveis. Isto acompanhava o pensamento burguês europeu da época. Criou a psicometria, onde desenvolveu testes de inteligência para selecionar homens e mulheres brilhantes. Esta teoria teve papel importante na formação do fascismo e nazismo <span class="citation">(5)</span>.</p>
+<p><em>William Farr</em> (30/11/1807 - 14/04/1883) foi um médico sanitarista e estatístico inglês, nascido na vila de Kenley, Shropshire. Foi o primeiro investigador a examinar séries temporais de morbimortalidade para longos períodos e, assim, considerado o criador da Estatística da Saúde Pública Moderna. Seus relatórios foram fundamentais para o desencadeamento das reformas sanitárias britânicas, em meados e final do século XIX <span class="citation">(6)</span>.</p>
+<p><em>Florence Nightingale</em> (12/05/1820 – 13/08/1910) foi uma enfermeira (Figura <a href="index.html#fig:florence">1.3</a>) que ficou famosa por ser pioneira no tratamento de feridos, durante a Guerra da Criméia <span class="citation">(7)</span>. Ficou conhecida na história pelo apelido de “A dama da lâmpada”, pelo fato de servir-se de uma lamparina para auxiliar no cuidado aos feridos durante a noite. Também contribuiu no campo da Estatística, sendo pioneira na utilização de métodos de representação visual de informações, como por exemplo gráfico de setores (habitualmente conhecido como gráfico do tipo “pizza”)</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:florence"></span>
+<img src="https://i.imgur.com/nHsLBsU.png" alt="Florence Nightingale" width="20%" />
+<p class="caption">
+Figure 1.3: Florence Nightingale
+</p>
+</div>
+<p><em>John Snow</em> (York, 15/03/1813 - Londres, 15/03/1858) foi um médico inglês (Figura <a href="index.html#fig:snow">1.4</a>), considerado pai da Epidemiologia Moderna. Recebeu, em 1853, o título de Sir após ter anestesiado a rainha Vitória no parto sem dor de seu oitavo filho, Leopoldo de Albany. Este fato ajudou a divulgar a técnica entre os médicos da época. Demonstrou que a cólera era causada pelo consumo de águas contaminadas com matérias fecais, ao comprovar que os casos dessa doença se agrupavam em determinados locais da cidade de Londres, em 1854, onde havia fontes dessas águas <span class="citation">(6)</span>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:snow"></span>
+<img src="https://i.imgur.com/jh61uxb.png" alt="John Snow" width="20%" />
+<p class="caption">
+Figure 1.4: John Snow
+</p>
+</div>
+<p><em>Karl Pearson</em> (27/03/1857 - 27/04/1936) foi um importante estatístico inglês, fundador do Departamento de Estatística Aplicada da <em>University College London</em> em 1911. Juntamente com Weldon e Galton fundou, em 1901, a revista <em>Biometrika</em> com o objetivo era desenvolver as teorias estatísticas, editada até os dias de hoje. O trabalho de Pearson como estatístico fundamentou muitos métodos estatísticos de uso comum, nos dias atuais: regressão linear e o coeficiente de correlação, teste do qui-quadrado de Pearson, classificação das distribuições <span class="citation">(8)</span>.</p>
+<p><em>Charles Edward Spearman</em> (10/09/1863 - 17/09/1945) foi um psicólogo inglês conhecido pelo seu trabalho na área da estatística, como um pioneiro da análise fatorial e pelo coeficiente de correlação de postos de Spearman. Ele também fez bons trabalhos de modelos da inteligência humana.</p>
+<p><em>William Sealy Gosset</em> (13/07/1876 - 16/10/1937) foi um químico e estatístico inglês (Figura <a href="index.html#fig:student">1.5</a>). Em 1907, enquanto trabalhava químico da cervejaria experimental de Arthur Guinness &amp; Son, criou a distribuição t que usou para identificar a melhor variedade de cevada, trabalhando com pequenas amostras. A cervejaria Guinness tinha uma política que proibia que seus empregados publicassem suas descobertas em seu próprio nome. Ele, então, usou o pseudônimo “Student” e o teste é chamado “t de Student” em sua homenagem <span class="citation">(9)</span>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:student"></span>
+<img src="https://i.imgur.com/Zyul6nM.png" alt="William Sealy Gosset" width="20%" />
+<p class="caption">
+Figure 1.5: William Sealy Gosset
+</p>
+</div>
+<p><em>Ronald Aylmer Fisher</em> (17/02/1890 - 29/07/1962) foi um estatístico, biólogo e geneticista inglês. Em 1919, Fisher se envolveu com pesquisa agrícola no centro de experimentos de <em>Rothamsted Research</em>, em Harpenden, Inglaterra, e desenvolveu novas metodologias e teoria no ramo de experimentos <span class="citation">(10)</span>. Durante sua vida, Fisher (Figura <a href="index.html#fig:fisher">1.6</a>) escreveu 7 livros e publicou cerca de 400 artigos acadêmicos em estatística e genética . Em um dos seus livros, <em>The design of Experiments</em> (1935), Fisher relata um experimento que surgiu de uma pergunta curiosa: o gosto do chá muda de acordo com a ordem em que as ervas e o leite são colocados? Essa simples questão resultou em um estudo pioneiro na área e serviu de sustentação para análise da aleatorização de dados experimentais <span class="citation">(9)</span>. Ronald A. Fisher foi descrito <span class="citation">(11)</span> como “um gênio que criou praticamente sozinho os fundamentos para o moderno pensamento estatístico”. Era muito temperamental. Seus atritos com outros estatísticos ficaram famosos, entre eles encontra-se ninguém menos do que Karl Pearson, outro notável estatístico.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fisher"></span>
+<img src="https://i.imgur.com/6EVp4eC.png" alt="Ronald A. Fisher" width="20%" />
+<p class="caption">
+Figure 1.6: Ronald A. Fisher
+</p>
+</div>
+<p><em>Austin Bradford Hill</em> (08/07/1897 - 18 /04/1991) foi um epidemiologista e estatístico inglês (Figura <a href="index.html#fig:hill">1.7</a>), pioneiro no estudo do acaso nos ensaios clínicos e, juntamente com Richard Doll, foi o primeiro a demonstrar a ligação entre o uso do cigarro e o câncer de pulmão. Hill é amplamente conhecido pelos Critérios de Hill, conjunto de critérios para a determinação de uma associação causal <span class="citation">(12)</span>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:hill"></span>
+<img src="https://i.imgur.com/MbHvZ7c.png" alt="Bradford Hill" width="20%" />
+<p class="caption">
+Figure 1.7: Bradford Hill
+</p>
+</div>
+<p><em>John Wilder Tukey</em> (16/06/1915 - 26/07/2000) foi um estatístico norte-americano. Desenvolveu uma filosofia para a análise de dados que mudou a maneira de pensar dos estatísticos, sugerindo que se faça uma visualização dos dados, interpretando o formato, centro, dispersão, presença de valores atípicos, sumarizar numericamente e por fim escolher um modelo matemático. Foi o criador do boxplot e introduziu a palavra “bit” como uma contração do termo <em>binary digit</em>.</p>
+<p><em>Douglas G. Altman</em> (12 /07/1948 - 03/06/2018) foi um estatístico inglês (Figura <a href="index.html#fig:altman">1.8</a>), conhecido por seu trabalho em melhorar a confiabilidade dos artigos de pesquisa médica <span class="citation">(13)</span> e por artigos altamente citados sobre metodologia estatística. Ele foi professor de estatística em medicina na Universidade de Oxford. Há praticamente 30 anos, Altman <span class="citation">(14)</span> escreveu um artigo sobre problema da qualidade da pesquisa em medicina que causou um grande impacto e permanece válido até hoje. Nesta publicação ele afirma:</p>
+<blockquote>
+<p><font size=3> A má qualidade de muitas pesquisas médicas é amplamente reconhecida, mas, de forma perturbadora, os líderes da profissão médica parecem apenas minimamente preocupados com o problema e não fazem nenhum esforço aparente para encontrar uma solução.</font></p>
+</blockquote>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:altman"></span>
+<img src="https://i.imgur.com/X4wigwm.png" alt="Douglas G. Altman" width="20%" />
+<p class="caption">
+Figure 1.8: Douglas G. Altman
+</p>
+</div>
+</div>
+<div id="história-resumida-do-r" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> História resumida do R<a href="index.html#história-resumida-do-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>O R é uma linguagem e um ambiente de desenvolvimento voltado fundamentalmente para a computação estatística. Foi inspirado em duas linguagens: S (John Chambers, do Bell Labs) que forneceu a sintaxe e Scheme (Hal Abelson e Gerald Sussman) implementou e forneceu a semântica.<br />
+O nome R provém em parte das iniciais dos criadores, <em>George Ross Ihaka</em> e <em>Robert Gentleman</em> (Figura <a href="index.html#fig:ross">1.9</a>), e também de um jogo figurado com a linguagem S. Em 29 de Fevereiro de 2000, o software foi considerado com funcionalidades e estável o suficiente para a versão 1.0.</p>
+<p>O R é um projeto GNU <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Software Livre significa que os usuários têm liberdade para executar, copiar, distribuir, estudar, alterar e melhorar o software. Foi desenvolvido em um esforço colaborativo de pessoas em vários locais do mundo <span class="citation">(15)</span>.</p>
+<p>O projeto R fornece uma grande variedade de técnicas estatísticas e gráficas. É uma linguagem e um ambiente similar ao S. A linguagem do S que também é uma linguagem de computador voltada para cálculos estatísticos. Um dos pontos fortes de R é a facilidade com que produções gráficas de qualidade podem ser produzidas. O R é também altamente expansível com o uso dos pacotes, que são bibliotecas para sub-rotinas específicas ou áreas de estudo específicas. Um conjunto de pacotes é incluído com a instalação de R e muito outros estão disponíveis na rede de distribuição do R - <em>Comprehensive R Archive Network</em> (CRAN) <span class="citation">(16)</span>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ross"></span>
+<img src="https://i.imgur.com/gjp0Rkc.png1" alt="Robert Gentlemen (E) e George Ross (D)" width="40%" />
+<p class="caption">
+Figure 1.9: Robert Gentlemen (E) e George Ross (D)
+</p>
+</div>
+<p>A linguagem R é largamente usada entre estatísticos e analistas de dados para desenvolver softwares de estatística e análise de dados. Pesquisas e levantamentos com profissionais da área mostram que a popularidade do R aumentou substancialmente nos últimos anos <span class="citation">(17)</span>.</p>
 
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Esta sigla está associada ao animal gnu africano, símbolo de software de distribuição livre, quer dizer is Not Unix, sigla recursiva muito comum entre nerds!<a href="index.html#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 
@@ -110,7 +252,6 @@
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -129,6 +270,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -137,7 +279,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/master/index.Rmd",
+"link": "https://github.com/petronioliveira/bookR/edit/main/index.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -145,10 +287,14 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/master/index.Rmd",
+"link": "https://github.com/petronioliveira/bookR/blob/main/index.Rmd",
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
