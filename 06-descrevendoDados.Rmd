@@ -1,0 +1,1917 @@
+# Descrevendo os dados  
+
+Nos relatórios ou artigos científicos, a comunicação dos resultados é feita através da combinação de medidas resumidoras e visualização dos dados por meio de tabelas e gráficos.
+
+## Dados brutos  
+
+Habitualmente, costuma-se armazenar os dados em bancos de dados (*dataframes* ou *tibbles*). Entretanto, eles estão registrados de forma aleatória e não classificada. Ao se visualizar um dataframe, é difícil responder perguntas em relação a qualquer variável, principalmente, em grandes banco de dados. Eles se constituem uma lista, um rol de valores colocados na ordem em que foram obtidos. Parecem um jogo de quebra cabeça antes de serem organizados e resumidos! São denominados de *dados brutos* ou, também, de dados não agrupados. 
+
+## Medidas resumidoras
+
+As maneiras mais usadas para resumir o conjunto de dados são:
+
+* Primeiro, um valor em torno do qual os dados têm uma tendência para se reunir ou se agrupar, denominado de *medida sumária de localização* ou *medida de tendência central*. 
+* Em segundo lugar, um valor que mede o grau em que os dados se dispersam, denominado de *medida de dispersão ou variabilidade*.
+
+Para trabalhar nesta seção, serão necessários os seguintes pacotes:
+
+```{r }
+pacman::p_load(dplyr, readxl)
+```
+
+E o arquivo `dadosMater15.xlsx`, amostra de 15 recém-nascidos, que pode ser obtido [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosMater15.xlsx) e baixado para o seu diretório de trabalho. Esta amostra é proveniente do banco de dados original (`dadosMater.xlsx`), veja seção \@ref(sec-mater).
+
+Agora, será criado um objeto, `mater15`, para receber os dados, a partir do diretório de trabalho, executando o seguinte código:
+
+```{r}
+mater15 <- read_excel("Arquivos/dadosMater15.xlsx")
+```
+
+### Medidas de tendência central
+#### Média
+
+A média ( $\overline{x}$ ) é a mais usada medida de tendência central. Ela é calculada pela razão entre a soma de todas as observações de um conjunto de dados e o total de observações. A média é mais adequada para medidas numéricas simétricas.
+
+$$
+\overline{x}= \frac{\sum(x_1 + x_2 + x_3 + ... + x_n)}{n}
+$$
+
+Se no conjunto de dados houver algum valor ausente (*missing*), o comando mostra o resultado como NA (*not available*). Para corrigir isto, basta colocar o argumento `na.rm = TRUE` na função `mean()`. Assim, o R vai retornar a média, ignorando os valores ausentes. Recomenda-se sempre usar o argumento.  
+
+A média aritmética dos pesos dos recém-nascidos (`pesoRN`) do arquivo `dadosMater15.xlsx` é calculado por:
+
+```{r}
+mean (mater15$pesoRN, na.rm = TRUE)
+```
+
+#### Mediana
+
+A mediana (Md) representa o valor central em uma série ordenada de valores. Assim, metade dos valores será igual ou menor que o valor mediano e a outra metade igual ou maior do que ele.  
+No R, usa-se a função `median()` para calcular o valor da mediana. Vanos utilizar a variável `mater15$apgar1`. Como o Apgar é um escore, a medida resumidora mais adequada é a mediana. 
+
+```{r}
+median (mater15$apgar1, na.rm = TRUE)
+```
+
+#### Moda
+
+Moda (Mo) é o valor que ocorre com maior frequência em um conjunto de dados. Tem o menor nível de sofisticação. É usada primariamente para dados nominais porque há simplesmente contagem dos valores. Ao contrário das outras medidas de tendência central, a moda não informa nada sobre a ordem das variáveis ou variação dentro das variáveis.  
+O R não tem uma função embutida padrão para calcular a moda. Portanto, há necessidade de ser criada uma função de usuário para calcular a moda.  
+
+```{r}
+moda <- function(x) {
+  z <- table(as.vector(x))
+  names(z)[z == max(z)]}
+```
+
+Usando esta função pode-se calcular a moda para a variável `mater15$apgar1`. 
+
+```{r}
+moda (mater15$apgar1) 
+```
+
+#### Quantil
+
+Uma medida de localização bastante utilizada são os **quantis** que são pontos estabelecidos em intervalos regulares que dividem a amostra em subconjuntos iguais. Se estes subconjuntos são em número de 100, são denominados de **percentis**; se são em número de 10, são os **decis** e em número de 4, são os **quartis**. 
+A função apropriada no R para obter o quantil é `quantile()`.   
+
+Para determinar os três quartis do peso dos recém-nascidos (`mater15$pexoRN`), usa-se:
+
+```{r}
+quantile (mater15$pesoRN, c (0.25, 0.50, 0.75))
+```
+
+Observe que o percentil 50º é igual a mediana. O percentil 75º é o ponto do conjunto de dados onde 75% dos recém-nascidos têm um peso inferior a `r quantile (mater15$pesoRN, 0.75)`g e 25% está acima deste valor.
+
+#### Média aparada
+
+As médias aparadas são estimadores robustos da tendência central. Para calcular uma média aparada, é removida uma quantidade predeterminada de observações em cada lado de uma distribuição e realizada a média das observações restantes. Um exemplo de média aparada é a própria mediana.   
+
+A base R tem como calcular a média aparada acrescentando o argumento `trim =`, proporção a ser aparada. Se for aparado 20%, usa-se `trim = 0.2`. isto significa que serão removidos 20% dos dados dos dois extremos. No caso da amostra de 15 recém-nascidos, serão removidos três valores mais baixos e três valores mais altos, passando a mostra a ter 9 valores, e a média aparada será a média destes 9 valores.   
+
+O comando para obter a média aparada é:
+
+```{r}
+mean (mater15$pesoRN, na.rm = TRUE, trim = 0.20)
+```
+
+### Medidas de Dispersão
+
+#### Amplitude  
+
+A amplitude de um grupo de medições é definida como a diferença entre a maior observação e a menor.  
+No conjunto de dados dos pesos dos recém-nascidos, a amplitude pode ser obtida, no R, com a função `range()`, que retorna o valor mínimo e o máximo.
+
+```{r}
+range (mater15$pesoRN, na.rm = TRUE)
+```
+
+#### Intervalo Interquartil
+      
+A intervalo interquartil (IIQ), também conhecido como amplitude interquartil (AIQ) é uma forma de média aparada. É simplesmente a diferença entre o terceiro e o primeiro quartil, ou seja, a diferença entre o percentil 75 e o percentil 25. 
+Considere a escolaridade (`anosEst`) das parturientes da amostra `dadosMater15.xlsx`. Os percentis 25 e 75 são obtidos por:
+
+```{r}
+quantile (mater15$anosEst, c(0.25,0.75))
+```
+
+Também podeser usada a função `summary ()`:
+
+```{r}
+summary(mater15$anosEst)
+```
+
+Portanto, o IIQ está entre 6 a 8 anos de estudo ou, 8 – 6 = 2 anos de estudos completos. Em outras palavras, 50% das mulheres desta amostra têm de 6 a 8 anos de estudo.
+
+O *R* possui uma função específica para calcular o intervalo interquartil, denominada `IQR()` e incluída no pacote `stats`, pertencente ao `R` base. Ela possui os seguintes argumentos:
+
+**x** $\longrightarrow$ Representa o vetor numérico;
+**na.rm** $\longrightarrow$ Este assume um valor lógico, TRUE ou FALSE, indicando se os valores ausentes devem ser removidos ou não;
+**type** $\longrightarrow$ Representa um número inteiro selecionando um dos muitos algoritmos de quantil. Este é um parâmetro opcional.
+
+```{r}
+IQR(mater15$anosEst, na.rm = TRUE)
+```
+
+
+#### Variância e Desvio Padrão {#sec-variancia}
+
+A variância e o desvio padrão fornecem uma indicação de quão aglomerados em torno da média os dados de uma amostra estão. Estes tipos de medidas representam desvios (erros)da média. Quando se verifica o desvio de cada valor (x) em relação à média $\overline{x}$, os desvios positivos se anulam com os negativos, resultando em uma soma igual a zero.   
+
+A consequência deste fato é que não é possível resumir os desvios numa única medida de variabilidade. Para se chegar a uma medida de variabilidade há necessidade de se eliminar os sinais, antes de somar todos os desvios em relação à média.   
+
+Uma maneira de se fazer isso é elevar todas as diferenças ao quadrado. Assim, se obtém o desvio em relação à média elevado ao quadrado. A soma destes valores é denominada de *Soma dos Quadrados (SQ) dos Desvios* ou *Soma dos Erros ao Quadrado*. Se o interesse é apenas saber o erro ou desvio médio, divide-se por *n* (tamanho da amostra). No entanto, em geral o interesse se concentra em usar o desvio ou erro na amostra para estimar o erro na população. Dessa maneira, divide-se a Soma dos Quadrados por $n-1$. Essa medida é conhecida como variância ($s^2$). O divisor, $n – 1$, é denominado de *graus de liberdade* (gl) associados à variância.
+
+Os graus de liberdade representam o número de desvios que estão livres para variar. É um conceito de difícil explicação. Suponha uma maternidade há 50 anos atrás, quando não havia alojamento conjunto. Nessa época era comum os recém-nascidos normais ficarem em um berçário. A cada horário de amamentação eles eram levados para os quartos de suas mães para mamar. Posteriormente, eram trazidos para o berçário e colocados nos berços até a próxima mamada. Suponha que, em um determinado momento, havia 15 bebês e que, no berçário, existiam 15 berços (postos) para colocá-los durante o intervalo das mamadas. Quando o primeiro recém-nascido chega, a enfermeira poderá escolher qualquer um dos berços para o colocar. Depois, quando o próximo recém-nascido chegar, ela terá 14 opções de escolha, pois um dos berços está ocupado. Ainda existe uma boa liberdade de escolha. No entanto, à medida que os recém-nascidos forem sendo trazidos para o berçário, chegará a um ponto em que 14 berços estarão ocupados. Agora, a enfermeira não terá liberdade de escolha, pois só resta um berço. Nesse exemplo existem 14 graus de liberdade. Para o último recém-nascido não houve liberdade de escolha @field2012df. Portanto, os graus de liberdade são iguais ao tamanho da amostra menos um ($n-1$).
+
+A variância é a razão entre a soma dos quadrados e as observações realizadas menos um. 
+
+$$
+s^2= \frac{\sum(x_i - \overline{x})^2}{\overline{n-1}}
+$$
+
+No R existem as funções `sd()` e `var()`, também incluídas no R base, que facilmente calculam essas medidas de dispersão.   
+
+Usando a variável `mater15$pesoRN`, tem-se:
+
+```{r}
+var(mater15$pesoRN, na.rm =TRUE)
+```
+
+O desvio padrão é a raiz quadrada da variância: $s = \sqrt var$
+
+```{r}
+sqrt (var(mater15$pesoRN))
+```
+
+Ou,
+
+```{r}
+sd (mater15$pesoRN, na.rm = TRUE)
+```
+
+A variância e desvio padrão são medidas de variabilidade. Representam quão bem a média representa os dados. Informa se ela está funcionando bem como modelo. Pequenos desvios padrão mostram que existe pouca variabilidade nos dados, que eles se aproximam da média. Quando existe um grande desvio padrão, a média não é muito precisa para representar os dados.   
+
+O desvio padrão, além de medir a precisão com que a média representa os dados, também informa sobre o formato dos dados e por isso é uma medida de dispersão. Em uma amostra onde desvio padrão é pequeno, os dados se agrupam próximo a média e o formato da distribuição fica mais pontiagudo (curva em azul, \@ref(fig:dispersao)). Nesse caso a média representa bem os dados. Em outra amostra, com a mesma média anterior, mas com os dados mais dispersos entorno da média, o desvio padrão é maior e o formato da distribuição fica achatado (curva verde, na Figura \@ref(fig:dispersao)). Nesse caso a média não é uma boa representação dos dados.
+
+```{r dispersao, echo=FALSE, message=FALSE, fig.align = 'center',  fig.cap="Dispersão dos dados em torno da média.", fig.pos="H"}
+curve (dnorm (x, 
+              mean=0, 
+              sd=0.7), 
+       col="steelblue", 
+       lty=1,
+       lwd=2,
+       ylim = c(0, 0.6),
+       xlim = c(-3.5, 3.5),
+       ylab = "Densidade",
+       xlab = "X",
+       bty = "n")
+box(bty = "L")
+abline (v= 0, lwd = 2, lty = 2, col = "red")
+
+curve (dnorm (x, 
+              mean=0, 
+              sd=1.3), 
+       col="green3", 
+       lty=1,
+       lwd=2,
+       add=T)
+```
+
+
+#### Coeficiente de Variação
+
+O desvio padrão por si só tem limitações. Um desvio padrão de duas unidades pode ser considerado pequeno para um conjunto de valores cuja média é 100. Entretanto, se a média for 5, ele se torna muito grande. Além disso, o desvio padrão por ser expresso na mesma unidade dos dados, não permite aplicá-lo na comparação de dois ou mais conjunto de dados que têm unidades diferentes.
+Para eliminar essas limitações, é possível caracterizar a dispersão ou variabilidade dos dados em termos relativos, usando uma medida denominada Coeficiente de Variação (CV), também conhecido como como *Desvio Padrão Relativo* ou *Coeficiente de Variação de Pearson*. É expresso, em geral como uma porcentagem, sendo definido como a razão do desvio padrão pela média:
+
+$$
+CV = \frac{s}{\overline{x}}
+$$
+
+Multiplicando o valor da equação por 100 tem-se o CV percentual. O R não possui uma função específica para calcular o CV.   
+
+Foi criada uma função específica para isso,já multiplicada por 100.
+
+```{r}
+coef_var <- function (valores) {
+  (sd(valores, na.rm=T) / mean(valores, na.rm=T))*100}
+```
+
+Portanto, o CV da variável `mater15$pesoRN` é igual a:
+
+```{r}
+coef_var (mater15$pesoRN)
+```
+
+Se usarmos outra variável do banco de dados, por exemplo, `mater15$idadeMae`, o CV será igual a:
+
+```{r}
+coef_var (mater15$idadeMae)
+```
+
+O peso do recem-nascido tem um CV = `r round(coef_var (mater15$pesoRN), 1)` e a idade materna um CV = `r round(coef_var (mater15$idadeMae), 1)`, mostrando que esta tem uma maior variabilidade. Quanto menor o desvio padrão, menor o CV e, consequentemente, menor a variabilidade. Um CV $\ge$ 50%, sugere que a variável tem uma distribuição assimétrica.  
+
+### Escolha da medida resumidora
+
+A seleção da medida de tendência central mais adequada depende de vários fatores, incluindo a natureza dos dados e do propósito da sumarização.  
+
+O tipo da variável tem substancial influência na escolha da medida de tendência central a ser usada. A moda é mais apropriada para dados nominais e seu uso com variáveis ordinais resulta em uma perda no poder em termos de informação que se poderia obter dos dados.  
+
+A mediana é mais adequada para variáveis ordinais, embora possa ser usada para variáveis contínuas, especialmente quando a distribuição dos dados é assimétrica. A mediana não deveria ser usada com dados nominais porque os postos assumidos não podem ser obtidos com dados de nível nominal.  
+
+Finalmente, a média somente deve ser usada com dados contínuos simétricos, se houver assimetria a mediana deve ser preferida.
+
+As medidas de dispersão devem estar associadas a uma medida de tendência central. Elas caracterizam a variabilidade dos dados na amostra. Com dados ordinais usar a amplitude ou o intervalo interquartil. O desvio padrão não é apropriado em dados ordinais devido à natureza não numérica destes.  
+
+Com os dados numéricos deve-se usar o desvio padrão, que utiliza toda a informação nos dados, ou o intervalo interquartil (IIQ). Quando os dados forem simétricos, usar a média acompanhada do desvio padrão, caso contrário, usar a mediana e o IIQ. Não misturar e combinar medidas [@bowers2008scratch].  
+
+## Tabelas 
+
+Existem muitas maneira de criar tabelas no R. Para mostrar como construir as tabelas, será feita a leitura do conjunto de dados (`dadosMater.xlsx`) mencionado acima (veja seção \@ref(sec-mater):
+
+```{r}
+library(readxl)
+mater <- read_excel("Arquivos/dadosMater.xlsx")
+```
+
+### Tabelas de Frequência  {#sec-freq}
+
+**Tabela de frequência para dados categóricos**
+
+Uma maneira concisa que permite observar a variável e extrair informação sobre o seu comportamento, é a utilização de uma *tabela de frequência*. A tabela de frequência deve ser simples, clara e objetiva, ou seja, não deve ter um volume muito grande de informações. Deve ser autoexplicativa, não deve haver necessidade de ler o texto para entendê-la.   
+
+A tabela de frequência agrupa os dados por categorias ou classes, contabilizando o número ocorrências em cada categoria. O número de observações em uma determinada classe recebe o nome de *frequência absoluta* (*f*). Além da frequência absoluta, costuma aparecer a frequência relativa (*fr*) que representa a proporção da classe em relação ao número total de observações (*n*), calculada por $fr = \frac{f}{n}$, a frequência percentual (*fp*), obtida pela multiplicação da frequência relativa por 100 e a frequência acumulada, que é a soma de todas as classes até a classe atual, podendo ser frequência acumulada absoluta (*F*), frequência acumulada relativa (*Fr*) ou frequência acumulada percentual (*Fp*).   
+
+Em uma tabela, os dados são apresentados em colunas verticais indicadoras e linhas horizontais. Nas linhas aparecem as categorias e nas colunas as frequências, constituindo o corpo da tabela. O cabeçalho indica a natureza do conteúdo de cada coluna. No cruzamento das colunas e das linhas, tem-se as caselas ou casas.  
+
+Existem algumas recomendações na construção de uma tabela de frequência @arango2009tab:  
+
+* deve ter um título na parte superior que responda as perguntas: “o que? quando? onde?” relativas ao fato estudado;
+* deve ter um rodapé, na parte inferior da tabela, onde se coloca notas necessárias e a fonte dos dados;
+* as colunas externas da tabela devem ser abertas, o emprego de linhas verticais para a separação das colunas no corpo da tabela é opcional;
+* Na parte superior e inferior, as tabelas devem, ser fechadas por linhas horizontais;
+* Nenhuma casela deve ficar vazia, apresentando um número ou um símbolo. Se não se dispuser do dado, colocar reticências ... e a presença de um X representa que o dado foi omitido para evitar a identificação.
+
+Se os dados forem nominais, a ordenação das categorias é arbitrária, costuma-se colocar em primeiro lugar a maior frequência (Tabela \@ref(tab:droga)) , colocando-os em categorias ordenadas [@oliveira2022tab].
+
+```{r droga, echo=FALSE, warning=FALSE, message=FALSE}
+df1 <- data.frame(Drogadição = c("Não drogaditas", "Medicamentos", "Álcool", 
+                                 "Crack", "Cocaína", "Total"),
+                  f = c(904, 23, 17, 2, 1, 947),
+                  fr = c(0.955, 0.024, 0.018, 0.002, 0.001, 1.00),
+                  fp = c(95.5, 2.4, 1.8, 0.2, 0.1, 100),
+                  Fp = c(95.5, 97.9, 99.7, 99.9, 100, ''))
+
+knitr::kable(df1,
+             align = "lrrrr",  
+             booktabs = TRUE,
+             caption = "Distribuição de frequência de drogadição em parturientes do Hospital Geral de Caxias do Sul, RS, 2008.",
+             format.args = list(decimal.mark = ",")) %>% 
+  kableExtra::kable_classic(full_width = T, html_font = "Cambria") %>% 
+  kableExtra::row_spec(0, bold = TRUE)
+```
+
+**Construção da tabela de frequência**
+
+Com frequência há necessidade se recodificar uma variável numérica para categórica. Por exemplo, que as gestantes são, classicamente, subdivididas em menores de 20 anos (adolescentes), 20 a 35 anos e maiores de 35 anos. No conjunto `dadosMater`, a variável `idadeMae` é uma variável numérica onde a mulher mais jovem tem `r min(mater$idadeMae, na.rm = TRUE)` anos e mais velha tem `r max(mater$idadeMae, na.rm = TRUE)`. Não existe uma variável com a idade categorizada. Será feita uma transformação desta variável numérica em categórica com três níveis: < 20 anos, 20 a 35 anos e >35 anos.  
+
+Será usada a função `cut()` do pacote do R base. Esta função tem vários argumentos:
+
+* **x**      $\longrightarrow$ vetor numérico
+* **breaks**     $\longrightarrow$ vetor numérico de dois ou mais pontos de corte exclusivos ou um único número (maior ou igual a 2) dando o número de intervalos nos quais *x* deve ser subdividido
+* **labels**  $\longrightarrow$ rótulos para os níveis das categorias resultante. Por padrão, os rótulos são construídos usando a notação de intervalo $(a, b]$ (aberto à esquerda e fechado à direita). 
+* **include.lowest**      $\longrightarrow$ valor lógico, se o menor valor será incluido, ou o maior, se `right = TRUE`. Padrão = `include.lowest=TRUE`
+* **right**      $\longrightarrow$ valor lógico indicando se o intervalo deve ser fechado à direita e aberto a esquerda. Padrão = 
+`right = TRUE`.
+* **ordered_result** $\longrightarrow$ valor lógico indicando se o resultado deve ser um fator ordenado.  
+
+```{r}
+mater$idadeCateg <- cut(mater$idadeMae,
+                        breaks = c(13, 20, 36, 46),
+                        labels = c("<20a", "20-35a", ">35a"),
+                        include.lowest = TRUE,
+                        right = FALSE,
+                        ordered_result =TRUE)
+```
+
+Neste exemplo, foi usado `right = FALSE`, em consequência, o intervalo 13 a 20, incluirá o 13 (menor idade) e excluirá o 20, o intervalo 20 a 36, incluirá o 20 e excluirá o 36 e o último intervalo incluirá o 36 e excluirá o 46, que é o valor mais alto. Em função disso, foi incluído mais um argumento `include.lowest=TRUE`, para incluir o valor 46. 
+
+Para se verificar como ficou a distribuição de frequência absoluta, constroi-se uma tabela, inicialmente com a função `table()`:
+
+```{r}
+f_abs <- table (mater$idadeCateg)
+f_abs
+```
+
+O cálculo das frequências relativas pode ser dada pela função `prop.table()`, usando a frequência absoluta e a função `round()` para arrerdondar os valores para 3 digitos:
+
+```{r}
+f_rel <- round(prop.table(f_abs), 3)
+f_rel
+```
+
+Multiplicando por 100 a f_rel, tem-se a frequência percentual:
+
+```{r}
+f_perc <- round(f_rel*100, 2)
+f_perc
+```
+
+```{r}
+f_abs <- c (f_abs, sum(f_abs))
+f_rel <- c (f_rel, sum (f_rel))
+f_perc <- c (f_perc, sum (f_perc))
+
+tab1 <- cbind(f_abs,
+              f_rel ,
+              f_perc)
+
+tab1 <- as.data.frame(tab1)
+row.names(tab1)[4] <-  "Total"
+colnames(tab1) <- c("Frequência", "Freq.Relativa", "Freq.Percentual")
+tab1
+```
+
+
+A função `kable()` do `knitr`@xie2018knitr pode ser usada, retornando uma tabela muito simples e profissional (Tabela \@ref(tab:tisch)). Como a função somente trabalha com matrizes e dataframes, a tabela `tab1` deve ser um `data.frame`.
+
+Para melhorar o aspecto da tabela, pode-se acrescentar funções do pacote `kableExtra` @zhu2021construct com a sintax `pipe` ( %>% ), como exemplo, `kable_styling()`. 
+
+```{r tisch, echo=TRUE, warning=FALSE, message=FALSE}
+knitr::kable(tab1,
+             booktabs = TRUE,
+             caption = "Distribuição das puérperas por faixa etária, Hospital Geral de Caxias do Sul, RS, 2008.",
+             format.args = list(decimal.mark = ",")) %>% 
+kableExtra::kable_classic(full_width = T, html_font = "Cambria") %>% 
+kableExtra::row_spec(0, bold = TRUE)
+```
+
+**Tabela de frequência para dados numéricos**
+
+Como fazer a distribuição de frequência de uma variável contínua sem um critério pré-determinado para as classes?   
+
+Como exemplo, será usado, agora, o IMC pré-gestacional das parturientes do banco de dados `dadosMater.xlsx`). Esta variável não existe, tem-se apenas o peso e a altura e, portanto, com estes dados, ela pode ser criada:
+
+```{r}
+mater$imc <- round(mater$peso/mater$altura^2, 1)
+```
+
+Após, segue-se os seguintes passos: 
+
+1. _Estabelecimento do número de classes (k)_:  
+
+Antes, as classes foram estabelecidas de acordo com algum critério. Em geral, quando não há um padrão pré-determinado, o número de classes é estabelecido de acordo com o tamanho da amostra. Este número pode ser escolhido lembrando-se das oscilações que ocorrem nos dados e do interesse do pesquisador em mostrar seus dados. Não existe uma regra totalmente eficiente para determinar o número de classes. É importante ter bom senso, de maneira que seja possível ver como os valores se distribuem.   
+
+Para a maioria dos dados, é recomendado e 8 a 20 classes, isto é, 8 $\le$ k $\le$ 20. Com poucas classes, perde-se precisão e, com muitas classes, a tabela torna-se muito extensa. Baseado na regra de Sturges , é sugerido usar a recomendação da Figura \@ref(fig:sturges) [@arango2009classes].   
+
+
+```{r sturges, echo = FALSE, out.width = '70%', fig.align = 'center', fig.cap="Número de classes baseado em Sturges", fig.pos="H"}
+ knitr::include_graphics("https://i.imgur.com/IXn5SNz.png")
+```
+
+Para a variável `imc`, como existem 1368 observações, deve-se usar ao redor de 10 classes. Executando a função `nclass.Sturges ()`, abaixo, o número de classes é igual a:
+
+```{r}
+k <- nclass.Sturges (mater$imc)
+k
+```
+
+2. _Amplitude e limites das classes_:  
+
+A classe possui um limite inferior e um limite superior. O importante é que os limites dos intervalos sejam mutuamente exclusivos, isto cada valor deve ser representado em um único intervalo. Além disso, os intervalos devem ser exaustivos, isto é, devem conter todos os valores possíveis entre o valor mínimo e o máximo. O recomendado é que as classes sejam homogêneas, ou seja, tenham a mesma amplitude. A amplitude dos valores pode ser obtida com a função `range()`: 
+
+```{r}
+amplitude <- range(mater$imc) 
+amplitude 
+```
+
+Usando esta amplitude dos dados, é possível ter a largura (amplitude) das classes (`h`), usando a diferença entre o mínimo e máximo e divdindo pelo número de clsasses (`k`):
+
+```{r}
+h <- round(diff(amplitude)/k, 0)
+h
+```
+
+A fórmula é apenas a diferença absoluta dos limites inferior e superior dividida pelo número de classes, arredondado com o a função round () com 1 dígito decimal.   
+
+A partir desses dados, é possível construir as classes. A primeira classe será o valor mínimo de 11,8, que pode ser arredondado para 11,8 até 14,8 (11,8 + 3) exclusive; a segunda classe será 14,8 até 17,8 (14,8 + 3) e assim por diante.
+
+3. _Construção da tabela_:
+
+Pode-se construir a tabela, usando a função `table()` e dentro desta a função `cut()` e dentro dela a função `seq(limite inferior, limite superior, l = número de classes)`.
+
+```{r}
+nutriCateg <- table(cut(mater$imc,
+                        rigth = TRUE,
+                        include.lowest = TRUE,
+                        seq(11.8, 48.7, l = k + 1)))
+nutriCateg
+```
+
+Preste atenção! Estes comandos que vão gerar a tabela têm o argumento `right = TRUE (padrão)`. Neste caso, ao contrário do comentado anteriormente, onde foi usado `right = FALSE`, os símbolos aparecem como (] (na tabela) e significa que o limite inferior da classe foi excluído (aberto à esquerda) e o superior foi incluído (fechado à direita). Aqui, também foi introduzido o argumento `include.lowest  = TRUE` para incluir o valor mínimo dos dados (11,8), e a representação gráfica fica []. 
+
+Olhando a saída do objeto `nutriCateg`, ela parece pouco esclarecedora e, no caso do IMC, talvez fosse melhor usar outro critério. Como por exemplo o que define o estado nutricional no 1° trimestre de gestação e classifica as gestantes em *baixo peso* (IMC $<$ 18,5 kg/$m^2$), *peso adequado* (18,5 $\le$ IMC $\le$ 24,9 kg/$m^2$), *sobrepeso* (25,0 $\le$ IMC $\le$ 29,9 kg/$m^2$) e *obesidade* (IMC $\ge$ 30 kg/$m^2$). Assim, é recomendado um ganho de peso total adequado de 12,5 kg a 18 kg para as gestantes classificadas como baixo peso; de 11,5 kg a 16,0 kg para as classificadas como peso adequado; de 7,0 a 11,5 kg nas classificadas com sobrepeso; e de 5,0 a 9,0 kg nas obesas [@rasmussen2009weight]. Desta forma, tem-se uma tabela que melhor define este grupo de mulheres quanto ao estado nutricional.
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+mater$estNutri <- cut(mater$imc,
+                        breaks = c(11.8, 18.5, 25, 30, 48.7),
+                        labels = c("Baixo Peso", "Peso adequado", 
+                                   "Sobrepeso", "Obesidade"),
+                        include.lowest = TRUE,
+                        right = FALSE,
+                        ordered_result =TRUE)
+
+f.abs <- table (mater$estNutri)
+f.rel <- round(prop.table(f.abs), 3)
+f.perc <- round(f.rel*100, 2)
+
+f.abs <- c (f.abs, sum(f.abs))
+f.rel <- c (f.rel, sum (f.rel))
+f.perc <- c (f.perc, sum (f.perc))
+
+tab2 <- cbind(f.abs,
+              f.rel ,
+              f.perc)
+
+tab2 <- as.data.frame(tab2)
+row.names(tab2)[5] <-  "Total"
+colnames(tab2) <- c("Frequência", "Freq.Relativa", "Freq.Percentual")
+tab2
+```
+
+Colocando em um formato mais científico, tem-se uma tabela (Tabela \@ref(tab:aripaka)) bem mais elegante sobre o estado nutricional pré-gestacional:
+
+```{r aripaka, echo=TRUE, warning=FALSE, message=FALSE}
+knitr::kable(tab2,
+             caption = "Estado nutricional pré-gestacional das parturientes, HGCS, 2008.",
+             format.args = list(decimal.mark = ",")) %>% 
+kableExtra::kable_classic(full_width = T, html_font = "Cambria") %>% 
+kableExtra::row_spec(0, bold = TRUE)
+```
+
+### Tabelas de contingência
+
+As tabelas de contingência, também chamadas tabelas cruzadas, são bastante usadas em estatísticas epidemiológicas para resumir a relação entre duas ou mais variáveis categóricas.   
+
+Uma tabela de contingência é um tipo especial de tabela de distribuição de frequência, onde duas variáveis são mostradas simultaneamente. Por exemplo, um pesquisador pode estar interessado em saber se o hábito de fumar na gestação aumenta o risco de o recém-nascido precisar de cuidados intensivos.  
+Existem duas variáveis `fumo` (fumo na gestação) e `utiNeo` (necessidade de cuidados intensivos neonatais) no banco de dados `dadosMater.xlsx`. Cada uma dessas variáveis tem duas alternativas, `sim` e `não`, por isso a tabela de cruzamento é denominada tabela de contingência 2 x 2. No arquivo, estão registradas como variáveis numéricas , 1 e 2, e devem ser transformadas para fatores (1 = sim e 2 = não)^[Poderiam ser transformados em fatores sem trocar os rótulos e manter os números 1 e 2, como se fossem palavras. O autor prefere usar nomes.], usando a função `factor()`.
+
+```{r}
+mater$fumo <- factor (mater$fumo, 
+                      ordered = TRUE, 
+                      levels = c (1,2), 
+                      labels = c ("sim", "não"))
+mater$utiNeo <- factor (mater$utiNeo, 
+                        ordered = TRUE, 
+                        levels = c (1,2), 
+                        labels = c ("sim", "não"))
+```
+
+Basta agora, usar a função `with()` junto com a função `table(variável da linha, variável das colunas)`. Por convenção, costuma-se colocar a variável explicativa ou explanatória nas linhas (`fumo`) e o desfecho nas colunas (`utiNeo`):
+
+```{r}
+tabFumo <- with(data = mater, table(fumo, utiNeo))
+tabFumo
+```
+
+Para ter a soma das margens, usar a função `addmargins (tabela, margin = c (1,2), FUN = sum)` do pacote `stats`, incluído na instalação básica do R. A função adiciona a soma das linhas (1) e das colunas (2) às margens da tabela (tabFumo). Para melhorar visualmente, pode-se colocar `sum` em um objeto denominado de `Total`.
+
+```{r }
+Total <-  sum   
+addmargins (tabFumo, margin = c(1,2), FUN = sum)
+```
+
+## Gráficos  
+
+Para descrever os dados e visualizar o que está acontecendo, recomenda-se utilizar um gráfico adequado. O que é adequado depende principalmente do tipo de dados, bem como das características particulares do que se quer explorar. Além disso, um gráfico em um relatório sempre é um fator de "impacto". Ou seja, pode ter um efeito positivo no leitor ou fazê-lo abandonar a leitura. Finalmente, um gráfico de frequência pode ser utilizado para ilustrar, explicar uma situação complexa onde palavras ou uma tabela podem ser confusos, extensos ou de outro modo insuficiente. Por outro lado, deve-se evitar usar gráficos onde poucas palavras expressam claramente o que se quer mostrar. Aconselha-se que, ao analisar os dados, é importante inspecioná-los como se fossem uma imagem, uma fotografia, ver como eles se parecem, qual o seu aspecto, e só então pensar em interpretar os aspectos vitais da estatística [@field2012graphs].  
+
+O R básico fornece uma grande variedade de funções para visualizar dados, elas de uma maneira relativamente simples permitem a construção de gráficos que facilitam a interpretação tanto de variáveis categórica como contínuas. Para gráficos mais sofisticados existe um pacote denominado `ggplo2` [@wickham2016getting]. Este pacote é uma ferramenta extremamente versátil. É um pouco mais complexo e exige mais tempo para dominá-lo, mas, uma vez que se aprenda o básico sobre ele, oferece uma estrutura extremamente flexível para exibir os dados . Inicialmente, serão usadas as funções do R básico e,posteriormente, será feita uma introdução ao `ggplot2`.  
+
+### Gráfico de setores  
+
+Também conhecido como gráfico de *pizza*. Cada segmento (fatia) do gráfico de pizza deve ser proporcional à frequência da categoria que representa. A desvantagem do gráfico de pizza é que ele só pode representar uma variável, portanto, há necessidade de um gráfico separado para cada variável que se deseja representar. Além disso, um gráfico de pizza pode perder clareza se ele é usado para representar mais do que quatro ou cinco categorias. Na maioria das vezes, em um artigo ou relatório não há necessidade de se usar este tipo de gráfico. As tabelas são muito melhores.  Segundo Edward Tufte, professor emérito de estatística, *design* gráfico e economia política na Universidade de Yale, o único gráfico pior do que um gráfico de pizza são vários deles [@tufte2001aesthetics]! Ele é usado mais no mundo dos negócios. Como regra, não use gráfico de pizza!  
+
+Em uma consulta, entre estudantes de Medicina, foi perguntado a sua opinião em relação a este tipo de gráfico. A pergunta feita foi: “O que você sente ao ver um gráfico de pizza em um artigo científico?” As alternativas para a resposta eram quatro (ódio, irritação, indiferença, amor). O resultado do inquérito está na Tabela \@ref(tab:pizza). 
+
+```{r pizza, echo=FALSE, warning=FALSE, message=FALSE}
+library (kableExtra)
+options(knitr.kable.NA = '')
+knitr::kable(data.frame(Sentimento = c("Odeiam", "Não gostam", 
+                                       "Indiferentes", "Amam", "Total"),
+                        f = c(6, 12, 14, 8, 40),
+                        fr = c(0.15, 0.30, 0.35, 0.20, 1.00),
+                        fp = c(15, 30, 35, 20, 100),
+                        Fp = c(15, 45, 80, 100, NA)),
+             caption = "Sentimento dos alunos de Medicina em relação ao gráfico de pizza, UCS, 2012.",
+             format.args = list(decimal.mark = ",")) %>% 
+kableExtra::kable_classic(full_width = F, html_font = "Cambria") %>% 
+kableExtra::column_spec(1, width = "3.5cm") %>% 
+kableExtra::column_spec(2:5, width = "1.5cm") %>% 
+kableExtra::row_spec(0, bold = TRUE)
+```
+
+No R base, pacote `graphics`, existe a função `pie()`para obter um gráfico de setores simples. Esta função usa os seguintes argumentos basicos, consulte a ajuda do R para outras informações:
+
+* **x**       $\longrightarrow$ vetor numérico não negativo  
+* **labels**  $\longrightarrow$  caracteres que fornecem nomes para as fatias. Para rótulos vazios ou NA (após coerção para caractere), nenhum rótulo ou linha indicadora é desenhada  
+* **radius**  $\longrightarrow$ A pizza é desenhada centralizada em um quadrado cujos lados variam de -1 a +1. Se os caracteres que rotulam as fatias forem longos, pode ser necessário usar um raio menor. O padrão é 0,8.  
+* **density** $\longrightarrow$  Densidade das linhas de sombreamento, em linhas por polegada. O padrão é NULL significa que nenhuma linha de sombreamento é desenhada. Valores não positivos de densidade também inibem o desenho de linhas sombreadas 
+* **col**     $\longrightarrow$ Vetor de cores a ser usado no preenchimento ou sombreamento das fatias. Se estiver faltando, um conjunto de 6 cores pastel é usado   
+
+Os valores da coluna de frequência absoluta (*f*) da Tabela \@ref(tab:pizza) serão usados como o argumento *x*. Ele informa a área (proporção de cada fatia. Os rótulos das fatias são escritos com a função concatenar `c()`.  As cores também podeser estabelecidas com a função concatenar, mas para introduzir o pacote `RColorBrewer`, será usada 4 cores da sua paleta `RdBu`, mistura de vermelho e azul (Figura \@ref(fig:pie)).
+
+```{r pie, out.width="100%", out.height="100%", fig.align='center', fig.cap="Gráfico de Pizza: Opinião dos estudantes de Medicina.", fig.pos="H"}
+library(RColorBrewer)
+
+pie(x = c(6, 12, 14, 8),
+    labels = c("Odeiam", "Não gostam", "Indiferentes", "Amam"),
+    col = brewer.pal(n = 4, name = "RdBu"))
+```
+
+A função `pie3D()` permite construir um gráfico de setores em três dimensões. Para isso, há necessidade de instalar o pacote `plotrix` [@lemon2015package]. Os argumentos são praticamente os mesmos do gráfico simples. Acrescenta-se `radius = 0.9` que muda o raio da pizza e `explode = 0.1` que determina o afastamento das fatias (0, as mantém juntas). Além disso, como o gráfico exibe rótulos com textos muito grandes, usa-se o argumento `labelcex = 1` e coloca-se um título com o argumento `main` (Figura \@ref(fig:pie3d)).
+
+```{r pie3d, out.width="100%", out.height="100%", fig.align='center', fig.cap="Gráfico de Pizza: Opinião dos estudantes de Medicina.", fig.pos="H"}
+library (plotrix)
+
+pie3D(x = c(6, 12, 14, 8),
+    labels = c("Odeiam", "Não gostam", "Indiferentes", "Amam"),
+    radius = 0.9,
+    explode = 0.1,
+    col = brewer.pal(n = 4, name = "RdBu"),
+    labelcex = 1)
+```
+
+### Gráfico de barras
+
+Os gráficos de barra exibem a distribuição (frequências) de uma variável categórica através de barras verticais ou horizontais, ou sobrepostas [@kabacoff2011graphs].   
+
+Assim como o gráfico de setores, o gráfico de barras é utilizado para representar a frequência absoluta ou percentual de diferentes categorias. As barras são proporcionais as frequências. A forma mais simples de solicitar um gráfico de barra no R é digitar a função `barplot()` do pacote básico. Esta função é específica para desenhar gráficos de barras horizontais e verticais e usa os seguintes argumentos:
+
+* **height**  $\longrightarrow$ um vetor  ou matriz de valores que descreve as barras que constituem o gráfico;  
+* **width**   $\longrightarrow$ especifica largura das barras, com padrão de 1, opcional;  
+* **space**   $\longrightarrow$ a quantidade de espaço (como uma fração da largura média da barra) restante antes de cada barra. Pode ser fornecido como um único número ou um número por barra;  
+* **beside**  $\longrightarrow$ argumento lógico para especificar se colunas devem ser mostradas lado a lado;  
+* **col**     $\longrightarrow$ cores das barras componentes das barras, por padrão é usado *grey* (cinza);  
+* **border**  $\longrightarrow$ cor das bordas das barras;  
+* **...**     $\longrightarrow$ outros argumentos. Consulte a ajuda do R.
+
+Para a construção do gráfico de barras simples da Figura \@ref(fig:barra1)), foi utilizada a variável `idadeCateg`, anteriormente criada, a partir do conjunto de dados `dadosMater.xlsx`.
+
+```{r barra1, out.width="80%", out.height="80%", fig.align='center', fig.cap="Gráfico de barra simples.", fig.pos="H"}
+barplot(table(mater$idadeCateg))
+```
+
+Observando a Figura \@ref(fig:barra1), verifica-se que não existem rótulos nos eixos *x* e *y* e o eixo *y* tem um tamanho inferior a barra mais alta. Estes e outros problemas podem ser resolvidos modificando-se ou acrescentando outros argumentos na função `barplot()`. Existem vários argumentos e para conhece-los melhorpesquise no Help do RStudio. Em um gráfico de barra simples são suficientes as seguintes modificações que irão resultar na Figura \@ref(fig:barra2): 
+
+* Para corrigir a amplitude do eixo *y*, existe o argumento `ylim = c(lim inf, lim sup)`. Na Tabela 4 ,observa-se que a frequência máxima é de 992, assim estende-se até 1000, bem próximo da frequência da categoria, acrescentando `ylim = c (0,1000)`, separado por vírgulas de outros argumentos.
+* Para os rótulos se utiliza os argumentos `ylab = (“Frequência”)` e xlab = (“Faixa Etária”). Também, pode ser incluído um título no gráfico com o argumento m`ain = “Título”`. Observe que os títulos estão entre aspas.
+* Para modificar o tamanho das letras dos eixos *x* e *y*, que estão pouco visíveis, existe o argumento `cex.lab = 1`, que é o padrão. Para aumentar em 30%, por exemplo, usar `cex.lab = 1.3`. Os nomes tem padrão `cex.names = 1,` para modificar pode-se usar 1.3, 1.5, etc. Se nada for modificado, o R imprime o padrão.
+* Para a cor das barras, use o argumento `col = (“cor”)`. Escolha a cor entre as 657 opções, ou deixe o padrão cinza (grey). O argumento `col.axis = “cor”` controla a cor dos valores dos eixos.
+* Para modificar a borda das barras que por padrão é preta, é possível mudar, usando o argumento `border = “cor”`. Sem borda basta colocar 0 (zero), no lugar da cor.
+*	Para colocar as barras na posição horizontal, pode ser utilizado o argumento `horiz = TRUE`. Lembrar de inverter as barras. Ou seja, a variável x passa a ser y e vice-versa.
+* O argumento las = 1 faz o o texto do eixo *y* ficar horizontal 
+*  A função `box(bty = "L")`, colocada após, e opcional, faz os eixos se encontraren em 0.
+
+```{r barra2, out.width="80%", out.height="80%", fig.align='center', fig.cap="Gráfico de barra simples modificado.", fig.pos="H"}
+barplot(table(mater$idadeCateg), 
+        ylim = c (0,1000), 
+        col= "tomato", 
+        border = "black", 
+        ylab= "Frequência absoluta", 
+        xlab = "Faixa etária", 
+        cex.lab = 1.2,
+        las = 1)
+box(bty = "L")
+```
+
+Para que as barras fiquem horizontais como na Figura \@ref(fig:barrah), usa-se o argumento `horiz=TRUE`:
+
+```{r barrah, out.width="80%", out.height="80%", fig.align='center', fig.cap="Gráfico com barras horizontais.", fig.pos="H"}
+barplot(table(mater$idadeCateg), 
+        xlim = c (0,1000), 
+        col= "steelblue", 
+        border = "black", 
+        ylab= "Faixa Etária", 
+        xlab = "Frequência absoluta", 
+        cex.lab = 1.2, 
+        horiz=TRUE)
+box(bty = "L")
+```
+
+Além disso, é possível fazer outras alterações para tornar o gráfico mais informativo . Por exemplo, pode-se colocar as frequência de cada barra no topo das mesmas (Figura \@ref(fig:barra3)):
+
+* **1º Passo**: Criar um gráfico de barras , colocando-o em um objeto *x*, que conterá a coordenada X do centro de cada uma das barras. Para verificar isso, basta executar o objeto *x*;
+* **2º Passo**: colocar a tabela `table(mater$idadeCateg)` com um objeto *y* da classe matriz;
+* **3º Passo**: usar a funçãoo `text()` para colocar os valores.
+
+```{r barra3, out.width="80%", out.height="80%", fig.align='center', fig.cap="Gráfico de barra simples com frequências no topo.", fig.pos="H"}
+x <- barplot(table(mater$idadeCateg), 
+             ylim = c (0,1000), 
+             col= "springgreen", 
+             border = "black", 
+             ylab = "Frequência absoluta", 
+             xlab = "Faixa etária", 
+             cex.lab = 1.2,
+             las = 1)
+box(bty = "L")
+
+y <- as.matrix(table(mater$idadeCateg))
+
+text (x, y, labels = as.character(y), adj = c(0.5, 2), col = "black")
+```
+
+**Gráfico de barras empilhadas**  
+
+Para este tipo de apresentação são utilizados, praticamente, os mesmos argumentos vistos para gerar um gráfico de barra simples. Como existem duas variáveis, há necessidade de avisar ao R como elas devem aparecer. Para isso, entra o argumento `beside = FALSE`, que informa que as barras não estarão uma ao lado da outra e sim empilhadas (Figura \@ref(fig:stacked)). O padrão é as barras ficarem uma ao lado da outra.   
+
+Acrescenta-se uma legenda com a função `legend()` na parte superior esquerda (`topleft`). O argumento `bty = "n"` informa que será removido o quadro ao redor da legenda e `fill = c("dimgrey", "salmon")` são as cores das barras.  
+
+As duas variáveis a serem visualizadas são o *hábito tabagista* entre as puérperas de acordo com a *idade*. No conjunto de dados dadosMater.xlsx, o hábito tabagista está registrado na variável `fumo`, vista quando se estudou tabelas de contingência. Aqui se construirá uma tabela 3 x 2, `tabFumo2`: 
+
+```{r stacked, out.width="90%", out.height="90%", fig.align='center', fig.cap="Gráfico de barras empilhadas.", fig.pos="H"}
+tabFumo2 <- table(mater$fumo, mater$idadeCateg)
+
+barplot(tabFumo2,
+        beside = FALSE,
+        ylim = c(0, 1000),
+        xlab="Faixa Etária", 
+        ylab = "Frequência", 
+        col = c ("dimgrey", "cadetblue1"),  
+        cex.lab = 1, 
+        cex.axis = 1, 
+        cex.names = 1,
+        las = 1)
+box(bty = "L")
+legend ("topleft",
+        legend = c("Fumantes", "Não Fumantes"), 
+        fill = c("dimgrey", "cadetblue1"), 
+        bty="n", 
+        cex = 1)
+```
+
+**Gráfico de barras lado a lado**  
+
+É igual a anterior, apenas com o argumento `beside = TRUE` (Figura \@ref(fig:side)).
+
+```{r side, out.width="90%", out.height="90%", fig.align='center', fig.cap="Gráfico de barras lado a lado", fig.pos="H"}
+barplot(tabFumo2,
+        beside = TRUE,
+        ylim = c(0, 1000),
+        xlab="Faixa Etária", 
+        ylab = "Frequência", 
+        col = c ("dimgrey", "cadetblue1"),  
+        cex.lab = 1, 
+        cex.axis = 1, 
+        cex.names = 1,
+        las = 1)
+box(bty = "L")
+legend ("topleft",
+        legend = c("Fumantes", "Não Fumantes"), 
+        fill = c("dimgrey", "cadetblue1"), 
+        bty="n", 
+        cex = 1)
+```
+
+**Gráfico de barras para uma variável discreta**
+
+A variável `mater$para`, número de filhos anteriores ao atual, é uma variável numérica discreta e, para representá-la, o mais adequado é usar um gráfico de barras simples Figura \@ref(fig:discreta)).
+
+```{r discreta, out.width="80%", out.height="80%", fig.align='center', fig.cap="Gráfico de barras para uma variável discreta", fig.pos="H"}
+tab_filhos<- table (mater$para) 
+
+barplot (tab_filhos, 
+         col = "tomato", 
+         xlab="Número de filhos anteriores ao atual", 
+         ylab = "Frequência",
+         ylim = c(0, 500),
+         cex.lab = 1, 
+         cex.axis = 1, 
+         cex.names = 1,
+         las = 1)
+box(bty = "L")
+```
+
+### Gráfico de barra de erro
+
+O *gráfico de barra de erro* é um tipo de gráfico barra acrescido de uma medida de dispersão: desvio padrão, intervalos de confiança ou erro padrão. As barras de erro dão uma ideia geral de quão precisa é uma medição ou, inversamente, quão longe o valor observado está do valor verdadeiro.  
+
+Continuando a usar o arquivo `dadosMater.xlsx`, será selecionada uma amostra de recém-nascidos a termo, definido pela OMS como o nascido de 37 semanas completas a 42 semanas incompletas (259 a 293 dias). A partir destes dados, será construido um gráfico de barra de erro dos recém-nascidos do sexo masculino e feminino.  
+
+Inicialmente, deve ser instalado e carregado o pacote  `Hmisc` @harrell2022hmisc, necessário para fornecer a função `errbar()` que irá construir o gráfico de de barra de erro.
+
+```{r message=FALSE, warning=FALSE}
+library (Hmisc)
+```
+
+A seguir, carregar o arquivo `dadosMater.xlsx` e transformar em fator a variável sexo, usando os rótulos `masc` e `fem.`
+
+```{r}
+mater <- read_excel("Arquivos/dadosMater.xlsx") 
+
+mater$sexo <- factor(mater$sexo,
+                     labels = c('masc', 'fem'))
+```
+
+Em sequência, selecionar as variáveis necessárias ao objetivo (`ig`, `pesoRN` e `sexo`), usando a função `select()`; separar com a função `filter()` os recém-nascidos a termo (ig >= 37 & ig < 42) e calcular, através da função `summarise(`), as medidas resumidoras, separando os grupos com a função `group_by(), de acordo com o sexo. Todas essas funções são pertencentes ao pacote `dplyr`.
+
+```{r}
+mater <- mater %>% select(ig, pesoRN, sexo) %>% 
+  filter(ig >= 37 & ig < 42)  %>% 
+  group_by(sexo) %>% 
+  summarise(n = n(),
+            media = mean(pesoRN, na.rm = T),
+            dp = sd(pesoRN, na.rm = T),
+            ep = dp/sqrt(n),
+            l_inf = media - 1.96*dp,
+            l_sup = media + 1.96*dp)
+```
+
+No próximo passo, constroi-se um objeto, denominado `barras`, que irá conter as médias dos pesos dos recém-nascidos masculinos e femininos, que representam a altura das barras. Usando este objeto, constroi-se um gráfico de barras que será recebido por outro objeto, `bp`.  
+
+Finalmente, coloca-se os limites inferiores e superiores para cada sexo, usando os valores calculados pela função `summarise()` que junto com o objeto `bp` constituem-se de argumentos da função `errbar()` (Figura \@ref(fig:errorbar)). Veja maiores detalhes na ajuda do R (`?errbar`). 
+
+```{r errorbar, out.width="80%", out.height="80%", fig.align='center', fig.cap="Gráfico de barras de erro", fig.pos="H"}
+barras <- c(mater$media[1], mater$media[2])
+
+bp <- barplot(barras, 
+              ylim=c(0,4200), 
+              ylab = "Peso do Recém-nascido (g)",
+              cex.lab = 1,
+              cex.axis = 0.8,
+              cex.names = 1,
+              space = c(0,0.5),
+              names.arg=c("Meninos", "Meninas"), 
+              col = c("lightblue", " pink2"),
+              las = 1)
+box(bty = "L")
+
+lim_inf <- c(mater$l_inf[1], mater$l_inf[2])
+round(lim_inf, 2)
+
+lim_sup <- c(mater$l_sup[1], mater$l_sup[2])
+round(lim_sup, 2)
+
+errbar(bp, barras, lim_inf, lim_sup, add = T, xlab = NULL)
+```
+
+### Histograma  
+
+O *histograma* é uma ferramenta gráfica que fornece informações sobre o formato da distribuição e dispersão dos dados, permitindo verificar se existe ou não simetria. É usado para dados contínuos.    
+
+No histograma as frequências observadas são representadas por intervalos de classes de ocorrência que estão no eixo *x* e a altura das barras, representando a frequência de cada intervalo, no eixo *y*. A área de cada barra é proporcional à porcentagem de observações de cada intervalo.   
+
+O R base possui uma função, denominada de `hist()` que constroi o histograma e possui vários argumentos:  
+
+* **x**  $\longrightarrow$ um vetor numérico usado na construção do histograma  
+* **breaks**   $\longrightarrow$ especifica o número de barras
+* **freq**   $\longrightarrow$ lógico; se `TRUE` (padrão), o histograma é uma representação de frequências; se `FALSE`, densidades de probabilidade, densidade de componentes, são plotados
+* **col**  $\longrightarrow$ cor a ser usada para preencher as barras. O padrão de NULL produz barras não preenchidas 
+* **border**  $\longrightarrow$ cor da borda ao redor das barras. O padrão é usar a cor de primeiro plano padrão
+* **main, xlab, ylab** $\longrightarrow$ rótulo do título, do eixo *x* e do eixo *y*. Para remover o rótulousar `NULL.`
+* **xlim, ylim**  $\longrightarrow$ limites do eixo *x* e do eixo *y*.  
+
+**Histograma Simples**  
+
+Os dados para a construção do histograma serão provenientes da variável `altura` do arquivo `dadosMater.xlsx`.
+
+```{r}
+mater <- read_excel("Arquivos/dadosMater.xlsx")
+```
+
+Para construir o histograma básico da Figura \@ref(fig:histb)), executa-se o comando:
+
+```{r histb, out.width="80%", out.height="80%", fig.align='center', fig.cap="Histograma básico", fig.pos="H"}
+hist(mater$altura)
+```
+
+Observando o histograma gerado, observam-se alguns problemas que devem ser melhorados para tornar a sua aparência mais agradável.
+
+* O rótulo dos eixo *x* está com o nome da variável e do eixo *y* está em inglês;
+* O título do histograma está em inglês e repete o eixo *x*. Pode ser removido. 
+* O eixo *y* tem um limite superior menor do que a barra mais alta;
+* O gráfico está na cor cinza, que conforme o interesse pode ser modificada;
+* O número de barras pode ser modificado com o argumento `breaks`. Existe uma função no R que permite calcular o número de intervalos, usando a *regra de Sturges* (`nclass.Sturges()`). Entretanto, na maioria das vezes, é o objetivo do estudo quem determina o número de barras e, também, porque nem sempre o R obedece ao argumento.  
+
+É importante saber o limite inferior e superior da variável, para construir o eixo *x*:
+
+```{r}
+min(mater$altura, na.rm = TRUE)
+max(mater$altura, na.rm = TRUE)
+```
+```{r}
+nclass.Sturges(mater$altura)
+```
+
+Acrescentado argumentos, modifica-se o aspecto do histograma (Figura \@ref(fig:histmod)):
+
+```{r histmod, out.width="80%", out.height="80%", fig.align='center', fig.cap="Histograma modificado", fig.pos="H"}
+hist(mater$altura,
+     breaks = 12,
+     ylim = c (0, 450),
+     xlim = c (1.4, 1.9),
+     main= NULL, 
+     ylab = "Frequência", 
+     xlab = "Altura da gestante (metros)",
+     col = "tomato",
+     las = 1)
+box(bty = "L")
+```
+
+Observe que o formato do histograma é igual ao anterior, mudando a cor das barras, o limite do eixo *y* e os rótulos dos eixos. O R não modificou o número de barras. Ou seja, não obedeceu à modificação do argumento breaks = 12. Ele escolheu o que ele achou mais adequado!
+
+**Histograma com curva normal sobreposta**
+
+Eventualmente, para melhor comparar a distribuição dos dados, usamos uma curva normal sobreposta que servirá de indicador (Figura \@ref(fig:histnormal)). A distribuição normal será discutida mais adiante.
+
+*1º Passo:*   
+Construir um histograma de densidade, que é a proporção de todas as observações que se enquadram dentro do intervalo. Na função `hist()`, modificar o argumento  para `freq = FALSE`.
+
+*2º Passo:*   
+Adicionar uma curva normal ao histograma, usando a função `curve()`. Calcular antes a média e o desvio padrão da variável `mater$altura`.
+
+```{r histnormal, out.width="80%", out.height="80%", fig.align='center', fig.cap="Histograma com curva normal sobreposta", fig.pos="H"}
+mu <- mean(mater$altura, na.rm =TRUE)
+dp <- sd(mater$altura, na.rm = TRUE)
+
+hist(mater$altura,
+     ylim = c (0, 6),
+     xlim = c (1.4, 1.9),
+     main= NULL, 
+     ylab = "Densidade", 
+     xlab = "Altura da gestante (metros)",
+     col ="steelblue",
+     freq = FALSE,            
+     border = "white")
+box (bty = "L")
+
+curve (dnorm (x, 
+              mean=mu, 
+              sd=dp), 
+       col="red", 
+       lty=1,
+       lwd=2,
+       add=TRUE)
+```
+
+**Componentes do Histograma**
+
+Ao se criar um objeto *h* da classe `histogram` (Figura \@ref(fig:histh)), pode-se verificar uma lista de componentes do mesmo.
+
+```{r histh, out.width="80%", out.height="80%", fig.align='center', fig.cap="Histograma da altura da gestante", fig.pos="H"}
+h <- hist(mater$altura,
+          breaks = 8,
+          ylim = c (0, 450),
+          xlim = c (1.4, 1.9),
+          main= NULL, 
+          ylab = "Frequência", 
+          xlab = "Altura da gestante (metros)",
+          col ="seagreen2",
+          freq = TRUE,           
+          border = "white")
+      box (bty = "L")
+h
+```
+
+Estes componentes podem ser usados para outras análises.
+
+**Construção de um histograma usando os componentes**
+
+Pode-se colocar os valores correspondentes às barras usando os componentes do histograma (Figura \@ref(fig:histfreq)).
+
+```{r histfreq, out.width="80%", out.height="80%", fig.align='center', fig.cap="Histograma com frequência no topo", fig.pos="H"}
+hist(mater$altura,
+     breaks = 8,
+     ylim = c (0, 450),
+     xlim = c (1.4, 1.9),
+     main= NULL, 
+     ylab = "Frequência", 
+     xlab = "Altura da gestante (metros)",
+     col = "salmon")
+box (bty = "L")
+
+text (h$mids, h$counts, labels = h$counts, adj= c(0.5, -0.5))
+```
+
+### Boxplot
+
+O *boxplot* descreve a distribuição de uma variável contínua exibindo o resumo de cinco números: mínimo, 1º quartil (percentil 25), mediana (percentil 50), 3ª quartil (percentil 75) e máximo (Figura \@ref(fig:boxplot)). Pode também apresentar observações atípicas (*outliers*), valores fora do intervalo de ± 1,5 o intervalo interquartil, em geral, representados por (o). Valores que estão acima ou abaixo de 3 vezes o IIQ são considerados extremos, representados por (*).
+
+```{r boxplot, echo = FALSE, out.width = '80%', fig.align = 'center', fig.cap="Boxplot", fig.pos="H"}
+ knitr::include_graphics("https://i.imgur.com/dbjdKzk.png")
+```
+
+Continuando a usar o arquivo `dadosMater.xlsx`, será selecionada uma amostra de recém-nascidos a termo da mesma maneira como foi feito para construção do gráfico de barra de erro.  
+
+```{r}
+mater <- read_excel("Arquivos/dadosMater.xlsx") 
+
+mater$sexo <- factor(mater$sexo,
+                     labels = c('masc', 'fem'))
+```
+
+O R possui uma função no pacote básico denominada `boxplot()` que constroi o gráfico da Figura \@ref(fig:bxp).  
+
+```{r bxp, out.width="80%", out.height="80%", fig.align='center', fig.cap="Boxplot simples", fig.pos="H"}
+boxplot (mater$pesoRN)
+```
+
+Este boxplot pode ser modificado (Figura \@ref(fig:bxpmod)), alterando alguns argumentos como colocação de um título no gráfico, e rótulos nos eixos e mudança na cor. Os argumento `cex.lab`, `cex.axis` e `cex.names` estabelecem o tamanho fontes. Por exemplo, para aumentar em 20%, usamos 1.2.
+
+```{r bxpmod, out.width="80%", out.height="80%", fig.align='center', fig.cap="Boxplot modificado", fig.pos="H"}
+boxplot (mater$pesoRN, 
+         col = "lightblue2", 
+         main = "RN a termo", 
+         ylab = "Peso do Recém-nascido (g)",
+         border = "black",
+         cex.lab = 1, 
+         cex.axis = 1, 
+         cex.names = 1,
+         las = 1)
+```
+
+**Estatísticas do boxplot**  
+
+A função `boxplot.stats()` do pacote `grDevices` fornece as estatísticas do boxplot, facilitando a interpretação do mesmo, de modo semelhante ao visto para o histograma.
+
+```{r}
+boxplot.stats (mater$pesoRN)
+```
+
+* $stats = é o resumo dos 5 números: mínimo, percentil 25, mediana, percentil 75 e máximo
+* $n = nº de obs; 
+* $conf = limite inf/sup do entalhe se houver;
+* $out = são os *outliers*  
+
+**Múltiplos boxplots**
+
+Os boxplots são muito usados na comparação de grupos. A necessidade mais comum é ordenar as categorias de acordo com o aumento da mediana, mas isto é opcional. Permite identificar rapidamente qual grupo tem o maior valor e como as categorias são classificadas (Figura \@ref(fig:bxpm)).
+
+```{r bxpm, out.width="80%", out.height="80%", fig.align='center', fig.cap="Múltiplos boxplots", fig.pos="H"}
+boxplot (mater$pesoRN ~ mater$sexo, 
+         col = c("lightblue2", "pink"), 
+         ylab = "Peso do Recém-nascido (g)", 
+         xlab = "Sexo",
+         ylim = c(1000, 5000),
+         border = "black",
+         cex.lab = 1, 
+         cex.axis = 1, 
+         cex.names = 1,
+         las = 1)
+```
+
+Pode-se fazer um entalhe (*notch*) que podem ser interpretados como um intervalo de comparação em torno dos valores medianos (Figura \@ref(fig:bxpnotch)). É calculado pela fórmula :$mediana \pm 1.57\times IIQ/\sqrt{n}$. No nosso exemplo, observe que o entalhe nos meninos está um pouco acima do das meninas..
+
+```{r bxpnotch, out.width="80%", out.height="80%", fig.align='center', fig.cap="Boxplots com entalhes", fig.pos="H"}
+boxplot (mater$pesoRN ~ mater$sexo, 
+         col = c("lightblue2", "pink"), 
+         ylab = "Peso do Recém-nascido (g)", 
+         xlab = "Sexo",
+         ylim = c(1000, 5000),
+         border = "black",
+         cex.lab = 1, 
+         cex.axis = 1, 
+         cex.names = 1,
+         las = 1,
+         notch = TRUE)
+```
+
+
+**Boxplots com `stripcharts`**
+
+A função `stripcharts()` permite criar um gráfico de dispersão unidimensional sobre o boxplot (Figura \@ref(fig:stripcharts)). Você também pode personalizar o símbolo (pontos) para criar o gráfico, a largura da linha e sua cor com os argumentos `pch`, `lwd` e `col`, respectivamente. Alguns símbolos, como `pch = 21 a 25` permitem que você modifique a cor de fundo do símbolo com o argumento `bg`. O argumento `vertical = TRUE`, coloca os pontos na vertical sobreposto ao boxplot, quando o argumento `add = TRUE`. O argumento `cex = 0.3` é o tamanho dos pontos e `method = "jitter"`, espalha os pontos.
+
+```{r stripcharts, out.width="80%", out.height="80%", fig.align='center', fig.cap="Boxplots com dispersão unidimensional", fig.pos="H"}
+boxplot (mater$pesoRN ~ mater$sexo, 
+         col = c("lightblue2", "pink"), 
+         ylab = "Peso do Recém-nascido (g)", 
+         xlab = "Sexo",
+         border = "black",
+         cex.lab = 1, 
+         cex.axis = 1, 
+         cex.names = 1,
+         pch = 20,
+         cex = 0.8,
+         las = 1,
+         outline = TRUE)
+
+stripchart(mater$pesoRN ~ mater$sexo,
+           method = "jitter",
+           main=NULL,
+           col = c("blue", "red"),
+           vertical=TRUE,
+           pch=16,
+           cex = 0.3,
+           add = TRUE)
+```
+
+
+**Boxplots horizontais**
+
+Para criar um boxplot horizontal (Figura \@ref(fig:bxph)), usamos o argumento `horizontal = TRUE` e invertemos os rotulos dos eixos *x* e *y*.
+
+```{r bxph, out.width="80%", out.height="80%", fig.align='center', fig.cap="Boxplots horizontais", fig.pos="H"}
+boxplot (mater$pesoRN ~ mater$sexo, 
+         col = c("lightblue2", "pink2"), 
+         xlab = "Peso do Recém-nascido (g)", 
+         ylab = "Sexo",
+         horizontal = TRUE,
+         border = "black",
+         cex.lab = 1, 
+         cex.axis = 1, 
+         cex.names = 1,
+         pch = 20,
+         cex = 0.8)
+```
+
+### Gráfico de Dispersão  
+
+Um gráfico de dispersão (*Scatterplot*) exibe a relação entre duas variáveis numéricas. Cada ponto representa uma observação. Suas posições nos eixos *x* (horizontal) e *y* (vertical) representam os valores das duas variáveis.  
+
+O R Base é uma boa opção para construir um gráfico de dispersão, usando a função `plot()`. Ambas as variáveis numéricas do banco de dados devem ser especificadas nos argumentos *x* e *y*.  
+
+Será construído um gráfico de dispersão (Figura \@ref(fig:scatter)) do comprimento e o peso dos recém-nascidos a termo. Com o conjunto de dados `dadosMater.xlsx`, usado até aqui, selecionamos as variáveis `compRN`, `pesoRN`, `sexo` e `ig`, incluindo apenas os neonatos a termo (37 semanas $\le$ idade gestacional $<$ 42 semanas) 
+
+```{r scatter, out.width="80%", out.height="80%", fig.align='center', fig.cap="Gráfico de dispersão", fig.pos="H"}
+mater <- read_excel("Arquivos/dadosMater.xlsx") 
+
+mater$sexo <- factor(mater$sexo,
+                     labels = c('masc', 'fem'))
+
+mater <- mater %>% select(ig, pesoRN, compRN, sexo) %>% 
+  filter(ig >= 37 & ig < 42)
+
+plot (x = mater$compRN,
+      y = mater$pesoRN,
+      ylab = "Peso de Recém-nascido (g)",
+      xlab = "Comprimento do Recém-nascido (cm)",
+      cex.axis = 0.8,
+      las = 1)
+```
+
+Este mesmo gráfico pode ser obtido, usando uma fórmula `y~x` e acrescentando o argumento `bty = "L"` (Figura \@ref(fig:scatter1)). Este argumento permite personalizar a caixa ao redor do gráfico. 
+
+* **o**: caixa completa (parâmetro padrão),
+* **n**: sem caixa
+* **7**: superior + direita
+* **L**: inferior + esquerda
+* **C**: superior + esquerda + inferior
+* **U**: esquerda + inferior + direita
+
+```{r scatter1, out.width="80%", out.height="80%", fig.align='center', fig.cap="Gráfico de dispersão", fig.pos="H"}
+plot (pesoRN ~ compRN,
+      data = mater,
+      ylab = "Peso de Recém-nascido (g)",
+      xlab = "Comprimento do Recém-nascido (cm)",
+      cex.axis = 0.8,
+      las = 1,
+      bty = "L")
+```
+
+Como em qualquer outro gráfico, este também pode ser melhorado em seu aspecto, tornando os pontos sólidos e coloridos. O argumento `pch` estabelece o tipo de pontos (Figura \@ref(fig:pch)).  
+
+```{r pch, echo = FALSE, out.width = '65%', fig.align = 'center', fig.cap="Argumento pch", fig.pos="H"}
+ knitr::include_graphics("https://i.imgur.com/8VWZSGk.png")
+```
+
+Além disso, como os pontos estão aglomerados, devido a quantidade, é possível tentar espalhá-los, usando a função `jitter()` na variável `compRN` (Figura \@ref(fig:jitter)). O argumento 10 é variável e significa o grau de espalhamento:
+
+```{r jitter, out.width="80%", out.height="80%", fig.align='center', fig.cap="Gráfico de dispersão com *jitter*", fig.pos="H"}
+plot (jitter(mater$compRN,10),
+      mater$pesoRN,
+      col = "steelblue",
+      ylab = "Peso de Recém-nascido (g)",
+      xlab = "Comprimento do Recém-nascido (cm)",
+      las = 1,
+      bty = "L",
+      pch = 19,
+      cex = 1,
+      cex.lab = 1.1,
+      cex.axis = 0.8)
+```
+
+**Mapeamento dos pontos de acordo com uma variável categórica**
+
+Inicialmente, será criado um vetor para representar as cores, de acordo com o sexo (meninos = azul; meninas = vermelho). Usa-se a função `unclass()` para discriminar os sexos (Figura \@ref(fig:map)). Acrescenta-se uma legenda para ilustrar a separação.
+
+```{r map, out.width="80%", out.height="80%", fig.align='center', fig.cap="Mapeamento dos pontos de acordo com uma variável categórica", fig.pos="H"}
+cores <- c("dodgerblue3", "tomato")
+
+plot(x = jitter(mater$compRN, 10), 
+  y = mater$pesoRN,
+  bg = cores[unclass(mater$sexo)],
+  ylab = "Peso de Recém-nascido (g)",
+  xlab = "Comprimento do Recém-nascido (cm)",
+  las = 1,
+  bty = "L",
+  cex = 1.5,
+  pch=21,
+  cex.lab = 1,
+  cex.axis = 0.8)
+
+legend (legend = c("Meninos", "Meninas"), 
+        fill = cores, 
+        bty="n", 
+        cex = 1,
+        "topleft")
+```
+
+**Adição da reta de ajuste**
+
+Uma linha reta de ajuste dos dados (Figura \@ref(fig:reta)) pode ser acrescentada usando a função `abline ()`, associada a função `lm ()`. Um modelo típico lm (*linear model*) tem o formato *resposta (*y*) ~ preditor (*x*)*. Mais detalhes sobre o modelo de ajuste linear na regressão linear.
+
+```{r reta, out.width="80%", out.height="80%", fig.align='center', fig.cap="Gráfico de dispersão com reta de ajuste", fig.pos="H"}
+# Construção do gráfico de dispersão
+plot (jitter(mater$compRN,10),
+      mater$pesoRN,
+      col = "gray40",
+      bg = "darkturquoise",
+      ylab = "Peso de Recém-nascido (g)",
+      xlab = "Comprimento do Recém-nascido (cm)",
+      las = 1,
+      bty = "L",
+      pch = 21,
+      cex = 1.3,
+      cex.lab = 1,
+      cex.axis = 0.8)
+
+# Criação do modelo de ajuste
+modelo <- lm (mater$pesoRN ~ mater$compRN)
+
+# Adição da reta, usando o modelo
+abline (modelo, 
+        col="red", 
+        lwd=2, 
+        lty = 2)
+```
+
+Ao executar o modelo, se obtém os parâmetros para a construção da equação da regressão linear:
+
+```{r}
+summary(modelo)
+```
+
+A equação de predição da regressão linear permite que ao conhecer o valor do comprimento é possível prever o peso do recem-nascido:
+
+$$
+\hat{y} = b_{0}+ b_{1}\times x
+$$
+
+Desta forma, substituindo pelos valores contidos nas estimativas da tabela dos coeficientes do sumário do modelo, um bebê com 50 cm terá um peso de aproximadamente:
+
+$$
+\hat{y} = -3416.45 + 137.67\times 50 = 3467.05
+$$
+
+OBSERVAÇÃO: Para maiores detalhes sobre os parâmetros dos gráficos no R, consulte [**aqui**](https://www.statmethods.net/advgraphs/parameters.html). 
+
+
+## Introdução ao `ggplot2`  
+
+O R tem vários sistemas para fazer gráficos e, na ,maioria das vezes, eles são suficientes. Entretanto, o surgimento do `ggplot2` @wickham2016ggplot2 trouxe a possibilidade de serem construídos gráficos mais elegantes e versáteis. Além disso, torna o processo mais rápido,  baseado uma sofisticada gramática [@wickham2010layered].   
+
+O gráfico é construído, usando função `ggplot()`, a partir de alguns elementos básicos:
+
+* **Dados**: os dados brutos que você deseja representar graficamente.
+* **Geometria** `geoms`: As formas geométricas que irão representar os dados.
+* **Estética** `aes`: Estética dos objetos geométricos e estatísticos, como posição, cor, tamanho, forma e transparência
+* **Escala** `scales`: Mapas entre os dados e as dimensões estéticas, como intervalo de dados para plotar largura ou valores de fator para cores.
+* **Transformações estatísticas** `stats`: resumos estatísticos dos dados, como quantis, curvas ajustadas e somas.
+* **Sistemas de coordenadas** `coordinates Systems`: A transformação usada para mapear coordenadas de dados no plano do retângulo de dados.
+* **Facetas** `faceting`: A organização dos dados em uma grade de gráficos.
+* **Temas visuais** `themes`: Os padrões visuais gerais de um gráfico, como plano de fundo, grades, eixos, tipo de letra padrão, tamanhos e cores.
+
+> <font size=2> O número de elementos pode variar dependendo de como você os agrupa e da pergunta a ser respondida. </font>  
+
+### Dados
+
+Antes de trabalahar com os dados, há necessidade de instalar e carregar alguns pacotes. O pacote `pacman()` @tyler2018pacman será utilizado pela sua versatilidade em buscar e carregar múltiplos pacotes. Será utilizada a função `p_load()`, deste pacote:
+
+```{r}
+if(!require(pacman)){install.packages("pacman")}
+pacman::p_load(readxl, ggplot2, dplyr, knitr, kableExtra, ggpubr, scales, forcats)
+```
+
+Com os pacotes devidamente ativos, o conjunto de dados `dadosMater.xlsx`, já bastante conhecido, é carregado:
+
+```{r}
+mater <- read_excel("Arquivos/dadosMater.xlsx")
+```
+
+Este banco de dados é bastante extenso e contém muitas variáveis que não serão usadas. Por isso, ele será reduzido, usando a função `select ()` do pacote `dplyr`para criar um novo objeto com o nome `dados`:
+
+```{r}
+dados <- mater %>% 
+  select(idadeMae, anosEst, peso, renda, ig, tipoParto, 
+         fumo, pesoRN, compRN, sexo) %>% 
+  filter(ig >= 37 & ig < 42)
+```
+
+Após este processo, algumas variáveis serão transformadas:
+
+**Criação de das variáveis idadeCateg e escolaCateg**
+
+A partir da variável `idadeMae` e usando a função `cut()` será criada a variável `idadeCateg`:
+
+```{r}
+dados$idadeCateg <- cut(dados$idadeMae,
+                        breaks = c(13, 20, 36, 46),
+                        labels = c("<20a", "20-35a", ">35a"),
+                        include.lowest = TRUE,
+                        right = FALSE,
+                        ordered_result =TRUE)
+```
+
+A variável `escolaCateg` será criada da mesma maneira, a partir da variável anosest. Até 9 anos de estudos completos: *ensino fundamental*; de 10 a 12 anos, o *ensino médio* e a partir de 13 anos de estudo, o ensino superior. 
+
+```{r}
+dados$escolaCateg <- cut (dados$anosEst,
+                          breaks= c (0,10,13,18),
+                          right = FALSE,
+                          labels = c("Fundamental",
+                                     "Médio",
+                                     "Superior"),
+                          include.lowest = TRUE,
+                          ordered_result =TRUE) 
+```
+
+**Transformação de variáveis numéricas em fator**  
+
+As variáveis numéricas do banco que são categóricas serão modificadas para fatores:
+
+```{r}
+dados$fumo <- factor (dados$fumo,
+                      levels = c(1, 2),
+                      labels = c("sim", "não"))
+
+dados$tipoParto <- factor (dados$tipoParto,
+                           levels = c(1, 2),
+                           labels = c("normal", "cesareo"))
+
+dados$sexo <- factor (dados$sexo,
+                      levels = c(1, 2),
+                      labels = c("masc", "fem"))
+```
+
+Desta forma, os dados tem a seguinte configuração:
+
+```{r}
+str(dados)
+```
+
+As variáveis `idadeMae` e `anosEst` não são mais necessárias e serão removidas:
+
+```{r}
+dados <-dados %>% 
+  select(-idadeMae, -anosEst)
+```
+
+Como forma de treinamento, os dados serão exibidos de uma forma, visualmente, mais elegante e em uma apresentação mais amigável (Tabela \@ref(tab:mater)). A função `kable()`, do pacote `knitr`, e a função `kable_styling()` do pacote `kableExtra`, já vistas anteriormente, cumprem este papel. A função `kable ()` pode usar a função `head()` embutida. Ao executar os códigos serão exibido apenas 10 linhas do banco de dados (se não for especificado, mostra apenas 6 linhas). Isto evita uma poluição visual:
+
+```{r mater, echo=TRUE, warning=FALSE, message=FALSE}
+kable(head(dados, 10),
+      booktabs = TRUE,
+      caption = "Dados do arquivo `dadosMater.xlsx` resumidos") %>% 
+  kableExtra::kable_styling(full_width = FALSE,
+                            bootstrap_options = "striped") %>% 
+  kableExtra::kable_classic(html_font = "Cambria")
+```
+
+O argumento `full_width =FALSE`, reduz a largura da tabela e a `boostrap_options =` admite vários opções além da `basic`, isoladas ou combinadas:
+
+* *striped*: adiciona listras zebradas à tabela;
+* *hover*: adiciona cor de fundo cinza nas linhas da tabela;
+* *condensed*: torna a tabela mais compacta;
+* *responsive*: faz rolagem horizontal quando há menos de 768 px (20,32 cm)
+
+### `ggplot`
+
+A sintaxe do `ggplot2` é diferente do R básico. De acordo com os elementos básicos, um `ggplot` padrão precisa de três informações que devem ser especificadas: os *dados*, a *estética* e a *geometria*. Essas são as camadas principais.  
+Vamos construir um `ggplot` padrão (Figura \@ref(fig:padrao)) que será recebido por um objeto `g`, usando `data = dados` e a estética (`aes`) usará, no eixo *x*, a variável `compRN` e, no eixo *y*, a variável `pesoRN`.
+
+```{r padrao, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico ggplot padrão", fig.pos="H"}
+g <- ggplot (data = dados, aes (x = compRN, y = pesoRN))
+g
+```
+
+A este gráfico básico "vazio" adiciona-se uma camada que especifique o tipo de gemometria desejada (Figura \@ref(fig:layer1)). Será utilizada a `geom_point()` que retorna um gráfico de dispersão.
+  
+
+```{r layer1, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de dipersão", fig.pos="H"}
+g + geom_point()
+```
+
+A estética (`aes`) pode ser definida tanto na camada `ggplot` como na `geom`. Especificando no `ggplot`, esta `aes` será usada em todos os geoms usados. Usando no `geom`, servirá apenas para ele. No exemplo. é indiferente o local de uso da `aes`, o resultado será o mesmo, pois temos apenas um `geom`.
+
+### Tipos de `geoms`
+
+Encontra-se uma grande possibilidade de geometrias, de acordo com o tipo de gráfico que será plotado. Elas podem ser visualizadas [**aqui**](https://ggplot2.tidyverse.org/reference/). Por exemplo:
+
+**Histograma**
+    
+Para a construção de um histograma, usaremos a variável `pesoRN` e o `geom_histogram()`. Aqui, há necessidade apenas do eixo *x*, pois existe uma única variável onde se observa a sua distribuição (Figura \@ref(fig:gghist)):
+
+```{r gghist, message=FALSE, out.width="80%", out.height="80%", fig.align='center', fig.cap="Histograma no 'ggplot2'", fig.pos="H"}
+ggplot(data = dados) +
+  geom_histogram(aes(x = pesoRN))
+```
+
+**Gráfico de barras** 
+
+Sera construído um gráfico de barras (Figura \@ref(fig:ggbar)) da variável `idadeCateg`, usando o `geom_bar()`.
+
+```{r ggbar, message=FALSE, warning=FALSE, out.width="80%", out.height="80%", fig.align='center', fig.cap="Gráfico de barras no 'ggplot2'", fig.pos="H"}
+ggplot(data = dados) +
+  geom_bar(aes(x = idadeCateg, y = after_stat(count/sum(count))))
+```
+
+**Boxplot**
+
+Com o `geom_boxplot()`, serão construídos boxplots (Figura \@ref(fig:ggbxp)) comparando os pesos dos neonatos por sexo..
+
+```{r ggbxp, out.width="80%", out.height="80%", fig.align='center', fig.cap="Boxplot no 'ggplot2'", fig.pos="H"}
+ggplot(data = dados) +
+  geom_boxplot(aes(x = sexo, y = pesoRN))
+```
+
+**Gráfico de linhas**  
+
+Para obter os dados clique [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosObitos.xlsx) e baixar para o seu diretório de trabalho o arquivo `dadosObitos.xlsx`. Este conjunto de dados é constituído pelos óbitos por COVID-19 no Rio Grande do Sul, 2020-2022.  
+
+Crie o objeto `obitos` para receber o banco de dados, a partir do diretório de trabalho.
+
+```{r}
+obitos <- read_excel("Arquivos/dadosObitos.xlsx")
+str(obitos)
+```
+
+Para a construção do gráfico de linha (Figura \@ref{fig:ggline)), será usado o `geom_line()`.
+
+```{r ggline, out.width="80%", out.height="80%", fig.align='center', fig.cap="Gráfico de linha no 'ggplot2'", fig.pos="H"}
+ggplot(data = obitos) +
+  geom_line(aes(x = data, y = obitos))
+```
+
+### Modificando argumentos do `geom`
+
+Agora, serão modificados alguns argumentos no `geom`. Cada tipo de `geom` possibilita alterações específicas.
+
+Inicialmente, serão realizadas modificações no gráfico de dispersão, construído acima com o `geom_point`, modificando a cor, de acordo com o sexo do recém-nascido (Figura \@ref(fig:point)):
+
+```{r point, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de dispersão modificado com cores de acordo com o sexo", fig.pos="H"}
+ggplot(data = dados) +
+  geom_point(aes(x = compRN, y = pesoRN, 
+                 color = sexo))
+```
+
+Como o argumento cor foi colocado dentro da `aes`, ele será definido por uma variável, no caso `sexo`. Neste caso, cada um dos sexos serão representados por pontos coloridos diferentes. A escolha da cor foi automática pelo `ggplot2` entregando duas cores conforme o  padrão da sua paleta. 
+
+O tamanho dos pontos pode ser alterado com o argumento `size` (Figura \@ref(fig:point2)). 
+
+```{r point2, warning =FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de dispersão com cores e tamanhos diferentes dos pontos, de acordo com o sexo", fig.pos="H"}
+ggplot(data = dados) +
+  geom_point(aes(x = compRN, y = pesoRN, 
+                 color = sexo,
+                 size = sexo))
+```
+
+Ficou meio bagunçado, pois os pontos se sobrepõem e dificulta a visualização e inclusive o R libera um aviso informando que isto não é recomendado.
+
+O formato pode ser modificado com o argumento `shape`(Figura \@ref(fig:point3)):
+
+```{r point3, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de dispersão com formatos dos pontos diferentes, de acordo sexo", fig.pos="H"}
+ggplot(data = dados) +
+  geom_point(aes(x = compRN, y = pesoRN, 
+                 color = sexo,
+                 shape = sexo,
+                 size = sexo))
+```
+
+Agora, ficou muito pior! Não teria, logicamente, muito sentido modificar tudo ao mesmo tempo, com a mesma variável. Foi realizado, aqui, apenas para mostrar a possibilidade do `ggplot2`.  
+
+Estes argumentos foram modificados dentro da estética (`aes`), usando o nome da variável. Entretanto, também é possível colocar os argumentos fora da `aes`. Nesta situação (Figura \@ref(fig:point4)), colocando a cor fora da `aes`, há necessidade de escolher uma determinada cor para os pontos. 
+
+```{r point4, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de dispersão com alteração do formato", fig.pos="H"}
+ggplot(data = dados) +
+  geom_point(aes(x = compRN, 
+                 y = pesoRN,
+                 shape = sexo),
+             color = "steelblue",
+             size = 3)
+```
+
+O formato (`shape`) pode ser colocado fora do `aes` (Figura \@ref(fig:point6)) e  [**aqui**](http://www.sthda.com/english/wiki/ggplot2-point-shapes) se encontram vários formatos que podem ser usados no `ggplot2`.
+
+```{r point6, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de dispersão por sexo com alteração do argumento `color` e `shape`", fig.pos="H"}
+ggplot(data = dados) +
+  geom_point(aes(x = compRN, 
+                 y = pesoRN),
+             color = "tomato",
+             size = 2,
+             shape = 25)
+```
+
+### Reta de ajuste em um gráfico de dispersão
+
+Acrescenta-se uma nova camada , chamada `geom_smoot`, além da `geom_point`. Os argumentos são o `method = "lm"`que irá ajustar uma reta aos pontos. Também é possível colocar um intervalo de mais ou menos um erro padrão para a reta com o argumento`se = TRUE`.  No exemplo (Figura \@ref(fig:point7)), foi usado `se = FALSE`. Além disso, foi solicitado que cor da reta seja preta (`color = "black"`), reduzido o seu tamanho (`size = 0.5`) e estabelecido que a reta seja tracejada (`linetype = "dashed"`):
+
+```{r point7, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de dispersão com reta de ajuste", fig.pos="H"}
+ggplot(data = dados, aes(x = compRN, y = pesoRN)) + 
+  geom_point(color = "tomato", 
+             size = 3) +
+  geom_smooth(method = "lm", 
+              se = FALSE, 
+              color = "black", 
+              linewidth = 0.5,
+              linetype = "dashed")
+```
+
+Quando se usa mais de um `geom`, é importante a ordem em que eles são escritos, pois, como cada um deles é uma camada, elas se sobrepõem e podem se confundir.  
+
+### Filtrando dados para o gráfico  
+
+Faz-se isso, usando a função `filter()` do pacote `dplyr`. Será construído um gráficoigual ao anterior, filtrando apenas o sexo masculino (Figura \@ref{fig:point8)):
+
+```{r point8, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de dispersão com reta de ajuste para o sexo masculino", fig.pos="H"}
+dados %>% filter (sexo == "masc") %>%
+  ggplot(aes(x = compRN, y = pesoRN)) + 
+  geom_point(color = "steelblue", 
+             size = 3) +
+  geom_smooth(method = "lm", 
+              se = FALSE, 
+              color = "black", 
+              size = 0.5,
+              linetype = "dashed")
+```
+
+### Resumo dos dados usando o geom  
+
+Inicialmente, serão usado os argumentos `stat = "summary"` e `fun = "mean"` dentro do `geom_point()` (Figura \@ref(fig:point9)):
+
+```{r point9, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico resumo, mostrando as médias por sexo", fig.pos="H"}
+ggplot(data = dados, aes(x = sexo, y = pesoRN, color = sexo)) +
+  geom_point(stat = "summary",
+             fun = "mean",
+             size = 3,
+             show.legend = FALSE)
+```
+
+O argumento `show.legend = FALSE` foi acrescentado para evitar o aparecimento da legenda, indicando quem é `masc` ou `fem`, pois o eixo `x` já mostra.
+
+Pode-se chegar ao mesmo resultado, usando a função `stat_summary()` para acrescentar estatísticas de resumo.
+
+### Incluindo barras de erro  
+
+Aqui, usamos uma camada `geom_error bar()`, com os argumentos `stat = summary` e `fun.data = "mean_se"`. Este último  argumento fornece a média e o erro padrão e o `width = 0.1`, o tamanho da barra horizontal, gerando o gráfico da Figura \@ref(fig:erro):
+
+```{r erro, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de barra de erro no `ggplot2`", fig.pos="H"}
+ggplot(data = dados, aes(x = sexo, y = pesoRN, color = sexo)) +
+  geom_point(stat = "summary",
+             fun = "mean",
+             size = 3,
+             show.legend = FALSE) +
+  geom_errorbar(stat = "summary", 
+                fun.data = "mean_se",
+                width = 0.1,
+                show.legend = FALSE)
+```
+
+Usando o pacote `ggpubr` consegue-se criar um gráfico semelhante (Figura \@ref(fig:erro1)) ao anterior (média $\pm$ se), mas com o intervalo de confiança (média $\pm$ $1.96 \times se$).
+
+```{r erro1, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de barra de erro no `ggpubr`", fig.pos="H"}
+ggplot(data = dados, aes(x = sexo, y = pesoRN, color = sexo)) +
+  geom_point(stat = "summary",
+             fun = "mean",
+             size = 3,
+             show.legend = FALSE) +
+  geom_errorbar(stat = "summary", 
+                fun.data = "mean_ci",
+                width = 0.1,
+                show.legend = FALSE)
+```
+
+### Incluindo mais de um grupo no gráfico  
+
+Agora, será construído o mesmo gráfico do peso dos recém nascidos por sexo, levando em consideração o tabagismo materno (Figura \@ref(fig:erro2)). Em primeiro lugar, filtra-se pelo tabagismo, presente ou ausente. Depois seguindo a mesma programação anterior, separando as cores pelo tabagismo (`fumo`). Coloca-se também o argumento `position = position_dodge (0.4)` para que não haja sobreposição das barras no gráfico e exibe-se a legenda (`show.legend = TRUE`):
+
+```{r erro2, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico do peso do neonato de acordo com sexo e tabagismo materno", fig.pos="H"}
+dados %>% filter(fumo %in% c("sim", "não")) %>% 
+  ggplot(aes(x = sexo, y = pesoRN, color = fumo)) +
+  geom_point(stat = "summary",
+             fun = "mean",
+             position = position_dodge(0.4),
+             size = 3,
+             show.legend = TRUE) +
+  geom_errorbar(stat = "summary", 
+                fun.data = "mean_ci",
+                width = 0.1,
+                show.legend = TRUE,
+                position = position_dodge(0.4))
+```
+
+### Modificando o tema  
+
+O tema padrão do `ggplot2` é uma aparência acinzentada que pode ser modificada pela definição de outro tema integrado, como o `theme_bw()` (Figura \@ref(fig:tema)) que é uma variação de `theme_grey()`, padrão, que usa um fundo branco e linhas finas de grade cinza. Outro tema interessante é o `theme_classic()` que é um tema de aparência clássica, com linhas dos eixos *x* e *y* e sem linhas de grade, já usado no gráfico anterior. Para ver outras possibilidades clique [**aqui**](https://ggplot2-book.org/polishing.html).
+
+```{r tema, out.width="80%", out.height="80%", fig.align="center", fig.cap="Boxplots do peso do neonato de acordo com sexo", fig.pos="H"}
+ggplot(data = dados) +
+  geom_boxplot(aes(x = sexo, 
+                   y = pesoRN)) +
+  theme_bw()
+```
+
+Ou, adicionando cores aos boxplots e removendo a legenda, em uma nova camada, com o argumento`legend.position="none"` da função `theme ()` (Figura \@ref(fig:tema1)):  
+
+```{r tema1, out.width="80%", out.height="80%", fig.align="center", fig.cap="Boxplots com outro tema e sem legenda", fig.pos="H"}
+ggplot(data = dados) +
+  geom_boxplot(aes(x = sexo, 
+                   y = pesoRN, 
+                   color = sexo)) +
+  theme_classic() +
+  theme(legend.position="none") 
+```
+
+### Trabalhando com os eixos
+
+**Rótulo dos eixos** 
+
+Para adicionar ou modificar os rótulos dos eixos, adiciona-se `labs()`, escrevendo em cada rótulo (*x* e *y*) os seus respectivos rótulos (Figura \@ref(fig:eixo)):
+
+```{r eixo, out.width="80%", out.height="80%", fig.align="center", fig.cap="Boxplots com rótulos dos eixos modificados", fig.pos="H"}
+ggplot(data = dados) +
+  geom_boxplot(aes(x = sexo, 
+                   y = pesoRN,
+                   color = sexo)) +
+  labs (x = "Sexo do recém-nascido", 
+        y = "Peso do recém-nascido (g)") +
+  theme_classic() +
+  theme(legend.position="none") 
+```
+
+**Modificando o espaço entre o eixo e os rótulos do eixo**
+
+A função `theme()` é um comando essencial para modificar elementos específicos do tema (textos e títulos, caixas, símbolos, planos de fundo,etc.). É bastante usado!   
+
+Por enquanto, serão modificados elementos de texto (Figura \@ref(fig:texto)). É possível alterar as propriedades de todos ou alguns específicamente (aqui os títulos dos eixos), substituindo o `element_text ()` padrão com `theme ()`:
+
+```{r texto, out.width="80%", out.height="80%", fig.align="center", fig.cap="Boxplots com elementos dos textos modificados", fig.pos="H"}
+ggplot(data = dados) +
+  geom_boxplot(aes(x = sexo, 
+                   y = pesoRN,
+                   color = sexo)) +
+  labs (x = "Sexo do recém-nascido", 
+        y = "Peso do recém-nascido (g)") +
+  theme(axis.title.x = element_text(vjust = 0, size = 15),
+        axis.title.y = element_text(vjust = 2, size = 15)) +
+  theme_classic() +
+  theme(legend.position="none") 
+```
+
+O argumento `vjust` se refere ao alinhamento vertical, que geralmente varia entre 0 e 1, mas pode-se especificar valores fora desse intervalo. 
+Pode-se, também, alterar a distância especificando a margem de ambos os elementos de texto (Figura \@ref(fig:margem)):
+
+```{r margem, out.width="80%", out.height="80%", fig.align="center", fig.cap="Boxplots com outras modificações", fig.pos="H"}
+ggplot(data = dados) +
+  geom_boxplot(aes(x = sexo, 
+                   y = pesoRN,
+                   color = sexo)) +
+  labs (x = "Sexo do recém-nascido", 
+        y = "Peso do recém-nascido (g)") +
+  theme(axis.title.x = element_text(margin = margin (t = 10), size = 15),
+        axis.title.y = element_text(margin = margin (r = 10), size = 15)) +
+  theme_classic() +
+  theme(legend.position="none")
+```
+
+Os rótulos *t* e *r* dentro da função `margin()` referem-se ao topo e à direita, respectivamente. É possível especificar as quatro margens como margem (*t*, *r*, *b*, *l*). Observe que, agora, há necessidade de alterar a margem direita para modificar o espaço no eixo *y*, não a margem inferior.  
+
+**Acrescentando um título**  
+
+Pode-se adicionar um título através da função `ggtitle()` (Figura \@ref(fig:titulo)):
+
+```{r titulo, out.width="80%", out.height="80%", fig.align="center", fig.cap="Boxplots com elementos dos textos modificados", fig.pos="H"}
+ggplot(data = obitos) +
+  geom_line(aes(x = data, 
+                y = obitos)) +
+  labs(x = "Data (ano/mês)", 
+       y = "Nº de mortes") +
+  ggtitle ("Mortes por COVID-19 - SES/RS, 2020-22") +
+  theme_classic()
+```
+
+Uma outra maneira de colocar título, subtítulo e fonte no gráfico é (Figura \@ref(fig:subtitulo)):
+
+```{r subtitulo, out.width="80%", out.height="80%", fig.align="center", fig.cap="Boxplots com elementos dos textos modificados", fig.pos="H"}
+ggplot(data = obitos) +
+  geom_line(aes(x = data, 
+                y = obitos)) +
+  labs(x = "Data (ano/mês)", 
+       y = "Nº de mortes",
+       title = "Mortes por COVID-19",
+       subtitle = "RS - 2020-2022",
+       caption = "Fonte: SES") +
+  theme_classic()
+```
+
+Outro exemplo, modificando o tamanho, estilo e tipo de fonte (Figura \@ref(fig:fonte)). Isto é feito, adicionando a camada `theme()` com argumentos `plot.title`, `plot.subtitle`, etc. Para maiores detalhes consulte [**aqui**](https://tidyverse.github.io/ggplot2-docs/reference/theme.html).
+
+```{r fonte, message=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Boxplots com elementos dos textos modificados", fig.pos="H"}
+ggplot(data = dados, aes(x = sexo, y = pesoRN, color = sexo)) +
+  geom_point(stat = "summary",
+             fun = "mean",
+             size = 3,
+             show.legend = FALSE) +
+  geom_errorbar(stat = "summary", 
+                fun.data = "mean_ci",
+                width = 0.1,
+                show.legend = FALSE) +
+  labs(x = "Sexo do recém-nascido", 
+       y = "Peso do recém-nascido (g)",
+       title = "Peso do RN por sexo",
+       subtitle = "Maternidade do HGCS",
+       caption = "Fonte: Autor") +
+  theme_classic() +
+  theme (plot.title = element_text(size = 13, 
+                                   face = "bold", 
+                                   color = "navy"),
+         plot.subtitle = element_text(size = 11, 
+                                      face = "bold", 
+                                      color = "steelblue")) 
+```
+
+**Modificando os limites dos eixos**
+
+O sistema de coordenadas cartesianas é o tipo de sistema de coordenadas mais familiar e comum. Definir limites no sistema de coordenadas ampliará o gráfico (como se você estivesse olhando para ele com uma lupa) e não alterará os dados subjacentes, como definir limites em uma escala. Para realizar este trabalho, vamos usar a função `coord_cartesian ()` ou `scale_y_continuous ()` ou `scale_x_continuous ()`.
+
+Será usado aqui o gráfico já construído acima (Figura \@ref(fig:point7)) com pequenas alteraçõese vamos armazená-lo em um objeto, denominado `gd` (gráfico de dipersão). Isto facilita a repetição do gráfico em outros códigos, pois basta escrever `gd` e executar (Figura \@ref(fig:gd)).
+
+```{r gd, message=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de dispersão", fig.pos="H"}
+gd <- ggplot(data = dados, aes(x = compRN, y = pesoRN)) + 
+  geom_point(color = "tomato", 
+             size = 3) +
+  geom_smooth(method = "lm", 
+              se = FALSE, 
+              color = "black", 
+              size = 0.8,
+              linetype = "dashed") +
+  labs(x = "Comprimento do RN (cm)", y = "Peso do RN (g)",
+       title = "Gráfico de Dispersão",
+       caption = "Fonte: Autor") +
+  theme_classic()
+gd
+```
+
+1. *Função `coord_cartesian()`*
+   - **xlim, ylim**  $\longrightarrow$ limites dos eixos `x` e `y`
+   - **expand**  $\longrightarrow$ Se `TRUE`, o padrão, adiciona um pequeno fator de expansão aos limites para garantir que dados e eixos não se sobreponham. Se `FALSE`, os limites são tirados exatamente dos dados ou `xlim`/`ylim` (Figura \@ref(fig:zoom)).
+
+
+```{r zoom, message=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de dispersão expandido", fig.pos="H"}
+gd + coord_cartesian(ylim = c(3500, 4000),
+                     xlim = c(45, 55),
+                     expand = TRUE)
+```
+
+   > Observe que é como se fizesse um zoom no gráfico nos limites estabelecidos. Há um corte um pouco acima dos limites. No eixo `y`, um pouco acima de 4000 e um pouco abaixo de 3500 e, no eixo `x`, um pouco à esquerda de 45 e um pouco à direita de 55. Isto aconteceu, porque colocamos `expand = TRUE`. Para extrair esta margem, colocar `expand = FALSE`:
+
+2. *Usando escalas de posição contínuas*
+   - Pode-se usar a função `scale_y_continous()` e `scale_x_continuous()` para fazer algo parecido com a `coord_cartesian()` (Figura \@ref(fig:zoom1)):
+
+```{r zoom1, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de dispersão expandido", fig.pos="H"}
+gd + scale_x_continuous(limits = c(45, 55)) +
+  scale_y_continuous (limits = c(3500, 4000))
+```
+
+> A função removeu os casos que estão fora dos limites estabelecidos. No caso, a mensagem do R mostra que foram removidos 1132 casos. O gráfico foi construido sem estes casos e, no gráfico anterior, houve apenas uma aproximação (um zoom) dentro dos limites. Portanto, houve um impacto importante no gráfico.  
+> Se os dados não forem em escala contínua, é possível escolher outra escala, por esxemplo `scale_y_discrete ()`.
+
+**Modificando a expansão**  
+
+Mostrou-se que é possível interfir na expansão da margem com o argumento `expand = TRUE` ou `FALSE` que pode ser usado também com a função `scale_y_continuous()`. Agora, será visto um exemplo de um gráfico de barras das faixas etárias das gestantes (Figura \@ref(fig:axis)):
+
+```{r axis, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de barras", fig.pos="H"}
+gb <- ggplot(data = dados) +
+  geom_bar(aes(x = idadeCateg, y = after_stat(count/sum(count)), 
+                fill = idadeCateg),
+           show.legend = FALSE) +
+  labs(y = "Frequência", x = "Faixa Etária da Parturiente")
+gb
+```
+
+Observe que abaixo do 0 (zero) existe uma expansão (Figura \@ref(fig:axis1)). Para que as barras tenham início exatamente no 0, pode-se empregar a função `scale_y_continuous()` com o argumento `expand = expansion (add = c(0,50))`, significando que não se expande nada abaixo do 0 e se adiciona 50 unidades para cima, criando uma margem superior. 
+
+```{r axis1, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de barras com expansão", fig.pos="H"}
+gb + scale_y_continuous (expand = expansion(add = c(0,0.05)))
+```
+
+Isto também poderia ser feito com `mult` no lugar do `add` (Figura \@ref(fig:axis2)), representando o multiplicador que se coloca acima e abaixo:
+
+```{r axis2, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de barras, igual a anterior", fig.pos="H"}
+gb + scale_y_continuous (expand = expansion(mult = c(0,0.05)))
+```
+
+**Usando a proporção ou percentagem nos eixos**  
+
+Para usar a proporção no eixo *y* do gráfico anterior, devemos modificar a estética deste eixo, usando `y = after_stat(count/sum(count))`(Figura \@ref(fig:prop)).  
+
+```{r prop, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de barras com proporções no eixo y", fig.pos="H"}
+gbp <- ggplot(data = dados) + 
+  geom_bar(aes(x = idadeCateg, y = after_stat(count/sum(count)), 
+               fill = idadeCateg),
+           show.legend = FALSE) +
+  labs(y = "Frequência", 
+       x = "Faixa Etária da Parturiente",
+       caption = "Fonte: Autor")
+gbp
+```
+
+Para ter a percentagem (Figura \@ref(fig:percent)), empregar a função `percent_format()` do pacote `scales` [@wickman2022scales]:
+
+```{r percent, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de barras com percentagens no eixo y", fig.pos="h"}
+gbp + scale_y_continuous (expand = expansion(mult = c(0,0.05)),
+                          labels = percent_format (accuracy = 0.1,
+                                                   decimal.mark = ","))
+```
+
+**Mudando o nome e a ordem dos rótulos do eixo *x***
+
+No gráfico acima, temos a faixa etária dividida em `<20a`, `20-35a` e `>35a`. Pode haver interesse em mudar para `adolescentes`, `adultas jovens` e `gestante idosa` (Figura \@ref(fig:label)). Para fazer isso, sem mudar o banco de dados, simplemente modifica-se os rótulos no argumento `labels` da função `scale_x_discrete()`:
+
+```{r label, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de barras com eixo x modificado", fig.pos="H"}
+gbp <- ggplot(data = dados) + 
+  geom_bar(aes(x = idadeCateg, y = after_stat(count/sum(count)), 
+               fill = idadeCateg),
+           show.legend = FALSE) +
+  labs(y = "Frequência", 
+       x = "Faixa Etária da Parturiente",
+       caption = "Fonte: Autor") +
+  scale_y_continuous (expand = expansion(mult = c(0,0.05)),
+                          labels = percent_format (accuracy = 0.1,
+                                                   decimal.mark = ",")) +
+  scale_x_discrete (labels = c("Adolescente", "Adulta jovem", "Gestante idosa"))
+gbp
+```
+
+É viável, também, mudar esta ordem no eixo `x`, da maior frequência para a menor (Figura \@ref(fig:ordem)):
+
+```{r ordem, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de barras com eixo x modificado", fig.pos="H"}
+gbp + scale_x_discrete (limits = c("20-35a", "<20a", ">35a"),
+                    labels = c("Adulta jovem", "Adolescente", "Gestante idosa"))
+```
+
+Pode-se conseguir o mesmo resultado anterior com o a função `fct_infreq()` do pacote `forcats`, colocada na estética do `geom_bar()`.
+ 
+```{r eval=FALSE}
+ggplot(data = dados) + 
+  geom_bar(aes(x = fct_infreq (idadeCateg), y = after_stat(count/sum(count)), 
+               fill = idadeCateg),
+           show.legend = FALSE) +
+  labs(y = "Frequência", 
+       x = "Faixa Etária da Parturiente",
+       caption = "Fonte: Autor") +
+  scale_y_continuous (expand = expansion(mult = c(0,0.05)),
+                          labels = percent_format (accuracy = 0.1,
+                                                   decimal.mark = ",")) +
+  scale_x_discrete (labels = c("Adulta jovem", "Adolescente", "Gestante idosa"))
+```
+
+**Moficando os intervalos dos valores do eixo**
+
+O gráfico de linha de mortes por COVID no RS, 2020-2022, visto anteriormente (Figura \@ref(fig:ggline)), será atribuído a um objeto `gl`:
+
+```{r linha, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Mortes por COVID-19, 2020-2022, RS.", fig.pos="H"}
+gl <- ggplot(data = obitos) +
+  geom_line(aes(x = data, y = obitos)) +
+  labs(x = "Ano (mês)", y = "Nº de mortes") +
+  theme_classic()
+gl
+```
+
+Observe (Figura \@ref(fig:linha)) que, no eixo *y*, os óbitos estão registrados a cada 2000 e, no eixo *x*, foram marcadas apenas 4 datas. Podemos modificar isso adicionando duas camadas, usando as funções `scale_y_continuous()` e `scale_x_datetime()`:
+
+```{r linha1, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Mortes por COVID-19, 2020-2022, RS.", fig.pos="H"}
+gl + scale_y_continuous(n.breaks = 10) +
+  scale_x_datetime(date_breaks = "4 month",
+                   date_labels = "%Y (%b)")
+```
+
+O aspecto do gráfico mudou um pouco (Figura \@ref(fig:linha1)). Agora, existem marcações no eixo *y* a cada 1000 mortes e o registro do tempo aparece a cada 4 meses, conforme estabelecido no argumento `date_breaks = "4 month"` e o formato foi modificado com o argumento `date_labels = "%Y %b"`. Neste, `%Y` significa o ano e `%b` significa o mês abreviado (Jan-Dec). Para ver como customizar as datas, veja [**aqui**](https://www.r-bloggers.com/2018/06/customizing-time-and-date-scales-in-ggplot2/)
+
+### Modificação das cores  
+
+Voltando a usar um gráfico de barra, já visto anteriormente (Figura \@ref(fig:label)), da distribuição da idade da gestante por faixa etária, onde `ggplot2` escolheu as cores porque foi colocado o argumento `fill = idadeCateg`.   
+
+Essas cores não foram escolhidas pelo autor e é possível mudá-las, usando uma paleta própria. por exemplo, adicionando uma camada com a função `scale_fill_manual()` (Figura \@ref(fig:cor)):
+
+```{r cor, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Frequência da faixa etária das parturientes da Maternidade do HCCS, 2008.", fig.pos="H"}
+ggplot(data = dados) + 
+  geom_bar(aes(x = idadeCateg, y = after_stat(count/sum(count)), 
+               fill = idadeCateg),
+           show.legend = FALSE) +
+  labs(y = "Frequência", 
+       x = "Faixa Etária da Parturiente",
+       caption = "Fonte: Autor") +
+  scale_y_continuous (expand = expansion(mult = c(0,0.05)),
+                          labels = percent_format (accuracy = 0.1,
+                                                   decimal.mark = ",")) +
+  scale_x_discrete (labels = c("Adolescente", "Adulta jovem", "Gestante idosa")) +
+scale_fill_manual(values = c("steelblue", "navy", "lightblue"))
+```
+
+As cores podem ser escolhidas [**aqui**](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf).   
+Além de escrever o nome das cores aceitas pelo ggplot2, é possível usar o sistema hexadecimal que utiliza números e letras. Ver [**aqui**](https://coolors.co/) o gerador de paletas. Copiar o código e colocar antes o símbolo `#`.
+
+É possível, também, usar uma paleta de pacotes do R, como o pacote [`RColorBrewer`](https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html)(Figura \@ref(fig:cor1)).
+
+```{r cor1, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Frequência da faixa etária das parturientes da Maternidade do HCCS, 2008.", fig.pos="H"}
+ggplot(data = dados) + 
+  geom_bar(aes(x = idadeCateg, y = after_stat(count/sum(count)), 
+               fill = idadeCateg),
+           show.legend = FALSE) +
+  labs(y = "Frequência", 
+       x = "Faixa Etária da Parturiente",
+       caption = "Fonte: Autor") +
+  scale_y_continuous (expand = expansion(mult = c(0,0.05)),
+                          labels = percent_format (accuracy = 0.1,
+                                                   decimal.mark = ",")) +
+  scale_x_discrete (labels = c("Adolescente", "Adulta jovem", "Gestante idosa")) + 
+  scale_fill_brewer(palette = "Dark2")
+```
+
+Usando o pacote [`ggsci`](https://cran.r-project.org/web/packages/ggsci/ggsci.pdf), pode-se escolher o padrão de algumas revistas médicas como a JAMA, Lancet, etc (Figura \@ref(fig:cor2)).Para maiores detalhes acesse [**aqui**](https://cran.r-project.org/web/packages/ggsci/vignettes/ggsci.html)
+
+```{r cor2, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Frequência da faixa etária das parturientes da Maternidade do HCCS, 2008.", fig.pos="H"}
+pacman::p_load(ggsci)
+
+ggplot(data = dados) + 
+  geom_bar(aes(x = idadeCateg, y = after_stat(count/sum(count)), 
+               fill = idadeCateg),
+           show.legend = FALSE) +
+  labs(y = "Frequência", 
+       x = "Faixa Etária da Parturiente",
+       caption = "Fonte: Autor") +
+  scale_y_continuous (expand = expansion(mult = c(0,0.05)),
+                          labels = percent_format (accuracy = 0.1,
+                                                   decimal.mark = ",")) +
+  scale_x_discrete (labels = c("Adolescente", "Adulta jovem", "Gestante idosa")) + 
+  scale_fill_lancet()
+```
+
+### Exemplo final: Gráfico de barra de erro com colunas
+
+Será construído um gráfico de barras de erro para visualizar a influência do sexo e do tabagismo materno no peso do recém-nascido (Figura \@ref(fig:final). Será incluído a representação das colunas (barras) e as barras de erro com intervalo de confiança de 95%, calculado usando *média* $\pm$ *margem de erro*, onde margem de erro = 1.96 $\times$ *erro padrão*. Estes conceitos serão discutidos em outros capítulos.  
+
+Em primeiro lugar, faz-se um resumo dos dados que serão usados no gráfico:
+
+```{r message=FALSE}
+resumo <- dados %>% 
+  group_by(sexo, fumo) %>% 
+  dplyr::summarise(n = n(),
+                   media = mean(pesoRN, na.rm = TRUE),
+                   dp = sd(pesoRN, na.rm = TRUE),
+                   me = 1.96 * dp/sqrt(n))
+resumo
+```
+
+Onde, `dp = desvio padrão` e `me = margem de erro`. O objeto `resumo` pertence a classe `data.frame` e será empregado na construção do gráfico:
+
+```{r final, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Influência do sexo e tabagismo materno no peso ao nascer.", fig.pos="H"}
+ggplot(resumo, 
+           aes(x=sexo, y=media, fill=fumo)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=media-me, ymax=media+me), width=.2,
+                position=position_dodge(.9)) +
+  labs(x="Sexo", 
+       y = "Peso do RN (g)",
+       fill = "Tabagismo",
+       caption = "RN = Recém-nascido")+
+  theme_classic() + 
+  scale_fill_manual(values=c('gray80','darkslategray1'))
+```
+
+Observe que o rótulo da legenda foi determinado com `fill = "Tabagismo"`, porque a cor das barras foi estabelecida na estética do `ggplot` com o mesmo argumento.
+
+<br>
+<br>
+
+OBS.: Clique em [**ggplot2::cheat sheet**](https://www.maths.usyd.edu.au/u/UG/SM/STAT3022/r/current/Misc/data-visualization-2.1.pdf) para obter a planilha de dicas do `ggplot2`.
