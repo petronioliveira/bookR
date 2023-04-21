@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 2 Natureza dos Dados | Introdução à Bioestatística usando o R</title>
+  <meta name="description" content="Capítulo 2 Natureza dos Dados | Introdução à Bioestatística usando o R" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 2 Natureza dos Dados | Introdução à Bioestatística usando o R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 2 Natureza dos Dados | Introdução à Bioestatística usando o R" />
+  
+  
+  
+
+<meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
+
+
+<meta name="date" content="2023-04-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="a-caucus-race-and-a-long-tale.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">bookR</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#importância-da-bioestatística"><i class="fa fa-check"></i><b>1.1</b> Importância da Bioestatística</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#sec-historia"><i class="fa fa-check"></i><b>1.2</b> Pílulas históricas da Estatística</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#história-resumida-do-r"><i class="fa fa-check"></i><b>1.3</b> História resumida do R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html"><i class="fa fa-check"></i><b>2</b> Natureza dos Dados</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-e-dados"><i class="fa fa-check"></i><b>2.1</b> Variáveis e Dados</a></li>
+<li class="chapter" data-level="2.2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#população-e-amostra"><i class="fa fa-check"></i><b>2.2</b> População e Amostra</a></li>
+<li class="chapter" data-level="2.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#estimativas-e-parâmetros"><i class="fa fa-check"></i><b>2.3</b> Estimativas e Parâmetros</a></li>
+<li class="chapter" data-level="2.4" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escalas-de-medição"><i class="fa fa-check"></i><b>2.4</b> Escalas de medição</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-nominal"><i class="fa fa-check"></i><b>2.4.1</b> Escala Nominal</a></li>
+<li class="chapter" data-level="2.4.2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-ordinal"><i class="fa fa-check"></i><b>2.4.2</b> Escala Ordinal</a></li>
+<li class="chapter" data-level="2.4.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-intervalar"><i class="fa fa-check"></i><b>2.4.3</b> Escala Intervalar</a></li>
+<li class="chapter" data-level="2.4.4" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-de-razão"><i class="fa fa-check"></i><b>2.4.4</b> Escala de Razão</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#tipos-de-variáveis"><i class="fa fa-check"></i><b>2.5</b> Tipos de Variáveis</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-numéricas"><i class="fa fa-check"></i><b>2.5.1</b> Variáveis Numéricas</a></li>
+<li class="chapter" data-level="2.5.2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-categóricas"><i class="fa fa-check"></i><b>2.5.2</b> Variáveis Categóricas</a></li>
+<li class="chapter" data-level="2.5.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#como-identificar-o-tipo-da-variável"><i class="fa fa-check"></i><b>2.5.3</b> Como identificar o tipo da variável?</a></li>
+<li class="chapter" data-level="2.5.4" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-dependentes-e-independentes"><i class="fa fa-check"></i><b>2.5.4</b> Variáveis Dependentes e Independentes</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="a-caucus-race-and-a-long-tale.html"><a href="a-caucus-race-and-a-long-tale.html"><i class="fa fa-check"></i><b>3</b> A caucus-race and a long tale</a></li>
+<li class="chapter" data-level="" data-path="referências.html"><a href="referências.html"><i class="fa fa-check"></i>Referências</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introdução à Bioestatística usando o R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="natureza-dos-dados" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Capítulo 2</span> Natureza dos Dados<a href="natureza-dos-dados.html#natureza-dos-dados" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="variáveis-e-dados" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Variáveis e Dados<a href="natureza-dos-dados.html#variáveis-e-dados" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As pesquisas manuseiam dados referentes às variáveis que estão sendo estudadas. <em>Variável</em> é toda característica ou condição de interesse que pode de ser mensurada ou observada em cada elemento de uma amostra ou população. Como o próprio nome diz, seus valores são passíveis variar de um indivíduo a outro ou no mesmo indivíduo. Em contraste com a variável, o valor de uma constante é fixo. As variáveis podem ter valores numéricos ou não numéricos. O resultado da mensuração ou observação de uma variável é denominado <em>dado</em>.</p>
+<p>A Tabela <a href="natureza-dos-dados.html#tab:var">2.1</a> mostra um conjunto de variáveis e suas medidas (dados) de um grupo de pacientes internados em uma determinada UTI. O termo medida deve ser entendido num sentido amplo, pois não é possível “medir” o sexo (observação) ou o estado geral (critérios) de alguém, ao contrário do peso e da pressão arterial que podem ser mensurados com instrumentos.</p>
+<table class=" lightable-classic" style="font-family: Cambria; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:var">Table 2.1: </span>Variáveis e dados.
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;">
+Id
+</th>
+<th style="text-align:left;font-weight: bold;">
+Nome
+</th>
+<th style="text-align:center;font-weight: bold;">
+Idade
+</th>
+<th style="text-align:center;font-weight: bold;">
+Sexo
+</th>
+<th style="text-align:center;font-weight: bold;">
+PAS
+</th>
+<th style="text-align:center;font-weight: bold;">
+PAD
+</th>
+<th style="text-align:center;font-weight: bold;">
+Estado Geral
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+45
+</td>
+<td style="text-align:center;">
+João
+</td>
+<td style="text-align:center;">
+masculino
+</td>
+<td style="text-align:center;">
+140
+</td>
+<td style="text-align:center;">
+90
+</td>
+<td style="text-align:center;">
+bom
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+32
+</td>
+<td style="text-align:center;">
+Maria
+</td>
+<td style="text-align:center;">
+feminino
+</td>
+<td style="text-align:center;">
+110
+</td>
+<td style="text-align:center;">
+70
+</td>
+<td style="text-align:center;">
+regular
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+27
+</td>
+<td style="text-align:center;">
+Pedro
+</td>
+<td style="text-align:center;">
+masculino
+</td>
+<td style="text-align:center;">
+120
+</td>
+<td style="text-align:center;">
+80
+</td>
+<td style="text-align:center;">
+grave
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+18
+</td>
+<td style="text-align:center;">
+Teresa
+</td>
+<td style="text-align:center;">
+feminino
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+60
+</td>
+<td style="text-align:center;">
+bom
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="população-e-amostra" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> População e Amostra<a href="natureza-dos-dados.html#população-e-amostra" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Na pesquisa em saúde, a não ser quando se realiza um censo, coleta-se dados de um subconjunto de indivíduos denominado de amostra, pertencente a um grupo maior, conhecido como população. A população de interesse é, geralmente, chamada de população-alvo. A amostra para ser representativa da população deve ter as mesmas características desta. A partir dos dados encontrados na amostra, presume-se o resultado é condizente com a população. Este processo é denominado de inferência estatística. O interesse na amostra não está propriamente nela, mas na informação que ela fornece ao investigador sobre a população de onde ela provém. A amostra fornece estimativas (estatísticas) da população (Figura <a href="natureza-dos-dados.html#fig:pop">2.1</a>).</p>
+<blockquote>
+<p><font size=3> <strong>População</strong> ou <strong>população-alvo</strong> consiste em todos os elementos (indivíduos, itens, objetos) cujas características estão sendo estudadas.<br />
+<strong>Amostra</strong> é a parte, subconjunto, da população selecionada para estudo. </font></p>
+</blockquote>
+<p>Em decorrência do acaso, diferentes amostras de uma mesma população fornecem resultados diferentes. Este fato deve ser levado em consideração ao usar uma amostra para fazer inferência sobre uma população. Este fenômeno é denominado de <strong>variação amostral</strong> ou <strong>erro amostral</strong> e é a essência da estatística. O grau de certeza na inferência estatística depende da representatividade da amostra.</p>
+<p>O processo de obtenção da amostra é chamado de <strong>amostragem</strong>. Mesmo que este processo seja adequado, a amostra nunca será uma cópia perfeita da população de onde ela foi extraída. Desta forma, em qualquer conclusão baseada em dados de uma amostra, sempre haverá o que é conhecido como erro amostral. Este erro deve ser tratado estatisticamente tendo em mente a teoria da amostragem, baseada em probabilidades.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:pop"></span>
+<img src="https://imgur.com/kEsGwnk.png" alt="População, amostra e inferência estatística" width="70%" />
+<p class="caption">
+Figure 2.1: População, amostra e inferência estatística
+</p>
+</div>
+</div>
+<div id="estimativas-e-parâmetros" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Estimativas e Parâmetros<a href="natureza-dos-dados.html#estimativas-e-parâmetros" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Estimativa</strong> é uma característica que resume os dados de uma amostra (estatística amostral) e o <strong>parâmetro</strong> é uma característica estabelecida para toda a população. Os valores dos parâmetros são normalmente desconhecidos, porque é inviável medir uma população inteira. A estimativa é um valor aproximado do parâmetro. As estimativas são representadas por letras romanas e os parâmetros por letras gregas. Por exemplo, a media da população é representada por <span class="math inline">\(\mu\)</span> e a média da amostra por <span class="math inline">\(\bar{x}\)</span>; o desvio padrão da população é denotado <span class="math inline">\(\sigma\)</span> e o desvio padrão da amostra por <em>s</em>.</p>
+<p>Na maioria dos estudos, são utilizadas amostras que fornecem estimativas que, para serem representativas da população, devem ser probabilísticas. Ou seja, a amostra deve ser recrutada de forma aleatória, permitindo que cada um dos membros da população tenha a mesma probabilidade de ser incluído na amostra. Além disso, uma amostra deve ter um tamanho adequado para permitir inferências válidas.</p>
+</div>
+<div id="escalas-de-medição" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Escalas de medição<a href="natureza-dos-dados.html#escalas-de-medição" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Em um estudo científico, há necessidade de registrar os dados para que eles representem acuradamente as variáveis observadas. Este registro de valores necessita de escalas de medição. <strong>Mensuração</strong> ou <strong>medição</strong> é o processo de atribuir números ou rótulos a objetos, pessoas, estados ou eventos de acordo com regras específicas para representar quantidades ou qualidades dos dados. Para a mensuração das variáveis são usadas as escalas nominal, ordinal, intervalar e de razão <span class="citation">(18)</span>.</p>
+<div id="escala-nominal" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Escala Nominal<a href="natureza-dos-dados.html#escala-nominal" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As escalas nominais são meramente classificativas, permitindo descrever as variáveis ou designar os sujeitos, sem recurso à quantificação. É o nível mais elementar de representação. São usados nomes, números ou outros símbolos para designar a variável. Os números, quando usados, representam códigos e como tal não permitem operações matemáticas. As variáveis nominais não podem ser ordenadas. Podem apenas ser comparadas utilizando as relações de igualdade ou de diferença, através de <strong>contagens</strong>. Os números atribuídos às variáveis servem como identificação, ou para associá-la a uma dada categoria. As categorias de uma escala nominal são exaustivas e mutuamente exclusivas. Quando existem duas categorias, a variável é dita <strong>dicotômica</strong> e com três ou mais categorias, <strong>politômicas</strong>.</p>
+<p>Os nomes e símbolos que designam as categorias podem ser intercambiáveis sem alterar a informação essencial.</p>
+<p>Exemplos: Tipos sanguíneos: A, B, AB, O; variáveis dicotômicas: morto/vivo, homem/mulher, sim/não; cor dos olhos, etc.</p>
+</div>
+<div id="escala-ordinal" class="section level3 hasAnchor" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Escala Ordinal<a href="natureza-dos-dados.html#escala-ordinal" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As variáveis são medidas em uma escala ordinal quando ocorre uma ordem, crescente ou decrescente, inerente entre as categorias, estabelecida sob determinado critério. A diferença entre as categorias não é necessariamente igual e nem sempre mensuráveis. Geralmente, designam-se os valores de uma escala ordinal em termos de numerais ou postos (<em>ranks</em>), sendo estes apenas modos diferentes de expressar o mesmo tipo de dados. Também não faz sentido realizar operações matemática com variáveis ordinais. Pode-se continuar a usar contagem.</p>
+<p>Exemplos: classe social (baixa, média, alta); estado geral do paciente: bom, regular, mau; estágios do câncer: 0, 1, 2, 3 e 4; escore de Apgar: 0, 1, 2… 10.</p>
+</div>
+<div id="escala-intervalar" class="section level3 hasAnchor" number="2.4.3">
+<h3><span class="header-section-number">2.4.3</span> Escala Intervalar<a href="natureza-dos-dados.html#escala-intervalar" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Uma escala intervalar contém todas as características das escalas ordinais com a diferença de que se conhece as distâncias entre quaisquer números. Em outras palavras, existe um espectro ordenado com intervalos quantificáveis. Este tipo de escala permite que se verifique a ordem e a diferença entre as variáveis, porém não tem um zero verdadeiro, o zero é arbitrário.</p>
+<p>O exemplo clássico é a mensuração da temperatura, usando as escalas de: Celsius ou Fahrenheit. Aqui é legítimo ordenar, fazer soma ou médias. No entanto, 0ºC não significa ausência de temperatura, portanto a operação divisão não é possível. Uma temperatura de 40ºC não é o dobro de 20ºC. Se 40ºC e 20ºC forem transformados para a escala Fahrenheit, passarão, respectivamente, para 104ºF e 68ºF e, sem dúvida, 104 não é o dobro de 68!</p>
+</div>
+<div id="escala-de-razão" class="section level3 hasAnchor" number="2.4.4">
+<h3><span class="header-section-number">2.4.4</span> Escala de Razão<a href="natureza-dos-dados.html#escala-de-razão" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Há um espectro ordenado com intervalos quantificáveis como na escala intervalar. Entretanto, as medidas iniciam a partir de um zero verdadeiro e a escala tem intervalos iguais, permitindo as comparações de magnitude entre os valores. Refletem a quantidade real de uma variável, permitindo qualquer operação matemática.</p>
+<p>Os dados tanto na escala intervalar como na de razão, podem ser contínuos ou discretos. Dados contínuos necessitam de instrumentos para a sua mensuração e assumem qualquer valor em um certo intervalo. Por exemplo, o tempo para terminar qualquer tarefa pode assumir qualquer valor, 10 min, 20 min, 35 min, etc., de acordo com o tipo de tarefa. Outros exemplos: peso, dosagem de colesterol, glicemia.</p>
+<p>Dados discretos possuem valores iguais a números inteiros, não existindo valores intermediários. A mensuração é feita através da contagem. Por exemplo: número de filhos, número de fraturas, número de pessoas.</p>
+</div>
+</div>
+<div id="tipos-de-variáveis" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Tipos de Variáveis<a href="natureza-dos-dados.html#tipos-de-variáveis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A primeira etapa na descrição e análise dos dados é classificar as variáveis, pois a apresentação dos dados e os métodos estatísticos variam de acordo com os seus tipos. As variáveis, primariamente, podem ser divididas em dois tipos: numéricas ou quantitativas e categóricas ou qualitativas <span class="citation">(19)</span>.</p>
+<div id="variáveis-numéricas" class="section level3 hasAnchor" number="2.5.1">
+<h3><span class="header-section-number">2.5.1</span> Variáveis Numéricas<a href="natureza-dos-dados.html#variáveis-numéricas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As variáveis numéricas são classificadas em dois tipos de acordo com a escala de mensuração: continuas e discretas.</p>
+<p>As <strong>variáveis contínuas</strong> são aquelas cujos dados foram mensurados em uma escala intervalar ou de razão, podendo assumir, como visto, qualquer valor dentro de um intervalo de números reais, dependendo da precisão do instrumento de medição. O tratamento estatístico tanto para variável intervalar como de a razão é o mesmo. A diferença entre elas está na presença do zero absoluto. As variáveis numéricas contínuas têm unidade de medida. Por exemplo, um menino de 4 anos tem 104 cm.</p>
+<p>Uma variável numérica é considerada <strong>discreta</strong> quando é apenas possível quantificar os resultados possíveis através do processo de contagem. Também têm unidade de medida – <em>número de elementos</em>. Por exemplo, o número de fraturas, o número de acidentes, etc.</p>
+</div>
+<div id="variáveis-categóricas" class="section level3 hasAnchor" number="2.5.2">
+<h3><span class="header-section-number">2.5.2</span> Variáveis Categóricas<a href="natureza-dos-dados.html#variáveis-categóricas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As variáveis categóricas ou qualitativas são de dois tipos: nominal e ordinal, de acordo com a escala de mensuração. Um tipo particularmente comum é uma variável binária (ou variável dicotômica), que tem apenas dois valores possíveis. Por exemplo, o sexo é masculino ou feminino. Este tipo de variável é bastante utilizado na área da saúde, em Epidemiologia. As variáveis nominais não têm quaisquer unidades de medida e a nominação das categorias é completamente arbitrária e pertencer a uma categoria não significa ter maior importância do que pertencer à outra. Uma variável ordinal tem uma ordem inerente ou hierarquia entre as categorias. Do mesmo modo que as variáveis nominais, as variáveis ordinais não têm unidades de medida. Entretanto, a ordenação das categorias não é arbitrária. Assim, é possível ordená-las de modo lógico. Um exemplo comum de uma variável categórica ordinal é a classe social, que tem um ordenamento natural da maioria dos mais desfavorecidos para os mais ricos. As escalas, como a escore de Apgar e a escala de coma de Glasgow <span class="citation">(20)</span>, também são variáveis ordinais. Mesmo que pareçam numéricas, elas apenas mostram uma ordem no estado dos pacientes. O escore de Apgar <span class="citation">(21)</span> é uma escala, desenvolvida para a avaliação clínica do recém-nascido imediatamente após o nascimento. Originalmente, a escala foi usada para avaliar a adaptação imediata do recém-nascido à vida extrauterina. A pontuação pode variar de zero a 10. Uma pontuação igual ou maior do que oito, indica um recém-nascido normal. Uma pontuação de sete ou menos pode significar depressão do sistema nervoso e abaixo de quatro, depressão grave.</p>
+<p>As variáveis ordinais, da mesma forma que as nominais, não são números reais e não convém aplicar as regras da aritmética básica para estes tipos de dados. Este fato gera uma limitação na análise dos dados.</p>
+</div>
+<div id="como-identificar-o-tipo-da-variável" class="section level3 hasAnchor" number="2.5.3">
+<h3><span class="header-section-number">2.5.3</span> Como identificar o tipo da variável?<a href="natureza-dos-dados.html#como-identificar-o-tipo-da-variável" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A maneira mais fácil de dizer se os dados são numéricos é verificar se eles têm unidades ligadas a eles, tais como: g, mm, ºC, ml, número de úlceras de pressão, número de mortes e assim por diante. Se não, podem ser ordinais ou nominais – ordinais se os valores podem ser colocados em ordem. A Figura @ref{fig:caminho} é uma ajuda para o reconhecimento do tipo de variável <span class="citation">(22)</span>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:caminho"></span>
+<img src="https://i.imgur.com/4s9Ln2w.png" alt="Caminho para identificar o tipo de variável" width="70%" />
+<p class="caption">
+Figure 2.2: Caminho para identificar o tipo de variável
+</p>
+</div>
+</div>
+<div id="variáveis-dependentes-e-independentes" class="section level3 hasAnchor" number="2.5.4">
+<h3><span class="header-section-number">2.5.4</span> Variáveis Dependentes e Independentes<a href="natureza-dos-dados.html#variáveis-dependentes-e-independentes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>De um modo geral as pesquisas são realizadas para testar as hipóteses dos pesquisadores e, para isso, eles medem variáveis com a finalidade de compará-las. A maioria das hipóteses podem ser expressas por duas variáveis: uma variável explicativa ou preditora e uma variável desfecho <span class="citation">(19)</span>.</p>
+<p>A <strong>variável preditora</strong> ou explanatória é a que se acredita ser a causa e também é conhecida como variável independente, porque o seu valor não depende de outras variáveis. Em Epidemiologia, é com frequência referida como exposição ou fator de risco.</p>
+<p>A <strong>variável desfecho</strong> é aquela que é o efeito, consequência ou resultado da ação de outra variável, por isso, também chamada de variável dependente. Em um estudo que tenta verificar se o tabagismo, durante a gestação, pode interferir no peso do recém-nascido, tem o fumo (variável categórica) como variável preditora (exposição ou fator de risco) e o peso do recém-nascido (variável numérica contínua) como variável desfecho</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="a-caucus-race-and-a-long-tale.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/petronioliveira/bookR/edit/main/02-dados.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/petronioliveira/bookR/blob/main/02-dados.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

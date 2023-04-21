@@ -1,0 +1,109 @@
+# Natureza dos Dados
+
+## Variáveis e Dados
+
+As pesquisas manuseiam dados referentes às variáveis que estão sendo estudadas. *Variável* é toda característica ou condição de interesse que pode de ser mensurada ou observada em cada elemento de uma amostra ou população. Como o próprio nome diz, seus valores são passíveis variar de um indivíduo a outro ou no mesmo indivíduo. Em contraste com a variável, o valor de uma constante é fixo. As variáveis podem ter valores numéricos ou não numéricos. O resultado da mensuração ou observação de uma variável é denominado *dado*.
+
+A Tabela \@ref(tab:var) mostra um conjunto de variáveis e suas medidas (dados) de um grupo de pacientes internados em uma determinada UTI. O termo medida deve ser entendido num sentido amplo, pois não é possível "medir" o sexo (observação) ou o estado geral (critérios) de alguém, ao contrário do peso e da pressão arterial que podem ser mensurados com instrumentos.
+
+```{r echo=FALSE}
+tabela <- read.csv('Arquivos/tabela.csv', sep = ";",  fileEncoding = "latin1")
+```
+
+```{r var, echo=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+knitr::kable(tabela,
+             col.names = c('Id', 'Nome','Idade', 'Sexo', 'PAS', 'PAD', 'Estado Geral'),
+             align = "llcccccc",
+             caption = 'Variáveis e dados.') %>% 
+  kableExtra::kable_classic(full_width = T, html_font = "Cambria") %>% 
+  kableExtra::row_spec(0, bold = TRUE)
+```
+
+## População e Amostra
+
+Na pesquisa em saúde, a não ser quando se realiza um censo, coleta-se dados de um subconjunto de indivíduos denominado de amostra, pertencente a um grupo maior, conhecido como população. A população de interesse é, geralmente, chamada de população-alvo. A amostra para ser representativa da população deve ter as mesmas características desta. A partir dos dados encontrados na amostra, presume-se o resultado é condizente com a população. Este processo é denominado de inferência estatística. O interesse na amostra não está propriamente nela, mas na informação que ela fornece ao investigador sobre a população de onde ela provém. A amostra fornece estimativas (estatísticas) da população (Figura \@ref(fig:pop)).
+
+> <font size=3> **População** ou **população-alvo** consiste em todos os elementos (indivíduos, itens, objetos) cujas características estão sendo estudadas.\
+> **Amostra** é a parte, subconjunto, da população selecionada para estudo. </font>
+
+Em decorrência do acaso, diferentes amostras de uma mesma população fornecem resultados diferentes. Este fato deve ser levado em consideração ao usar uma amostra para fazer inferência sobre uma população. Este fenômeno é denominado de **variação amostral** ou **erro amostral** e é a essência da estatística. O grau de certeza na inferência estatística depende da representatividade da amostra.
+
+O processo de obtenção da amostra é chamado de **amostragem**. Mesmo que este processo seja adequado, a amostra nunca será uma cópia perfeita da população de onde ela foi extraída. Desta forma, em qualquer conclusão baseada em dados de uma amostra, sempre haverá o que é conhecido como erro amostral. Este erro deve ser tratado estatisticamente tendo em mente a teoria da amostragem, baseada em probabilidades.
+
+```{r pop, echo = FALSE, out.width = '70%', fig.align = 'center', fig.cap="População, amostra e inferência estatística", fig.pos="H"}
+ knitr::include_graphics("https://imgur.com/kEsGwnk.png")
+```
+
+## Estimativas e Parâmetros
+
+**Estimativa** é uma característica que resume os dados de uma amostra (estatística amostral) e o **parâmetro** é uma característica estabelecida para toda a população. Os valores dos parâmetros são normalmente desconhecidos, porque é inviável medir uma população inteira. A estimativa é um valor aproximado do parâmetro. As estimativas são representadas por letras romanas e os parâmetros por letras gregas. Por exemplo, a media da população é representada por $\mu$ e a média da amostra por $\bar{x}$; o desvio padrão da população é denotado $\sigma$ e o desvio padrão da amostra por *s*.
+
+Na maioria dos estudos, são utilizadas amostras que fornecem estimativas que, para serem representativas da população, devem ser probabilísticas. Ou seja, a amostra deve ser recrutada de forma aleatória, permitindo que cada um dos membros da população tenha a mesma probabilidade de ser incluído na amostra. Além disso, uma amostra deve ter um tamanho adequado para permitir inferências válidas.
+
+## Escalas de medição
+
+Em um estudo científico, há necessidade de registrar os dados para que eles representem acuradamente as variáveis observadas. Este registro de valores necessita de escalas de medição. **Mensuração** ou **medição** é o processo de atribuir números ou rótulos a objetos, pessoas, estados ou eventos de acordo com regras específicas para representar quantidades ou qualidades dos dados. Para a mensuração das variáveis são usadas as escalas nominal, ordinal, intervalar e de razão [@oliveira2022epidemiologia].
+
+### Escala Nominal
+
+As escalas nominais são meramente classificativas, permitindo descrever as variáveis ou designar os sujeitos, sem recurso à quantificação. É o nível mais elementar de representação. São usados nomes, números ou outros símbolos para designar a variável. Os números, quando usados, representam códigos e como tal não permitem operações matemáticas. As variáveis nominais não podem ser ordenadas. Podem apenas ser comparadas utilizando as relações de igualdade ou de diferença, através de **contagens**. Os números atribuídos às variáveis servem como identificação, ou para associá-la a uma dada categoria. As categorias de uma escala nominal são exaustivas e mutuamente exclusivas. Quando existem duas categorias, a variável é dita **dicotômica** e com três ou mais categorias, **politômicas**.
+
+Os nomes e símbolos que designam as categorias podem ser intercambiáveis sem alterar a informação essencial.
+
+Exemplos: Tipos sanguíneos: A, B, AB, O; variáveis dicotômicas: morto/vivo, homem/mulher, sim/não; cor dos olhos, etc.
+
+### Escala Ordinal
+
+As variáveis são medidas em uma escala ordinal quando ocorre uma ordem, crescente ou decrescente, inerente entre as categorias, estabelecida sob determinado critério. A diferença entre as categorias não é necessariamente igual e nem sempre mensuráveis. Geralmente, designam-se os valores de uma escala ordinal em termos de numerais ou postos (*ranks*), sendo estes apenas modos diferentes de expressar o mesmo tipo de dados. Também não faz sentido realizar operações matemática com variáveis ordinais. Pode-se continuar a usar contagem.
+
+Exemplos: classe social (baixa, média, alta); estado geral do paciente: bom, regular, mau; estágios do câncer: 0, 1, 2, 3 e 4; escore de Apgar: 0, 1, 2... 10.
+
+### Escala Intervalar
+
+Uma escala intervalar contém todas as características das escalas ordinais com a diferença de que se conhece as distâncias entre quaisquer números. Em outras palavras, existe um espectro ordenado com intervalos quantificáveis. Este tipo de escala permite que se verifique a ordem e a diferença entre as variáveis, porém não tem um zero verdadeiro, o zero é arbitrário.
+
+O exemplo clássico é a mensuração da temperatura, usando as escalas de: Celsius ou Fahrenheit. Aqui é legítimo ordenar, fazer soma ou médias. No entanto, 0ºC não significa ausência de temperatura, portanto a operação divisão não é possível. Uma temperatura de 40ºC não é o dobro de 20ºC. Se 40ºC e 20ºC forem transformados para a escala Fahrenheit, passarão, respectivamente, para 104ºF e 68ºF e, sem dúvida, 104 não é o dobro de 68!
+
+### Escala de Razão
+
+Há um espectro ordenado com intervalos quantificáveis como na escala intervalar. Entretanto, as medidas iniciam a partir de um zero verdadeiro e a escala tem intervalos iguais, permitindo as comparações de magnitude entre os valores. Refletem a quantidade real de uma variável, permitindo qualquer operação matemática.
+
+Os dados tanto na escala intervalar como na de razão, podem ser contínuos ou discretos. Dados contínuos necessitam de instrumentos para a sua mensuração e assumem qualquer valor em um certo intervalo. Por exemplo, o tempo para terminar qualquer tarefa pode assumir qualquer valor, 10 min, 20 min, 35 min, etc., de acordo com o tipo de tarefa. Outros exemplos: peso, dosagem de colesterol, glicemia.
+
+Dados discretos possuem valores iguais a números inteiros, não existindo valores intermediários. A mensuração é feita através da contagem. Por exemplo: número de filhos, número de fraturas, número de pessoas.
+
+## Tipos de Variáveis
+
+A primeira etapa na descrição e análise dos dados é classificar as variáveis, pois a apresentação dos dados e os métodos estatísticos variam de acordo com os seus tipos. As variáveis, primariamente, podem ser divididas em dois tipos: numéricas ou quantitativas e categóricas ou qualitativas @kirkwood2003essential.
+
+### Variáveis Numéricas
+
+As variáveis numéricas são classificadas em dois tipos de acordo com a escala de mensuração: continuas e discretas.
+
+As **variáveis contínuas** são aquelas cujos dados foram mensurados em uma escala intervalar ou de razão, podendo assumir, como visto, qualquer valor dentro de um intervalo de números reais, dependendo da precisão do instrumento de medição. O tratamento estatístico tanto para variável intervalar como de a razão é o mesmo. A diferença entre elas está na presença do zero absoluto. As variáveis numéricas contínuas têm unidade de medida. Por exemplo, um menino de 4 anos tem 104 cm.
+
+Uma variável numérica é considerada **discreta** quando é apenas possível quantificar os resultados possíveis através do processo de contagem. Também têm unidade de medida -- *número de elementos*. Por exemplo, o número de fraturas, o número de acidentes, etc.
+
+### Variáveis Categóricas
+
+As variáveis categóricas ou qualitativas são de dois tipos: nominal e ordinal, de acordo com a escala de mensuração. Um tipo particularmente comum é uma variável binária (ou variável dicotômica), que tem apenas dois valores possíveis. Por exemplo, o sexo é masculino ou feminino. Este tipo de variável é bastante utilizado na área da saúde, em Epidemiologia. As variáveis nominais não têm quaisquer unidades de medida e a nominação das categorias é completamente arbitrária e pertencer a uma categoria não significa ter maior importância do que pertencer à outra. Uma variável ordinal tem uma ordem inerente ou hierarquia entre as categorias. Do mesmo modo que as variáveis nominais, as variáveis ordinais não têm unidades de medida. Entretanto, a ordenação das categorias não é arbitrária. Assim, é possível ordená-las de modo lógico. Um exemplo comum de uma variável categórica ordinal é a classe social, que tem um ordenamento natural da maioria dos mais desfavorecidos para os mais ricos. As escalas, como a escore de Apgar e a escala de coma de Glasgow @sternbach2000glasgow, também são variáveis ordinais. Mesmo que pareçam numéricas, elas apenas mostram uma ordem no estado dos pacientes. O escore de Apgar @american2006apgar é uma escala, desenvolvida para a avaliação clínica do recém-nascido imediatamente após o nascimento. Originalmente, a escala foi usada para avaliar a adaptação imediata do recém-nascido à vida extrauterina. A pontuação pode variar de zero a 10. Uma pontuação igual ou maior do que oito, indica um recém-nascido normal. Uma pontuação de sete ou menos pode significar depressão do sistema nervoso e abaixo de quatro, depressão grave.
+
+As variáveis ordinais, da mesma forma que as nominais, não são números reais e não convém aplicar as regras da aritmética básica para estes tipos de dados. Este fato gera uma limitação na análise dos dados.
+
+### Como identificar o tipo da variável?
+
+A maneira mais fácil de dizer se os dados são numéricos é verificar se eles têm unidades ligadas a eles, tais como: g, mm, ºC, ml, número de úlceras de pressão, número de mortes e assim por diante. Se não, podem ser ordinais ou nominais -- ordinais se os valores podem ser colocados em ordem. A Figura \@ref{fig:caminho} é uma ajuda para o reconhecimento do tipo de variável @bowers2008scratch.
+
+```{r caminho, echo = FALSE, out.width = '70%', fig.align = 'center', fig.cap="Caminho para identificar o tipo de variável", fig.pos="H"}
+ knitr::include_graphics("https://i.imgur.com/4s9Ln2w.png")
+```
+
+### Variáveis Dependentes e Independentes
+
+De um modo geral as pesquisas são realizadas para testar as hipóteses dos pesquisadores e, para isso, eles medem variáveis com a finalidade de compará-las. A maioria das hipóteses podem ser expressas por duas variáveis: uma variável explicativa ou preditora e uma variável desfecho @kirkwood2003essential.
+
+A **variável preditora** ou explanatória é a que se acredita ser a causa e também é conhecida como variável independente, porque o seu valor não depende de outras variáveis. Em Epidemiologia, é com frequência referida como exposição ou fator de risco.
+
+A **variável desfecho** é aquela que é o efeito, consequência ou resultado da ação de outra variável, por isso, também chamada de variável dependente. Em um estudo que tenta verificar se o tabagismo, durante a gestação, pode interferir no peso do recém-nascido, tem o fumo (variável categórica) como variável preditora (exposição ou fator de risco) e o peso do recém-nascido (variável numérica contínua) como variável desfecho
+
