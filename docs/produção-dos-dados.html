@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 3 Produção dos Dados | Introdução à Bioestatística usando o R</title>
+  <meta name="description" content="Capítulo 3 Produção dos Dados | Introdução à Bioestatística usando o R" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 3 Produção dos Dados | Introdução à Bioestatística usando o R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 3 Produção dos Dados | Introdução à Bioestatística usando o R" />
+  
+  
+  
+
+<meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
+
+
+<meta name="date" content="2023-04-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="natureza-dos-dados.html"/>
+<link rel="next" href="referências.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">bookR</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#importância-da-bioestatística"><i class="fa fa-check"></i><b>1.1</b> Importância da Bioestatística</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#sec-historia"><i class="fa fa-check"></i><b>1.2</b> Pílulas históricas da Estatística</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#história-resumida-do-r"><i class="fa fa-check"></i><b>1.3</b> História resumida do R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html"><i class="fa fa-check"></i><b>2</b> Natureza dos Dados</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-e-dados"><i class="fa fa-check"></i><b>2.1</b> Variáveis e Dados</a></li>
+<li class="chapter" data-level="2.2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#população-e-amostra"><i class="fa fa-check"></i><b>2.2</b> População e Amostra</a></li>
+<li class="chapter" data-level="2.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#estimativas-e-parâmetros"><i class="fa fa-check"></i><b>2.3</b> Estimativas e Parâmetros</a></li>
+<li class="chapter" data-level="2.4" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escalas-de-medição"><i class="fa fa-check"></i><b>2.4</b> Escalas de medição</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-nominal"><i class="fa fa-check"></i><b>2.4.1</b> Escala Nominal</a></li>
+<li class="chapter" data-level="2.4.2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-ordinal"><i class="fa fa-check"></i><b>2.4.2</b> Escala Ordinal</a></li>
+<li class="chapter" data-level="2.4.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-intervalar"><i class="fa fa-check"></i><b>2.4.3</b> Escala Intervalar</a></li>
+<li class="chapter" data-level="2.4.4" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-de-razão"><i class="fa fa-check"></i><b>2.4.4</b> Escala de Razão</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#tipos-de-variáveis"><i class="fa fa-check"></i><b>2.5</b> Tipos de Variáveis</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-numéricas"><i class="fa fa-check"></i><b>2.5.1</b> Variáveis Numéricas</a></li>
+<li class="chapter" data-level="2.5.2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-categóricas"><i class="fa fa-check"></i><b>2.5.2</b> Variáveis Categóricas</a></li>
+<li class="chapter" data-level="2.5.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#como-identificar-o-tipo-da-variável"><i class="fa fa-check"></i><b>2.5.3</b> Como identificar o tipo da variável?</a></li>
+<li class="chapter" data-level="2.5.4" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-dependentes-e-independentes"><i class="fa fa-check"></i><b>2.5.4</b> Variáveis Dependentes e Independentes</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html"><i class="fa fa-check"></i><b>3</b> Produção dos Dados</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#processo-de-pesquisa"><i class="fa fa-check"></i><b>3.1</b> Processo de Pesquisa</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#questão-de-pesquisa"><i class="fa fa-check"></i><b>3.1.1</b> Questão de Pesquisa</a></li>
+<li class="chapter" data-level="3.1.2" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#hipótese-de-pesquisa"><i class="fa fa-check"></i><b>3.1.2</b> Hipótese de Pesquisa</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#processo-de-amostragem"><i class="fa fa-check"></i><b>3.2</b> Processo de Amostragem</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#amostras-probabilística"><i class="fa fa-check"></i><b>3.2.1</b> Amostras probabilística</a></li>
+<li class="chapter" data-level="3.2.2" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#amostras-não-probabilísticas"><i class="fa fa-check"></i><b>3.2.2</b> Amostras não probabilísticas</a></li>
+<li class="chapter" data-level="3.2.3" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#tamanho-amostral"><i class="fa fa-check"></i><b>3.2.3</b> Tamanho amostral</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#principais-delineamentos-de-pesquisa"><i class="fa fa-check"></i><b>3.3</b> Principais Delineamentos de Pesquisa</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#elementos-básicos-de-um-delineamento-de-pesquisa"><i class="fa fa-check"></i><b>3.3.1</b> Elementos básicos de um delineamento de pesquisa</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#estudos-observacionais"><i class="fa fa-check"></i><b>3.4</b> Estudos Observacionais</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#relato-de-caso-ou-série-de-casos"><i class="fa fa-check"></i><b>3.4.1</b> Relato de Caso ou Série de casos</a></li>
+<li class="chapter" data-level="3.4.2" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#estudos-transversais-ou-seccionais"><i class="fa fa-check"></i><b>3.4.2</b> Estudos Transversais ou Seccionais</a></li>
+<li class="chapter" data-level="3.4.3" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#estudos-caso-controle"><i class="fa fa-check"></i><b>3.4.3</b> Estudos Caso-Controle</a></li>
+<li class="chapter" data-level="3.4.4" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#estudos-de-coorte"><i class="fa fa-check"></i><b>3.4.4</b> Estudos de Coorte</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#ensaios-clínicos"><i class="fa fa-check"></i><b>3.5</b> Ensaios Clínicos</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#características-de-um-ensaio-clínico"><i class="fa fa-check"></i><b>3.5.1</b> Características de um ensaio clínico</a></li>
+<li class="chapter" data-level="3.5.2" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#elementos-básicos-de-um-ensaio-clínico"><i class="fa fa-check"></i><b>3.5.2</b> Elementos básicos de um ensaio clínico</a></li>
+<li class="chapter" data-level="3.5.3" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#ensaios-clínicos-de-equivalência-e-não-inferioridade"><i class="fa fa-check"></i><b>3.5.3</b> Ensaios clínicos de equivalência e não inferioridade</a></li>
+<li class="chapter" data-level="3.5.4" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#outros-tipos-de-ensaios-clínicos"><i class="fa fa-check"></i><b>3.5.4</b> Outros tipos de ensaios clínicos</a></li>
+<li class="chapter" data-level="3.5.5" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#fases-de-um-ensaio-clínico"><i class="fa fa-check"></i><b>3.5.5</b> Fases de um ensaio clínico</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referências.html"><a href="referências.html"><i class="fa fa-check"></i>Referências</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introdução à Bioestatística usando o R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="produção-dos-dados" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Capítulo 3</span> Produção dos Dados<a href="produção-dos-dados.html#produção-dos-dados" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="processo-de-pesquisa" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Processo de Pesquisa<a href="produção-dos-dados.html#processo-de-pesquisa" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A pesquisa é um processo de construção do conhecimento. O objetivo deste processo é gerar um novo conhecimento e/ou confirmar ou refutar algum conhecimento prévio. A pesquisa é um processo de aprendizagem tanto do pesquisador quanto da sociedade que se beneficiará deste novo conhecimento. Para ser chamada de científica, a pesquisa deve obedecer aos princípios consagrados pela ciência <span class="citation">(23)</span>.</p>
+<p>A pesquisa nasce de uma dúvida do pesquisador, de algum questionamento que ele considerou interessante sobre o mundo, ou seja, de algo que se costuma chamar de pergunta ou questão da pesquisa. Existem vários motivos que geram questões de pesquisa:</p>
+<ul>
+<li>Avaliação crítica de pesquisas realizadas por outros pesquisadores.</li>
+<li>Condução de uma pesquisa primária com a finalidade de responder uma questão (ou questões), gerando um novo conhecimento ou ampliação do conhecimento existente.</li>
+<li>Para obter habilidades de pesquisa ou experiência, com frequência como parte de um programa educacional.</li>
+<li>Testar a viabilidade de um projeto ou técnica de pesquisa.</li>
+</ul>
+<div id="questão-de-pesquisa" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Questão de Pesquisa<a href="produção-dos-dados.html#questão-de-pesquisa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A pesquisa visa estabelecer novos conhecimentos em torno de um tema específico. O tema de pesquisa pode surgir do próprio interesse ou experiência do pesquisador, ou partir da encomenda de alguma instituição financiadora. Algumas vezes, a pesquisa se origina de outros estudos realizados pelo próprio pesquisador ou outros pesquisadores.</p>
+<p>À medida que a ideia da pesquisa cresce, o pesquisador estabelece uma pergunta de pesquisa específica ou um conjunto de questões que ele deseja responder. Algumas vezes, o tema da pesquisa é tão amplo que o pesquisador tem que ter cuidado para não se perder do seu objetivo. Este objetivo é que vai guiá-lo no estabelecimento da pergunta ou perguntas a serem respondidas no estudo. Estes questionamentos são conhecidos como <strong>questão de pesquisa</strong> ou <strong>pergunta de partida</strong>.</p>
+<p>O foco da questão de pesquisa pode ser na descrição de um fenômeno clínico. Neste caso a pergunta é dita <strong>descritiva</strong>, por exemplo, pesquisa de prevalência de uma enfermidade, proporção de utilização de um serviço de saúde, características de um teste, etc. Quando a pergunta busca a explicação para um fenômeno, ela é dita <strong>analítica</strong>, por exemplo, comparação entre dois fenômenos. Em geral, perguntas analíticas são mais interessantes. Entretanto, as perguntas descritivas são fundamentais no início de um estudo analítico.</p>
+<p>Uma boa pergunta de pesquisa deve ter as seguintes características <span class="citation">(24)</span>:</p>
+<ul>
+<li><strong>Factível</strong>: o pesquisador deve conhecer desde o início os limites e problemas práticos que podem interferir na pesquisa. A viabilidade está relacionada com o tamanho amostral, com o domínio técnico adequado, com o tempo e custos envolvidos e com um foco dirigido estritamente aos objetivos mais importantes.<br />
+</li>
+<li><strong>Interessante</strong>: a questão de pesquisa deve despertar o interesse não apenas do pesquisador, mas também de seus pares e agentes financiadores.</li>
+<li><strong>Nova</strong>: a pesquisa deve ser inovadora, original, em algum sentido, para que o estudo seja uma contribuição ao conhecimento ou amplie um conhecimento existente;</li>
+<li><strong>Ética</strong>: se o estudo impõe riscos físicos ou invasão de privacidade ou não traz nenhuma informação nova, o pesquisador deve suspendê-lo. É importante discutir previamente com pesquisadores mais experientes ou com algum representante do Comitê de Ética em Pesquisa da instituição.</li>
+<li><strong>Relevante</strong>: nenhuma das características da questão de pesquisa é mais importante do que a sua relevância. Para isto basta pensar nos benefícios que os resultados da pesquisa trarão à Medicina atual.</li>
+</ul>
+<p>Ou seja, antes de dedicar tempo e esforço para escrever um projeto de pesquisa deve-se avaliar se a questão de pesquisa é FINER (Factível, Interessante, Nova, Ética e Relevante).</p>
+</div>
+<div id="hipótese-de-pesquisa" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Hipótese de Pesquisa<a href="produção-dos-dados.html#hipótese-de-pesquisa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Uma vez estabelecida a(s) pergunta(s) de pesquisa adequada(s), os pesquisadores formulam hipóteses para serem testadas. Enquanto a pergunta de pesquisa possa ser um pouco vaga em sua natureza como: “existe uma relação entre o tipo psicológico e a capacidade de parar de usar drogas?” Uma hipótese de pesquisa, necessita ser precisa. Há necessidade de especificar qual o tipo psicológico está relacionado à habilidade de parar de usar drogas.</p>
+<p>A precisão da hipótese é fundamental em um projeto de pesquisa, pois ela determinará o delineamento de pesquisa a ser seguido pelo pesquisador e as técnicas estatísticas apropriadas para a análise dos dados. A fonte e o tipo de dados são determinados pela característica do delineamento recomendado pela hipótese de pesquisa.</p>
+<p>O objetivo da pesquisa, usando o método científico, é refutar ou não as hipóteses de pesquisa. Se a hipótese do pesquisador não for rejeitada, houve a geração de um novo conhecimento.</p>
+</div>
+</div>
+<div id="processo-de-amostragem" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Processo de Amostragem<a href="produção-dos-dados.html#processo-de-amostragem" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Após o estabelecimento das hipóteses a serem testadas, há necessidade de coletar os dados. Uma vez que é praticamente impossível analisar toda a população que constitui a <strong>população-alvo</strong>, extrai-se uma <strong>amostra</strong> desta população. Este processo é denominado de <strong>amostragem</strong> <span class="citation">(25)</span>.</p>
+<p>Uma amostra deve ser representativa da população, ou seja, deve ter características semelhantes às da população e ser fidedigna. A fidedignidade está relacionada à precisão dos dados que sofrem influência dos instrumentos de aferição, questionários não validados e falhas humanas. Uma amostra inadequada ameaça a validade da pesquisa. Os dados coletados de maneira não aleatória são chamados de <strong>evidência anedótica</strong>. O nível de confiança nos resultados de uma pesquisa está diretamente relacionado à qualidade da amostra. A amostra deve ser representativa.<br />
+Uma amostra deve conter apenas dados úteis que permitam a resposta da pergunta de pesquisa, evitando desperdício e fuga dos objetivos traçados. A aleatoriedade provoca uma diferença entre o resultado da amostra e o verdadeiro valor da população que é denominada <strong>erro amostral</strong>. Não importa quão bem a amostra seja coletada, os erros amostrais irão sempre ocorrer. Entretanto, não existe técnica estatística que salve amostras coletadas incorretamente, tendenciosas!</p>
+<div id="amostras-probabilística" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Amostras probabilística<a href="produção-dos-dados.html#amostras-probabilística" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Para evitar vieses, erros sistemáticos, que favorecem determinados desfechos, o ideal é coletar uma amostra probabilística. A amostra probabilística adota o princípio da <strong>equiprobabilidade</strong>, isto é, “todos os sujeitos da população têm a mesma probabilidade de fazerem parte da amostra”. Esta probabilidade é conhecida e diferente de zero. As amostras probabilísticas têm o potencial de ser possível a generalização para a população; ser imparcial e com menor erro amostral.</p>
+<p><strong>Amostra aleatória simples</strong>: é a mais utilizada pois garante representatividade da amostra junto à população. A amostra aleatória simples não emprega nenhum critério particular para a definição da amostra. O mecanismo mais comum de obter este tipo de amostra é por um simples sorteio, em geral, usando programas de computador.</p>
+<p><strong>Amostra aleatória estratificada</strong>: quando a população é constituída por subpopulações ou estratos e é razoável supor que a variável de interesse apresenta comportamento diferente nos diferentes estratos, pode-se usar este tipo de amostragem. Neste caso, a amostra deve ter a mesma estratificação da população para ser representativa. Um exemplo comum de estratificação é o nível socioeconômico. A partir do momento que os estratos estão definidos se procede uma amostra aleatória simples de cada estrato.</p>
+<p><strong>Amostra aleatória sistemática</strong>: as unidades amostrais são selecionadas a partir de um esquema rígido preestabelecido de sistematização que tem o propósito de abranger toda a população-alvo. Para isso, ordena-se os indivíduos da população (por exemplo, um grande arquivo com 20000 fichas) e calcula-se uma constante conveniente, <span class="math inline">\(c = N/n\)</span>, onde <span class="math inline">\(N\)</span> é tamanho da população e <span class="math inline">\(n\)</span> é o tamanho da amostra. Se <span class="math inline">\(n = 500\)</span>, a constante será <span class="math inline">\(40\)</span>, ou seja, será selecionado aleatoriamente o primeiro membro da amostra (<span class="math inline">\(k\)</span>), de maneira que <span class="math inline">\(k\)</span> seja menor do que a constante e maior do que <span class="math inline">\(1\)</span>. A partir daí os sucessivos membros serão: <span class="math inline">\(k + c\)</span>; <span class="math inline">\(k + 2c\)</span>; <span class="math inline">\(k + 3c\)</span>; … até atingir <span class="math inline">\(n\)</span>.</p>
+<p><strong>Amostra aleatória por conglomerados (<em>clusters</em>)</strong>: este tipo de amostra é utilizada quando dentro da população são identificados agrupamentos (<em>clusters</em>) naturais, por exemplo, espaços, vilas, etc. Neste tipo de amostragem o elemento focal não é o sujeito, mas o <em>cluster</em>. Identificados estes, sorteiam-se os conglomerados e se analisa todos os indivíduos dos conglomerados sorteados.</p>
+</div>
+<div id="amostras-não-probabilísticas" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Amostras não probabilísticas<a href="produção-dos-dados.html#amostras-não-probabilísticas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Na amostragem não aleatória ou intencionada há uma escolha deliberada da amostra, subordinada a objetivos específicos do pesquisador. Não há garantia de representatividade da população. É importante averiguar, neste tipo de amostragem, a presença de <em>conflitos de interesse</em>.</p>
+<p><strong>Amostra de conveniência</strong>: é uma técnica comum onde é selecionada uma mostra que esteja acessível. Em outras palavras, os indivíduos são recrutados porque eles estão prontamente disponíveis. Neste tipo de amostra há incapacidade de fazer afirmações gerais com rigor estatístico sobre a população.</p>
+<p><strong>Amostra por cotas</strong>: é uma versão não probabilística da amostra estratificada. Tem três etapas:</p>
+<ol style="list-style-type: decimal">
+<li>Segmentação, onde se divide em grupos, por exemplo, sexo, classe social, região, etc.;<br />
+</li>
+<li>Definição do tamanho das cotas;<br />
+</li>
+<li>Seleção por meio de amostras de conveniência.</li>
+</ol>
+<p><strong>Amostra de resposta voluntária</strong>: o pesquisador solicita aos membros de uma população-alvo para que eles participem da amostra e as pessoas decidem se entram ou não. Esses tipos de amostras são enviesados porque as pessoas podem ter interesses particulares ou opiniões negativas e tendem a querer participar.</p>
+</div>
+<div id="tamanho-amostral" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Tamanho amostral<a href="produção-dos-dados.html#tamanho-amostral" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A determinação do tamanho de uma amostra é de suma importância, pois amostras desnecessariamente grandes acarretam desperdício de tempo e de dinheiro e amostras muito pequenas podem levar a resultados não confiáveis, ameaçando a validade da pesquisa.</p>
+<p>Não existe um número estabelecido para o tamanho da amostra. Há uma solução para cada caso. O tamanho da amostra depende <span class="citation">(26)</span>:</p>
+<ul>
+<li>do tipo de problema;</li>
+<li>do tipo de variável;</li>
+<li>da magnitude do erro estatístico aceito pelo pesquisador;</li>
+<li>da diferença minimamente importante entre os grupos;</li>
+<li>da probabilidade de que a amostra identifique uma diferença verdadeira: Poder estatístico;</li>
+<li>do tempo, dinheiro e pessoal disponível, bem como da dificuldade em se obterem dados e da complexidade da pesquisa.</li>
+</ul>
+<p>O tamanho amostral mínimo é determinado por fórmulas estatísticas complexas. Os cálculos são muito pesados, mas agora, felizmente, existem programas de computador disponíveis que realizam este trabalho, por exemplo o <strong>G-Power3</strong> <span class="citation">(27)</span>. Além disso, é possível acessar um site que fornece informações e ferramentas para o cálculo amostral em pesquisas da área da saúde <a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>. Existem tabelas extensas para calcular o número de participantes <span class="citation">(28)</span> para um determinado nível de poder (e vice-versa).</p>
+</div>
+</div>
+<div id="principais-delineamentos-de-pesquisa" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Principais Delineamentos de Pesquisa<a href="produção-dos-dados.html#principais-delineamentos-de-pesquisa" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Em geral, a pesquisa clínica, é dividida em dois tipos de investigação. O primeiro é aquele em que o observador apenas observa o doente, as características da sua doença e sua evolução, sem atuar de modo a modificar qualquer aspecto que esteja estudando. Trata-se de <strong>estudo observacional</strong>.</p>
+<p>O segundo corresponde aos <strong>estudos experimentais</strong>, onde o pesquisador não se limita a observar, mas promove uma intervenção com o objetivo de conhecer os efeitos dessa sobre os participantes da pesquisa. A intervenção pode ser a prescrição de um medicamento, uma dieta, atividade física ou repouso, ou simplesmente, o estabelecimento de um programa de atenção à saúde.</p>
+<p>Os estudos podem ser também classificados em primários ou secundários ou integrativos <span class="citation">(29)</span>. Estudos primários correspondem a pesquisas originais que constituem a maioria das publicações encontradas nas revistas médicas. Estudos secundários são aqueles que procuram sumarizar e extrair conclusões de estudos primários</p>
+<ul>
+<li><em>Estudos Primários</em>
+<ul>
+<li>Estudos Observacionais
+<ul>
+<li>Relato de Caso e Série de Casos</li>
+<li>Estudo Transversal</li>
+<li>Estudo Caso-controle</li>
+<li>Estudo de Coorte</li>
+</ul></li>
+<li>Estudos Experimentais
+<ul>
+<li>Experimento laboratorial</li>
+<li>Ensaio Clínico</li>
+</ul></li>
+</ul></li>
+<li><em>Estudos Secundários</em>
+<ul>
+<li>Revisões não sistemáticas</li>
+<li>Revisões Sistemáticas</li>
+<li>Direrizes (<em>Guidelines</em>)</li>
+<li>Análise de decisão</li>
+<li>Análise Econômica</li>
+</ul></li>
+</ul>
+<div id="elementos-básicos-de-um-delineamento-de-pesquisa" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Elementos básicos de um delineamento de pesquisa<a href="produção-dos-dados.html#elementos-básicos-de-um-delineamento-de-pesquisa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Os estudos contêm três elementos básicos:</p>
+<ol style="list-style-type: decimal">
+<li><u>Variáveis componentes</u>: Nas investigações das relações entre as variáveis identificam-se pelo menos duas variáveis nos estudos epidemiológicos.
+<ol style="list-style-type: lower-alpha">
+<li><em>Desfecho</em>: Aquilo que vai acontecer durante uma investigação na mensuração da condição de saúde-doença. Sinônimo: variável dependente.</li>
+<li><em>Exposição</em>: O fator que precede o desfecho. Sinônimos: fator em estudo, variável preditora, variável independente.</li>
+</ol></li>
+<li><u>Temporalidade</u>: Quanto ao tempo os estudos podem ser contemporâneos, retrospectivos e prospectivos, de acordo como os dados são obtidos em relação ao momento atual.</li>
+<li><u>Enfoque</u>: Um estudo pode ter vários enfoques. Na maioria deles, na área médica, eles relacionam-se à prevenção, ao diagnóstico, à terapêutica e ao prognóstico.</li>
+</ol>
+</div>
+</div>
+<div id="estudos-observacionais" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Estudos Observacionais<a href="produção-dos-dados.html#estudos-observacionais" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="relato-de-caso-ou-série-de-casos" class="section level3 hasAnchor" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Relato de Caso ou Série de casos<a href="produção-dos-dados.html#relato-de-caso-ou-série-de-casos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>No relato de caso, descrevem-se casos raros, eventos não comuns ou inesperados, doenças desconhecidas ou raras. Um evento notável deve ser identificado. Um relato de caso tem a descrição de até dez casos. Acima deste número tem-se uma série de casos <span class="citation">(30)</span>.</p>
+<p>Metodologicamente, faz-se um relato descritivo simples de características interessantes observadas em um paciente ou grupo de pacientes. Os indivíduos são acompanhados em um espaço de tempo curto e não possuem participantes-controles. A coleta dos dados é, na maioria das vezes, retrospectiva.</p>
+<p>Uma série de casos não é planejada e não envolve quaisquer hipóteses investigativas. Pode ser empregada como precursor de outros estudos.</p>
+</div>
+<div id="estudos-transversais-ou-seccionais" class="section level3 hasAnchor" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Estudos Transversais ou Seccionais<a href="produção-dos-dados.html#estudos-transversais-ou-seccionais" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Os estudos transversais são também conhecidos como estudos seccionais. Este tipo de estudo fornece a informação sobre a prevalência, ou seja, a proporção dos indivíduos que tem a doença ou condição clínica em um determinado momento. Por este motivo são também conhecidos como estudos de prevalência <span class="citation">(31)</span>.</p>
+<p>Observam dados coletados em um grupo de indivíduos em um único momento, sem um período de seguimento. O desfecho e exposição são avaliados no mesmo momento no tempo. Os dados são coletados apenas uma vez para cada indivíduo, podendo ser em dias diferentes em diferentes sujeitos. As informações são, em geral, obtidas em um curto espaço de tempo.</p>
+<p>É um estudo estático, representa a “fotografia” de um momento. Entretanto, se as variáveis preditora e de desfecho são definidas apenas com base nas hipóteses causa-efeito do investigador e não no delineamento do estudo, é possível também examinar associações.</p>
+<p>Os estudos de corte transversal, de um modo geral, são desenhados para determinar <em>“O que está acontecendo?”</em>. São usados para:</p>
+<ul>
+<li>Determinar a prevalência de uma doença, como a prevalência de HIV em gestantes.</li>
+<li>Pesquisar atitudes ou opiniões em relação a um determinado assunto (pesquisa de satisfação)</li>
+<li>Verificar interrelações entre variáveis, como observação das características de fumantes pesados em relação ao sexo, idade, etc.</li>
+<li>Enquetes</li>
+</ul>
+<p><strong>Cuidados na interpretação de dados de estudos transversais</strong></p>
+<ol style="list-style-type: decimal">
+<li><em>Efeito temporal</em></li>
+</ol>
+<p>Como os dados (exposição e desfecho) são coletados no mesmo momento, fica difícil estabelecer qualquer relação temporal entre eles (dilema ovo/galinha). Por exemplo, não é possível estabelecer uma relação de causalidade entre hipertensão e doença cardíaca se os dados são coletados de forma a ficar impossível saber que surgiu em primeiro lugar.</p>
+<ol start="2" style="list-style-type: decimal">
+<li><em>Estudos transversais repetidos</em></li>
+</ol>
+<p>Os estudos transversais, algumas vezes, são repetidos em outro momento ou em outros locais com a finalidade de verificar variabilidade nos achados. Por exemplo, medir a prevalência de uma doença em momentos diferentes ou em diferentes locais. Os indivíduos serão um pouco diferentes, devendo-se interpretar as diferenças destes resultados com cautela.</p>
+<ol start="3" style="list-style-type: decimal">
+<li><em>Estudos transversais que parecem longitudinais</em></li>
+</ol>
+<p>Uma armadilha comum é confundir um estudo seccional com um longitudinal porque os dados foram coletados através do tempo até completar o tamanho amostral previsto. O importante é que os dados (variável preditora e desfecho) foram coletados somente uma vez para cada indivíduo e no mesmo momento. Isto gera uma interpretação errônea se analisarmos como um estudo longitudinal.</p>
+<p><strong>Análise dos Estudos Transversais</strong></p>
+<p>Quando se compara a prevalência de doença em expostos e não expostos, a medida de associação usada é a <em>Razão de Prevalência Pontual</em> (RPP).</p>
+</div>
+<div id="estudos-caso-controle" class="section level3 hasAnchor" number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> Estudos Caso-Controle<a href="produção-dos-dados.html#estudos-caso-controle" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Para examinar a possível associação de uma exposição a uma determinada doença, identifica-se um grupo de doentes (casos) e, com a finalidade de comparação, um grupo de pessoas sem a doença (controles) e determina-se a chance (<em>odds</em>) de exposição e não exposição entre casos e entre controles.</p>
+<p>Os estudos caso-controle, portanto, partem da presença ou ausência de um desfecho e após olham para trás no tempo (retrospectivamente) para detectar possíveis fatores de risco (Figura <a href="produção-dos-dados.html#fig:cc">3.1</a>)<span class="citation">(32)</span>. Analisam o que aconteceu e são usados para investigar fatores de risco de doenças raras onde um estudo prospectivo seria muito longo para identificar uma quantidade suficiente de casos.</p>
+<p>É útil também para investigar surtos agudos (infecção alimentar) para identificar se existe ou não associação entre a exposição e o desfecho investigado. Com frequência, os estudos caso-controle são o primeiro passo na busca de uma etiologia quando há suspeita de que alguma de várias exposições esteja associada a uma determinada doença.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:cc"></span>
+<img src="https://i.imgur.com/LX0yUuP.png" alt="Desenho de um estudo caso controle." width="80%" />
+<p class="caption">
+Figure 3.1: Desenho de um estudo caso controle.
+</p>
+</div>
+<p><strong>Seleção dos casos</strong></p>
+<p>Os casos podem ser selecionados de várias fontes, incluindo indivíduos hospitalizados, de consultórios ou clínicas, principalmente quando registros adequados são mantidos.</p>
+<p>Muitos problemas podem ocorrer na seleção de casos, neste tipo de estudo. Se os casos forem selecionados de um único hospital, quaisquer fatores de risco identificados podem ser apenas daquele hospital, em decorrência do padrão de referência e nível de atendimento (um hospital terciário que apenas atende um determinado convênio, por exemplo, o Sistema Único de Saúde). Por isso, devem ser utilizados casos procedentes de vários hospitais da comunidade, pois aí os casos pertenceriam a diferentes grupos sociais e diferentes graus de gravidade da doença.</p>
+<p><em>Casos incidentes ou prevalentes</em></p>
+<p>Os casos usados nos estudos caso-controle podem ser casos incidentes (recém-diagnosticados) ou casos prevalentes da doença (pessoas que apresentaram a doença em algum período).</p>
+<p>O problema do uso de casos incidentes é que há necessidade de se esperar que novos casos sejam diagnosticados e isto pode requerer muito tempo. Enquanto os casos prevalentes já estão disponíveis havendo um maior número disponível para o estudo. Em ambos os modelos existem problemas, pois nos casos prevalentes algumas pessoas podem morrer logo após o diagnóstico e estarem pouco representadas no estudo. Por outro lado, nos casos incidentes, serão excluídos os pacientes que morreram antes do diagnóstico ser feito. Não existe uma solução fácil para este problema, mas é importante lembrar-se destas questões ao interpretar os resultados e tirar conclusões do estudo.</p>
+<p><strong>Seleção dos controles</strong></p>
+<p>Da mesma forma do que nos estudos experimentais, a escolha dos controles afeta a comparação com os casos <span class="citation">(33)</span>. A escolha dos controles inclui:</p>
+<ul>
+<li>Pacientes do mesmo hospital, mas com condições ou doenças não relacionadas;</li>
+<li>Pacientes pareados um a um em relação a fatores prognósticos, tais como sexo e idade;</li>
+<li>Uma amostra aleatória originária da mesma população de onde provêm os casos.</li>
+</ul>
+<p>Sem dúvida, o melhor grupo controle é a terceira opção, mas esta é raramente possível. Por este motivo, alguns estudos caso-controle incluem mais de um grupo controle para tornar o estudo mais robusto</p>
+<p><em>Controles pareados</em></p>
+<p>O emparelhamento é definido como processo de seleção dos controles para que sejam semelhantes aos casos em algumas características como, por exemplo, idade, gênero, raça, condição socioeconômica e ocupação.</p>
+<p>Controles emparelhados são bastante comuns. O autor deve ter o cuidado de especificar cuidadosamente o modo como houve o pareamento. Por exemplo, “emparelhado por idade dentro de dois anos” mostra a amplitude do pareamento. É difícil realizar o emparelhamento para muitos fatores, pois um pareamento seguro não existe. Em um delineamento pareado, a análise estatística deve levar em conta o emparelhamento e os fatores usados por ele. Onde um indivíduo em um par tiver um dado perdido, ambos devem ser omitidos da análise estatística.</p>
+<p><strong>Estudos caso-controle aninhados</strong></p>
+<p>Um delineamento do tipo caso-controle aninhado é um estudo de caso-controle ’’aninhado” em um estudo de coorte <span class="citation">(34)</span>. É um excelente desenho para variáveis preditoras que são caras para medir e que podem ser avaliadas no final do estudo em indivíduos que desenvolvem o resultado durante o estudo (casos) e em uma amostra daqueles que não o fazem (controles).</p>
+<p>O investigador começa com uma coorte adequada (Figura <a href="produção-dos-dados.html#fig:aninhado">3.2</a>) <span class="citation">(35)</span> com casos suficientes ao final do acompanhamento para fornecer poder adequado para responder à pergunta de pesquisa. No final do estudo, aplica critérios que definem o resultado de interesse para identificar todos aqueles que desenvolveram o resultado (casos). Em seguida, seleciona uma amostra aleatória dos indivíduos que não desenvolveram o resultado (controles).</p>
+<p>A principal razão para usar delineamentos caso-controle aninhado é reduzir o trabalho e o custo na coleta de dados. A principal desvantagem desse projeto é que muitas questões e circunstâncias da pesquisa não são passíveis de armazenamento para posterior análise.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:aninhado"></span>
+<img src="https://i.imgur.com/YvOf6Kb.png" alt="Desenho de um estudo caso-controle aninhado." width="80%" />
+<p class="caption">
+Figure 3.2: Desenho de um estudo caso-controle aninhado.
+</p>
+</div>
+<p><strong>Estudo caso-controle de base populacional</strong></p>
+<p>São os estudos caso-controle onde os casos e controles são uma amostra completa ou probabilística de uma população definida.</p>
+<p><strong>Limitações dos estudos caso-controle</strong></p>
+<p>Várias limitações podem afetar os estudos caso-controle:</p>
+<ul>
+<li>A escolha do grupo controle afeta as comparações entre casos e controles;</li>
+<li>Os dados da exposição ao fator de risco são coletados retrospectivamente e dependem da memória dos participantes, registros médicos e, portanto, podem ser incompletos, sem acurácia ou enviesados (viés de memória);</li>
+<li>Se o processo que conduz à identificação dos casos está relacionado a um possível fator de risco, a interpretação dos resultados será difícil (viés averiguação).
+<ul>
+<li>Por exemplo: suponha que os casos sejam mulheres jovens com hipertensão selecionadas de uma clínica de contracepção. Nesta situação, um possível fator de risco, o anticoncepcional oral (ACO), estará vinculado à seleção dos casos e, desta forma, o uso de ACO será mais comum entre os casos do que entre os controles populacionais.</li>
+</ul></li>
+</ul>
+<p><strong>Análise dos Estudos Caso-controle</strong></p>
+<p>A principal estratégia de análise é o cálculo da <em>odds ratio</em> (Razão de Chances), que pode ser interpretado como uma estimativa do Risco Relativo.</p>
+<p>O Risco Relativo somente pode ser calculado quando é possível o cálculo da incidência (ver seção <a href="#sec-rr"><strong>??</strong></a>). Nos estudos caso-controle, isso não é possível, pois aqui o estudo começa com casos e controles em vez de indivíduos expostos e não expostos ao fator de risco. Desta maneira, se comparam as <em>odds</em> (chance) de uma exposição passada a um fator de risco suspeitado em indivíduos doentes e em controles não doentes. Esta relação é denominada de <em>odds ratio</em> (ver seção <a href="#sec-or"><strong>??</strong></a>).</p>
+</div>
+<div id="estudos-de-coorte" class="section level3 hasAnchor" number="3.4.4">
+<h3><span class="header-section-number">3.4.4</span> Estudos de Coorte<a href="produção-dos-dados.html#estudos-de-coorte" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Os estudos de coorte são considerados o padrão-ouro dos estudos observacionais. Seu nome se originou das coortes dos soldados romanos, cada uma delas constituída por 480 a 600 legionários. As coortes romanas eram distintas entre si e tinham sua identidade determinada por, ao menos, uma característica comum entre os indivíduos de cada grupo. Podia ser por características estratégicas no campo de batalha, por uma cor presente na indumentária, ou outras. Em Epidemiologia, o termo coorte permaneceu com significado semelhante.</p>
+<p>Em um estudo de coorte, um grupo de pacientes sadios (coorte), expostos ou não a um suspeitado fator de risco, é seguido através do tempo para determinar a incidência da doença em questão em cada um dos grupos <span class="citation">(36)</span>.</p>
+<p>Neste modelo de estudo, a característica comum aos dois grupos é a exposição. Tem-se uma coorte de expostos e uma coorte de não expostos que são acompanhadas por um período de tempo que permita o aparecimento do desfecho. No final do estudo, compara-se a incidência do desfecho (doença) entre os expostos com a incidência do desfecho entre os não expostos. Se existe uma associação positiva entre a exposição e o desfecho, se espera que a incidência do desfecho entre os expostos seja maior do que a incidência de desfecho entre não expostos.</p>
+<p>Um esquema simplificado de um estudo de coorte é mostrado na Figura <a href="produção-dos-dados.html#fig:coorte">3.3</a><span class="citation">(37)</span>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:coorte"></span>
+<img src="https://i.imgur.com/SF9kiX7.png" alt="Desenho de um estudo de coorte sobre risco." width="80%" />
+<p class="caption">
+Figure 3.3: Desenho de um estudo de coorte sobre risco.
+</p>
+</div>
+<p>Observar que como se identifica novos casos (incidência) à medida que eles ocorrem, é possível determinar uma relação temporal entre a exposição e a doença, isto é, se a exposição precedeu o início da doença. Isto é <em>fundamental para estabelecer uma relação causal entre a exposição e a doença</em>.</p>
+<p>Os estudos de coorte têm semelhança com os ensaios clínicos randomizados. Ambos os estudos comparam grupos expostos a grupos não expostos. Não havendo possibilidade de realizar a randomização, por exemplo, por motivos éticos quando a exposição é sabidamente prejudicial, é indicado um estudo de coorte. A diferença fundamental, portanto, é a ausência de randomização nos estudos de coorte.</p>
+<p>Existem duas maneiras básicas para formar os grupos:</p>
+<ol style="list-style-type: decimal">
+<li>Seleciona-se a população-alvo baseado no fato dos indivíduos estarem expostos ou não ao fator em estudo (Figura <a href="produção-dos-dados.html#fig:coorte">3.3</a>);</li>
+<li>Ou seleciona-se a população-alvo antes que qualquer um dos seus membros se torne exposto, ou antes, que a exposição seja identificada (Figura <a href="produção-dos-dados.html#fig:coorte2">3.4</a>). Um exemplo típico deste modelo é o clássico Estudo de Framingham <span class="citation">(38)</span>.</li>
+</ol>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:coorte2"></span>
+<img src="https://i.imgur.com/1UgEuXR.png" alt="Desenho de uma coorte com grupos expostos e não expostos.  @david2019gordis." width="80%" />
+<p class="caption">
+Figure 3.4: Desenho de uma coorte com grupos expostos e não expostos. <span class="citation">(39)</span>.
+</p>
+</div>
+<p><strong>Tipos de estudo de coorte</strong></p>
+<p>De acordo com as características do seguimento, as coortes podem ser:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Estudo de Coorte Prospectivo</strong> (Coorte Concorrente ou Longitudinal), onde os grupos são montados no presente, coletados os dados basais deles e continua-se a coletar dados com o passar do tempo até a doença se desenvolver ou não.</p></li>
+<li><p><strong>Estudo de Coorte Retrospectivo ou Histórico</strong> (Coorte não concorrente), onde a exposição é avaliada em dados passados e o desfecho (doença ou não) é verificado no momento do início do estudo. O problema aqui é que a averiguação da exposição depende dos registros pregressos.</p></li>
+<li><p><strong>Estudo de Coorte Misto</strong> (Prospectivo e Retrospectivo), onde a exposição é verificada em registros objetivos no passado (como em uma coorte histórica) e o seguimento e a medida do desfecho se fazem no futuro.</p></li>
+</ol>
+<p><strong>Vieses em estudos de coorte</strong></p>
+<p>Os potenciais vieses nos estudos de coorte são os seguintes:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Viés de confusão</strong> – é a grande ameaça dos estudos observacionais. O confundimento causa um erro sistemático na inferência, podendo aumentar ou diminuir uma associação observada entre exposição e doença. Uma variável funciona como fator de confusão quando ela está associada com a exposição e ao mesmo tempo com a doença. Ela não deve fazer parte da cadeia causal da exposição à doença. Por exemplo, num estudo sobre fatores de risco, uma associação entre o hábito de beber café e a doença coronária é detectada. Porém, se não for considerado o fato de que os fumantes bebem mais café do que os não-fumantes, pode-se chegar à errônea conclusão de que o café é um fator de risco independente para doença coronária, o que não corresponde à realidade. Neste caso, o café é um fator de confusão e não um fator causal independente para a doença coronária <span class="citation">(40)</span>.</p></li>
+<li><p><strong>Viés na avaliação dos desfechos</strong> – este viés pode ocorrer quando o pesquisador que avalia o desfecho também sabe sobre o <em>status</em> de exposição dos sujeitos da pesquisa. Evita-se este problema “cegando” a pessoa que faz a avaliação da doença.</p></li>
+<li><p><strong>Viés de informação</strong> – ocorrem principalmente em estudos históricos onde as informações dependem de registros passados e podem ser diferentes entre as pessoas expostas e não expostas.</p></li>
+<li><p><strong>Viés de não resposta e perdas de acompanhamento</strong> – a não participação e as perdas podem introduzir um grande viés, alterando o cálculo da incidência nos expostos e entre os não expostos.</p></li>
+<li><p><strong>Viés de análise</strong> – se os estatísticos tiverem alguma hipótese em relação aos dados que estão analisando, eles podem introduzir vieses em suas análises.</p></li>
+</ol>
+<p><strong>Análise dos estudos de coorte</strong></p>
+<p>Para verificar se existe associação entre certo desfecho (doença) e uma determinada exposição calcula-se o <strong>Risco Relativo</strong> (RR). Este é definido como a razão entre a incidência (risco) em expostos e a incidência (risco) em não expostos (ver seção <a href="#sec-rr"><strong>??</strong></a>).</p>
+<p><strong>Vantagens e desvantagens dos estudos de coorte</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Vantagens</p>
+<ul>
+<li>Adequado para exposições raras</li>
+<li>Bom poder para testar hipóteses</li>
+<li>Importante em estudos etiológicos e prognósticos</li>
+<li>Salienta os múltiplos desfechos de uma exposição</li>
+</ul></li>
+<li><p>Desvantagens</p>
+<ul>
+<li>Inadequado em desfechos raros</li>
+<li>Perdas no seguimento levam a viés de seleção</li>
+<li>Demorado/elevado custo</li>
+</ul></li>
+</ol>
+</div>
+</div>
+<div id="ensaios-clínicos" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Ensaios Clínicos<a href="produção-dos-dados.html#ensaios-clínicos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Experimentos são estudos nos quais o pesquisador <em>manipula a variável preditora</em> (intervenção) e observa o efeito no desfecho que está sendo avaliado ao longo do tempo. A abordagem experimental, especificamente, o ensaio clínico randomizado controlado é a ferramenta de escolha para comparar terapêuticas ou intervenções.</p>
+<p>Os estudos experimentais podem também comparar os cuidados prestados por serviços de saúde, programas de educação em saúde e estratégias administrativas. Os estudos experimentais realizados com seres humanos são denominados de <strong>ensaios clínicos</strong>.</p>
+<p>Nos ensaios clínicos não controlados os indivíduos servem como seus próprios controles (antes-e-depois). Os resultados destes estudos estão sujeitos vários problemas:</p>
+<ul>
+<li><p><strong>Melhora previsível</strong>. Paciente melhora espontaneamente e não pelo tratamento.</p></li>
+<li><p><strong>Flutuação na gravidade da doença</strong>.</p></li>
+<li><p><strong>Efeito Hawthorne</strong>: o indivíduo melhora pela atenção e não pela terapêutica <span class="citation">(41)</span>.</p></li>
+<li><p><strong>Regressão à média</strong>: uma limitação importante surge quando se quer avaliar a evolução de um grupo que tenha sido selecionado por estar no extremo de uma distribuição sem que haja um grupo controle. Empiricamente, observa-se que indivíduos que se encontrem num determinado momento, em um dos extremos de uma distribuição, tendem a estarem menos distantes da média em um momento posterior, sem que qualquer intervenção tenha sido desenvolvida. Este fenômeno é conhecido como efeito de <em>regressão à média</em>. Por exemplo: uma pessoa com uma doença crônica tem dias piores e outros melhores. Se ela é medicada com gotas homeopáticas ou faz uso de florais nos dias em que se sente excepcionalmente mal vai notar que é frequente uma melhora, seguindo estes “tratamentos”. Não que eles funcionem, mas pela regressão à média <span class="citation">(42)</span>.</p></li>
+</ul>
+<div id="características-de-um-ensaio-clínico" class="section level3 hasAnchor" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> Características de um ensaio clínico<a href="produção-dos-dados.html#características-de-um-ensaio-clínico" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Um ensaio clínico deve ter algumas características fundamentais (Figura <a href="produção-dos-dados.html#fig:trial">3.5</a>)<span class="citation">(43)</span>:</p>
+<ol style="list-style-type: decimal">
+<li><p>Os indivíduos devem ser designados por randomização para os grupos de comparação.</p>
+<ul>
+<li>A randomização é a melhor abordagem no delineamento de um ensaio clínico <span class="citation">(44)</span>.</li>
+<li>Randomizar significa sortear (por meio de computadores, tábua de números aleatórios) os indivíduos para decidir a alocação dos mesmos em um dos grupos de estudo. O elemento decisivo da randomização é a imprevisibilidade da próxima alocação.</li>
+</ul></li>
+<li><p>O pesquisador compara o grupo de estudo com um grupo controle apropriado.</p></li>
+<li><p>O investigador manipula a variável independente (preditora).</p></li>
+</ol>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:trial"></span>
+<img src="https://i.imgur.com/kv9IYVe.png" alt="Estrutura de um ensaio clínico randomizado." width="80%" />
+<p class="caption">
+Figure 3.5: Estrutura de um ensaio clínico randomizado.
+</p>
+</div>
+</div>
+<div id="elementos-básicos-de-um-ensaio-clínico" class="section level3 hasAnchor" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> Elementos básicos de um ensaio clínico<a href="produção-dos-dados.html#elementos-básicos-de-um-ensaio-clínico" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Seleção dos participantes</strong></p>
+<p>Os pesquisadores devem determinar e explicar detalhadamente os critérios de inclusão e de exclusão:</p>
+<ul>
+<li>Objetivos dos critérios de inclusão e exclusão
+<ul>
+<li>Restringir a heterogeneidade da amostra</li>
+<li>Diminuir o número de variáveis independentes</li>
+<li>Fazer com que exista uma chance maior de que as diferenças nos desfechos estejam relacionadas aos tratamentos</li>
+<li>Melhorar a <em>validade interna</em>, ou seja, o grau em que os resultados do estudo são consistentes para aquela amostra particular de indivíduos. Esta validade depende basicamente do rigor metodológico usado para delinear o ensaio clínico, podendo ser ameaçada por dois tipos de erros: sistemático ou aleatório.<br />
+</li>
+<li>Tornar a generalização (validade externa) mais precisa. Entretanto deve-se ter cuidado com critérios de inclusão e exclusão muito rígidos, pois podem diminuir esta capacidade de generalização</li>
+</ul></li>
+</ul>
+<p>O grau de detalhamento deve ser suficientemente preciso para permitir que outros reproduzam o estudo. O tamanho da amostra deve ser claramente determinado pelo poder do teste estatístico. Poder é a habilidade de o teste estatístico detectar diferenças entre os grupos, dado que tais diferenças existam na população em estudo. Lembrar que resultados não significativos podem ser apenas uma evidência para um inadequado tamanho amostral.</p>
+<p>O grupo controle deve ser selecionado utilizando-se os mesmos critérios do grupo experimental. Prestar atenção em possíveis armadilhas que podem gerar vieses:</p>
+<ul>
+<li>Uso de grupo controle histórico (não concorrente);</li>
+<li>Grupo controle selecionado de outros locais (outras clínicas, outros hospitais).</li>
+</ul>
+<p>O grupo controle adequado é um grupo controle concorrente, tratado no mesmo momento e no mesmo local do grupo experimental. O característico é o grupo controle não receber tratamento. Mais comumente recebem um placebo, indistinguível do tratamento experimental, mas sem componente ativo. Mesmo assim, pode haver melhora dos participantes do grupo controle (Efeito Placebo ) <span class="citation">(45)</span>. Quando não for ético suspender o tratamento e administrar placebo, o grupo controle pode ser constituído por indivíduos que recebem o tratamento padrão.</p>
+<p><strong>Alocação</strong></p>
+<p>A alocação deve ser aleatória. A randomização é a principal técnica para reduzir o viés, criando grupos homogêneos. Como foi visto, é uma das características fundamentais dos ensaios clínicos. O poder da randomização depende da ocultação da sequência de alocação.</p>
+<p>A randomização pode ser:</p>
+<ul>
+<li><p><strong>Completa</strong>: os indivíduos que obedecem ao critério de inclusão e exclusão são randomizados de modo que todos têm a mesma probabilidade de pertencer a cada um dos grupos. Isto maximiza o poder. Pode ser feita por blocos para assegurar a igualdade numérica dos grupos (estudos multicêntricos).</p></li>
+<li><p><strong>Estratificada</strong>: os participantes são estratificados de acordo com possíveis variáveis de confusão (gravidade da doença, idade, sexo, etc.) e a randomização é realizada dentro de cada estrato.</p></li>
+<li><p><strong>Randomização e alocação desigual</strong>: os sujeitos têm uma maior probabilidade de ser randomizados em um grupo (em geral, grupo experimental) do que o outro (comparação). Este tipo de estudo tem menor poder.</p></li>
+</ul>
+<p><strong>Condução/Seguimento/Avaliação</strong></p>
+<p>Em um ensaio clínico deve estar assegurado de que o estudo tenha um tempo de seguimento adequado, pois nem todos os indivíduos participam conforme o plano original. Podem ocorrer perdas de alguns pacientes durante o acompanhamento, seja porque com o tempo se constata que eles não têm a doença em estudo ou porque não aderiram ao tratamento ou intervenção e abandonaram o estudo. Quanto maior o número de pacientes perdidos e menos informações sobre eles, menos confiança pode ser colocada nos resultados do estudo. De um modo geral, não se deve tolerar perdas que sejam maiores que a incidência do desfecho no estudo. Uma regra simples é que perdas menores que 5% produzem pouco viés e perdas maiores que 20% são uma ameaça importante à validade do estudo. As perdas entre 5 e 20% devem ser avaliadas com cuidado, se possível utilizando-se uma análise de sensibilidade (pior cenário), principalmente se as perdas forem diferentes nos grupos pelo maior risco de viés.</p>
+<p>Neste tipo de análise, nos estudos com resultado positivo, todos os pacientes perdidos no grupo experimental, inicialmente, são considerados como tendo o desfecho. Posteriormente, analisa-se como se nenhum dos indivíduos perdidos no grupo controle atingiu o desfecho. Se o resultado permanecer positivo, as perdas não afetaram a validade do estudo. Estudos sem relato adequado ou nenhum relato de perdas ou exclusões devem ser avaliados com muito cuidado.</p>
+<p>Outro aspecto importante, no seguimento dos sujeitos da pesquisa, é o tratamento igual de todos os grupos. Para garantir este princípio, utiliza-se da técnica de <strong>cegamento</strong> ou <strong>mascaramento</strong> <span class="citation">(46)</span>. Esta técnica impede que os participantes da pesquisa (pesquisadores, avaliadores e participantes) tomem conhecimento de qual grupo de tratamento o participante se encontra. Este conhecimento antecipado pode influenciar as expectativas, as opiniões e as crenças em relação aos resultados do estudo. O cegamento tem como principal finalidade a eliminação do viés de aferição, além de melhorar a adesão ao tratamento, reduzir as perdas de seguimento e diminuir o viés causado por co-intervenções (assistência suplementar maior para um dos grupos).</p>
+<p>Quando o cegamento ocorre nos pacientes e nos pesquisadores, diz-se que o estudo é <strong>duplo-cego</strong>. Se ele também incluir os avaliadores do estudo, ele é <strong>triplo cego</strong>. Um ensaio clínico em que não há cegamento é dito aberto (<em>open label</em>, no caso de estudos com fármacos).</p>
+<p>A avaliação dos desfechos também pode afetar os resultados. É importante garantir-se que aqueles que registram os desfechos estejam cegados em relação a que grupo o sujeito da pesquisa pertence. Os autores devem estabelecer regras cuidadosas para decidir se um desfecho ocorreu ou não e despender esforços iguais para identificar desfechos para todos os pacientes no estudo.</p>
+<p><em>Intenção de tratar</em></p>
+<p>Os pesquisadores violam a randomização se omitirem da análise os pacientes que não receberam a intervenção designada ou, pior ainda, contarem eventos que ocorreram nos sujeitos não aderentes que foram designados para a intervenção contra o grupo controle. Os sujeitos de uma pesquisa, para evitar tal viés, devem ser analisados dentro do grupo para o qual eles foram alocados pela randomização <span class="citation">(47)</span>. Este princípio é denominado <strong>intenção de tratar</strong>.</p>
+<p><em>Análise da magnitude do efeito</em></p>
+<p>Calcula-se uma série de estimativas quantitativas para analisar a magnitude do efeito da intervenção em um ensaio clínico. Entre elas, destacam-se o <strong>Risco Relativo</strong>, <strong>Redução Relativa do Risco</strong>, <strong>Número Necessário para Tratar</strong> que serão estudados no capítulo <a href="#sec-cap18"><strong>??</strong></a>.</p>
+<p>Outro método para avaliar resultados de um ensaio clínico para dados de tempo até o evento é a <strong>análise de sobrevida</strong>. Esta fornece informação sobre a rapidez com que os eventos ocorrem. A curva de sobrevida pode utilizar dados de pacientes acompanhados por diferentes períodos de tempo.</p>
+</div>
+<div id="ensaios-clínicos-de-equivalência-e-não-inferioridade" class="section level3 hasAnchor" number="3.5.3">
+<h3><span class="header-section-number">3.5.3</span> Ensaios clínicos de equivalência e não inferioridade<a href="produção-dos-dados.html#ensaios-clínicos-de-equivalência-e-não-inferioridade" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Ensaios clínicos controlados com placebo são ideais para avaliar a eficácia de um tratamento. Eles permitem o controle do efeito placebo e são mais eficientes, exigindo um menor número de pacientes para detectar um efeito do tratamento. Um ensaio clínico placebo controlado é eticamente justificado se não existe tratamento padrão, se o tratamento padrão não se mostrou eficaz, não há riscos associados com o retardo no tratamento e se a possiblidade de se retirar do estudo está incluída no protocolo. Sempre que possível e justificado, os ensaios clínicos placebo controlados devem ser a primeira escolha para avaliação de um tratamento.</p>
+<p>Dado que um grande número de tratamentos eficazes comprovados está disponível, ensaios clínicos controlados por placebo são, muitas vezes, antiéticos. Nestas situações, ensaios clínicos com controle ativo são geralmente apropriados.</p>
+<p>Se o objetivo do ensaio clínico é testar se um novo tratamento é similar em eficácia a um tratamento já existente, ele é denominado de <strong>Estudo de Equivalência</strong>. O Ensaio Clínico é delineado de maneira que possa demonstrar que, dentro limites aceitáveis, os dois tratamentos são igualmente eficazes. Existe equivalência quando a diferença observada entre os dois tratamentos for menor que a máxima diferença aceitável, determinada previamente. Estes limites devem ser clinicamente apropriados. Se condição em investigação for muito grave, os limites para a equivalência devem ser estreitados. Quanto menor forem os limites de equivalência, maior o tamanho amostral. Este delineamento é útil se o novo tratamento trouxer benefícios, tais como menores efeitos colaterais, facilidade no uso e ser mais barato.</p>
+<p>Em muitos estudos com controle ativo, os pesquisadores desejam comprovar que o tratamento em estudo, no mínimo, não é substancialmente pior que o tratamento controle. Estes estudos são chamados de <strong>Estudos de Não Inferioridade</strong>. Um aspecto importante do delineamento e da interpretação desses estudos é a determinação da margem de não inferioridade. Os estudos de não inferioridade devem demonstrar, pelo menos, que o tratamento em estudo tem alguma eficácia, não inferior ao tratamento padrão. A análise dos estudos de não inferioridade é, por natureza, unidirecional.</p>
+<p>Quando um ensaio clínico busca evidenciar que um tratamento é melhor do que outro ele é denominado <strong>Estudos de Superioridade</strong>. Quando o ensaio clínico é delineado, ele deve ter uma hipótese bilateral e o tamanho da amostra definido de maneira que haja alto poder estatístico para detectar uma diferença clinicamente significativa entre os dois tratamentos. Os ensaios clínicos clássicos têm esta característica. Entretanto, nos dias atuais, este desenho de estudo pode não ser eticamente possível, uma vez que é pouco provável que não exista um tratamento com algum benefício comprovado. A comparação, portanto, deverá ser feita com o tratamento já existente, provando que o tratamento em estudo é similar ou, pelo menos, não seja inferior <span class="citation">(48)</span>.</p>
+</div>
+<div id="outros-tipos-de-ensaios-clínicos" class="section level3 hasAnchor" number="3.5.4">
+<h3><span class="header-section-number">3.5.4</span> Outros tipos de ensaios clínicos<a href="produção-dos-dados.html#outros-tipos-de-ensaios-clínicos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Ensaio clínico com delineamento cruzado</strong></p>
+<p>No delineamento cruzado (<em>crossover design</em>), os sujeitos da pesquisa são randomizados para um grupo e depois mudados para o outro grupo (Figura <a href="produção-dos-dados.html#fig:cruzado">3.6</a>). Cada sujeito serve como seu próprio controle, diminuindo a variabilidade intragrupo, aumentando o poder e consequentemente, reduzindo o erro <span class="math inline">\(\beta\)</span> (erro que ocorre quando a análise estatística dos dados não consegue rejeitar uma hipótese, no caso desta hipótese ser falsa). É um tipo de delineamento bastante atrativo e útil <span class="citation">(49)</span>.</p>
+<p>A maior desvantagem é o efeito residual (<em>carryover</em>), por isso os estudos cruzados devem ter um período de <em>washout</em>, período sem nenhum tratamento. Este período de tempo deve ser suficiente para a eliminação da droga para se ter certeza de que nenhum efeito da terapia permaneceu. Também pode haver um viés de acordo com a ordem de administração das terapias, pois os pacientes podem reagir de modo diferente como resultado do entusiasmo no início do tratamento que pode diminuir com o tempo.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:cruzado"></span>
+<img src="https://i.imgur.com/DDKu8iT.png" alt="Ensaio clínico randomizado com delineamento cruzado." width="45%" />
+<p class="caption">
+Figure 3.6: Ensaio clínico randomizado com delineamento cruzado.
+</p>
+</div>
+<p><strong>Delineamento Fatorial</strong></p>
+<p>Uma variação interessante de ensaio clínico é o <em>delineamento fatorial</em>. Este tipo de estudo permite que sejam testadas duas drogas em apenas um estudo, assumindo que os desfechos antecipados para as duas são diferentes e que seus modos de ação são independentes. Este desenho de estudo gera economia.</p>
+<p>Um exemplo de delineamento fatorial é observado no <em>Physician’s Health Study</em> onde usando um delineamento fatorial 2 x 2 foi testada a aspirina para a prevenção primária de doença cardiovascular <span class="citation">(50)</span>, e betacaroteno para a prevenção primária de câncer.</p>
+<p>No estudo da prevenção primária do câncer, os autores concluíram, após 12 anos de suplementação de betacaroteno, que o mesmo não produziu nem benefícios e nem prejuízos em termos de incidência de câncer <span class="citation">(51)</span>.</p>
+</div>
+<div id="fases-de-um-ensaio-clínico" class="section level3 hasAnchor" number="3.5.5">
+<h3><span class="header-section-number">3.5.5</span> Fases de um ensaio clínico<a href="produção-dos-dados.html#fases-de-um-ensaio-clínico" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Para a realização de um ensaio clínico, a intervenção deve passar por várias fases <span class="citation">(52)</span>.</p>
+<p><strong>Fase Não Clínica</strong></p>
+<p>Antes de começar a testar novos tratamentos em seres humanos, os cientistas testam as substâncias em laboratórios (in vitro) e em animais de experimentação.
+O objetivo principal desta fase é verificar como esta substância se comporta em um organismo. Assim, após esta fase se pode verificar se o medicamento é seguro para ser testado em seres humanos. Todo este processo é regido por leis da bioética em pesquisa em animais.</p>
+<p><strong>Fase Clínica</strong></p>
+<p>A fase clínica é a fase de testes em seres humanos. Esta etapa é constituída por quatro fases consecutivas e somente depois de finalizadas todas as fases, a droga poderá ser autorizada para comercialização e disponibilizada para uso em seres humanos. As sucessivas fases dentro da fase clínica são:</p>
+<ul>
+<li><p><em>Fase I</em> - Um estudo de fase I testa a droga pela primeira vez. O objetivo principal é avaliar a segurança do produto investigado. Nesta fase, o medicamento é testado em pequenos grupos (10 – 30 pessoas), geralmente, de voluntários sadios. Podemos ter exceções se estivermos avaliando medicamentos para câncer ou portadores de HIV-AIDS. Se a droga se mostrar segura, é possível ir para a Fase II.</p></li>
+<li><p><em>Fase II</em> - Nesta fase, o número de pacientes é maior (70 - 100). O objetivo é avaliar a eficácia da medicação, isto é, se ela funciona para tratar determinada doença, e também conseguir informações mais detalhadas sobre a segurança (toxicidade). Somente se os resultados forem bons é que o medicamento será estudado como um estudo clínico fase III.</p></li>
+<li><p><em>Fase III</em> - Nesta fase, o novo tratamento é comparado com o tratamento padrão existente. São os ensaios clínicos. O número de pacientes aumenta e depende da hipótese (em geral, 100 a 1.000). Devem de preferência utilizar desfechos clínicos, grupo controle, além de serem randomizados e duplo-cegos.</p></li>
+<li><p><em>Fase IV</em> - Estes estudos são realizados para se confirmar que os resultados obtidos na fase III são aplicáveis a grande parte dos doentes. Nesta fase, o medicamento já foi aprovado para ser comercializado. A vantagem dos estudos fase IV é que eles permitem acompanhar os efeitos dos medicamentos em longo prazo. É uma fase de vigilância pós-comercialização.</p></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="2">
+<li id="fn2"><p><a href="http://calculoamostral.bauru.usp.br/calculoamostral/index.php" class="uri">http://calculoamostral.bauru.usp.br/calculoamostral/index.php</a><a href="produção-dos-dados.html#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="natureza-dos-dados.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="referências.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/petronioliveira/bookR/edit/main/03-producaoDados.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/petronioliveira/bookR/blob/main/03-producaoDados.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
