@@ -75,7 +75,7 @@ dp1 <-  sd(amostra1$altura, na.rm =TRUE)
 print(c(media1, dp1))
 ```
 
-A amostra1 tem média igual a $`r  round(mean(amostra1$altura, na.rm =TRUE), 3)` e desvio padrão igual a `r  round(sd(amostra1$altura, na.rm =TRUE), 3)`. Se este processo for repetido várias vezes, ninguém ficará surpreso se, a cada amostra aleatória, a média amostral for diferente das anteriores, gerando médias e desvios padrão diferentes.
+A `amostra1` tem média igual a `r  round(mean(amostra1$altura, na.rm =TRUE), 3)` e desvio padrão igual a `r  round(sd(amostra1$altura, na.rm =TRUE), 3)`. Se este processo for repetido várias vezes, ninguém ficará surpreso se, a cada amostra aleatória, a média amostral for diferente das anteriores, gerando médias e desvios padrão diferentes.
 
 ```{r}
 amostra2 <- mater %>% dplyr::slice_sample(n = 30)
