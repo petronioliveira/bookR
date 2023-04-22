@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Introdução à Bioestatística usando o R</title>
-  <meta name="description" content="Page not found | Introdução à Bioestatística usando o R" />
+  <title>Capítulo 11 Teste de Hipóteses | Introdução à Bioestatística usando o R</title>
+  <meta name="description" content="Capítulo 11 Teste de Hipóteses | Introdução à Bioestatística usando o R" />
   <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Introdução à Bioestatística usando o R" />
+  <meta property="og:title" content="Capítulo 11 Teste de Hipóteses | Introdução à Bioestatística usando o R" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Introdução à Bioestatística usando o R" />
+  <meta name="twitter:title" content="Capítulo 11 Teste de Hipóteses | Introdução à Bioestatística usando o R" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-
+<link rel="prev" href="estimação.html"/>
+<link rel="next" href="referências.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -423,19 +423,256 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="teste-de-hipóteses" class="section level1 hasAnchor" number="11">
+<h1><span class="header-section-number">Capítulo 11</span> Teste de Hipóteses<a href="teste-de-hipóteses.html#teste-de-hipóteses" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><em>Teste de hipóteses</em> é um dos procedimentos básicos para a inferência estatística. Em um teste de hipóteses, testa-se uma teoria ou crença sobre um parâmetro populacional <span class="citation">(96)</span>. Na maioria das vezes, como mencionado anteriormente, obtém-se informações a partir de uma amostra em função da impossibilidade ou dificuldade de se conseguir essas informações a partir da população. Portanto, extrapolar ou estender os resultados, obtidos de uma amostra, para a população, significa aceitá-los como representações adequadas da mesma.</p>
+<p>Sabe-se que as estimativas amostrais diferem dos valores reais (populacionais) e o objetivo dos testes de hipóteses é estabelecer a probabilidade de essa diferença ser explicada pelo acaso. O teste de hipóteses fornece um sistema referencial para a tomada de decisão sobre a adequação ou não dos dados amostrais serem representativos de uma população. Este sistema referencial é a distribuição de probabilidade do evento observado <span class="citation">(97)</span>.</p>
+<div id="pacotes-necessários-para-este-capítulo-2" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">11.1</span> Pacotes necessários para este capítulo<a href="teste-de-hipóteses.html#pacotes-necessários-para-este-capítulo-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="teste-de-hipóteses.html#cb611-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(BSDA,dplyr,readxl)</span></code></pre></div>
+</div>
+<div id="exemplo" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">11.2</span> Exemplo<a href="teste-de-hipóteses.html#exemplo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Considere o exemplo dos recém-nascidos a termo da Maternidade do HGCS.</p>
+<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb612-1"><a href="teste-de-hipóteses.html#cb612-1" aria-hidden="true" tabindex="-1"></a>rnt <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb612-2"><a href="teste-de-hipóteses.html#cb612-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(ig<span class="sc">&gt;=</span><span class="dv">37</span> <span class="sc">&amp;</span> ig<span class="sc">&lt;</span><span class="dv">42</span>)</span>
+<span id="cb612-3"><a href="teste-de-hipóteses.html#cb612-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb612-4"><a href="teste-de-hipóteses.html#cb612-4" aria-hidden="true" tabindex="-1"></a>rnt<span class="sc">$</span>sexo <span class="ot">&lt;-</span> <span class="fu">factor</span>(rnt<span class="sc">$</span>sexo,</span>
+<span id="cb612-5"><a href="teste-de-hipóteses.html#cb612-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb612-6"><a href="teste-de-hipóteses.html#cb612-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;masc&quot;</span>, <span class="st">&quot;fem&quot;</span>))</span>
+<span id="cb612-7"><a href="teste-de-hipóteses.html#cb612-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb612-8"><a href="teste-de-hipóteses.html#cb612-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Resumo da variável pesRN do dataframe rnt de acordo com o sexo</span></span>
+<span id="cb612-9"><a href="teste-de-hipóteses.html#cb612-9" aria-hidden="true" tabindex="-1"></a>resumo <span class="ot">&lt;-</span> rnt <span class="sc">%&gt;%</span> </span>
+<span id="cb612-10"><a href="teste-de-hipóteses.html#cb612-10" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(sexo) <span class="sc">%&gt;%</span> </span>
+<span id="cb612-11"><a href="teste-de-hipóteses.html#cb612-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span> (<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb612-12"><a href="teste-de-hipóteses.html#cb612-12" aria-hidden="true" tabindex="-1"></a>                    <span class="at">media =</span> <span class="fu">mean</span>(pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb612-13"><a href="teste-de-hipóteses.html#cb612-13" aria-hidden="true" tabindex="-1"></a>                    <span class="at">sigma =</span> <span class="fu">sd</span>(pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb612-14"><a href="teste-de-hipóteses.html#cb612-14" aria-hidden="true" tabindex="-1"></a>resumo</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 4
+##   sexo      n media sigma
+##   &lt;fct&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 masc    592 3274.  458.
+## 2 fem     493 3147.  458.</code></pre>
+<p>Suponha que se faça uma afimação de que existe uma diferença significativa entre os pesos ao nascer de meninos e meninas. Para confirmar isso, foi extraída uma amostra de 100 casos do conjunto <code>rnt</code>,sem reposição, considerada como a população de estudo. <a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a></p>
+<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="teste-de-hipóteses.html#cb614-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span> (<span class="dv">123</span>)</span>
+<span id="cb614-2"><a href="teste-de-hipóteses.html#cb614-2" aria-hidden="true" tabindex="-1"></a>rnt100 <span class="ot">&lt;-</span> rnt <span class="sc">%&gt;%</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">100</span>)</span></code></pre></div>
+<p>Este conjunto de dados contém 100 observações de 30 variáveis. Como serão usadas apenas as variáveis <code>sexo</code> e <code>pesoRN</code>, ele será reduzido e a seguir serão obtidas as medidas sumarizadoras por sexo e atribuídas ao objeto <code>resumo2</code>:</p>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="teste-de-hipóteses.html#cb615-1" aria-hidden="true" tabindex="-1"></a>resumo2 <span class="ot">&lt;-</span> rnt100 <span class="sc">%&gt;%</span> <span class="fu">select</span>(sexo, pesoRN) <span class="sc">%&gt;%</span> </span>
+<span id="cb615-2"><a href="teste-de-hipóteses.html#cb615-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(sexo) <span class="sc">%&gt;%</span> </span>
+<span id="cb615-3"><a href="teste-de-hipóteses.html#cb615-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb615-4"><a href="teste-de-hipóteses.html#cb615-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">media =</span> <span class="fu">mean</span> (pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb615-5"><a href="teste-de-hipóteses.html#cb615-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">dp =</span> <span class="fu">sd</span> (pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb615-6"><a href="teste-de-hipóteses.html#cb615-6" aria-hidden="true" tabindex="-1"></a>resumo2</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 4
+##   sexo      n media    dp
+##   &lt;fct&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 masc     57 3319.  428.
+## 2 fem      43 3227.  515.</code></pre>
+<p>Esta amostra de 57 meninos e 43 meninas, informa que os meninos têm, em média, 3319g ao nascer e as meninas 3227g. Esta diferença de peso entre os sexos pode ter ocorrido devido ao acaso. Portanto, há necessidade de realizar um teste de hipóteses para tomar uma decisão sobre o parâmetro populacional <span class="citation">(98)</span>. Esta diferença é grande o suficiente para rejeitar a hipótese de igualdade entre os pesos e concluir há uma diferença real entre eles?</p>
+</div>
+<div id="hipótese-nula-e-alternativa" class="section level2 hasAnchor" number="11.3">
+<h2><span class="header-section-number">11.3</span> Hipótese nula e alternativa<a href="teste-de-hipóteses.html#hipótese-nula-e-alternativa" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Uma <em>hipótese estatística</em> é qualquer consideração (suposição) feita em relação a um parâmetro populacional. Por meio do teste de hipóteses, se verifica se tais considerações são ou não compatíveis com os dados disponíveis.</p>
+<p>No teste de hipóteses (TH), existem dois tipos de hipóteses, definidas como:</p>
+<p><strong>Hipótese nula</strong>(<span class="math inline">\(H_{0}\)</span>): hipótese que afirma a não existência de diferença entre os grupos e, portanto, a diferença observada é atribuível ao acaso. É a hipótese a ser testada, aquela que se busca afastar. É escrita como:</p>
+<p><span class="math display">\[
+H_{0}: \mu_{1}= \mu_{2} \quad ou \quad \mu_{1}- \mu_{2}=0
+\]</span>
+<strong>Hipótese alternativa</strong> (<span class="math inline">\(H_{A}\)</span>): é a hipótese contrária, como o nome diz, alternativa à <span class="math inline">\(H_{0}\)</span>. Representa a posição de uma nova perspectiva, a conclusão que será apoiada se <span class="math inline">\(H_{0}\)</span> for rejeitada. Ela supõe que realmente exista uma diferença entre os grupos. É a hipótese que o pesquisador pretende comprovar. É escrita, em geral, simplesmente como havendo uma diferença entre os grupos, sem indicar uma direção, <em>hipótese bilateral</em> ou <em>bicaudal</em>:</p>
+<p><span class="math display">\[
+H_{A}: \mu_{1} \neq  \mu_{2} \quad ou \quad \mu_{1} - \mu_{2} \neq  0
+\]</span>
+Ou, se houver uma suspeita, através de um conhecimento prévio, apontar uma direção para a diferença, ou seja, usar uma <em>hipótese unilateral</em> ou <em>monocaudal</em>. Neste caso existe duas possibilidade:</p>
+<ol style="list-style-type: decimal">
+<li>Unilateral à direita:</li>
+</ol>
+<p><span class="math display">\[
+H_{A}: \mu_{1} &gt; \mu_{2} \quad ou \quad \mu_{1} - \mu_{2} &gt; 0
+\]</span>
+Consequentemente,</p>
+<p><span class="math display">\[
+H_{0}: \mu_{1} \le \mu_{2} \quad ou \quad \mu_{1}- \mu_{2} \le 0
+\]</span>
+2) Unilateral à esquerda:</p>
+<p><span class="math display">\[
+H_{A}: \mu_{1} &lt; \mu_{2} \quad ou \quad \mu_{1} - \mu_{2} &lt; 0   
+\]</span>
+Consequentemente,</p>
+<p><span class="math display">\[
+H_{0}: \mu_{1} \ge \mu_{2} \quad ou \quad \mu_{1}- \mu_{2} \ge 0
+\]</span></p>
+<p>A <span class="math inline">\(H_{0}\)</span> e <span class="math inline">\(H_{A}\)</span> são opostas e mutuamente exclusivas. No teste de hipótese calcula-se a probabilidade de obter os resultados encontrados caso não haja efeito na população, ou seja, caso a <span class="math inline">\(H_{0}\)</span> seja verdadeira. Portanto, o TH é um teste de significância para a <span class="math inline">\(H_{0}\)</span>.</p>
+<p><strong>Exemplo</strong> (continuação)</p>
+<p>Voltando aos recém-nascidos, as hipóteses seriam escritas da seguinte maneira, considerando uma <span class="math inline">\(H_{A}\)</span> bilateral:</p>
+<p><span class="math display">\[
+H_{0}: \mu_{meninos}= \mu_{meninas} \quad ou \quad \mu_{meninos}- \mu_{meninas}=0
+\]</span></p>
+<p><span class="math display">\[
+H_{A}: \mu_{meninos} \neq  \mu_{meninas} \quad ou \quad \mu_{meninos} - \mu_{meninas} \neq  0
+\]</span></p>
+</div>
+<div id="escolha-do-teste-estatítico-e-regra-de-decisão" class="section level2 hasAnchor" number="11.4">
+<h2><span class="header-section-number">11.4</span> Escolha do teste estatítico e regra de decisão<a href="teste-de-hipóteses.html#escolha-do-teste-estatítico-e-regra-de-decisão" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>O teste estatístico escolhido depende do tipo de distribuição da variável, por exemplo, teste Z, teste t, teste F, qui-quadrado (<span class="math inline">\(\chi^2\)</span>). A decisão para rejeitar ou não a <span class="math inline">\(H_{0}\)</span> depende da magnitude do teste estatístico.</p>
+<p>É fundamental verificar, para cada teste estatístico os seus pressupostos. Para a maioria dos testes, deve-se verificar a distribuição (normalidade), igualdade das variâncias entre os grupos (homoscedasticidade), independência entre os grupos, tipo de correlação, etc.</p>
+<p>Realizado o teste estaístico, para rejeitar ou não rejeitar a <span class="math inline">\(H_{0}\)</span>, partindo do pressuposto de que ela é verdadeira, há necessidade de determinar uma <em>regra de decisão</em> que permita uma declaração fundamentada. Essa regra de decisão cria duas regiões, uma <em>região de rejeição</em> e uma <em>região de não rejeição</em> da <span class="math inline">\(H_{0}\)</span>, demarcadas por um <em>valor crítico</em>.</p>
+<p>Este valor de referência é determinado pelo <em>nível de significância</em>, <span class="math inline">\(\alpha\)</span>, e deve ser explicitamente mencionado <em>antes</em> de se iniciar a pesquisa, pois é baseado nele que se fundamentam as conclusões da mesma. O nível de significância corresponde a probabilidade de rejeitar uma hipótese nula verdadeira. Quando a hipótese alternativa não tem uma direção definida, a área de rejeição, <span class="math inline">\(\alpha\)</span>, é colocada nas duas caudas (Figura <a href="teste-de-hipóteses.html#fig:rejeicao">11.1</a>, superior), dividindo a probabilidade (<span class="math inline">\(\frac {\alpha}{2}\)</span>); quando houver indicação prévia de um sentido, a área de rejeição ficará a direita (Figura <a href="teste-de-hipóteses.html#fig:rejeicao">11.1</a>, inferior) ou a esquerda dependendo da direção escolhida.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:rejeicao"></span>
+<img src="https://i.imgur.com/ttCoLro.png.png" alt="Regiões bicaudais (acima) e monocaudal à direita (abaixo) de rejeição e não rejeição da hipótese" width="80%" />
+<p class="caption">
+Figure 11.1: Regiões bicaudais (acima) e monocaudal à direita (abaixo) de rejeição e não rejeição da hipótese
+</p>
+</div>
+<p>Como se observa, ao se tomar uma decisão existe a possibilidade de se cometer <em>erros</em>. O primeiro erro é denominado de <em>erro tipo I</em> e ocorre quando, baseado na regra de decisão escolhida, uma hipótese nula verdadeira é rejeitada. Nesse caso, tem-se um resultado <em>falso positivo</em>. Há uma conclusão de que existe um efeito quando na verdade ele não existe. A probabilidade de cometer esse tipo de erro é <span class="math inline">\(\alpha\)</span>, o mesmo usado como nível de significância no estabelecimento da regra de decisão.</p>
+<p><span class="math display">\[
+P(rejeitar \quad H_{0}|H_{0} \quad verdadeira) = \alpha
+\]</span>
+Qual o valor de <span class="math inline">\(\alpha\)</span> que pode representar forte evidencia contra <span class="math inline">\(H_{0}\)</span>, reduzindo a possibilidade de erro tipo I?</p>
+<p>O valor de <span class="math inline">\(\alpha\)</span> escolhido, apesar de arbitrário, deve corresponder a importância do que se pretende demonstrar, quanto mais importante, menor deve ser o valor de <span class="math inline">\(\alpha\)</span>. Nesses casos, não se quer rejeitar incorretamente <span class="math inline">\(H_{0}\)</span> mais de 5% das vezes. Isso corresponde ao nível de significância mais usado de 0,05 (<span class="math inline">\(\alpha = 0,05\)</span>). Em algumas situações também são utilizados 0,01 e 0,10. Como mencionado, o valor de <span class="math inline">\(\alpha\)</span> deve ser escolhido antes de iniciar o estudo.</p>
+<p>Existe uma outra possibilidade de erro, denominado de <em>erro tipo II</em>, que ocorre quando a hipótese nula é realmente falsa, mas com base na regra de decisão escolhida, não se rejeita essa hipótese nula. Nesse caso, o resultado é um <em>falso negativo</em>; não se conseguiu encontrar um efeito que realmente existe. A probabilidade de cometer esse tipo de erro é chamada de <span class="math inline">\(\beta\)</span>.</p>
+<p><span class="math display">\[
+P(não \quad rejeitar \quad H_{0}|H_{0} \quad falsa) = \beta
+\]</span>
+Na construção de um teste de hipótese, o erro tipo II é considerado menos grave que o erro tipo I. Entretanto, ele é bastante importante. Tradicionalmente, adota-se o limite de 0,10 a 0,20 para o erro tipo II.</p>
+<p>Abaixo (Figura <a href="teste-de-hipóteses.html#fig:erros">11.2</a>) estão resumidas as possíveis consequências na tomada de decisão em um teste de hipótese <span class="citation">(99)</span>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:erros"></span>
+<img src="https://i.imgur.com/wL61R9C.png" alt="Tomada de decisão e erros." width="80%" />
+<p class="caption">
+Figure 11.2: Tomada de decisão e erros.
+</p>
+</div>
+<p><strong>Exemplo</strong> (continuação)</p>
+<p>O nível de significância escolhido será <span class="math inline">\(\alpha = 0,05\)</span> e como a a amostra <code>rnt100</code> é constituída por 57 meninos e 43 meninas, onde os meninos têm média, 3319g ao nascer e as meninas 3227g. Esta amostra é proveniente de uma população cujo peso dos recém-nascidos têm distribuição normal. Em função destas características, para testar a hipótese de que não existe diferenças entre os pesos ao nascer, de acordo com o sexo, será usado o <em>teste z</em>.</p>
+<p>Para um teste <em>z</em>, para um <span class="math inline">\(\alpha = 0,05\)</span>, o valor crítico, para um teste bilateral, é igual a:</p>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="teste-de-hipóteses.html#cb617-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span> (<span class="fu">qnorm</span>(<span class="fl">0.975</span>), <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 1.96</code></pre>
+<p>Ou seja, com é bilateral, o <span class="math inline">\(z_{crítico}\)</span> é igual a <span class="math inline">\(\pm 1.96\)</span>. Desta forma, se o resultado do teste <span class="math inline">\(z_{calculado}\)</span> for igual ou maior do que o <span class="math inline">\(z_{crítico}\)</span>, rejeita-se a hipótese de igualdade entre os pesos dos recém-nascidos, masculinos e femininos</p>
+<p><span class="math display">\[
+|z_{calculado}| &lt; |z_{crítico}|  \to não \quad se \quad rejeita \quad H_{0}
+\]</span>
+<span class="math display">\[
+|z_{calculado}| \ge |z_{crítico}| \to rejeita-se \quad H_{0}
+\]</span></p>
+<p>O teste estatístico é usado para saber se a a diferença média obtida através da amostra se afasta de forma significativa da diferença média populacional. Para isso é usado o erro padrão da média (<span class="math inline">\(\sigma_{\bar{x}}\)</span>) que padroniza essa diferença em números de erros padrão. O teste <em>z</em> é cálculado pela fórmula:</p>
+<p><span class="math display">\[
+z=\frac{\bar{x}_1 - \bar{x}_2}{\sigma_{\bar{x}_1 - \bar{x}_2 }} = \frac{\bar{x}_1- \bar{x}_2}{\frac{\sigma_1}{\sqrt{n_1}} + \frac{\sigma_2}{\sqrt{n_2}}}
+\]</span></p>
+<p>No <em>R</em> base não há um teste <em>z</em>, há necessidade de instalar e carregar o pacote <code>BSDA</code> e usar a sua função <code>z.test()</code>.</p>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="teste-de-hipóteses.html#cb619-1" aria-hidden="true" tabindex="-1"></a>meninos <span class="ot">&lt;-</span> rnt100 <span class="sc">%&gt;%</span> </span>
+<span id="cb619-2"><a href="teste-de-hipóteses.html#cb619-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sexo <span class="sc">==</span> <span class="st">&quot;masc&quot;</span>)</span>
+<span id="cb619-3"><a href="teste-de-hipóteses.html#cb619-3" aria-hidden="true" tabindex="-1"></a>meninas <span class="ot">&lt;-</span> rnt100 <span class="sc">%&gt;%</span> </span>
+<span id="cb619-4"><a href="teste-de-hipóteses.html#cb619-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(sexo <span class="sc">==</span> <span class="st">&quot;fem&quot;</span>)</span>
+<span id="cb619-5"><a href="teste-de-hipóteses.html#cb619-5" aria-hidden="true" tabindex="-1"></a>dp1 <span class="ot">&lt;-</span> resumo2<span class="sc">$</span>dp[<span class="dv">1</span>]</span>
+<span id="cb619-6"><a href="teste-de-hipóteses.html#cb619-6" aria-hidden="true" tabindex="-1"></a>dp2 <span class="ot">&lt;-</span> resumo2<span class="sc">$</span>dp[<span class="dv">2</span>]</span>
+<span id="cb619-7"><a href="teste-de-hipóteses.html#cb619-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb619-8"><a href="teste-de-hipóteses.html#cb619-8" aria-hidden="true" tabindex="-1"></a>teste_z <span class="ot">&lt;-</span> <span class="fu">z.test</span>(meninos<span class="sc">$</span>pesoRN, </span>
+<span id="cb619-9"><a href="teste-de-hipóteses.html#cb619-9" aria-hidden="true" tabindex="-1"></a>                  meninas<span class="sc">$</span>pesoRN, </span>
+<span id="cb619-10"><a href="teste-de-hipóteses.html#cb619-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, </span>
+<span id="cb619-11"><a href="teste-de-hipóteses.html#cb619-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sigma.x =</span> dp1,</span>
+<span id="cb619-12"><a href="teste-de-hipóteses.html#cb619-12" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sigma.y =</span> dp2,</span>
+<span id="cb619-13"><a href="teste-de-hipóteses.html#cb619-13" aria-hidden="true" tabindex="-1"></a>                  <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb619-14"><a href="teste-de-hipóteses.html#cb619-14" aria-hidden="true" tabindex="-1"></a>teste_z</span></code></pre></div>
+<pre><code>## 
+##  Two-sample z-Test
+## 
+## data:  meninos$pesoRN and meninas$pesoRN
+## z = 0.94909, p-value = 0.3426
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -97.92831 281.81244
+## sample estimates:
+## mean of x mean of y 
+##  3319.035  3227.093</code></pre>
+<p>O <span class="math inline">\(|z_{calculado}| &lt; |z_{crítico}|\)</span>, donde se conclui que não é possível rejeitar a <span class="math inline">\(H_{0}\)</span> e, portanto, não existe uma diferença estatisticamente significativa entre os pesos dos recém-nascidos, com 95% de confiança.</p>
+</div>
+<div id="valor-p" class="section level2 hasAnchor" number="11.5">
+<h2><span class="header-section-number">11.5</span> Valor <em>P</em><a href="teste-de-hipóteses.html#valor-p" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Nas seções anteriores, foi discutido um procedimento onde se encontrou o valor de probabilidade tal que uma dada hipótese nula é rejeitada ou não é rejeitada, de acordo com o nível de significância, <span class="math inline">\(H_{0}\)</span>, fixado, pelo pesquisador, no início da pesquisa.</p>
+<p>Essa abordagem do valor de probabilidade, mais comumente chamada de abordagem do valor <em>P</em>, fornece esse valor. Uma vez realizada a pesquisa, o pesquisador calcula a <em>probabilidade de obter um resultado tão ou mais extremo que o observado, uma vez que a hipótese nula é verdadeira</em>. O valor <em>P</em> também é conhecido como <em>nível descritivo do teste</em> <span class="citation">(100)</span>.</p>
+<p>O objetivo de um teste estatístico é transformar em probabilidade a magnitude do desvio verificado em relação ao valor esperado, fornecendo o valor <em>P</em>. A partir daí pode-se, também, definir a regra de decisão, usando esse valor <em>P</em>. Toma-se o valor predeterminado (em geral, 0,05) de <span class="math inline">\(\alpha\)</span> e, então, compara-se o valor P com <span class="math inline">\(\alpha\)</span> e toma-se a decisão. Usando essa abordagem, rejeita-se a <span class="math inline">\(H_{0}\)</span> se o valor <em>P</em> &lt; <span class="math inline">\(\alpha\)</span> e não se rejeita se o valor <em>P</em> &gt; <span class="math inline">\(\alpha\)</span>. Costuma-se dizer que se o valor <em>P</em> &lt; <span class="math inline">\(\alpha\)</span>, o resultado é significativo e não significativo quando <em>P</em> &gt; <span class="math inline">\(\alpha\)</span>.</p>
+<p>Uma boa parte dos pesquisadores, principalmente no início da carreira, ficam empolgados pelo conhecimento do valor <em>P</em>. Entretanto, deve ser sempre lembrado que encontrar o valor <em>P</em> não é o único foco da pesquisa. O foco deve estar dirigido ao <em>tamanho do efeito</em> (<em>effect size</em>). O valor <em>P</em> obtido pelo teste estatístico, vai informar apenas sobre a probabilidade de se cometer erro ao rejeitar ou não rejeitar a hipóteses nula.</p>
+<p><strong>Exemplo</strong> (continuação)</p>
+<p>O teste realizado, <code>z.test()</code>, fornece o valor <em>P</em> de 0.3426. Este valor poderia ser obtido através da função <code>pnorm()</code> com o argumento <code>lower.tail = FALSE</code>. Além disso, como o teste é bilateral, o resultado deve ser multiplicado por 2. .</p>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="teste-de-hipóteses.html#cb621-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(teste_z<span class="sc">$</span>statistic, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>) <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div>
+<pre><code>##         z 
+## 0.3425773</code></pre>
+<p>Concluindo, esta é uma probabilidade muito maior do que <span class="math inline">\(\alpha = 0,05\)</span>, e ,em consequência, comete-se em erro, considerado grande, se a hipótese nula for rejeitada.</p>
+</div>
+<div id="poder-do-teste" class="section level2 hasAnchor" number="11.6">
+<h2><span class="header-section-number">11.6</span> Poder do teste<a href="teste-de-hipóteses.html#poder-do-teste" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Ao se planejar uma pesquisa é fixado previamente o valor máximo de alfa (<span class="math inline">\(\alpha\)</span>), probabilidade de erro tipo I, que será aceito e o valor de beta (<span class="math inline">\(\beta\)</span>), probabilidade de erro tipo II, é calculado para a situação específica da pesquisa.</p>
+<p>Considera-se <em>poder do teste estatístico</em> a probabilidade de o teste rejeitar uma hipótese nula quando ela é realmente falsa. Corresponde, na Figura <a href="teste-de-hipóteses.html#fig:power">11.3</a> , a região à direita da linha vertical azul, isto é, a área de rejeição da hipótese nula, para um teste monocaudal à direita.</p>
+<p><span class="math display">\[
+Poder \quad do \quad teste = P(rejeitar \quad H_{0}|H_{0} \quad falsa)
+\]</span>
+<span class="math display">\[
+Poder \quad do \quad teste = 1 - P(não \quad rejeitar \quad H_{0}|H_{0} \quad falsa)
+\]</span>
+<span class="math display">\[
+Poder \quad do \quad teste = 1 - \beta
+\]</span></p>
+<p>É comum dar pouca atenção à probabilidade de cometer um erro tipo II. Isto em geral acontece porque o único valor atribuído pelo investigador, antes de iniciar o teste, é o nível de significância, <span class="math inline">\(\alpha\)</span>, correspondente ao risco aceitável de rejeitar a hipótese nula.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:power"></span>
+<img src="https://i.imgur.com/Lc72ZVW.png" alt="Nível de significância, probabilidade de erro tipo II, poder  e nível de confiança em um teste de hipótese e a região de rejeição da hipótese nula (à direita da linha vertical azul)." width="80%" />
+<p class="caption">
+Figure 11.3: Nível de significância, probabilidade de erro tipo II, poder e nível de confiança em um teste de hipótese e a região de rejeição da hipótese nula (à direita da linha vertical azul).
+</p>
+</div>
+<p>Por outro lado, <span class="math inline">\(\beta\)</span> pode assumir um de muitos valores. Suponha um estudo onde se deseje testar a hipótese nula de que algum parâmetro da população é igual a algum valor especificado. Se a hipóteses nula for falsa e não se conseguir rejeitá-la, comete-se um erro do tipo II. Se o valor hipotético do parâmetro não for o valor verdadeiro, o valor de <span class="math inline">\(\beta\)</span> depende de vários fatores:</p>
+<ol style="list-style-type: decimal">
+<li>o valor verdadeiro do parâmetro de interesse,</li>
+<li>o valor hipotético do parâmetro,</li>
+<li>o valor de <span class="math inline">\(\alpha\)</span>,</li>
+<li>o tamanho da amostra, <em>n</em>.</li>
+</ol>
+<p>Para <span class="math inline">\(\alpha\)</span> e <em>n</em> fixos, então, antes de realizar um teste de hipótese, é possível obter muitos valores de <span class="math inline">\(\beta\)</span>, calculando muitos valores para o parâmetro de interesse, dado que o valor hipotético é falso.</p>
+<p>Para um determinado teste de hipótese, é interessante saber quão bem o teste controla os erros do tipo II. Se <span class="math inline">\(H_{0}\)</span> é de fato falsa, é importante saber a probabilidade de rejeitá-la. O poder de um teste fornece essa informação desejada. Pode ser calculado para qualquer valor alternativo do parâmetro sobre o qual se testa uma hipótese. Portanto, poder é a probabilidade de agir corretamente quando <span class="math inline">\(H_{0}\)</span> for falsa. Isso quer dizer que o poder é uma função da hipótese alternativa assumida como verdadeira.</p>
+</div>
+<div id="resumo-do-teste-de-hipóteses-passos-principais" class="section level2 hasAnchor" number="11.7">
+<h2><span class="header-section-number">11.7</span> Resumo do teste de hipóteses: Passos principais<a href="teste-de-hipóteses.html#resumo-do-teste-de-hipóteses-passos-principais" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="primeiro-passo-dados" class="section level3 hasAnchor" number="11.7.1">
+<h3><span class="header-section-number">11.7.1</span> Primeiro Passo: Dados<a href="teste-de-hipóteses.html#primeiro-passo-dados" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>É extremamente importante conhecer a natureza dos dados. A sua descrição adequada, o objetivo e o delineamento da pesquisa indicarão o teste estatístico a ser usado.</p>
+</div>
+<div id="segundo-passo-estabelecer-as-hipóteses-estatísticas" class="section level3 hasAnchor" number="11.7.2">
+<h3><span class="header-section-number">11.7.2</span> Segundo Passo: Estabelecer as hipóteses estatísticas<a href="teste-de-hipóteses.html#segundo-passo-estabelecer-as-hipóteses-estatísticas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As hipóteses, nula e alternativa, que devem ser claramente estabelecidas. A <span class="math inline">\(H_{0}\)</span> deve ter uma indicação de igualdade (=, <span class="math inline">\(\ge\)</span> ou <span class="math inline">\(\le\)</span>) e é a hipótese a ser testada.</p>
+<p>A <span class="math inline">\(H_{0}\)</span> e a <span class="math inline">\(H_{A}\)</span> são hipóteses complementares. Ao estabelecer as hipóteses deve-se-se definir o tipo de hipótese alternativa:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>apontando simplesmente a existência de uma diferença e ela é bilateral; ou</p></li>
+<li><p>apontando que existe uma diferença e o sentido do desvio desejado (maior ou menor que a referência) e a aí ela é unilateral. O teste unilateral só deve ser usado se houver informações prévias sobre o problema.</p></li>
+</ol>
+<p>Finalmente, ter sempre em mente que a rejeição ou não de uma <span class="math inline">\(H_{0}\)</span> não implica em uma prova irrefutável.</p>
+</div>
+<div id="terceiro-passo-escolha-do-teste-estatístico-e-regra-de-decisão" class="section level3 hasAnchor" number="11.7.3">
+<h3><span class="header-section-number">11.7.3</span> Terceiro passo: Escolha do teste estatístico e regra de decisão<a href="teste-de-hipóteses.html#terceiro-passo-escolha-do-teste-estatístico-e-regra-de-decisão" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Escolher o teste a ser usado como mencionado acima. Verificar os seus pressupostos <a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a>, executar o teste e comparar o resultado com o valor crítico predeterminado pelo nível de significância , <span class="math inline">\(\alpha\)</span>. Para um teste <em>z</em>, por exemplo, para um <span class="math inline">\(\alpha = 0,05\)</span>, o valor crítico, para um teste bilateral, é igual a <span class="math inline">\(\pm\)</span> 1,96, como visto anteriormente.</p>
+</div>
+<div id="quarto-passo-conclusão" class="section level3 hasAnchor" number="11.7.4">
+<h3><span class="header-section-number">11.7.4</span> Quarto passo: Conclusão<a href="teste-de-hipóteses.html#quarto-passo-conclusão" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A conclusão do teste, baseada no resultado do cálculo do teste estatístico, declara se este é significativo ou não, ou seja rejeita ou não a hipóteses nula, conforme a regra de decisão, previamente estabelecida.</p>
+</div>
+<div id="quinto-passo-valor-p" class="section level3 hasAnchor" number="11.7.5">
+<h3><span class="header-section-number">11.7.5</span> Quinto passo: Valor <em>P</em><a href="teste-de-hipóteses.html#quinto-passo-valor-p" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Calcular o valor <em>P</em>, probabilidade de a amostra observada, ou qualquer uma mais extrema que ela, ter sido gerada dentro das condições da hipótese nula. No exemplo visto, esta probabiliade é igual a 34.3%.</p>
+
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="16">
+<li id="fn16"><p>Conhecer os parâmetros da população, é muito raro. Aqui isto aconteceu, artificialmente, para fins didáticos.<a href="teste-de-hipóteses.html#fnref16" class="footnote-back">↩︎</a></p></li>
+<li id="fn17"><p>Ao estudar cada um dos testes será comentado com mais detalhes sobre estes pressupostos<a href="teste-de-hipóteses.html#fnref17" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-
+<a href="estimação.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="referências.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -466,7 +703,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/petronioliveira/bookR/edit/main/%s",
+"link": "https://github.com/petronioliveira/bookR/edit/main/11-testeHipoteses.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -474,7 +711,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/petronioliveira/bookR/blob/main/%s",
+"link": "https://github.com/petronioliveira/bookR/blob/main/11-testeHipoteses.Rmd",
 "text": null
 },
 "download": null,
