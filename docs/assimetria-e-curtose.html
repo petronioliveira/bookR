@@ -548,7 +548,7 @@ Figure 8.3: Assimetria
 <div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="assimetria-e-curtose.html#cb505-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb505-2"><a href="assimetria-e-curtose.html#cb505-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb505-3"><a href="assimetria-e-curtose.html#cb505-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> n100000,</span>
-<span id="cb505-4"><a href="assimetria-e-curtose.html#cb505-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span>..density..), </span>
+<span id="cb505-4"><a href="assimetria-e-curtose.html#cb505-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span><span class="fu">after_stat</span>(density)), </span>
 <span id="cb505-5"><a href="assimetria-e-curtose.html#cb505-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">bins =</span> <span class="dv">20</span>,</span>
 <span id="cb505-6"><a href="assimetria-e-curtose.html#cb505-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill=</span><span class="st">&#39;tomato&#39;</span>,</span>
 <span id="cb505-7"><a href="assimetria-e-curtose.html#cb505-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">col=</span><span class="fu">alpha</span>(<span class="st">&#39;red&#39;</span>,<span class="fl">0.2</span>)) <span class="sc">+</span> </span>

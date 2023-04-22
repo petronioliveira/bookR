@@ -697,12 +697,12 @@ Figure 7.5: Função densidade de probabilidade.
 </ul>
 <p>Com esta função é possível, por exemplo, gerar 10 observações de uma distribuição normal:</p>
 <div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="introdução-à-teoria-das-probabilidades.html#cb432-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1]  0.015305388 -0.272723667 -0.908691508  0.197587988 -0.517940153
-##  [6] -1.667928545  0.008352216 -0.626068881  0.582384366 -1.892057041</code></pre>
+<pre><code>##  [1] -0.55838094 -0.39940369  1.91641206  0.46659035 -1.26490019  0.35300949
+##  [7] -0.03031841 -0.04762428  1.61005540 -0.65575530</code></pre>
 <p>No entanto, deve-se notar que, se não especificar uma “semente” (<code>seed</code>), a saída não será reproduzível:</p>
 <div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="introdução-à-teoria-das-probabilidades.html#cb434-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1]  0.3290992  0.4568480 -0.8792838  1.5159664 -0.5204036 -0.1960757
-##  [7] -1.9630947  1.2378553  0.7286831 -0.2606930</code></pre>
+<pre><code>##  [1] -0.03965917  1.00679401 -1.21111862  0.63136224 -0.08167987  1.02985625
+##  [7] -0.41973508 -1.27991122  0.39502415 -0.11614655</code></pre>
 <p>Pode-se usar a função <code>set.seed()</code> para tornar o código reproduzível. O valor da “semente” (número) não é importante desde que seja consistente na sua utilização. O que é verdadeiramente importante é que o código seja reproduzido fielmente.</p>
 <p>Para ilustrar, será construído dois conjuntos de 10 números que serão recebidos pelos objetos <em>x</em> e <em>y</em>. Para gerar o conjunto de números <em>x</em>, sera usado o número <code>123</code> como “semente”. A “semente” funciona como uma espécie de marca. Para o <em>y</em> não será usado a <code>set.seed()</code>.</p>
 <div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="introdução-à-teoria-das-probabilidades.html#cb436-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>

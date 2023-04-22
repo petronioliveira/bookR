@@ -136,7 +136,7 @@ n100000 <- rnorm(100000, mean = 0, sd = 1)
 library(ggplot2)
 ggplot() +
   geom_histogram(aes(x = n100000,
-                     y =..density..), 
+                     y =after_stat(density)), 
                  bins = 20,
                  fill='tomato',
                  col=alpha('red',0.2)) + 

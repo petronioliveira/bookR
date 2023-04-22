@@ -458,7 +458,7 @@ dp
 library(ggplot2)
 ggplot(mater,
        aes(x = pesoRN)) + 
-  geom_histogram(aes(y =..density..), 
+  geom_histogram(aes(y = after_stat(density)), 
                  bins = 20,
                  fill='tomato',
                  col=alpha('red',0.2)) + 
