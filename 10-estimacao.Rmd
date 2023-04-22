@@ -1,0 +1,559 @@
+# Estimação  
+
+## Introdução  
+
+A estatística inferencial é a parte da estatística que usa os resultados da amostra para tomar decisões e tirar conclusões sobre a população de onde a amostra foi retirada. A estimação e o teste de hipóteses, tomados em conjunto, constituem a *inferência estatística*.   
+
+*Estimação* é um procedimento pelo qual um valor ou valores numéricos são atribuídos a um parâmetro populacional com base nas informações de uma amostra. Na estatística inferencial, $\mu$ é chamada, como anteriormente visto, de média populacional e *p* é chamada de proporção populacional. Existem muitos outros parâmetros populacionais, como mediana, moda, variância e desvio padrão.  
+
+Se houvesse possibilidade de realizar um *censo* (pesquisa incluindo toda a população de interesse), não haveria necessidade dos procedimentos de estimação. Seria equivalente ao que ocorre em uma eleição, basta contar os votos, para declarar os vencedores da eleição. No entanto, em saúde, realizar censo é um procedimento caro, demorado ou virtualmente impossível. Portanto, geralmente é utilizada uma amostra da população e calculada o valor das estatísticas da amostra apropriada. Baseado nessas estatísticas, é atribuído valores ao parâmetro.  
+
+Os valores atribuídos a um parâmetro populacional com base no valor de uma estatística amostral são chamados de *estimativa* do parâmetro populacional.  A estatística da amostra usada para estimar um parâmetro da população é chamada de *estimador.* Assim, a média da amostra, $\bar{x}$, é um estimador da média da população, $\mu$; e a proporção da amostra, $\hat{p}$, é um estimador da proporção da população, *p*.
+
+## Pacotes necessários para este capítulo
+
+```{r}
+pacman::p_load(DescTools,
+               dplyr,
+               ggplot2,
+               kableExtra,
+               knitr,
+               readxl,
+               Rmisc)
+```
+
+## Estimativa Pontual e Intervalo de Confiança  
+
+Se for selecionada uma amostra e calculado o valor da estatística amostral, esse valor fornece a estimativa do parâmetro populacional correspondente.   
+Voltando a considerar, para fins didáticos, o *dataset* `dadosMater.xlsx` como se fosse uma população, serão calculadas as medidas sumarizadora básicas da variável `pesoRN`:
+
+```{r}
+mater <- read_excel("Arquivos/dadosMater.xlsx") %>% 
+  filter(ig>=37 & ig<42) 
+
+# Média populacional
+mu <- round(mean(mater$pesoRN, na.rm = TRUE))
+mu
+
+# Desvio padrão populacional  
+dp_pop <- round(sd(mater$pesoRN, na.rm = TRUE))
+dp_pop
+```
+
+Agora, será extraída da população uma amostra de *n* = 30 ^[É importante lembrar que toda vez que for extraída uma nova amostra de tamanho *n* = 30, o resultado será um conjunto de números diferentes e, em consequência, a média será diferente.] e calculado os mesmas medidas resumidoras;
+
+```{r}
+mater30 <- mater %>% slice_sample(n = 30)
+
+# Média amostral
+media30 <- round(mean(mater30$pesoRN, na.rm = TRUE))
+media30
+
+# Desvio padrão amostral  
+dp30 <- round(sd(mater30$pesoRN, na.rm = TRUE))
+dp30
+
+```
+
+O valor de `r media30`g é a média amostral, $\bar{x}$, usada como um estimativa da $\mu$, é denominada de *estimativa pontual*. Como já mencionado anteriormente, espera-se que cada amostra selecionada produza um valor diferente da estatística amostral.
+
+Assim, o valor atribuído a uma média populacional, $\mu$, com base em uma estimativa pontual depende de qual das amostras está sendo usada. Consequentemente, a estimativa pontual atribui um valor a $\mu$ que quase sempre difere da mesma.  
+
+Para melhorar a precisão, usa-se uma estimativa de intervalo. Em vez de atribuir um único valor para o parâmetro populacional, é construído um intervalo, acrescentando ou subtraindo um valor, chamado de *margem de erro*, à estimativa pontual.   
+
+Este procedimento é conhecido como *estimação por intervalo* e o intervalo construído, estabelecendo um limite inferior e um limite superior em torno da estimativa amostral, é denominado de *intervalo de confiança*. Desta forma, é possível afirmar que o intervalo de confiança, provavelmente, contém o parâmetro populacional correspondente (Figura \@ref(fig:intconf)).
+
+```{r intconf, echo = FALSE, out.width = '80%', fig.align = 'center', fig.cap="Intervalo de Confiança.", fig.pos="H"}
+ knitr::include_graphics("https://i.imgur.com/CWTRd4J.png")
+```
+
+A construção do intervalo de confiança depende da obtenção da margem de erro. Este processo necessita de dois fatores: 
+
+* do desvio padrão da distribuição amostral, $\sigma_{\bar{x}}=\frac{\sigma }{\sqrt{n}}$, que em decorrência do Teorema do Limite Central, pode ser escrito $EP_{\bar{x}}=\frac{s}{\sqrt{n}}$;
+* do nível de confiança atribuído ao intervalo.
+
+Primeiro, quanto maior for o desvio padrão de $\bar{x}$, maior será a margem de erro subtraída e adicionada à estimativa pontual. Consequentemente, o intervalo de confiança se modifica de acordo com a margem de erro. Quanto maior a margem de erro mais amplo o intervalo de confiança.  
+
+Em segundo lugar, a quantidade subtraída e adicionada à estimativa se modifica de acordo o *nível de confiança*. Para ter uma maior confiança, deve-se aumentar a margem de erro, de acordo com a probabilidade declarada. Quanto maior o nível de confiança (NC), maior a probabilidade. O nível de confiança é mostrado como $(1 - \alpha) \times 100$%, onde $\alpha$ é o *nível de significância*. Tradicionalmente, o valor de $\alpha$ é igual a 0,05, mas qualquer outro valor pode ser usado.
+
+## Estimação da média populacional: $\sigma$ conhecido
+
+A *margem de erro* para a estimativa da média populacional, $\mu$, quando se conhece o desvio padrão populacional,$\sigma$, e $n \ge 30$ ou, mesmo que $n < 30$, mas a população de onde amostra foi selecionada tem distribuição normal, é a quantidade que é subtraída ou adicionada ao valor da média da amostra, $\bar{x}$, para obter o intervalo de confiança para $\mu$. Desta forma, a margem de erro é igual a:
+
+$$
+margem \quad de\quad erro\quad(me)= z_{(1-\frac{\alpha}{2})} \times \sigma_{\bar{x}}
+$$
+
+Ou, 
+
+$$
+me = z_{(1-\frac{\alpha}{2})} \times \frac{\sigma }{\sqrt{n}}
+$$
+
+Logo, o intervalo de confiança para a média populacional, $\mu$, para um nível de confiança (1 - $\alpha$)100%, é igual a:
+
+$$
+IC_{(1-\alpha)}(\mu) \rightarrow  \bar{x} \pm  me
+$$
+
+Se objetivo é construir um intervalo de confiança de 95%, a última equação passa a ser:
+
+$$
+IC_{(1-\alpha)}(\mu) \rightarrow  \bar{x} \pm  z_{(0,975)} \times me
+$$
+
+Onde *z* é o valor crítico para o nível de confiança escolhido, obtido da tabela de distribuição normal padrão, e *me* é a margem de erro ($z_{0,975} \times erro \quad padrao$). Um intervalo de confiança de 95% significa que a área total sob a curva normal entre dois pontos em torno da média populacional, $\mu$, é igual a 95%, ou 0,95. A área das caudas é $\alpha$, ou seja, cada cauda á igual a $\frac{\alpha}{2}$. 
+
+```{r two_tailed, echo = FALSE, out.width = '70%', fig.align = 'center'}
+knitr::include_graphics("https://i.imgur.com/q6Duexo.png")
+```
+
+Para encontrar o valor de *z* para um nível de confiança de 95%, primeiro encontram-se as áreas à esquerda desses dois pontos, $z_1$ e $z_2$. Esses dois valores de *z* serão iguais, mas com sinais opostos. A área total sob a curva é igual a 1. A área entre $z_1$ e $z_2$ é igual a $1 - \alpha = 0,95$.
+
+A área a esquerda de $z_1$ é igual a 0,025 e a área a esquerda de $z_2$ é igual a 1 – 0,025 = 0,975. No R, o valor $z_1$ e $z_2$ podem facilmente ser obtidos com a função `qnorm()`:
+
+```{r}
+qnorm(0.025)
+qnorm(0.975)
+```
+
+Dessa maneira, para uma confiança de 95%, é usado um $z = 1.96$, onde:
+
+$$
+p(-1,96 \le z \le 1,96) = 0,95
+$$
+
+Desta forma, usando a média da amostra de 30 recém-nascidos a termo igual a `r mu`g e o desvio padrão populacional é igual a `r dp_pop`g. Então, pode-se escrever que o intervalo de confiança de 95% para o peso do recém-nascido a termo da Maternidade do HGCS é:
+
+$$
+IC_{95\%}(\mu) \rightarrow  \bar{x} \pm  (1.96 \times \sigma_{\bar{x}})
+$$
+$$
+IC_{95\%}(\mu) \rightarrow  \bar{x} \pm  (1.96 \times \frac{\sigma}{\sqrt{n}})
+$$
+```{r}
+n = length(mater30$pesoRN)
+me <- 1.96 * dp_pop/sqrt(n)
+round(me)
+round (media30)
+lim_inf <- media30 - me
+lim_sup <- media30 + me
+ic95 <- c(lim_inf, lim_sup)
+round(ic95)
+```
+
+O *R* não tem um comando específico para encontrar os intervalos de confiança para a média dos dados normais quando o desvio padrão da população é conhecido. Então, foi criada uma função para calcular o intervalo de confiança, conhecendo-se o desvio padrão da população ^[Situação rara! A regra é este ser desconhecido.]. Esta função necessita dos seguintes argumentos:
+
+* *x* $\rightarrow$ conjunto de números da amostra
+* *s* $\rightarrow$ desvio padrão populacional
+* *nc* $\rightarrow$ nível de confiança. Padrão: nc = 0.95
+
+
+```{r}
+IC_z <- function (x, s, nc = 0.95)
+{
+  `%>%` <- magrittr::`%>%`
+  n <- length(x)
+  me <- abs(qnorm((1-nc)/2))* dp_pop/sqrt(n)
+  df_out <- data.frame( tamanho_amostral = n, 
+                        media_amostral = mean(x), 
+                        dp_amostral = sd(x),
+                        margem_erro = me,
+                        'IC limite inferior'=(mean(x) - me),
+                        'IC limite superior'=(mean(x) + me)) %>%
+    tidyr::pivot_longer(names_to = "Medidas", values_to ="valores", 1:6 )
+  return(df_out)
+}
+```
+
+```{r}
+IC_z(x = mater30$pesoRN, s = dp_pop, )
+```
+
+Portanto, tem-se uma confiança de 95% de que a média do peso dos recém-nascidos a termo da Maternidade do HGCS está entre `r round(lim_inf) ` e `r round(lim_sup)`g.
+
+Estes limites também podem ser estendidos para outros níveis de confiança. Por exemplo, para um nível de confiança de 99% ${({1}-\frac{\alpha}{2})} = {({1} – \frac{0,01}{2})} = {0,995}$, o *z* crítico é igual:  
+
+```{r}
+round(qnorm(0.995), 2)
+```
+Substituindo na fórmula, usando o R:
+
+```{r}
+l_inf <- mu - (2.58 * dp_pop/sqrt(n))
+l_sup <- mu + (2.58 * dp_pop/sqrt(n))
+ic99 <- c(l_inf, l_sup)
+round(ic99)
+```
+
+Agora, com uma confiança de 99% o intervalo fica entre `r round(l_inf) ` e `r round(l_sup)`g.  
+
+Observando o IC95% e o IC99%, verifica-se que a amplitude do intervalo aumentou com o crescimento da confiança de 95% para 99%, porque houve um aumento na margem de erro.
+
+### Interpretação do intervalo de confiança  
+
+Se fossem extraídas todas as possíveis amostras de tamanho 30 da população de recém-nascidos a termo e construído para cada uma delas um intervalo de confiança de 95% em torno de cada média amostral, espera-se que 95% desses intervalos incluirão a média populacional e 5% não incluirão.   
+
+O IC95% informa sobre a *precisão* com que a média amostral estima a média populacional desconhecida ^[Anteriormente, mostrou-se a media populacional por uma questão didática. A regra é não se conhecer a média populacional, razão da importância do intervalo de confiança].   
+
+Na Figura \@ref(fig:vinte), são mostradas 20 amostras diferentes de tamanho *n* = 30, retiradas da mesma população de recém-nascidos a termo da Maternidade do HGCS. Junto aparecem os intervalos de confiança de 95% construídos em torno dessas amostras. Observa-se que apenas uma amostra (em vermelho) não inclui a média populacional (linha tracejada vertical em azul). Pode-se afirmar com 95% de confiança que se forem extraídas muitas amostras do mesmo tamanho de uma população e construído intervalos de confiança de 95% em torno das médias dessas amostras, 95% desses intervalos de confiança incluirão a média populacional. 
+
+```{r echo=FALSE}
+set.seed(1321)
+n <- 30
+sd <- dp_pop
+n.reps <- 20
+my.mean <- mu
+alpha <- 0.05
+mydata <- mater$pesoRN
+mydata <- matrix(rnorm(n = n.reps * n, 
+                       mean = my.mean, 
+                       sd =sd), 
+                 ncol = n.reps)
+sample.means <- apply(mydata, 2, mean)
+error <- apply(mydata, 2, 
+               function(x) qnorm(1-alpha/2)*sd (x)/sqrt(length(x)))
+dfx <- data.frame(sample.means, 
+                  error, 
+                  lcl = sample.means-error, 
+                  ucl = sample.means+error, 
+                  trial = 1:n.reps)
+dfx$erro <- dfx$ucl < my.mean | dfx$lcl > my.mean
+```
+
+
+```{r vinte, echo=FALSE, fig.out="75%", fig.cap="IC 95% - 20 amostras de n = 30"}
+ggplot2::ggplot(dfx, 
+                aes(x = sample.means, 
+                    y = trial, 
+                    xmin = lcl, 
+                    xmax = ucl, 
+                    color = erro)) + 
+  geom_errorbarh() + 
+  geom_point(pch = 16) +
+  geom_vline(aes(xintercept=my.mean), color = "blue", lty=2) +
+  labs(x = "Médias amostrais", y = "Ensaios") +
+  ggtitle(paste("ICs de sucesso:", 100*mean(!dfx$erro), "%")) +
+  scale_color_manual(values = c("seagreen4", "red")) +
+  theme_bw() +
+  theme(legend.position="none") 
+```
+
+
+
+## Estimação da média populacional: $\sigma$ desconhecido
+
+Com amostras pequenas, usar o modelo normal para construir intervalos de confiança, gera um erro, pois os pressupostos do teorema do limite central não são respeitados. 
+Quando o desvio padrão populacional, $\sigma$, é desconhecido e o tamanho amostral é pequeno (< 30), a estimação da média populacional é feita usando a *distribuição t*.  
+
+### Distribuição *t*  
+
+A distribuição *t*, desenvolvida por *William Sealy Gosset*, em 1908, é semelhante à distribuição normal. Como a curva de distribuição normal, a curva de distribuição *t* é unimodal, simétrica (em forma de sino) em torno da média e nunca encontra o eixo horizontal. A área total sob uma curva de distribuição *t* é 1 ou 100%. A curva da distribuição *t* é mais plana do que a curva de distribuição normal padrão. Em outras palavras, ela é mais achatada e mais espalhada. No entanto, conforme o tamanho da amostra aumenta, a distribuição *t* aproxima-se da distribuição normal padrão.  
+
+O formato de uma curva de distribuição *t* particular depende do número de graus de liberdade. O número de graus de liberdade (*gl*) para uma distribuição *t* é igual ao tamanho da amostra menos um, ou seja, $gl=n-1$, veja seção \@ref(sec-variancia).  
+
+O número de graus de liberdade é o único parâmetro da distribuição *t*. Há uma diferente distribuição *t* para cada número de graus de liberdade, portanto, a distribuição *t* se constitui em uma família de distribuições (Figura \@ref(fig:familia)).  
+
+
+```{r familia, echo=FALSE, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Curvas de distribuição t conforme o grau de liberdade e a distribuição normal.", fig.pos="H"}
+x <- seq(-4, 4, length=100)
+hx <- dnorm(x)
+
+gl <- c(1, 3, 8, 30)
+cores <- c("red", "blue", "darkgreen", "gold", "black")
+rotulos <- c("gl=1", "gl=3", "gl=8", "gl=30", "normal")
+
+plot(x, hx, type="l", lty=2, xlab="X",
+     ylab="Densidade", main="")
+
+for (i in 1:4){
+  lines(x, dt(x,gl[i]), lwd=2, col=cores[i])
+}
+
+legend("topright", 
+       inset=.05, 
+       title="Distribuições",
+       rotulos, 
+       lwd=2, 
+       lty=c(1, 1, 1, 1, 2), 
+       col=cores, 
+       bty = "n")
+```
+
+Como a distribuição normal padrão, a média da distribuição padrão *t* é 0. Entretanto, ao contrário da distribuição normal padrão, cujo desvio padrão é 1, o desvio padrão de uma distribuição *t* é $\sqrt{\frac{gl}{gl-2}}$ , para *gl* > 2, que sempre é maior do que 1. Assim, o desvio padrão de uma distribuição *t* é maior do que o desvio padrão da distribuição normal padrão.  
+Os valores de ${t}_{crítico}$ podem ser obtidos usando a função `qt()` que usa os seguintes argumentos:
+
+* *p* $\to$ probabilidade, igual a $1 - \frac{\alpha}{2}$, considerando-se bicaudal e $1 - \alpha$ quando unicaudal;
+* *d*f $\to$ graus de liberdade;
+* *lower.tail* $\to$ lógico; se TRUE, informa a probabilidade da cauda inferior. O padrão é TRUE  
+
+Assim, o valor do ${t}_{crítico}$ para $gl=10$ é:  
+
+```{r}
+alpha  <-  0.05
+p <- 1 - (alpha/2)
+gl = 10
+t <- qt(0.975, 10, lower.tail = TRUE)
+round(t, digits = 2)
+
+```
+
+Dessa forma, a área compreendida entre $\pm `r round(t, digits = 2)`$ é igual a 95% (Figura \@ref(fig:bilateral)):
+
+$$
+p(-2,23\le t\le 2,23)=0,95
+$$
+
+```{r bilateral, echo=FALSE, warning=FALSE, out.width="70%", out.height="70%", fig.align="center", fig.cap="Distribuição t com gl = 10, bilateral.", fig.pos="H"}
+# 1º Gráfico
+x <- seq (-4, 4, length = 1000)
+y <- dnorm(x)
+
+plot(x, y, axes = FALSE, type = 'l', xlab = '',
+     ylab = '',main = "")
+abline(h = 0)
+abline (v = 0, col = 2, lty ="dashed")
+x1 <- x[x >= 2.23]
+y1 <- dnorm(x1)
+x2 <- c(4, x1, x1[length(x1)], 4)
+y2 <- c(0,0, y1, 0)
+polygon(x2, y2, col = "lightblue2")
+
+x3 <- x[x <= -2.23]
+y3 <- dnorm(x3)
+x4 <- c(-4, x3, x3[length(x3)], -4)
+y4 <- c(0,y3, 0, 0)
+polygon(x4, y4, col = "lightblue2")
+
+axis(1, at = c(-2.23, 0, 2.23), font = 10, labels = c("-2.23", "0", "2.23"))
+text(0, 0.1, cex = 1.0, col = "black",expression(italic(0.95)))
+text(3, 0.04, cex = 1.0, col = "black",expression(italic(0.025)))
+text(-3, 0.04, cex = 1.0, col = "black",expression(italic(0.025)))
+```
+
+Quando se considera apenas uma das caudas (unicaudal ou unilateral), o valor do ${t}_{crítico}$ para $gl=10$ é
+
+```{r}
+t1 <- qt(0.95, 10, lower.tail = TRUE)
+round(t1, digits = 2)
+```
+
+Assim, a área abaixo de `r round(t1, digits = 2)` é igual a 95% (Figura \@ref(fig:unilateral)).
+
+$$
+p(t\le 1,81)=0,95
+$$
+
+```{r unilateral, echo=FALSE, warning=FALSE, out.width="70%", out.height="70%", fig.align="center", fig.cap="Distribuição t com gl = 10, unilateral.", fig.pos="H"}
+x <- seq (-4, 4, length = 1000)
+y <- dnorm(x)
+plot(x, y, axes = FALSE, type = 'l', xlab = '',
+     ylab = '',main = "")
+abline(h = 0)
+abline (v = 0, col = 2, lty ="dashed")
+x1 <- x[x >= 1.81]
+y1 <- dnorm(x1)
+x2 <- c(4, x1, x1[length(x1)], 4)
+y2 <- c(0,0, y1, 0)
+polygon(x2, y2, col = "lightblue2")
+
+axis(1, at = c(-5, 0, 1.81), font = 10, labels = c("","0", "1.81"))
+text(0, 0.1, cex = 1.0, col = "black",expression(italic(0.95)))
+text(3, 0.04, cex = 1.0, col = "black",expression(italic(0.05)))
+```
+
+### Cálculo do intervalo de confiança com $\sigma$ desconhecido  
+
+**Dados**  
+
+Neste momento, será usada a variável `mater$altura`, altura das mulheres em metros, pertencente ao conjunto de dados `dadosMater.xlsx`:
+
+```{r message=FALSE}
+mater <- read_excel("Arquivos/dadosMater.xlsx")
+dados <- mater %>% select (altura)
+```
+
+O conjunto de dados resultante contém a altura de 1368 mulheres, que para fins didáticos será considerada a população de estudo. Será extraída uma amostra ^[Lembrar que se for retirada outra amostra da mesma população de *n* = 30, a média e o desvio padrão serão diferentes!] de 30 mulheres e fazer inferência para essa população, *supondo que os parâmetros dessa população sejam desconhecidos*.
+
+```{r}
+amostra <- sample (dados$altura, 30)
+```
+
+A maneira mais intuitiva de estimar a média da população com base na amostra, é, simplesmente, calcular a média e o desvio padrão da amostra.
+
+```{r}
+media <- round(mean(amostra),3)
+media
+
+dp <- round(sd(amostra),3)
+dp
+```
+
+Para termos maior precisão, vamos calcular os intervalos de confiança para esta estimativa, usando a distribuição *t*.
+
+**Cálculo manual do IC**  
+
+Quando o desvio padrão da população ($\sigma$) não é conhecido, pode-se usar o seu estimador que é o desvio padrão da amostra (*s*), respeitando os pressupostos [@motulsky2010ci]. Então, o erro padrão da média ($\sigma_{\bar{x}}$) pode ser estimado pelo $EP_{\bar{x}}$.  
+
+$$
+EP_{\bar{x}}=\frac{s}{\sqrt{n}}
+$$
+
+O intervalo de confiança para a $\mu$ para um nível de confiança (*NC*) igual a $(1 – \alpha) \times100$% é igual a:  
+
+$$
+IC_{NC}(\mu)\rightarrow x\pm (t_{({1-\frac{alpha}{2})} } \times \frac {s}{\sqrt{n}})
+$$
+Quando o tamanho amostral é grande, o valor de *t* se aproxima do valor de *z*, portanto, em situações em que não se conhece o desvio padrão populacional, não há muita diferença se houver uma aproximação de *t* para *z* (Tabela \@ref(tab:tabtz)).
+
+```{r tabtz, echo=FALSE, message=FALSE, warning=FALSE}
+kable(data.frame(z = c("1,96", "1,96", "1,96", "1,96", "1,96", "1,96", "1,96", "1,96"),
+                        n = c(5, 10, 30, 50, 100, 200, 500, 1000),
+                        gl = c(4, 9, 29, 49, 99, 199, 499, 999),
+                        t = c(2.57, 2.23, 2.04, 2.01, 1.98, 1.97, 1.96, 1.96)),
+             booktabs = TRUE,
+             caption = "Comparação dos valores z e t(gl).",
+             format.args = list(decimal.mark = ",")) %>% 
+  kable_styling(full_width = F,
+                latex_options = "hold_position") %>% 
+  kableExtra::kable_classic(html_font = "Cambria") %>% 
+  kableExtra::row_spec(0, bold = TRUE) %>% 
+  kableExtra::column_spec(1, width = "2.5cm") %>% 
+  kableExtra::column_spec(2, width = "2cm") %>% 
+  kableExtra::column_spec(3, width = "2cm") %>% 
+  kableExtra::column_spec(4, width = "2cm")
+```
+
+Tem-se uma amostra de *n* = 30,  $\overline x = `r media`$ e $s = `r dp`$. Serão necessários os outros dados para obter o intervalo de confiança, usando uma distribuição *t* bicaudal e um nível de significância $\alpha = 0.05$:
+
+```{r}
+n <-  30
+alpha <- 0.05
+p <- 1 - alpha/2
+
+gl <- n - 1
+
+tc <-  qt(p, gl, lower.tail = TRUE)
+round(tc, 3)
+
+EP <- round(dp/sqrt(n),3)
+EP
+```
+
+Onde *p* é a probabilidade decorrente do nível de significância, *gl* são os graus de liberdade e *EP* é o erro padrão. 
+Com estes dados, pode-se calcular o intervalo de confiança de 95%:
+
+```{r}
+ic <- c((media - tc * EP), (media + tc * EP))
+ic <- round(ic, 2)
+ic
+```
+
+Ou seja, temos uma confiança 95% de que a média populacional desconhecida se encontra entre `r ic`m
+
+**Cálculo usando uma função do R**
+
+O R possui algumas funções que calculam o intervalo de confiança para variáveis numéricas, baseadas na distribuição *t*. Entre elas, a função `CI()`, incluída no pacote `Rmisc`:
+
+```{r}
+ic <- CI(amostra, ci = 0.95)
+round(ic, 2)
+```
+
+## Intervalo de Confiança para uma proporção populacional
+
+Com frequência , necessitanos estimar uma proporção populacional. Como não é possível realizar um censo cada vez que se necessita encontrar o valor de uma proporção da população, normalmente se obtém resultados de pesquisas por amostragem. Portanto, para levar em conta a variabilidade nos resultados obtidos em diferentes pesquisas por amostragem, precisamos conhecer os procedimentos para estimar uma proporção da população.  
+
+### Dados para estimar a proporção populacional
+
+Vamos usar uma amostra aleatória de *n* = 60 da variável` mater$fumo` para estimar a proporção de mulheres fumantes no conjunto de dados `dadosMater.xlsx`.
+
+```{r}
+dados <- read_excel("Arquivos/dadosMater.xlsx") %>% 
+  select (fumo) %>% 
+  slice_sample(n = 60)
+
+head(dados)
+```
+
+A seleção mostra que temos 60 observações da variável `fumo` e que a mesma é do tipo numérica (*dbl*), 1 = fumante e 2 = não fumante. Portanto, ela é uma variável categórica e deve ser transformada para fator.
+
+```{r}
+dados$fumo <- factor (dados$fumo, 
+                      levels = c (1,2), 
+                      label = c ("sim", "não"))
+```
+
+### Cálculo da estimativa pontual da proporção 
+
+Nesta amostra, a proporção de fumantes é:
+
+```{r}
+tab <- table(dados$fumo)
+tabFumo <- round (prop.table (tab), 3)
+tabFumo
+```
+
+### Cálculo do intervalo de confiança para a proporção
+
+**Cálculo Manual com Aproximação Normal**
+
+*1ª etapa*: verificar a premissa de que quando a proporção populacional é desconhecida a proporção pontual ($\hat p$) e o seu complemento ($\hat q = 1 - \hat p$) multiplicados, cada um, por $n$, devem ser maior do que 5.
+
+```{r}
+n <- 60
+(tabFumo) * n
+```
+
+Ambos valores são maiores do que 5. 
+
+*2ª Etapa*: O intervalo pode ser estimado pela distribuição normal. O $z_{crítico}$ é calculado:
+
+```{r}
+alpha <- 0.05
+p <-  1 - alpha/2
+zc <- qnorm (p, mean = 0, sd = 1)
+zc <- round(zc, 2)
+zc
+```
+
+*3ª Etapa*: Cálculo do erro padrão da proporção ($\sqrt \frac {\hat p \times \hat q}{n}$) e da margem de erro:
+
+```{r}
+prop <- tabFumo [1]
+EP <- sqrt((prop * (1 - prop))/n)
+EP
+me <- zc * EP
+me
+```
+
+*4ª Etapa*: Intervalo de confiança
+
+```{r}
+ic_prop <- c((prop - me), (prop + me))
+round(ic_prop, 3)
+```
+
+**Cálculo usando uma função** 
+
+O chamado *Intervalo de Confiança Exato* corrigem as deficiências da aproximação normal. O R tem uma função para este cálculo: `BinomCI()` do pacote `DescTools`[@signorell2022desctools]. É preferível usar o método de Clopper e Pearson que fornece o IC exato.  
+
+Os argumentos da função `BinomCI()` são:
+
+* *x* $\to$ é o número de desfechos, sucessos;
+* *n* $\to$ é o tamanho da amostra, número de ensaios;
+* *p* $\to$ probabilidade, hipótese nula; se ignorada o padrão é 0,50;
+* *conf.level* $\to$ nível de confiança, o padrão é 0.95;
+* *method* $\to$ possui vários métodos para calcular intervalos de confiança para uma proporção binomial como: “clopper-pearson” (exact interval), "wilson", "wald", "agresti-coull", "jeffreys", "modified wilson", "modified jeffreys", "arcsine", "logit", "witting", "pratt". O método padrão é o de “wilson”. Qualquer outro método, há necessidade de solicitar;
+* *sides* $\to$  hipótese alternativa padrão “two.sided” (bilateral), mas pode ser “right” ou “left” (unilateral a direita ou a esquerda, respectivamente).
+     
+```{r message =FALSE, warning=FALSE}
+IC <- BinomCI (tab[1], 
+               n, 
+               conf.level = 0.95, 
+               method = "clopper-pearson")
+round(IC, 3)
+```
+
+Observe que existe uma pequena diferença entre os valores da aproximação normal e o exato, com método de “clopper-pearson”.
+

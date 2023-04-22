@@ -365,6 +365,27 @@ div.csl-indent {
 <li class="chapter" data-level="9.6.1" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuição-amostral-da-proporção-amostral"><i class="fa fa-check"></i><b>9.6.1</b> Distribuição amostral da proporção amostral</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="10" data-path="estimação.html"><a href="estimação.html"><i class="fa fa-check"></i><b>10</b> Estimação</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="estimação.html"><a href="estimação.html#introdução-2"><i class="fa fa-check"></i><b>10.1</b> Introdução</a></li>
+<li class="chapter" data-level="10.2" data-path="estimação.html"><a href="estimação.html#pacotes-necessários-para-este-capítulo-1"><i class="fa fa-check"></i><b>10.2</b> Pacotes necessários para este capítulo</a></li>
+<li class="chapter" data-level="10.3" data-path="estimação.html"><a href="estimação.html#estimativa-pontual-e-intervalo-de-confiança"><i class="fa fa-check"></i><b>10.3</b> Estimativa Pontual e Intervalo de Confiança</a></li>
+<li class="chapter" data-level="10.4" data-path="estimação.html"><a href="estimação.html#estimação-da-média-populacional-sigma-conhecido"><i class="fa fa-check"></i><b>10.4</b> Estimação da média populacional: <span class="math inline">\(\sigma\)</span> conhecido</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="estimação.html"><a href="estimação.html#interpretação-do-intervalo-de-confiança"><i class="fa fa-check"></i><b>10.4.1</b> Interpretação do intervalo de confiança</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="estimação.html"><a href="estimação.html#estimação-da-média-populacional-sigma-desconhecido"><i class="fa fa-check"></i><b>10.5</b> Estimação da média populacional: <span class="math inline">\(\sigma\)</span> desconhecido</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="estimação.html"><a href="estimação.html#distribuição-t"><i class="fa fa-check"></i><b>10.5.1</b> Distribuição <em>t</em></a></li>
+<li class="chapter" data-level="10.5.2" data-path="estimação.html"><a href="estimação.html#cálculo-do-intervalo-de-confiança-com-sigma-desconhecido"><i class="fa fa-check"></i><b>10.5.2</b> Cálculo do intervalo de confiança com <span class="math inline">\(\sigma\)</span> desconhecido</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="estimação.html"><a href="estimação.html#intervalo-de-confiança-para-uma-proporção-populacional"><i class="fa fa-check"></i><b>10.6</b> Intervalo de Confiança para uma proporção populacional</a>
+<ul>
+<li class="chapter" data-level="10.6.1" data-path="estimação.html"><a href="estimação.html#dados-para-estimar-a-proporção-populacional"><i class="fa fa-check"></i><b>10.6.1</b> Dados para estimar a proporção populacional</a></li>
+<li class="chapter" data-level="10.6.2" data-path="estimação.html"><a href="estimação.html#cálculo-da-estimativa-pontual-da-proporção"><i class="fa fa-check"></i><b>10.6.2</b> Cálculo da estimativa pontual da proporção</a></li>
+<li class="chapter" data-level="10.6.3" data-path="estimação.html"><a href="estimação.html#cálculo-do-intervalo-de-confiança-para-a-proporção"><i class="fa fa-check"></i><b>10.6.3</b> Cálculo do intervalo de confiança para a proporção</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="referências.html"><a href="referências.html"><i class="fa fa-check"></i>Referências</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -697,12 +718,12 @@ Figure 7.5: Função densidade de probabilidade.
 </ul>
 <p>Com esta função é possível, por exemplo, gerar 10 observações de uma distribuição normal:</p>
 <div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="introdução-à-teoria-das-probabilidades.html#cb432-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1] -0.55838094 -0.39940369  1.91641206  0.46659035 -1.26490019  0.35300949
-##  [7] -0.03031841 -0.04762428  1.61005540 -0.65575530</code></pre>
+<pre><code>##  [1]  0.65011935 -0.45826759 -0.35481975 -0.56475902  0.16573217  0.03125233
+##  [7] -0.87899789 -0.07404746  1.16367658 -0.07887189</code></pre>
 <p>No entanto, deve-se notar que, se não especificar uma “semente” (<code>seed</code>), a saída não será reproduzível:</p>
 <div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="introdução-à-teoria-das-probabilidades.html#cb434-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1] -0.03965917  1.00679401 -1.21111862  0.63136224 -0.08167987  1.02985625
-##  [7] -0.41973508 -1.27991122  0.39502415 -0.11614655</code></pre>
+<pre><code>##  [1]  0.26939646 -0.44918058  0.01380392 -0.88779401 -0.47637674 -2.30395081
+##  [7] -0.80417234  0.25902162  1.52526065  0.31566302</code></pre>
 <p>Pode-se usar a função <code>set.seed()</code> para tornar o código reproduzível. O valor da “semente” (número) não é importante desde que seja consistente na sua utilização. O que é verdadeiramente importante é que o código seja reproduzido fielmente.</p>
 <p>Para ilustrar, será construído dois conjuntos de 10 números que serão recebidos pelos objetos <em>x</em> e <em>y</em>. Para gerar o conjunto de números <em>x</em>, sera usado o número <code>123</code> como “semente”. A “semente” funciona como uma espécie de marca. Para o <em>y</em> não será usado a <code>set.seed()</code>.</p>
 <div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="introdução-à-teoria-das-probabilidades.html#cb436-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
