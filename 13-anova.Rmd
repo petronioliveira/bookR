@@ -1,0 +1,1154 @@
+# Análise de Variância
+
+## Pacotes necessários para este capítulo
+
+```{r message=FALSE, warning=FALSE}
+pacman::p_load(car,
+               dplyr,
+               effectsize,
+               emmeans,
+               fastGraph,
+               ggplot2,
+               ggpubr,
+               ggsci,
+               kableExtra,
+               knitr,
+               readxl,
+               rstatix)
+``` 
+
+## ANOVA de um fator
+
+A *análise de variância (ANOVA) de um fator*, também conhecida como ANOVA de uma via, é uma extensão do teste *t* independente para comparar duas médias em uma situação em que há mais de dois grupos. Dito de outra forma, o teste *t* para uso com duas amostras independentes é um caso especial da análise de variância de uma via.  
+
+A ANOVA de um fator compara o efeito de uma variável preditora (variável independente, fator) sobre uma variável contínua (desfecho). Por exemplo, verificar se a intensidade do tabagismo na gestação (não fumantes, fumantes leves, moderados ou pesados) afetam o peso dos recém-nascidos. 
+
+```{r echo=FALSE}
+dados <- readxl::read_excel("Arquivos/dadosFumo.xlsx")
+
+dados$fumo <- factor (dados$fumo, 
+                      ordered = TRUE,
+                      levels = c(1, 2, 3, 4),
+                      labels = c ("não", 
+                                  "leve", 
+                                  "moderado",
+                                  "pesado"))
+```
+
+O gráfico de boxplots parece mostrar que sim (Figura \@ref(fig:bpanova)): 
+
+```{r bpanova, echo=FALSE, fig.align='center', warning=FALSE, out.height="70%", out.width="70%",fig.cap="Impacto do tabagismo materno no peso ao nascer"}
+ggplot2::ggplot(dados, aes(x=fumo, y=pesoRN)) + 
+  stat_boxplot(geom = "errorbar", 
+               width = 0.1) + 
+  geom_boxplot(aes(color = fumo), size = 0.8) +
+  scale_color_nejm() +
+  theme_classic() +
+  labs(x = "Tabagismo", 
+       y = "Peso ao nascer (g)") +
+  theme(legend.position="none")
+```
+
+### Por que realizar uma ANOVA?
+
+Inicialmente, para analisar os grupos, se ficaria tentado a fazer comparações por pares usando um teste *t* de amostras independentes. Com existem quatro grupos, é possível compará-los realizando seis teste, grupo 1 versus grupo 2, grupo 1 versus grupo 3, grupo 1 versus grupo 4, grupo 2 versus grupo 3, grupo 2 versus grupo 4 e grupo 3 versus grupo 4. Se os dados têm *k* grupos são necessários $\frac {k!}{2!(k-2)!}$ testes.   
+
+A probabilidade de um erro do tipo I não ocorrer para cada teste *t* é de 0,95 (isto é, 1 – 0,05), supondo um $\alpha$ = 0,05. Os três testes são independentes; portanto, a probabilidade de um erro do tipo I não ocorrer nos seis testes é de $(0,95)^6 = 0,735$. Dessa maneira, a probabilidade de ocorrer pelo menos um erro do tipo I nos seis testes *t* de duas amostras é de 1 – 0,735 ou 0,265 (26,5%), o que é mais alto do que o nível de significância definido de 0,05 [@field2012anova].  
+
+Logo, uma ANOVA de um fator é usada para verificar as diferenças entre vários grupos dentro de um fator, reduzindo assim o número de comparações em pares e a probabilidade de ocorrer um erro tipo I.  
+
+### Lógica do Modelo da ANOVA
+
+O procedimento de ANOVA é utilizado para testar a hipótese nula de que as médias de três ^[Pode ser usada também para comparar a média de duas populações e o resultado será o mesmo de um teste *t* para amostras independentes.] ou mais populações são as mesmas contra hipótese alternativa de que nem todas as médias são iguais.  
+
+No capítulo de comparação de duas médias, foi usado um teste para comparar duas variâncias, denominado de *teste F*. Este teste, é uma razão entre duas variâncias e recebeu este nome em homenagem a Sir Ronald Aylmer *Fisher*.   
+
+A variância é uma medida de dispersão que mensura como os dados estão espalhados em torno da média. Quanto maior o seu valor, maior a dispersão. 
+
+Considere a Figura \@ref(fig:logica), onde está representada a distribuição de uma variável X em três grupos independentes. Pode-se, claramente, distinguir observações provenientes dessas distribuições, pois a sobreposição delas é pequena. Cada uma dela se dispersa pouco em torno da média.
+
+```{r logica, echo=FALSE, fig.align='center', warning=FALSE, out.height="70%", out.width="70%", fig.cap="Três distribuições diferentes"}
+curve (dnorm (x, 
+              mean=0, 
+              sd=0.7), 
+       col="dodgerblue3", 
+       lty=1,
+       lwd=2,
+       ylim = c(0, 0.6),
+       xlim = c(-5, 5),
+       ylab = "",
+       xlab = "",
+       yaxt = "n",
+       xaxt = "n",
+       bty = "n",
+       axes = F)
+abline (v= 0, lwd = 1, lty = 2, col = "dodgerblue3")
+box(bty="l)")
+text(0, 0.2, expression("X"[2]), cex = 1.5, col = "dodgerblue3")
+curve (dnorm (x, 
+              mean=-2, 
+              sd=0.7), 
+       col="green3", 
+       lty=1,
+       lwd=2,
+       add=T)
+abline (v= -2, lwd = 1, lty = 2, col = "green3")
+text(-2, 0.2, expression("X"[1]),cex = 1.5, col = "green3")
+curve (dnorm (x, 
+              mean=2, 
+              sd=0.7), 
+       col="firebrick3", 
+       lty=1,
+       lwd=2,
+       add=T)
+abline (v= 2, lwd = 1, lty = 2, col = "firebrick3")
+text(2, 0.2, expression("X"[3]), cex = 1.5, col = "firebrick3")
+
+```
+
+Agora, observe o Figura \@ref(fig:logicb), onde a distribuição da variável X é mostrada, mantendo as mesmas médias, mas com variâncias maiores. Isto torna claro que se o objetivo é distinguir observações provenientes desses grupos não basta avaliar suas médias, há necessidade de comparar a variação entre os grupos com a variação dentro de cada grupo [@menezes2004anova]. 
+
+```{r logicb, echo=FALSE, fig.align='center', warning=FALSE, out.height="70%", out.width="70%", fig.cap="Distribuições com mesmas médias da figura anterior, mas variâncias maiores"}
+curve (dnorm (x, 
+              mean=0, 
+              sd=1.4), 
+       col="dodgerblue3", 
+       lty=1,
+       lwd=2,
+       ylim = c(0, 0.6),
+       xlim = c(-5, 5),
+       ylab = "",
+       xlab = "",
+       yaxt = "n",
+       xaxt = "n",
+       bty ="n",
+       axes = F)
+abline (v= 0, lwd = 1, lty = 2, col = "dodgerblue3")
+box(bty="l)")
+text(0, 0.2, expression("X"[2]), cex = 1.5, col = "dodgerblue3")
+curve (dnorm (x, 
+              mean=-2, 
+              sd=1.4), 
+       col="green3", 
+       lty=1,
+       lwd=2,
+       add=T)
+abline (v= -2, lwd = 1, lty = 2, col = "green3")
+text(-2, 0.2, expression("X"[1]),cex = 1.5, col = "green3")
+curve (dnorm (x, 
+              mean=2, 
+              sd=1.4), 
+       col="firebrick3", 
+       lty=1,
+       lwd=2,
+       add=T)
+abline (v= 2, lwd = 1, lty = 2, col = "firebrick3")
+text(2, 0.2, expression("X"[3]), cex = 1.5, col = "firebrick3")
+```
+
+Se a variação entre os grupos for grande quando comparada à variação dentro de cada grupo, aumenta a probabilidade de reconhecer a proveniência das observações (Figura \@ref(fig:logica)). Entretanto, se a variação entre os grupos for pequena comparada à variação dentro do grupo, torna difícil a distinção de observações provenientes dos grupos (Figura \@ref(fig:logicb)).
+
+Portanto, usar o teste *F* para determinar se as médias de grupo são iguais é apenas uma questão de incluir as variâncias corretas na razão. Na ANOVA com um fator, a estatística *F* é a razão dos estimadores das variância entre e dentro dos grupos. 
+
+$$
+F = \frac{variância \quad ENTRE \quad os \quad grupos}{variância \quad DENTRO \quad dos \quad grupos}
+$$
+
+Quando o valor de *F* fica próximo de 1, significa que as variâncias são muito próximas; quando *F* é significativamente maior do que 1, é possível distinguir os indivíduos de diferentes grupos. Ou seja, se o objetivo for mostrar que as médias são diferentes, será bom que a variância dentro dos grupos seja baixa. Pode-se pensar na variância dentro do grupo como o ruído que pode obscurecer a diferença entre os sons (as médias). No gráfico da Figura \@ref(fig:logica), o valor de *F* seria alto, no da Figura \@ref(fig:logicb) seria baixo.  
+
+Como saber se o valor de *F* é alto o suficiente? Um único valor *F* é difícil de interpretar sozinho. Há necessidade de colocá-lo em um contexto maior antes que seja possível interpretá-lo. Para fazer isso, usa-se a distribuição *F* para calcular as probabilidades.
+
+### Distribuição *F*
+
+A razão entre a variabilidade entre os grupos e a variabilidade dentro do grupo segue uma distribuição *F* quando a hipótese nula é verdadeira. Quando se realiza uma ANOVA com um fator obtém-se um valor *F*. No entanto, se forem extraídas várias amostras aleatórias do mesmo tamanho da mesma população e fosse repetida a mesma análise, o resultado seriam muitos valores *F* diferentes, constituindo uma distribuição amostral, denominada de *distribuição F*.   
+
+Dessa forma, como a distribuição *F* assume que a hipótese nula é verdadeira, é possível colocar o resultado de qualquer valor *F*, resultante do teste de ANOVA, e determinar quão consistente ele é com a hipótese nula e calcular a probabilidade. A probabilidade que se quer calcular é a probabilidade de observar uma estatística *F* que é pelo menos tão alta quanto o valor que o estudo obteve. Essa probabilidade permite determinar quão comum ou raro é o valor *F*, sob a suposição de que a hipótese nula é verdadeira. Se a probabilidade for pequena o suficiente, pode-se concluir que dados são inconsistentes com a hipótese nula. Como já foi mostrado em outros momentos, essa probabilidade é o valor *P*.  
+
+ O formato de uma curva de distribuição *F* depende do número de graus de liberdade. No entanto, a distribuição *F* tem dois números de graus de liberdade: *graus de liberdade para o numerador* (variância entre) e *graus de liberdade para o denominador* (variância dentro). Esses dois graus de liberdade são os parâmetros da distribuição *F*. Cada combinação de graus de liberdade fornece uma curva de distribuição *F* diferente. As unidades de uma distribuição *F* são denotadas por *F*, que assume apenas valores positivos. Como as distribuições normal, *t* e qui-quadrado (veja no capítulo específico), a distribuição *F* é uma distribuição contínua. A forma de uma curva de distribuição *F* é inclinada para à direita, mas a assimetria diminui à medida que o número de graus de liberdade aumenta, conforme observado na Figura \@ref(fig:distf). 
+ 
+```{r distf,echo=FALSE, fig.align='center', warning=FALSE, out.height="90%", out.width="90%",fig.cap="Distribuições F."}
+x = seq(0,5,0.1)
+
+curve(df(x, 1, 20), 
+      xlim=c(0,4),
+      ylim = c(0,1.3),
+      xlab="", 
+      ylab="Densidade de Probabilidade", 
+      lwd=2,
+      lty = 1,
+      col=1, 
+      main="Distribuição F")
+curve(df(x, 5, 20), 
+      xlim=c(0,4), 
+      xlab="", 
+      ylab="", 
+      lwd=2, 
+      lty = 1,
+      col=2, 
+      add =T)
+curve(df(x, 10, 20), 
+      xlim=c(0,4), 
+      xlab="", 
+      ylab="", 
+      lwd=2, 
+      lty = 1,
+      col=3, 
+      add =T)
+curve(df(x, 10, 50), 
+      xlim=c(0,4), 
+      xlab="", 
+      ylab="", 
+      lwd=2, 
+      lty = 1,
+      col=4, 
+      add =T)
+curve(df(x, 100, 20), 
+      xlim=c(0,4), 
+      xlab="", 
+      ylab="", 
+      lwd=2, 
+      lty = 1,
+      col=5, 
+      add =T)
+legend("topright", title = "Graus de liberdade",
+       c("(1, 20)", "(5, 20)", "(10, 20)", 
+         "(50, 20)", "(100, 20)"),
+       col = c(1, 2, 3, 4, 5),
+       lty = 1,
+       cex = 0.8,
+       lwd = 2,
+       bty ="n")
+```
+
+As principais funções para interagir com a distribuição *F* são `df()`, `pf()`, `qf()`, `rf()`. A função `df()` fornece a função de densidade, a função `pf()` fornece a função de distribuição, a função `qf() `fornece a função quantil e a função` rf()` gera valores de densidade aleatórios.  
+
+Pode-se usar `df()` para calcular a função de densidade de probabilidade no valor de 1 de uma curva *F* com $gl_1$=10 e $gl_2$=20:
+
+```{r}
+df(1, df1 = 10, df2 = 20)
+```
+
+Ou seja, ao se observar a curva acima da cor verde, quando $x = 1$, *y = 0,7*, de densidade de probabilidade.
+
+Usa-se `pf()` para calcular a área sob a curva para o intervalo $[0,1.5]$ e o intervalo $[1.5,+\infty]$ de uma curva *F* com $gl_1=10$ e $gl_2=20$. Além disso, pode-se perguntar ao R se a soma dos intervalos $[0,1.5]$ e $[1.5,+\infty]$ é igual a 1.
+
+```{r}
+x = 1.5
+gl1 = 10
+gl2 = 20
+# Interval$(0, 1.5)
+p1 <- pf(x, df = gl1, df2 = gl2, lower.tail = TRUE)
+p1
+```
+```{r}
+# intervalo$[1.5,+inf)
+p2 <- pf(x, df = gl1, df2 = gl2, lower.tail = FALSE)
+p2
+```
+```{r}
+p1 + p2 == 1
+```
+
+Usa-se o `qf()` para calcular o quantil para uma determinada área (= probabilidade) sob a curva para uma curva *F* com $gl_1=10$ e $gl_2=20$ que corresponde a $q=0.5$. Defini-se `lower.tail = TRUE` para obter a área para o intervalo $[0,q]$.
+
+```{r}
+q <- 0.50
+gl1=10
+gl2=20
+Fc <- round(qf(q, df1 = gl1, df2 = gl2, lower.tail = TRUE), 2)
+Fc
+```
+
+Observando a Figura \@ref(fig:distf814), construído com   função `shadeDist()` do pacote `fastGraph` @garren1919fastgraph , verifica-se que a área sob a curva abaixo de 0,97 é igual a 50%. Consulte a ajuda do *RStudio* para maiores detalhes dos argumentos da função.
+
+```{r distf814, echo=TRUE, fig.align='center', warning=FALSE, out.height="80%", out.width="80%",fig.cap="Distribuição F (10,20) = 0.97."}
+fastGraph::shadeDist (xshade = Fc,
+                      ddist = "df",
+                      parm1 = gl1, 
+                      parm2 = gl2,
+                      lower.tail = TRUE,
+                      digits.prob = 2,
+                      digits.xtic = 2,
+                      col=c("gray1","steelblue"))
+```
+
+Usar-se-á a função `rf()` para gerar 100.000 valores aleatórios da distribuição *F* com $gl_1=10$ e $gl_2=20$. Em seguida, plota-se um histograma (Figura \@ref(fig:distf1020)) e compara-se com a função de densidade de probabilidade da distribuição *F* com $gl_1=10$ e $gl_2=20$ (linha vermelha).
+
+```{r distf1020, echo=TRUE, fig.align='center', warning=FALSE, out.height="80%", out.width="80%",fig.cap="Histograma de uma distribuição F (10,20)"}
+x <- rf(100000, df1 = 10, df2 = 20)
+hist(x, 
+     breaks = 'Scott', 
+     freq = FALSE, 
+     xlim = c(0,3), 
+     ylim = c(0,1),
+     ylab = "Densidade",     
+     xlab = '', 
+     main = 'Histograma para uma distribuição F(10,20)', 
+     cex.main=0.9)
+
+curve(df(x, 
+         df1 = 10, df2 = 20), 
+      from = 0, 
+      to = 4, 
+      n = 5000, 
+      col= 'red', 
+      lwd=2, add = T)
+```
+
+### Dados do exemplo
+
+Para testar a hipótese de que a intensidade do tabagismo materno tem efeito sobre o peso do recém-nascido, foram selecionados aleatoriamente 200 recém-nascidos classificados em quatro grupos de n = 50 cada grupo, conforme a quantidade de cigarros fumados por dia por suas mães.  Estes dados estão no arquivo `dadosFumo.xlsx`.
+
+* **Grupo 1**: recém-nascidos de mães não fumantes;
+* **Grupo 2**: recém-nascidos de mães que fumavam até 10 cigarros/dia – categorizado como tabagismo leve; 
+* **Grupo 3**: recém-nascidos de mães que fumavam de 11 a 19 cigarros/dia – categorizado como tabagismo moderado;
+*	**Grupo 4**: recém-nascidos de mães que fumavam $\ge$ 20 cigarros por dia – categorizado como tabagismo pesado.
+
+Para baixar o banco de dados, clique [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosFumo.xlsx). Salve o mesmo no seu diretório de trabalho.
+
+#### Leitura dos dados
+
+A leitura será feita com a função `read_excel()` do pacote `readxl` e serão atribuídos a um objeto de nome `dados` e verificada a sua estrutura com a função `head()`.
+
+```{r}
+dados <- readxl::read_excel("Arquivos/dadosFumo.xlsx")
+
+head (dados)
+```
+
+#### Exploração e resumo dos dados 
+
+Como a variável `fumo` encontra-se como uma variável numérica, será transformada em fator que é a sua verdadeira classe com 4 níveis.
+
+```{r}
+dados$fumo <- factor (dados$fumo, 
+                      ordered = TRUE,
+                      levels = c(1, 2, 3, 4),
+                      labels = c ("não", 
+                                  "leve", 
+                                  "moderado",
+                                  "pesado"))
+class (dados$fumo)
+```
+
+As medidas resumidoras serão obtidas, usando as funções `group_by ()` e `summarise ()` do pacote `dplyr`. 
+
+```{r}
+alpha = 0.05
+resumo <- dados %>%
+  dplyr::group_by(fumo) %>%
+  dplyr::summarise(n = n(),
+                   media = mean(pesoRN, na.rm = TRUE),
+                   dp = sd (pesoRN, na.rm = TRUE),
+                   ep = dp/sqrt(n),
+                   me = qt ((1-alpha/2), n-1)*ep,
+                   IC_Inf = media - me,
+                   IC_sup = media + me)
+resumo
+```
+
+#### Visualização gráfica dos dados
+
+Os boxplots (Figura \@ref(fig:bxpfumo)) são uma maneira interessante de visualizar os dados:
+
+```{r bxpfumo, echo=FALSE, fig.align='center', warning=FALSE, out.height="70%", out.width="70%",fig.cap="Boxplots do impacto do tabagismo materno no peso ao nascer"}
+ggplot2::ggplot(dados, aes(x=fumo, y=pesoRN)) +
+  stat_boxplot(geom = "errorbar", 
+               width = 0.1) + 
+  geom_boxplot(aes(color = fumo), size = 0.8) +
+  stat_summary(fun = "mean", colour = "tomato", size = 3, geom = "point") +
+  geom_hline(yintercept=3151, linetype='dashed', col = 'red')+
+  scale_color_nejm() +
+  theme_classic() +
+  annotate(geom="text", 
+           x=1.5, 
+           y=2250, 
+           label="Media Geral",
+           color="red") +
+  annotate("segment", x = 1.5, xend = 1.5, 
+           y = 2320, yend = 3130,
+           colour = "red", linetype = "dashed", 
+           arrow = arrow(length = unit(0.25, "cm"),type = "closed"))+
+  labs(x = "Tabagismo", 
+       y = "Peso ao nascer (g)",
+       caption = "Ponto vermelho no box = Média de cada grupo") +
+  theme(legend.position="none")
+```
+
+Observa-se que há uma tendência de o peso ao nascer diminuir à medida que quantidade de cigarros fumados aumenta. Entretanto, esta diferença pode ser pelo acaso.
+
+### Definição das hipóteses estatísticas
+
+Para testar a igualdade entre as médias, será usado um teste bicaudal: 
+
+$$
+H_{0}: \mu_{1} = \mu_{2} =  \mu_{3} =  \mu_{4}
+$$ 
+
+Contra a hipótese alternativa, $H_A$, de que, pelo menos, uma das médias é diferente das demais.
+
+### Definição da regra de decisão
+
+O nível significância, $\alpha$, geralmente escolhido é igual a 0,05. A distribuição da estatística do teste, sob a $H_{0}$, é a distribuição *F*. O número de graus de liberdade total $(n – 1)$ é dividido em dois componentes:
+
+* Grau de liberdade do numerador (ENTRE) é dado por $gl_{E} = k - 1$,  onde *k* é o número de grupos.
+* Grau de liberdade do denominador (DENTRO ou residual) é dado por $gl_{D} = n - k$, onde, $n = \sum n_{i}$.
+
+O teste ANOVA de uma via é sempre unilateral à direita com a região de rejeição na cauda direita da curva de distribuição *F*. No exemplo, para um $\alpha = 0,05$
+
+```{r}
+alpha <- 0.05
+k <-  length(resumo$media)
+n <- nrow(dados)
+glE <-  k - 1
+glE
+glD <- n - k
+glD
+```
+
+Com esses dados, usando a a função `qf()`calcula-se o valor crítico de *F* (Figura \@ref(fig:fc3196)) que  é igual: 
+
+```{r}
+Fc <- qf(1 - alpha, glE, glD)
+round(Fc, 2)
+```
+
+Portanto, se
+
+$$
+|F_{calculado}| < |F_{crítico}|  \to não \quad se \quad rejeita \quad H_{0}
+$$
+
+$$
+F_{calculado}| \ge F_{crítico}| \to rejeita-se \quad H_{0}
+$$
+
+```{r fc3196,echo=FALSE, fig.align='center', warning=FALSE, out.height="80%", out.width="70%", fig.cap="Curva da Distribuição F 3,196 = 2,65"}
+fastGraph::shadeDist (xshade = Fc,
+                      ddist = "df",
+                      parm1 = glE, 
+                      parm2 = glD,
+                      lower.tail = FALSE,
+                      digits.prob = 3,
+                      digits.xtic = 3,
+                      col=c("gray0","steelblue"))
+abline (h = 0, lwd =2, col = "gray0")
+abline (v = Fc, lwd =1, lty = 2, col = "steelblue3")
+text(3.2, 0.1, "5%", cex = 1.2, col = "steelblue3")
+text(3.2, 0.27, "Região de", cex = 1.0, col = "steelblue3")
+text(3.2, 0.2, "Rejeição", cex = 1.0, col = "steelblue3")
+text(0.8, 0.2, "95%", cex = 1.2, col = "steelblue3")
+```
+
+### Teste Estatístico
+
+A estatística de teste é obtida calculando duas estimativas da variância populacional, $\sigma^2$: a *variância entre os grupos* ($s_{E}^2$) e a *variância dentro dos grupos* ($s_{D}^2$).
+
+A variância entre os grupos também é chamada de *quadrado médio entre os grupos* ($QM_{E}$) e é igual a soma dos quadrados entre ($SQ_{E}$) ou do fator dividida pelos graus de liberdade entre:
+$$
+QM_{E} = \frac{SQ_{E}}{gl_{E}}
+$$
+
+
+A variância dentro dos grupos é também denominada de *quadrado médio dentro dos grupos* ou residual ($QM_{D}$) e é igual a soma dos quadrados dentro dividida pelos graus de liberdade dentro:
+
+$$
+QM_{D} = \frac {SQ_{D}}{gl_{D}}
+$$
+
+A variância entre os grupos, $QM_{E}$, dá uma estimativa de $\sigma^2$ com base na variação entre as médias das amostras extraídas de diferentes populações. Para o exemplo das quatro categorias de tabagismo durante a gestação, o $QM_{E}$ será baseado nos valores das médias dos pesos dos recém-nascidos nos quatro grupos diferentes. Se as médias de todas as populações em consideração forem iguais, as médias das respectivas amostras ainda serão diferentes, mas a variação entre elas deverá ser pequena e, consequentemente, espera-se que o valor do $QM_{E}$ seja pequeno. No entanto, se as médias das populações consideradas não são todas iguais, espera-se que a variação entre as médias das respectivas amostras seja grande e, consequentemente, o valor de $QM_{E}$ seja grande.  
+
+A variância dentro das amostras, $QM_{D}$, dá uma estimativa de $\sigma^2$ com base na variação dos dados de diferentes amostras. Para o exemplo das quatro categorias de tabagismo durante a gestação, o $QM_{D}$ será baseado nas médias individuais dos pesos dos recém-nascidos incluídos nas quatro amostras retiradas de quatro populações. O conceito de $QM_{D}$ é semelhante ao conceito de desvio padrão conjugado ou agrupado, $s_{o}$, para duas amostras.  
+
+A estatística de teste é, como visto, a razão das variâncias entre e dentro do grupo. Dessa maneira,   
+
+$$
+F = \frac {s_{E}^2}{s_{D}^2} = \frac {\frac {SQ_{E}}{gl_{E}}}{\frac {SQ_{D}}{gl_{D}}} = \frac {QM_{E}}{QM_{D}}
+$$
+
+#### Pressupostos do teste  
+
+Ao realizar um teste de ANOVA de um fator deve-se assumir que:
+
+1. As populações das quais as amostras são retiradas são normalmente distribuídas;
+2. As populações das quais as amostras são retiradas têm a mesma variância (homocedasticidade);
+3. Amostras aleatórias e independentes;
+4. Todos os grupos devem ter tamanho amostral adequado. Grupos com menos de 10 participantes são problemáticos por reduzirem a precisão da média. Na prática, deve-se evitar menos de 30 participantes. A relação entre os grupos não deve ser maior do que 1:4 [@peat2014anova];
+5. Não devem existir valores atípicos (*outliers*);
+6. A mensuração dos dados deve ser em nível intervalar ou de razão.
+
+Portanto, antes iniciar com o teste de hipótese, verifica-se se as suposições mencionadas para o teste de hipótese ANOVA unidirecional foram atendidas. As amostras são amostras aleatórias e independentes. Isto já é um bom começo! 
+
+**Avaliação da normalidade**
+
+Verifica-se a premissa de normalidade, usando o teste de Shapiro-Wilk para os múltiplos grupos e desenhando um gráfico de probabilidade normal (*gráficos Q-Q*) para cada grupo.
+
+```{r}
+ dados %>% 
+  dplyr::group_by(fumo) %>% 
+  shapiro_test(pesoRN)
+```
+
+Para o gráfico Q-Q (Figura \@ref(fig:qqfumo)), pode ser usado a função `ggqqplot ()` do pacote `ggpubr` que produz um gráfico QQ normal com uma linha de referência, acompanhada de area sombreada, correspondente ao IC95%.
+
+```{r qqfumo, fig.align='center', warning=FALSE, out.height="90%", out.width="90%",fig.cap="Gráficos Q-Q"}
+ggpubr::ggqqplot(dados, 
+                 x="pesoRN", 
+                 facet.by = "fumo") +
+  labs(y = "Peso ao nascer (g) (m)",
+       x = "Quantis teóricos")
+```
+
+O resultado do teste de Shapiro-Wilk entregou todos os resultados com valor *P* acima de 0.05 e os gráficos Q-Q, não são perfeitos, mas pode-se assumir que os dados para cada grupo caem aproximadamente em uma linha reta.
+
+**Avaliação da homogeneidade das variâncias**
+
+Em seguida, testa-se a suposição de que as variâncias são iguais, usando o Teste de Levene através da função `leveneTest ()` do pacote `car.
+
+```{r}
+car::leveneTest(pesoRN~fumo, center = mean, data = dados)
+```
+
+O teste de Levene exibe como resultado um valor *P* > 0,05, mostrando que não é possível rejeitar a $H_0$ de igualdade das variâncias.
+
+**Verificação da presença de `outliers`**
+
+Pode-se aqui, além de verificar nos boxplots, usar a função `by_group()` do pacote `dplyr` junto com a função `identify_outliers()` do pacote `rstatix` :
+
+```{r}
+dados %>% 
+  dplyr::group_by(fumo) %>% 
+  rstatix::identify_outliers(pesoRN)
+```
+
+Como mostrado nos boxplots, existe um valor atípico, ou seja, está abaixo de 1,5 IIQ. Entretanto, ele não é extremo (> 3 IIQ).  
+
+Da mesma maneira que no teste *t*, os pressupostos têm mais importância em grupos pequenos e desiguais. Para o exemplo em análise, os pressupostos foram verificados e pode-se assumir que os grupos são independentes e as médias têm distribuição normal e existe homocedasticidade, além disso, os grupos têm o mesmo tamanho (n = 50). Portanto, a análise pode ser continuada.  
+
+**O que fazer se os pressupostos são violados?**  
+
+Se a homogeneidade da variância é o problema, um teste possível de ser implementado no R é o *F de Welch*, aplicando a função` welch.test()`, incluída no pacote `onewaytests` [@dag2018onewaytests]. Existem também testes não paramétricos, como o *Teste de Kruskal-Wallis*, que será visto mais adiante.  
+
+#### Execução do teste estatístico  
+
+É perfeitamente possível realizar um teste de hipótese ANOVA unidirecional no R manualmente. Entretanto, é uma proeza cansativa! Incrível, Usando o R para obter o mesmo resultado faz-se o processo em apenas uma linha de código!
+
+Para realizar um teste de hipótese ANOVA unidirecional no R, aplica-se a função `aov()` do R base. Esta função espera a chamada notação de fórmula, portanto, os dados são incluídos separando as duas variáveis de interesse por ~ (til). Além disso, os dados no qual as variáveis especificadas na fórmula são encontradas. Além da fórmula e dos dados, a função aov() tem outros argumentos:
+
+* *effect.size* $\to$ tamanho do efeito a ser calculado e mostrado nos resultados da ANOVA. Os valores permitidos podem ser "ges" (eta ao quadrado) ou "pes" (eta parcial ao quadrado) ou ambos. O padrão é "ges"; 
+* *contrasts*  $\to$ uma lista de contrastes a ser usada para alguns dos fatores da fórmula  
+
+```{r}
+modelo.aov <- aov(pesoRN ~ fumo, dados)
+
+sumario <- summary(modelo.aov)
+sumario
+```
+
+A saída é bem reduzida, relatando as informações específicas da *Tabela da ANOVA*, a estatística *F* junto com o valor *P* e os graus de liberdade, soma dos quadrados (*Sum Sq*) e quadrados médios (*Mean Sq*), que com frequência se necessita para o para o relatório do modelo.   
+
+A variância entre os grupos também é chamada de **quadrado médio entre os grupos** e é igual a soma dos quadrados entre ou do fator dividida pelos graus de liberdade entre. A variância dentro dos grupos é também denominada de **quadrado médio dentro dos grupos ou residual** e é igual a soma dos quadrados dentro dividida pelos graus de liberdade dentro.   
+
+A ANOVA detectou um efeito significativo do fator, que neste caso é o `fumo`, o valor 
+*P* < 0,0001.  
+
+Pode-se simplesmente relatar isso e encerrar, mas é provável que se queira saber quais grupos diferem uns dos outros. Lembre-se de que não se pode apenas inferir isso a partir de uma visão dos dados, mas felizmente existem testes estatísticos para ajudar a entender as diferenças dos grupos.
+
+### Testes *post-hoc*
+
+Os testes de comparações múltiplas constituem-se em uma análise após a realização da ANOVA. Se houve uma diferença, indicada pela ANOVA, os testes de comparações múltiplas ou também conhecidos como *teste post hoc*, ajudam a quantificar as diferenças entre os grupos para determinar quais grupos diferem significativamente uns dos outros.  
+
+Aqui será usado o *HSD de Tukey*, que é conservador. *HSD* vem da expressão em inglês - *Honest Significant Difference*. Este teste requer um objeto `aov` no qual executa seu procedimento, que chamaremos de `mc`. O procedimento de Tukey HSD executará uma comparação de pares de todas as combinações possíveis dos grupos e testará esses pares para diferenças significativas entre suas médias, tudo enquanto ajusta o valor *P* a um limite superior de significância para compensar o fato de que muitos testes estatísticos estão sendo realizados e a probabilidade de um falso positivo aumenta com o aumento do número de testes. A função a ser usada é a `tukey_hsd()`, do pacote `rstatix`.  
+
+```{r}
+pwc <- rstatix::tukey_hsd (modelo.aov)
+pwc
+```
+
+Com base nos valores *P* < 0,05 tem-se três combinações de grupos que diferem: leve-não, moderado-não e pesado-não. Isto mostra que o grupo que difere é o das mães não fumantes.   
+
+Pode-se visualizar isso na Figura \@ref(fig:tukeyhsd) obtida com a função `plot()`, usando os resultados da função `TukeyHSD()` disponível no *R* base. Esta função gera o teste de Tukey com as diferença entre os pares e os intervalos de confiança que permitem a construção do gráfico. A função `par()`é empregada para adaptar as margens da figura ao tamanho da mesma e depois é usada novamente para retornar ao padrão `par(mar=c(5.1, 4.1, 4.1, 2.1))`. O argumento `mar` é um vetor numérico que define os tamanhos das margens na seguinte ordem: inferior, esquerda, superior e direita.
+
+```{r tukeyhsd, fig.align='center', warning=FALSE, out.height="70%", out.width="70%", fig.cap="Gráficos do Teste de Tukey"}
+par(mar=c(3,8,3,3)) # Adaptar o tamanho das margens
+plot(TukeyHSD(modelo.aov, conf.level = 0.95), las = 1)
+par(mar=c(5.1, 4.1, 4.1, 2.1)) # Retorna as margens ao padrão
+```
+
+### Tamanho do efeito
+
+Uma das medidas de tamanho de efeito mais comumente relatadas para a ANOVA é o **eta ao quadrado** ($\eta^2$), que é um índice da força da associação entre um fator e uma variável dependente. Eta ao quadrado é a proporção da variação total atribuível ao fator. É calculado como a razão da variância do fator para a variância total e os valores variam de 0 a 1.  
+
+Esta medida pode ser obtida com o pacote `effectsize` @ben2020effectsize, usando a função `eta_squared()`com um objeto da classe tipo `modelo.aov`.  
+
+```{r}
+effectsize::eta_squared (modelo.aov, partial = FALSE)
+```
+
+O *eta quadrado* é uma estimativa tendenciosa da força da associação, na medida em que superestima os efeitos, especialmente para amostras pequenas. Uma outra medida do tamanho do efeito menos tendenciosa é o *ômega ao quadrado* ($\omega^2$). O ômega ao quadrado é uma medida corrigida, menos enviesada e menos inflacionada. Ela pode ser calculada com a função `omega_squared()`, também do pacote `effectsize`:
+
+```{r}
+effectsize::omega_squared (modelo.aov, partial = FALSE)
+```
+
+Apesar de ser controverso, pode-se seguir a orientação da Tabela \@ref(tab:effectsize),  para a interpretação [@watson2021effectsize]:
+
+```{r effectsize, echo=FALSE, warning=FALSE, message=FALSE}
+knitr::kable(data.frame(Resultado = c("0.01", "0,06", "0,14"),
+                        Effectsize = c("pequeno","médio","grande")),
+             booktabs = TRUE,
+             caption = "Interpretação do Tamanho do Efeito") %>% 
+  kable_styling(full_width = F,
+                latex_options = "hold_position") %>% 
+  kableExtra::kable_classic(html_font = "Cambria") %>% 
+  kableExtra::column_spec(1, width = "2in") %>% 
+  kableExtra::column_spec(2, width = "2in") %>% 
+  kableExtra::row_spec(0, bold = TRUE)
+```
+
+### Conclusão
+
+O peso dos recém-nascidos foi estatisticamente diferente entre os diferentes grupos, *F*(3, 196) = 8,48, *P* = 0.0000252, $\eta^2$ = 0,11.  
+
+As análises *post-hoc* de Tukey revelaram que o peso dos recém-nascidos a termo no grupo das gestantes não fumantes apresentou uma diferença estatisticamente significativa do grupo de tabagismo leve (-292 g, IC95%: -523 a -62 g; *P* = 0,0065); do grupo de tabagismo moderado (-243 g, IC95%: -474 a -13 g; *P* = 0,0341) e do grupo de tabagismo pesado (-441 g, IC95%: -671 a -210 g; *P* < 0,0001), mas entre os grupos de fumantes não houve diferença estatisticamente significativa.
+
+#### Apresentação dos resultados
+
+Serão apresentados  boxplots (Figura \@ref(fig:view)), com `ggboxplot()`, do pacote `ggpubr`, utilizando, para cores, a `pallete = "jama"`, do pacote `ggsci`. Para adicionar teste estatístico, usou-se a função `get_test_label()` e para o teste *post hoc*, a função `get_pwc_label()`, ambas do pacote `rstatix`.
+
+```{r view, echo=TRUE, message = FALSE, warning=FALSE, fig.align='center', out.height="80%", out.width="80%", fig.cap="Efeito do tabagismo na gestação sobre o peso do recém-nascido."}
+modelo.aov <- aov(pesoRN ~ fumo, 
+                  dados)
+
+tab.aov <- anova_test(dados, 
+                      pesoRN ~ fumo, 
+                      type = 2)
+
+pwc <- tukey_hsd(dados,pesoRN~fumo)
+
+pwc <- pwc %>% add_xy_position (x = "fumo")
+ggpubr::ggboxplot (dados,
+                   x = "fumo", 
+                   y = "pesoRN",
+                   xlab = "Tabagismo na gestação",
+                   ylab = "Peso do recém-nascido (g)",
+                   color = "fumo", 
+                   palette = "jama",
+                   fill = "fumo",
+                   alpha = 0.3,
+                   size = 1.0) +  
+  stat_pvalue_manual (pwc, 
+                      hide.ns = TRUE) + 
+  labs (subtitle = get_test_label (tab.aov, detailed = TRUE),
+        caption = get_pwc_label(pwc)) +
+  theme(legend.position = "none") +
+  theme (text = element_text (size = 12))
+
+```
+
+## ANOVA de dois fatores  
+
+A *ANOVA de dois fatores* é uma extensão da ANOVA de um fator. Neste tipo de ANOVA, ao invés de observar o efeito de um fator sobre a variável desfecho contínua, é analisado simultaneamente o efeito de duas variáveis de agrupamento. Outros sinônimos para a ANOVA de dois fatores são: *ANOVA fatorial* ou *ANOVA de duas vias*.   
+Quando se tem dois ou mais fatores, além de observar o efeito desses fatores sobre a variável desfecho, há necessidade de verificar se eles não interagem entre si. Portanto, é um objetivo importante da ANOVA fatorial avaliar se há um efeito de *interação* estatisticamente significativo entre os fatores.  
+
+### Dados do exemplo  
+
+O conjunto de dados `dadosMemoria.xlsx` que contém informações de um teste de memória realizado em homens e mulheres, após o consumo de álcool, categorizado em três grupos (nenhum, 3 latas e 6 latas de cerveja tipo *pilsen* com 4,5% de álcool). O grupo sem consumo de álcool (cerveja sem álcool) serve como controle. Após o consumo de álcool, foi avaliada a memória para a realização de uma tarefa cognitiva.
+
+Neste exemplo, modificado de Andy Field @field2012factorial, o efeito do álcool sobre a memória do indivíduo é a variável focal, a principal preocupação. Acredita-se que o efeito de álcool depende de outro fator, sexo, que são chamados de variáveis moderadoras.
+
+Para baixar o banco de dados, clique [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosMemoria.xlsx). Salve o mesmo no seu diretório de trabalho.
+
+#### Leitura dos dados
+
+A leitura será feita com a função `read_excel()` do pacote `readxl` e serão atribuídos a um objeto de nome `dados` e verificada a sua estrutura com a função `head()`.  
+
+```{r}
+dados <- readxl::read_excel("Arquivos/dadosMemoria.xlsx")
+
+head(dados)
+```
+
+#### Exploração e sumarização dos dados  
+
+Observando o resultado da função `head()`, verifica-se que as variáveis `alcool` e `sexo` estão como `<chr>`e o ideal é que estejam como fatores. Portanto, vamos colocar as categorias do consumo de álcool como fator e em uma ordem lógica (nenhum consumo, três latas e 6 latas). A variável `sexo` será apenas colocada como fator porque não tem uma ordem lógica. As demais variáveis, `id` (identificação) e `escore`(escore de memória) podem permanecer com `dbl` (numérica).
+
+```{r }
+dados$alcool <- factor(dados$alcool,
+                       levels = c("nenhum",
+                                  "3 latas",
+                                  "6 latas")) 
+dados$sexo <- as.factor(dados$sexo)
+```
+
+A sumarização dos dados será feita com as funções `group_by()` e `summarise()` do pacote `dplyr` para a variável `escore` por grupos, `sexo` e `alcool`.
+
+```{r message=FALSE}
+alpha <- 0.05
+resumo <- dados %>% 
+  dplyr::group_by(sexo, alcool) %>% 
+  dplyr::summarise(n = n(),
+            media = mean(escore, na.rm=TRUE),
+            dp = sd(escore, na.rm=TRUE),
+            ep = dp/sqrt(n),
+            me = qt((1 - alpha/2),n-1)*ep,
+            linf = media - me,
+            lsup = media + me)
+resumo
+```
+
+Os dados estão estruturados com um desenho onde as células tem um formato 2 x 3 com  os fatores `sexo` e `alcool` e 8 indivíduos em cada célula. O fator `sexo` tem dois níveis (feminino e masculino) e o fator `alcool` tem três níveis (nenhum, 3 latas e 6 latas). Observe que o desenho é *balanceado*, pois todas as células têm o mesmo número de indivíduos. Esta estrutura é o caso mais simples; desenhos não balanceados são mais complexos.
+
+#### Visualização gráfica dos dados
+
+Para visualizar os dados, será construido um gráfico com boxplots (Figura \@ref(fig:alcool)), usando o pacote `ggpubr`@kassambara2022ggpubr, com a função `ggboxplot()`, que fornece algumas funções fáceis de usar para criar e personalizar gráficos prontos para publicação baseados em 'ggplot2'. O boxplot irá plotar os dados agrupados pelas combinações dos níveis dos dois fatores.
+
+```{r alcool, message = FALSE, warning=FALSE, fig.align='center', out.height="85%", out.width="85%",fig.cap="Efeito do álcool na memória de acordo com o sexo."}
+ggpubr::ggboxplot (dados,
+                   bxp.errorbar = TRUE,
+                   bxp.errorbar.width = 0.2,
+                   x = "alcool", 
+                   y = "escore", 
+                   color = "black",
+                   fill = "sexo",
+                   palette = "bmj",
+                   ylab = "Escore da Memória",
+                   xlab = "",
+                   legend.title = "Sexo",
+                   legend = "top") +
+  theme (text = element_text (size = 12))
+```
+
+Além dos boxplot, é interessante desenhar um gráfico de linhas (Figura \@ref(fig:alcool2)) que plota a média (ou outro resumo) da variável escore (resposta) para combinações bidirecionais de fatores, ilustrando assim possíveis interações. Aqui, pode-se usar a função `ggline()`, também pertencente ao interessante pacote `ggpubr`. 
+
+```{r alcool2, message = FALSE, warning=FALSE, fig.align='center', out.height="85%", out.width="85%", fig.cap="Efeito do álcool na memória de acordo com o sexo."}
+ggpubr::ggline(dados, 
+               x = "alcool", 
+               y = "escore", 
+               color = "sexo",
+               size = 1,
+               add = c("mean_ci"),
+               palette = c("red", "dodgerblue4"))
+```
+
+O gráfico sugere um possível efeito do álcool sobre a memória, bem como uma interação entre os sexos.  
+
+### Hipóteses estatísticas  
+
+Serão testadas três possibilidades de hipótese nula:
+
+1. Não há diferença nas médias do fator `alcool`.
+2. Não há diferença nas médias do fator `sexo`.
+3. Os fatores `alcool` e `sexo` não interagem de forma alguma.  
+
+A essas se contrapõe a hipótese alternativa, $H_{A}$, de que pelo menos uma das médias é diferente dentro de cada um dos fatores e que existe interação entre eles.
+
+### Pressupostos do modelo  
+
+Para usar uma ANOVA de duas vias, os dados devem atender a certos pressupostos. A ANOVA de duas vias faz todas as suposições usuais de um teste paramétrico de diferença:  
+
+1. Independência de observações
+
+As variáveis respostas não devem ser dependentes umas das outras (ou seja, uma não deve causar a outra). Isso é impossível de testar com variáveis categóricas - só pode ser garantido por um bom projeto experimental.  
+
+Além disso, a variável dependente deve representar observações únicas - não devem ser agrupadas em locais ou indivíduos.
+Se esta premissa for violada, você pode incluir uma variável de bloqueio e/ou usar uma ANOVA de medidas repetidas.
+
+2. Normalidade  
+
+Variável desfecho normalmente distribuída em todos os grupos.
+
+3. Ausência de valores atípicos (*outliers*)
+
+Um valor aberrante ou valor atípico, é uma observação que apresenta um grande afastamento das demais da série, $\pm 1,5$ o intervalo interquartil (IIQ) e extremo se estiver $\pm 3$ IIQ. A existência de outliers implica, tipicamente, em prejuízos à interpretação dos resultados.
+
+4. Homogeneidade de variância (homocedasticidade)  
+
+A variação em torno da média para cada grupo sendo comparado deve ser semelhante entre todos os grupos. Se os dados não atenderem a essa suposição, é possível usar uma alternativa não paramétrica, como o teste de Kruskal-Wallis.
+
+### Verificação dos pressupostos nos dados brutos 
+
+Existe uma discussão se os pressupostos devem ser avaliados nos dados brutos ou apenas nos resíduos. Aqui serão realizadas as duas abordagens que frequentemente resultam no mesmo resultado.  
+
+#### Normalidade  
+
+A variável dependente (`escore`) deve apresentar distribuição aproximadamente normal dentro de cada grupo. Os grupos aqui serão formados pela combinação das duas variáveis independentes (`sexo` e `alcool`). A normalidade será avaliada pelo `teste de Shapiro-Wilk`, com a função `shapiro_test()` do pacote `rstatix` @kassambara2022rstatix, separando os grupos com a função `group_by()` do pacote `dplyr`, encadeadas com o operador `pipe` (`%>%`):
+
+```{r}
+dados %>% 
+     dplyr::group_by (sexo, alcool) %>% 
+     rstatix::shapiro_test (escore)
+```
+
+Os resultados suportam a conclusão de não rejeição da hipótese nula de que os dados se ajustam a distribuição normal.  
+
+#### Pesquisa de valores atípicos
+
+A forma mais simples de verificar a presença de um valor atípico é observar o boxplot, mostrado anteriormente. Se observa a presença de valores atípicos entre as mulheres que não ingeriram álcool e nas que ingeriram 3 latas de cerveja.
+Agora, para confirmar esse achado, será usado a função `identify_outliers ()`, do pacote `rstatix`:
+
+```{r}
+dados %>% 
+      dplyr::group_by (sexo, alcool) %>% 
+      rstatix::identify_outliers(escore)
+```
+
+A saída do teste confirma a existência dos dois valores atípicos, sendo um deles extremo, entretanto como estes valores são possíveis e, relativamente, próximos da média do sexo feminino, portanto, causam pouca preocupação, principalmente porque o teste de ANOVA é bastante robusto.  
+
+#### Verificação da homogeneidade das variâncias   
+
+Para verificar a homocedasticidade, como os dados têm distribuição normal, é possível usar o teste de Levene, o `leveneTest()` do pacote `car` [@fox2018car].  
+
+```{r}
+car::leveneTest (escore ~ sexo*alcool, 
+                 data = dados, 
+                 center = mean)
+```
+
+### Verificação dos pressupostos nos resíduos  
+
+O modelo da ANOVA pode ser considerado como um modelo de regressão. Desta forma, este modelo de regressão vai usar os dados brutos para criar um modelo de previsão para esses dados. Este modelo de regressão não é perfeito, existe uma diferença entre os valores previstos e os valores observados, são os resíduos. Faz sentido, então, preocupar-se com os resíduos quando se analisa fatores tentando explicar uma variável dependente contínua, como na ANOVA, pensando em uma regressão linear simples.
+
+A ANOVA prevê que todos os valores do grupo sejam iguais a média do grupo. Ou seja, um homem que ingere 3 latas de cerveja tem um valor de seu escore de memória igual ao deste grupo. Por este motivo, fazer a análise dos resíduos é praticamente o mesmo que a análise dos valores brutos.  
+
+Para analisar os resíduos (diferença entre os valores observados e o previsto pelo modelo), em primeiro lugar se constrói o modelo da ANOVA com efeito da interação, usando a função `lm()` do pacote `stats`, incluído no R base:
+
+```{r}
+mod.int.lm <- lm(formula = escore ~ alcool * sexo,
+              data = dados)
+```
+
+Ao se executar o comando, tem-se a impressão que nada ocorreu, entretanto foi criado o *modelo da ANOVA* com uma série de variáveis, entre elas os resíduos (`residuals`). Para observar os resíduos, basta digitar:  
+
+
+```{r}
+mod.int.lm$residuals
+```
+
+Para obter um resumo estatístico dos resíduos:
+
+```{r}
+summary(mod.int.lm$residuals)
+```
+
+#### Avaliação da normalidade dos resíduos
+
+Uma das suposições de uma ANOVA é que os resíduos são normalmente distribuídos. A normalidade dos resíduos, inicialmente, será verificada, usando o teste de Shapiro-Wilk com a função `shapiro.test()`, também pertencente ao pacote `stats`.  
+
+```{r}
+shapiro_test (mod.int.lm$residuals)
+```
+
+O teste entrega um valor *P* > 0.05, indicando que não é possível rejeitar $H_{0}$ de normalidade dos resíduos. 
+
+Uma outra maneira  comum de verificar essa suposição é criando um *gráfico Q-Q*. Se os resíduos forem normalmente distribuídos, os pontos em um gráfico Q-Q ficarão em uma linha diagonal reta.
+Este gráfico (Figura \@ref(fig:normresiduos)) pode ser contruído com a função `ggqqplot()` do pacote `ggpubr`.  
+
+```{r normresiduos, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Normalidade dos resíduos - QQ plot."}
+ggpubr::ggqqplot(mod.int.lm$residuals)
+```
+
+O gráfico QQ de normalidade, mostra que os resíduos seguem aproximadamente uma linha reta, permitindo assumir a normalidade dos mesmos.
+
+#### Pesquisa de valores atípicos nos resíduos
+
+Para a verificação da presença de valores atípicos entre os resíduos, cria-se uma variável que será denominada de `residuos` (observe o banco de dados para ver o acréscimo dessa variável):
+
+```{r}
+dados$residuos <- mod.int.lm$residuals
+glimpse (dados)
+```
+
+Para identificar os *outliers*, usa-se função `identify_outliers()` do pacote `rstatix`:
+
+```{r}
+dados %>% 
+  dplyr::group_by(sexo, alcool) %>% 
+  rstatix::identify_outliers(residuos)
+```
+
+Observando os resultados com os dados brutos, verifica-se que eles são iguais aos atuais, confirmando, que neste caso, tanto faz avaliar os dados brutos como os resíduos. 
+
+#### Verificação da homogeneidade da variância nos resíduos
+
+A verificação da homogeneidade da variância entre os resíduos pode ser feita com o `teste de Levene`, como feito com os dados brutos.
+
+```{r}
+car::leveneTest (residuos ~ sexo*alcool, 
+                 data = dados, 
+                 center = mean)
+```
+
+Uma outra maneira de avaliar a homogeneidade da variância, é construir um gráfico diagnóstico^[Outros gráficos diagnósticos podem ser obtidos para analisar resíduos em um modelo de regressão [@patterson2015diagnostic]] (Figura \@ref(fig:residuals)) do modelo com a função `plot()`, tipo 1, resíduos versus ajustes (*Residuals vs Fitted*).
+
+```{r residuals, fig.align='center', out.height="70%", out.width="70%", fig.cap="Resíduos versus ajuste"}
+plot(mod.int.lm, 1)
+```
+
+Não há correlações óbvias entre resíduos e valores ajustados (a média de cada grupo) no gráfico abaixo,onde a linha vermellha tracejada segue praticamente uma linha horizontal em torno de 0, o que é bom. Como resultado, pode-se, assim como no teste de Levene, assumir que as variâncias são homogêneas.
+
+Verica-se o mesmo ocorrido com a normalidade, os resultados nos resíduos não diferem daqueles realizados com os dados brutos.  
+
+### Realização do teste de ANOVA de dois fatores
+
+Inicialmente, será conduzida uma ANOVA de duas vias, incluindo na fórmula da função `aov()`, do pacote `stats`, a variável desfecho `escore` e as variáveis independentes somadas (+),`alcool` e `sexo`.  A *Tabela da ANOVA*, pode ser obtida a partir do modelo, usando a função `summary()`:
+
+```{r}
+mod.aov <- aov(formula = escore ~ alcool + sexo,
+                        data = dados)
+summary (mod.aov)
+```
+
+O efeito principal  da ingestão do álcool sobre a memória é significativo (*P* < 0,0001)). Em relação ao efeito principal do sexo, ele é não significativo (*P* > 0.05).
+
+Se um efeito significativo de um fator foi encontrado, pode-se fazer *testes post-hoc* para testar a diferença entre cada par de níveis da variável independente. Existem muitos tipos de comparações pareadas que fazem suposições diferentes.Um dos testes post-hoc mais comuns para ANOVA padrão é o teste de *Diferença Honestamente Significativa* (HSD) de Tukey. Ele pode ser realizado com a função `HSDTukey()` do pacote `stats`:
+
+```{r}
+TukeyHSD(mod.aov)
+```
+
+O teste post-hoc evidenciou que quanto maior a quantidade álcool, maior o efeito (6 latas de cerveja > 3 latas > cerveja sem álcool). Não houve diferença nos sexos, entretanto, como este é um modelo aditivo, sem verificar interações, não é possível dizer se o efeito do álccol depende do sexo, ou seja, que haja interação entre as variáveis independentes.  
+
+Quase sempre útil combinar uma tabela de resumo da ANOVA com uma tabela de resumo de regressão. Como foi mencionado, a ANOVA é um caso especial de regressão. Logo, se obtém os mesmos resultados com um objeto de regressão e com um objeto ANOVA. No entanto, o formato dos resultados é diferente e frequentemente mais fácil de interpretar.
+
+```{r}
+mod.lm <- lm(formula = escore ~ alcool + sexo,
+                        data = dados)
+summary(mod.lm)
+```
+
+Como é possível ver, a tabela de regressão não nos fornece testes para cada variável como a tabela ANOVA. Em vez disso, ela nos diz o quão diferente cada nível de uma variável independente é de um valor padrão. Pode-se dizer qual valor de uma variável independente é a variável padrão apenas vendo qual valor está faltando na tabela. Nesse caso, não aparece o coeficiente para o `alcool-nenhum`, então esse é o o valor padrão.  
+
+O intercepto na tabela nos informa a média do valor padrão. Nesse caso, o escore médio do `alcool-nenhum` foi de 65,6. Os coeficientes para os outros níveis informam que `alcool-3latas` tem, em média, um escore de memória 0,9 maior do que o `alcool-nehum`, e `alcool-6latas`, em média, reduz o escore de memória 17,2 em relação ao `alcool-nenhum`. Não surpreendentemente, essas são as mesmas diferenças observadas no teste Tukey HSD!    
+
+#### ANOVA com interação
+
+As interações entre variáveis testam se o efeito de uma variável depende ou não de outra variável. Por exemplo, é possível usar uma interação para responder à pergunta: o efeito do álcool depende do sexo do indivíduo?   
+
+Se for analisado com as informações que se tem até agora, pode-se dizer que o efeito principal do sexo não é significativo (*P* = 0,250). Portanto, ignorando quanto de álcool foi ingerido pelo indivíduo, o sexo do individuo não influencia o escore de memória. Em outras palavras, ignorando outros efeitos, homens e mulheres sofrem o mesmo efeito do álcool. Entretanto, em presença de interação, não faz sentido interpretar os efeitos principais. Dessa forma, quando há possibilidade de dependencia de uma variável em relação à outra, é imperativo incluir a interação no modelo.  
+
+Para incluir termos de interação em uma ANOVA, basta usar um asterisco (*) em vez do sinal de mais (+) entre os termos em sua fórmula.   
+
+Observe que quando se inclui um termo de interação em um objeto de regressão, o R incluirá automaticamente os efeitos principais. Será repetida a ANOVA anterior a mesmas duas variáveis independentes, mas agora incluindo a interação entre `sexo` e `alcool`.   
+
+```{r}
+mod.int.aov <- aov(formula = escore ~ alcool * sexo,
+                        data = dados)
+summary(mod.int.aov)
+```
+
+Parece que realmente existe uma interação significativa entre `sexo` e `alcool`. Em outras palavras, o efeito do álcool depende do sexo do bebedor. Isso faz sentido, dado o gráfico de linha plotado na visualização dos dados.
+
+Para entender a natureza da diferença, observe os coeficientes de regressão do objeto de regressão, criado quando se verificou os pressupostos da ANOVA. Usar a função `summary()` com o modelo `mod.int.lm`:
+
+```{r}
+summary(mod.int.lm)
+```
+
+Novamente, para interpretar esta tabela, primeiro há necessidade de saber quais são os valores padrão. Pode-se dizer isso pelos coeficientes que estão "faltando" na tabela. Como não aparece  termo `sexoFeminino`, por exemplo, isso significa que ele é o padrão. Então, o intercepto é o valor médio do escore de memória das mulheres e, pode-se interpretar o coeficientes  `sexoMasculino`(6,3) como a diferença do escore de memória dos homens em relação às mulheres. Como esta diferença é positiva, ele está levemente superior. Considerando-se como padrão `sexoMasculino:nenhum`, observa-se que o escore de memória médio dos homens que ingerem 6 latas de cerveja reduz em 28.  
+
+Os termos de interação  dizem como o efeito dos álcool muda quando quem o ingere é do sexo masculino ou feminino. O efeito do álcool na memória das mulheres é pequeno, ficando praticamente estável nas três condições. Por outro lado, os homens permanecem estáveis no seu escore de memória quando quantidades pequenas de álcool são ingeridas, declina rapidamente quando ingerem 6 latas de cerveja.  
+
+#### Tipos de ANOVA
+
+Existem três abordagens essencialmente distintas para fazer uma ANOVA - chamadas, Tipo 1, 2 e 3 (ou Tipo I, II e III). Esses tipos diferem em como calculam a variabilidade, especificamente, as somas dos quadrados. 
+
+Se os dados forem relativamente balanceados, o que significa que há números relativamente iguais de observações em cada grupo, todos os três tipos fornecerão a mesma resposta. No entanto, se seus dados estiverem desbalanceados, o que significa que alguns grupos de dados têm muito mais observações do que outros, você precisará usar o Tipo II (2) ou o Tipo III (3).  
+
+Para verificar se os dados estão balanceados, pode-se usar a seguinte função:
+
+```{r}
+with(dados,
+     table(sexo, alcool))
+```
+
+Os resultados mostram o mesmo número de indivíduos em todas as células, portanto, não importa qual o tipo de ANOVA a ser usado. Os resultados serãi iguais.  
+
+Serão mostrados os três tipos, utilizando um modelo de regressão (`mod.int.lm`), criado anteriormente. Este modelo será inserido como argumento principal para `aov()` para uma ANOVA Tipo I ou `Anova()` do pacote `car` para uma ANOVA Tipo II ou Tipo III: 
+
+**ANOVA Tipo I**  
+
+A ANOVA tipo I testa primeiro o efeito de um fator, seguido do efeito do outro fator dado que se conhece o primeiro, seguido pela interação entre eles, dado que os efeitos principais já são conhecidos. Esta ordem natural (fator A -> fator B -> A*B) é a razão desta ANOVA ser conhecida também como soma de quadrados sequencial.
+
+No exemplo do efeito do álcool na memnória de homens e mulheres, tem-se:
+
+```{r}
+memoria.I <- aov(mod.int.lm)
+summary (memoria.I)
+```
+
+**ANOVA Tipo II**
+
+Este tipo de ANOVA testa o efeito de um dos fatores principais dado que o outro já é conhecido. Assim, assume-se a não significância da interação. Existe a sugestão de se testar a interação, conhecendo-se o efeito dos fatores individualmente. Se de fato a interação for não significativa, então o tipo II é estatisticamente mais poderoso que o tipo III.
+
+```{r}
+memoria.II <- car::Anova(mod.int.lm, type = 2)
+memoria.II
+```
+
+**ANOVA Tipo III**
+
+Este tipo de ANOVA só é valido quando a interação é significativa. Entretanto, em muitos casos, quando existe interação, não há interesse nos efeitos principais isoladamente.  
+
+A ANOVA Tipo III necessita que se faça modificação nos contrastes:
+
+```{r}
+memoria.III <- car::Anova(lm(formula = escore ~ sexo*alcool, 
+                        data = dados, 
+                        contrasts=list(sexo=contr.sum, alcool=contr.poly)), 
+                     type = 3)
+memoria.III
+```
+
+### Testes post-hoc
+
+Uma interação entre os dois fatores significativa indica que o impacto que um fator tem na variável desfecho ou resposta depende do nível do outro fator e vice-versa. Portanto, pode-se decompor uma interação de dois fatores significativa em:   
+
+1. *Efeito principal simples*: executar o modelo de um fator da primeira variável em cada nível da segunda variável,  
+2. *Comparações de pares simples* (*Simple pairwise comparisons*): se o efeito principal simples for significativo, executar várias comparações de pares para determinar quais grupos são diferentes.  
+
+Para uma interação de dois fatores não significativa, há necessidade de determinar se há algum efeito principal estatisticamente significativo na saída ANOVA. Um efeito principal significativo pode ser seguido por comparações de pares entre grupos.
+
+**Efeitos principais simples**  
+
+No exemplo usado nesta seção, poder-se-ia, portanto, investigar o efeito do consumo de álcool no sexo ou investigar o efeito do sexo em todos os níveis da variável consumo de alcool.  
+
+Aqui, será executada uma ANOVA de um fator do consumo de álcool em cada nível de sexo.
+Observe que, se as premissas da ANOVA de duas vias foram atendidas (por exemplo, homogeneidade de variâncias), é melhor usar o termo de erro geral (da ANOVA dois fatores) como entrada no modelo ANOVA de um fator. Isso tornará mais fácil detectar quaisquer diferenças estatisticamente significativas, caso existam @wickens2004anova @maxwell2017factorial.
+Se o pressuposto da homocedasticidade for violado, pode-se considerar a execução da ANOVA de um fator separadas com termos de erro separados.  
+
+No exemplo do efeito do álcool na memória de homens e mulheres, serão agrupados os dados por sexo e analisados os efeitos principais simples do nível do consumo de álcool no escore de memória. O argumento erro é usado para especificar o modelo ANOVA, no caso modelo lm (`mod.int.lm`), na função `anova_test()` do pacote `rstatix`:
+
+```{r}
+dados %>% 
+  dplyr::group_by(sexo) %>% 
+  rstatix::anova_test(escore~alcool, error = mod.int.lm)
+```
+
+O resultado mostra que o efeito principal simples do consumo de álcool no escore de memória foi estatisticamente significativo para homens (P = 4,65 x 10-9) e não significativo para as mulheres (P = 0,546).
+Em outras palavras, há uma diferença estatisticamente significativa no escore médio de memória entre homens com o consumo de alcool F (2, 42) = 31,4, P <0,0001. Esta conclusão não é válida para mulheres, F (2, 542) = 0,615, P = 0,546.
+
+**Comparações por pares**  
+
+Um efeito principal simples, estatisticamente significativo, pode ser seguido por múltiplas comparações de pares para determinar quais médias de grupo são diferentes. Agora, serão realizadas múltiplas comparações entre pares nos diferentes grupos de consumo de álcool por sexo.  
+
+Pode-se executar e interpretar todas as comparações de pares possíveis usando um ajuste de Bonferroni. Isso pode ser feito facilmente usando a função `emmeans_test()`, incluída no pacote `rstatix` (médias marginais estimadas, também conhecidas como médias dos mínimos quadrados ou médias ajustadas @lenth2018emmeans).    
+
+Serão comparados os escores dos diferentes sexos por níveis de consumo de álcool:
+
+```{r}
+pwc <- dados %>%
+  dplyr::group_by(alcool) %>%
+  rstatix::emmeans_test (escore ~ sexo, 
+                         p.adjust.method = "bonferroni") 
+pwc
+```
+
+Agora, serão comparados os escores de diferentes níveis de consumo de álcool por sexo
+
+```{r}
+pwc.1 <- dados %>%
+  dplyr::group_by(sexo) %>%
+  rstatix::emmeans_test (escore ~ alcool, 
+                         p.adjust.method = "bonferroni") 
+pwc.1
+```
+
+
+As Saída exibee resultados onde aparece que o consumo de álcool não afetou a memória das mulheres, mas o consumo de 6 latas de cerveja diminuiu o escore de memória dos homens quando comparados com homens que consumiram cerveja sem álcool ou que ingeriram apenas 3 latas de cerveja.
+
+**Teste de Tukey de múltiplas comparações**
+
+Para completar os cruzamentos da análise, pode-se ainda usar o teste de Tukey de múltiplas comparações, denominado HSD de Tukey, atravé da função `TukeyHSD()`, do pacote `stats` . Esta função usa como argumento um modelo aov, no exemplo, `mod.int.aov`.  
+
+```{r}
+TukeyHSD(mod.int.aov)
+```
+
+A saída mostra que o fato de ser homem ou mulher não afetou a memória, não havendo diferença significativa entre os sexos. O importante aqui é observar a interação. Com relação ao consumo do álcool, um efeito significativo após o consumo de 6 latas de cerveja, ocorreu no sexo masculino.
+
+### Relatando os resultados de uma ANOVA de dois fatores
+
+Pode-se relatar os resultados da ANOVA de dois fatores da seguinte maneira:  
+
+(1)	Uma ANOVA de dois fatores foi realizada para avaliar se a memória de homens e mulheres era afetada pelo consumo do álcool avliado em três níveis: 
+    - Não consumiram álcool
+    - Consumiram 3 latas de cerveja (~ 1L)
+    - Consumiram 6 latas de cerveja (~ 2L) 
+    
+(2)	Os dados são apresentados como média e desvio padrão, na Tabela \@ref(tab:result). 
+
+```{r result, echo=FALSE, warning=FALSE, message=FALSE}
+knitr::kable(data.frame("Sexo" = c("Feminino", "Masculino", "Valor P"),
+                        "Sem_alcool" = c("60,6 (5,0)", "66,9 (10,3)", "0,793"),
+                        "Um_litro" = c("62,5 (6,6)", "66,9 (12,5)", "0,927"),
+                        "Dois_litros" = c("57,5 (7,0)", "35,6 (10,8)", "0,0003"),
+                        "Valor P" = c("0,546", "<0,0001", "")),
+             booktabs = TRUE,
+             caption = "Efeito do Álcool sobre a Memória - Escore médio (desvio padrão)") %>% 
+  kableExtra::kable_styling(full_width = TRUE,
+                            latex_options = "hold_position") %>% 
+  kableExtra::kable_classic(html_font = "Cambria") %>% 
+  kableExtra::add_footnote(c("Um litro de cerveja (4,5%) = 5 unidades de alcool"),
+                           notation = "symbol") %>%
+  kableExtra::row_spec(0, bold = TRUE)
+```
+
+(3) O efeito principal do sexo na memória foi não significativo (*F*(1,42) = 2,03, *P* = 0,1614).
+
+(4)	Houve um efeito principal significativo de acordo com a quantidade de álcool consumida na memória dos participantes (*F*(2,42) = 20,07, *P* <0,0001).
+
+(5)	As análises posteriores (médias marginais estimadas com correção de Bonferroni) revelaram que a memória não foi afetada nas mulheres pelo consumo de álcool, mas o consumo de 6 latas de cerveja afetou a memória dos homens quando comparados os homens que não consumiram álcool ou que consumiram até 3 latas de cerveja.
+
+(6) Visualização dos resultados:
+
+Serão apresentados  gráficos de barra de erro (Figura \@ref(fig:result1)), com `ggbarplot()`, do pacote `ggpubr`, utilizando, para cores tonalidades de cinza. Para adicionar teste estatístico, usou-se a função `get_test_label()` e para o teste *post hoc*, a função `get_pwc_label()`, ambas do pacote `rstatix`.
+
+```{r result1, message = FALSE, warning=FALSE, fig.align='center', out.height="80%", out.width="80%", fig.cap="Efeito do álcool na memória de acordo com o sexo."}
+bp <- ggpubr::ggbarplot(dados, 
+                        x = "alcool", y = "escore", 
+                        add = "mean_ci",
+                        error.plot = "upper_errorbar",
+                        fill = "sexo", 
+                        palette = c("gray60", "gray40"),
+                        position = position_dodge(0.8)) +
+  theme(legend.key.size = unit(0.3, 'cm')) +
+  theme(legend.position = "right")
+
+pwc <- pwc %>%
+  add_xy_position(fun = "mean_ci", 
+                  x = "alcool", 
+                  dodge = 0.8) 
+
+anova <-  anova_test(mod.int.aov)
+
+bp + stat_pvalue_manual(pwc,  
+                        label = "p.adj.signif", 
+                        tip.length = 0.01,
+                        y.position = 85) +
+  labs (x = "Ingestão de álcool",
+        y = "Média escore de memória",
+        subtitle = rstatix::get_test_label (anova, detailed = TRUE),
+        caption = rstatix::get_pwc_label(pwc))
+```
+
+Uma opção, é apresentar os resultados como um gráfico de linhas. já  mostrado anteriormente (Figura \@ref(fig:result2)), usando a função `ggline()` do pacote `ggpubr`:  
+
+```{r result2, message = FALSE, warning=FALSE, fig.align='center', out.height="80%", out.width="80%", fig.cap="Efeito do álcool na memória de acordo com o sexo."}
+gl <- ggpubr::ggline(dados,
+                     x = "alcool",
+                     y = "escore",
+                     color = "sexo",
+                     size = 0.7,
+                     add = c("mean_ci"),
+                     palette = c("darkred", "dodgerblue4"))
+
+gl + stat_pvalue_manual(pwc,  
+                        label = "p.adj.signif", 
+                        tip.length = 0.01,
+                        y.position = 85) +
+  labs (x = "Ingestão de álcool",
+        y = "Média escore de memória",
+        subtitle = get_test_label (anova, detailed = TRUE),
+        caption = get_pwc_label(pwc))
+```
