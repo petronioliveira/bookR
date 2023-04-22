@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-04-21" />
+<meta name="date" content="2023-04-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -408,14 +408,14 @@ P[X] \quad ou \quad P[X=x]
 <p>A probabilidade se relaciona a eventos futuros ou que ainda não ocorreram, desta forma a probabilidade pode ser entendida como uma medida de incerteza em relação ao evento. A probabilidade de um evento ocorrer, em determinadas circunstâncias, pode ser definida como a proporção de vezes que o evento é observado quando o experimento é repetido um número infinitamente grande de vezes <span class="citation">(84)</span>.</p>
 <p>A chamada <em>Lei dos Grandes Números</em> diz que à medida que múltiplas observações são coletadas, a proporção observada de ocorrências de um determinado desfecho, após <em>n</em> ensaios, converge para a probabilidade real <em>P</em> desse desfecho. Ou seja, quanto mais vezes for repetido uma experiência, a melhor estimativa de probabilidade tende a ocorrer.</p>
 <p>O resultado dos comandos abaixo simulam 1000 lançamentos de uma moeda, mostrando que quando chega próximo de 300 lançamentos, a probabilidade se mantém praticamente constante em torno de 50% (Figura <a href="introdução-à-teoria-das-probabilidades.html#fig:coin">7.1</a>).</p>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="introdução-à-teoria-das-probabilidades.html#cb404-1" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span></span>
-<span id="cb404-2"><a href="introdução-à-teoria-das-probabilidades.html#cb404-2" aria-hidden="true" tabindex="-1"></a>y<span class="ot">=</span><span class="fu">cumsum</span> (<span class="fu">sample</span> (<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>,<span class="dv">1000</span>, <span class="at">rep=</span><span class="cn">TRUE</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="introdução-à-teoria-das-probabilidades.html#cb405-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span> (x,y<span class="sc">/</span><span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, </span>
-<span id="cb405-2"><a href="introdução-à-teoria-das-probabilidades.html#cb405-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">ylab=</span><span class="st">&quot;Probabilidade&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Lançamentos da moeda&quot;</span>,</span>
-<span id="cb405-3"><a href="introdução-à-teoria-das-probabilidades.html#cb405-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">ylim=</span><span class="fu">c</span> (<span class="fl">0.3</span>,<span class="fl">0.8</span>), <span class="at">xlim=</span><span class="fu">c</span> (<span class="dv">0</span>,<span class="dv">1000</span>), </span>
-<span id="cb405-4"><a href="introdução-à-teoria-das-probabilidades.html#cb405-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">pch=</span><span class="dv">16</span>, </span>
-<span id="cb405-5"><a href="introdução-à-teoria-das-probabilidades.html#cb405-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">col=</span><span class="st">&quot;steelblue&quot;</span>)</span>
-<span id="cb405-6"><a href="introdução-à-teoria-das-probabilidades.html#cb405-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">0.5</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="introdução-à-teoria-das-probabilidades.html#cb406-1" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span></span>
+<span id="cb406-2"><a href="introdução-à-teoria-das-probabilidades.html#cb406-2" aria-hidden="true" tabindex="-1"></a>y<span class="ot">=</span><span class="fu">cumsum</span> (<span class="fu">sample</span> (<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>,<span class="dv">1000</span>, <span class="at">rep=</span><span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="introdução-à-teoria-das-probabilidades.html#cb407-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span> (x,y<span class="sc">/</span><span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, </span>
+<span id="cb407-2"><a href="introdução-à-teoria-das-probabilidades.html#cb407-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">ylab=</span><span class="st">&quot;Probabilidade&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Lançamentos da moeda&quot;</span>,</span>
+<span id="cb407-3"><a href="introdução-à-teoria-das-probabilidades.html#cb407-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">ylim=</span><span class="fu">c</span> (<span class="fl">0.3</span>,<span class="fl">0.8</span>), <span class="at">xlim=</span><span class="fu">c</span> (<span class="dv">0</span>,<span class="dv">1000</span>), </span>
+<span id="cb407-4"><a href="introdução-à-teoria-das-probabilidades.html#cb407-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">pch=</span><span class="dv">16</span>, </span>
+<span id="cb407-5"><a href="introdução-à-teoria-das-probabilidades.html#cb407-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">col=</span><span class="st">&quot;steelblue&quot;</span>)</span>
+<span id="cb407-6"><a href="introdução-à-teoria-das-probabilidades.html#cb407-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">0.5</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:coin"></span>
 <img src="bookdownproj_files/figure-html/coin-1.png" alt="Simulação do lançamento de 1000 moedas." width="70%" height="70%" />
 <p class="caption">
@@ -423,11 +423,11 @@ Figure 7.1: Simulação do lançamento de 1000 moedas.
 </p>
 </div>
 <p>A definição frequentista também pode ser aplicada a uma medida contínua como a altura de mulheres. No conjunto de dados <code>dadosMater.xlsx</code> (veja seção <a href="manipulando-os-dados-no-r-studio.html#sec-mater">5.3</a>), encontra-se o registro da altura de 1368 mulheres. Esssas alturas serão selecionadas e colocas em objeto <code>wh</code> (<em>women height</em>):</p>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="introdução-à-teoria-das-probabilidades.html#cb406-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb406-2"><a href="introdução-à-teoria-das-probabilidades.html#cb406-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb406-3"><a href="introdução-à-teoria-das-probabilidades.html#cb406-3" aria-hidden="true" tabindex="-1"></a>wh <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb406-4"><a href="introdução-à-teoria-das-probabilidades.html#cb406-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(altura)</span>
-<span id="cb406-5"><a href="introdução-à-teoria-das-probabilidades.html#cb406-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span> (wh)</span></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="introdução-à-teoria-das-probabilidades.html#cb408-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb408-2"><a href="introdução-à-teoria-das-probabilidades.html#cb408-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb408-3"><a href="introdução-à-teoria-das-probabilidades.html#cb408-3" aria-hidden="true" tabindex="-1"></a>wh <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb408-4"><a href="introdução-à-teoria-das-probabilidades.html#cb408-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(altura)</span>
+<span id="cb408-5"><a href="introdução-à-teoria-das-probabilidades.html#cb408-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span> (wh)</span></code></pre></div>
 <pre><code>##      altura     
 ##  Min.   :1.400  
 ##  1st Qu.:1.550  
@@ -438,11 +438,11 @@ Figure 7.1: Simulação do lançamento de 1000 moedas.
 <p>A mediana da altura das gestantes é 1,60 m. Ou seja, metade dessas mulheres têm uma altura acima de 1,60 m. Em um longo conjunto de sorteios, a probabilidade de uma mulher ter altura acima de 1,60 m é 50%. O percentil 75 (3º quartil) é igual a 1,65 m, a probabilidade de estar acima deste valor, portanto, é 25%. É possível encontrar a probabilidade de a altura estar acima, abaixo ou entre quaisquer valores. Quando se faz a mensuração de uma variável contínua, fica-se limitado ao método usado, portanto, quando se diz que uma mulher tem 1,60 m, significa dizer que está entre 159,5 e 165,5 m, dependendo da precisão do instrumento de medição.</p>
 <p>Logo, o interesse está na probabilidade de a variável aleatória assumir valores entre certos limites. A probabilidade de encontrar um valor exatamente de 1,60 m é quase igual a zero (na realidade, <span class="math inline">\(2.7 \times 10^{-124}\)</span>).</p>
 <p>Como se verá adiante, isto pode ser facilmente calculado no R:</p>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="introdução-à-teoria-das-probabilidades.html#cb408-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Distância do valor de 1,60 e a média em desvios padrão (escores Z) </span></span>
-<span id="cb408-2"><a href="introdução-à-teoria-das-probabilidades.html#cb408-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (<span class="fl">1.60</span> <span class="sc">-</span> <span class="fu">mean</span>(wh<span class="sc">$</span>altura))<span class="sc">/</span><span class="fu">sd</span>(wh<span class="sc">$</span>altura)</span>
-<span id="cb408-3"><a href="introdução-à-teoria-das-probabilidades.html#cb408-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb408-4"><a href="introdução-à-teoria-das-probabilidades.html#cb408-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Probabilidade </span></span>
-<span id="cb408-5"><a href="introdução-à-teoria-das-probabilidades.html#cb408-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span> (z, <span class="fu">mean</span>(wh<span class="sc">$</span>altura),<span class="fu">sd</span>(wh<span class="sc">$</span>altura))</span></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="introdução-à-teoria-das-probabilidades.html#cb410-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Distância do valor de 1,60 e a média em desvios padrão (escores Z) </span></span>
+<span id="cb410-2"><a href="introdução-à-teoria-das-probabilidades.html#cb410-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (<span class="fl">1.60</span> <span class="sc">-</span> <span class="fu">mean</span>(wh<span class="sc">$</span>altura))<span class="sc">/</span><span class="fu">sd</span>(wh<span class="sc">$</span>altura)</span>
+<span id="cb410-3"><a href="introdução-à-teoria-das-probabilidades.html#cb410-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb410-4"><a href="introdução-à-teoria-das-probabilidades.html#cb410-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Probabilidade </span></span>
+<span id="cb410-5"><a href="introdução-à-teoria-das-probabilidades.html#cb410-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span> (z, <span class="fu">mean</span>(wh<span class="sc">$</span>altura),<span class="fu">sd</span>(wh<span class="sc">$</span>altura))</span></code></pre></div>
 <pre><code>## [1] 7.387473e-127</code></pre>
 </div>
 <div id="propriedades-das-probabilidades" class="section level2 hasAnchor" number="7.4">
@@ -492,36 +492,36 @@ Figure 7.2: Curva normal.
 <p>No entanto, essas curvas podem parecer diferentes dependendo dos detalhes do modelo. Especificamente, o modelo de distribuição normal pode ser ajustado usando dois parâmetros: <em>média</em> e <em>desvio padrão</em>.</p>
 <p>Como é fácil prever, alterar a média desloca a curva de sino para a esquerda ou para a direita, enquanto a alteração do desvio padrão estende ou achata a curva, ou seja, muda a dispersão da distribuição.</p>
 <p>A Figura <a href="introdução-à-teoria-das-probabilidades.html#fig:threecurves">7.3</a>, mostra a distribuição normal com média 0 e desvio padrão 1, na curva à direita, a distribuição normal com média 1.5 e desvio padrão 1. Sobrepondo-se à curva da esquerda observa-se uma curva mais achatada (verde) que tem média 0 e desvio padrão 1.5. Observa-se, como mencionado, que modificando os parâmetros da curva, altera-se a posição ou o formato da curva.</p>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="introdução-à-teoria-das-probabilidades.html#cb410-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span> (<span class="fu">dnorm</span> (x, </span>
-<span id="cb410-2"><a href="introdução-à-teoria-das-probabilidades.html#cb410-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">mean=</span><span class="dv">0</span>, </span>
-<span id="cb410-3"><a href="introdução-à-teoria-das-probabilidades.html#cb410-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">sd=</span><span class="dv">1</span>), </span>
-<span id="cb410-4"><a href="introdução-à-teoria-das-probabilidades.html#cb410-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="st">&quot;dodgerblue3&quot;</span>, </span>
-<span id="cb410-5"><a href="introdução-à-teoria-das-probabilidades.html#cb410-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty=</span><span class="dv">1</span>,</span>
-<span id="cb410-6"><a href="introdução-à-teoria-das-probabilidades.html#cb410-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">lwd=</span><span class="dv">2</span>,</span>
-<span id="cb410-7"><a href="introdução-à-teoria-das-probabilidades.html#cb410-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.4</span>),</span>
-<span id="cb410-8"><a href="introdução-à-teoria-das-probabilidades.html#cb410-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">4.5</span>, <span class="fl">4.5</span>),</span>
-<span id="cb410-9"><a href="introdução-à-teoria-das-probabilidades.html#cb410-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">&quot;Densidade&quot;</span>,</span>
-<span id="cb410-10"><a href="introdução-à-teoria-das-probabilidades.html#cb410-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;X&quot;</span>,</span>
-<span id="cb410-11"><a href="introdução-à-teoria-das-probabilidades.html#cb410-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>)</span>
-<span id="cb410-12"><a href="introdução-à-teoria-das-probabilidades.html#cb410-12" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">bty =</span> <span class="st">&quot;L&quot;</span>)</span>
-<span id="cb410-13"><a href="introdução-à-teoria-das-probabilidades.html#cb410-13" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span> (<span class="at">v=</span> <span class="dv">0</span>, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;dodgerblue3&quot;</span>)</span>
-<span id="cb410-14"><a href="introdução-à-teoria-das-probabilidades.html#cb410-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb410-15"><a href="introdução-à-teoria-das-probabilidades.html#cb410-15" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span> (<span class="fu">dnorm</span> (x, </span>
-<span id="cb410-16"><a href="introdução-à-teoria-das-probabilidades.html#cb410-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">mean=</span><span class="dv">0</span>, </span>
-<span id="cb410-17"><a href="introdução-à-teoria-das-probabilidades.html#cb410-17" aria-hidden="true" tabindex="-1"></a>              <span class="at">sd=</span><span class="fl">1.5</span>), </span>
-<span id="cb410-18"><a href="introdução-à-teoria-das-probabilidades.html#cb410-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="st">&quot;darkolivegreen3&quot;</span>, </span>
-<span id="cb410-19"><a href="introdução-à-teoria-das-probabilidades.html#cb410-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty=</span><span class="dv">1</span>,</span>
-<span id="cb410-20"><a href="introdução-à-teoria-das-probabilidades.html#cb410-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">lwd=</span><span class="dv">2</span>,</span>
-<span id="cb410-21"><a href="introdução-à-teoria-das-probabilidades.html#cb410-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">add=</span>T)</span>
-<span id="cb410-22"><a href="introdução-à-teoria-das-probabilidades.html#cb410-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb410-23"><a href="introdução-à-teoria-das-probabilidades.html#cb410-23" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span> (<span class="fu">dnorm</span> (x, </span>
-<span id="cb410-24"><a href="introdução-à-teoria-das-probabilidades.html#cb410-24" aria-hidden="true" tabindex="-1"></a>              <span class="at">mean=</span><span class="fl">1.5</span>, </span>
-<span id="cb410-25"><a href="introdução-à-teoria-das-probabilidades.html#cb410-25" aria-hidden="true" tabindex="-1"></a>              <span class="at">sd=</span><span class="dv">1</span>), </span>
-<span id="cb410-26"><a href="introdução-à-teoria-das-probabilidades.html#cb410-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="st">&quot;firebrick3&quot;</span>, </span>
-<span id="cb410-27"><a href="introdução-à-teoria-das-probabilidades.html#cb410-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty=</span><span class="dv">1</span>,</span>
-<span id="cb410-28"><a href="introdução-à-teoria-das-probabilidades.html#cb410-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">lwd=</span><span class="dv">2</span>,</span>
-<span id="cb410-29"><a href="introdução-à-teoria-das-probabilidades.html#cb410-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">add=</span>T)</span>
-<span id="cb410-30"><a href="introdução-à-teoria-das-probabilidades.html#cb410-30" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span> (<span class="at">v=</span> <span class="dv">0</span>, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;firebrick3&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="introdução-à-teoria-das-probabilidades.html#cb412-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span> (<span class="fu">dnorm</span> (x, </span>
+<span id="cb412-2"><a href="introdução-à-teoria-das-probabilidades.html#cb412-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">mean=</span><span class="dv">0</span>, </span>
+<span id="cb412-3"><a href="introdução-à-teoria-das-probabilidades.html#cb412-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">sd=</span><span class="dv">1</span>), </span>
+<span id="cb412-4"><a href="introdução-à-teoria-das-probabilidades.html#cb412-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="st">&quot;dodgerblue3&quot;</span>, </span>
+<span id="cb412-5"><a href="introdução-à-teoria-das-probabilidades.html#cb412-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty=</span><span class="dv">1</span>,</span>
+<span id="cb412-6"><a href="introdução-à-teoria-das-probabilidades.html#cb412-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">lwd=</span><span class="dv">2</span>,</span>
+<span id="cb412-7"><a href="introdução-à-teoria-das-probabilidades.html#cb412-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.4</span>),</span>
+<span id="cb412-8"><a href="introdução-à-teoria-das-probabilidades.html#cb412-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">4.5</span>, <span class="fl">4.5</span>),</span>
+<span id="cb412-9"><a href="introdução-à-teoria-das-probabilidades.html#cb412-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">&quot;Densidade&quot;</span>,</span>
+<span id="cb412-10"><a href="introdução-à-teoria-das-probabilidades.html#cb412-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;X&quot;</span>,</span>
+<span id="cb412-11"><a href="introdução-à-teoria-das-probabilidades.html#cb412-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb412-12"><a href="introdução-à-teoria-das-probabilidades.html#cb412-12" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>(<span class="at">bty =</span> <span class="st">&quot;L&quot;</span>)</span>
+<span id="cb412-13"><a href="introdução-à-teoria-das-probabilidades.html#cb412-13" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span> (<span class="at">v=</span> <span class="dv">0</span>, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;dodgerblue3&quot;</span>)</span>
+<span id="cb412-14"><a href="introdução-à-teoria-das-probabilidades.html#cb412-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb412-15"><a href="introdução-à-teoria-das-probabilidades.html#cb412-15" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span> (<span class="fu">dnorm</span> (x, </span>
+<span id="cb412-16"><a href="introdução-à-teoria-das-probabilidades.html#cb412-16" aria-hidden="true" tabindex="-1"></a>              <span class="at">mean=</span><span class="dv">0</span>, </span>
+<span id="cb412-17"><a href="introdução-à-teoria-das-probabilidades.html#cb412-17" aria-hidden="true" tabindex="-1"></a>              <span class="at">sd=</span><span class="fl">1.5</span>), </span>
+<span id="cb412-18"><a href="introdução-à-teoria-das-probabilidades.html#cb412-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="st">&quot;darkolivegreen3&quot;</span>, </span>
+<span id="cb412-19"><a href="introdução-à-teoria-das-probabilidades.html#cb412-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty=</span><span class="dv">1</span>,</span>
+<span id="cb412-20"><a href="introdução-à-teoria-das-probabilidades.html#cb412-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">lwd=</span><span class="dv">2</span>,</span>
+<span id="cb412-21"><a href="introdução-à-teoria-das-probabilidades.html#cb412-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">add=</span>T)</span>
+<span id="cb412-22"><a href="introdução-à-teoria-das-probabilidades.html#cb412-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb412-23"><a href="introdução-à-teoria-das-probabilidades.html#cb412-23" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span> (<span class="fu">dnorm</span> (x, </span>
+<span id="cb412-24"><a href="introdução-à-teoria-das-probabilidades.html#cb412-24" aria-hidden="true" tabindex="-1"></a>              <span class="at">mean=</span><span class="fl">1.5</span>, </span>
+<span id="cb412-25"><a href="introdução-à-teoria-das-probabilidades.html#cb412-25" aria-hidden="true" tabindex="-1"></a>              <span class="at">sd=</span><span class="dv">1</span>), </span>
+<span id="cb412-26"><a href="introdução-à-teoria-das-probabilidades.html#cb412-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="st">&quot;firebrick3&quot;</span>, </span>
+<span id="cb412-27"><a href="introdução-à-teoria-das-probabilidades.html#cb412-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty=</span><span class="dv">1</span>,</span>
+<span id="cb412-28"><a href="introdução-à-teoria-das-probabilidades.html#cb412-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">lwd=</span><span class="dv">2</span>,</span>
+<span id="cb412-29"><a href="introdução-à-teoria-das-probabilidades.html#cb412-29" aria-hidden="true" tabindex="-1"></a>       <span class="at">add=</span>T)</span>
+<span id="cb412-30"><a href="introdução-à-teoria-das-probabilidades.html#cb412-30" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span> (<span class="at">v=</span> <span class="dv">0</span>, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;firebrick3&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:threecurves"></span>
 <img src="bookdownproj_files/figure-html/threecurves-1.png" alt="Curvas normais com modificação dos parâmetros." width="70%" height="70%" />
 <p class="caption">
@@ -566,21 +566,21 @@ onde:</p>
 </ul>
 <p>Qualquer distribuição de uma variável aleatória normal pode ser padronizada, usando o escore <em>z</em>. Isto permite que se calcule a probabilidade de se encontrar determinados intervalos de valores <span class="citation">(86)</span>.</p>
 <p>A altura das puérperas do conjunto de dados <code>dadosMater.xlsx</code> tem as seguintes medidas resumidoras:</p>
-<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="introdução-à-teoria-das-probabilidades.html#cb411-1" aria-hidden="true" tabindex="-1"></a>mater <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb411-2"><a href="introdução-à-teoria-das-probabilidades.html#cb411-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(altura) <span class="sc">%&gt;%</span> </span>
-<span id="cb411-3"><a href="introdução-à-teoria-das-probabilidades.html#cb411-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb411-4"><a href="introdução-à-teoria-das-probabilidades.html#cb411-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">media =</span> <span class="fu">mean</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb411-5"><a href="introdução-à-teoria-das-probabilidades.html#cb411-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">dp =</span> <span class="fu">sd</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb411-6"><a href="introdução-à-teoria-das-probabilidades.html#cb411-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">min =</span> <span class="fu">min</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb411-7"><a href="introdução-à-teoria-das-probabilidades.html#cb411-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">max =</span> <span class="fu">max</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb411-8"><a href="introdução-à-teoria-das-probabilidades.html#cb411-8" aria-hidden="true" tabindex="-1"></a>mater                    </span></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="introdução-à-teoria-das-probabilidades.html#cb413-1" aria-hidden="true" tabindex="-1"></a>mater <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb413-2"><a href="introdução-à-teoria-das-probabilidades.html#cb413-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(altura) <span class="sc">%&gt;%</span> </span>
+<span id="cb413-3"><a href="introdução-à-teoria-das-probabilidades.html#cb413-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb413-4"><a href="introdução-à-teoria-das-probabilidades.html#cb413-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">media =</span> <span class="fu">mean</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb413-5"><a href="introdução-à-teoria-das-probabilidades.html#cb413-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">dp =</span> <span class="fu">sd</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb413-6"><a href="introdução-à-teoria-das-probabilidades.html#cb413-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">min =</span> <span class="fu">min</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb413-7"><a href="introdução-à-teoria-das-probabilidades.html#cb413-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">max =</span> <span class="fu">max</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb413-8"><a href="introdução-à-teoria-das-probabilidades.html#cb413-8" aria-hidden="true" tabindex="-1"></a>mater                    </span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
 ##       n media     dp   min   max
 ##   &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1  1368  1.60 0.0655   1.4  1.85</code></pre>
 <p>Desta forma, pode-se verificar quantos desvios padrão uma mulher que mede 1,725m, pertencente a esta população, está afastada da média de 1.598m. Assim:</p>
-<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="introdução-à-teoria-das-probabilidades.html#cb413-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (<span class="fl">1.725</span> <span class="sc">-</span> mater<span class="sc">$</span>media)<span class="sc">/</span>mater<span class="sc">$</span>dp</span>
-<span id="cb413-2"><a href="introdução-à-teoria-das-probabilidades.html#cb413-2" aria-hidden="true" tabindex="-1"></a>z</span></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="introdução-à-teoria-das-probabilidades.html#cb415-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (<span class="fl">1.725</span> <span class="sc">-</span> mater<span class="sc">$</span>media)<span class="sc">/</span>mater<span class="sc">$</span>dp</span>
+<span id="cb415-2"><a href="introdução-à-teoria-das-probabilidades.html#cb415-2" aria-hidden="true" tabindex="-1"></a>z</span></code></pre></div>
 <pre><code>## [1] 1.940054</code></pre>
 <p>Esta mulher está distante praticamente 2 desvios padrão acima da média da sua população. Portanto, ela é considerada alta. Por que?</p>
 <p>Para responder a essa pergunta, há necessidade de calcular a probabilidade de encontrar uma mulher com esta altura, nesta população.</p>
@@ -600,16 +600,16 @@ onde:</p>
 </ul>
 <p>Se for usado <span class="math inline">\(mean = 0\)</span> e <span class="math inline">\(sd = 1\)</span>, o valor de q = z, caso contrário, toma-se os valores da média, o desvio padrão da população e o valor de <em>x</em>.<br />
 Com esta função pode-se responder a pergunta feita anteriormente em relação a probabilidade de encontrar uma mulher com mais de 1,725m, equivalente a 1.9400545 desvios padrão acima da média, em uma população com média = 1.5979678 e desvio padrão = 0.0654787.</p>
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="introdução-à-teoria-das-probabilidades.html#cb415-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(z, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb415-2"><a href="introdução-à-teoria-das-probabilidades.html#cb415-2" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="introdução-à-teoria-das-probabilidades.html#cb417-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(z, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb417-2"><a href="introdução-à-teoria-das-probabilidades.html#cb417-2" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
 <pre><code>## [1] 0.02618654</code></pre>
 <p>Ou, usando os valores:</p>
-<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="introdução-à-teoria-das-probabilidades.html#cb417-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">1.725</span>, <span class="at">mean =</span> mater<span class="sc">$</span>media, <span class="at">sd =</span> mater<span class="sc">$</span>dp, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="introdução-à-teoria-das-probabilidades.html#cb419-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">1.725</span>, <span class="at">mean =</span> mater<span class="sc">$</span>media, <span class="at">sd =</span> mater<span class="sc">$</span>dp, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## [1] 0.02618654</code></pre>
 <p>Observa-se que, nesta população, apenas 2.6% das mulheres têm acima de 1,725m, razão de considerar-se uma mulher acima deste valor como sendo alta. Ou seja, é pouco provável encontrar mulheres acima dessa altura, nesta população. A Figura <a href="introdução-à-teoria-das-probabilidades.html#fig:prob1725">7.4</a> representa com clareza esta pequena probabilidade.</p>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="introdução-à-teoria-das-probabilidades.html#cb419-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;Arquivos/normal_area.R&quot;</span>)</span>
-<span id="cb419-2"><a href="introdução-à-teoria-das-probabilidades.html#cb419-2" aria-hidden="true" tabindex="-1"></a><span class="fu">normal_area</span>(<span class="at">media =</span> <span class="dv">0</span>, <span class="at">dp =</span> <span class="dv">1</span>, <span class="at">linf =</span> <span class="fl">1.94</span>, <span class="at">lsup =</span> <span class="dv">3</span>, <span class="at">cor =</span> <span class="st">&quot;tomato&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span> )</span>
-<span id="cb419-3"><a href="introdução-à-teoria-das-probabilidades.html#cb419-3" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">2.6</span>, <span class="fl">0.05</span>, <span class="st">&quot;2.6%&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="introdução-à-teoria-das-probabilidades.html#cb421-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;Arquivos/normal_area.R&quot;</span>)</span>
+<span id="cb421-2"><a href="introdução-à-teoria-das-probabilidades.html#cb421-2" aria-hidden="true" tabindex="-1"></a><span class="fu">normal_area</span>(<span class="at">media =</span> <span class="dv">0</span>, <span class="at">dp =</span> <span class="dv">1</span>, <span class="at">linf =</span> <span class="fl">1.94</span>, <span class="at">lsup =</span> <span class="dv">3</span>, <span class="at">cor =</span> <span class="st">&quot;tomato&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span> )</span>
+<span id="cb421-3"><a href="introdução-à-teoria-das-probabilidades.html#cb421-3" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fl">2.6</span>, <span class="fl">0.05</span>, <span class="st">&quot;2.6%&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:prob1725"></span>
 <img src="bookdownproj_files/figure-html/prob1725-1.png" alt="Probabilidade de encontrar mulheres com mais de 1,725m" width="70%" height="70%" />
 <p class="caption">
@@ -631,10 +631,10 @@ Figure 7.4: Probabilidade de encontrar mulheres com mais de 1,725m
 </ul></li>
 </ul>
 <p>No exemplo anterior, a probabilidade de se encontrar mulheres, na maternidade, com mais de 1,725m foi de 2.6%. Poderia ser calculado com a função <code>qnorm()</code> qual o escore <em>z</em> correspondente:</p>
-<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="introdução-à-teoria-das-probabilidades.html#cb420-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(p, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="introdução-à-teoria-das-probabilidades.html#cb422-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(p, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## [1] 1.940054</code></pre>
 <p>Outro exemplo, na mediana (p = 0,5), o escore z é igual a:</p>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="introdução-à-teoria-das-probabilidades.html#cb422-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.50</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="introdução-à-teoria-das-probabilidades.html#cb424-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="fl">0.50</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p><strong>Função <code>dnorm()</code></strong></p>
 <p>Essa função retorna o valor da <code>função de densidade de probabilidade</code> (pdf) da distribuição normal dada uma certa variável aleatória X, uma média populacional <span class="math inline">\(\mu\)</span> e o desvio padrão populacional <span class="math inline">\(\sigma\)</span>.</p>
@@ -649,33 +649,33 @@ Figure 7.4: Probabilidade de encontrar mulheres com mais de 1,725m
 </ul></li>
 </ul>
 <p>Embora x represente a variável independente da pdf para a distribuição normal, também é útil pensar em <em>x</em> como um escore <em>z</em>. Por exemplo, a densidade de probabilidade quando <em>x</em> = 0 é igual:</p>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="introdução-à-teoria-das-probabilidades.html#cb424-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dnorm</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="introdução-à-teoria-das-probabilidades.html#cb426-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dnorm</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 0.3989423</code></pre>
 <p>Agora, para melhor comprenssão, será mostrado o que foi dito, representando a função de densidade de probabilidade da distribuição normal com o <code>dnorm()</code>.</p>
 <p>Inicialmente, será construído um vetor de escores <em>z</em>:</p>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="introdução-à-teoria-das-probabilidades.html#cb426-1" aria-hidden="true" tabindex="-1"></a>escores_z <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
-<span id="cb426-2"><a href="introdução-à-teoria-das-probabilidades.html#cb426-2" aria-hidden="true" tabindex="-1"></a>escores_z</span></code></pre></div>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="introdução-à-teoria-das-probabilidades.html#cb428-1" aria-hidden="true" tabindex="-1"></a>escores_z <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
+<span id="cb428-2"><a href="introdução-à-teoria-das-probabilidades.html#cb428-2" aria-hidden="true" tabindex="-1"></a>escores_z</span></code></pre></div>
 <pre><code>##  [1] -3.0 -2.9 -2.8 -2.7 -2.6 -2.5 -2.4 -2.3 -2.2 -2.1 -2.0 -1.9 -1.8 -1.7 -1.6
 ## [16] -1.5 -1.4 -1.3 -1.2 -1.1 -1.0 -0.9 -0.8 -0.7 -0.6 -0.5 -0.4 -0.3 -0.2 -0.1
 ## [31]  0.0  0.1  0.2  0.3  0.4  0.5  0.6  0.7  0.8  0.9  1.0  1.1  1.2  1.3  1.4
 ## [46]  1.5  1.6  1.7  1.8  1.9  2.0  2.1  2.2  2.3  2.4  2.5  2.6  2.7  2.8  2.9
 ## [61]  3.0</code></pre>
 <p>Um objeto, <code>valores_d</code>, receberá os valores das densidades de probabilidade gerados com a função <code>dnorm()</code>, usando os <code>escores_z</code>:</p>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="introdução-à-teoria-das-probabilidades.html#cb428-1" aria-hidden="true" tabindex="-1"></a>valores_d <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(escores_z, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="introdução-à-teoria-das-probabilidades.html#cb430-1" aria-hidden="true" tabindex="-1"></a>valores_d <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(escores_z, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p>Estes valores serão plotados para construir a curva normal (Figura <a href="introdução-à-teoria-das-probabilidades.html#fig:pdf">7.5</a>):</p>
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="introdução-à-teoria-das-probabilidades.html#cb429-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(valores_d,</span>
-<span id="cb429-2"><a href="introdução-à-teoria-das-probabilidades.html#cb429-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,                          <span class="co"># Tipo de gráfico em linha</span></span>
-<span id="cb429-3"><a href="introdução-à-teoria-das-probabilidades.html#cb429-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>,                             <span class="co"># Espessura da linha 2x padrão</span></span>
-<span id="cb429-4"><a href="introdução-à-teoria-das-probabilidades.html#cb429-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>,                   <span class="co"># Cor da linha</span></span>
-<span id="cb429-5"><a href="introdução-à-teoria-das-probabilidades.html#cb429-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>,                          <span class="co"># Eixo x sem rótulos</span></span>
-<span id="cb429-6"><a href="introdução-à-teoria-das-probabilidades.html#cb429-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Densidade de Probabilidade&quot;</span>,</span>
-<span id="cb429-7"><a href="introdução-à-teoria-das-probabilidades.html#cb429-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Escores z&quot;</span>)</span>
-<span id="cb429-8"><a href="introdução-à-teoria-das-probabilidades.html#cb429-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb429-9"><a href="introdução-à-teoria-das-probabilidades.html#cb429-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Rótulos do eixo x</span></span>
-<span id="cb429-10"><a href="introdução-à-teoria-das-probabilidades.html#cb429-10" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">which</span>(valores_d <span class="sc">==</span> <span class="fu">dnorm</span>(<span class="dv">0</span>)), <span class="at">labels =</span> <span class="fu">c</span>(<span class="dv">0</span>))</span>
-<span id="cb429-11"><a href="introdução-à-teoria-das-probabilidades.html#cb429-11" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at=</span><span class="fu">which</span>(valores_d <span class="sc">==</span> <span class="fu">dnorm</span>(<span class="dv">1</span>)), <span class="at">labels=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb429-12"><a href="introdução-à-teoria-das-probabilidades.html#cb429-12" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at=</span><span class="fu">which</span>(valores_d <span class="sc">==</span> <span class="fu">dnorm</span>(<span class="dv">2</span>)), <span class="at">labels=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb429-13"><a href="introdução-à-teoria-das-probabilidades.html#cb429-13" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at=</span><span class="fu">which</span>(valores_d <span class="sc">==</span> <span class="fu">dnorm</span>(<span class="dv">3</span>)), <span class="at">labels=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="introdução-à-teoria-das-probabilidades.html#cb431-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(valores_d,</span>
+<span id="cb431-2"><a href="introdução-à-teoria-das-probabilidades.html#cb431-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,                          <span class="co"># Tipo de gráfico em linha</span></span>
+<span id="cb431-3"><a href="introdução-à-teoria-das-probabilidades.html#cb431-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>,                             <span class="co"># Espessura da linha 2x padrão</span></span>
+<span id="cb431-4"><a href="introdução-à-teoria-das-probabilidades.html#cb431-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>,                   <span class="co"># Cor da linha</span></span>
+<span id="cb431-5"><a href="introdução-à-teoria-das-probabilidades.html#cb431-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>,                          <span class="co"># Eixo x sem rótulos</span></span>
+<span id="cb431-6"><a href="introdução-à-teoria-das-probabilidades.html#cb431-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Densidade de Probabilidade&quot;</span>,</span>
+<span id="cb431-7"><a href="introdução-à-teoria-das-probabilidades.html#cb431-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Escores z&quot;</span>)</span>
+<span id="cb431-8"><a href="introdução-à-teoria-das-probabilidades.html#cb431-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb431-9"><a href="introdução-à-teoria-das-probabilidades.html#cb431-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Rótulos do eixo x</span></span>
+<span id="cb431-10"><a href="introdução-à-teoria-das-probabilidades.html#cb431-10" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">which</span>(valores_d <span class="sc">==</span> <span class="fu">dnorm</span>(<span class="dv">0</span>)), <span class="at">labels =</span> <span class="fu">c</span>(<span class="dv">0</span>))</span>
+<span id="cb431-11"><a href="introdução-à-teoria-das-probabilidades.html#cb431-11" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at=</span><span class="fu">which</span>(valores_d <span class="sc">==</span> <span class="fu">dnorm</span>(<span class="dv">1</span>)), <span class="at">labels=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb431-12"><a href="introdução-à-teoria-das-probabilidades.html#cb431-12" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at=</span><span class="fu">which</span>(valores_d <span class="sc">==</span> <span class="fu">dnorm</span>(<span class="dv">2</span>)), <span class="at">labels=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb431-13"><a href="introdução-à-teoria-das-probabilidades.html#cb431-13" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at=</span><span class="fu">which</span>(valores_d <span class="sc">==</span> <span class="fu">dnorm</span>(<span class="dv">3</span>)), <span class="at">labels=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:pdf"></span>
 <img src="bookdownproj_files/figure-html/pdf-1.png" alt="Função densidade de probabilidade." width="70%" height="70%" />
 <p class="caption">
@@ -696,81 +696,81 @@ Figure 7.5: Função densidade de probabilidade.
 </ul></li>
 </ul>
 <p>Com esta função é possível, por exemplo, gerar 10 observações de uma distribuição normal:</p>
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="introdução-à-teoria-das-probabilidades.html#cb430-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1]  0.4035898  0.0384110 -0.2584935  1.6306441  1.0660440  0.5911731
-##  [7]  2.1680310  0.6917949  1.3742010  1.5669759</code></pre>
-<p>No entanto, deve-se notar que, se não especificar uma “semente” (<code>seed</code>), a saída não será reproduzível:</p>
 <div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="introdução-à-teoria-das-probabilidades.html#cb432-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1] -0.54278586  0.48116574 -0.82654439 -1.19410044 -2.08776566 -0.36753236
-##  [7]  0.65536073  1.27320716 -0.02171438  0.40320210</code></pre>
+<pre><code>##  [1]  0.015305388 -0.272723667 -0.908691508  0.197587988 -0.517940153
+##  [6] -1.667928545  0.008352216 -0.626068881  0.582384366 -1.892057041</code></pre>
+<p>No entanto, deve-se notar que, se não especificar uma “semente” (<code>seed</code>), a saída não será reproduzível:</p>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="introdução-à-teoria-das-probabilidades.html#cb434-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##  [1]  0.3290992  0.4568480 -0.8792838  1.5159664 -0.5204036 -0.1960757
+##  [7] -1.9630947  1.2378553  0.7286831 -0.2606930</code></pre>
 <p>Pode-se usar a função <code>set.seed()</code> para tornar o código reproduzível. O valor da “semente” (número) não é importante desde que seja consistente na sua utilização. O que é verdadeiramente importante é que o código seja reproduzido fielmente.</p>
 <p>Para ilustrar, será construído dois conjuntos de 10 números que serão recebidos pelos objetos <em>x</em> e <em>y</em>. Para gerar o conjunto de números <em>x</em>, sera usado o número <code>123</code> como “semente”. A “semente” funciona como uma espécie de marca. Para o <em>y</em> não será usado a <code>set.seed()</code>.</p>
-<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="introdução-à-teoria-das-probabilidades.html#cb434-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb434-2"><a href="introdução-à-teoria-das-probabilidades.html#cb434-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb434-3"><a href="introdução-à-teoria-das-probabilidades.html#cb434-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span> (<span class="dv">123</span>)</span>
-<span id="cb434-4"><a href="introdução-à-teoria-das-probabilidades.html#cb434-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span> (n)</span>
-<span id="cb434-5"><a href="introdução-à-teoria-das-probabilidades.html#cb434-5" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="introdução-à-teoria-das-probabilidades.html#cb436-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb436-2"><a href="introdução-à-teoria-das-probabilidades.html#cb436-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb436-3"><a href="introdução-à-teoria-das-probabilidades.html#cb436-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span> (<span class="dv">123</span>)</span>
+<span id="cb436-4"><a href="introdução-à-teoria-das-probabilidades.html#cb436-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span> (n)</span>
+<span id="cb436-5"><a href="introdução-à-teoria-das-probabilidades.html#cb436-5" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
 <pre><code>##  [1] -0.56047565 -0.23017749  1.55870831  0.07050839  0.12928774  1.71506499
 ##  [7]  0.46091621 -1.26506123 -0.68685285 -0.44566197</code></pre>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="introdução-à-teoria-das-probabilidades.html#cb436-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb436-2"><a href="introdução-à-teoria-das-probabilidades.html#cb436-2" aria-hidden="true" tabindex="-1"></a>y</span></code></pre></div>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="introdução-à-teoria-das-probabilidades.html#cb438-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb438-2"><a href="introdução-à-teoria-das-probabilidades.html#cb438-2" aria-hidden="true" tabindex="-1"></a>y</span></code></pre></div>
 <pre><code>##  [1]  1.2240818  0.3598138  0.4007715  0.1106827 -0.5558411  1.7869131
 ##  [7]  0.4978505 -1.9666172  0.7013559 -0.4727914</code></pre>
 <p>Comparando os conjuntos com a função <code>identical()</code> do R base, observa-se que os conjuntos são diferentes:</p>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="introdução-à-teoria-das-probabilidades.html#cb438-1" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(x, y)</span></code></pre></div>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="introdução-à-teoria-das-probabilidades.html#cb440-1" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(x, y)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>Agora, repetindo os mesmos comandos, mas usando antes a mesma “semente”:</p>
-<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="introdução-à-teoria-das-probabilidades.html#cb440-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span> (<span class="dv">123</span>)</span>
-<span id="cb440-2"><a href="introdução-à-teoria-das-probabilidades.html#cb440-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span> (n)</span>
-<span id="cb440-3"><a href="introdução-à-teoria-das-probabilidades.html#cb440-3" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
-<pre><code>##  [1] -0.56047565 -0.23017749  1.55870831  0.07050839  0.12928774  1.71506499
-##  [7]  0.46091621 -1.26506123 -0.68685285 -0.44566197</code></pre>
 <div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="introdução-à-teoria-das-probabilidades.html#cb442-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span> (<span class="dv">123</span>)</span>
-<span id="cb442-2"><a href="introdução-à-teoria-das-probabilidades.html#cb442-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb442-3"><a href="introdução-à-teoria-das-probabilidades.html#cb442-3" aria-hidden="true" tabindex="-1"></a>y</span></code></pre></div>
+<span id="cb442-2"><a href="introdução-à-teoria-das-probabilidades.html#cb442-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span> (n)</span>
+<span id="cb442-3"><a href="introdução-à-teoria-das-probabilidades.html#cb442-3" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
 <pre><code>##  [1] -0.56047565 -0.23017749  1.55870831  0.07050839  0.12928774  1.71506499
 ##  [7]  0.46091621 -1.26506123 -0.68685285 -0.44566197</code></pre>
-<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="introdução-à-teoria-das-probabilidades.html#cb444-1" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(x, y)</span></code></pre></div>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="introdução-à-teoria-das-probabilidades.html#cb444-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span> (<span class="dv">123</span>)</span>
+<span id="cb444-2"><a href="introdução-à-teoria-das-probabilidades.html#cb444-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb444-3"><a href="introdução-à-teoria-das-probabilidades.html#cb444-3" aria-hidden="true" tabindex="-1"></a>y</span></code></pre></div>
+<pre><code>##  [1] -0.56047565 -0.23017749  1.55870831  0.07050839  0.12928774  1.71506499
+##  [7]  0.46091621 -1.26506123 -0.68685285 -0.44566197</code></pre>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="introdução-à-teoria-das-probabilidades.html#cb446-1" aria-hidden="true" tabindex="-1"></a><span class="fu">identical</span>(x, y)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Observa-se que, agora, tem-se conjuntos idênticos.</p>
 <p>Agora, para usar <code>rnorm()</code>, serão gerados três vetores diferentes de números aleatórios de uma distribuição normal.</p>
-<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="introdução-à-teoria-das-probabilidades.html#cb446-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb446-2"><a href="introdução-à-teoria-das-probabilidades.html#cb446-2" aria-hidden="true" tabindex="-1"></a>n10 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb446-3"><a href="introdução-à-teoria-das-probabilidades.html#cb446-3" aria-hidden="true" tabindex="-1"></a>n100 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb446-4"><a href="introdução-à-teoria-das-probabilidades.html#cb446-4" aria-hidden="true" tabindex="-1"></a>n10000 <span class="ot">&lt;-</span>  <span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="introdução-à-teoria-das-probabilidades.html#cb448-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb448-2"><a href="introdução-à-teoria-das-probabilidades.html#cb448-2" aria-hidden="true" tabindex="-1"></a>n10 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb448-3"><a href="introdução-à-teoria-das-probabilidades.html#cb448-3" aria-hidden="true" tabindex="-1"></a>n100 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb448-4"><a href="introdução-à-teoria-das-probabilidades.html#cb448-4" aria-hidden="true" tabindex="-1"></a>n10000 <span class="ot">&lt;-</span>  <span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p>A seguir, serão construídos histogramas (Figura <a href="introdução-à-teoria-das-probabilidades.html#fig:pdf1">7.6</a>), onde se pode observar que, aumentando o número de observações, tem-se gráficos que irão progressivamente se aproximando da verdadeira função de densidade normal.</p>
-<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="introdução-à-teoria-das-probabilidades.html#cb447-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Este comando coloca os gráficos em uma mesma linha, o argumento mfrow(c(1,3)) diz ao R para construir uma linha e três colunas:</span></span>
-<span id="cb447-2"><a href="introdução-à-teoria-das-probabilidades.html#cb447-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
-<span id="cb447-3"><a href="introdução-à-teoria-das-probabilidades.html#cb447-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb447-4"><a href="introdução-à-teoria-das-probabilidades.html#cb447-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogramas</span></span>
-<span id="cb447-5"><a href="introdução-à-teoria-das-probabilidades.html#cb447-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(n10, <span class="at">breaks =</span> <span class="dv">5</span>, <span class="at">main =</span> <span class="st">&quot;n =10&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Frequência&quot;</span>)</span>
-<span id="cb447-6"><a href="introdução-à-teoria-das-probabilidades.html#cb447-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(n100, <span class="at">breaks =</span> <span class="dv">20</span>, <span class="at">main =</span> <span class="st">&quot;n =100&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Frequência&quot;</span>)</span>
-<span id="cb447-7"><a href="introdução-à-teoria-das-probabilidades.html#cb447-7" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(n10000, <span class="at">breaks =</span> <span class="dv">50</span>, <span class="at">main =</span> <span class="st">&quot;n =10000&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Frequência&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="introdução-à-teoria-das-probabilidades.html#cb449-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Este comando coloca os gráficos em uma mesma linha, o argumento mfrow(c(1,3)) diz ao R para construir uma linha e três colunas:</span></span>
+<span id="cb449-2"><a href="introdução-à-teoria-das-probabilidades.html#cb449-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb449-3"><a href="introdução-à-teoria-das-probabilidades.html#cb449-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-4"><a href="introdução-à-teoria-das-probabilidades.html#cb449-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogramas</span></span>
+<span id="cb449-5"><a href="introdução-à-teoria-das-probabilidades.html#cb449-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(n10, <span class="at">breaks =</span> <span class="dv">5</span>, <span class="at">main =</span> <span class="st">&quot;n =10&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Frequência&quot;</span>)</span>
+<span id="cb449-6"><a href="introdução-à-teoria-das-probabilidades.html#cb449-6" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(n100, <span class="at">breaks =</span> <span class="dv">20</span>, <span class="at">main =</span> <span class="st">&quot;n =100&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Frequência&quot;</span>)</span>
+<span id="cb449-7"><a href="introdução-à-teoria-das-probabilidades.html#cb449-7" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(n10000, <span class="at">breaks =</span> <span class="dv">50</span>, <span class="at">main =</span> <span class="st">&quot;n =10000&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Frequência&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:pdf1"></span>
 <img src="bookdownproj_files/figure-html/pdf1-1.png" alt="Histogramas construídos com amostras geradas pela função rnorm." width="100%" height="70%" />
 <p class="caption">
 Figure 7.6: Histogramas construídos com amostras geradas pela função rnorm.
 </p>
 </div>
-<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="introdução-à-teoria-das-probabilidades.html#cb448-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Restaura as configurações basais de plotagem</span></span>
-<span id="cb448-2"><a href="introdução-à-teoria-das-probabilidades.html#cb448-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="introdução-à-teoria-das-probabilidades.html#cb450-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Restaura as configurações basais de plotagem</span></span>
+<span id="cb450-2"><a href="introdução-à-teoria-das-probabilidades.html#cb450-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
 </div>
 <div id="regra-empírica-68-95-99.7" class="section level3 hasAnchor" number="7.6.3">
 <h3><span class="header-section-number">7.6.3</span> Regra Empírica 68-95-99.7<a href="introdução-à-teoria-das-probabilidades.html#regra-empírica-68-95-99.7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A regra empírica diz que, se uma população de um conjunto de dados tem uma distribuição normal com média 0 e desvio padrão 1 (X ~ Norm (0,1)) pode-se afirmar que aproximadamente, 68%, 95% e 99,7% dos valores encontram-se, respectivamente, dentro de <span class="math inline">\(\pm\)</span> 1, 2 e 3 desvio padrão acima e abaixo média.</p>
 <p>Esta regra pode ser usada para descrever uma população e ajudar a decidir se uma amostra de dados veio de uma distribuição normal. Se uma amostra é grande o suficiente e a observação do histograma tem um formato parecido com um sino, é possível verificar se os dados seguem as especificações 68-95-99,7%. Se sim, é razoável concluir que os dados vieram de uma distribuição normal.</p>
 <p>Usando a amostra dos recém-nascidos a termo da maternidade-escola do Hospital Geral de Caxias do Sul e for observado o histograma com uma curva normal sobreposta, tem-se</p>
-<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="introdução-à-teoria-das-probabilidades.html#cb449-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Selecionando os recém-nascidos a termo</span></span>
-<span id="cb449-2"><a href="introdução-à-teoria-das-probabilidades.html#cb449-2" aria-hidden="true" tabindex="-1"></a>mater <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>)<span class="sc">%&gt;%</span> </span>
-<span id="cb449-3"><a href="introdução-à-teoria-das-probabilidades.html#cb449-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ig <span class="sc">&gt;=</span> <span class="dv">37</span> <span class="sc">&amp;</span> ig <span class="sc">&lt;</span> <span class="dv">42</span>)</span>
-<span id="cb449-4"><a href="introdução-à-teoria-das-probabilidades.html#cb449-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb449-5"><a href="introdução-à-teoria-das-probabilidades.html#cb449-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Média dos pesos dos recém-nascidos a termo</span></span>
-<span id="cb449-6"><a href="introdução-à-teoria-das-probabilidades.html#cb449-6" aria-hidden="true" tabindex="-1"></a>media <span class="ot">&lt;-</span>  <span class="fu">mean</span>(mater<span class="sc">$</span>pesoRN, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span>
-<span id="cb449-7"><a href="introdução-à-teoria-das-probabilidades.html#cb449-7" aria-hidden="true" tabindex="-1"></a>media</span></code></pre></div>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="introdução-à-teoria-das-probabilidades.html#cb451-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Selecionando os recém-nascidos a termo</span></span>
+<span id="cb451-2"><a href="introdução-à-teoria-das-probabilidades.html#cb451-2" aria-hidden="true" tabindex="-1"></a>mater <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>)<span class="sc">%&gt;%</span> </span>
+<span id="cb451-3"><a href="introdução-à-teoria-das-probabilidades.html#cb451-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ig <span class="sc">&gt;=</span> <span class="dv">37</span> <span class="sc">&amp;</span> ig <span class="sc">&lt;</span> <span class="dv">42</span>)</span>
+<span id="cb451-4"><a href="introdução-à-teoria-das-probabilidades.html#cb451-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb451-5"><a href="introdução-à-teoria-das-probabilidades.html#cb451-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Média dos pesos dos recém-nascidos a termo</span></span>
+<span id="cb451-6"><a href="introdução-à-teoria-das-probabilidades.html#cb451-6" aria-hidden="true" tabindex="-1"></a>media <span class="ot">&lt;-</span>  <span class="fu">mean</span>(mater<span class="sc">$</span>pesoRN, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span>
+<span id="cb451-7"><a href="introdução-à-teoria-das-probabilidades.html#cb451-7" aria-hidden="true" tabindex="-1"></a>media</span></code></pre></div>
 <pre><code>## [1] 3216.316</code></pre>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="introdução-à-teoria-das-probabilidades.html#cb451-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Desvio padrão dos pesos dos recém-nascidos a termo</span></span>
-<span id="cb451-2"><a href="introdução-à-teoria-das-probabilidades.html#cb451-2" aria-hidden="true" tabindex="-1"></a>dp  <span class="ot">&lt;-</span>  <span class="fu">sd</span>(mater<span class="sc">$</span>pesoRN, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span>
-<span id="cb451-3"><a href="introdução-à-teoria-das-probabilidades.html#cb451-3" aria-hidden="true" tabindex="-1"></a>dp</span></code></pre></div>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="introdução-à-teoria-das-probabilidades.html#cb453-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Desvio padrão dos pesos dos recém-nascidos a termo</span></span>
+<span id="cb453-2"><a href="introdução-à-teoria-das-probabilidades.html#cb453-2" aria-hidden="true" tabindex="-1"></a>dp  <span class="ot">&lt;-</span>  <span class="fu">sd</span>(mater<span class="sc">$</span>pesoRN, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span>
+<span id="cb453-3"><a href="introdução-à-teoria-das-probabilidades.html#cb453-3" aria-hidden="true" tabindex="-1"></a>dp</span></code></pre></div>
 <pre><code>## [1] 462.1205</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:prn"></span>
 <img src="bookdownproj_files/figure-html/prn-1.png" alt="Histograma com curva normal sobreposta" width="70%" height="70%" />
@@ -789,27 +789,27 @@ Figure 7.7: Histograma com curva normal sobreposta
 </ul></li>
 </ol>
 <p><em>Probabilidade de pertencer à População 1</em></p>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="introdução-à-teoria-das-probabilidades.html#cb453-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span>  <span class="dv">150</span></span>
-<span id="cb453-2"><a href="introdução-à-teoria-das-probabilidades.html#cb453-2" aria-hidden="true" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> <span class="dv">160</span></span>
-<span id="cb453-3"><a href="introdução-à-teoria-das-probabilidades.html#cb453-3" aria-hidden="true" tabindex="-1"></a>sigma1 <span class="ot">&lt;-</span> <span class="fl">6.6</span></span>
-<span id="cb453-4"><a href="introdução-à-teoria-das-probabilidades.html#cb453-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-5"><a href="introdução-à-teoria-das-probabilidades.html#cb453-5" aria-hidden="true" tabindex="-1"></a>z1 <span class="ot">&lt;-</span>  (x <span class="sc">-</span> mu1)<span class="sc">/</span>sigma1</span>
-<span id="cb453-6"><a href="introdução-à-teoria-das-probabilidades.html#cb453-6" aria-hidden="true" tabindex="-1"></a>z1 </span></code></pre></div>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="introdução-à-teoria-das-probabilidades.html#cb455-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span>  <span class="dv">150</span></span>
+<span id="cb455-2"><a href="introdução-à-teoria-das-probabilidades.html#cb455-2" aria-hidden="true" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> <span class="dv">160</span></span>
+<span id="cb455-3"><a href="introdução-à-teoria-das-probabilidades.html#cb455-3" aria-hidden="true" tabindex="-1"></a>sigma1 <span class="ot">&lt;-</span> <span class="fl">6.6</span></span>
+<span id="cb455-4"><a href="introdução-à-teoria-das-probabilidades.html#cb455-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb455-5"><a href="introdução-à-teoria-das-probabilidades.html#cb455-5" aria-hidden="true" tabindex="-1"></a>z1 <span class="ot">&lt;-</span>  (x <span class="sc">-</span> mu1)<span class="sc">/</span>sigma1</span>
+<span id="cb455-6"><a href="introdução-à-teoria-das-probabilidades.html#cb455-6" aria-hidden="true" tabindex="-1"></a>z1 </span></code></pre></div>
 <pre><code>## [1] -1.515152</code></pre>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="introdução-à-teoria-das-probabilidades.html#cb455-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">pnorm</span> (z1)</span>
-<span id="cb455-2"><a href="introdução-à-teoria-das-probabilidades.html#cb455-2" aria-hidden="true" tabindex="-1"></a>p1</span></code></pre></div>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="introdução-à-teoria-das-probabilidades.html#cb457-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">pnorm</span> (z1)</span>
+<span id="cb457-2"><a href="introdução-à-teoria-das-probabilidades.html#cb457-2" aria-hidden="true" tabindex="-1"></a>p1</span></code></pre></div>
 <pre><code>## [1] 0.06486702</code></pre>
 <p>Ou seja, na população 1, apenas 6.5% das mulheres tem altura abaixo de 1,50, 93.5% é mais alta do que este valor.</p>
 <p><em>Probabilidade de pertencer à População 2</em></p>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="introdução-à-teoria-das-probabilidades.html#cb457-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span>  <span class="dv">150</span></span>
-<span id="cb457-2"><a href="introdução-à-teoria-das-probabilidades.html#cb457-2" aria-hidden="true" tabindex="-1"></a>mu2 <span class="ot">&lt;-</span> <span class="dv">140</span></span>
-<span id="cb457-3"><a href="introdução-à-teoria-das-probabilidades.html#cb457-3" aria-hidden="true" tabindex="-1"></a>sigma2 <span class="ot">&lt;-</span> <span class="fl">6.6</span></span>
-<span id="cb457-4"><a href="introdução-à-teoria-das-probabilidades.html#cb457-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb457-5"><a href="introdução-à-teoria-das-probabilidades.html#cb457-5" aria-hidden="true" tabindex="-1"></a>z2 <span class="ot">&lt;-</span>  (x <span class="sc">-</span> mu2)<span class="sc">/</span>sigma2</span>
-<span id="cb457-6"><a href="introdução-à-teoria-das-probabilidades.html#cb457-6" aria-hidden="true" tabindex="-1"></a>z2 </span></code></pre></div>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="introdução-à-teoria-das-probabilidades.html#cb459-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span>  <span class="dv">150</span></span>
+<span id="cb459-2"><a href="introdução-à-teoria-das-probabilidades.html#cb459-2" aria-hidden="true" tabindex="-1"></a>mu2 <span class="ot">&lt;-</span> <span class="dv">140</span></span>
+<span id="cb459-3"><a href="introdução-à-teoria-das-probabilidades.html#cb459-3" aria-hidden="true" tabindex="-1"></a>sigma2 <span class="ot">&lt;-</span> <span class="fl">6.6</span></span>
+<span id="cb459-4"><a href="introdução-à-teoria-das-probabilidades.html#cb459-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb459-5"><a href="introdução-à-teoria-das-probabilidades.html#cb459-5" aria-hidden="true" tabindex="-1"></a>z2 <span class="ot">&lt;-</span>  (x <span class="sc">-</span> mu2)<span class="sc">/</span>sigma2</span>
+<span id="cb459-6"><a href="introdução-à-teoria-das-probabilidades.html#cb459-6" aria-hidden="true" tabindex="-1"></a>z2 </span></code></pre></div>
 <pre><code>## [1] 1.515152</code></pre>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="introdução-à-teoria-das-probabilidades.html#cb459-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">pnorm</span> (z2)</span>
-<span id="cb459-2"><a href="introdução-à-teoria-das-probabilidades.html#cb459-2" aria-hidden="true" tabindex="-1"></a>p2</span></code></pre></div>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="introdução-à-teoria-das-probabilidades.html#cb461-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">pnorm</span> (z2)</span>
+<span id="cb461-2"><a href="introdução-à-teoria-das-probabilidades.html#cb461-2" aria-hidden="true" tabindex="-1"></a>p2</span></code></pre></div>
 <pre><code>## [1] 0.935133</code></pre>
 <p>Na população 2, 6.5% das mulheres têm altura acima de 150 cm. Este valor valor está 1.52 desvios padrão distante da média. Isto significa que se ela pertencesse a população 2, ela seria considerada alta, quer dizer, praticamente 93.5% das mulheres desta população são menores do que ela.</p>
 <p>No gráfico abaixo, pode-se visualizar a posição de uma mulher de 1,50 m (linha vermelha tracejada) em relação às duas populações (Figura <a href="introdução-à-teoria-das-probabilidades.html#fig:woman">7.8</a>).</p>
@@ -823,23 +823,23 @@ Figure 7.8: Posição de uma mulher com 1,50m comparando duas populações
 <ol start="2" style="list-style-type: decimal">
 <li>Usando as populações do exercício 1, qual a probabilidade de se encontrar mulheres, em qualquer das populações, abaixo do escore <em>z</em> -1.96?</li>
 </ol>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="introdução-à-teoria-das-probabilidades.html#cb461-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span> (<span class="sc">-</span><span class="fl">1.96</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="introdução-à-teoria-das-probabilidades.html#cb463-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span> (<span class="sc">-</span><span class="fl">1.96</span>)</span></code></pre></div>
 <pre><code>## [1] 0.0249979</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Usando as populações do exercício 1, qual a probabilidade de se encontrar mulheres, em qualquer das populações, acima do escore <em>z</em> 1.96?</li>
 </ol>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="introdução-à-teoria-das-probabilidades.html#cb463-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span> (<span class="fl">1.96</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="introdução-à-teoria-das-probabilidades.html#cb465-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span> (<span class="fl">1.96</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## [1] 0.0249979</code></pre>
 <p>Em outras palavras, se forem observadas as respostas das perguntas 2 e 3, chega-se a conclusão que entre os escores <em>z</em> -1,96 e 1,96 encontram-se 95% das mulheres de qualquer população cujo parametro tem distribuição normal. Na “regra empírica 68-95-99.7” usou-se o valor de 1,96 arredondado para 2.</p>
 <ol start="4" style="list-style-type: decimal">
 <li>Qual é o escore <em>z</em> do 50º percentil da distribuição normal?</li>
 </ol>
-<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="introdução-à-teoria-das-probabilidades.html#cb465-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span> (<span class="fl">0.50</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="introdução-à-teoria-das-probabilidades.html#cb467-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span> (<span class="fl">0.50</span>)</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Qual o escore <em>z</em> para o 97,5º percentil da distribuição normal?</li>
 </ol>
-<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="introdução-à-teoria-das-probabilidades.html#cb467-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span> (<span class="fl">0.975</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="introdução-à-teoria-das-probabilidades.html#cb469-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span> (<span class="fl">0.975</span>)</span></code></pre></div>
 <pre><code>## [1] 1.959964</code></pre>
 </div>
 </div>
@@ -859,7 +859,7 @@ Figure 7.8: Posição de uma mulher com 1,50m comparando duas populações
 <li>Os ensaios são independentes</li>
 </ul>
 <p>A distribuição binomial é na verdade uma família de distribuições, cujos membros são definidos pelos valores de <em>n</em> e <em>p</em> (parâmetros da distribuição binomial).</p>
-<p>A probabilidade de sucesso <a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>, em uma distribuição binomial, é dada pela fórmula:
+<p>A probabilidade de sucesso <a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>, em uma distribuição binomial, é dada pela fórmula:
 <span class="math display">\[
 P(X = x)= C \times p^x \times (1 - p)^{n-x}
 \]</span>
@@ -887,15 +887,15 @@ ou, no R, com a função <code>choose (n, x)</code>.</p>
 </ul></li>
 </ul>
 <p>Por exemplo, qual é a probabilidade de nascer até três meninos em cinco nascimentos, sabendo que a probabiliade de nascer um menino é igual a 0.50?</p>
-<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="introdução-à-teoria-das-probabilidades.html#cb469-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span> (<span class="dv">3</span>, <span class="dv">5</span>, <span class="fl">0.50</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="introdução-à-teoria-das-probabilidades.html#cb471-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pbinom</span> (<span class="dv">3</span>, <span class="dv">5</span>, <span class="fl">0.50</span>)</span></code></pre></div>
 <pre><code>## [1] 0.8125</code></pre>
 <p>Isso corresponde a soma das probabilidades de nascer nenhum menino, um menino, dois meninos e três meninos (Figura <a href="introdução-à-teoria-das-probabilidades.html#fig:menino3">7.9</a>). Isto é calculado pela equação <span class="math inline">\(P(X = x)\)</span>, vista anteriormente:</p>
-<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="introdução-à-teoria-das-probabilidades.html#cb471-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5</span></span>
-<span id="cb471-2"><a href="introdução-à-teoria-das-probabilidades.html#cb471-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">=</span> <span class="fl">0.50</span></span>
-<span id="cb471-3"><a href="introdução-à-teoria-das-probabilidades.html#cb471-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">5</span></span>
-<span id="cb471-4"><a href="introdução-à-teoria-das-probabilidades.html#cb471-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Probabilidades de meninos </span></span>
-<span id="cb471-5"><a href="introdução-à-teoria-das-probabilidades.html#cb471-5" aria-hidden="true" tabindex="-1"></a>Fx <span class="ot">&lt;-</span> (<span class="fu">factorial</span>(n)<span class="sc">/</span>(<span class="fu">factorial</span>(x)<span class="sc">*</span><span class="fu">factorial</span>(n<span class="sc">-</span>x)))<span class="sc">*</span> p<span class="sc">^</span>x <span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">^</span>(n<span class="sc">-</span>x)</span>
-<span id="cb471-6"><a href="introdução-à-teoria-das-probabilidades.html#cb471-6" aria-hidden="true" tabindex="-1"></a>Fx</span></code></pre></div>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="introdução-à-teoria-das-probabilidades.html#cb473-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb473-2"><a href="introdução-à-teoria-das-probabilidades.html#cb473-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">=</span> <span class="fl">0.50</span></span>
+<span id="cb473-3"><a href="introdução-à-teoria-das-probabilidades.html#cb473-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">5</span></span>
+<span id="cb473-4"><a href="introdução-à-teoria-das-probabilidades.html#cb473-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Probabilidades de meninos </span></span>
+<span id="cb473-5"><a href="introdução-à-teoria-das-probabilidades.html#cb473-5" aria-hidden="true" tabindex="-1"></a>Fx <span class="ot">&lt;-</span> (<span class="fu">factorial</span>(n)<span class="sc">/</span>(<span class="fu">factorial</span>(x)<span class="sc">*</span><span class="fu">factorial</span>(n<span class="sc">-</span>x)))<span class="sc">*</span> p<span class="sc">^</span>x <span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p)<span class="sc">^</span>(n<span class="sc">-</span>x)</span>
+<span id="cb473-6"><a href="introdução-à-teoria-das-probabilidades.html#cb473-6" aria-hidden="true" tabindex="-1"></a>Fx</span></code></pre></div>
 <pre><code>## [1] 0.03125 0.15625 0.31250 0.31250 0.15625 0.03125</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:menino3"></span>
 <img src="bookdownproj_files/figure-html/menino3-1.png" alt="Distribuição binomial, mostrando a P (x &lt; 4) com n = 5 e p = 0.50 " width="70%" height="70%" />
@@ -917,7 +917,7 @@ Figure 7.9: Distribuição binomial, mostrando a P (x &lt; 4) com n = 5 e p = 0.
 </ul></li>
 </ul>
 <p>Por exemplo, quantos meninos nascerão em 5 partos com 81.25% de probabilidade cumulativa?</p>
-<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="introdução-à-teoria-das-probabilidades.html#cb474-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qbinom</span> (<span class="fl">0.8125</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.50</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="introdução-à-teoria-das-probabilidades.html#cb476-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qbinom</span> (<span class="fl">0.8125</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.50</span>)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p><strong>Função <code>rbinom()</code></strong></p>
 <p>A função <code>rbinom()</code> permite extrair <em>n</em> observações aleatórias de uma distribuição binomial. Os argumentos da função são descritos abaixo:</p>
@@ -932,13 +932,13 @@ Figure 7.9: Distribuição binomial, mostrando a P (x &lt; 4) com n = 5 e p = 0.
 </ul></li>
 </ul>
 <p>Se há necessidade de fazer uma simulação de 1000 amostras aleatoriamente, de tamanho 5 e a probabilidade de nascer menino (0,50):</p>
-<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="introdução-à-teoria-das-probabilidades.html#cb476-1" aria-hidden="true" tabindex="-1"></a>menino <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span>
-<span id="cb476-2"><a href="introdução-à-teoria-das-probabilidades.html#cb476-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(menino)</span></code></pre></div>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="introdução-à-teoria-das-probabilidades.html#cb478-1" aria-hidden="true" tabindex="-1"></a>menino <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span>
+<span id="cb478-2"><a href="introdução-à-teoria-das-probabilidades.html#cb478-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(menino)</span></code></pre></div>
 <pre><code>## [1] 2.536</code></pre>
 <p>No entanto, se não for especificado uma “semente” (<code>seed</code>) antes de executar a função, será obtido um conjunto diferente de observações aleatórias a cada execução e , portanto, a média a cada execução será diferente. Para tornar a saída reproduzível, pode-se definir uma “semente” da seguinte maneira:</p>
-<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="introdução-à-teoria-das-probabilidades.html#cb478-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">23</span>)</span>
-<span id="cb478-2"><a href="introdução-à-teoria-das-probabilidades.html#cb478-2" aria-hidden="true" tabindex="-1"></a>menino <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span>
-<span id="cb478-3"><a href="introdução-à-teoria-das-probabilidades.html#cb478-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(menino)</span></code></pre></div>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="introdução-à-teoria-das-probabilidades.html#cb480-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">23</span>)</span>
+<span id="cb480-2"><a href="introdução-à-teoria-das-probabilidades.html#cb480-2" aria-hidden="true" tabindex="-1"></a>menino <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span>
+<span id="cb480-3"><a href="introdução-à-teoria-das-probabilidades.html#cb480-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(menino)</span></code></pre></div>
 <pre><code>## [1] 2.515</code></pre>
 <p>Quanto maior o número de variáveis aleatória criadas, mais próximo a média do número de sucessos estará do número esperado de sucessos que é igual ao número de sucessos vezes a probabilidade de sucesso em cada ensaio (2.5)</p>
 <p><strong>Função <code>dbinom()</code></strong></p>
@@ -958,11 +958,11 @@ Figure 7.9: Distribuição binomial, mostrando a P (x &lt; 4) com n = 5 e p = 0.
 P(X = x)= C \times p^x \times (1 - p)^{n-x}
 \]</span>
 Por exemplo, no nascimento de uma criança, as duas possibilidades, menino ou menina, são mutuamente excludentes e esses são os únicos eventos que podem acontecer. A probabilidade de nascimento de menino, como visto, é 0,50, qual seria a probabilidade de nascerem 4 meninos em 5 partos consecutivos (Figura <a href="introdução-à-teoria-das-probabilidades.html#fig:menino5">7.10</a>)?</p>
-<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="introdução-à-teoria-das-probabilidades.html#cb480-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">4</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.50</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="introdução-à-teoria-das-probabilidades.html#cb482-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">4</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.50</span>)</span></code></pre></div>
 <pre><code>## [1] 0.15625</code></pre>
-<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="introdução-à-teoria-das-probabilidades.html#cb482-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Probabilidades de nascer meninos em 5 nascimentos  </span></span>
-<span id="cb482-2"><a href="introdução-à-teoria-das-probabilidades.html#cb482-2" aria-hidden="true" tabindex="-1"></a>Fx <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="fl">0.50</span>)</span>
-<span id="cb482-3"><a href="introdução-à-teoria-das-probabilidades.html#cb482-3" aria-hidden="true" tabindex="-1"></a>Fx</span></code></pre></div>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="introdução-à-teoria-das-probabilidades.html#cb484-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Probabilidades de nascer meninos em 5 nascimentos  </span></span>
+<span id="cb484-2"><a href="introdução-à-teoria-das-probabilidades.html#cb484-2" aria-hidden="true" tabindex="-1"></a>Fx <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="fl">0.50</span>)</span>
+<span id="cb484-3"><a href="introdução-à-teoria-das-probabilidades.html#cb484-3" aria-hidden="true" tabindex="-1"></a>Fx</span></code></pre></div>
 <pre><code>## [1] 0.03125 0.15625 0.31250 0.31250 0.15625 0.03125</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:menino5"></span>
 <img src="bookdownproj_files/figure-html/menino5-1.png" alt="Distribuição binomial para P (x = 4) com n = 5 e p = 0,50" width="70%" height="70%" />
@@ -1011,12 +1011,12 @@ P(X = x) = \frac {e^{-\lambda} \times \lambda^x}{x!}
 onde <span class="math inline">\(\lambda\)</span> (lambda) representa o número de ocorrências de um evento em um intervalo de tempo e é conhecida como parâmetro da distribuição de Poisson e é igual em média a <span class="math inline">\(n \times p\)</span>.</p>
 <p>No <em>R</em>, essa probabilidade é dada pela função <code>dpois(x, lambda)</code>.</p>
 <p><em>Exemplo</em>: Suponha que a probabilidade de uma puérpera ter infecção congênita (rubéola) seja igual a 0,0009. Qual seria a probabilidade, em uma população de 6000 gestantes, de que 5 estejam infectadas?</p>
-<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="introdução-à-teoria-das-probabilidades.html#cb484-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.0009</span></span>
-<span id="cb484-2"><a href="introdução-à-teoria-das-probabilidades.html#cb484-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">5</span></span>
-<span id="cb484-3"><a href="introdução-à-teoria-das-probabilidades.html#cb484-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">6000</span></span>
-<span id="cb484-4"><a href="introdução-à-teoria-das-probabilidades.html#cb484-4" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> n <span class="sc">*</span> p</span>
-<span id="cb484-5"><a href="introdução-à-teoria-das-probabilidades.html#cb484-5" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> <span class="fu">dpois</span>(x, lambda)</span>
-<span id="cb484-6"><a href="introdução-à-teoria-das-probabilidades.html#cb484-6" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span> (P, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="introdução-à-teoria-das-probabilidades.html#cb486-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.0009</span></span>
+<span id="cb486-2"><a href="introdução-à-teoria-das-probabilidades.html#cb486-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb486-3"><a href="introdução-à-teoria-das-probabilidades.html#cb486-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">6000</span></span>
+<span id="cb486-4"><a href="introdução-à-teoria-das-probabilidades.html#cb486-4" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> n <span class="sc">*</span> p</span>
+<span id="cb486-5"><a href="introdução-à-teoria-das-probabilidades.html#cb486-5" aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> <span class="fu">dpois</span>(x, lambda)</span>
+<span id="cb486-6"><a href="introdução-à-teoria-das-probabilidades.html#cb486-6" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span> (P, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 0.173</code></pre>
 <p>Portanto, a probabilidade de se encontrar 5 mulheres com infecção congênita é de aproximadamente 17%.</p>
 
@@ -1024,8 +1024,8 @@ onde <span class="math inline">\(\lambda\)</span> (lambda) representa o número 
 </div>
 <div class="footnotes">
 <hr />
-<ol start="10">
-<li id="fn10"><p><em>Sucesso</em>, aqui, não está no sentido de vitória, êxito, triunfo, glória e sim como obter o desfecho esperado. Por exemplo, se uma moeda é lançada e se espera obter cara, sucesso significa um resultado igual a cara.<a href="introdução-à-teoria-das-probabilidades.html#fnref10" class="footnote-back">↩︎</a></p></li>
+<ol start="11">
+<li id="fn11"><p><em>Sucesso</em>, aqui, não está no sentido de vitória, êxito, triunfo, glória e sim como obter o desfecho esperado. Por exemplo, se uma moeda é lançada e se espera obter cara, sucesso significa um resultado igual a cara.<a href="introdução-à-teoria-das-probabilidades.html#fnref11" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

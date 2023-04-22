@@ -1419,7 +1419,12 @@ ggplot(data = dados) +
              size = 3)
 ```
 
-O formato (`shape`) pode ser colocado fora do `aes` (Figura \@ref(fig:point6)) e  [**aqui**](http://www.sthda.com/english/wiki/ggplot2-point-shapes) se encontram vários formatos que podem ser usados no `ggplot2`.
+O formato (`shape`) pode ser colocado fora do `aes` (Figura \@ref(fig:point6)) e  [**aqui**](http://www.sthda.com/english/wiki/ggplot2-point-shapes) se encontram vários formatos que podem ser usados no `ggplot2`També é possível observar os diferentes formatos (`shape`), usando o seguinte comando, encontrado no pacote `ggpubr`:  
+
+```{r}
+ggpubr::show_point_shapes()
+```
+
 
 ```{r point6, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de dispersão por sexo com alteração do argumento `color` e `shape`", fig.pos="H"}
 ggplot(data = dados) +
@@ -1432,7 +1437,7 @@ ggplot(data = dados) +
 
 ### Reta de ajuste em um gráfico de dispersão
 
-Acrescenta-se uma nova camada , chamada `geom_smoot`, além da `geom_point`. Os argumentos são o `method = "lm"`que irá ajustar uma reta aos pontos. Também é possível colocar um intervalo de mais ou menos um erro padrão para a reta com o argumento`se = TRUE`.  No exemplo (Figura \@ref(fig:point7)), foi usado `se = FALSE`. Além disso, foi solicitado que cor da reta seja preta (`color = "black"`), reduzido o seu tamanho (`size = 0.5`) e estabelecido que a reta seja tracejada (`linetype = "dashed"`):
+Acrescenta-se uma nova camada , chamada `geom_smoot`, além da `geom_point`. Os argumentos são o `method = "lm"`que irá ajustar uma reta aos pontos. Também é possível colocar um intervalo de mais ou menos um erro padrão para a reta com o argumento`se = TRUE`.  No exemplo (Figura \@ref(fig:point7)), foi usado `se = FALSE`. Além disso, foi solicitado que cor da reta seja preta (`color = "black"`), reduzido o seu tamanho (`size = 0.5`) e estabelecido que a reta seja tracejada (`linetype = "dashed"`) ^[Para outras opções do tipo de linha, pode-se usar a função `show_lines_types()` do pacote `ggpubr`]:
 
 ```{r point7, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de dispersão com reta de ajuste", fig.pos="H"}
 ggplot(data = dados, aes(x = compRN, y = pesoRN)) + 
@@ -1449,7 +1454,7 @@ Quando se usa mais de um `geom`, é importante a ordem em que eles são escritos
 
 ### Filtrando dados para o gráfico  
 
-Faz-se isso, usando a função `filter()` do pacote `dplyr`. Será construído um gráficoigual ao anterior, filtrando apenas o sexo masculino (Figura \@ref{fig:point8)):
+Faz-se isso, usando a função `filter()` do pacote `dplyr`. Será construído um gráficoigual ao anterior, filtrando apenas o sexo masculino (Figura \@ref(fig:point8)):
 
 ```{r point8, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de dispersão com reta de ajuste para o sexo masculino", fig.pos="H"}
 dados %>% filter (sexo == "masc") %>%
