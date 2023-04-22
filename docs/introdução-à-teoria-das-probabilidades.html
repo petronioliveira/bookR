@@ -403,6 +403,28 @@ div.csl-indent {
 <li class="chapter" data-level="11.7.5" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#quinto-passo-valor-p"><i class="fa fa-check"></i><b>11.7.5</b> Quinto passo: Valor <em>P</em></a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="12" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html"><i class="fa fa-check"></i><b>12</b> Comparação entre duas médias</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#pacotes-necessários-para-este-capítulo-3"><i class="fa fa-check"></i><b>12.1</b> Pacotes necessários para este capítulo</a></li>
+<li class="chapter" data-level="12.2" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#teste-t-para-comparar-amostras-independentes"><i class="fa fa-check"></i><b>12.2</b> Teste <em>t</em> para comparar amostras independentes</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#dados-do-exemplo"><i class="fa fa-check"></i><b>12.2.1</b> Dados do exemplo</a></li>
+<li class="chapter" data-level="12.2.2" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#definição-das-hipóteses-estatísticas"><i class="fa fa-check"></i><b>12.2.2</b> Definição das hipóteses estatísticas</a></li>
+<li class="chapter" data-level="12.2.3" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#definição-da-regra-de-decisão"><i class="fa fa-check"></i><b>12.2.3</b> Definição da regra de decisão</a></li>
+<li class="chapter" data-level="12.2.4" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#teste-estatístico"><i class="fa fa-check"></i><b>12.2.4</b> Teste estatístico</a></li>
+<li class="chapter" data-level="12.2.5" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#conclusão"><i class="fa fa-check"></i><b>12.2.5</b> Conclusão</a></li>
+<li class="chapter" data-level="12.2.6" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#tamanho-do-efeito"><i class="fa fa-check"></i><b>12.2.6</b> Tamanho do Efeito</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#teste-t-para-grupos-pareados"><i class="fa fa-check"></i><b>12.3</b> Teste <em>t</em> para grupos pareados</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#dados-do-exemplo-1"><i class="fa fa-check"></i><b>12.3.1</b> Dados do exemplo</a></li>
+<li class="chapter" data-level="12.3.2" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#definição-das-hipóteses-estatísticas-1"><i class="fa fa-check"></i><b>12.3.2</b> Definição das hipóteses estatísticas</a></li>
+<li class="chapter" data-level="12.3.3" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#regra-de-decisão"><i class="fa fa-check"></i><b>12.3.3</b> Regra de decisão</a></li>
+<li class="chapter" data-level="12.3.4" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#teste-estatístico-1"><i class="fa fa-check"></i><b>12.3.4</b> Teste estatístico</a></li>
+<li class="chapter" data-level="12.3.5" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#conclusão-1"><i class="fa fa-check"></i><b>12.3.5</b> Conclusão</a></li>
+<li class="chapter" data-level="12.3.6" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#tamanho-do-efeito-1"><i class="fa fa-check"></i><b>12.3.6</b> Tamanho do Efeito</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="referências.html"><a href="referências.html"><i class="fa fa-check"></i>Referências</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -735,12 +757,12 @@ Figure 7.5: Função densidade de probabilidade.
 </ul>
 <p>Com esta função é possível, por exemplo, gerar 10 observações de uma distribuição normal:</p>
 <div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="introdução-à-teoria-das-probabilidades.html#cb432-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1] -0.6776116 -0.8844261  0.7139302  0.3241827  0.1543939  0.4484218
-##  [7]  0.4856922  0.4402275  0.9408103  1.1097766</code></pre>
+<pre><code>##  [1] -0.78035117 -1.01406681  1.13544268 -0.04879540  0.92172691  0.96186280
+##  [7] -0.22595667 -0.03355368 -1.10420838  0.51350772</code></pre>
 <p>No entanto, deve-se notar que, se não especificar uma “semente” (<code>seed</code>), a saída não será reproduzível:</p>
 <div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="introdução-à-teoria-das-probabilidades.html#cb434-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1]  0.27527461  0.11447708  0.23068939 -0.37927492  0.83207089 -0.08272620
-##  [7] -0.38198206 -0.01717406 -0.40934150 -1.53270985</code></pre>
+<pre><code>##  [1]  2.6740415 -0.5818861 -0.6117662  0.5277721  0.3230024 -0.7430831
+##  [7]  0.7590753  0.9043842 -0.1551168 -0.2701284</code></pre>
 <p>Pode-se usar a função <code>set.seed()</code> para tornar o código reproduzível. O valor da “semente” (número) não é importante desde que seja consistente na sua utilização. O que é verdadeiramente importante é que o código seja reproduzido fielmente.</p>
 <p>Para ilustrar, será construído dois conjuntos de 10 números que serão recebidos pelos objetos <em>x</em> e <em>y</em>. Para gerar o conjunto de números <em>x</em>, sera usado o número <code>123</code> como “semente”. A “semente” funciona como uma espécie de marca. Para o <em>y</em> não será usado a <code>set.seed()</code>.</p>
 <div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="introdução-à-teoria-das-probabilidades.html#cb436-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>

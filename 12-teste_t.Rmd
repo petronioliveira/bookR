@@ -1,0 +1,854 @@
+# Comparação entre duas médias 
+
+Esta seção discute como testar uma hipótese sobre a diferença entre as médias de duas populações, $\mu_1 - \mu_2$, assumindo que os desvios padrão, $\sigma_1$ e $\sigma_2$, dessas populações são desconhecidos, mas são considerados iguais.  
+
+O teste usado para realizar essa função é o *teste t de Student* (ou simplesmente *teste t*). Portanto, compara duas médias e verifica se a diferença entre elas é estatisticamente significativa. Em outras palavras, permite que se avalie se a diferença entre as médias é real ou é decorrente do acaso.  
+
+A necessidade de determinar se duas médias populacionais, representadas por amostras aleatórias representativas dessas populações, são diferentes entre si é uma situação extremamente frequente em pesquisas científicas. Por exemplo, se um grupo experimental difere de um grupo controle, se um grupo difere antes de depois de uma intervenção ou um *teste t* para uma amostra.
+
+## Pacotes necessários para este capítulo
+
+```{r}
+pacman::p_load(car,
+               dplyr,
+               ggplot2,
+               ggpubr,
+               ggsci,
+               kableExtra,
+               knitr,
+               lsr,
+               readxl,
+               rstatix,
+               tidyr)
+```
+
+## Teste *t* para comparar amostras independentes  
+
+O teste *t* é usado quando há duas condições experimentais e participantes diferentes foram designados para cada condição.
+
+### Dados do exemplo
+
+Será usado um conjunto de dados constituído por medidas de altura (em metros) de dois grupos de mulheres, pertencentes a duas regiões geográficas diferentes.  
+
+Estes dados podem ser obtidos  [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosPop.xlsx). Faça o download e salve no seu diretório de trabalho.
+
+#### Leitura dos dados
+
+Para a leitura dos dados, será usado a função `read_excel()` incluído no pacote `readxl` que deve ser instalado e carregado. Os dados serão recebidos por um objeto que será denominado de `dados`:
+
+```{r}
+dados <- readxl::read_excel("Arquivos/dadosPop.xlsx")
+```
+
+Para visualizar os dados, pode-se usar a função  `glimpse()` do pacote dplyr:
+
+```{r message=FALSE}
+dplyr::glimpse(dados)
+```
+
+Observa-se que existem `r nrow(dados)` mulheres, sendo `r nrow(dados[which(dados$pop=="1"),])` moradoras na região 1 e  `r nrow(dados[which(dados$pop=="2"),])` na região 2. A variável `id` é a variável de identificação das mulheres (variável numérica), `altura` é uma variável numérica que corresponde a medida da altura em metros e `pop` é uma variável categórica, onde 1 é corresponde às mulheres da região 1 e 2 as da região2. No dataset, esta variável encontra-se como uma variável numérica e deverá ser transformada em fator.  
+
+Para uma visualização mais elegante e em uma apresentação mais amigável, pode-se usar a função `kable()` do pacote `knitr` e a função `kable_styling()` do pacote `kableExtra`. A função `kable ()`, neste exemplo, usa a função `head()` embutida. Ao executar os códigos serão exibido apenas 6 linhas do banco de dados (Tabela \@ref(tab:dadospop)):
+
+```{r dadospop, warning=FALSE, message=FALSE}
+knitr::kable(head(dados),
+             booktabs = TRUE,
+             col.names = c("Id", "Altura", "Pop"),
+             caption = "Altura (m) de dois grupos de mulheres.") %>% 
+  kableExtra::kable_styling(full_width = FALSE, 
+                          latex_options = "hold_position") %>% 
+  kableExtra::kable_classic(html_font = "Cambria") %>%
+  kableExtra::column_spec(1, width = "2cm") %>% 
+  kableExtra::column_spec(2, width = "3.5cm") %>% 
+  kableExtra::column_spec(3, width = "3.5cm") %>% 
+  kableExtra::row_spec(0, bold = TRUE)
+```
+
+#### Exploração e resumo dos dados 
+
+Inicialmente, a variável `pop` será transformada em fator:
+
+```{r}
+dados$pop <- as.factor(dados$pop)
+```
+
+A seguir, calcular a média e o desvio padrão da variável `altura` de acordo com `pop`, usando a função `group_by ()` e `summarise` do pacote `dplyr` 
+
+```{r}
+resumo <- dados %>% 
+  dplyr::group_by(pop) %>% 
+  dplyr:: summarise(n = n(),
+                    media = mean(altura, na.rm = TRUE),
+                    dp = sd(altura, na.rm = TRUE),
+                    mediana = median(altura, na.rm = TRUE),
+                    me = 1.96 * dp/sqrt(n))
+resumo
+```
+
+Para melhor observar os dados, ainda é possível construir um gráfico do tipo boxplot (Figura \@ref(fig:bxppop)), usando o pacote `ggplot2`:
+
+```{r bxppop, out.width="70%", fig.cap=" Boxplot dos dados", out.height="70%", fig.align='center'}
+ggplot2::ggplot(data = dados, aes(x = pop, 
+                                  y = altura, 
+                                  fill = pop)) + 
+  geom_errorbar(stat = "boxplot", width = 0.1) +
+  geom_boxplot() + 
+  labs (x = "Populações", 
+        y = "Altura (m)") + 
+  theme_classic() + 
+  theme(legend.position="none")
+```
+
+### Definição das hipóteses estatísticas
+
+As hipóteses comparam as médias dos dois grupos. Para um teste bicaudal, considerando `pop1` a população da região 1 e `pop2` a população da região 2, as hipóteses são escritas como:
+
+$$
+H_{0}: \mu_{pop1} = \mu_{pop2}
+$$
+$$
+H_{A}: \mu_{pop1} \neq \mu_{pop2}
+$$
+
+### Definição da regra de decisão  
+
+O nível significância, $\alpha$, escolhido é igual a `0.05`. A distribuição *t* é dependente dos graus de liberdade, dados por:
+
+No exemplo,
+
+```{r}
+n1 <- resumo$n[1]
+n1
+n2 <- resumo$n[2]
+n2
+```
+
+```{r}
+gl <- n1 + n2 -2
+gl
+```
+
+Para um $\alpha = 0,05$, o valor crítico de *t* para gl =`r gl` para uma hipótese alternativa bicaudal é obtido com a função `qt (p, df)`, onde $df = gl$  e  $p = 1 - \alpha/2$
+
+```{r}
+alpha <- 0.05
+round (qt((1-alpha/2), gl), 3)
+```
+
+Portanto, se
+
+$$
+|t_{calculado}| < |t_{crítico}|  \to não \quad se \quad rejeita \quad H_{0}
+$$
+$$
+t_{calculado}| \ge t_{crítico}| \to rejeita-se \quad H_{0}
+$$
+
+### Teste estatístico  
+
+#### Lógica do teste *t*
+O teste *t* compara as médias de duas amostras independentes, usando  o erro padrão como métrica da diferença entre essas médias. Quanto maior o valor de *t* , maior a probabilidade de que as amostras pertençam a populações diferentes, ocorrendo nessas circunstâncias a rejeição da hipótese nula [@pagano2000t_test].  
+
+Calcula-se o teste *t* com a seguinte equação:  
+
+$$
+t = \frac{(\bar{x}_1 - \bar{x}_2) - (\mu_1 - \mu_2)}{EP_{d}}
+$$
+
+Onde $EP_d$ é o erro padrão da diferença entre a médias $\bar{x}_1 - \bar{x}_2$. Se a hipótese nula for verdadeira, as amostras foram retiradas da mesma população e, portanto, $\mu_1 - \mu_2 = 0$. Assim, a equação fica:
+
+$$
+t = \frac{(\bar{x}_1 - \bar{x}_2)}{EP_d}
+$$
+
+O erro padrão da diferença $\bar{x}_1 - \bar{x}_2$ é calculado de maneiras diferentes:
+
+1) Se a variâncias nos dois grupos forem iguais, usa-se:
+
+$$
+EP_d = \sqrt{s_o^2(\frac{1}{n_1}+\frac{1}{n_2})}
+$$
+
+Onde $s_o^2$ é a variância combinada ou conjugada que é, simplesmente, a média ponderada das variância dos grupos:
+
+$$
+s_0^2 = \frac{(n_1 - 1)s_1^2 + (n_2 -1)s_2^2}{(n_1 -1)+ (n_2-1)}
+$$
+Quando os grupos têm o mesmo tamanho ($n_1 = n_2$), $s_o^2$ é simplesmente a média aritmética da variância dos grupos:
+
+$$
+s_0^2 = \frac {s_1^2 + s_2^2}{2}
+$$
+
+$$
+EP_d = \sqrt{\frac{2 s_o^2}{n}}
+$$
+
+2) Se as variâncias dos dois grupos forem diferentes:
+
+$$
+EP_d = \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}
+$$
+
+Esta explicação da lógica e dedução da estatística de teste serve para uma melhor compreensão de como o teste funciona, mas para executar um teste *t* não há necessidade disso, basta saber como encaminhar ao R e como interpretar o resultado fornecido por ele. 
+
+#### Pressupostos do teste *t*  
+
+O teste *t* assume que:
+
+1. As amostras são independentes;
+2. Deve haver distribuição normal. Entretanto, quando as amostras são grandes (teorema do limite central), isso não é muito importante;
+3. Exista homocedasticidade, ou seja, as variâncias dos grupos devem ser iguais.
+
+Violar o pressuposto de número 3 tem importância se os tamanhos dos grupos forem diferentes. Se os grupos tiverem o mesmo tamanho e a amostra for grande, este pressuposto torna-se menos importante, não importando muito se esta hipótese foi violada [@zimmerman2004note]. O pressuposto tem mais importância em grupos pequenos e desiguais. Existe um teste, denominado *teste t de Welch* que corrige essa violação. É possível portanto, esquecer esse pressuposto e fazer o teste de Welch sempre.  
+
+**Avaliação da normalidade**  
+
+Uma boa parte dos procedimentos estatísticos são testes paramétricos ^[Teste paramétricos são testes estatísticos que se baseiam nos padrões da distribuição populacional da variável em estudo, por exemplo, a distribuição normal é descrita por dois parâmetros – média e desvio padrão – que são suficientes para se conhecer as probabilidades. Os testes que não requerem a especificação da forma de distribuição da população, ou seja, têm distribuição livre, são denominados de não paramétricos.]  com base na distribuição normal. Ou seja, se assume que a distribuição dos dados segue o modelo da distribuição normal. Se essa suposição não for atendida, a lógica por trás do teste de hipóteses pode ser violada.  
+
+Pode-se verificar a normalidade de maneira visual, observando o comportamento dos dados através de gráficos como o *histograma* (Figura \@ref(fig:histpop)) e o *gráfico Q-Q* (Figura \@ref(fig:qqpop)). É útil também sobrepor uma distribuição normal no histograma, para fins de comparação.
+
+```{r histpop, echo=TRUE, fig.cap="Histogramas da altura das populações", out.width="80%", out.height="80%", fig.align='center'}
+mu1 <- resumo$media[1]
+dp1 <- resumo$dp[1]
+mu2 <- resumo$media[2]
+dp2 <- resumo$dp[2]
+
+par(mfrow=c(1,2))
+
+hist(dados$altura[dados$pop == "1"],
+     ylim = c (0, 7),
+     xlim = c (1.4, 1.9),
+     main= "População 1",
+     ylab = "Densidade", 
+     xlab = "Altura (metros)",
+     col ="steelblue",
+     freq = FALSE,            
+     border = "white")
+box (bty = "L")
+
+curve (dnorm (x, 
+              mean=mu1, 
+              sd=dp1), 
+       col="red", 
+       lty=1,
+       lwd=2,
+       add=TRUE)
+
+hist(dados$altura[dados$pop == "2"],
+     ylim = c (0, 7),
+     xlim = c (1.1, 1.7),
+     main= "População 2", 
+     ylab = "Densidade", 
+     xlab = "Altura (metros)",
+     col ="steelblue",
+     freq = FALSE,            
+     border = "white")
+box (bty = "L")
+
+curve (dnorm (x, 
+              mean=mu2, 
+              sd=dp2), 
+       col="red", 
+       lty=1,
+       lwd=2,
+       add=TRUE)
+
+par(mfrow=c(1,1))
+```
+
+O *gráfico QQ* (ou gráfico quantil-quantil) desenha a correlação entre uma determinada amostra e a distribuição normal. Uma linha de referência de 45 graus também é plotada. Um gráfico Q-Q é um gráfico de dispersão criado plotando dois conjuntos de quantis um contra o outro. Se ambos os conjuntos de quantis vierem da mesma distribuição, veremos os pontos formando uma linha aproximadamente reta.  
+
+Se os valores caírem na diagonal do gráfico, a variável é normalmente distribuída. Os desvios da diagonal mostram desvios da normalidade. Para desenhar um gráfico Q-Q pode ser usado a função `ggqqplot ()` do pacote `ggpubr` que produz um gráfico QQ normal com uma linha de referência, acompanhada de area sombreada, correspondente ao IC95%.
+ 
+```{r qqpop, echo=TRUE, warning=FALSE, fig.align='center', fig.cap="Gráficos Q-Q", out.height="70%", out.width="70%"}
+ggqqplot(dados, x = "altura", color = "pop") +
+  labs(y = "Altura (m)",
+       x = "Quantis teóricos")
+```
+
+Observando os gráficos, verifica-se que a variável `altura` tem uma distribuição visualmente normal aceitável, pois o histograma se ajusta à curva normal e os gráficos Q-Q mostram que os dados seguem a linha diagonal.  
+
+Outra maneira de analisar a normalidade é verificar se a distribuição como um todo se desvia de uma distribuição normal comparável. Para isso, usam-se *testes estatísticos de normalidade*. Os dois principais são o *teste de Shapiro-Wilk* e o *teste de Kolmogorov-Smirnov (K-S)*.   
+
+Esses testes comparam os dados da amostra com um conjunto de valores normalmente distribuídos com a mesma média e desvio padrão. Se o teste não for significativo (*P* > 0,05), informa-se que a distribuição da amostra não é significativamente diferente de uma distribuição normal. Se, no entanto, o teste for significativo (*P* $\le$ 0,05), a distribuição em questão será significativamente diferente de uma distribuição normal.  
+
+O método de Shapiro-Wilk é amplamente recomendado para teste de normalidade [@razali2011power], [@ghasemi2012normality], [@yap2011comparisons].
+
+```{r}
+sw <- dados %>% 
+  dplyr::group_by(pop) %>%
+  rstatix::shapiro_test(altura)
+sw
+```
+
+Os resultados mostram que ambos valores *P* do teste, `r round(sw[1,4], 3)` e `r round(sw[2,4], 3)`, estão acima de 0,05, corroborando com a não rejeição da normalidade dos dados. 
+
+**Homogeneidade da Variância**
+
+Na visualização da Figura \@ref(fig:homo) nos dois grupos de mulheres, observa-se que há, entre os limites inferior e superior, uma dispersão das medidas em torno da região central que vai progressivamente diminuindo. Esta dispersão parece ser semelhante nos grupos. Isto sugere que haja *homogeneidade das variâncias*.
+
+Portanto, homogeneidade da variância é o pressuposto de que a dispersão das medidas é aproximadamente igual em diferentes grupos de casos, ou que a dispersão dos valores são aproximadamente iguais em pontos diferentes da variável preditora. 
+
+```{r homo, echo=TRUE, fig.align='center',warning=FALSE,fig.cap="Gráfico mostrando a dispersão dos dados",out.height="70%",out.width="70%"}
+ggplot2::ggplot(dados, aes(x = pop, y = altura)) +
+  geom_jitter(aes(shape = pop, color = pop), 
+              position = position_jitter(0.2),
+              size = 1) +
+  stat_summary(aes(color = pop),
+               fun.data= "mean_sdl",  
+               fun.args = list(mult=1), 
+               geom = "pointrange") +
+  labs(x = "População", 
+       y = 'Altura (m)') +
+  theme_classic() +
+  scale_fill_nejm() +
+  theme(legend.position="none") 
+```
+
+Ao comparar grupos, essa suposição pode ser testada com o *teste de Levene*. Neste teste, a $H_{0}$ é todas as variâncias são iguais. No R, a função que calcula o teste é `leveneTest()` do pacote `car` [@fox2018car]. Os argumentos são:
+
+* *y* $\to$ variável de resposta para o método padrão ou um objeto `lm` ou `fórmula`. Se `y` for um objeto de modelo linear ou uma fórmula, as variáveis do lado direito do modelo devem ser todas fatores e devem ser completamente cruzadas;
+* *group* $\to$ fator que define os grupos;
+* *center* $\to$ O nome de uma função para calcular o centro de cada grupo; `mean` fornece o teste de Levene original; o padrão, `median`, fornece um teste mais robusto;
+* *data* $\to$ conjunto de dados para avaliar a `formula`.
+
+```{r message=FALSE}
+levene <- car::leveneTest(altura~pop, 
+                          center = mean, 
+                          data = dados)
+levene
+```
+
+O valor *P* > 0,05, confirma a impressão visual dos boxplots de que os grupos têm homogeneidade das variâncias, portanto a hipótese nula de igualdade das variâncias não pode ser rejeitada.
+
+Um outro teste que compara duas variância poderia ser usado. É o teste F que pode ser calculado com a função `var.test()` do pacote `stats`, incluído no R base. Seus argumentos pode ser consultados na ajuda do R. 
+
+```{r}
+var.test(altura~pop, alternative = "two.sided", data = dados)
+```
+O resultado mostra que a conclusão sobre a homogeneidade das variância é a mesma.  
+
+#### Execução do teste *t* para grupos independentes  
+
+A análise dos pressupostos mostra que os mesmos não foram violados. A próxima etapa é executar o teste, usando a função `t.test()`, incluído no pacote `stats` que tem os seguintes argumentos:
+
+* *x* $\to$	um vetor numérico de valores de dados;
+* *y* $\to$	um vetor numérico de valores de dados;
+* *alternative* $\to$	especificar a hipótese alternativa, deve ser `two.sided` (padrão), `greater` ou `less`. Basta especificar apenas a letra inicial;
+* *mu* $\to$	número que indica o valor verdadeiro da média (ou diferença nas médias se for realizar um teste de duas amostras);
+* *paired* $\to$	indicador lógico (padrão é FALSE) para um teste t emparelhado (paired = TRUE);
+* *var.equal* $\to$	indicador lógico que indica se as duas variâncias devem ser tratadas como iguais. Se TRUE, então a variância combinada é usada para estimar a variância, caso contrário, a aproximação de `Welch` (para os graus de liberdade) é usada;
+* *conf.level* $\to$	nível de confiança do intervalo, o padrão é 0.95;
+* *formula* $\to$	fórmula tipo `y ~ x` onde *y* é uma variável numérica que fornece os valores dos dados e *x* um fator com dois níveis que fornecem os grupos correspondentes;
+* *data* $\to$	opcional, matriz ou banco de dados contendo as variáveis da fórmula;
+* *subset* $\to$	vetor opcional que especifica um subconjunto de observações a ser usado;
+* *na.action* $\to$	uma função que indica o que deve acontecer quando os dados contêm NAs.
+
+**Método 1**  
+
+Dados apresentados em dois vetores numéricos *x* e *y*.  
+
+```{r}
+t.test(dados$altura[dados$pop == "1"],
+       dados$altura[dados$pop == "2"],
+       var.equal = TRUE)
+```
+
+**Método 2**
+
+Emprega uma fórmula (*variável resposta ~ grupo*) com os dados do banco de dados:
+
+```{r}
+teste <- t.test(altura~pop,
+                var.equal = TRUE,
+                data = dados)
+teste
+```
+
+O resultado de ambos os métodos são exatamente iguais. Ele entrega as seguintes informações:  
+
+*	*t* é o valor estatístico do teste t (`r round(teste$statistic, 3)`),
+*	*df* são os graus de liberdade (gl = `r teste$parameter`),
+*	*p-value* é o nível de significância do teste t (valor *P*).
+*	*conf.int* é o IC95% da diferença média (`r round(teste$conf.int, 3)`);
+*	*sample estimates* estimativas da amostra são o valor médio dos grupos da amostra        (`r round(teste$estimate, 3)`).
+
+### Conclusão
+
+Como $|t_{calculado}|$ = `r round(teste$statistic, 3)` > $|t_{0,05;58}|$ = 2.002, rejeita-se $H_{0}$. Observa-se que o valor *P* é muito pequeno (< 0,0001) e, portanto, a diferença observada nas médias dos dois grupos deve ser assumida como significativa.  Assim, as duas populações são diferentes e deve-se admitir que as amostras são procedentes de populações com médias de altura diferentes, com probabilidade de erro extremamente pequena. A estimativa da diferença média ($\mu_1 - \mu_2$) é fornecida pelo intervalo de confiança de 95% (`r round(teste$conf.int, 3)`). Observe que o valor zero não está contido no intervalo e isto confirma a não significância estatística da diferença.  
+
+Concluindo, a altura das mulheres da população 1 e a altura das mulheres da população 2 são diferentes, a diferença ($\mu_1 - \mu_2$) encontrada é estatisticamente significativa (*t* = `r round(teste$statistic,3)`, gl = `r teste$parameter`, *P* < 0,0001), com uma confiança de 95%. 
+
+Esta conclusão pode ser visualizada em um gráfico:
+
+1) Calcular o teste estatístico com a função `t_test()` do pacote `rstatix` @kassambara2022rstatix e colocar em um objeto denominado `t_teste`:
+
+```{r message=FALSE, warning=FALSE}
+t_teste <- t_test(dados, 
+                altura~pop,
+                p.adjust.method = "none",
+                paired = FALSE,
+                var.equal = TRUE,
+                alternative = "two.sided",
+                mu = 0,
+                conf.level = 0.95,
+                detailed = TRUE)
+```
+
+2) Construir um boxplot (Figura \@ref(fig:bxpt)) exibindo o valor *P*
+
+```{r bxpt, fig.align='center',warning=FALSE, fig.cap="Boxplots comparando os dois grupos", out.height="70%",out.width="70%"}
+p <- ggplot(dados, aes(x=pop, y=altura)) +
+  geom_errorbar(stat = "boxplot", width = 0.1) +
+  geom_boxplot(aes(color = pop)) +
+  scale_color_nejm() +
+  theme_classic() +
+  theme(legend.position="none") 
+p +  
+  labs(x = "Região", 
+       y = 'Altura (m)', 
+       title = 'Comparação da Altura de Mulheres',
+       subtitle = rstatix::get_test_label(stat.test = t_teste,
+                                          correction = "none",
+                                          detailed = TRUE,
+                                          type = "expression",
+                                          p.col = "p",),
+       caption = 'petronioliveira@gmail.com')
+```
+
+3) Ou um gráfico de barra de erro (Figura \@ref(fig:barerror)) com IC95%
+
+```{r barerror, fig.align='center', fig.cap="Gráfico de barra de erro comparando os dois grupos", warning=FALSE,out.height="70%",out.width="70%"}
+ggplot(resumo, 
+       aes(x=pop, y=media, fill=pop)) +
+  geom_point(stat = "summary",
+             fun = "mean",
+             size = 1,
+             show.legend = FALSE) +
+  geom_bar(width = 0.5,stat="identity", color= "black",  
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=media-me, ymax=media+me), width=.1,
+                position=position_dodge(width = 0.2)) +
+  labs(title="Comparação da Altura de Mulheres",
+       subtitle = get_test_label(stat.test = t_teste,
+                                 correction = "none",
+                                 detailed = TRUE,
+                                 type = "expression"),
+       x="Região", 
+       y = "Altura (m)",
+       caption = "petronioliveira@gmail.com")+
+  theme_classic() + 
+  ggsci::scale_fill_nejm(alpha = 0.5) +
+  theme(legend.position="none") 
+```
+
+### Tamanho do Efeito
+
+A significância estatística deve ter uma atenção relativa do pesquisador, pois ela apenas mede a probabilidade de rejeitar uma hipótese nula, uma vez que ela seja verdadeira. Ajudam a determinar, em uma pesquisa, a significância dos resultados encontrados em relação à hipótese nula, mas não informam nada em relação a magnitude do efeito. Por exemplo, mostra se determinado tratamento afeta as pessoas, mas não dizem quanto isso as afeta.  
+
+O tamanho do efeito (*effect size*) é uma medida quantitativa da magnitude do efeito. Quanto maior o tamanho do efeito, mais forte é a relação entre duas variáveis. É possível observar o tamanho do efeito ao comparar dois grupos quaisquer para ver quão substancialmente diferentes eles são.   
+
+Normalmente, em ensaios clínicos tem-se um grupo de tratamento e um grupo de controle. O grupo de tratamento é uma intervenção que se espera efetue um resultado específico. O valor do tamanho do efeito mostrará se a terapia teve um efeito pequeno, médio ou grande. Isso tem mais relevância do que simplesmente informar o tamanho do valor *P*.  
+
+#### *d* de Cohen  
+
+Também conhecida como *diferença média padronizada*, o *d* de Cohen @cohen1988power @lindenau2012effect é uma medida adequada e bastante popular para encontrar a magnitude do efeito na comparação entre duas médias.  
+
+Para calcular a diferença média padronizada se verifica a diferença entre as médias dos dois grupos e se divide pelo desvio padrão conjugado:  
+
+$$
+d = \frac{(\bar{x}_1 - \bar{x}_2)}{s_{o}}
+$$
+
+Onde,  
+
+$$
+s_o =\sqrt \frac{(n_1 - 1)s_1^2 + (n_2 -1)s_2^2}{n_1 + n_2 - 2}
+$$
+
+Voltando ao exemplo da altura das mulheres em duas regiões, o *d* de Cohen é calculado, usando a função `cohensD()` do pacote `lsr` que usa os seguintes argumentos:
+
+* *x* $\to$	um vetor numérico de valores de dados, variável preditora;
+* *y* $\to$	um vetor numérico de valores de dados, variável resposta;
+* *formula* $\to$	Fórmula na forma variável *resposta ~ grupo*;
+* *data* $\to$	dataframe ou matriz;
+* *method* $\to$	Qual versão da estatística d devemos calcular? Os valores possíveis são *pooled*(padrão), *x.sd*, *y.sd*, *corrected*, *raw*, *paired* e *unequal.*;
+* *mu* $\to$  O valor "nulo" contra o qual o tamanho do efeito deve ser medido. Quase sempre é 0 (padrão); raramente especificado.  
+
+Assim, o *d* de Cohen pode ser obtido da seguinte forma:
+
+```{r}
+d <- lsr::cohensD (altura ~ pop, data = dados)
+d
+```
+
+Bastante simples! Agora, como interpretar este resultado de d = 1,1 (arredondado)? Sua interpretação não é intuitiva, recomenda-se usar a Tabela \@ref(tab:effect)  para interpretar [@cohen1988power].
+
+```{r effect, echo=FALSE, warning=FALSE, message=FALSE}
+knitr::kable(data.frame(d = c("< 0,2", "0,2 < 0.5", "0.5 < 0.8", ">= 0,8 "),
+                        Interpretação = c("insignificante", "pequeno", "médio", "grande")),
+             booktabs = TRUE,
+             caption = "Tamanho do Efeito") %>% 
+  kable_styling(full_width = FALSE,
+                latex_options = "hold_position") %>% 
+  kableExtra::kable_classic(html_font = "Cambria") %>%
+  kableExtra::column_spec(1, width = "1in") %>% 
+  kableExtra::column_spec(2, width = "2in") %>% 
+  kableExtra::row_spec(0, bold = TRUE)
+```
+
+Dessa forma, as alturas das mulheres diferem significativamente (*P* < 0,0001) de acordo com a região, sendo que as mulheres da região 1 são bem mais altas do que as da região 2 e a magnitude dessa diferença é grande (d = `r round(d,1)`). 
+
+## Teste *t* para grupos pareados
+
+Um *teste t pareado* é usado para estimar se as médias de duas medidas relacionadas são significativamente diferentes uma da outra. Esse teste é usado quando duas variáveis contínuas são relacionadas porque são coletadas do mesmo participante em momentos diferentes (antes e depois), de locais diferentes na mesma pessoa ao mesmo tempo ou de casos e seus controles correspondentes.
+
+### Dados do exemplo  
+
+O banco de dados é constituído por uma amostra de 15 escolares portadores de asma não controlada. Fizeram avaliação da sua função pulmonar no início do uso de um novo corticoide inalatório. Após 60 dias, repetiram a avaliação da função pulmonar. Para baixar o banco de dados, clique [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosPar.xlsx). Faça o downloado para o seu diretório de trabalho.
+
+#### Leitura e transformação dos dados
+
+Crie um objeto `dados` para recebê-lo, a partir do diretório de trabalho, executando o seguinte código:
+
+```{r}
+dados <- readxl::read_excel("Arquivos/dadosPar.xlsx")
+```
+
+A função `read_excel()` do pacote `readxl` abre o arquivo `dadosPar.xlsx`. Eles podem ser visualizados, usando a função `head()` que mostra estrutura e o formato dos dados, exibindo as 6 primeiras linhas:
+
+```{r}
+head(dados)
+```
+
+O dataframe `dados` está no formato amplo (*wide*). Será transformado para o formato longo (*long*), usando a função `pivot_longer()` do pacote `tidyr`. Este processo não é obrigatório, mas vamos realizá-lo para fins de treinamento. O novo banco de dados será atribuído ao denominado `dadosL`. A função `pivot_longer ()` necessita dos seguintes argumentos:
+
+* *dados* $\to$ dataframe a ser pivotado, tranformado;
+* *cols* $\to$ colunas a serem transformadas no formato longo;
+* *names_to* $\to$ Especifica o nome da coluna a ser criada a partir dos dados armazenados nos nomes das colunas de dados;
+* *values_to* $\to$ Especifica o nome da coluna a ser criada a partir dos dados armazenados nos valores das células;
+* *...* $\to$ possui outros argumento. Ver ajuda.
+
+```{r}
+dadosL <- dados %>% 
+  tidyr::pivot_longer(c(basal, final), 
+                      names_to = "momento", 
+                      values_to = "medidas")
+```
+
+A estrutura do banco de dados `dadosL` é:
+```{r}
+head(dadosL)
+```
+
+#### Medidas Resumidoras
+Para resumir as variáveis, serão usadas as funções `group_by()`, `summarise()` e `mutate()` do pacote `dplyr`, aplicadas ao formato longo `dadosL`: 
+
+```{r}
+resumo <- dadosL %>% 
+  dplyr::group_by(momento) %>% 
+  dplyr::summarise(n = n (),
+                   media = mean(medidas, na.rm = TRUE),
+                   dp = sd (medidas, na.rm = TRUE),
+                   mediana = median (medidas, na.rm = TRUE),
+                   IIQ = IQR (medidas, na.rm =TRUE),
+                   ep = dp/sqrt(n),
+                   me = ep * qt(1 - (0.05/2), n - 1)) 
+resumo
+```
+
+#### Visualização dos dados
+
+1) *Tabela*
+
+É possível exibir os dados, tanto o banco de dados `dados` como o `dadosL`, de uma maneira mais elegante, usando a função `kable()` do pacote `knitr` e a função `kable_styling()` do pacote `kableExtra`. A função `kable ()` usa a função `head()` embutida. Ao executar os códigos, se não for especificado, é mostrado apenas 6 linhas. Será mostrado o formato amplo e todas as suas 15 linhas:
+
+```{r}
+knitr::kable(head(dados, 15), 
+             booktabs = TRUE,
+             col.names = c("Id", "Basal", "Final"),
+             caption = "Função pulmonar de 15 escolares asmáticos antes-e-depois \\ do uso de um corticoide inalatório") %>% 
+  kableExtra::kable_styling(position = "center",
+                          latex_options = "hold_position") %>% 
+  kableExtra::kable_classic(full_width = F, html_font = "Cambria") %>%
+  kableExtra::column_spec(2, width = "3.5cm") %>% 
+  kableExtra::column_spec(3, width = "3.5cm") %>% 
+  kableExtra::row_spec(0, bold = TRUE)
+```
+
+2) *Gráficos*  
+
+Apenas, por uma questão didática, serão apresentadas várias maneiras de  mostrar os dados visualmente. Podem ser usados qualquer um dos tipos a seguir, pois todos dão, praticamente, a mesma informação.
+
+**Gráfico de barra de erro**
+
+```{r be, fig.align='center',warning=FALSE,out.height="70%",out.width="70%", fig.cap="Gráfico de barra de erro comparando o grupo antes-e-depois"}
+resumo %>% 
+  ggplot2::ggplot(aes(x=momento, y=media, fill=momento)) + 
+  geom_bar(stat="identity", width = 0.4, color="black") +
+  geom_point() +
+  geom_errorbar(aes(ymin=media-me, ymax=media+me), width=0.1,
+                position=position_dodge(.9)) +
+  labs(title="Basal x Final - IC95%" , 
+       x="Momento", y = "Volume Forçado em 1 seg (L)")+
+  theme_classic() +
+  theme(legend.position="none") +
+  scale_fill_manual(values=c("cyan4","cyan3"))
+```
+
+Neste gráfico (Figura \@ref(fig:be)), a altura da barra representa a média do *Volume Forçado em 1 seg* (VEF1) nos diferentes momentos (basal e final).O erro corresponde a margem de erro (me) a partir do ponto (média), ou seja, é o intervalo de confiança de 95%.
+
+**Boxplot**
+
+```{r bp,fig.align='center',warning=FALSE,out.height="70%",out.width="70%", fig.cap="Boxplots comparando o grupo antes-e-depois"}
+dadosL %>% 
+  ggplot2::ggplot(aes(x = momento, y = medidas, fill = momento)) +
+  geom_errorbar(stat = "boxplot", width = 0.1) +
+  geom_boxplot (outlier.color = "red", 
+                outlier.shape = 1,
+                outlier.size = 1) +
+  scale_fill_manual(values = c("cyan4","cyan3")) +
+  ylab("Volume Forçado em 1 seg (L)") +
+  xlab("Momento") +
+  stat_summary(fun = mean, 
+               geom = "point", 
+               shape = 19, size = 2,  color="red") +
+  theme_classic() + 
+  theme(text = element_text(size = 12)) +
+  theme(legend.position = "none")
+```
+
+A altura da caixa dos boxplots (Figura \@ref(fig:bp)) é o intervalo interquartil (IIQ) e corresponde a 50% dos dados. A linha que corta horizontalmente a caixa é a mediana. Os bigodes da caixa (whiskers) em suas extrimidades são os limites inferior e superior dos dados, excluindo os valores atípicos (outliers), representado no boxplot final por um ponto vermelho, acima do limite superior. Os pontos em vermelho (dentro das caixas) representam as médias.
+ 
+**Gráfico de linha**
+
+```{r lin,fig.align='center',warning=FALSE,out.height="70%",out.width="70%", fig.cap="Gráfico de linha comparando o grupo antes-e-depois"}
+resumo %>%
+  ggplot2::ggplot(aes(x=momento, y=media, group=1)) +
+  geom_line(linetype ='dashed') +
+  geom_errorbar(aes(ymin=media - me,
+                    ymax=media + me),
+                width=0.1,
+                linewidth = 1,
+                col = c("cyan4","cyan3")) +
+  geom_point(size = 3, color = c("cyan4", "cyan3")) +
+  theme_classic()+
+  labs(x='Momento',
+       y='Volume Forçado em 1 seg (L)')
+```
+
+Este gráfico de linha (Figura \@ref(fig:lin)) com representação da margem de erro tem a mesma interpretação do gráfico de barra de erro. A escolha do tipo de gráfico depende da ênfase do autor sobre os dados.
+
+#### Criação de uma variável que represente a diferença entre as médias
+
+A diferença entre as média basal e final será atribuída ao nome `D`. Esta ação será realizada, utilizando o banco de dados amplo (`dados`):
+
+```{r}
+dados$D <- dados$basal - dados$final
+head (dados)
+```
+Atenção, agora, o banco de dados apresenta uma nova variável `dif`, pois o foco do teste *t* pareado é essa diferença entre as médias, basal e final, a média das diferenças.
+
+**Resumo da variável `D`**  
+
+Ao resumo será atribuído ao nome `sumario` (sem acento):
+
+```{r}
+sumario <- dados %>% 
+  dplyr::summarise(media = mean (D),
+                   dp = sd (D),
+                   mediana = median (D),
+                   IIQ = IQR (D),
+                   min = min (D),
+                   max = max (D))
+sumario
+```
+
+Existe uma diferença de `r round(abs(sumario$media), 2)`L entre o VEF1 basal e o final. A pergunta que se faz é: Esta diferença tem significância estatística? Os gráficos sugerem que sim!
+ 
+### Definição das hipóteses estatísticas
+
+Será usado um teste bicaudal. Se a intervenção não produz efeito, então: 
+  
+$$
+H_0: \mu_D = 0  
+$$
+Se a intervenção produz efeito, então:
+    
+$$
+H_A: \mu_D \neq 0
+$$
+
+### Regra de decisão
+    
+O nível significância, $\alpha$, escolhido é igual a 0,05. A distribuição da estatística do teste, sob a $H_{0}$, é a distribuição *t* que é dependente dos graus de liberdade. O número de graus de liberdade á igual ao número de observações menos 1, neste caso são o número de pares menos 1.   
+$$
+gl = n - 1
+$$
+Onde *n* é o número de pares. No exemplo, *n* = 15, consequentemente:
+        
+$$
+gl = 15 - 1 = 14
+$$
+
+Para um $\alpha = 0,05$, o valor crítico de *t* para $gl = 14$ para uma hipótese alternativa bicaudal:
+            
+```{r}
+alpha <- 0.05
+round(qt(1 - alpha/2, 14), 3)
+```
+
+Portanto, se
+          
+$$
+\mid t_{calculado}\mid < \mid t_{crítico}\mid -> não \quad rejeitar \quad H_{0}
+$$
+
+$$
+\mid t_{calculado}\mid > \mid t_{crítico}\mid -> rejeitar \quad H_{0}
+$$
+
+### Teste estatístico  
+
+#### Lógica do teste
+
+A estatística do teste *t* dependente é a mesma do teste *t* independente r dada por:
+  
+$$
+T = \frac{\bar{D} - \mu_{D}}{EP_{D}}
+$$
+
+Como na equação do teste *t* para amostras independentes, sob a hipótese nula igual a zero, $\mu_{D} = 0$, assim, a equação fica:
+
+$$
+T = \frac{\bar{D}}{EP_{D}}
+$$
+
+A estimativa do erro padrão das diferenças é dada por:
+$$
+EP_{D}=\frac{s_{D}}{\sqrt{n}}
+$$
+
+Como não existe informação sobre a variância das diferenças, seu valor será estimado por $s^2_{D}$ que é dado por:
+
+$$
+s^2_{D}=\frac{\Sigma(D_{i} - \bar{D})^2}{n - 1}
+$$
+
+Onde $D_{i}$ são as diferença individuais ($x_1 - y_1, x_2 - y_2, ..., x_n - y_n$). Desta forma, o desvio padrão das diferenças, $s_{D}$, é:
+    
+$$
+s_{D} = \sqrt{\frac {\Sigma (D_{i} - \bar{D})^2}{n - 1}}
+$$
+
+Da mesma maneira que no teste *t* para grupos independentes, essa demonstração serve para uma melhor compreensão de como o teste funciona, mas para executar este teste *t* não há necessidade disso, basta saber como encaminhar ao R, como será visto adiante.  
+    
+#### Pressupostos do teste  
+    
+O teste *t* pareado assume que os seguintes pressupostos devem ser atendidos:
+      
+(1)	Os dados devem ser dependentes;
+(2)	A variável desfecho deve estar em uma escala contínua;
+(3)	As diferenças entre os pares devem ter distribuição normal.
+
+Ao usar um teste *t* pareado, a variação entre os pares de medidas é a estatística mais importante e a variação entre os participantes, como no teste t de duas amostras independentes, é de pouco interesse, não havendo necessidade de se verificar se as variâncias dos grupos são iguais.  
+    
+Para testar o pressuposto de *normalidade* das diferenças, usa-se a variável criada da diferença entre os pares, *D*. Verifica-se a normalidade dessa variável com o teste Shapiro-Wilk, usando a função `shapiro.test()` do pacote `stats`, incluída no R base.  
+    
+```{r}
+shapiro.test (dados$D)
+```
+    
+Além disso, um gráfico Q-Q (Figura \@ref(fig:qq)) pode ser usado para avaliar a normalidade, com a função `ggqqplot()` do pacote `ggpubr` que produz um gráfico QQ normal com uma linha de referência, acompanhada de area sombreada, correspondente ao IC95%
+
+```{r qq,fig.align='center',warning=FALSE,out.height="60%",out.width="60%", fig.cap="Gráfico Q-Q para avaliar a normalidade"}
+ggpubr::ggqqplot (dados$D) +
+      labs(y = "Diferença Basal-Inicial", 
+           x = "Quantis teóricos") 
+```
+
+Os resultados do teste de Shapiro-Wilk e ográfico QQ, mostram que a $H_{0}$ de normalidade da variável *D* não é rejeitada, apesar de haver uma pequena assimetria à esquerda que não impede o prosseguimento da análise.
+    
+#### Execução do teste estatístico
+    
+O cálculo do teste *t* pareado usa a mesma função do teste *t* para amostras independentes, `t.test()`, mudando o argumento `paired =TRUE`(padrão) por `paired =FALSE`. Assim:  
+      
+```{r}
+teste_par <- t.test(dados$basal, 
+                    dados$final, 
+                    alternative = "two.sided",
+                    paired = TRUE,
+                    conf.level = 0.95,
+                    var.equal=TRUE)
+teste_par
+```
+    
+-	*t* é o valor estatístico do teste t pareado,
+-	*df* são os graus de liberdade ,
+-	*p-value* é o valor *P* do teste t.
+-	*conf.int* é o IC95% da diferença média;
+-	*sample estimates* é estimativa da diferença média  
+    
+Também pode ser calculado usando a fórmula `y ~ x` com os dados no formato longo (`dadosL`):
+      
+```{r}
+t.test(formula = medidas ~ momento, 
+       data = dadosL, 
+       alternative = 'two.sided', 
+       paired = TRUE)
+```   
+
+### Conclusão  
+
+Conclui-se que o VEF1 dos escolares asmáticos se modificou significativamente entre o início e após 60 dias do uso de um novo medicamento com uma confiança de 95%. A diferença ($\mu_{basal} - \mu_{final}$) encontrada é estatisticamente significativa (t = `r teste_par$statistic`, gl = `r teste_par$parameter`, *P* = `r teste_par$p.value`), com uma confiança de 95%.  
+
+Observe que o intervalo de confiança de 95% da diferença de `r round(teste_par$estimate,2)` está todo abaixo de zero  (`r round(teste_par$conf.int, 2)`), confirmando a significância.
+
+### Tamanho do Efeito
+
+O tamanho do efeito pode ser determinado, também, com o teste *d* de Cohen, usando a função `cohensD()` do pacote `lsr`:
+
+```{r}
+d_par <- lsr::cohensD (dados$basal, dados$final)
+d_par
+```
+
+Dessa forma, o uso do novo corticoide inalatório modificou significativamente o VEF1 dos escolares asmáticos com o uso de um novo corticoide inalatório (*P* < 0,00001), mostrando um aumento deste e que a magnitude dessa diferença é grande (*d* = `r round(d_par, 2)`).   
+
+Os resultados poderiam ser apresentados usando um gráfico de linha (Figura \@ref(fig:fim)), aproveitando a função `t_test()` do pacote `rstatix` e colocar em um objeto denominado `t_par`.
+
+```{r}
+t_par <- t_test(dadosL, 
+                medidas~momento,
+                p.adjust.method = "none",
+                paired = TRUE,
+                alternative = "two.sided",
+                mu = 0,
+                conf.level = 0.95,
+                detailed = TRUE)
+```
+
+```{r fim,fig.align='center',warning=FALSE,out.height="70%",out.width="70%", fig.cap="Gráfico de linha comparando o grupo antes-e-depois"}
+resumo %>% 
+  ggplot2::ggplot(aes(x=momento, y=media, group=1)) +
+  geom_line(linetype ='dashed') +
+  geom_errorbar(aes(ymin=media - me, 
+                    ymax=media + me), 
+                width=0.1,
+                size = 1,
+                col = c("cyan4","cyan3")) +
+  geom_point(size = 2) +
+  theme_classic()+
+  labs(title="Avaliação do Uso de Corticosteroide Inalatório",
+       subtitle = rstatix::get_test_label(stat.test = t_par,
+                                 correction = "none",
+                                 detailed = TRUE,
+                                 type = "expression"),
+       x="Momento", 
+       y = "Volume Forçado em 1 seg (L)",
+       caption = "d Cohen = 0,84")+
+  theme_classic() + 
+  theme(legend.position="none") 
+```
+
