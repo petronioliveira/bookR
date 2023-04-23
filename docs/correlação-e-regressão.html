@@ -536,7 +536,7 @@ div.csl-indent {
 <h2><span class="header-section-number">15.2</span> Correlação<a href="correlação-e-regressão.html#correlação" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A correlação é usada para avaliar a força e a direção da relação entre duas variáveis numéricas contínuas, normalmente distribuídas. A maneira mais comum de mostrar a relação entre duas variáveis quantitativas é através de um diagrama ou gráfico de dispersão (<em>scatterplot</em>). A Figura <a href="correlação-e-regressão.html#fig:estriol">15.1</a> exibe um exemplo de um gráfico de dispersão, onde se observa um padrão geral que sugere uma relação entre o estriol urinário (mg/24h) e o peso fetal em uma gravidez normal <span class="citation">(128)</span>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:estriol"></span>
-<img src="https://i.imgur.com/KFLiF9k.png" alt="Correlação da excreção de estriol urinário e peso fetal" width="70%" />
+<img src="https://i.imgur.com/KFLiF9k.png" alt="Correlação da excreção de estriol urinário e peso fetal" width="50%" />
 <p class="caption">
 Figure 15.1: Correlação da excreção de estriol urinário e peso fetal
 </p>
@@ -546,7 +546,7 @@ Figure 15.1: Correlação da excreção de estriol urinário e peso fetal
 <p>A Figura <a href="correlação-e-regressão.html#fig:estriol">15.1</a> mostra uma clara direção do padrão geral que se move da esquerda inferior para a direita superior. Este comportamento é denominado de <em>correlação positiva</em> entre as variáveis. A forma do relacionamento é aproximadamente uma linha reta com uma ligeira curva para a direita à medida que se move para cima. A força de uma correlação em um gráfico de dispersão é determinada pela proximidade dos pontos em uma forma clara. No caso, quanto mais se aproxima de uma reta, mais forte é a associação, no caso de uma correlação linear. Duas variáveis estão <em>negativamente associadas</em> quando se comportam de forma oposta ao da Figura <a href="correlação-e-regressão.html#fig:estriol">15.1</a>.</p>
 <p>Obviamente, nem todos os diagramas de dispersão mostram uma direção clara que permita descrever como correlação positiva ou negativa e não tem uma forma linear, sugerindo que não há correlação, como a Figura <a href="correlação-e-regressão.html#fig:pesorenda">15.2</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:pesorenda"></span>
-<img src="https://i.imgur.com/PlHBzli.png" alt="Gráfico de dispersão sugerindo ausência de correlação." width="70%" />
+<img src="https://i.imgur.com/PlHBzli.png" alt="Gráfico de dispersão sugerindo ausência de correlação." width="50%" />
 <p class="caption">
 Figure 15.2: Gráfico de dispersão sugerindo ausência de correlação.
 </p>
@@ -775,8 +775,10 @@ Figure 15.8: Gráficos diagnósticos 1 e 3
 <p><strong>Gráfico 3</strong>: <em>valores previstos <span class="math inline">\(\times\)</span> resíduos padronizados</em></p>
 <p>No gráfico 3, pode ser avaliado da mesma maneira que o 1, observando a aleatoriedade e amplitude, desta vez dos resíduos padronizados É bom se uma linha horizontal é observada com pontos de distribuição igualmente distribuídos (aleatoriamente), o que nao é o caso. Permite verificar se há <em>outliers</em> - valores de resíduos padronizados acima de 3 ou abaixo de -3.</p>
 <p>Embora o gráfico possa dar uma ideia sobre homocedasticidade, às vezes, um teste mais formal é preferido. Existem vários testes para isso, mas aqui será utilizado o <em>Teste de Breusch-Pagan</em>. A <span class="math inline">\(H_{0}\)</span> e a <span class="math inline">\(H_{A}\)</span> podem ser consideradas como:</p>
-<p><span class="math inline">\(H_{0}\)</span>: Homocedasticidade. Os resíduos têm variância constante sobre o modelo verdadeiro.</p>
-<p><span class="math inline">\(H_{A}\)</span>: Heterocedasticidade. Os resíduos não têm variância constante sobre o modelo verdadeiro.</p>
+<blockquote>
+<p><font size=3><span class="math inline">\(H_{0}\)</span>: Homocedasticidade. Os resíduos têm variância constante sobre o modelo verdadeiro.<br />
+<span class="math inline">\(H_{A}\)</span>: Heterocedasticidade. Os resíduos não têm variância constante sobre o modelo verdadeiro.</font></p>
+</blockquote>
 <p>Se o valor <em>P</em> &gt; 0,05 não se rejeita a <span class="math inline">\(H_{0}\)</span> de homocedasticidade. O teste de Breusch-Pagan é encontrado na função <code>bptest()</code>, incluída no pacote <code>lmtest</code>:</p>
 <div class="sourceCode" id="cb864"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb864-1"><a href="correlação-e-regressão.html#cb864-1" aria-hidden="true" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">bptest</span>(mod_reg)</span></code></pre></div>
 <pre><code>## 
@@ -1066,8 +1068,10 @@ Figure 15.12: Gráficos diagnósticos
 <div id="homocedasticidade-dos-resíduos" class="section level4 hasAnchor" number="15.3.2.4">
 <h4><span class="header-section-number">15.3.2.4</span> Homocedasticidade dos resíduos<a href="correlação-e-regressão.html#homocedasticidade-dos-resíduos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A variância constante, homogênea, é frequentemente chamada de homocedasticidade. Por outro lado, a variância não constante é chamada de heterocedasticidade. Foi visto que é possível usar um gráfico de <code>resíduos versus ajustados</code> (previstos) e o <code>scale-location</code> (gráficos diagnósticos) para avaliar esse pressuposto. Embora o gráfico possa dar uma ideia sobre homocedasticidade, às vezes, um teste mais formal é preferido. Existem vários testes para isso, mas aqui será utilizado o <code>Teste de Breusch-Pagan</code>. A <span class="math inline">\(H_{0}\)</span> e a <span class="math inline">\(H_{A}\)</span> podem ser consideradas como,</p>
-<p><span class="math inline">\(H_{0}\)</span>: <em>Homocedasticidade</em>. Os resíduos têm variação constante sobre o modelo verdadeiro.</p>
-<p><span class="math inline">\(H_{A}\)</span>: <em>Heterocedasticidade</em>. Os resíduos não têm variância constante sobre o modelo verdadeiro.</p>
+<blockquote>
+<p><font size=3><span class="math inline">\(H_{0}\)</span>: <em>Homocedasticidade</em>. Os resíduos têm variância constante sobre o modelo verdadeiro.<br />
+<span class="math inline">\(H_{A}\)</span>: Heterocedasticidade. Os resíduos não têm variância constante sobre o modelo verdadeiro.</font></p>
+</blockquote>
 <p>Se o valor <em>P</em> &gt; 0,05 não se rejeita a <span class="math inline">\(H_{0}\)</span> de homocedasticidade. O teste de Breusch-Pagan é encontrado na função <code>bptes()</code>, incluída no pacote <code>lmtest</code><span class="citation">(135)</span>.</p>
 <div class="sourceCode" id="cb887"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb887-1"><a href="correlação-e-regressão.html#cb887-1" aria-hidden="true" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">bptest</span>(mod_reg)</span></code></pre></div>
 <pre><code>## 

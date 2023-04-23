@@ -19,7 +19,7 @@ pacman::p_load(car,
 
 A correlação é usada para avaliar a força e a direção da relação entre duas variáveis numéricas contínuas, normalmente distribuídas. A maneira mais comum de mostrar a relação entre duas variáveis quantitativas é através de um diagrama ou gráfico de dispersão (*scatterplot*). A Figura \@ref(fig:estriol) exibe um exemplo de um gráfico de dispersão, onde se observa um padrão geral que sugere uma relação entre o estriol urinário (mg/24h) e o peso fetal em uma gravidez normal [@greene1963urinary]. 
 
-```{r estriol, echo = FALSE, out.width = '70%', fig.align = 'center', fig.cap="Correlação da excreção de estriol urinário e peso fetal", fig.pos="ht"}
+```{r estriol, echo = FALSE, out.width = '50%', fig.align = 'center', fig.cap="Correlação da excreção de estriol urinário e peso fetal", fig.pos="ht"}
  knitr::include_graphics("https://i.imgur.com/KFLiF9k.png")
 ```
 
@@ -31,7 +31,7 @@ A Figura \@ref(fig:estriol) mostra uma clara direção do padrão geral que se m
 
 Obviamente, nem todos os diagramas de dispersão mostram uma direção clara que permita descrever como correlação positiva ou negativa e não tem uma forma linear, sugerindo que não há correlação, como a Figura \@ref(fig:pesorenda).  
 
-```{r pesorenda, echo = FALSE, out.width = '70%', fig.align = 'center', fig.cap="Gráfico de dispersão sugerindo ausência de correlação.", fig.pos="ht"}
+```{r pesorenda, echo = FALSE, out.width = '50%', fig.align = 'center', fig.cap="Gráfico de dispersão sugerindo ausência de correlação.", fig.pos="ht"}
  knitr::include_graphics("https://i.imgur.com/PlHBzli.png")
 ```
 
@@ -246,9 +246,8 @@ No gráfico 3, pode ser avaliado da mesma maneira que o 1, observando a aleatori
 
 Embora o gráfico possa dar uma ideia sobre homocedasticidade, às vezes, um teste mais formal é preferido. Existem vários testes para isso, mas aqui será utilizado o *Teste de Breusch-Pagan*. A $H_{0}$ e a $H_{A}$ podem ser consideradas como:
 
-$H_{0}$: Homocedasticidade. Os resíduos têm variância constante sobre o modelo verdadeiro.  
-
-$H_{A}$: Heterocedasticidade. Os resíduos não têm variância constante sobre o modelo verdadeiro.
+> <font size=3>$H_{0}$: Homocedasticidade. Os resíduos têm variância constante sobre o modelo verdadeiro.  
+$H_{A}$: Heterocedasticidade. Os resíduos não têm variância constante sobre o modelo verdadeiro.</font>
 
 Se o valor *P* > 0,05 não se rejeita a $H_{0}$ de homocedasticidade. O teste de Breusch-Pagan é encontrado na função `bptest()`, incluída no pacote `lmtest`:
 
@@ -488,9 +487,8 @@ Se a saída da função `rstandard()` for comparada com o eixo *y* do gráfico `
 
 A variância constante, homogênea, é frequentemente chamada de homocedasticidade. Por outro lado, a variância não constante é chamada de heterocedasticidade. Foi visto que é possível usar um gráfico de `resíduos versus ajustados` (previstos) e o `scale-location` (gráficos diagnósticos) para avaliar esse pressuposto. Embora o gráfico possa dar uma ideia sobre homocedasticidade, às vezes, um teste mais formal é preferido. Existem vários testes para isso, mas aqui será utilizado o `Teste de Breusch-Pagan`. A $H_{0}$ e a $H_{A}$ podem ser consideradas como,
 
-$H_{0}$: *Homocedasticidade*. Os resíduos têm variação constante sobre o modelo verdadeiro.
-
-$H_{A}$: *Heterocedasticidade*. Os resíduos não têm variância constante sobre o modelo verdadeiro.
+> <font size=3>$H_{0}$: *Homocedasticidade*. Os resíduos têm variância constante sobre o modelo verdadeiro.  
+$H_{A}$: Heterocedasticidade. Os resíduos não têm variância constante sobre o modelo verdadeiro.</font>
 
 Se o valor *P* > 0,05 não se rejeita a $H_{0}$ de homocedasticidade. O teste de Breusch-Pagan é encontrado na função `bptes()`, incluída no pacote `lmtest`[@hothorn2015lmtest]. 
 
