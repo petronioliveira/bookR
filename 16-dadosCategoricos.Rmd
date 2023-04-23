@@ -144,9 +144,9 @@ plotchisqtest(chisq = 3.84,
 
 O gráfico foi criado com a função `plotchisqteste()` do pacote `nhstplot`, pacote simples e conveniente para representar graficamente os testes de significância de hipótese nula mais comuns, como  testes *F*, testes *t* e testes *z* [@myszkowski2020nhstplot]. 
 
-## Qui-quadrado de independência ou associação  
+### Qui-quadrado de independência ou associação  
 
-### Carregar, explorar e preparar os dados  
+#### Carregar, explorar e preparar os dados  
 
 Inicialmente, vamos tornar ativo o banco de dados `dadosMater.xlsx`. Para baixar o banco de dados, clique [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosMater.xlsx). Salve o mesmo no seu diretório de trabalho.  
 
@@ -235,12 +235,12 @@ ggplot(dados) +
 
 Observa-se que 24,6% das gestantes fumantes geram bebês com baixo peso, enquanto que entre as não fumantes este percentual cai três vezes, indo para 8,4%. É uma diferença grande! Aqui, quase se tem certeza que ela é significativa, mesmo sem cálculos!
 
-### Hipóteses estatísticas
+#### Hipóteses estatísticas
 
 > <font size=2> **$H_{0}$**: a proporção de baixo peso é igual nos dois grupo (fumantes e não fumantes); não há associação entre as variáveis.  
 **$H_{A}$**: a proporção de baixo peso é diferente nos dois grupo (fumantes e não fumantes); existe associação entre as variáveis.</font>
 
-### Cálculo do Qui-quadrado de Pearson no R 
+#### Cálculo do Qui-quadrado de Pearson no R 
 
 Para este exemplo, o $\chi^{2}$ irá verificar se existe uma associação entre as variáveis `fumo` e `baixoPeso`, assumindo um $\alpha = 0,05$ que equivale a um valor crítico de 3,84 com um grau de liberdade, em u,ma tabela $2 \times 2$. A função `chisq.test()` libera o qui-quadrado com a correção de Yates, pois usa o argumento `correct = TRUE` por padrão.  
 
@@ -280,7 +280,7 @@ CrossTable (dados$fumo,
 
 Observe que a saída mostra em cada célula da tabela, o número de casos, o número esperado, a percentagem por linha (nº de casos/total da linha) e a percentagem por coluna (nº de casos/total da coluna). Por último, exibe o qui-quadrado de Pearson com e sem coreção de continuidade de Yates.  
 
-### Conclusão
+#### Conclusão
 
 Usando a correção de continuidade de Yates, pois é uma tabela $2 \times 2$, vê-se que o valor *P* é menor que o nível de significância de 5% e, consequentemente, rejeita-se a hipótese nula e conclui-se que existe uma associação significativa entre tabagismo na gestação e o baixo peso ao nascimento ($\chi^{2}_{com \ correção \ de \ Yates} (1)=12;P=0,0005$). 
 
@@ -359,11 +359,11 @@ teste_r
     labs(fill = "Peso ao nascer < 2500g")
 ```
 
-## Teste Aderência ou do Melhor Ajuste  
+### Teste Aderência ou do Melhor Ajuste  
 
 O teste de qualidade de ajuste do qui-quadrado (*chi-square goodness of fit*) é usado para comparar a distribuição observada com uma distribuição esperada, em uma situação em que se tem duas ou mais categorias em dados discretos. Em outras palavras, ele compara várias proporções observadas com as probabilidades esperadas [@daniel2013chisquare].  
 
-### Dados  
+#### Dados  
 
 Há uma dúvida se o número de pacientes que procura uma determinada Unidade de Pronto Atendimento (UPA) é aproximadamente o mesmo em todos os dias da semana. Esta é uma informação importante sob o ponto de vista administrativo. Para se atingir este objetivo registrou-se o número de pacientes que procurou a UPA por dia da semana. 
 
@@ -397,12 +397,12 @@ p <- rep(freq_esp/soma, 7)
 p
 ```
 
-### Hipóteses estatísticas
+#### Hipóteses estatísticas
 
 > <font size=2> **$H_{0}$**: a distribuição das frequências observadas (O) é igual a distribuição de frequências esperadas (E).  
 **$H_{A}$**: a distribuição das frequências observadas (O) não é  igual a distribuição de frequências esperadas (E) </font>
 
-### Cálculo do teste estatístico  
+#### Cálculo do teste estatístico  
 
 Vamos assumir um $\alpha = 0,05$. Os graus de liberdade são calculados como o número de células (*k*) menos 1: $gl = (k - 1)$. O $\chi^{2}_{crítico}$ pode ser encontrado usando:
 
@@ -430,21 +430,21 @@ A estatística do teste pode ser encontrada, usando a função `chisq.test()`:
 chisq.test (x = freq_obs, p = p)
 ```
 
-### Conclusão
+#### Conclusão
 
 Observando-se a saída do teste do qui-quadrado, verifica-se que o $\chi^{2}_{calculado}$ < $\chi^{2}_{crítico}$, portanto, não se rejeita a $H_{0}$ e conclui-se que, nesta amostra, com uma confiança de 95%, que a frequência observada de pacientes à UPA é igual a esperada (*P* = 0,062). Lembrando que, neste caso, como se tem um valor *P* limitrofe, existe a possibilidade de se estar aceitando uma $H_{0}$ falsa e cometendo um erro tipo II. Seria recomendado, aumentar o tamanho amostral em uma nova coleta, usando estes dados como um piloto para o cálculo amostral. 
 
-## Qui-quadrado de Pearson para tabelas extensas
+### Qui-quadrado de Pearson para tabelas extensas
 
 Utilizados para tabelas quando o número de grupos, *k*, é superior a 2. Por exemplo, verificar se existe uma tendência de maior taxa de infecção nos neonatos que permanecem mais tempo hospitalizados. Será usado o banco de dados `dadosCirurgia.xlsx` que pode ser encontrado [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosCirurgia.xlsx). Salve o mesmo no seu diretório de trabalho. Este bancode dados contém 144 recém-nascidos submetidos a diferentes procedimentos cirúrgicos. A variável tempo de hospitalização (`tempohosp`) é contínua e assimétrica. Então, para que possa ser usada aqui, será categorizada por quartis. A variável `infec` (presença de infecção) é uma variável dicotômica (`sim`, `não`).
 
-### Carregar o banco de dados
+#### Carregar o banco de dados
 
 ```{r}
 cirurgia <- read_excel ("Arquivos/dadosCirurgia.xlsx")
 ```
 
-### Exploração e manipulação do banco de dados
+#### Exploração e manipulação do banco de dados
 
 Para ver a estrutura dos dados, será usada a função `glimpse ()` do pacote `dplyr`:
 
@@ -511,12 +511,12 @@ knitr::kable(df,
 
 Observa-se que a proporção de neonatos infectados aumenta com o tempo de hospitalização ($9/36=0,16$ no grupo do menor quartil e $22/37=0,39$ para o grupo do maior quartil).  
 
-### Hipóteses estatísticas
+#### Hipóteses estatísticas
 
 > <font size=2> **$H_{0}$**: A presença de infecção não altera o tempo de hospitalização.  
 **$H_{A}$**: A presença de infecção altera o tempo de hospitalização. </font>
 
-## Cálculo da estatística do teste
+#### Cálculo da estatística do teste
 
 O teste estatístico $\chi^{2}$ será calculado usando a função `chisq.test()`, já usada anteriormente:
 
@@ -525,7 +525,7 @@ teste1 <- chisq.test(tab2)
 teste1
 ```
 
-## Conclusão
+#### Conclusão
 
 A partir desses resultados, pode-se inferir que a menor taxa de infecção no grupo do primeiro quartil e é significativamente diferente em relação a taxa de infecção do maior quartil, mas sem indicação para os grupos intermediários. 
 É útil fazer o teste de tendência linear (*Linear-by-linear Association*). Para isso, pode-se usar a função `lbl_test ()` do pacote `coin`. 
@@ -545,9 +545,9 @@ O teste do qui-quadrado não é um método apropriado de análise se a amostra �
 
 Um estudo estabeleceu como objetivo verificar se a asma não controlada é um fator de risco para a procura da emergência. Foram acompanhados 16 escolares asmáticos durante um ano com relação ao número de visitas à emergência de acordo com o controle da sua asma.
 
-#### Entrando com os dados
+### Entrando com os dados
 
-Vamos criat dois vetores com os dados e após criar um dataframe denominado `dadosControle`:
+Vamos criar dois vetores com os dados e após criar um dataframe denominado `dadosControle`:
 
 ```{r}
 emerg <- c (1,1,2,2,2,2,2,1,1,1,1,1,1,1,1,2)
@@ -598,7 +598,7 @@ addmargins(tab3)
 fisher.test (tab3)
 ```
 
-## Conclusão
+### Conclusão
 
 O valor $P=0,035$ é menor que o nível de significância de 5%, previamente estabelecido, e, portanto, deve-se rejeitar a hipótese nula.
 No contexto, rejeitar a hipótese nula para o teste exato de independência de Fisher significa que há uma associação significativa entre as duas variáveis categóricas (controle da asma e visitas à emergência).
@@ -671,9 +671,7 @@ Assim, a hipótese nula e a hipótese alternativa são:
 > <font size=2> **$H_{0}$**: a proporção de alunos que respondem `sim` no pré-teste e no pós-teste é a mesma.  
 **$H_{A}$**:	a proporção de alunos que respondem `sim` no pré-teste e no pós-teste não é a mesma. </font>
 
-### Cálculo do teste de McNemar  
-
-#### Lógica do teste
+### Lógica do teste
 
 O teste estatístico de McNemar, com correção de continuidade, é obtido utilizando a equação:  
 
@@ -706,7 +704,7 @@ Desta maneira, rejeita-se a $H_{0}$, pois o $\chi_{calculado}^{2} > \chi_{críti
 pchisq (5.633, 1, lower.tail = FALSE)
 ```
 
-#### Cálculo do teste de McNemar no R  
+### Cálculo do teste de McNemar no R  
 
 Carregar o arquivo `dadosBioestatistica.xlsx`, que pode ser encontrado [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosBioestatistica.xlsx). Este conjunto de dados contem os dados da tabela acima.
 
