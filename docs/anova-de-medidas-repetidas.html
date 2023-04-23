@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 14 ANOVA de medidas repetidas | Introdução à Bioestatística usando o R</title>
+  <meta name="description" content="Capítulo 14 ANOVA de medidas repetidas | Introdução à Bioestatística usando o R" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 14 ANOVA de medidas repetidas | Introdução à Bioestatística usando o R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 14 ANOVA de medidas repetidas | Introdução à Bioestatística usando o R" />
+  
+  
+  
+
+<meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
+
+
+<meta name="date" content="2023-04-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="análise-de-variância.html"/>
+<link rel="next" href="referências.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">bookR</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#importância-da-bioestatística"><i class="fa fa-check"></i><b>1.1</b> Importância da Bioestatística</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#sec-historia"><i class="fa fa-check"></i><b>1.2</b> Pílulas históricas da Estatística</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#história-resumida-do-r"><i class="fa fa-check"></i><b>1.3</b> História resumida do R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html"><i class="fa fa-check"></i><b>2</b> Natureza dos Dados</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-e-dados"><i class="fa fa-check"></i><b>2.1</b> Variáveis e Dados</a></li>
+<li class="chapter" data-level="2.2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#população-e-amostra"><i class="fa fa-check"></i><b>2.2</b> População e Amostra</a></li>
+<li class="chapter" data-level="2.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#estimativas-e-parâmetros"><i class="fa fa-check"></i><b>2.3</b> Estimativas e Parâmetros</a></li>
+<li class="chapter" data-level="2.4" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escalas-de-medição"><i class="fa fa-check"></i><b>2.4</b> Escalas de medição</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-nominal"><i class="fa fa-check"></i><b>2.4.1</b> Escala Nominal</a></li>
+<li class="chapter" data-level="2.4.2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-ordinal"><i class="fa fa-check"></i><b>2.4.2</b> Escala Ordinal</a></li>
+<li class="chapter" data-level="2.4.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-intervalar"><i class="fa fa-check"></i><b>2.4.3</b> Escala Intervalar</a></li>
+<li class="chapter" data-level="2.4.4" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-de-razão"><i class="fa fa-check"></i><b>2.4.4</b> Escala de Razão</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#tipos-de-variáveis"><i class="fa fa-check"></i><b>2.5</b> Tipos de Variáveis</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-numéricas"><i class="fa fa-check"></i><b>2.5.1</b> Variáveis Numéricas</a></li>
+<li class="chapter" data-level="2.5.2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-categóricas"><i class="fa fa-check"></i><b>2.5.2</b> Variáveis Categóricas</a></li>
+<li class="chapter" data-level="2.5.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#como-identificar-o-tipo-da-variável"><i class="fa fa-check"></i><b>2.5.3</b> Como identificar o tipo da variável?</a></li>
+<li class="chapter" data-level="2.5.4" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-dependentes-e-independentes"><i class="fa fa-check"></i><b>2.5.4</b> Variáveis Dependentes e Independentes</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html"><i class="fa fa-check"></i><b>3</b> Produção dos Dados</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#processo-de-pesquisa"><i class="fa fa-check"></i><b>3.1</b> Processo de Pesquisa</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#questão-de-pesquisa"><i class="fa fa-check"></i><b>3.1.1</b> Questão de Pesquisa</a></li>
+<li class="chapter" data-level="3.1.2" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#hipótese-de-pesquisa"><i class="fa fa-check"></i><b>3.1.2</b> Hipótese de Pesquisa</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#processo-de-amostragem"><i class="fa fa-check"></i><b>3.2</b> Processo de Amostragem</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#amostras-probabilística"><i class="fa fa-check"></i><b>3.2.1</b> Amostras probabilística</a></li>
+<li class="chapter" data-level="3.2.2" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#amostras-não-probabilísticas"><i class="fa fa-check"></i><b>3.2.2</b> Amostras não probabilísticas</a></li>
+<li class="chapter" data-level="3.2.3" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#tamanho-amostral"><i class="fa fa-check"></i><b>3.2.3</b> Tamanho amostral</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#principais-delineamentos-de-pesquisa"><i class="fa fa-check"></i><b>3.3</b> Principais Delineamentos de Pesquisa</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#elementos-básicos-de-um-delineamento-de-pesquisa"><i class="fa fa-check"></i><b>3.3.1</b> Elementos básicos de um delineamento de pesquisa</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#estudos-observacionais"><i class="fa fa-check"></i><b>3.4</b> Estudos Observacionais</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#relato-de-caso-ou-série-de-casos"><i class="fa fa-check"></i><b>3.4.1</b> Relato de Caso ou Série de casos</a></li>
+<li class="chapter" data-level="3.4.2" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#estudos-transversais-ou-seccionais"><i class="fa fa-check"></i><b>3.4.2</b> Estudos Transversais ou Seccionais</a></li>
+<li class="chapter" data-level="3.4.3" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#estudos-caso-controle"><i class="fa fa-check"></i><b>3.4.3</b> Estudos Caso-Controle</a></li>
+<li class="chapter" data-level="3.4.4" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#estudos-de-coorte"><i class="fa fa-check"></i><b>3.4.4</b> Estudos de Coorte</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#ensaios-clínicos"><i class="fa fa-check"></i><b>3.5</b> Ensaios Clínicos</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#características-de-um-ensaio-clínico"><i class="fa fa-check"></i><b>3.5.1</b> Características de um ensaio clínico</a></li>
+<li class="chapter" data-level="3.5.2" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#elementos-básicos-de-um-ensaio-clínico"><i class="fa fa-check"></i><b>3.5.2</b> Elementos básicos de um ensaio clínico</a></li>
+<li class="chapter" data-level="3.5.3" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#ensaios-clínicos-de-equivalência-e-não-inferioridade"><i class="fa fa-check"></i><b>3.5.3</b> Ensaios clínicos de equivalência e não inferioridade</a></li>
+<li class="chapter" data-level="3.5.4" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#outros-tipos-de-ensaios-clínicos"><i class="fa fa-check"></i><b>3.5.4</b> Outros tipos de ensaios clínicos</a></li>
+<li class="chapter" data-level="3.5.5" data-path="produção-dos-dados.html"><a href="produção-dos-dados.html#fases-de-um-ensaio-clínico"><i class="fa fa-check"></i><b>3.5.5</b> Fases de um ensaio clínico</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html"><i class="fa fa-check"></i><b>4</b> Ambiente do R</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#instalação-do-r-básico"><i class="fa fa-check"></i><b>4.1</b> Instalação do R básico</a></li>
+<li class="chapter" data-level="4.2" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#rstudio"><i class="fa fa-check"></i><b>4.2</b> RStudio</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#instalação-do-r-studio"><i class="fa fa-check"></i><b>4.2.1</b> Instalação do R Studio</a></li>
+<li class="chapter" data-level="4.2.2" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#iniciando-o-rstudio"><i class="fa fa-check"></i><b>4.2.2</b> Iniciando o RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#pacotes"><i class="fa fa-check"></i><b>4.3</b> Pacotes</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#repositório-de-pacotes"><i class="fa fa-check"></i><b>4.3.1</b> Repositório de pacotes</a></li>
+<li class="chapter" data-level="4.3.2" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#instalação-de-um-novo-pacote"><i class="fa fa-check"></i><b>4.3.2</b> Instalação de um novo pacote</a></li>
+<li class="chapter" data-level="4.3.3" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#atualização-dos-pacotes"><i class="fa fa-check"></i><b>4.3.3</b> Atualização dos pacotes</a></li>
+<li class="chapter" data-level="4.3.4" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#instalando-e-carregando-mais-de-um-pacote"><i class="fa fa-check"></i><b>4.3.4</b> Instalando e carregando mais de um pacote</a></li>
+<li class="chapter" data-level="4.3.5" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#citação-de-pacotes-em-publicações"><i class="fa fa-check"></i><b>4.3.5</b> Citação de pacotes em publicações</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#diretório-de-trabalho"><i class="fa fa-check"></i><b>4.4</b> Diretório de trabalho</a></li>
+<li class="chapter" data-level="4.5" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#projeto"><i class="fa fa-check"></i><b>4.5</b> Projeto</a></li>
+<li class="chapter" data-level="4.6" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#o-r-como-calculadora"><i class="fa fa-check"></i><b>4.6</b> O R como calculadora</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#operadores"><i class="fa fa-check"></i><b>4.6.1</b> Operadores</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#objetos"><i class="fa fa-check"></i><b>4.7</b> Objetos</a></li>
+<li class="chapter" data-level="4.8" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#funções"><i class="fa fa-check"></i><b>4.8</b> Funções</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#criando-funções"><i class="fa fa-check"></i><b>4.8.1</b> Criando funções</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#classes"><i class="fa fa-check"></i><b>4.9</b> Classes</a></li>
+<li class="chapter" data-level="4.10" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#sec-vetores"><i class="fa fa-check"></i><b>4.10</b> Vetores</a>
+<ul>
+<li class="chapter" data-level="4.10.1" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#tipos-de-vetores"><i class="fa fa-check"></i><b>4.10.1</b> Tipos de vetores</a></li>
+</ul></li>
+<li class="chapter" data-level="4.11" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#sec-dataframes"><i class="fa fa-check"></i><b>4.11</b> Dataframes</a></li>
+<li class="chapter" data-level="4.12" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#sec-fatores"><i class="fa fa-check"></i><b>4.12</b> Fatores</a>
+<ul>
+<li class="chapter" data-level="4.12.1" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#criando-fatores"><i class="fa fa-check"></i><b>4.12.1</b> Criando fatores</a></li>
+<li class="chapter" data-level="4.12.2" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#salvando-o-dataframe-criado"><i class="fa fa-check"></i><b>4.12.2</b> Salvando o dataframe criado</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html"><i class="fa fa-check"></i><b>5</b> Manipulando os dados no R Studio</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#importando-dados-de-outros-softwares"><i class="fa fa-check"></i><b>5.1</b> Importando dados de outros <em>softwares</em></a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#sec-csv"><i class="fa fa-check"></i><b>5.1.1</b> Importando dados de um arquivo CSV</a></li>
+<li class="chapter" data-level="5.1.2" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#sec-xlsx"><i class="fa fa-check"></i><b>5.1.2</b> Importando um arquivo do Excel</a></li>
+<li class="chapter" data-level="5.1.3" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#importando-arquivos-com-o-rstudio"><i class="fa fa-check"></i><b>5.1.3</b> Importando arquivos com o RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#sec-tibble"><i class="fa fa-check"></i><b>5.2</b> Tibble</a></li>
+<li class="chapter" data-level="5.3" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#sec-mater"><i class="fa fa-check"></i><b>5.3</b> Pacote <code>dplyr</code></a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#função-select"><i class="fa fa-check"></i><b>5.3.1</b> Função <code>select()</code></a></li>
+<li class="chapter" data-level="5.3.2" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#função-filter"><i class="fa fa-check"></i><b>5.3.2</b> Função <code>filter()</code></a></li>
+<li class="chapter" data-level="5.3.3" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#função-mutate"><i class="fa fa-check"></i><b>5.3.3</b> Função <code>mutate()</code></a></li>
+<li class="chapter" data-level="5.3.4" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#função-sample_n"><i class="fa fa-check"></i><b>5.3.4</b> Função <code>sample_n()</code></a></li>
+<li class="chapter" data-level="5.3.5" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#função-slice"><i class="fa fa-check"></i><b>5.3.5</b> Função <code>slice()</code></a></li>
+<li class="chapter" data-level="5.3.6" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#função-arrange"><i class="fa fa-check"></i><b>5.3.6</b> Função <code>arrange()</code></a></li>
+<li class="chapter" data-level="5.3.7" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#função-count"><i class="fa fa-check"></i><b>5.3.7</b> Função <code>count()</code></a></li>
+<li class="chapter" data-level="5.3.8" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#operador-pipe"><i class="fa fa-check"></i><b>5.3.8</b> Operador pipe %&gt;%</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#manipulação-de-datas"><i class="fa fa-check"></i><b>5.4</b> Manipulação de datas</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="manipulando-os-dados-no-r-studio.html"><a href="manipulando-os-dados-no-r-studio.html#operações-com-datas"><i class="fa fa-check"></i><b>5.4.1</b> Operações com datas</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html"><i class="fa fa-check"></i><b>6</b> Descrevendo os dados</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#dados-brutos"><i class="fa fa-check"></i><b>6.1</b> Dados brutos</a></li>
+<li class="chapter" data-level="6.2" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#medidas-resumidoras"><i class="fa fa-check"></i><b>6.2</b> Medidas resumidoras</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#medidas-de-tendência-central"><i class="fa fa-check"></i><b>6.2.1</b> Medidas de tendência central</a></li>
+<li class="chapter" data-level="6.2.2" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#medidas-de-dispersão"><i class="fa fa-check"></i><b>6.2.2</b> Medidas de Dispersão</a></li>
+<li class="chapter" data-level="6.2.3" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#escolha-da-medida-resumidora"><i class="fa fa-check"></i><b>6.2.3</b> Escolha da medida resumidora</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#tabelas"><i class="fa fa-check"></i><b>6.3</b> Tabelas</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#sec-freq"><i class="fa fa-check"></i><b>6.3.1</b> Tabelas de Frequência</a></li>
+<li class="chapter" data-level="6.3.2" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#tabelas-de-contingência"><i class="fa fa-check"></i><b>6.3.2</b> Tabelas de contingência</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#gráficos"><i class="fa fa-check"></i><b>6.4</b> Gráficos</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#gráfico-de-setores"><i class="fa fa-check"></i><b>6.4.1</b> Gráfico de setores</a></li>
+<li class="chapter" data-level="6.4.2" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#gráfico-de-barras"><i class="fa fa-check"></i><b>6.4.2</b> Gráfico de barras</a></li>
+<li class="chapter" data-level="6.4.3" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#gráfico-de-barra-de-erro"><i class="fa fa-check"></i><b>6.4.3</b> Gráfico de barra de erro</a></li>
+<li class="chapter" data-level="6.4.4" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#histograma"><i class="fa fa-check"></i><b>6.4.4</b> Histograma</a></li>
+<li class="chapter" data-level="6.4.5" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#boxplot"><i class="fa fa-check"></i><b>6.4.5</b> Boxplot</a></li>
+<li class="chapter" data-level="6.4.6" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#gráfico-de-dispersão"><i class="fa fa-check"></i><b>6.4.6</b> Gráfico de Dispersão</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#introdução-ao-ggplot2"><i class="fa fa-check"></i><b>6.5</b> Introdução ao <code>ggplot2</code></a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#dados"><i class="fa fa-check"></i><b>6.5.1</b> Dados</a></li>
+<li class="chapter" data-level="6.5.2" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#ggplot"><i class="fa fa-check"></i><b>6.5.2</b> <code>ggplot</code></a></li>
+<li class="chapter" data-level="6.5.3" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#tipos-de-geoms"><i class="fa fa-check"></i><b>6.5.3</b> Tipos de <code>geoms</code></a></li>
+<li class="chapter" data-level="6.5.4" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#modificando-argumentos-do-geom"><i class="fa fa-check"></i><b>6.5.4</b> Modificando argumentos do <code>geom</code></a></li>
+<li class="chapter" data-level="6.5.5" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#reta-de-ajuste-em-um-gráfico-de-dispersão"><i class="fa fa-check"></i><b>6.5.5</b> Reta de ajuste em um gráfico de dispersão</a></li>
+<li class="chapter" data-level="6.5.6" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#filtrando-dados-para-o-gráfico"><i class="fa fa-check"></i><b>6.5.6</b> Filtrando dados para o gráfico</a></li>
+<li class="chapter" data-level="6.5.7" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#resumo-dos-dados-usando-o-geom"><i class="fa fa-check"></i><b>6.5.7</b> Resumo dos dados usando o geom</a></li>
+<li class="chapter" data-level="6.5.8" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#incluindo-barras-de-erro"><i class="fa fa-check"></i><b>6.5.8</b> Incluindo barras de erro</a></li>
+<li class="chapter" data-level="6.5.9" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#incluindo-mais-de-um-grupo-no-gráfico"><i class="fa fa-check"></i><b>6.5.9</b> Incluindo mais de um grupo no gráfico</a></li>
+<li class="chapter" data-level="6.5.10" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#modificando-o-tema"><i class="fa fa-check"></i><b>6.5.10</b> Modificando o tema</a></li>
+<li class="chapter" data-level="6.5.11" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#trabalhando-com-os-eixos"><i class="fa fa-check"></i><b>6.5.11</b> Trabalhando com os eixos</a></li>
+<li class="chapter" data-level="6.5.12" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#modificação-das-cores"><i class="fa fa-check"></i><b>6.5.12</b> Modificação das cores</a></li>
+<li class="chapter" data-level="6.5.13" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#exemplo-final-gráfico-de-barra-de-erro-com-colunas"><i class="fa fa-check"></i><b>6.5.13</b> Exemplo final: Gráfico de barra de erro com colunas</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html"><i class="fa fa-check"></i><b>7</b> Introdução à Teoria das Probabilidades</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#introdução-1"><i class="fa fa-check"></i><b>7.1</b> Introdução</a></li>
+<li class="chapter" data-level="7.2" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#processo-aleatório"><i class="fa fa-check"></i><b>7.2</b> Processo aleatório</a></li>
+<li class="chapter" data-level="7.3" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#definição-frequentista-de-probabilidade"><i class="fa fa-check"></i><b>7.3</b> Definição frequentista de probabilidade</a></li>
+<li class="chapter" data-level="7.4" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#propriedades-das-probabilidades"><i class="fa fa-check"></i><b>7.4</b> Propriedades das probabilidades</a></li>
+<li class="chapter" data-level="7.5" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#distribuição-de-probabilidades"><i class="fa fa-check"></i><b>7.5</b> Distribuição de Probabilidades</a></li>
+<li class="chapter" data-level="7.6" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#distribuição-normal"><i class="fa fa-check"></i><b>7.6</b> Distribuição Normal</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#características-da-distribuição-normal"><i class="fa fa-check"></i><b>7.6.1</b> Características da distribuição normal</a></li>
+<li class="chapter" data-level="7.6.2" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#sec-dnp"><i class="fa fa-check"></i><b>7.6.2</b> Distribuição normal padronizada</a></li>
+<li class="chapter" data-level="7.6.3" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#regra-empírica-68-95-99.7"><i class="fa fa-check"></i><b>7.6.3</b> Regra Empírica 68-95-99.7</a></li>
+<li class="chapter" data-level="7.6.4" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#exercitando-o-raciocínio-com-a-curva-normal"><i class="fa fa-check"></i><b>7.6.4</b> Exercitando o raciocínio com a curva normal</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#distribuição-binomial"><i class="fa fa-check"></i><b>7.7</b> Distribuição Binomial</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#média-e-desvio-padrão-da-distribuição-binomial"><i class="fa fa-check"></i><b>7.7.1</b> Média e desvio padrão da distribuição binomial</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#distribuição-de-poisson"><i class="fa fa-check"></i><b>7.8</b> Distribuição de Poisson</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="assimetria-e-curtose.html"><a href="assimetria-e-curtose.html"><i class="fa fa-check"></i><b>8</b> Assimetria e Curtose</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="assimetria-e-curtose.html"><a href="assimetria-e-curtose.html#assimetria"><i class="fa fa-check"></i><b>8.1</b> Assimetria</a></li>
+<li class="chapter" data-level="8.2" data-path="assimetria-e-curtose.html"><a href="assimetria-e-curtose.html#curtose"><i class="fa fa-check"></i><b>8.2</b> Curtose</a></li>
+<li class="chapter" data-level="8.3" data-path="assimetria-e-curtose.html"><a href="assimetria-e-curtose.html#testando-o-raciocínio"><i class="fa fa-check"></i><b>8.3</b> Testando o raciocínio</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html"><i class="fa fa-check"></i><b>9</b> Distribuições Amostrais</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#pacotes-necessários-para-este-capítulo"><i class="fa fa-check"></i><b>9.1</b> Pacotes necessários para este capítulo</a></li>
+<li class="chapter" data-level="9.2" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuições-populacional-e-amostral"><i class="fa fa-check"></i><b>9.2</b> Distribuições populacional e amostral</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuição-populacional"><i class="fa fa-check"></i><b>9.2.1</b> Distribuição populacional</a></li>
+<li class="chapter" data-level="9.2.2" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuição-amostral"><i class="fa fa-check"></i><b>9.2.2</b> Distribuição amostral</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#erros-amostrais-e-não-amostrais"><i class="fa fa-check"></i><b>9.3</b> Erros amostrais e não amostrais</a></li>
+<li class="chapter" data-level="9.4" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#média-e-desvio-padrão-da-média"><i class="fa fa-check"></i><b>9.4</b> Média e desvio padrão da média</a></li>
+<li class="chapter" data-level="9.5" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#teorema-do-limite-central"><i class="fa fa-check"></i><b>9.5</b> Teorema do Limite Central</a></li>
+<li class="chapter" data-level="9.6" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#proporções-populacional-e-amostral"><i class="fa fa-check"></i><b>9.6</b> Proporções populacional e amostral</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuição-amostral-da-proporção-amostral"><i class="fa fa-check"></i><b>9.6.1</b> Distribuição amostral da proporção amostral</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="estimação.html"><a href="estimação.html"><i class="fa fa-check"></i><b>10</b> Estimação</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="estimação.html"><a href="estimação.html#introdução-2"><i class="fa fa-check"></i><b>10.1</b> Introdução</a></li>
+<li class="chapter" data-level="10.2" data-path="estimação.html"><a href="estimação.html#pacotes-necessários-para-este-capítulo-1"><i class="fa fa-check"></i><b>10.2</b> Pacotes necessários para este capítulo</a></li>
+<li class="chapter" data-level="10.3" data-path="estimação.html"><a href="estimação.html#estimativa-pontual-e-intervalo-de-confiança"><i class="fa fa-check"></i><b>10.3</b> Estimativa Pontual e Intervalo de Confiança</a></li>
+<li class="chapter" data-level="10.4" data-path="estimação.html"><a href="estimação.html#estimação-da-média-populacional-sigma-conhecido"><i class="fa fa-check"></i><b>10.4</b> Estimação da média populacional: <span class="math inline">\(\sigma\)</span> conhecido</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="estimação.html"><a href="estimação.html#interpretação-do-intervalo-de-confiança"><i class="fa fa-check"></i><b>10.4.1</b> Interpretação do intervalo de confiança</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="estimação.html"><a href="estimação.html#estimação-da-média-populacional-sigma-desconhecido"><i class="fa fa-check"></i><b>10.5</b> Estimação da média populacional: <span class="math inline">\(\sigma\)</span> desconhecido</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="estimação.html"><a href="estimação.html#distribuição-t"><i class="fa fa-check"></i><b>10.5.1</b> Distribuição <em>t</em></a></li>
+<li class="chapter" data-level="10.5.2" data-path="estimação.html"><a href="estimação.html#cálculo-do-intervalo-de-confiança-com-sigma-desconhecido"><i class="fa fa-check"></i><b>10.5.2</b> Cálculo do intervalo de confiança com <span class="math inline">\(\sigma\)</span> desconhecido</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="estimação.html"><a href="estimação.html#intervalo-de-confiança-para-uma-proporção-populacional"><i class="fa fa-check"></i><b>10.6</b> Intervalo de Confiança para uma proporção populacional</a>
+<ul>
+<li class="chapter" data-level="10.6.1" data-path="estimação.html"><a href="estimação.html#dados-para-estimar-a-proporção-populacional"><i class="fa fa-check"></i><b>10.6.1</b> Dados para estimar a proporção populacional</a></li>
+<li class="chapter" data-level="10.6.2" data-path="estimação.html"><a href="estimação.html#cálculo-da-estimativa-pontual-da-proporção"><i class="fa fa-check"></i><b>10.6.2</b> Cálculo da estimativa pontual da proporção</a></li>
+<li class="chapter" data-level="10.6.3" data-path="estimação.html"><a href="estimação.html#cálculo-do-intervalo-de-confiança-para-a-proporção"><i class="fa fa-check"></i><b>10.6.3</b> Cálculo do intervalo de confiança para a proporção</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html"><i class="fa fa-check"></i><b>11</b> Teste de Hipóteses</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#pacotes-necessários-para-este-capítulo-2"><i class="fa fa-check"></i><b>11.1</b> Pacotes necessários para este capítulo</a></li>
+<li class="chapter" data-level="11.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#exemplo"><i class="fa fa-check"></i><b>11.2</b> Exemplo</a></li>
+<li class="chapter" data-level="11.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#hipótese-nula-e-alternativa"><i class="fa fa-check"></i><b>11.3</b> Hipótese nula e alternativa</a></li>
+<li class="chapter" data-level="11.4" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#escolha-do-teste-estatítico-e-regra-de-decisão"><i class="fa fa-check"></i><b>11.4</b> Escolha do teste estatítico e regra de decisão</a></li>
+<li class="chapter" data-level="11.5" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#valor-p"><i class="fa fa-check"></i><b>11.5</b> Valor <em>P</em></a></li>
+<li class="chapter" data-level="11.6" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#poder-do-teste"><i class="fa fa-check"></i><b>11.6</b> Poder do teste</a></li>
+<li class="chapter" data-level="11.7" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#resumo-do-teste-de-hipóteses-passos-principais"><i class="fa fa-check"></i><b>11.7</b> Resumo do teste de hipóteses: Passos principais</a>
+<ul>
+<li class="chapter" data-level="11.7.1" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#primeiro-passo-dados"><i class="fa fa-check"></i><b>11.7.1</b> Primeiro Passo: Dados</a></li>
+<li class="chapter" data-level="11.7.2" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#segundo-passo-estabelecer-as-hipóteses-estatísticas"><i class="fa fa-check"></i><b>11.7.2</b> Segundo Passo: Estabelecer as hipóteses estatísticas</a></li>
+<li class="chapter" data-level="11.7.3" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#terceiro-passo-escolha-do-teste-estatístico-e-regra-de-decisão"><i class="fa fa-check"></i><b>11.7.3</b> Terceiro passo: Escolha do teste estatístico e regra de decisão</a></li>
+<li class="chapter" data-level="11.7.4" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#quarto-passo-conclusão"><i class="fa fa-check"></i><b>11.7.4</b> Quarto passo: Conclusão</a></li>
+<li class="chapter" data-level="11.7.5" data-path="teste-de-hipóteses.html"><a href="teste-de-hipóteses.html#quinto-passo-valor-p"><i class="fa fa-check"></i><b>11.7.5</b> Quinto passo: Valor <em>P</em></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html"><i class="fa fa-check"></i><b>12</b> Comparação entre duas médias</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#pacotes-necessários-para-este-capítulo-3"><i class="fa fa-check"></i><b>12.1</b> Pacotes necessários para este capítulo</a></li>
+<li class="chapter" data-level="12.2" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#teste-t-para-comparar-amostras-independentes"><i class="fa fa-check"></i><b>12.2</b> Teste <em>t</em> para comparar amostras independentes</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#dados-do-exemplo"><i class="fa fa-check"></i><b>12.2.1</b> Dados do exemplo</a></li>
+<li class="chapter" data-level="12.2.2" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#definição-das-hipóteses-estatísticas"><i class="fa fa-check"></i><b>12.2.2</b> Definição das hipóteses estatísticas</a></li>
+<li class="chapter" data-level="12.2.3" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#definição-da-regra-de-decisão"><i class="fa fa-check"></i><b>12.2.3</b> Definição da regra de decisão</a></li>
+<li class="chapter" data-level="12.2.4" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#teste-estatístico"><i class="fa fa-check"></i><b>12.2.4</b> Teste estatístico</a></li>
+<li class="chapter" data-level="12.2.5" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#conclusão"><i class="fa fa-check"></i><b>12.2.5</b> Conclusão</a></li>
+<li class="chapter" data-level="12.2.6" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#tamanho-do-efeito"><i class="fa fa-check"></i><b>12.2.6</b> Tamanho do Efeito</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#teste-t-para-grupos-pareados"><i class="fa fa-check"></i><b>12.3</b> Teste <em>t</em> para grupos pareados</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#dados-do-exemplo-1"><i class="fa fa-check"></i><b>12.3.1</b> Dados do exemplo</a></li>
+<li class="chapter" data-level="12.3.2" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#definição-das-hipóteses-estatísticas-1"><i class="fa fa-check"></i><b>12.3.2</b> Definição das hipóteses estatísticas</a></li>
+<li class="chapter" data-level="12.3.3" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#regra-de-decisão"><i class="fa fa-check"></i><b>12.3.3</b> Regra de decisão</a></li>
+<li class="chapter" data-level="12.3.4" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#teste-estatístico-1"><i class="fa fa-check"></i><b>12.3.4</b> Teste estatístico</a></li>
+<li class="chapter" data-level="12.3.5" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#conclusão-1"><i class="fa fa-check"></i><b>12.3.5</b> Conclusão</a></li>
+<li class="chapter" data-level="12.3.6" data-path="comparação-entre-duas-médias.html"><a href="comparação-entre-duas-médias.html#tamanho-do-efeito-1"><i class="fa fa-check"></i><b>12.3.6</b> Tamanho do Efeito</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="análise-de-variância.html"><a href="análise-de-variância.html"><i class="fa fa-check"></i><b>13</b> Análise de Variância</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="análise-de-variância.html"><a href="análise-de-variância.html#pacotes-necessários-para-este-capítulo-4"><i class="fa fa-check"></i><b>13.1</b> Pacotes necessários para este capítulo</a></li>
+<li class="chapter" data-level="13.2" data-path="análise-de-variância.html"><a href="análise-de-variância.html#anova-de-um-fator"><i class="fa fa-check"></i><b>13.2</b> ANOVA de um fator</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="análise-de-variância.html"><a href="análise-de-variância.html#por-que-realizar-uma-anova"><i class="fa fa-check"></i><b>13.2.1</b> Por que realizar uma ANOVA?</a></li>
+<li class="chapter" data-level="13.2.2" data-path="análise-de-variância.html"><a href="análise-de-variância.html#lógica-do-modelo-da-anova"><i class="fa fa-check"></i><b>13.2.2</b> Lógica do Modelo da ANOVA</a></li>
+<li class="chapter" data-level="13.2.3" data-path="análise-de-variância.html"><a href="análise-de-variância.html#distribuição-f"><i class="fa fa-check"></i><b>13.2.3</b> Distribuição <em>F</em></a></li>
+<li class="chapter" data-level="13.2.4" data-path="análise-de-variância.html"><a href="análise-de-variância.html#dados-do-exemplo-2"><i class="fa fa-check"></i><b>13.2.4</b> Dados do exemplo</a></li>
+<li class="chapter" data-level="13.2.5" data-path="análise-de-variância.html"><a href="análise-de-variância.html#definição-das-hipóteses-estatísticas-2"><i class="fa fa-check"></i><b>13.2.5</b> Definição das hipóteses estatísticas</a></li>
+<li class="chapter" data-level="13.2.6" data-path="análise-de-variância.html"><a href="análise-de-variância.html#definição-da-regra-de-decisão-1"><i class="fa fa-check"></i><b>13.2.6</b> Definição da regra de decisão</a></li>
+<li class="chapter" data-level="13.2.7" data-path="análise-de-variância.html"><a href="análise-de-variância.html#teste-estatístico-2"><i class="fa fa-check"></i><b>13.2.7</b> Teste Estatístico</a></li>
+<li class="chapter" data-level="13.2.8" data-path="análise-de-variância.html"><a href="análise-de-variância.html#testes-post-hoc"><i class="fa fa-check"></i><b>13.2.8</b> Testes <em>post-hoc</em></a></li>
+<li class="chapter" data-level="13.2.9" data-path="análise-de-variância.html"><a href="análise-de-variância.html#tamanho-do-efeito-2"><i class="fa fa-check"></i><b>13.2.9</b> Tamanho do efeito</a></li>
+<li class="chapter" data-level="13.2.10" data-path="análise-de-variância.html"><a href="análise-de-variância.html#conclusão-2"><i class="fa fa-check"></i><b>13.2.10</b> Conclusão</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="análise-de-variância.html"><a href="análise-de-variância.html#anova-de-dois-fatores"><i class="fa fa-check"></i><b>13.3</b> ANOVA de dois fatores</a>
+<ul>
+<li class="chapter" data-level="13.3.1" data-path="análise-de-variância.html"><a href="análise-de-variância.html#dados-do-exemplo-3"><i class="fa fa-check"></i><b>13.3.1</b> Dados do exemplo</a></li>
+<li class="chapter" data-level="13.3.2" data-path="análise-de-variância.html"><a href="análise-de-variância.html#hipóteses-estatísticas"><i class="fa fa-check"></i><b>13.3.2</b> Hipóteses estatísticas</a></li>
+<li class="chapter" data-level="13.3.3" data-path="análise-de-variância.html"><a href="análise-de-variância.html#pressupostos-do-modelo"><i class="fa fa-check"></i><b>13.3.3</b> Pressupostos do modelo</a></li>
+<li class="chapter" data-level="13.3.4" data-path="análise-de-variância.html"><a href="análise-de-variância.html#verificação-dos-pressupostos-nos-dados-brutos"><i class="fa fa-check"></i><b>13.3.4</b> Verificação dos pressupostos nos dados brutos</a></li>
+<li class="chapter" data-level="13.3.5" data-path="análise-de-variância.html"><a href="análise-de-variância.html#verificação-dos-pressupostos-nos-resíduos"><i class="fa fa-check"></i><b>13.3.5</b> Verificação dos pressupostos nos resíduos</a></li>
+<li class="chapter" data-level="13.3.6" data-path="análise-de-variância.html"><a href="análise-de-variância.html#realização-do-teste-de-anova-de-dois-fatores"><i class="fa fa-check"></i><b>13.3.6</b> Realização do teste de ANOVA de dois fatores</a></li>
+<li class="chapter" data-level="13.3.7" data-path="análise-de-variância.html"><a href="análise-de-variância.html#testes-post-hoc-1"><i class="fa fa-check"></i><b>13.3.7</b> Testes post-hoc</a></li>
+<li class="chapter" data-level="13.3.8" data-path="análise-de-variância.html"><a href="análise-de-variância.html#relatando-os-resultados-de-uma-anova-de-dois-fatores"><i class="fa fa-check"></i><b>13.3.8</b> Relatando os resultados de uma ANOVA de dois fatores</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html"><i class="fa fa-check"></i><b>14</b> ANOVA de medidas repetidas</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html#anova-de-medidas-repetidas-de-um-fator"><i class="fa fa-check"></i><b>14.1</b> ANOVA de medidas repetidas de um fator</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html#pacotes-necessários"><i class="fa fa-check"></i><b>14.1.1</b> Pacotes necessários</a></li>
+<li class="chapter" data-level="14.1.2" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html#preparação-dos-dados"><i class="fa fa-check"></i><b>14.1.2</b> Preparação dos dados</a></li>
+<li class="chapter" data-level="14.1.3" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html#sumarização-dos-dados"><i class="fa fa-check"></i><b>14.1.3</b> Sumarização dos dados</a></li>
+<li class="chapter" data-level="14.1.4" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html#visualização-dos-dados-1"><i class="fa fa-check"></i><b>14.1.4</b> Visualização dos dados</a></li>
+<li class="chapter" data-level="14.1.5" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html#avaliação-dos-pressupostos"><i class="fa fa-check"></i><b>14.1.5</b> Avaliação dos pressupostos</a></li>
+<li class="chapter" data-level="14.1.6" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html#cálculo-anova-de-medidas-repetidas"><i class="fa fa-check"></i><b>14.1.6</b> Cálculo ANOVA de medidas repetidas</a></li>
+<li class="chapter" data-level="14.1.7" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html#testes-post-hoc-2"><i class="fa fa-check"></i><b>14.1.7</b> Testes post hoc</a></li>
+<li class="chapter" data-level="14.1.8" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html#relatando-os-resultados-da-anova-de-medidas-repetidas-unifatorial"><i class="fa fa-check"></i><b>14.1.8</b> Relatando os resultados da ANOVA de medidas repetidas unifatorial</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html#anova-de-medidas-repetidas-de-dois-fatores"><i class="fa fa-check"></i><b>14.2</b> ANOVA de medidas repetidas de dois fatores</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html#preparação-dos-dados-1"><i class="fa fa-check"></i><b>14.2.1</b> Preparação dos dados</a></li>
+<li class="chapter" data-level="14.2.2" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html#leitura-dos-dados-3"><i class="fa fa-check"></i><b>14.2.2</b> Leitura dos dados</a></li>
+<li class="chapter" data-level="14.2.3" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html#transformação-dos-dados"><i class="fa fa-check"></i><b>14.2.3</b> Transformação dos dados</a></li>
+<li class="chapter" data-level="14.2.4" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html#sumarização-dos-dados-1"><i class="fa fa-check"></i><b>14.2.4</b> Sumarização dos dados</a></li>
+<li class="chapter" data-level="14.2.5" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html#visualização-dos-dados-2"><i class="fa fa-check"></i><b>14.2.5</b> Visualização dos dados</a></li>
+<li class="chapter" data-level="14.2.6" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html#avaliação-dos-pressupostos-1"><i class="fa fa-check"></i><b>14.2.6</b> Avaliação dos pressupostos</a></li>
+<li class="chapter" data-level="14.2.7" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html#cálculo-da-anova-de-medidas-de-repetidas"><i class="fa fa-check"></i><b>14.2.7</b> Cálculo da ANOVA de medidas de repetidas</a></li>
+<li class="chapter" data-level="14.2.8" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html#teste-post-hoc"><i class="fa fa-check"></i><b>14.2.8</b> Teste post hoc</a></li>
+<li class="chapter" data-level="14.2.9" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html#relatando-os-resultados-da-anova-de-medidas-repetidas-de-dois-fatores"><i class="fa fa-check"></i><b>14.2.9</b> Relatando os resultados da ANOVA de medidas repetidas de dois fatores</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referências.html"><a href="referências.html"><i class="fa fa-check"></i>Referências</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introdução à Bioestatística usando o R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="anova-de-medidas-repetidas" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">Capítulo 14</span> ANOVA de medidas repetidas<a href="anova-de-medidas-repetidas.html#anova-de-medidas-repetidas" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="anova-de-medidas-repetidas-de-um-fator" class="section level2 hasAnchor" number="14.1">
+<h2><span class="header-section-number">14.1</span> ANOVA de medidas repetidas de um fator<a href="anova-de-medidas-repetidas.html#anova-de-medidas-repetidas-de-um-fator" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="pacotes-necessários" class="section level3 hasAnchor" number="14.1.1">
+<h3><span class="header-section-number">14.1.1</span> Pacotes necessários<a href="anova-de-medidas-repetidas.html#pacotes-necessários" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Instalar e carregar os seguintes pacotes:</p>
+<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb787-1"><a href="anova-de-medidas-repetidas.html#cb787-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr, </span>
+<span id="cb787-2"><a href="anova-de-medidas-repetidas.html#cb787-2" aria-hidden="true" tabindex="-1"></a>               ggplot2, </span>
+<span id="cb787-3"><a href="anova-de-medidas-repetidas.html#cb787-3" aria-hidden="true" tabindex="-1"></a>               ggpubr, </span>
+<span id="cb787-4"><a href="anova-de-medidas-repetidas.html#cb787-4" aria-hidden="true" tabindex="-1"></a>               ggsci,</span>
+<span id="cb787-5"><a href="anova-de-medidas-repetidas.html#cb787-5" aria-hidden="true" tabindex="-1"></a>               readxl, </span>
+<span id="cb787-6"><a href="anova-de-medidas-repetidas.html#cb787-6" aria-hidden="true" tabindex="-1"></a>               rstatix, </span>
+<span id="cb787-7"><a href="anova-de-medidas-repetidas.html#cb787-7" aria-hidden="true" tabindex="-1"></a>               tidyr)</span></code></pre></div>
+</div>
+<div id="preparação-dos-dados" class="section level3 hasAnchor" number="14.1.2">
+<h3><span class="header-section-number">14.1.2</span> Preparação dos dados<a href="anova-de-medidas-repetidas.html#preparação-dos-dados" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>O conjunto de dados exemplo contém a pontuação de autoestima de 10 indivíduos em três pontos de tempo durante uma dieta específica para determinar se sua autoestima melhorou. A autoestima foi determinada por uma escala <span class="citation">(123)</span>, <span class="citation">(124)</span>, cujos resultados variam de 0 a 30 pontos. Valores entre 15 e 25 caracterizam uma autoestima muito boa; abaixo de 15 é considerada baixa autoestima.</p>
+<p>Os dados podem ser obtidos <a href="https://github.com/petronioliveira/Arquivos/blob/main/dadosAutoestima.xlsx"><strong>aqui</strong></a>. Baixe no seu diretório de trabalho e carregue com a função <code>read_excel()</code> do pacote <code>readxl</code>:</p>
+<div class="sourceCode" id="cb788"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb788-1"><a href="anova-de-medidas-repetidas.html#cb788-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosAutoestima.xlsx&quot;</span>)</span>
+<span id="cb788-2"><a href="anova-de-medidas-repetidas.html#cb788-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dados)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 4
+##      id    t1    t2    t3
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1 12.0   15.5  21.3
+## 2     2  7.67  20.7  18.9
+## 3     3  9.73  13.3  29.3
+## 4     4 10.3   14.1  25.0
+## 5     5  8.61  11.7  19.4
+## 6     6  6.14  16.0  20.0</code></pre>
+<p>Os dados se encontram no formato amplo e para realizar a ANOVA de medidas repetidas, o <em>R</em> necessita que os dados estejam no formato longo. Para fazer esta transformação será usada a função <code>gather()</code> do pacote <code>tidyr</code> <span class="citation">(61)</span>. Nesta função, no argumento <code>data</code>, coloca-se o nome do conjunto de dados; em <code>key</code>, há necessidade de nomear a coluna a ser criada que receberá as colunas do formato amplo que serão reunidas. No argumento <code>value</code>, nomear a coluna que receberá os valores e em <code>values_to</code>, especificar o nome da variável no formato longo que conterá os valores. A variável <code>id</code> e a nova variável <code>tempo</code> devem ser convertida para fatores:</p>
+<div class="sourceCode" id="cb790"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb790-1"><a href="anova-de-medidas-repetidas.html#cb790-1" aria-hidden="true" tabindex="-1"></a>dadosL <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb790-2"><a href="anova-de-medidas-repetidas.html#cb790-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="at">key =</span> <span class="st">&quot;tempo&quot;</span>, <span class="at">value =</span> <span class="st">&quot;escore&quot;</span>, t1, t2, t3) <span class="sc">%&gt;%</span></span>
+<span id="cb790-3"><a href="anova-de-medidas-repetidas.html#cb790-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">convert_as_factor</span>(id, tempo)</span>
+<span id="cb790-4"><a href="anova-de-medidas-repetidas.html#cb790-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dadosL)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##   id    tempo escore
+##   &lt;fct&gt; &lt;fct&gt;  &lt;dbl&gt;
+## 1 1     t1     12.0 
+## 2 2     t1      7.67
+## 3 3     t1      9.73
+## 4 4     t1     10.3 
+## 5 5     t1      8.61
+## 6 6     t1      6.14</code></pre>
+</div>
+<div id="sumarização-dos-dados" class="section level3 hasAnchor" number="14.1.3">
+<h3><span class="header-section-number">14.1.3</span> Sumarização dos dados<a href="anova-de-medidas-repetidas.html#sumarização-dos-dados" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Calcular algumas estatísticas resumidas dos escores de autoestima por grupos (<code>tempo</code>): média e desvio padrão, usando a funções <code>group_by()</code> e <code>get_summary_stats()</code> do <code>rstatix</code>:</p>
+<div class="sourceCode" id="cb792"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb792-1"><a href="anova-de-medidas-repetidas.html#cb792-1" aria-hidden="true" tabindex="-1"></a>dadosL <span class="sc">%&gt;%</span></span>
+<span id="cb792-2"><a href="anova-de-medidas-repetidas.html#cb792-2" aria-hidden="true" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">group_by</span>(tempo) <span class="sc">%&gt;%</span> </span>
+<span id="cb792-3"><a href="anova-de-medidas-repetidas.html#cb792-3" aria-hidden="true" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">get_summary_stats</span>(escore, <span class="at">type =</span> <span class="st">&quot;mean_sd&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 5
+##   tempo variable     n  mean    sd
+##   &lt;fct&gt; &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 t1    escore      10  9.42  1.66
+## 2 t2    escore      10 14.8   2.59
+## 3 t3    escore      10 22.9   3.43</code></pre>
+</div>
+<div id="visualização-dos-dados-1" class="section level3 hasAnchor" number="14.1.4">
+<h3><span class="header-section-number">14.1.4</span> Visualização dos dados<a href="anova-de-medidas-repetidas.html#visualização-dos-dados-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A visualização pode ser obtida com um conjunto de boxplots (Figura <a href="anova-de-medidas-repetidas.html#fig:bxpauto">14.1</a>) com ou um gráfico de linha, acrescido de barras de erro. Estes gráficos permitem visualizar a variação dos escores com o tempo.</p>
+<div class="sourceCode" id="cb794"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb794-1"><a href="anova-de-medidas-repetidas.html#cb794-1" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span> (dadosL,</span>
+<span id="cb794-2"><a href="anova-de-medidas-repetidas.html#cb794-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bxp.errorbar =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb794-3"><a href="anova-de-medidas-repetidas.html#cb794-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bxp.errorbar.width =</span> <span class="fl">0.1</span>, </span>
+<span id="cb794-4"><a href="anova-de-medidas-repetidas.html#cb794-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">x =</span> <span class="st">&quot;tempo&quot;</span>, </span>
+<span id="cb794-5"><a href="anova-de-medidas-repetidas.html#cb794-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y =</span> <span class="st">&quot;escore&quot;</span>, </span>
+<span id="cb794-6"><a href="anova-de-medidas-repetidas.html#cb794-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb794-7"><a href="anova-de-medidas-repetidas.html#cb794-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">&quot;tempo&quot;</span>,</span>
+<span id="cb794-8"><a href="anova-de-medidas-repetidas.html#cb794-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ylab =</span> <span class="st">&quot;Escore de Autoestima&quot;</span>,</span>
+<span id="cb794-9"><a href="anova-de-medidas-repetidas.html#cb794-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">xlab =</span> <span class="st">&quot;Tempo&quot;</span>,</span>
+<span id="cb794-10"><a href="anova-de-medidas-repetidas.html#cb794-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">legend =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb794-11"><a href="anova-de-medidas-repetidas.html#cb794-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>(<span class="at">start=</span><span class="fl">0.95</span>, <span class="at">end=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb794-12"><a href="anova-de-medidas-repetidas.html#cb794-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:bxpauto"></span>
+<img src="bookdownproj_files/figure-html/bxpauto-1.png" alt="Impacto de uma dieta específica na autoestima." width="70%" height="70%" />
+<p class="caption">
+Figure 14.1: Impacto de uma dieta específica na autoestima.
+</p>
+</div>
+<p>O gráfico de linha (Figura <a href="anova-de-medidas-repetidas.html#fig:lineauto">14.2</a>) mostra bem o comportamento dos escores com o tempo:</p>
+<div class="sourceCode" id="cb795"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb795-1"><a href="anova-de-medidas-repetidas.html#cb795-1" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggline</span>(dadosL, </span>
+<span id="cb795-2"><a href="anova-de-medidas-repetidas.html#cb795-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">x =</span> <span class="st">&quot;tempo&quot;</span>,</span>
+<span id="cb795-3"><a href="anova-de-medidas-repetidas.html#cb795-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> <span class="st">&quot;escore&quot;</span>,</span>
+<span id="cb795-4"><a href="anova-de-medidas-repetidas.html#cb795-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">&quot;darkblue&quot;</span>,</span>
+<span id="cb795-5"><a href="anova-de-medidas-repetidas.html#cb795-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">size =</span> <span class="fl">0.7</span>,</span>
+<span id="cb795-6"><a href="anova-de-medidas-repetidas.html#cb795-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>,</span>
+<span id="cb795-7"><a href="anova-de-medidas-repetidas.html#cb795-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">add =</span> <span class="fu">c</span>(<span class="st">&quot;mean_ci&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb795-8"><a href="anova-de-medidas-repetidas.html#cb795-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Escore de Autoestima&quot;</span>) <span class="sc">+</span></span>
+<span id="cb795-9"><a href="anova-de-medidas-repetidas.html#cb795-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Tempo&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:lineauto"></span>
+<img src="bookdownproj_files/figure-html/lineauto-1.png" alt="Impacto de uma dieta específica na autoestima." width="80%" height="80%" />
+<p class="caption">
+Figure 14.2: Impacto de uma dieta específica na autoestima.
+</p>
+</div>
+</div>
+<div id="avaliação-dos-pressupostos" class="section level3 hasAnchor" number="14.1.5">
+<h3><span class="header-section-number">14.1.5</span> Avaliação dos pressupostos<a href="anova-de-medidas-repetidas.html#avaliação-dos-pressupostos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A ANOVA de medidas repetidas faz as seguintes suposições sobre os dados:</p>
+<ol style="list-style-type: decimal">
+<li>A amostra foi selecionada aleatoriamente da população;</li>
+<li>A variável dependente é normalmente distribuída na população para cada nível do fator dentro dos sujeitos;</li>
+<li>Não deve e existir outliers extremos;</li>
+<li>Existência de esfericidade</li>
+</ol>
+<div id="identificação-de-valores-atípicos" class="section level4 hasAnchor" number="14.1.5.1">
+<h4><span class="header-section-number">14.1.5.1</span> Identificação de valores atípicos<a href="anova-de-medidas-repetidas.html#identificação-de-valores-atípicos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Não deve haver valores atípicos em nenhuma célula do delineamento Isso pode ser verificado visualizando os dados nos boxplots, mostrados anteriormente, onde se observa a presença de dois <em>outliers</em>, um no t1 e outro em t2. Além disso, pode-se verificar a presença de valores atípicos, usando a função <code>identify_outliers()</code> do pacote <code>rstatix</code>.</p>
+<div class="sourceCode" id="cb796"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb796-1"><a href="anova-de-medidas-repetidas.html#cb796-1" aria-hidden="true" tabindex="-1"></a>dadosL <span class="sc">%&gt;%</span></span>
+<span id="cb796-2"><a href="anova-de-medidas-repetidas.html#cb796-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(tempo) <span class="sc">%&gt;%</span></span>
+<span id="cb796-3"><a href="anova-de-medidas-repetidas.html#cb796-3" aria-hidden="true" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">identify_outliers</span>(escore)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 5
+##   tempo id    escore is.outlier is.extreme
+##   &lt;fct&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;lgl&gt;      &lt;lgl&gt;     
+## 1 t1    6       6.14 TRUE       FALSE     
+## 2 t2    2      20.7  TRUE       FALSE</code></pre>
+<p>A saída confirma a presença de dois valores atípicos, em t1 e em t2. Entretanto, eles não são extremos, não estão afastados acima de 3 intervalos interquatis e , provavelmente, não trarão problemas, apesar da amostra ser pequena.</p>
+</div>
+<div id="avaliação-da-normalidade" class="section level4 hasAnchor" number="14.1.5.2">
+<h4><span class="header-section-number">14.1.5.2</span> Avaliação da normalidade<a href="anova-de-medidas-repetidas.html#avaliação-da-normalidade" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Para testar a hipótese de normalidade dos dados, será utilizado o <code>teste de Shapiro-Wilk</code> através da função <code>shapiro_test ()</code>, do pacote <code>rstatix</code> e a função <code>group_by ()</code>, incluída no pacote <code>dplyr</code> ou <code>rstatix</code>, junto com o operador <code>pipe</code> (%&gt;%):</p>
+<div class="sourceCode" id="cb798"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb798-1"><a href="anova-de-medidas-repetidas.html#cb798-1" aria-hidden="true" tabindex="-1"></a>dadosL <span class="sc">%&gt;%</span> </span>
+<span id="cb798-2"><a href="anova-de-medidas-repetidas.html#cb798-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span> (tempo) <span class="sc">%&gt;%</span> </span>
+<span id="cb798-3"><a href="anova-de-medidas-repetidas.html#cb798-3" aria-hidden="true" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">shapiro_test</span>(escore)</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 4
+##   tempo variable statistic     p
+##   &lt;fct&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;
+## 1 t1    escore       0.967 0.859
+## 2 t2    escore       0.876 0.117
+## 3 t3    escore       0.923 0.380</code></pre>
+<p>Os resultados da saída mostram que os escores de autoestima estão normalmente distribuídos em cada momento.</p>
+<p>É possível construir um gráfico QQ (Figura <a href="anova-de-medidas-repetidas.html#fig:qqauto">14.3</a>) para cada um dos momentos, usando a função <code>ggqqplot ()</code> do pacote <code>ggpubr</code>, consulte a vinheta do pacote para maiores detalhes. Foi utilizado também o argumento <code>faced.by</code>, que divide em painéis, organizando-os como uma grade, de acordo com o momento ( t1, t2 e t3).</p>
+<div class="sourceCode" id="cb800"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb800-1"><a href="anova-de-medidas-repetidas.html#cb800-1" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggqqplot</span>(dadosL, </span>
+<span id="cb800-2"><a href="anova-de-medidas-repetidas.html#cb800-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">x =</span> <span class="st">&quot;escore&quot;</span>,</span>
+<span id="cb800-3"><a href="anova-de-medidas-repetidas.html#cb800-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">facet.by =</span> <span class="st">&quot;tempo&quot;</span>,</span>
+<span id="cb800-4"><a href="anova-de-medidas-repetidas.html#cb800-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;tempo&quot;</span>, </span>
+<span id="cb800-5"><a href="anova-de-medidas-repetidas.html#cb800-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">palette =</span> <span class="fu">get_palette</span>(<span class="st">&quot;Dark2&quot;</span>, <span class="dv">3</span>),</span>
+<span id="cb800-6"><a href="anova-de-medidas-repetidas.html#cb800-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">legend =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:qqauto"></span>
+<img src="bookdownproj_files/figure-html/qqauto-1.png" alt="Gráfico QQ para verificar a normalidade" width="70%" height="70%" />
+<p class="caption">
+Figure 14.3: Gráfico QQ para verificar a normalidade
+</p>
+</div>
+<p>Observando o gráfico, como quase todos os pontos caem aproximadamente ao longo da linha de referência, pode-se assumir a normalidade dos escores em todos os momento</p>
+</div>
+<div id="esfericidade" class="section level4 hasAnchor" number="14.1.5.3">
+<h4><span class="header-section-number">14.1.5.3</span> Esfericidade<a href="anova-de-medidas-repetidas.html#esfericidade" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>A violação da suposição de esfericidade pode distorcer os cálculos de variância resultantes de um teste ANOVA de medidas repetidas mais liberal (ou seja, um aumento na taxa de erro Tipo I). Nesse caso, a ANOVA de medidas repetidas deve ser corrigida apropriadamente dependendo do grau em que a esfericidade foi violada. Na relação entre os escores, há necessidade de pressupor que exista esfericidade (<span class="math inline">\(\epsilon\)</span> - épsilon), também chamada de circularidade, grosseiramente semelhante à homocedasticidade da ANOVA de uma via. A ANOVA de medidas repetidas pressupõe que as variâncias das diferenças entre todas as combinações de condições relacionadas (ou níveis de grupo) são iguais. A melhor maneira de verificá-la é calcular as diferenças entre os pares de escores em todas as combinações dos níveis de tratamento.</p>
+<p>O <em>teste de esfericidade de Mauchly</em> é usado para avaliar se a suposição de esfericidade é atendida ou não. Isso é relatado automaticamente ao usar a função <code>anova_test ()</code> do pacote <code>rstatix</code>. Se o teste resulta em um valor <em>P</em> menor do que 0,05, pode-se concluir de que há uma diferença significativa entre as variâncias das diferenças.</p>
+<p>O principal problema da violação da condição de esfericidade é a ocorrência de testes <em>F</em> não exatos e liberais, com consequente perda do poder do teste. Existem várias correções que podem ser aplicadas para produzir uma razão <em>F</em> válida, através do ajuste dos graus de liberdade.</p>
+<p>As correções mais frequentemente preconizadas são o <span class="math inline">\(\epsilon\)</span> de <em>Greenhouse-Geisser (GGe)</em> e o <span class="math inline">\(\epsilon\)</span> de <em>Huynh-Feldt (HFe)</em>. Huynh e Feldt <span class="citation">(125)</span> relataram que quando a correção <span class="math inline">\(\epsilon\)</span> de Greenhouse-Geisser é &gt; 0,75 muitas hipóteses nulas falsas deixam de ser rejeitadas, isto é, o teste é muito conservador, propondo outra correção dos graus de liberdade. É recomendado o uso da correção de Greenhouse-Geisser para o ajuste dos graus de liberdade quando <span class="math inline">\(\epsilon\)</span> &lt; 0,75 ou nada se sabe a respeito da esfericidade <span class="citation">(126)</span>. Avaliando o poder destes testes, Muller <span class="citation">(127)</span> verificou que a correção de Greenhouse-Geisser fornece um controle adicional do erro Tipo I, enquanto o poder é maximizado.</p>
+<p>A verificação da esfericidade é realizada junto com a realização do modelo de ANOVA, realizada com a função <code>anova_test()</code> do <code>rstatix.</code></p>
+</div>
+</div>
+<div id="cálculo-anova-de-medidas-repetidas" class="section level3 hasAnchor" number="14.1.6">
+<h3><span class="header-section-number">14.1.6</span> Cálculo ANOVA de medidas repetidas<a href="anova-de-medidas-repetidas.html#cálculo-anova-de-medidas-repetidas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Usa-se a função <code>anova_test()</code>, do pacote <code>rstatix</code>, para o cálculo da ANOVA de medidas repetidas, criando um modelo que será atribuído ao objeto <code>mod.anova</code>:</p>
+<div class="sourceCode" id="cb801"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb801-1"><a href="anova-de-medidas-repetidas.html#cb801-1" aria-hidden="true" tabindex="-1"></a>mod.anova <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">anova_test</span>(<span class="at">data =</span> dadosL, </span>
+<span id="cb801-2"><a href="anova-de-medidas-repetidas.html#cb801-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">dv =</span> escore, </span>
+<span id="cb801-3"><a href="anova-de-medidas-repetidas.html#cb801-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">wid =</span> id, </span>
+<span id="cb801-4"><a href="anova-de-medidas-repetidas.html#cb801-4" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">within =</span> tempo)</span>
+<span id="cb801-5"><a href="anova-de-medidas-repetidas.html#cb801-5" aria-hidden="true" tabindex="-1"></a>mod.anova</span></code></pre></div>
+<pre><code>## ANOVA Table (type III tests)
+## 
+## $ANOVA
+##   Effect DFn DFd      F        p p&lt;.05   ges
+## 1  tempo   2  18 55.463 2.02e-08     * 0.829
+## 
+## $`Mauchly&#39;s Test for Sphericity`
+##   Effect     W     p p&lt;.05
+## 1  tempo 0.551 0.092      
+## 
+## $`Sphericity Corrections`
+##   Effect  GGe      DF[GG]    p[GG] p[GG]&lt;.05   HFe      DF[HF]    p[HF]
+## 1  tempo 0.69 1.38, 12.42 2.16e-06         * 0.774 1.55, 13.94 6.04e-07
+##   p[HF]&lt;.05
+## 1         *</code></pre>
+<p>Em primeiro lugar, observar o Teste de Mauchly para a esfericidade. Verifica-se que efeito do tempo tem um valor <em>P</em> = 0,092, ou seja, &gt; 0,05 e, portanto, não houve violação da esfericidade e não há necessidade de observar as correções do <span class="math inline">\(\epsilon\)</span> de Greenhouse-Geisser (GGe) ou o <span class="math inline">\(\epsilon\)</span> de Huynh-Feldt (HFe).</p>
+<p>Desta forma, pode-se dizer que houve uma modificação significativa no escore de de autoestima, à medida que o tempo passou (F (2,18) = 55,5, <em>P</em> &lt; 0.0001, <span class="math inline">\(\eta^2 = 0,83\)</span>).</p>
+<p>Usando a função <code>get_anova_table()</code> do pacote <code>rstatix</code> para extrair a tabela ANOVA, a correção de esfericidade Greenhouse-Geisser é aplicada automaticamente aos fatores que violam a suposição de esfericidade.</p>
+<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb803-1"><a href="anova-de-medidas-repetidas.html#cb803-1" aria-hidden="true" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">get_anova_table</span>(mod.anova)</span></code></pre></div>
+<pre><code>## ANOVA Table (type III tests)
+## 
+##   Effect DFn DFd      F        p p&lt;.05   ges
+## 1  tempo   2  18 55.463 2.02e-08     * 0.829</code></pre>
+<p>Onde,</p>
+<ul>
+<li><strong>F</strong> Indica que se está comparando com uma distribuição <em>F</em> (teste <em>F</em>); (2, 18) indica os graus de liberdade no numerador (DFn) e no denominador (DFd), respectivamente; 55,5 indica o valor da estatística <em>F</em> obtido.</li>
+<li><strong>p</strong> especifica o valor <em>P</em>.</li>
+<li><strong>ges</strong> é o tamanho do efeito generalizado (quantidade de variabilidade devido ao fator dentro dos assuntos), <span class="math inline">\(\eta^2\)</span>.</li>
+</ul>
+</div>
+<div id="testes-post-hoc-2" class="section level3 hasAnchor" number="14.1.7">
+<h3><span class="header-section-number">14.1.7</span> Testes post hoc<a href="anova-de-medidas-repetidas.html#testes-post-hoc-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>É possível fazer comparações por pares. realizando vários testes <em>t</em> pareados entre os níveis do dentro do fator (tempo), usando a função <code>pairwise_t_test()</code>, incluída no <em>R</em> base. Os valores <em>P</em> são ajustados usando o método de correção de testes múltiplos de Bonferroni.</p>
+<div class="sourceCode" id="cb805"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb805-1"><a href="anova-de-medidas-repetidas.html#cb805-1" aria-hidden="true" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> dadosL <span class="sc">%&gt;%</span></span>
+<span id="cb805-2"><a href="anova-de-medidas-repetidas.html#cb805-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairwise_t_test</span>(</span>
+<span id="cb805-3"><a href="anova-de-medidas-repetidas.html#cb805-3" aria-hidden="true" tabindex="-1"></a>    escore <span class="sc">~</span> tempo, <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb805-4"><a href="anova-de-medidas-repetidas.html#cb805-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span></span>
+<span id="cb805-5"><a href="anova-de-medidas-repetidas.html#cb805-5" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb805-6"><a href="anova-de-medidas-repetidas.html#cb805-6" aria-hidden="true" tabindex="-1"></a>pwc</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 10
+##   .y.    group1 group2    n1    n2 statistic    df           p    p.adj p.adj.…¹
+## * &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;   
+## 1 escore t1     t2        10    10     -4.97     9 0.000773    0.002    **      
+## 2 escore t1     t3        10    10    -13.2      9 0.000000334 0.000001 ****    
+## 3 escore t2     t3        10    10     -4.87     9 0.000887    0.003    **      
+## # … with abbreviated variable name ¹​p.adj.signif</code></pre>
+<p>Todas as diferenças pareadas são estatisticamente significativas.</p>
+</div>
+<div id="relatando-os-resultados-da-anova-de-medidas-repetidas-unifatorial" class="section level3 hasAnchor" number="14.1.8">
+<h3><span class="header-section-number">14.1.8</span> Relatando os resultados da ANOVA de medidas repetidas unifatorial<a href="anova-de-medidas-repetidas.html#relatando-os-resultados-da-anova-de-medidas-repetidas-unifatorial" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Pode-se relatar de forma simples:</p>
+<ol style="list-style-type: decimal">
+<li><p>O escore de autoestima se modificou de forma significativa de acordo com a passagem do tempo, F(2, 18) = 55,5, p &lt; 0,0001, eta quadrado generalizado = 0,82.</p></li>
+<li><p>Análises post hoc, com um ajuste de Bonferroni, revelaram que todas as diferenças pareadas, entre os pontos de tempo, foram estatisticamente diferentes (<em>P</em> &lt; 0,05).</p></li>
+</ol>
+<p>Uma opção de apresentação gráfica, é o gráfico de linhas (Figura <a href="anova-de-medidas-repetidas.html#fig:lineauto1">14.4</a>), usando a função <code>ggline()</code> do pacote <code>ggpubr</code>, junto com os teste estatísticos:</p>
+<div class="sourceCode" id="cb807"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb807-1"><a href="anova-de-medidas-repetidas.html#cb807-1" aria-hidden="true" tabindex="-1"></a>gl <span class="ot">&lt;-</span> ggpubr<span class="sc">::</span><span class="fu">ggline</span>(dadosL,</span>
+<span id="cb807-2"><a href="anova-de-medidas-repetidas.html#cb807-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">x =</span> <span class="st">&quot;tempo&quot;</span>,</span>
+<span id="cb807-3"><a href="anova-de-medidas-repetidas.html#cb807-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> <span class="st">&quot;escore&quot;</span>,</span>
+<span id="cb807-4"><a href="anova-de-medidas-repetidas.html#cb807-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">color =</span> <span class="st">&quot;darkblue&quot;</span>,</span>
+<span id="cb807-5"><a href="anova-de-medidas-repetidas.html#cb807-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">size =</span> <span class="fl">0.7</span>,</span>
+<span id="cb807-6"><a href="anova-de-medidas-repetidas.html#cb807-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>,</span>
+<span id="cb807-7"><a href="anova-de-medidas-repetidas.html#cb807-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">add =</span> <span class="fu">c</span>(<span class="st">&quot;mean_ci&quot;</span>))</span>
+<span id="cb807-8"><a href="anova-de-medidas-repetidas.html#cb807-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb807-9"><a href="anova-de-medidas-repetidas.html#cb807-9" aria-hidden="true" tabindex="-1"></a>gl <span class="sc">+</span> ggpubr<span class="sc">::</span><span class="fu">stat_pvalue_manual</span>(pwc,  </span>
+<span id="cb807-10"><a href="anova-de-medidas-repetidas.html#cb807-10" aria-hidden="true" tabindex="-1"></a>                                <span class="at">label =</span> <span class="st">&quot;p.adj&quot;</span>, </span>
+<span id="cb807-11"><a href="anova-de-medidas-repetidas.html#cb807-11" aria-hidden="true" tabindex="-1"></a>                                <span class="at">tip.length =</span> <span class="fl">0.00</span>,</span>
+<span id="cb807-12"><a href="anova-de-medidas-repetidas.html#cb807-12" aria-hidden="true" tabindex="-1"></a>                                <span class="at">y.position =</span> <span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">29</span>, <span class="dv">26</span>)) <span class="sc">+</span></span>
+<span id="cb807-13"><a href="anova-de-medidas-repetidas.html#cb807-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">x =</span> <span class="st">&quot;Tempo&quot;</span>,</span>
+<span id="cb807-14"><a href="anova-de-medidas-repetidas.html#cb807-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&quot;Escore de autoestima&quot;</span>,</span>
+<span id="cb807-15"><a href="anova-de-medidas-repetidas.html#cb807-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="fu">get_test_label</span> (mod.anova, <span class="at">detailed =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb807-16"><a href="anova-de-medidas-repetidas.html#cb807-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="fu">get_pwc_label</span>(pwc))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:lineauto1"></span>
+<img src="bookdownproj_files/figure-html/lineauto1-1.png" alt="Impacto de uma dieta específica na autoestima." width="80%" height="80%" />
+<p class="caption">
+Figure 14.4: Impacto de uma dieta específica na autoestima.
+</p>
+</div>
+</div>
+</div>
+<div id="anova-de-medidas-repetidas-de-dois-fatores" class="section level2 hasAnchor" number="14.2">
+<h2><span class="header-section-number">14.2</span> ANOVA de medidas repetidas de dois fatores<a href="anova-de-medidas-repetidas.html#anova-de-medidas-repetidas-de-dois-fatores" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="preparação-dos-dados-1" class="section level3 hasAnchor" number="14.2.1">
+<h3><span class="header-section-number">14.2.1</span> Preparação dos dados<a href="anova-de-medidas-repetidas.html#preparação-dos-dados-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>O conjunto de dados de <code>dadosAutoestima2.xlsx</code> contém as medidas dos escores de autoestima de 12 indivíduos inscritos em 2 ensaios clínicos sucessivos de curto prazo (4 semanas): placebo e dieta especial.</p>
+<p>Os dados podem ser obtidos <a href="https://github.com/petronioliveira/Arquivos/blob/main/dadosAutoestima2.xlsx"><strong>aqui</strong></a>. Baixe no seu diretório de trabalho.</p>
+<p>Cada participante participou dos dois ensaios. A ordem das tentativas foi
+equilibrada e foi permitido tempo suficiente entre os ensaios para permitir que quaisquer efeitos dos ensaios anteriores se dissipassem (<em>washout</em>).</p>
+<p>O escore de autoestima foi registrado em três momentos: no início (t1), no meio
+(t2) e no final (t3) dos ensaios.</p>
+<p>A questão é investigar se esse tratamento dietético de curto prazo pode induzir
+um aumento significativo do escore de autoestima ao longo do tempo. Em outras
+palavras, se quer saber se há interação significativa entre dieta e tempo no escore de autoestima.</p>
+<p>A ANOVA de medidas repetidas bidirecional pode ser realizada para determinar
+se existe uma interação significativa entre dieta e tempo no escore de autoestima.</p>
+</div>
+<div id="leitura-dos-dados-3" class="section level3 hasAnchor" number="14.2.2">
+<h3><span class="header-section-number">14.2.2</span> Leitura dos dados<a href="anova-de-medidas-repetidas.html#leitura-dos-dados-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A leitura dos dados será feita com a função <code>read_excel()</code> do pacote <code>readxl</code>:</p>
+<div class="sourceCode" id="cb808"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb808-1"><a href="anova-de-medidas-repetidas.html#cb808-1" aria-hidden="true" tabindex="-1"></a>autoestima <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosAutoestima2.xlsx&quot;</span>)</span>
+<span id="cb808-2"><a href="anova-de-medidas-repetidas.html#cb808-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(autoestima)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 5
+##      id tratamento    t1    t2    t3
+##   &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1 dieta       25.2  25.8  26.4
+## 2     2 dieta       30    29.7  29.1
+## 3     3 dieta       27.3  27.3  27.6
+## 4     4 dieta       27.3  27.6  28.5
+## 5     5 dieta       22.2  22.8  21.6
+## 6     6 dieta       22.8  22.5  22.8</code></pre>
+<p>Após, será exibida uma linha aleatória por grupo de tratamento, usando a função <code>sample_n_by()</code>, do pacote <code>rstatix</code>:</p>
+<div class="sourceCode" id="cb810"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb810-1"><a href="anova-de-medidas-repetidas.html#cb810-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb810-2"><a href="anova-de-medidas-repetidas.html#cb810-2" aria-hidden="true" tabindex="-1"></a>autoestima <span class="sc">%&gt;%</span> <span class="fu">sample_n_by</span>(tratamento, <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 5
+##      id tratamento    t1    t2    t3
+##   &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     3 dieta       27.3  27.3  27.6
+## 2     3 placebo     27.9  27.6  26.7</code></pre>
+</div>
+<div id="transformação-dos-dados" class="section level3 hasAnchor" number="14.2.3">
+<h3><span class="header-section-number">14.2.3</span> Transformação dos dados<a href="anova-de-medidas-repetidas.html#transformação-dos-dados" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Os dados autoestima estão no formato amplo e as colunas t1, t2 e t3 devem ser reunidas, em uma única variável denominada <code>tempo</code>, transformando o formato amplo em longo. A seguir, converter em fator esta nova variável <code>tempo</code> e a variável identificadora <code>id</code>:</p>
+<div class="sourceCode" id="cb812"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb812-1"><a href="anova-de-medidas-repetidas.html#cb812-1" aria-hidden="true" tabindex="-1"></a>autoestimaL <span class="ot">&lt;-</span> autoestima <span class="sc">%&gt;%</span></span>
+<span id="cb812-2"><a href="anova-de-medidas-repetidas.html#cb812-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="at">key =</span> <span class="st">&quot;tempo&quot;</span>, <span class="at">value =</span> <span class="st">&quot;escore&quot;</span>, t1, t2, t3) <span class="sc">%&gt;%</span></span>
+<span id="cb812-3"><a href="anova-de-medidas-repetidas.html#cb812-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">convert_as_factor</span>(id, tratamento, tempo)</span></code></pre></div>
+<p>Explorar o novo conjunto de dados no formato longo:</p>
+<div class="sourceCode" id="cb813"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb813-1"><a href="anova-de-medidas-repetidas.html#cb813-1" aria-hidden="true" tabindex="-1"></a>autoestimaL <span class="sc">%&gt;%</span> <span class="fu">sample_n_by</span>(tratamento, tempo, <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 4
+##   id    tratamento tempo escore
+##   &lt;fct&gt; &lt;fct&gt;      &lt;fct&gt;  &lt;dbl&gt;
+## 1 10    dieta      t1      27  
+## 2 2     dieta      t2      29.7
+## 3 6     dieta      t3      22.8
+## 4 11    placebo    t1      27.6
+## 5 5     placebo    t2      21.9
+## 6 4     placebo    t3      26.7</code></pre>
+<p>Neste exemplo, o efeito do “tempo” no escore de autoestima é nossa variável focal, nossa principal preocupação.</p>
+<p>No entanto, pensa-se que o efeito “tempo” será diferente se o tratamento for realizado ou não. Nesse cenário, a variável “tratmento” é considerada como variável moderadora.</p>
+</div>
+<div id="sumarização-dos-dados-1" class="section level3 hasAnchor" number="14.2.4">
+<h3><span class="header-section-number">14.2.4</span> Sumarização dos dados<a href="anova-de-medidas-repetidas.html#sumarização-dos-dados-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Os dados serão por <code>tratamento</code> e <code>tempo</code> e, em seguida, serão calculadas algumas estatísticas resumidas da variável de <code>escore</code>: média e sd (desvio padrão).</p>
+<div class="sourceCode" id="cb815"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb815-1"><a href="anova-de-medidas-repetidas.html#cb815-1" aria-hidden="true" tabindex="-1"></a>autoestimaL <span class="sc">%&gt;%</span></span>
+<span id="cb815-2"><a href="anova-de-medidas-repetidas.html#cb815-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(tratamento, tempo) <span class="sc">%&gt;%</span></span>
+<span id="cb815-3"><a href="anova-de-medidas-repetidas.html#cb815-3" aria-hidden="true" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">get_summary_stats</span>(escore, <span class="at">type =</span> <span class="st">&quot;mean_sd&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 6
+##   tratamento tempo variable     n  mean    sd
+##   &lt;fct&gt;      &lt;fct&gt; &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 dieta      t1    escore      12  26.3  2.29
+## 2 dieta      t2    escore      12  26.4  2.23
+## 3 dieta      t3    escore      12  26.3  2.44
+## 4 placebo    t1    escore      12  26.4  2.42
+## 5 placebo    t2    escore      12  25.2  3.07
+## 6 placebo    t3    escore      12  23.6  3.16</code></pre>
+</div>
+<div id="visualização-dos-dados-2" class="section level3 hasAnchor" number="14.2.5">
+<h3><span class="header-section-number">14.2.5</span> Visualização dos dados<a href="anova-de-medidas-repetidas.html#visualização-dos-dados-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Serão criados boxplots (Figura <a href="anova-de-medidas-repetidas.html#fig:bxpauto1">14.5</a>) do escore coloridos pelos grupos de tratamento, com cores da paleta do NEJM, usando o pacote <code>ggsci</code> e a função <code>scale_fill_jco()</code>:</p>
+<div class="sourceCode" id="cb817"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb817-1"><a href="anova-de-medidas-repetidas.html#cb817-1" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span> (autoestimaL,</span>
+<span id="cb817-2"><a href="anova-de-medidas-repetidas.html#cb817-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bxp.errorbar =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb817-3"><a href="anova-de-medidas-repetidas.html#cb817-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bxp.errorbar.width =</span> <span class="fl">0.1</span>, </span>
+<span id="cb817-4"><a href="anova-de-medidas-repetidas.html#cb817-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">x =</span> <span class="st">&quot;tempo&quot;</span>, </span>
+<span id="cb817-5"><a href="anova-de-medidas-repetidas.html#cb817-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y =</span> <span class="st">&quot;escore&quot;</span>, </span>
+<span id="cb817-6"><a href="anova-de-medidas-repetidas.html#cb817-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb817-7"><a href="anova-de-medidas-repetidas.html#cb817-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">&quot;tratamento&quot;</span>,</span>
+<span id="cb817-8"><a href="anova-de-medidas-repetidas.html#cb817-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ylab =</span> <span class="st">&quot;Escore de Autoestima&quot;</span>,</span>
+<span id="cb817-9"><a href="anova-de-medidas-repetidas.html#cb817-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">xlab =</span> <span class="st">&quot;Tempo&quot;</span>)<span class="sc">+</span></span>
+<span id="cb817-10"><a href="anova-de-medidas-repetidas.html#cb817-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_jco</span>() <span class="sc">+</span></span>
+<span id="cb817-11"><a href="anova-de-medidas-repetidas.html#cb817-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">12</span>)) </span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:bxpauto1"></span>
+<img src="bookdownproj_files/figure-html/bxpauto1-1.png" alt="Impacto de uma dieta específica na autoestima." width="80%" height="80%" />
+<p class="caption">
+Figure 14.5: Impacto de uma dieta específica na autoestima.
+</p>
+</div>
+</div>
+<div id="avaliação-dos-pressupostos-1" class="section level3 hasAnchor" number="14.2.6">
+<h3><span class="header-section-number">14.2.6</span> Avaliação dos pressupostos<a href="anova-de-medidas-repetidas.html#avaliação-dos-pressupostos-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Os pressupostos são os mesmos da ANOVA de um fator.</p>
+<div id="identificação-dos-outliers" class="section level4 hasAnchor" number="14.2.6.1">
+<h4><span class="header-section-number">14.2.6.1</span> Identificação dos <em>outliers</em><a href="anova-de-medidas-repetidas.html#identificação-dos-outliers" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>A observação dos boxplots mostra que não existem valores atípicos. Estes <em>outliers</em> serão analisados, usando função <code>identify_outliers()</code> do pacote <code>rstatix</code>.</p>
+<div class="sourceCode" id="cb818"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb818-1"><a href="anova-de-medidas-repetidas.html#cb818-1" aria-hidden="true" tabindex="-1"></a>autoestimaL <span class="sc">%&gt;%</span></span>
+<span id="cb818-2"><a href="anova-de-medidas-repetidas.html#cb818-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(tratamento, tempo) <span class="sc">%&gt;%</span></span>
+<span id="cb818-3"><a href="anova-de-medidas-repetidas.html#cb818-3" aria-hidden="true" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">identify_outliers</span>(escore)</span></code></pre></div>
+<pre><code>## [1] tratamento tempo      id         escore     is.outlier is.extreme
+## &lt;0 linhas&gt; (ou row.names de comprimento 0)</code></pre>
+<p>A saída confirma a ausências de valores atípicos.</p>
+</div>
+<div id="avaliação-da-normalidade-1" class="section level4 hasAnchor" number="14.2.6.2">
+<h4><span class="header-section-number">14.2.6.2</span> Avaliação da normalidade<a href="anova-de-medidas-repetidas.html#avaliação-da-normalidade-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Para testar a hipótese de normalidade dos dados, será utilizado o <code>teste de Shapiro-Wilk</code> através da função <code>shapiro_test ()</code>, do pacote <code>rstatix</code> e a função <code>group_by ()</code>, incluída no pacote <code>dplyr</code> ou <code>rstatix</code>, junto com o operador <code>pipe</code> (%&gt;%):</p>
+<div class="sourceCode" id="cb820"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb820-1"><a href="anova-de-medidas-repetidas.html#cb820-1" aria-hidden="true" tabindex="-1"></a>autoestimaL <span class="sc">%&gt;%</span> </span>
+<span id="cb820-2"><a href="anova-de-medidas-repetidas.html#cb820-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span> (tratamento, tempo) <span class="sc">%&gt;%</span> </span>
+<span id="cb820-3"><a href="anova-de-medidas-repetidas.html#cb820-3" aria-hidden="true" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">shapiro_test</span>(escore)</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 5
+##   tratamento tempo variable statistic      p
+##   &lt;fct&gt;      &lt;fct&gt; &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;
+## 1 dieta      t1    escore       0.919 0.279 
+## 2 dieta      t2    escore       0.923 0.316 
+## 3 dieta      t3    escore       0.886 0.104 
+## 4 placebo    t1    escore       0.828 0.0200
+## 5 placebo    t2    escore       0.868 0.0618
+## 6 placebo    t3    escore       0.887 0.107</code></pre>
+<p>Os resultados da Saída mostram que os escores de autoestima estão normalmente distribuídos em cada momento, havendo uma exceção: o grupo placebo, no momento t1.</p>
+<p>É possível construir um gráfico QQ (Figura <a href="anova-de-medidas-repetidas.html#fig:autoQQ">14.6</a>) para cada um dos momentos, usando a função <code>ggqqplot ()</code> do pacote <code>ggpubr</code>, consulte a vinheta do pacote para maiores detalhes. Foi utilizado também a função <code>facet_grid()</code>, do <code>ggplot2</code>, que divide em painéis, organizando-os como uma grade, de acordo com o momento ( t1, t2 e t3).</p>
+<div class="sourceCode" id="cb822"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb822-1"><a href="anova-de-medidas-repetidas.html#cb822-1" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggqqplot</span>(<span class="at">data =</span> autoestimaL,</span>
+<span id="cb822-2"><a href="anova-de-medidas-repetidas.html#cb822-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">x =</span> <span class="st">&quot;escore&quot;</span>, </span>
+<span id="cb822-3"><a href="anova-de-medidas-repetidas.html#cb822-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">color =</span> <span class="st">&quot;tempo&quot;</span>, </span>
+<span id="cb822-4"><a href="anova-de-medidas-repetidas.html#cb822-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">palette =</span> <span class="fu">get_palette</span>(<span class="st">&quot;Dark2&quot;</span>, <span class="dv">3</span>),</span>
+<span id="cb822-5"><a href="anova-de-medidas-repetidas.html#cb822-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">legend =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb822-6"><a href="anova-de-medidas-repetidas.html#cb822-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>()</span>
+<span id="cb822-7"><a href="anova-de-medidas-repetidas.html#cb822-7" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">+</span> </span>
+<span id="cb822-8"><a href="anova-de-medidas-repetidas.html#cb822-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(tempo<span class="sc">~</span>tratamento)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:autoQQ"></span>
+<img src="bookdownproj_files/figure-html/autoQQ-1.png" alt="Gráfico QQ para verificar a normalidade" width="70%" height="70%" />
+<p class="caption">
+Figure 14.6: Gráfico QQ para verificar a normalidade
+</p>
+</div>
+<p>Observando o gráfico, como quase todos os pontos caem aproximadamente ao longo da linha de referência, pode-se seguir a análise, pois não há muito problema.</p>
+</div>
+<div id="esferecidade" class="section level4 hasAnchor" number="14.2.6.3">
+<h4><span class="header-section-number">14.2.6.3</span> Esferecidade<a href="anova-de-medidas-repetidas.html#esferecidade" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>A esferecidade será avaliada junto com a construção do modelo.</p>
+</div>
+</div>
+<div id="cálculo-da-anova-de-medidas-de-repetidas" class="section level3 hasAnchor" number="14.2.7">
+<h3><span class="header-section-number">14.2.7</span> Cálculo da ANOVA de medidas de repetidas<a href="anova-de-medidas-repetidas.html#cálculo-da-anova-de-medidas-de-repetidas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>É realizado da mesma maneira do que a ANOVA de medidas repetidas de uma via com a função <code>anova_test()</code> do pacote <code>rstatix</code>:</p>
+<div class="sourceCode" id="cb823"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb823-1"><a href="anova-de-medidas-repetidas.html#cb823-1" aria-hidden="true" tabindex="-1"></a>mod.anova2 <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">anova_test</span>(<span class="at">data =</span> autoestimaL, </span>
+<span id="cb823-2"><a href="anova-de-medidas-repetidas.html#cb823-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">dv =</span> escore,</span>
+<span id="cb823-3"><a href="anova-de-medidas-repetidas.html#cb823-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">wid =</span> id,</span>
+<span id="cb823-4"><a href="anova-de-medidas-repetidas.html#cb823-4" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">within =</span> <span class="fu">c</span>(tratamento, tempo))</span>
+<span id="cb823-5"><a href="anova-de-medidas-repetidas.html#cb823-5" aria-hidden="true" tabindex="-1"></a>mod.anova2</span></code></pre></div>
+<pre><code>## ANOVA Table (type III tests)
+## 
+## $ANOVA
+##             Effect DFn DFd      F        p p&lt;.05   ges
+## 1       tratamento   1  11 15.541 2.00e-03     * 0.059
+## 2            tempo   2  22 27.369 1.08e-06     * 0.049
+## 3 tratamento:tempo   2  22 30.424 4.63e-07     * 0.050
+## 
+## $`Mauchly&#39;s Test for Sphericity`
+##             Effect     W     p p&lt;.05
+## 1            tempo 0.469 0.023     *
+## 2 tratamento:tempo 0.616 0.089      
+## 
+## $`Sphericity Corrections`
+##             Effect   GGe      DF[GG]    p[GG] p[GG]&lt;.05   HFe      DF[HF]
+## 1            tempo 0.653 1.31, 14.37 5.03e-05         * 0.705 1.41, 15.52
+## 2 tratamento:tempo 0.723  1.45, 15.9 1.25e-05         * 0.803 1.61, 17.66
+##      p[HF] p[HF]&lt;.05
+## 1 2.81e-05         *
+## 2 4.82e-06         *</code></pre>
+<p>Para extrair a tabela da ANOVA pode ser usada a função <code>get_anova_table()</code> do pacote <code>rstatix</code>:</p>
+<div class="sourceCode" id="cb825"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb825-1"><a href="anova-de-medidas-repetidas.html#cb825-1" aria-hidden="true" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">get_anova_table</span>(mod.anova2)</span></code></pre></div>
+<pre><code>## ANOVA Table (type III tests)
+## 
+##             Effect  DFn   DFd      F        p p&lt;.05   ges
+## 1       tratamento 1.00 11.00 15.541 2.00e-03     * 0.059
+## 2            tempo 1.31 14.37 27.369 5.03e-05     * 0.049
+## 3 tratamento:tempo 2.00 22.00 30.424 4.63e-07     * 0.050</code></pre>
+<p>Existe uma interação estatisticamente significativa entre o tratamento e o tempo, F(2, 22) = 30,4, p &lt; 0,0001.</p>
+</div>
+<div id="teste-post-hoc" class="section level3 hasAnchor" number="14.2.8">
+<h3><span class="header-section-number">14.2.8</span> Teste post hoc<a href="anova-de-medidas-repetidas.html#teste-post-hoc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Uma <em>interação significativa entre os dois fatores</em> indica que o impacto que um fator (tratamento) tem na variável desfecho (escore de autoestima) depende do nível do outro fator (tempo”), e vice-versa. Assim, é possível decompor a interação entre os dois fatores significativa em:</p>
+<ul>
+<li><p><em>Efeito principal simples</em>: executar o modelo unifatorial da primeira variável
+(tratamento) em cada nível da segunda variável (tempo),</p></li>
+<li><p><em>Comparações simples pareadas</em>: se o efeito principal simples for significativo, executar várias comparações pareadas para determinar quais grupos são diferentes.</p></li>
+</ul>
+<p>Para uma <em>interação não significativa entre os dois fatores</em>, há necessidade de determinar se tem algum <em>efeito principal</em> estatisticamente significativo da saída ANOVA.</p>
+<div id="procedimento-para-uma-interação-significativa-entre-os-dois-fatores" class="section level4 hasAnchor" number="14.2.8.1">
+<h4><span class="header-section-number">14.2.8.1</span> Procedimento para uma interação significativa entre os dois fatores<a href="anova-de-medidas-repetidas.html#procedimento-para-uma-interação-significativa-entre-os-dois-fatores" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Inicialmente, será verificado o</p>
+<p><strong>Efeito do tratamento</strong></p>
+<p>No exemplo, será analisado o efeito do tratamento no escore de auto-estima em cada momento no tempo. Note que como o tratamento tem apenas dois níveis (dieta e placebo), o teste de ANOVA e teste <em>t</em> pareado fornecem os mesmos resultados.</p>
+<p><em>Efeito do tratamento em cada ponto de tempo</em></p>
+<div class="sourceCode" id="cb827"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb827-1"><a href="anova-de-medidas-repetidas.html#cb827-1" aria-hidden="true" tabindex="-1"></a>tratamento <span class="ot">&lt;-</span> autoestimaL <span class="sc">%&gt;%</span></span>
+<span id="cb827-2"><a href="anova-de-medidas-repetidas.html#cb827-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(tempo) <span class="sc">%&gt;%</span></span>
+<span id="cb827-3"><a href="anova-de-medidas-repetidas.html#cb827-3" aria-hidden="true" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">anova_test</span>(<span class="at">dv =</span> escore, <span class="at">wid =</span> id, <span class="at">within =</span> tratamento) <span class="sc">%&gt;%</span></span>
+<span id="cb827-4"><a href="anova-de-medidas-repetidas.html#cb827-4" aria-hidden="true" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">get_anova_table</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb827-5"><a href="anova-de-medidas-repetidas.html#cb827-5" aria-hidden="true" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">adjust_pvalue</span>(<span class="at">method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span>
+<span id="cb827-6"><a href="anova-de-medidas-repetidas.html#cb827-6" aria-hidden="true" tabindex="-1"></a>tratamento</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 9
+##   tempo Effect       DFn   DFd      F       p `p&lt;.05`      ges   p.adj
+##   &lt;fct&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+## 1 t1    tratamento     1    11  0.376 0.552   &quot;&quot;      0.000767 1      
+## 2 t2    tratamento     1    11  9.03  0.012   &quot;*&quot;     0.052    0.036  
+## 3 t3    tratamento     1    11 30.9   0.00017 &quot;*&quot;     0.199    0.00051</code></pre>
+<p><em>Comparações pareadas entre os grupos de tratamentos</em></p>
+<div class="sourceCode" id="cb829"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb829-1"><a href="anova-de-medidas-repetidas.html#cb829-1" aria-hidden="true" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> autoestimaL <span class="sc">%&gt;%</span></span>
+<span id="cb829-2"><a href="anova-de-medidas-repetidas.html#cb829-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(tempo) <span class="sc">%&gt;%</span></span>
+<span id="cb829-3"><a href="anova-de-medidas-repetidas.html#cb829-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairwise_t_test</span>(escore <span class="sc">~</span> tratamento, </span>
+<span id="cb829-4"><a href="anova-de-medidas-repetidas.html#cb829-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb829-5"><a href="anova-de-medidas-repetidas.html#cb829-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span>
+<span id="cb829-6"><a href="anova-de-medidas-repetidas.html#cb829-6" aria-hidden="true" tabindex="-1"></a>pwc</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 11
+##   tempo .y.    group1 group2     n1    n2 statis…¹    df       p   p.adj p.adj…²
+## * &lt;fct&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;int&gt; &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1 t1    escore dieta  placebo    12    12   -0.613    11 0.552   0.552   ns     
+## 2 t2    escore dieta  placebo    12    12    3.00     11 0.012   0.012   *      
+## 3 t3    escore dieta  placebo    12    12    5.56     11 0.00017 0.00017 ***    
+## # … with abbreviated variable names ¹​statistic, ²​p.adj.signif</code></pre>
+<p>Considerando o valor <em>P</em> ajustado de Bonferroni (<em>p.adj</em>), pode-se observar que o efeito principal simples do tratamento não foi significativo no ponto de tempo t1 (<em>P</em> = 1). Torna-se significativo em t2 (p = 0,036) e t3 (p = 0,00051).</p>
+<p>Comparações pareadas mostram que o escore médio de autoestima foi significativamente diferente entre o grupo placebo e dieta em t2 (<em>P</em> = 0,12) e t3 (<em>P</em> = 0,00017), mas não em t1 (<em>P</em> = 0,55).</p>
+<p><strong>Efeito do tempo</strong></p>
+<p>Observe que também é possível realizar a mesma análise para a variável <code>tempo</code> em cada nível de tratamento. Esta análise, necessariamente, não precisa ser feita!</p>
+<p><em>Efeito do tempo em cada nível de tratamento</em></p>
+<div class="sourceCode" id="cb831"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb831-1"><a href="anova-de-medidas-repetidas.html#cb831-1" aria-hidden="true" tabindex="-1"></a>tempo <span class="ot">&lt;-</span> autoestimaL <span class="sc">%&gt;%</span></span>
+<span id="cb831-2"><a href="anova-de-medidas-repetidas.html#cb831-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(tratamento) <span class="sc">%&gt;%</span></span>
+<span id="cb831-3"><a href="anova-de-medidas-repetidas.html#cb831-3" aria-hidden="true" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">anova_test</span>(<span class="at">dv =</span> escore, <span class="at">wid =</span> id, <span class="at">within =</span> tempo) <span class="sc">%&gt;%</span></span>
+<span id="cb831-4"><a href="anova-de-medidas-repetidas.html#cb831-4" aria-hidden="true" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">get_anova_table</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb831-5"><a href="anova-de-medidas-repetidas.html#cb831-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adjust_pvalue</span>(<span class="at">method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span>
+<span id="cb831-6"><a href="anova-de-medidas-repetidas.html#cb831-6" aria-hidden="true" tabindex="-1"></a>tempo</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 9
+##   tratamento Effect   DFn   DFd      F          p `p&lt;.05`      ges     p.adj
+##   &lt;fct&gt;      &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+## 1 dieta      tempo      2    22  0.078 0.925      &quot;&quot;      0.000197 1        
+## 2 placebo    tempo      2    22 39.7   0.00000005 &quot;*&quot;     0.145    0.0000001</code></pre>
+<p><em>Comparações pareadas entre pontos no tempo</em></p>
+<div class="sourceCode" id="cb833"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb833-1"><a href="anova-de-medidas-repetidas.html#cb833-1" aria-hidden="true" tabindex="-1"></a>pwc2 <span class="ot">&lt;-</span> autoestimaL <span class="sc">%&gt;%</span></span>
+<span id="cb833-2"><a href="anova-de-medidas-repetidas.html#cb833-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(tratamento) <span class="sc">%&gt;%</span></span>
+<span id="cb833-3"><a href="anova-de-medidas-repetidas.html#cb833-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairwise_t_test</span>(escore <span class="sc">~</span> tempo, <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb833-4"><a href="anova-de-medidas-repetidas.html#cb833-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span>
+<span id="cb833-5"><a href="anova-de-medidas-repetidas.html#cb833-5" aria-hidden="true" tabindex="-1"></a>pwc2</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 11
+##   tratam…¹ .y.   group1 group2    n1    n2 stati…²    df       p   p.adj p.adj…³
+## * &lt;fct&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1 dieta    esco… t1     t2        12    12  -0.522    11 6.12e-1 1   e+0 ns     
+## 2 dieta    esco… t1     t3        12    12  -0.102    11 9.21e-1 1   e+0 ns     
+## 3 dieta    esco… t2     t3        12    12   0.283    11 7.82e-1 1   e+0 ns     
+## 4 placebo  esco… t1     t2        12    12   4.53     11 8.58e-4 3   e-3 **     
+## 5 placebo  esco… t1     t3        12    12   6.91     11 2.55e-5 7.65e-5 ****   
+## 6 placebo  esco… t2     t3        12    12   6.49     11 4.49e-5 1.35e-4 ***    
+## # … with abbreviated variable names ¹​tratamento, ²​statistic, ³​p.adj.signif</code></pre>
+<p>Após a execução do código, verifica-se que o efeito do tempo é significativo apenas para o placebo, F(2, 22) = 39,7, p &lt; 0,0001. As comparações pareadas mostram que todas as comparações entre os pontos de tempo foram estatisticamente significativas para o placebo.</p>
+</div>
+<div id="procedimento-para-uma-interação-não-significativa-entre-os-dois-fatores" class="section level4 hasAnchor" number="14.2.8.2">
+<h4><span class="header-section-number">14.2.8.2</span> Procedimento para uma interação não significativa entre os dois fatores<a href="anova-de-medidas-repetidas.html#procedimento-para-uma-interação-não-significativa-entre-os-dois-fatores" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Se a interação não for significativa, é preciso interpretar os efeitos principais para cada uma das duas variáveis: <code>tratamento</code>” e <code>tempo</code>. Um efeito principal significativo pode ser acompanhado com comparações pareadas</p>
+<p>No exemplo, (consulte a tabela ANOVA em <code>mod.anova2</code>), houve efeitos principais estatisticamente significativos do <code>tratamento</code> (F(1, 11) = 15,5, <em>P</em> = 0,002) e <code>tempo</code> (F(2, 22) = 27,4, p &lt; 0,0001) no escore de autoestima.</p>
+<p><strong>Comparações para a variável tratamento</strong></p>
+<div class="sourceCode" id="cb835"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb835-1"><a href="anova-de-medidas-repetidas.html#cb835-1" aria-hidden="true" tabindex="-1"></a>autoestimaL <span class="sc">%&gt;%</span></span>
+<span id="cb835-2"><a href="anova-de-medidas-repetidas.html#cb835-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairwise_t_test</span>(escore <span class="sc">~</span> tratamento, </span>
+<span id="cb835-3"><a href="anova-de-medidas-repetidas.html#cb835-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">paired =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb835-4"><a href="anova-de-medidas-repetidas.html#cb835-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 10
+##   .y.    group1 group2     n1    n2 statistic    df        p    p.adj p.adj.si…¹
+## * &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;     
+## 1 escore dieta  placebo    36    36      4.35    35 0.000113 0.000113 ***       
+## # … with abbreviated variable name ¹​p.adj.signif</code></pre>
+<p><strong>Comparações para a variável tempo</strong></p>
+<div class="sourceCode" id="cb837"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb837-1"><a href="anova-de-medidas-repetidas.html#cb837-1" aria-hidden="true" tabindex="-1"></a>autoestimaL <span class="sc">%&gt;%</span></span>
+<span id="cb837-2"><a href="anova-de-medidas-repetidas.html#cb837-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairwise_t_test</span>(escore <span class="sc">~</span> tempo, </span>
+<span id="cb837-3"><a href="anova-de-medidas-repetidas.html#cb837-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb837-4"><a href="anova-de-medidas-repetidas.html#cb837-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 10
+##   .y.    group1 group2    n1    n2 statistic    df     p p.adj p.adj.signif
+## * &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;       
+## 1 escore t1     t2        24    24      2.86    23 0.009 0.027 *           
+## 2 escore t1     t3        24    24      3.70    23 0.001 0.004 **          
+## 3 escore t2     t3        24    24      3.75    23 0.001 0.003 **</code></pre>
+</div>
+</div>
+<div id="relatando-os-resultados-da-anova-de-medidas-repetidas-de-dois-fatores" class="section level3 hasAnchor" number="14.2.9">
+<h3><span class="header-section-number">14.2.9</span> Relatando os resultados da ANOVA de medidas repetidas de dois fatores<a href="anova-de-medidas-repetidas.html#relatando-os-resultados-da-anova-de-medidas-repetidas-de-dois-fatores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>O resultado pode ser relatado da seguinte forma:</p>
+<p>Uma ANOVA de medidas repetidas de dois fatores foi realizada para avaliar o
+efeito de diferentes tratamentos dietéticos ao longo do tempo no escore de autoestima.</p>
+<p>Houve uma interação estatisticamente significativa entre <code>tratamento</code> e <code>tempo</code> no escore de autoestima, <em>F</em>(2, 22) = 30,4, p &lt; 0,0001. Portanto, o efeito da variável <code>tratamento</code> foi analisado em cada ponto de tempo. Os valores de <em>P</em> foram ajustados usando o método de correção de testes múltiplos de Bonferroni. O efeito da variável <code>tratamento</code> foi significativo em t2 (<em>P</em> = 0,036) e t3 (<em>P</em> = 0,00051), mas não no ponto de tempo t1 (<em>P</em> = 1).</p>
+<p>Comparações pareadas, usando o teste <em>t</em> pareado, mostram que o escore médio de autoestima foi significativamente diferente entre os ensaios <code>placebo</code> e <code>dieta</code> nos pontos de tempo t2 (<em>P</em> = 0,012) e t3 (<em>P</em> = 0,00017), mas não em t1 (<em>P</em> = 0,55).</p>
+<div id="visualização-boxplots-com-valores-p-figura-reffigbxpauto2" class="section level4 hasAnchor" number="14.2.9.1">
+<h4><span class="header-section-number">14.2.9.1</span> Visualização: boxplots com valores P (Figura <a href="anova-de-medidas-repetidas.html#fig:bxpauto2">14.7</a>)<a href="anova-de-medidas-repetidas.html#visualização-boxplots-com-valores-p-figura-reffigbxpauto2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb839"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb839-1"><a href="anova-de-medidas-repetidas.html#cb839-1" aria-hidden="true" tabindex="-1"></a>bxp <span class="ot">&lt;-</span> ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span> (autoestimaL,</span>
+<span id="cb839-2"><a href="anova-de-medidas-repetidas.html#cb839-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">bxp.errorbar =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb839-3"><a href="anova-de-medidas-repetidas.html#cb839-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">bxp.errorbar.width =</span> <span class="fl">0.1</span>, </span>
+<span id="cb839-4"><a href="anova-de-medidas-repetidas.html#cb839-4" aria-hidden="true" tabindex="-1"></a>                          <span class="at">x =</span> <span class="st">&quot;tempo&quot;</span>, </span>
+<span id="cb839-5"><a href="anova-de-medidas-repetidas.html#cb839-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">y =</span> <span class="st">&quot;escore&quot;</span>, </span>
+<span id="cb839-6"><a href="anova-de-medidas-repetidas.html#cb839-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb839-7"><a href="anova-de-medidas-repetidas.html#cb839-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">fill =</span> <span class="st">&quot;tratamento&quot;</span>,</span>
+<span id="cb839-8"><a href="anova-de-medidas-repetidas.html#cb839-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">ylab =</span> <span class="st">&quot;Escore de Autoestima&quot;</span>,</span>
+<span id="cb839-9"><a href="anova-de-medidas-repetidas.html#cb839-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">xlab =</span> <span class="st">&quot;Tempo&quot;</span>)<span class="sc">+</span></span>
+<span id="cb839-10"><a href="anova-de-medidas-repetidas.html#cb839-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>(<span class="at">start=</span><span class="fl">0.95</span>, <span class="at">end=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb839-11"><a href="anova-de-medidas-repetidas.html#cb839-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;right&quot;</span>) <span class="sc">+</span></span>
+<span id="cb839-12"><a href="anova-de-medidas-repetidas.html#cb839-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">12</span>)) </span>
+<span id="cb839-13"><a href="anova-de-medidas-repetidas.html#cb839-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb839-14"><a href="anova-de-medidas-repetidas.html#cb839-14" aria-hidden="true" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> pwc <span class="sc">%&gt;%</span> <span class="fu">add_xy_position</span>(<span class="at">x =</span> <span class="st">&quot;tempo&quot;</span>)</span>
+<span id="cb839-15"><a href="anova-de-medidas-repetidas.html#cb839-15" aria-hidden="true" tabindex="-1"></a>bxp <span class="sc">+</span> </span>
+<span id="cb839-16"><a href="anova-de-medidas-repetidas.html#cb839-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_pvalue_manual</span>(pwc, </span>
+<span id="cb839-17"><a href="anova-de-medidas-repetidas.html#cb839-17" aria-hidden="true" tabindex="-1"></a>                     <span class="at">label =</span> <span class="st">&quot;p.adj&quot;</span>,</span>
+<span id="cb839-18"><a href="anova-de-medidas-repetidas.html#cb839-18" aria-hidden="true" tabindex="-1"></a>                     <span class="at">tip.length =</span> <span class="fl">0.01</span>, </span>
+<span id="cb839-19"><a href="anova-de-medidas-repetidas.html#cb839-19" aria-hidden="true" tabindex="-1"></a>                     <span class="at">hide.ns =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb839-20"><a href="anova-de-medidas-repetidas.html#cb839-20" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y.position =</span> <span class="fu">c</span>(<span class="dv">32</span>, <span class="dv">32</span>, <span class="dv">32</span>)) <span class="sc">+</span></span>
+<span id="cb839-21"><a href="anova-de-medidas-repetidas.html#cb839-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="fu">get_test_label</span>(mod.anova2, <span class="at">detailed =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb839-22"><a href="anova-de-medidas-repetidas.html#cb839-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="fu">get_pwc_label</span>(pwc))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:bxpauto2"></span>
+<img src="bookdownproj_files/figure-html/bxpauto2-1.png" alt="Avaliação da autoestima no decorrer do tempo" width="70%" height="70%" />
+<p class="caption">
+Figure 14.7: Avaliação da autoestima no decorrer do tempo
+</p>
+</div>
+<p>Uma opção de apresentação gráfica, é o gráfico de linhas (Figura <a href="anova-de-medidas-repetidas.html#fig:lineauto2">14.8</a>), usando a função <code>ggline()</code> do pacote <code>ggpubr</code>, junto com os teste estatísticos:</p>
+<div class="sourceCode" id="cb840"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb840-1"><a href="anova-de-medidas-repetidas.html#cb840-1" aria-hidden="true" tabindex="-1"></a>ggl <span class="ot">&lt;-</span> <span class="fu">ggline</span>(</span>
+<span id="cb840-2"><a href="anova-de-medidas-repetidas.html#cb840-2" aria-hidden="true" tabindex="-1"></a>  autoestimaL,</span>
+<span id="cb840-3"><a href="anova-de-medidas-repetidas.html#cb840-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">&quot;tempo&quot;</span>,</span>
+<span id="cb840-4"><a href="anova-de-medidas-repetidas.html#cb840-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">&quot;escore&quot;</span>,</span>
+<span id="cb840-5"><a href="anova-de-medidas-repetidas.html#cb840-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">color =</span> <span class="st">&quot;tratamento&quot;</span>,</span>
+<span id="cb840-6"><a href="anova-de-medidas-repetidas.html#cb840-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="st">&quot;lancet&quot;</span>,</span>
+<span id="cb840-7"><a href="anova-de-medidas-repetidas.html#cb840-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>,</span>
+<span id="cb840-8"><a href="anova-de-medidas-repetidas.html#cb840-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">size =</span> <span class="fl">0.7</span>,</span>
+<span id="cb840-9"><a href="anova-de-medidas-repetidas.html#cb840-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">shape =</span> <span class="dv">19</span>,</span>
+<span id="cb840-10"><a href="anova-de-medidas-repetidas.html#cb840-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">add =</span> <span class="fu">c</span>(<span class="st">&quot;mean_ci&quot;</span>),</span>
+<span id="cb840-11"><a href="anova-de-medidas-repetidas.html#cb840-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">error.plot =</span> <span class="st">&quot;errorbar&quot;</span>,</span>
+<span id="cb840-12"><a href="anova-de-medidas-repetidas.html#cb840-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.2</span>),</span>
+<span id="cb840-13"><a href="anova-de-medidas-repetidas.html#cb840-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_pubr</span>()) <span class="sc">+</span></span>
+<span id="cb840-14"><a href="anova-de-medidas-repetidas.html#cb840-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;right&quot;</span>)</span>
+<span id="cb840-15"><a href="anova-de-medidas-repetidas.html#cb840-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb840-16"><a href="anova-de-medidas-repetidas.html#cb840-16" aria-hidden="true" tabindex="-1"></a>ggl <span class="sc">+</span> ggpubr<span class="sc">::</span><span class="fu">stat_pvalue_manual</span>(pwc,  </span>
+<span id="cb840-17"><a href="anova-de-medidas-repetidas.html#cb840-17" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">label =</span> <span class="st">&quot;p.adj&quot;</span>, </span>
+<span id="cb840-18"><a href="anova-de-medidas-repetidas.html#cb840-18" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">tip.length =</span> <span class="fl">0.00</span>,</span>
+<span id="cb840-19"><a href="anova-de-medidas-repetidas.html#cb840-19" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">y.position =</span> <span class="fu">c</span>(<span class="fl">28.5</span>, <span class="fl">28.5</span>, <span class="fl">28.5</span>)) <span class="sc">+</span></span>
+<span id="cb840-20"><a href="anova-de-medidas-repetidas.html#cb840-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">x =</span> <span class="st">&quot;Tempo&quot;</span>,</span>
+<span id="cb840-21"><a href="anova-de-medidas-repetidas.html#cb840-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&quot;Escore de autoestima&quot;</span>,</span>
+<span id="cb840-22"><a href="anova-de-medidas-repetidas.html#cb840-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="fu">get_test_label</span> (mod.anova2, <span class="at">detailed =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb840-23"><a href="anova-de-medidas-repetidas.html#cb840-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">caption =</span> <span class="fu">get_pwc_label</span>(pwc))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:lineauto2"></span>
+<img src="bookdownproj_files/figure-html/lineauto2-1.png" alt="Avaliação da autoestima no decorrer do tempo" width="70%" height="70%" />
+<p class="caption">
+Figure 14.8: Avaliação da autoestima no decorrer do tempo
+</p>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="análise-de-variância.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="referências.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/petronioliveira/bookR/edit/main/14-anovaRep.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/petronioliveira/bookR/blob/main/14-anovaRep.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
