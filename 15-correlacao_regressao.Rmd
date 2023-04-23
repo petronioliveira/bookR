@@ -1,0 +1,610 @@
+# Correlação e Regressão
+
+## Pacotes necessários
+
+```{r message=FALSE, warning=FALSE}
+pacman::p_load(car,
+               dplyr, 
+               ggplot2,
+               ggpubr,
+               ggsci,
+               kableExtra,
+               lmtest,
+               readxl,
+               rstatix)
+```
+
+
+## Correlação  
+
+A correlação é usada para avaliar a força e a direção da relação entre duas variáveis numéricas contínuas, normalmente distribuídas. A maneira mais comum de mostrar a relação entre duas variáveis quantitativas é através de um diagrama ou gráfico de dispersão (*scatterplot*). A Figura \@ref(fig:estriol) exibe um exemplo de um gráfico de dispersão, onde se observa um padrão geral que sugere uma relação entre o estriol urinário (mg/24h) e o peso fetal em uma gravidez normal [@greene1963urinary]. 
+
+```{r estriol, echo = FALSE, out.width = '70%', fig.align = 'center', fig.cap="Correlação da excreção de estriol urinário e peso fetal", fig.pos="ht"}
+ knitr::include_graphics("https://i.imgur.com/KFLiF9k.png")
+```
+
+O gráfico de dispersão mostra que os valores de uma variável aparecem no eixo horizontal `x` e os valores da outra variável aparecem no eixo vertical `y`. Cada indivíduo nos dados aparece como o ponto no gráfico fixado pelos valores de ambas as variáveis para aquele indivíduo. Normalmente, eixo `x` é a *variável explicativa* (ou variável explanatória ou independente) e `y` a *variável desfecho* (variável resposta ou dependente).   
+
+Em um diagrama de dispersão deve-se procurar o padrão geral e desvios marcantes desse padrão. Verifica-se o padrão geral, observando a direção, a forma e força do relacionamento. Um tipo importante de desvio é um valor atípico, um valor individual que está fora do padrão geral do relacionamento.  
+
+A Figura \@ref(fig:estriol) mostra uma clara direção do padrão geral que se move da esquerda inferior para a direita superior. Este comportamento é denominado de *correlação positiva* entre as variáveis. A forma do relacionamento é aproximadamente uma linha reta com uma ligeira curva para a direita à medida que se move para cima. A força de uma correlação em um gráfico de dispersão é determinada pela proximidade dos pontos em uma forma clara. No caso, quanto mais se aproxima de uma reta, mais forte é a associação, no caso de uma correlação linear. Duas variáveis estão *negativamente associadas* quando se comportam de forma oposta ao da Figura \@ref(fig:estriol).   
+
+Obviamente, nem todos os diagramas de dispersão mostram uma direção clara que permita descrever como correlação positiva ou negativa e não tem uma forma linear, sugerindo que não há correlação, como a Figura \@ref(fig:pesorenda).  
+
+```{r pesorenda, echo = FALSE, out.width = '70%', fig.align = 'center', fig.cap="Gráfico de dispersão sugerindo ausência de correlação.", fig.pos="ht"}
+ knitr::include_graphics("https://i.imgur.com/PlHBzli.png")
+```
+
+### Coeficiente de correlação de Pearson  
+
+A correlação é quantificada pelo *Coeficiente de Correlação Linear de Pearson*. Este coeficiente paramétrico, denotado por *r*, é um número adimensional, independente das unidades usadas para medir as variáveis *x* e *y*.  
+
+Suponha que se tenha dados sobre as variáveis *x* e *y* para *n* indivíduos. Os valores para o primeiro indivíduo são ${x}_{1}$ e ${y}_{1}$, os valores para o segundo indivíduo são ${x}_{2}$ e ${y}_{2}$ e assim por diante. As médias e desvios padrão das duas variáveis são $\bar{x}$ e ${s}_{x}$ para os valores de *x* e $\bar{y}$ e ${s}_{y}$ para os valores de *y*. A correlação *r* entre *x* e *y* é dada pela equação:  
+
+$$
+r = \frac{\sum{(x_{1} - \bar{x})(y_{1} - \bar{y})}}{{\sqrt{\sum (x_{1} - \bar{x})^2\times\sum (y_{1} - \bar{y})^2}}}
+$$
+
+O Coeficiente de Correlação, *r*, apresenta as seguintes características:
+
+*	É um valor numérico que varia de -1 a +1 (Figura \@ref(fig:coefcor):
+
+    - Quando *r* = -1, há uma correlação linear negativa ou inversa perfeita;
+    - Quando *r* = +1, há uma correlação linear positiva ou direta perfeita;
+    - Quando *r* = 0, não há correlação entre as variáveis.  
+
+```{r coefcor, echo = FALSE, out.width = '70%', fig.align = 'center', fig.cap="Coeficiente de Correlação.", fig.pos="ht"}
+ knitr::include_graphics("https://i.imgur.com/1VOsXuP.png")
+```
+
+* Quanto mais os pontos se aproximam de uma linha reta, maior a magnitude de *r*.
+*	O coeficiente de correlação *r* é calculado para uma amostra e é uma estimativa do coeficiente de correlação da população $\rho$ (leia-se rô).
+*	A correlação não faz distinção entre variáveis explicativas e variáveis resposta. Apesar de haver uma recomendação para que *x* seja a variável explanatória e *y* a variável desfecho. Não faz diferença qual variável será chamada chama de *x* e qual de *y* no cálculo da correlação.
+*	Como *r* usa os valores padronizados das observações, *r* não muda se as unidades de medida de *x*, *y* ou ambos são modificados. A correlação *r* em si não tem unidade de medida; é apenas um número.
+
+### Dados do exemplo
+
+Está claro que existe uma relação entre a idade de crianças e a sua altura (comprimento). Vamos usar os dados coletados em um ambulatório pediátrico de 40 crianças entre 18 e 36 meses (20 meninos e 20 meninas).   
+Os dados estão no banco de dados`dadosReg.xlsx`. Para baixar o banco de dados, clique [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosReg.xlsx). Salve o arquivo no seu diretório de trabalho.  
+
+#### Leitura e visualização dos dados
+
+O conjunto de dados será atribuído ao objeto `dados`.
+
+```{r }
+dados <- read_excel("Arquivos/dadosReg.xlsx")
+```
+
+Observe os dados com a função `glimpse()`, do pacote `dplyr`:
+
+```{r}
+glimpse(dados)
+```
+
+De acordo com uma das exigências da correlação, as variáveis  `idade` e comp pertencem a classe das variáveis numéricas. A variável `sexo` foi lida como um variável numérica e será transformada em fator:
+
+```{r}
+dados$sexo <- as.factor(dados$sexo)
+```
+
+Uma das exigências da correlação é de que as variáveis sejam numéricas e,portanto, não será necessário nenhum tipo de transformação.  
+
+#### Medidas resumidoras  
+
+Ass medidas resumidoras serão calculadas, usando a função `get_summary_stats ()` do pacote `rstatix` que necessita dos seguintes argumentos:
+
+```{r}
+dados %>%
+  rstatix::get_summary_stats(idade,
+                             comp,
+                             type = "mean_sd")
+```
+
+#### Visualização dos dados  
+
+Aqui, será usado o gráfico de dispersão (Figura \@ref(fig:idadealtura)), usando a função `geom_point` do pacote `ggplot2`:  
+
+```{r idadealtura, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Correlação entre a idade e a altura de uma criança."}
+ggplot2::ggplot(dados, 
+                aes(x=idade, 
+                    y=comp, 
+                    color = sexo)) + 
+  geom_point(size = 3, 
+             shape = 19) +
+  xlab("Idade (meses)") +
+  ylab ("Comprimento(cm)") +
+  theme_classic() +
+  theme(text = element_text(size = 12, 
+                            color = NULL, 
+                            face = "bold"))
+```
+
+A separação dos pontos por sexo não muda a análise e foi realizada apenas para treinamento (e curiosidade!).
+
+### Pressupostos da Correlação
+
+A primeira e mais importante etapa antes de analisar os dados, usando a correlação de Pearson é verificar se é apropriado usar este teste estatístico.  
+
+Vamos discutir sete pressupostos, três estão relacionados com o projeto do estudo e como as variáveis foram medidas (pressupostos 1, 2 e 3) e quatro que se relacionam com as características dos  dados (pressupostos 4, 5, 6 e 7) [@kassambara2021correlation].
+
+1. **Variáveis numéricas contínuas**   
+
+As duas variáveis devem ser medidas em uma escala contínua (são medidas no nível intervalar ou de razão). No exemplo, tanto a variável `idade` como o comprimento (`comp`) são variáveis contínuas, como verificado acima.
+
+2. **Variáveis devem estar como pares**   
+
+As duas variáveis contínuas devem ser emparelhadas, o que significa que cada caso (por exemplo, cada participante) tem dois valores: um para cada variável.
+
+3. **Independência das observações**  
+
+Deve haver independência de casos, o que significa que as duas observações para um caso (por exemplo, a idade e o comprimento) devem ser independentes das duas observações para qualquer outro caso.
+
+Se estes pressupostos forem atendidos, avalia-se os outros pressupostos:
+
+4. **Relação linear entre as variáveis**    
+
+O coeficiente de correlação de Pearson é uma medida da força de uma associação linear entre duas variáveis. Dito de outra forma, ele determina se há um componente linear de associação entre duas variáveis contínuas. Por esse motivo, verifica-se a relação entre duas variáveis, em um gráfico de dispersão, para ver se a execução de uma correlação de Pearson é a melhor escolha como medida de associação.   
+
+A variável `idade` é colocada como variável preditora (eixo *x*) e `comp` como desfecho (eixo *y*). O gráfico de dispersão anterior, mostra uma nítida correlação linear.  
+
+5. **Normalidade das variáveis**    
+
+Para verificar se as variáveis têm distribuição normal, é possível usar o teste de Shapiro-Wilk, usando a função `shapiro.test()`, incluída no *R* base:
+
+```{r}
+shapiro.test(dados$idade)
+
+shapiro.test(dados$comp)
+```
+
+O teste de Shapiro-Wilk de ambas as variáveis retorna um valor *P* > 0,05, indicando que não é possível rejeitar a $H_{0}$; os dados seguem a distribuição normal, portanto o pressuposto foi atendido.  
+
+O teste estatístico fornece uma prova, mas também pode-se fazer uma verificação visual rápida da normalidade dos dados, usando a função `ggqqplot()` do pacote `ggpubr`que produz um gráfico quantil-quantil, onde os pontos devem cair próximos da linha de referência (Figuras \@ref(fig:qqidade) e \@ref(fig:qqcomp).
+
+```{r qqidade, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Gráfico QQ da idade."}
+ggpubr::ggqqplot(dados,
+                 x = "idade",
+                 color = "steelblue",
+                 xlab = "Quantis normais", 
+                 ylab = "Idade (meses)")
+```
+
+
+```{r qqcomp, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Gráfico QQ do comprimento"}
+ggpubr::ggqqplot(dados,
+                 x = "comp",
+                 color = "steelblue",
+                 xlab = "Quantis normais",
+                 ylab = "Comprimento (cm)")
+```
+
+Como todos os pontos caem aproximadamente ao longo da linha de referência, pode-se assumir que ambas variáveis têm distribuição que se ajusta à normal.
+
+6. **Pesquisa de valores atípicos**  
+
+A presença de *outliers* pode ser verificada construindo boxplots (Figura \@ref(fig:atipicos)) com as variáveis `idade` e `comp`
+
+```{r atipicos, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Pesquisa de valores atípicos com boxplots"}
+par (mfrow=c (1,2))
+boxplot(dados$idade, 
+       ylab = "Idade (meses)",
+       col = "lightgreen") 
+boxplot(dados$comp,
+       ylab = "Comprimento (cm)",
+       col = "salmon") 
+par (mfrow=c (1,1))
+```
+
+Não se observa valores atípicos nos boxplots. Isto também pode ser verificado com as estatísticas dos boxplots que retorna:
+
+* *stats*: um vetor de tamanho 5, contendo o *whisker* inferior, 1º quartil, a mediana, a 3º quartil e o *whisker* superior;
+* *n*: o número de observações na amostra;
+* *conf*: os extremos inferior e superior do *entalhe*. Os entalhes (se solicitados) se estendem a $\pm 1,58 \times IQR/sqrt(n)$;
+* *out*: os valores de quaisquer pontos de dados que estão além dos extremos dos *whisker*.
+
+```{r}
+boxplot.stats (dados$idade)
+```
+
+```{r}
+boxplot.stats (dados$comp)
+```
+
+7. **Homoscedasticidade**    
+
+A homocedasticidade assume que os dados são igualmente distribuídos sobre a linha de regressão. Descreve uma situação na qual o resíduo é o mesmo em todos os valores das variáveis independentes. A heterocedasticidade (a violação da homocedasticidade) está presente quando o tamanho dos resíduos difere entre os valores de uma variável independente.   
+
+O impacto de violar o pressuposto da homocedasticidade é uma questão de grau, aumentando à medida que a heterocedasticidade aumenta. Dessa forma, avalia-se a homocedasticidade, observando os resíduos.  
+
+Uma correlação linear pode ser descrita por uma reta. Em uma correlação linear perfeita, a reta passa por todos os pontos. Normalmente, não é possível traçar uma reta que passe por todos os pontos. A melhor reta é aquela que promove o melhor ajuste,ou seja, é aquela cuja distância dos pontos até a reta é a menor possível. Os **resíduos** são a diferença entre o valor observado e o valor previsto pelo melhor ajuste, estabelecido pelo modelo de regressao linear.  
+
+*Construção do modelo*:
+
+Para ajustar a um modelo linear, usa-se a função `lm()` que deve conter um objeto da classe `formula` como argumento. Demais características da função podem ser obtidas com `?lm` ou direto na ajuda do `RStudio`. O modelo será atribuído a um objeto denominado `mod_reg`.
+
+```{r}
+mod_reg <- lm(comp ~ idade, dados)
+```
+
+*Análise gráfica da homoscedasticidade* (Figura \@ref(fig:homo1)):
+
+```{r homo1, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Gráficos diagnósticos 1 e 3"}
+par(mfrow=c(1,2))
+plot(mod_reg, which=c(1,3))
+par(mfrow=c(1,1))
+```
+ 
+Os gráficos de diagnóstico dos resíduos são apresentados de quatro maneiras diferentes e, para maioress detalhes consulte [**aqui**](https://data.library.virginia.edu/diagnostic-plots/) .O  primeiro e terceiro tipo serão avaliados:
+
+**Gráfico 1**: *valores previstos $\times$ resíduos*  
+
+No gráfico 1, tem-se os resíduos em função dos valores estimados. Pode-se utilizar este gráfico para observar a independência e a homocedasticidade, se os resíduos se distribuem de maneira razoavelmente aleatória e com mesma amplitude em torno do zero.
+
+**Gráfico 3**: *valores previstos $\times$ resíduos padronizados*  
+
+No gráfico 3, pode ser avaliado da mesma maneira que o 1, observando a aleatoriedade e amplitude, desta vez dos resíduos padronizados É bom se uma linha horizontal é observada com pontos de distribuição igualmente distribuídos (aleatoriamente), o que nao é o caso. Permite verificar se há *outliers* - valores de resíduos padronizados acima de 3 ou abaixo de -3.
+
+Embora o gráfico possa dar uma ideia sobre homocedasticidade, às vezes, um teste mais formal é preferido. Existem vários testes para isso, mas aqui será utilizado o *Teste de Breusch-Pagan*. A $H_{0}$ e a $H_{A}$ podem ser consideradas como:
+
+$H_{0}$: Homocedasticidade. Os resíduos têm variância constante sobre o modelo verdadeiro.  
+
+$H_{A}$: Heterocedasticidade. Os resíduos não têm variância constante sobre o modelo verdadeiro.
+
+Se o valor *P* > 0,05 não se rejeita a $H_{0}$ de homocedasticidade. O teste de Breusch-Pagan é encontrado na função `bptest()`, incluída no pacote `lmtest`:
+
+```{r}
+lmtest::bptest(mod_reg)
+```
+
+Os resultados não indicam heteroscedasticidade e isso é bom. Desta forma, pode-se aplicar a equação final de predição.
+
+### Execução do teste de correlação
+
+1. **Coeficiente de correlação de Pearson (*r*)**
+
+* O coeficiente de correlação, *r*, é calculado para uma amostra e é uma estimativa do coeficiente de correlação da população $\rho$ (rô).  
+* A correlação não faz distinção entre variáveis explicativas e variáveis resposta. Apesar de haver uma recomendação para que *x* seja a variável explanatória e *y* a variável desfecho. Não faz diferença qual variável será chamada chama de *x* e qual de *y* no cálculo da correlação.  
+* Como o *r* usa os valores padronizados das observações, não muda nada se as unidades de medida de *x*, *y* ou ambas são modificadas. A correlação *r* em si não tem unidade de medida; é apenas um número.
+
+O cálculo pode ser realizado com a função `cor.test()` do R base que usa os seguintes argumentos:  
+
+* **x**           $\longrightarrow$ dados da variável *x*;
+* **y**           $\longrightarrow$ dados da variável *y*; 
+* **method**      $\longrightarrow$ Pode ser usado dos seguintes "pearson", "kendall" ou "spearman”; exact | indicação lógica se um valor *P* exato deve ser calculado. Usado para o $\tau$ de Kendall e  $\rho$ de Spearman;
+* **alternative** $\longrightarrow$  hipótese alternativa “two.sided” (bilateral) ou “greater” ou “less” (unilateral a direita ou a esquerda, respectivamente);
+conf.level | nivel de confiança. Padrão 0.95.
+
+```{r}
+r <- cor.test(dados$idade, 
+              dados$comp, 
+              method = "pearson")
+r
+```
+
+*Interpretação do resultado*
+
+A saída do Coeficiente de Correlação de Pearson (*r*) é igual  `r round(r$estimate, 2)` (IC95%: `r round (r$conf.int, 2)`) o que corresponde a uma correlação linear muito forte (Tabela \@ref(tab:coefr), ignorando o sinal) entre a idade e o comprimento de crianças [@schober2018correlation].    
+
+O coeficiente refere a existência de correlação linear, mas não especifica se a relação é de causa e efeito. O valor *P* especifica se a correlação é igual a zero ($H_{0}$) ou diferente de zero ($H_{A}$). No caso, ela é diferente de zero.  
+
+O importante é a magnitude do *r*, entretanto, o coeficiente *r* e o valor *P* devem ser interpretados em conjunto. Se o valor *P* > 0,05, mesmo que *r* seja diferente de zero, a correlação não deveria ser interpretada. 
+
+```{r coefr, echo=FALSE, message=FALSE, warning=FALSE}
+inter <-c("desprezível", "fraca", "moderada", "forte", "muito forte", "perfeita")
+coef <- c("0,0 < 0,3", "0,3 < 0,5", "0,5 < 0,7", "0,7 < 0,9", "0,9 < 1,0", "1,0")
+
+df <- data.frame(coef, inter)
+
+knitr::kable(df,
+             col.names = c('Coeficiente de Correlação', 'Interpretação'),
+             align = c('l', 'l'),
+             booktabs = TRUE,
+             caption = "Interpretação do Coeficiente de Correlação") %>% 
+  kableExtra::kable_styling(full_width = F,
+                latex_options = "hold_position") %>% 
+  kableExtra::kable_classic(html_font = "Cambria") %>%
+  kableExtra::column_spec(1, width = "1.8 in") %>% 
+  kableExtra::column_spec(2, width = "1.8 in") %>% 
+  kableExtra::row_spec(0, bold = TRUE)
+```
+
+Talvez a melhor maneira de interpretar a correlação linear é elevar o valor do *r* ao quadrado para obter o *Coeficiente de Determinação* ($R^{2}$). No exemplo usado, tem-se que o $R^{2}$ é igual a $0,96^{2} = 0,922$, então, 92,2% da variação do comprimento da criança (*y*) podem ser explicados pela variação da sua idade (*x*), fato mais ou menos óbvio!.
+
+2. **Coeficiente de correlação de Spearman ($\rho$)**
+
+Se os pressupostos são violados é recomendado o uso de correlação não paramétrica, incluindo testes de correlação baseados em postos de Spearman e Kendall [@de2016comparing].  
+Usa-se a mesma função, usada para a correlação de Pearson, mudando o argumento `method`:
+
+```{r message=FALSE, warning=FALSE}
+rho <- cor.test(dados$idade, 
+              dados$comp, 
+              method = "spearman")
+rho
+```
+
+3. **Coeficiente de correlação de Kendall ($\tau$)**
+
+O coeficiente de correlação de postos de Kendall ou estatística tau de Kendall é usado para estimar uma medida de associação baseada em postos:
+
+```{r message=FALSE, warning=FALSE}
+tau <- cor.test(dados$idade, 
+              dados$comp, 
+              method = "kendall")
+tau
+```
+
+## Regressão Linear Simples
+
+A *regressão linear simples*, assim como a correlação, é uma técnica usada para explorar a natureza da relação entre duas variáveis aleatórias contínuas. A principal diferença entre esses dois métodos analíticos é que a regressão permite investigar a alteração em uma variável, chamada *resposta*, correspondente a uma determinada alteração em outra, conhecida como variável *explicativa*. A regressão é um modelo matemático que permite a *predição* de uma variável resposta a partir de uma outra variável explicativa.  A análise de correlação quantifica a força da relação entre as variáveis, tratando-as simetricamente [@sedgwick2013correlation]. 
+
+A *regressão linear simples* é chamada assim, porque se tem apenas uma variável independente. Se houver mais de uma variável independente, é chamada de *regressão múltipla*.  
+
+A representação matemática do modelo de regressão linear populacional é descrita pela equação da reta de melhor ajuste em um conjunto de pares de dados (x, y) em um gráfico de dispersão de pontos.
+
+$$
+y = \beta_{0} + \beta_{1}x
+$$
+
+```{r retareg, echo = FALSE, out.width = '60%', fig.align = 'center', fig.cap="Reta de regressão, coeficiente angular e coeficiente linear.", fig.pos="ht"}
+ knitr::include_graphics("https://i.imgur.com/kOoggkC.png")
+```
+
+A inclinação da reta de regressão ($\beta_{1}$) determina a variação de *y* para cada unidade de variação de *x* e recebe o nome de *coeficiente angular* ou *de regressão*. O ponto de interceptação da reta com *y* quando *x* é igual a zero é $\beta_{0}$ e é denominado de *coeficiente linear* (Figura \@ref(fig:retareg)). A equação da reta de regressão amostral que estima a reta de regressão populacional é igual a:
+
+$$
+\hat {y} = b_{0} + b_{1}x
+$$
+
+A reta do diagrama de dispersão da Figura \@ref(fig:retareg)  é a melhor reta de ajuste aos dados. 
+
+### Resíduos  
+
+No exemplo usado no início desta seção, verificou-se que existe uma correlação linear entre o a idade e o comprimento de crianças, usando uma amostra de 40 crianças entre 18 e 36 meses. A correlação de Pearson foi muito forte (*r* = 0,96, *P* < 0,00001). Esta relação linear pode ser descrita pela reta, mostrada na Figura \@ref(fig:retareg1).   
+
+```{r retareg1, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Reta de regressão"}
+ggplot2::ggplot(dados, 
+                aes(x = idade, 
+                    y = comp,
+                    color = "tomato")) +
+  geom_smooth(method = "lm", 
+              se = FALSE, 
+              color = "steelblue") +
+  geom_point() +
+  theme_classic() + 
+  xlab("Idade (meses") +
+  ylab("Comprimento (cm)") +
+  theme(text = element_text(size = 12)) +
+  theme(legend.position = "none")
+```
+
+Não é possível traçar uma reta que passe por todos os pontos. Esta reta ideal descreveria uma correlação perfeita, que não é o caso. Pode haver várias retas, a reta calculada pela regressão linear é aquela que promove o melhor ajuste, ou seja, é aquela cuja distância dos pontos até a reta é a menor possível.  
+
+Os resíduos são a diferença entre o valor observado e o valor previsto pelo modelo de regressão linear, construído anteriormente (`mod_reg`). A técnica estatística para achar a melhor reta que ajusta um conjunto de dados é denominada de método dos mínimos quadrados (*Ordinary Least Square*). A melhor reta ajustada é aquela em que a soma dos quadrados da distância de cada ponto (soma dos quadrados residual) em relação à reta é minimizada.
+
+Para se obter os resíduos, graficamente, pode ser usar os seguintes comandos que resultam na Figura \@ref(fig:residuos).
+
+```{r}
+# Obter e salvar os valores preditos e residuais
+dados$previsto <- predict(mod_reg) 
+
+dados$residuos <- residuals(mod_reg)
+```
+
+```{r residuos, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Resíduos"}
+# Construção do gráfico com os resíduos
+ggplot2::ggplot(dados, 
+                aes(x = idade, 
+                    y = comp)) +
+  geom_smooth(method = "lm", 
+              se = FALSE, 
+              color = "steelblue") +
+  geom_segment(aes(xend = idade, 
+                   yend = previsto), 
+               linewidth = 0.7,
+               linetype = "dotted") +
+  geom_point(aes(y = previsto), 
+             shape = 19, 
+             colour = "red") +
+  geom_point() +
+  theme_classic() + 
+  xlab("Idade (meses") +
+  ylab("Comprimento (cm)") +
+  theme(text = element_text(size = 12))
+```
+
+Uma boa maneira de testar a qualidade do ajuste do modelo é observar os resíduos @kim2019statistical ou as diferenças entre os valores reais (pontos pretos) e os valores previstos (pontos vermelhos). A reta de regressão, em azul no gráfico, representa os valores previstos. A linha vertical pontilhada da linha reta até o valor dos dados observados é o **resíduo**.   
+
+A ideia aqui é que a soma dos resíduos seja aproximadamente zero ou o mais baixo possível. Na vida real, a maioria dos casos não seguirá uma linha perfeitamente reta, portanto, resíduos são esperados. Na saída do resumo da função `lm()` em (`mod_reg$residuals`), você pode ver estatísticas descritivas sobre os resíduos do modelo (*residuals*), elas mostram como os resíduos são aproximadamente zero. Pode-se observar isso, usando a função `summary ()` e `sum()`:
+
+```{r}
+summary(mod_reg$residuals)
+sum(mod_reg$residuals)
+```
+
+Onde os resultados são praticamente iguais a zero.
+
+### Análise dos pressupostos do modelo de regressão  
+
+A análise exploratória do conjunto de dados foi feita quando do estudo da Correlação. Assim como a correlação, a regressão linear faz várias suposições sobre os dados.
+
+#### Gráficos diagnósticos  
+
+Os gráficos de diagnóstico da regressão (Figura \@ref(fig:diagreg)) podem ser criados usando a função `plot()` do R base, como mostrado para a correlação:
+
+O modelo de regressão, anteriormente criado, `mod_reg`, entra como argumento da função:  
+
+```{r diagreg, message = FALSE, warning=FALSE, fig.align='center', out.height="90%", out.width="70%", fig.cap="Gráficos diagnósticos"}
+par(mfrow=c(2,2))
+plot (mod_reg)
+par(mfrow=c(1,1))
+```
+
+Os gráficos de diagnóstico mostram resíduos de quatro maneiras diferentes:  
+
+1.	*Resíduos vs. ajustados (Residuals vs Fitted)*. Usado para verificar os pressupostos de relação linear. Uma linha horizontal, sem padrões distintos é um indicativo de uma relação linear, o que é bom. Os dados do exemplo (linha azul) afastam-se muito pouco do zero, mas a acompanham e não se observa nenhum padrão distinto, como uma parábola por exemplo.  
+
+2.	*Q-Q plot*. Usado para examinar se os resíduos são normalmente distribuídos. É bom se os pontos residuais seguirem a linha reta tracejada. É possível dizer que os resíduos seguem a linha diagonal, com pequenos desvios toleráveis.  
+
+3.	*Localização da dispersão (scale-location)*. Usado para verificar a homogeneidade de variância dos resíduos (homocedasticidade). Uma linha horizontal com pontos igualmente dispersos é uma boa indicação de homocedasticidade. No exemplo usado, os resíduos parecem estar dispersos e a linha azul não está próxima do zero, sugerindo um problema com a homocedasticidade, entretanto, não está acima de 3.
+
+4.	*Resíduos vs. alavancagem (leverage)*. Usado para identificar casos influentes, ou seja, valores extremos que podem influenciar os resultados da regressão quando incluídos ou excluídos da análise. Nem todos os *outliers* são influentes na análise de regressão linear. Mesmo que os dados tenham valores extremos, eles podem não ser influentes para determinar uma linha de regressão. Isso significa que os resultados não seriam muito diferentes, incluindo ou não esses valores. Por outro lado, alguns casos podem ser muito influentes, mesmo que pareçam estar dentro de uma faixa razoável de valores. Outra forma de colocar, é que eles não se entendem com a tendência na maioria dos casos. Ao contrário dos outros gráficos, desta vez os padrões não são relevantes. Deve-se estar atento aos valores distantes no canto superior direito ou no canto inferior direito. Esses pontos são os lugares onde os casos podem ter influência contra uma linha de regressão. Procurar casos fora de uma linha tracejada, *distância de Cook*. Quando os casos estão fora da distância de Cook (o que significa que têm pontuações altas de distância de Cook), os casos são influentes para os resultados da regressão. Os resultados da regressão serão alterados se excluirmos esses casos.  
+
+A aparência dos gráficos do exemplo mostra que não há nenhum caso influente. Pouco se observa as linhas de distância de Cook (uma linha tracejada) porque todos os casos estão bem dentro das linhas de distância de Cook. 
+
+#### Avaliação da normalidade  
+
+Além de observar o gráfico QQ plot, é possível realizar um teste estatístico de normalidade dos resíduos como, por exemplo o teste de Shapiro-Wilk. Ele pode ser executado, usando a função shapiro.test() do pacote stats, incluído no R base.  
+
+Ao ser criado o modelo de regressão (`mod_reg`), ele fornece uma série de variáveis que pode ser listada da seguinte maneira:  
+
+```{r}
+ls(mod_reg)
+```
+
+Usando a variável `residuals`, confirma-se o observado no `QQPlot` de que os resíduos apresentam distribuição normal, pois o valor de *P* > 0,05.  
+
+```{r}
+shapiro.test (mod_reg$residuals)
+```
+
+#### *Outliers* nos resíduos  
+
+Existe uma função pode ser usada para verificar valores atípicos nos resíduos da regressão para modelos lineares como `rstandard()` do pacote `stats`, que analisa os resíduos padronizados.   
+
+A função padroniza todos os resíduos e inclui no objeto `residuos_p`. Para analisá-los, faz-se um sumário, usando a função `summary()`. Esta função exibirá os a estatística dos 5 números mais a média para os resíduos padronizados:  
+
+```{r}
+residuos_p <- rstandard(mod_reg)
+summary(residuos_p)
+```
+
+Em uma amostra normalmente distribuída, ao redor de 95% dos valores estão entre –1,96 e +1,96, 99% deve estar entre –2,58 e +2,58 e quase todos (99,9%) deve se situar entre –3,09 e +3,09.  
+
+Portanto, resíduos padronizados com um valor absoluto maior que 3 são motivo de preocupação porque em uma amostra média é improvável que aconteça um valor tão alto por acaso [@field2012regression].  
+
+Se a saída da função `rstandard()` for comparada com o eixo *y* do gráfico `Residuals vs Leverage`, dos gráficos diagnósticos, verifica-se valores semelhantes que variam abaixo de 3 e acima de -3, indicando que não há `outliers` influenciando e a mediana está próxima de zero.
+
+#### Homocedasticidade dos resíduos  
+
+A variância constante, homogênea, é frequentemente chamada de homocedasticidade. Por outro lado, a variância não constante é chamada de heterocedasticidade. Foi visto que é possível usar um gráfico de `resíduos versus ajustados` (previstos) e o `scale-location` (gráficos diagnósticos) para avaliar esse pressuposto. Embora o gráfico possa dar uma ideia sobre homocedasticidade, às vezes, um teste mais formal é preferido. Existem vários testes para isso, mas aqui será utilizado o `Teste de Breusch-Pagan`. A $H_{0}$ e a $H_{A}$ podem ser consideradas como,
+
+$H_{0}$: *Homocedasticidade*. Os resíduos têm variação constante sobre o modelo verdadeiro.
+
+$H_{A}$: *Heterocedasticidade*. Os resíduos não têm variância constante sobre o modelo verdadeiro.
+
+Se o valor *P* > 0,05 não se rejeita a $H_{0}$ de homocedasticidade. O teste de Breusch-Pagan é encontrado na função `bptes()`, incluída no pacote `lmtest`[@hothorn2015lmtest]. 
+
+```{r}
+lmtest::bptest(mod_reg)
+```
+
+Os resultados da saída do teste exibem um valor *P* > 0,05, indicando que não se deve rejeitar a homocedasticidade, mostrando que a pequena alteração no gráfico `Scale-location` e `Residuals vs Fitted` não é preocupante.  
+
+O problema mais sério associado à heterocedasticidade é o fato de que os erros padrão são tendenciosos. Como o erro padrão é fundamental para a realização de testes de significância e cálculo de intervalos de confiança, os erros padrão tendenciosos levam a conclusões incorretas sobre a significância dos coeficientes de regressão. No geral, no entanto, a violação da suposição de homocedasticidade deve ser bastante grave para apresentar um grande problema, dada a natureza robusta da regressão pelo método `ordinary least-squares`. No entanto, é importante que a equação final de predição seja aplicada apenas a populações com as mesmas características da amostra do estudo.  
+
+#### Independência dos resíduos  
+
+Os resíduos no modelo devem ser independentes, ou seja, não devem ser correlacionados entre si. Para verificar isso, pode-se executar o *teste Durbin-Watson* (`teste dw`), utilizando a função `durbinWatsonTest()` do pacote ´car`. O teste retorna um valor entre 0 e 4. Um valor maior que 2 indica uma correlação negativa entre resíduos adjacentes, enquanto um valor menor que 2 indica uma correlação positiva. Se o valor for dois, é provável que exista independência. Existe uma sugestão de que valores abaixo de 1 ou mais de 3 são um motivo definitivo de preocupação [@field2012regression]. É importante  mencionar que o teste tem como pressuposto a normalidade dos dados.
+
+```{r}
+durbinWatsonTest(mod_reg)
+```
+
+Como  na saída do teste o valor *P* > 0,05 e a estatística DW é igual a 2,2, não se rejeita a hipótese nula de independência (rho = 0).
+
+### Tamanho amostral na regressão  
+
+O tamanho da amostra deve ser suficiente para suportar o modelo de regressão. É importante coletar dados suficientes para obter um modelo de regressão confiável. O tamanho da amostra necessário para suportar um modelo depende do valor do coeficiente de correlação do modelo (no caso da correlação linear simples é o *r* de Pearson) e do número de variáveis incluídas.   
+
+A Tabela \@ref(tab:samplesize) @peat2014regression  mostra o número de participantes necessários em modelos com 1 a 4 preditores independentes. Como se observa, o requisito de tamanho da amostra aumenta com o número de variáveis preditoras.
+
+```{r samplesize, echo=FALSE, message=FALSE, warning=FALSE}
+Valor_r <-c(0.2, 0.3,0.4)
+Var.Pred_1 <- c(190, 80, 45)
+Var.Pred_2 <- c(230, 100, 55)
+Var.Pred_3 <- c(265, 115, 65)
+Var.Pred_4 <- c(290, 125, 70)
+df <- data.frame(Valor_r, Var.Pred_1, Var.Pred_2, Var.Pred_3, Var.Pred_4)
+
+knitr::kable(df,
+             col.names = c('Valor r', '1 variável preditora','2 variáveis preditoras',
+             '3 variáveis preditoras', '4 variáveis preditoras'),
+             align = c('c', 'c', 'c', 'c', 'c'),
+             booktabs = TRUE,
+             caption = "Tamanho amostral para regressão") %>% 
+  kable_styling(full_width = T,
+                latex_options = "hold_position") %>% 
+  kableExtra::kable_classic(html_font = "Cambria") %>%
+  kableExtra::row_spec(0, bold = TRUE)
+```
+
+Existem muitas regras práticas, sugerindo o tamanho da amostra. Uma delas, diz que se deve ter 10 a 15 casos por variável preditora no modelo. Entretanto, essas regras podem ser duvidosas e o melhor é calcular o tamanho amostral baseado no tamanho do efeito, usando, por exemplo o site [*StatToDo*](https://www.statstodo.com/SSizMulReg.php)  
+
+### Realização da regressão linear  
+
+Após analisar os pressupostos do modelo de regressão do exemplo, verificou-se que as variáveis `idade` e `comprimento` da criança têm relação linear, que os resíduos do modelo têm distribuição normal, que existe homoscedasticidade e que não há pontos influentes. E, portanto, o modelo permite que se realize uma análise de regressão linear para avaliar a relação entre as variáveis independentes e dependentes.  
+
+Para realizar uma análise de regressão linear simples e verificar os resultados, há necessidade de executar dois comandos. O primeiro, que cria o modelo linear já foi realizado na análise dos gráficos e será repetido aqui. O segundo, imprime o resumo do modelo com a função `summary()`:
+
+```{r}
+mod_reg <- lm (comp ~ idade, dados)
+summary (mod_reg)
+```
+
+A saída da função `summary()` primeiro apresenta como o modelo foi obtido e, em seguida, resume os resíduos do modelo.  
+
+Os *Coeficientes* mostram:  
+
+1. As estimativas (*Estimate*) para os parâmetros do modelo - o valor do intercepto *y* (neste caso, 61,44) e o efeito estimado da idade sobre o comprimento (1,1). Isto significa que para cada unidade de aumento na idade se espera um aumento  de 1,1 cm no comprimento.
+2. O erro padrão dos valores estimados (*Std. Error*).
+3. A estatística de teste (*t value*)
+4. O valor *P* (Pr (>| t |)), também conhecido como a probabilidade de encontrar a estatística *t* fornecida se a hipótese nula de nenhuma correlação for verdadeira.  
+*
+As três linhas finais são os diagnósticos do modelo - o mais importante a observar é o valor *P* (aqui é $2,2\times 10^{-16}$), que indicará se o modelo se ajusta bem aos dados.  
+
+A partir desses resultados, pode-se dizer que existe uma correlação positiva significativa entre idade e comprimento (valor P < 0,001), com um aumento de 1,1 cm no comprimento para cada aumento de 1 mês no na idade , possibilitando a previsão comprimento da criança pela idade.  
+
+Estes dados são empregados para formular a equação do modelo de regressão da seguinte maneira:
+
+
+$$
+\hat {y} = 61,44 + 1,1 x
+$$
+
+O erro padrão das estimativas são fornecidos. Esses dados permitem calcular o IC95%. Ou pode-se usar a função `confint()` do pacote `stats`, que será colocada dentro da função `round()` para arredondar os valores até um digito.
+
+```{r}
+round (confint (mod_reg, level = 0.95), 1)
+```
+
+Dessa forma, é possível prever que uma criança de 30 meses, de acordo com o modelo, terá o seguinte comprimento:
+
+```{r}
+comp_30m <- 61.4 + 1.1 *30
+comp_30m
+
+```
+```{r}
+lim.sup <- 64.2 + 1.2*30
+lim.inf <- 58.7 + 1.0*30
+print (c(lim.inf, lim.sup))
+```
+Ou seja, espera-se que uma criança tenha, aos 30 meses de idade, um comprimento médio de 94,4 cm (IC95%: 88,7-100,2)  
+
+### Visualização dos resultados
+
+Será obtido um gráfico de dispersão com a reta de regressão e seu intervalo de confiança de 95% (Figura \@ref(fig:resreg)). Além disso, adicionou-se a equação do modelo de regressão (o R arredondou os valores), juntamente com o coeficiente de determinação $R^{2}$.
+
+```{r resreg,message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Resultado da regressão linear"}
+ggplot2:: ggplot (dados, aes (x = idade, y = comp)) +
+  geom_point (size = 2) +
+  geom_smooth (method = "lm", se = TRUE, color = "steelblue") +
+  stat_regline_equation (label.y = 100, aes (label = (..eq.label..))) + 
+  stat_regline_equation (label.y = 99, aes (label = (..rr.label..))) +       
+  theme_classic () +
+  xlab ("Idade (meses)") +
+  ylab ("Comprimento(cm)") +
+  theme (text = element_text (size = 12))
+```
+
+No gráfico, o intervalo de previsão médio de 95% em torno da reta de regressão é um intervalo de confiança de 95%, ou seja, a área na qual há 95% de certeza de que a reta de regressão verdadeira se encontra [@altman1988statistics]. Esta banda de intervalo é levemente curvada porque os erros na estimativa do intercepto e da inclinação são incluídos em adição ao erro na previsão da variável desfecho. 

@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="anova-de-medidas-repetidas.html"/>
+<link rel="prev" href="correlação-e-regressão.html"/>
 
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -479,6 +479,25 @@ div.csl-indent {
 <li class="chapter" data-level="14.2.9" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html#relatando-os-resultados-da-anova-de-medidas-repetidas-de-dois-fatores"><i class="fa fa-check"></i><b>14.2.9</b> Relatando os resultados da ANOVA de medidas repetidas de dois fatores</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="15" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html"><i class="fa fa-check"></i><b>15</b> Correlação e Regressão</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#pacotes-necessários-1"><i class="fa fa-check"></i><b>15.1</b> Pacotes necessários</a></li>
+<li class="chapter" data-level="15.2" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#correlação"><i class="fa fa-check"></i><b>15.2</b> Correlação</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#coeficiente-de-correlação-de-pearson"><i class="fa fa-check"></i><b>15.2.1</b> Coeficiente de correlação de Pearson</a></li>
+<li class="chapter" data-level="15.2.2" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#dados-do-exemplo-4"><i class="fa fa-check"></i><b>15.2.2</b> Dados do exemplo</a></li>
+<li class="chapter" data-level="15.2.3" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#pressupostos-da-correlação"><i class="fa fa-check"></i><b>15.2.3</b> Pressupostos da Correlação</a></li>
+<li class="chapter" data-level="15.2.4" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#execução-do-teste-de-correlação"><i class="fa fa-check"></i><b>15.2.4</b> Execução do teste de correlação</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#regressão-linear-simples"><i class="fa fa-check"></i><b>15.3</b> Regressão Linear Simples</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#resíduos"><i class="fa fa-check"></i><b>15.3.1</b> Resíduos</a></li>
+<li class="chapter" data-level="15.3.2" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#análise-dos-pressupostos-do-modelo-de-regressão"><i class="fa fa-check"></i><b>15.3.2</b> Análise dos pressupostos do modelo de regressão</a></li>
+<li class="chapter" data-level="15.3.3" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#tamanho-amostral-na-regressão"><i class="fa fa-check"></i><b>15.3.3</b> Tamanho amostral na regressão</a></li>
+<li class="chapter" data-level="15.3.4" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#realização-da-regressão-linear"><i class="fa fa-check"></i><b>15.3.4</b> Realização da regressão linear</a></li>
+<li class="chapter" data-level="15.3.5" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#visualização-dos-resultados"><i class="fa fa-check"></i><b>15.3.5</b> Visualização dos resultados</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="referências.html"><a href="referências.html"><i class="fa fa-check"></i>Referências</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -884,6 +903,36 @@ div.csl-indent {
 <div class="csl-entry">
 <div class="csl-left-margin">127. </div><div class="csl-right-inline">Muller KE, Barton CN. Approximate power for repeated-measures ANOVA lacking sphericity. Journal of the American Statistical Association. 1989;84(406):549–55. </div>
 </div>
+<div class="csl-entry">
+<div class="csl-left-margin">128. </div><div class="csl-right-inline">Greene Jr JW, Touchstone JC. Urinary estriol as an index of placental function. A study of 279 cases. Obstetrical &amp; Gynecological Survey. 1963;18(3):356–9. </div>
+</div>
+<div class="csl-entry">
+<div class="csl-left-margin">129. </div><div class="csl-right-inline">Kassambara A. Correlation test between two variables in r [Internet]. STHDA - Statistical tools for high-throughput data analysis. 2021. Available from: <a href="http://www.sthda.com/english/wiki/correlation-test-between-two-variables-in-r">http://www.sthda.com/english/wiki/correlation-test-between-two-variables-in-r</a></div>
+</div>
+<div class="csl-entry">
+<div class="csl-left-margin">130. </div><div class="csl-right-inline">Schober P, Boer C, Schwarte LA. Correlation coefficients: Appropriate use and interpretation. Anesthesia &amp; Analgesia. 2018;126(5):1763–8. </div>
+</div>
+<div class="csl-entry">
+<div class="csl-left-margin">131. </div><div class="csl-right-inline">De Winter JC, Gosling SD, Potter J. Comparing the pearson and spearman correlation coefficients across distributions and sample sizes: A tutorial using simulations and empirical data. Psychological methods. 2016;21(3):273. </div>
+</div>
+<div class="csl-entry">
+<div class="csl-left-margin">132. </div><div class="csl-right-inline">Sedgwick P. Correlation versus linear regression. BMJ. 2013;346. </div>
+</div>
+<div class="csl-entry">
+<div class="csl-left-margin">133. </div><div class="csl-right-inline">Kim H-Y. Statistical notes for clinical researchers: Simple linear regression 3–residual analysis. Restorative dentistry &amp; endodontics. 2019;44(1). </div>
+</div>
+<div class="csl-entry">
+<div class="csl-left-margin">134. </div><div class="csl-right-inline">Field A, Miles J, Field Z. Regression. In: Discovering statistics using r. Sage Publications, Ltd; 2012. p. 266–76. </div>
+</div>
+<div class="csl-entry">
+<div class="csl-left-margin">135. </div><div class="csl-right-inline">Hothorn T, Zeileis A, Farebrother RW, et al. Package <span>“lmtest.”</span> Testing linear regression models https://cran r-project org/web/packages/lmtest/lmtest pdf Accessed. 2015;6. </div>
+</div>
+<div class="csl-entry">
+<div class="csl-left-margin">136. </div><div class="csl-right-inline">Peat J, Barton B. Correlation and regression. In: Medical statistics : A guide to SPSS, data analysis, and critical appraisal. New York, NY: John Wiley &amp; Sons; 2014. p. 209. </div>
+</div>
+<div class="csl-entry">
+<div class="csl-left-margin">137. </div><div class="csl-right-inline">Altman DG, Gardner MJ. Statistics in medicine: Calculating confidence intervals for regression and correlation. British Medical Journal (Clinical research ed). 1988;296(6631):1238. </div>
+</div>
 </div>
 </div>
 
@@ -916,7 +965,7 @@ div.csl-indent {
           </div>
         </div>
       </div>
-<a href="anova-de-medidas-repetidas.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="correlação-e-regressão.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>

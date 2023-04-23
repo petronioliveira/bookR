@@ -479,6 +479,25 @@ div.csl-indent {
 <li class="chapter" data-level="14.2.9" data-path="anova-de-medidas-repetidas.html"><a href="anova-de-medidas-repetidas.html#relatando-os-resultados-da-anova-de-medidas-repetidas-de-dois-fatores"><i class="fa fa-check"></i><b>14.2.9</b> Relatando os resultados da ANOVA de medidas repetidas de dois fatores</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="15" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html"><i class="fa fa-check"></i><b>15</b> Correlação e Regressão</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#pacotes-necessários-1"><i class="fa fa-check"></i><b>15.1</b> Pacotes necessários</a></li>
+<li class="chapter" data-level="15.2" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#correlação"><i class="fa fa-check"></i><b>15.2</b> Correlação</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#coeficiente-de-correlação-de-pearson"><i class="fa fa-check"></i><b>15.2.1</b> Coeficiente de correlação de Pearson</a></li>
+<li class="chapter" data-level="15.2.2" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#dados-do-exemplo-4"><i class="fa fa-check"></i><b>15.2.2</b> Dados do exemplo</a></li>
+<li class="chapter" data-level="15.2.3" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#pressupostos-da-correlação"><i class="fa fa-check"></i><b>15.2.3</b> Pressupostos da Correlação</a></li>
+<li class="chapter" data-level="15.2.4" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#execução-do-teste-de-correlação"><i class="fa fa-check"></i><b>15.2.4</b> Execução do teste de correlação</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#regressão-linear-simples"><i class="fa fa-check"></i><b>15.3</b> Regressão Linear Simples</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#resíduos"><i class="fa fa-check"></i><b>15.3.1</b> Resíduos</a></li>
+<li class="chapter" data-level="15.3.2" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#análise-dos-pressupostos-do-modelo-de-regressão"><i class="fa fa-check"></i><b>15.3.2</b> Análise dos pressupostos do modelo de regressão</a></li>
+<li class="chapter" data-level="15.3.3" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#tamanho-amostral-na-regressão"><i class="fa fa-check"></i><b>15.3.3</b> Tamanho amostral na regressão</a></li>
+<li class="chapter" data-level="15.3.4" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#realização-da-regressão-linear"><i class="fa fa-check"></i><b>15.3.4</b> Realização da regressão linear</a></li>
+<li class="chapter" data-level="15.3.5" data-path="correlação-e-regressão.html"><a href="correlação-e-regressão.html#visualização-dos-resultados"><i class="fa fa-check"></i><b>15.3.5</b> Visualização dos resultados</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="referências.html"><a href="referências.html"><i class="fa fa-check"></i>Referências</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -811,12 +830,12 @@ Figure 7.5: Função densidade de probabilidade.
 </ul>
 <p>Com esta função é possível, por exemplo, gerar 10 observações de uma distribuição normal:</p>
 <div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="introdução-à-teoria-das-probabilidades.html#cb432-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1] -0.80691276 -0.44894636  1.05562900 -1.30884299 -1.70367868  1.27185247
-##  [7]  1.02451294 -0.06706224  1.69121955 -1.92597780</code></pre>
+<pre><code>##  [1] -0.3222670  0.1295821 -2.4560515  0.7229962 -0.3525081  0.4940085
+##  [7] -1.3421547 -1.0722839 -0.4487031 -1.2911738</code></pre>
 <p>No entanto, deve-se notar que, se não especificar uma “semente” (<code>seed</code>), a saída não será reproduzível:</p>
 <div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="introdução-à-teoria-das-probabilidades.html#cb434-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1]  0.01752533  1.05636082 -0.11330727  0.96624217 -0.54041573  0.96689061
-##  [7] -0.12633035  0.80653825  0.43580059  1.34972673</code></pre>
+<pre><code>##  [1] -0.94611008  0.88791227  0.09404257 -2.40052017  0.72501590  0.41379446
+##  [7] -0.80102799 -1.57182541  0.14732267 -0.22764822</code></pre>
 <p>Pode-se usar a função <code>set.seed()</code> para tornar o código reproduzível. O valor da “semente” (número) não é importante desde que seja consistente na sua utilização. O que é verdadeiramente importante é que o código seja reproduzido fielmente.</p>
 <p>Para ilustrar, será construído dois conjuntos de 10 números que serão recebidos pelos objetos <em>x</em> e <em>y</em>. Para gerar o conjunto de números <em>x</em>, sera usado o número <code>123</code> como “semente”. A “semente” funciona como uma espécie de marca. Para o <em>y</em> não será usado a <code>set.seed()</code>.</p>
 <div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="introdução-à-teoria-das-probabilidades.html#cb436-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
