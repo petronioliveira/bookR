@@ -51,7 +51,7 @@ ggplot2::ggplot(dados, aes(x=fumo, y=pesoRN)) +
 
 ### Por que realizar uma ANOVA?
 
-Inicialmente, para analisar os grupos, se ficaria tentado a fazer comparações por pares usando um teste *t* de amostras independentes. Com existem quatro grupos, é possível compará-los realizando seis teste, grupo 1 versus grupo 2, grupo 1 versus grupo 3, grupo 1 versus grupo 4, grupo 2 versus grupo 3, grupo 2 versus grupo 4 e grupo 3 versus grupo 4. Se os dados têm *k* grupos são necessários $\frac {k!}{2!(k-2)!}$ testes.   
+Inicialmente, para analisar os grupos, se ficaria tentado a fazer comparações por pares usando um teste *t* de amostras independentes. Com existem quatro grupos, é possível compará-los realizando seis testes, grupo 1 versus grupo 2, grupo 1 versus grupo 3, grupo 1 versus grupo 4, grupo 2 versus grupo 3, grupo 2 versus grupo 4 e grupo 3 versus grupo 4. Se os dados têm *k* grupos são necessários $\frac {k!}{2!(k-2)!}$ testes.   
 
 A probabilidade de um erro do tipo I não ocorrer para cada teste *t* é de 0,95 (isto é, 1 – 0,05), supondo um $\alpha$ = 0,05. Os três testes são independentes; portanto, a probabilidade de um erro do tipo I não ocorrer nos seis testes é de $(0,95)^6 = 0,735$. Dessa maneira, a probabilidade de ocorrer pelo menos um erro do tipo I nos seis testes *t* de duas amostras é de 1 – 0,735 ou 0,265 (26,5%), o que é mais alto do que o nível de significância definido de 0,05 [@field2012anova].  
 
@@ -627,23 +627,23 @@ tab.aov <- anova_test(dados,
 pwc <- tukey_hsd(dados,pesoRN~fumo)
 
 pwc <- pwc %>% add_xy_position (x = "fumo")
-ggpubr::ggboxplot (dados,
-                   x = "fumo", 
-                   y = "pesoRN",
-                   xlab = "Tabagismo na gestação",
-                   ylab = "Peso do recém-nascido (g)",
-                   color = "fumo", 
-                   palette = "jama",
-                   fill = "fumo",
-                   alpha = 0.3,
-                   size = 1.0) +  
-  stat_pvalue_manual (pwc, 
+p <- ggplot2::ggplot(dados, aes(x=fumo, y=pesoRN)) +
+  stat_boxplot(geom = "errorbar", 
+               width = 0.1) + 
+  geom_boxplot(aes(color = fumo), size = 0.8) +
+  scale_color_nejm() +
+  labs(x = "Tabagismo", 
+       y = "Peso ao nascer (g)",
+       subtitle = get_test_label (tab.aov, detailed = TRUE),
+       caption = get_pwc_label(pwc)) +
+  stat_pvalue_manual (pwc,
+                      label = "p.adj",
+                      label.size = 3.2,
                       hide.ns = TRUE) + 
-  labs (subtitle = get_test_label (tab.aov, detailed = TRUE),
-        caption = get_pwc_label(pwc)) +
-  theme(legend.position = "none") +
-  theme (text = element_text (size = 12))
-
+  theme (text = element_text (size = 12)) +
+  theme_classic()
+p +
+  theme(legend.position = "none") 
 ```
 
 ## ANOVA de dois fatores  
@@ -726,7 +726,9 @@ ggpubr::ggline(dados,
                x = "alcool", 
                y = "escore", 
                color = "sexo",
-               size = 1,
+               size = 0.7,
+               linetype = "dashed",
+               position = position_dodge(width = 0.2),
                add = c("mean_ci"),
                palette = c("red", "dodgerblue4"))
 ```
@@ -1140,7 +1142,9 @@ gl <- ggpubr::ggline(dados,
                      y = "escore",
                      color = "sexo",
                      size = 0.7,
+                     linetype = "dashed",
                      add = c("mean_ci"),
+                     position = position_dodge(width = 0.2),
                      palette = c("darkred", "dodgerblue4"))
 
 gl + stat_pvalue_manual(pwc,  
