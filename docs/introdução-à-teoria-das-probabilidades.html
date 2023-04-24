@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-04-23" />
+<meta name="date" content="2023-04-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -241,7 +241,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="4.6.1" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#operadores"><i class="fa fa-check"></i><b>4.6.1</b> Operadores</a></li>
 </ul></li>
-<li class="chapter" data-level="4.7" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#objetos"><i class="fa fa-check"></i><b>4.7</b> Objetos</a></li>
+<li class="chapter" data-level="4.7" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#sec-objetos"><i class="fa fa-check"></i><b>4.7</b> Objetos</a></li>
 <li class="chapter" data-level="4.8" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#funções"><i class="fa fa-check"></i><b>4.8</b> Funções</a>
 <ul>
 <li class="chapter" data-level="4.8.1" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#criando-funções"><i class="fa fa-check"></i><b>4.8.1</b> Criando funções</a></li>
@@ -942,12 +942,12 @@ Figure 7.5: Função densidade de probabilidade.
 </ul>
 <p>Com esta função é possível, por exemplo, gerar 10 observações de uma distribuição normal:</p>
 <div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="introdução-à-teoria-das-probabilidades.html#cb432-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1]  2.1413340  0.3429647  1.0627960 -1.1153928  0.6567102  0.3917580
-##  [7]  1.1405256  1.5742626  0.2698478 -0.7415112</code></pre>
+<pre><code>##  [1] -0.8247756 -1.3803100 -0.1415261  0.4339407  0.8986095  1.0489271
+##  [7] -2.1599913  0.2335522  0.9214515  0.9501813</code></pre>
 <p>No entanto, deve-se notar que, se não especificar uma “semente” (<code>seed</code>), a saída não será reproduzível:</p>
 <div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="introdução-à-teoria-das-probabilidades.html#cb434-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1] -0.20038829 -2.04695664  2.07354242  0.46206566 -0.53533062 -2.04628869
-##  [7] -0.29989605  0.01397442 -0.17981063  0.29541209</code></pre>
+<pre><code>##  [1]  0.1275813  0.1935764 -0.3312631 -0.8378207 -1.7555776  0.5088473
+##  [7] -0.3040978 -0.4318568 -1.0274827 -1.1499127</code></pre>
 <p>Pode-se usar a função <code>set.seed()</code> para tornar o código reproduzível. O valor da “semente” (número) não é importante desde que seja consistente na sua utilização. O que é verdadeiramente importante é que o código seja reproduzido fielmente.</p>
 <p>Para ilustrar, será construído dois conjuntos de 10 números que serão recebidos pelos objetos <em>x</em> e <em>y</em>. Para gerar o conjunto de números <em>x</em>, sera usado o número <code>123</code> como “semente”. A “semente” funciona como uma espécie de marca. Para o <em>y</em> não será usado a <code>set.seed()</code>.</p>
 <div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="introdução-à-teoria-das-probabilidades.html#cb436-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>

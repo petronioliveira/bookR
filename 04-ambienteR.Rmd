@@ -285,7 +285,7 @@ O resultado da exponenciação é exibido como notação científica, onde $e+05
 
 **Operadores de atribuição**
 
-Operadores de atribuição são usados para atribuir valores a variáveis, como será visto na seção *Objetos*, adiante.   
+Operadores de atribuição são usados para atribuir valores a variáveis, como será visto na seção \@ref(sec-objetos), adiante.   
 
 **Operadores de comparação**
 
@@ -356,11 +356,11 @@ sqrt (81)
 abs (3 - 6)
 ```
 
-## Objetos
+## Objetos  {#sec-objetos}
 
 O *R* permite salvar valores dentro de um *objeto*. Os objetos são criados utilizando o *operador de atribuição* (<-). Para digitar este operador, basta teclar o sinal *menor que* (<), seguido de *hífen* (-) , sem espaços. Existe um atalho que é pressionar  (`Alt`) $+$ (-). O símbolo $=$ pode ser usado no lugar de <-, mas não é recomendado.
 
-**Objeto** é um pequeno espaço na memória do computador onde o R armazenará um valor ou o resultado de um comando, utilizando um nome arbitrariamente definido. Tudo criado pelo R pode se constituir em um objeto, por exemplo: uma variável, uma operação aritmética, um gráfico, uma matriz ou um modelo estatístico. Através de um objeto torna-se simples acessar os dados armazenados na memória. Ao criar um objeto, se faz uma declaração. Isto significa que se está afirmando, por exemplo, que uma determinada operação aritmética irá, agora, tornar-se um objeto que irá armazenar um determinado valor. As declarações são feitas uma em cada linha do *R Script*.  
+**Objeto** é um pequeno espaço na memória do computador onde o R armazenará um valor ou o resultado de um comando, utilizando um nome arbitrariamente definido. Tudo criado pelo R pode se constituir em um objeto, por exemplo: uma variável, uma operação aritmética, um gráfico, uma matriz ou um modelo estatístico. Através de um objeto torna-se simples acessar os dados armazenados na memória. Ao criar um objeto, se faz uma declaração. Isto significa que se está afirmando que uma determinada operação aritmética irá, agora, tornar-se um objeto que irá armazenar um determinado valor. As declarações são feitas uma em cada linha do *R Script*.  
 
 Os objetos devem receber um nome e é obrigatório que ele comece por uma letra (ou um ponto) e não é permitido o uso do hífen. Pode-se usar o ponto e *underlines* para separar palavras. Deve ser evitado o uso de nomes que sejam de objetos do sistema, ou outros objetos já criados, funções ou constantes. Por exemplo, não deve ser utilizado: `c`, `q`, `r`, `s`, `t`, `C`, `D`, `F`, `I`, `T`, `diff`, `exp`, `log`, `mean`, `pi`, `range`, `rank`, `var`, `NA`, `NaN`, `NULL`, `FALSE`, `TRUE`, `break`, `else`, `if`, `break`, `function`, `in`, `while` que devem ser reservados, pois têm significados especiais.  
 

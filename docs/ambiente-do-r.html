@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-04-23" />
+<meta name="date" content="2023-04-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -241,7 +241,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="4.6.1" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#operadores"><i class="fa fa-check"></i><b>4.6.1</b> Operadores</a></li>
 </ul></li>
-<li class="chapter" data-level="4.7" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#objetos"><i class="fa fa-check"></i><b>4.7</b> Objetos</a></li>
+<li class="chapter" data-level="4.7" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#sec-objetos"><i class="fa fa-check"></i><b>4.7</b> Objetos</a></li>
 <li class="chapter" data-level="4.8" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#funções"><i class="fa fa-check"></i><b>4.8</b> Funções</a>
 <ul>
 <li class="chapter" data-level="4.8.1" data-path="ambiente-do-r.html"><a href="ambiente-do-r.html#criando-funções"><i class="fa fa-check"></i><b>4.8.1</b> Criando funções</a></li>
@@ -891,7 +891,7 @@ Figure 4.10: Assistente de novo projeto.
 <pre><code>## [1] 3</code></pre>
 <p>O resultado da exponenciação é exibido como notação científica, onde <span class="math inline">\(e+05\)</span> significa <span class="math inline">\(10^5\)</span>.</p>
 <p><strong>Operadores de atribuição</strong></p>
-<p>Operadores de atribuição são usados para atribuir valores a variáveis, como será visto na seção <em>Objetos</em>, adiante.</p>
+<p>Operadores de atribuição são usados para atribuir valores a variáveis, como será visto na seção <a href="ambiente-do-r.html#sec-objetos">4.7</a>, adiante.</p>
 <p><strong>Operadores de comparação</strong></p>
 <p>São usados para comparar dois valores.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="ambiente-do-r.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Igualdade</span></span>
@@ -948,10 +948,10 @@ Figure 4.10: Assistente de novo projeto.
 <pre><code>## [1] 3</code></pre>
 </div>
 </div>
-<div id="objetos" class="section level2 hasAnchor" number="4.7">
-<h2><span class="header-section-number">4.7</span> Objetos<a href="ambiente-do-r.html#objetos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="sec-objetos" class="section level2 hasAnchor" number="4.7">
+<h2><span class="header-section-number">4.7</span> Objetos<a href="ambiente-do-r.html#sec-objetos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>O <em>R</em> permite salvar valores dentro de um <em>objeto</em>. Os objetos são criados utilizando o <em>operador de atribuição</em> (&lt;-). Para digitar este operador, basta teclar o sinal <em>menor que</em> (&lt;), seguido de <em>hífen</em> (-) , sem espaços. Existe um atalho que é pressionar (<code>Alt</code>) <span class="math inline">\(+\)</span> (-). O símbolo <span class="math inline">\(=\)</span> pode ser usado no lugar de &lt;-, mas não é recomendado.</p>
-<p><strong>Objeto</strong> é um pequeno espaço na memória do computador onde o R armazenará um valor ou o resultado de um comando, utilizando um nome arbitrariamente definido. Tudo criado pelo R pode se constituir em um objeto, por exemplo: uma variável, uma operação aritmética, um gráfico, uma matriz ou um modelo estatístico. Através de um objeto torna-se simples acessar os dados armazenados na memória. Ao criar um objeto, se faz uma declaração. Isto significa que se está afirmando, por exemplo, que uma determinada operação aritmética irá, agora, tornar-se um objeto que irá armazenar um determinado valor. As declarações são feitas uma em cada linha do <em>R Script</em>.</p>
+<p><strong>Objeto</strong> é um pequeno espaço na memória do computador onde o R armazenará um valor ou o resultado de um comando, utilizando um nome arbitrariamente definido. Tudo criado pelo R pode se constituir em um objeto, por exemplo: uma variável, uma operação aritmética, um gráfico, uma matriz ou um modelo estatístico. Através de um objeto torna-se simples acessar os dados armazenados na memória. Ao criar um objeto, se faz uma declaração. Isto significa que se está afirmando que uma determinada operação aritmética irá, agora, tornar-se um objeto que irá armazenar um determinado valor. As declarações são feitas uma em cada linha do <em>R Script</em>.</p>
 <p>Os objetos devem receber um nome e é obrigatório que ele comece por uma letra (ou um ponto) e não é permitido o uso do hífen. Pode-se usar o ponto e <em>underlines</em> para separar palavras. Deve ser evitado o uso de nomes que sejam de objetos do sistema, ou outros objetos já criados, funções ou constantes. Por exemplo, não deve ser utilizado: <code>c</code>, <code>q</code>, <code>r</code>, <code>s</code>, <code>t</code>, <code>C</code>, <code>D</code>, <code>F</code>, <code>I</code>, <code>T</code>, <code>diff</code>, <code>exp</code>, <code>log</code>, <code>mean</code>, <code>pi</code>, <code>range</code>, <code>rank</code>, <code>var</code>, <code>NA</code>, <code>NaN</code>, <code>NULL</code>, <code>FALSE</code>, <code>TRUE</code>, <code>break</code>, <code>else</code>, <code>if</code>, <code>break</code>, <code>function</code>, <code>in</code>, <code>while</code> que devem ser reservados, pois têm significados especiais.</p>
 <p>Quando se usa um objeto com o nome <code>pi</code>, ele assumirá outro valor diferente de 3,141593. Preservando este nome, toda vez que usarmos a palavra <code>pi</code>, o R assume o valor pré-estabelecido. Além disso, o R faz a diferença entre letras maiúsculas e minúsculas. Ou seja, <code>soma</code> é um objeto diferente de <code>Soma</code> e ambos são diferentes de <code>SOMA</code>.</p>
 <p>Para exibir o conteúdo de um objeto, basta digitar seu nome no <em>R Script</em> ou no <em>Console</em> e executar. Em análises mais extensas, verificar se já há um objeto com o mesmo nome, pois seus valores serão substituídos ao executar o novo objeto. Para saber se já existe um objeto com o nome definido, digite as primeiras letras do objeto criado e o <em>R Studio</em> listará, usando a sua função de autocompletar, tudo que começar com essas letras no arquivo. Assim ficará fácil verificar se já existe um objeto com o nome desejado.</p>
