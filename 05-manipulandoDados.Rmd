@@ -2,7 +2,7 @@
 
 ## Importando dados de outros *softwares*
 
-Foi visto. quando estudou-se os dataframes, que é possível inserir dados diretamente no *R*. Entretanto, se o conjunto de dados for muito extenso, torna-se complicado. Desta forma, é melhor importar os dados de outro software, como o Excel, SPSS, etc. A recomendação é que se construa o banco de dados, por exemplo, no Excel, e, depois, exporte o arquivo em um formato que o*R*reconheça – `.xlsx`, `.csV`, `.sav`.  
+Foi visto. quando estudou-se os dataframes, que é possível inserir dados diretamente no *R*. Entretanto, se o conjunto de dados for muito extenso, torna-se complicado. Desta forma, é melhor importar os dados de outro software, como o Excel, SPSS, etc. A recomendação é que se construa o banco de dados, por exemplo, no Excel, e, depois, exporte o arquivo em um formato que o*R*reconheça – `.xlsx`, `.csv`, `.sav`.  
 
 ### Importando dados de um arquivo CSV  {#sec-csv} 
 
@@ -103,7 +103,7 @@ library(tidyr)
 as_tibble(iris)
 ```
 
-Observa-se que não houve grandes mudanças, apenas o conjunto de dados está estruturalmente mais organizado.
+Verifica-se que não houve grandes mudanças, apenas o conjunto de dados está estruturalmente mais organizado, mais flexível.
 
 ## Pacote `dplyr` {#sec-mater}
 
@@ -123,7 +123,7 @@ library(dplyr)
 mater <- read_excel("Arquivos/dadosMater.xlsx")
 ```
 
-A função `read_excel()` carrega o arquivo e o coloca em objeto que foi, arbitrariamente, chamado de `mater`^[ATENÇÃO: Volta-se a insistir, o comando para carregar o conjunto de dados somente funciona, sem colocar o caminho (*path*) completo, se tudo está sendo realizado no diretório de trabalho.]. 
+A função `read_excel()` carrega o arquivo e o atribui a um objeto , arbitrariamente, denominado de `mater`^[ATENÇÃO: Volta-se a insistir, o comando para carregar o conjunto de dados somente funciona, sem colocar o caminho (*path*) completo, se tudo está sendo realizado no diretório de trabalho.]. 
 
 
 ```{r}
@@ -243,7 +243,7 @@ Observe que, agora, o conjunto de dados `mater3` tem `r length(mater3$sexo)` lin
 Para selecionar apenas os meninos, nascidos a termo, codificados como `"masc"`, procede-se da seguinte maneira^[Lembrar que o sinal de igualdade, no R, é duplo =]:
 
 ```{r}
-meninos <- filter (mater1, sexo == 'masc')
+meninos <- filter (mater3, sexo == 'masc')
 ```
 
 ```{r}
@@ -255,7 +255,7 @@ O banco de dados `meninos` é constituídos por `r length(meninos$sexo)` meninos
 Uma outra maneira de se fazer o mesmo é usar a função `grepl()`, dentro da função `filter ()`. Ela é usada para pesquisar a correspondência de padrões. No código a seguir, pesquisa-se os registros em que a variável `sexo` contém `“fem”`, correspondentes às meninas.  
 
 ```{r}
-meninas <- filter (mater1, grepl("fem", sexo))
+meninas <- filter (mater3, grepl("fem", sexo))
 ```
 
 ```{r}
@@ -271,7 +271,7 @@ O Índice de Massa Corporal (IMC) é igual a
 $$
 IMC=\frac{peso}{altura^{2}}
 $$
-Será acrescentado a variável `imc`, no banco de dados mater1, usando a função `mutate()`:  
+Será acrescentado a variável `imc`, no banco de dados `mater1`, usando a função `mutate()`:  
 
 ```{r}
 mater1 <- mutate(mater1, imc = peso/altura^2)
