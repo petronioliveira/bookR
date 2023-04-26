@@ -1,16 +1,16 @@
-# Manipulando os dados no R Studio
+# Manipulando os dados no *R Studio*
 
 ## Importando dados de outros *softwares*
 
-Foi visto. quando estudou-se os dataframes, que é possível inserir dados diretamente no R. Entretanto, se o conjunto de dados for muito extenso, torna-se complicado. Desta forma, é melhor importar os dados de outro software, como o Excel, SPSS, etc. A recomendação é que se construa o banco de dados, por exemplo, no Excel, e depois exporte o arquivo em um formato que o R reconheça – .xlsx, .csv, .sav, por exemplo.  
+Foi visto. quando estudou-se os dataframes, que é possível inserir dados diretamente no *R*. Entretanto, se o conjunto de dados for muito extenso, torna-se complicado. Desta forma, é melhor importar os dados de outro software, como o Excel, SPSS, etc. A recomendação é que se construa o banco de dados, por exemplo, no Excel, e, depois, exporte o arquivo em um formato que o*R*reconheça – `.xlsx`, `.csV`, `.sav`.  
 
 ### Importando dados de um arquivo CSV  {#sec-csv} 
 
 O formato CSV significa *Comma Separated Values*, ou seja, é um arquivo de valores separados por vírgula. Esse formato de armazenamento é simples e agrupa informações de arquivos de texto em planilhas. É possível gerar um arquivo `.csv`, a partir de uma planilha do Excel, usando o menu `salvar como` e escolher `CSV`.  
 
-As funções `read.csv()` e `read.csv2()`, incluídas no R base, podem ser utilizadas para importar arquivos CSV. Existe uma pequena diferença entre elas. Dois argumentos dessas funções têm padrão diferentes em cada uma. São eles: `sep` (separador de colunas) e `dec` (separador de decimais). Em `read.csv()`, o padrão é `sep = ”,”` e `dec = ”.”` e em `read.csv2()` o padrão é `sep = “;”` e `dec = ”,”`. Portanto, quando se importa um arquivo `.csv`, é importante saber qual a sua estrutura. Verificar se os decimais estão separados por *ponto* ou por *vírgula* e se as colunas (variáveis), por *vírgula* ou *ponto e vírgula*.   
+As funções `read.csv()` e `read.csv2()`, incluídas no*R*base, podem ser utilizadas para importar arquivos CSV. Existe uma pequena diferença entre elas. Dois argumentos dessas funções têm padrão diferentes em cada uma. São eles: `sep` (separador de colunas) e `dec` (separador de decimais). Em `read.csv()`, o padrão é `sep = ”,”` e `dec = ”.”` e em `read.csv2()` o padrão é `sep = “;”` e `dec = ”,”`. Portanto, quando se importa um arquivo `.csv`, é importante saber qual a sua estrutura. Verificar se os decimais estão separados por *ponto* ou por *vírgula* e se as colunas (variáveis), por *vírgula* ou *ponto e vírgula*.   
 
-Quando se usa o `read.csv()` há necessidade de informar o separador e o decimal, pois senão ele usará o padrão inglês e o arquivo não será lido. Já com `read.csv2()`, que o usa o padrão brasileiro, não há necessidade de informar ao R qual o separador de colunas e nem o separador dos decimais.  
+Quando se usa o `read.csv()` há necessidade de informar o separador e o decimal, pois senão ele usará o padrão inglês e o arquivo não será lido. Já com `read.csv2()`, que usa o padrão brasileiro, não há necessidade de informar ao*R*qual o separador de colunas e nem o separador dos decimais.  
 
 Além disso, é necessário saber em que diretório do computador está o arquivo para informar ao comando. Recomenda-se colocar o arquivo na pasta do diretório de trabalho, pois assim basta apenas colocar o nome do arquivo na função de leitura dos dados. Caso contrário, tem-se que se usar todo o caminho (*path*).   
 
@@ -26,7 +26,7 @@ neonatos <- read.csv2("./Arquivos/dadosNeonatos.csv")
 str(neonatos)
 ```
 
-Recentemente, foi desenvolvido o pacote `readr`, incluído no conjunto de pacotes `tidyverse`@wickham2019tidyverse, para lidar rapidamente com a leitura de grandes arquivos. O pacote fornece substituições para funções como `read.csv()`. As funções `read_csv()` e `read_csv2()` oferecidas pelo `readr` são análogas às do R base. Entretanto, são muito mais rápidas e fornecem mais recursos, como um método compacto para especificar tipos de coluna.  
+Recentemente, foi desenvolvido o pacote `readr`, incluído no conjunto de pacotes `tidyverse`@wickham2019tidyverse, para lidar rapidamente com a leitura de grandes arquivos. O pacote fornece substituições para funções como `read.csv()`. As funções `read_csv()` e `read_csv2()` oferecidas pelo `readr` são análogas às do*R*base. Entretanto, são muito mais rápidas e fornecem mais recursos, como um método compacto para especificar tipos de coluna.  
 
 Uma leitura típica para `read_csv2()` terá a seguinte aparência. Será criado um outro objeto de nome `recemNascidos` apenas para facilitar, didaticamente, ele é exatamente igual ao neonatos: 
 
@@ -47,7 +47,7 @@ O pacote `readxl`, pertencente ao conjunto de pacotes do `tidyverse`, facilita a
  knitr::include_graphics("https://i.imgur.com/5qY7z0C.png")
 ```
 
-Será feita a leitura dos mesmos dados, usados na leitura de dados `csv`, apenas o arquivo agora está no formato `.xlsx`. Para obter o arquivo, siga os mesmos passos, usados anteriormante. Clique no [**link**](https://github.com/petronioliveira/Arquivos/blob/main/dadosNeonatos.xlsx) e salve em seu diretório de trabalho.  
+Será feita a leitura dos mesmos dados, usados na leitura de dados `csv`, apenas o arquivo agora está no formato `.xlsx`. Para obter o arquivo, siga os mesmos passos, usados anteriormente. Clique no [**link**](https://github.com/petronioliveira/Arquivos/blob/main/dadosNeonatos.xlsx) e salve em seu diretório de trabalho.  
 
 Os dados serão atribuídos a um objeto com outro nome (`recemNatos`):
 
@@ -78,19 +78,19 @@ Por exemplo, para importar o arquivo `dadosNeonatos.xlsx`, clicar em `From Excel
 
 ## Tibble  {#sec-tibble}
 
-A maneira mais comum de armazenar dados no R é usar `data.frames` ou `tibble`.  
+A maneira mais comum de armazenar dados no *R* é usar `data.frames` ou `tibble`.  
 
 *Tibble* é um novo tipo de dataframe. É como se fosse um dataframe mais moderno. Ele mantém muitos recursos importantes do data frame original, mas remove muitos dos recursos desatualizados.   
 
-Os `tibbles` são outro recurso incrível adicionado ao R por Hadley Wickham, através do `tidyverse`, conjunto de pacotes que formam um conjunto básico de funções que facilitam a manipulação e representação gráfica dos dados @wickham2019tidyverse. Para saber mais sobre tibble, veja vignette('tibbles').  
+Os `tibbles` são outro recurso incrível adicionado ao *R* por Hadley Wickham, através do `tidyverse`, conjunto de pacotes que formam um conjunto básico de funções que facilitam a manipulação e representação gráfica dos dados @wickham2019tidyverse. Para saber mais sobre `tibble`, veja vignette('tibbles').  
 
-A maioria dos pacotes do R usa dataframes tradicionais, entretanto é possível transformá-los para `tibble`, usando a função `as_tibble()`, incluída no pacote `tidyr` [@wickham2022tidyr]. O único propósito deste pacote é simplificar o processo de criação de `tidy data`(dados organizados).
+A maioria dos pacotes do *R* usa dataframes tradicionais, entretanto é possível transformá-los para `tibble`, usando a função `as_tibble()`, incluída no pacote `tidyr` [@wickham2022tidyr]. O único propósito deste pacote é simplificar o processo de criação de `tidy data`(dados organizados).
 
 O conceito de *tidy data*, introduzido por Wickman @wickham2014tidy, se refere à estrutura dos dados organizados de maneira que cada linha é uma observação, cada coluna representa variáveis e cada entrada nas células do dataframe são os valores. 
 
-A transformação de um data frame tradicional em um tibble, é um procedimento rescomendável, em função da maior flexibilidade destes.  
+A transformação de um dataframe tradicional em um tibble, é um procedimento rescomendável, em função da maior flexibilidade destes.  
 
-Como exemplo deste procedimento, será usado o famoso conjunto de dados da flor iris @fisher1936use que fornece as medidas em centímetros das variáveis comprimento e largura da sepala e comprimento e largura da pétala, repectivamente, para 50 flores de cada uma das 3 espécies de íris (*Iris setosa*, *versicolor* e *virginica*). Este conjunto de dados encontra-se no pacote `datasets` no R base. Para visualizar os dados, será usado a função `str()`, também do R base, que mostra a estrutura interna de um objeto:
+Como exemplo deste procedimento, será usado o famoso conjunto de dados da flor iris @fisher1936use que fornece as medidas em centímetros das variáveis comprimento e largura da sepala e comprimento e largura da pétala, repectivamente, para 50 flores de cada uma das 3 espécies de íris (*Iris setosa*, *versicolor* e *virginica*). Este conjunto de dados encontra-se no pacote `datasets` no *R* base. Para visualizar os dados, será usado a função `str()`, também do *R* base, que mostra a estrutura interna de um objeto:
 
 ```{r}
 str(iris)
@@ -103,11 +103,13 @@ library(tidyr)
 as_tibble(iris)
 ```
 
+Observa-se que não houve grandes mudanças, apenas o conjunto de dados está estruturalmente mais organizado.
+
 ## Pacote `dplyr` {#sec-mater}
 
 O pacote `dpylr` é comumente usado para limpar e trabalhar com dados [@wickham2015dplyr]. No nível mais básico, as funções do pacote referem-se a “verbos” de manipulação de dados, como `select`, `filter`, `mutate`, `arrange`, `summarize`, entre outros, que permitem encadear várias etapas em algumas linhas de código, como será visto adiante.   
 
-O pacote `dplyr` é adequado para trabalhar com um único conjunto de dados, bem como para obter resultados complexos em grandes conjuntos de dados. As funções `dplyr` são processadas mais rápido do que as funções R base. 
+O pacote `dplyr` é adequado para trabalhar com um único conjunto de dados, bem como para obter resultados complexos em grandes conjuntos de dados. As funções `dplyr` são processadas mais rápido do que as funções *R* base. 
 
 Para trabalhar na manipulação dos dados serão usados alguns pacotes, já mencionados anteriormente, `readxl`@wickham2019readxl e `dplyr`, e o conjunto de dados `dadosMater.xlsx`. Para obter estes dados, clique [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosMater.xlsx) e faça o download para o seu diretório de trabalho, como orientado anteriormente.
 
@@ -222,10 +224,10 @@ Por exemplo:
 * **x | !x**  $\longrightarrow$ seleciona *x* ou *y*
 * **x & !x**  $\longrightarrow$ seleciona *x* e *y*
 
-Um recém-nascido é dito a termo quando a duração da gestação é igual a 37 a 42 semanas incompletas. Se quisermos extrair do banco de dados `mater2` os recém-nascidos a termo, pode-se usar a função `filter()`:
+Um recém-nascido é dito a termo quando a duração da gestação é igual a 37 a 42 semanas incompletas. Se quisermos extrair do banco de dados `mater1` os recém-nascidos a termo, pode-se usar a função `filter()`:
 
 ```{r}
-mater3 <- filter (mater2, ig>=37 & ig<42)
+mater3 <- filter (mater1, ig>=37 & ig<42)
 ```
 
 Para exibir o resultado, execute a função `str()`:
@@ -238,7 +240,7 @@ Observe que, agora, o conjunto de dados `mater3` tem `r length(mater3$sexo)` lin
 
 **Outro exemplo**
 
-Para selecionar apenas os meninos, codificados como `"masc"`, procede-se da seguinte maneira^[Lembrar que o sinal de igualdade, no R, é duplo =]:
+Para selecionar apenas os meninos, nascidos a termo, codificados como `"masc"`, procede-se da seguinte maneira^[Lembrar que o sinal de igualdade, no R, é duplo =]:
 
 ```{r}
 meninos <- filter (mater1, sexo == 'masc')
@@ -281,7 +283,7 @@ Para ver esta variável presente no banco de dados, executar:
 str (mater1)
 ```
 
-Lembrar que este banco de dados `mater5` é igual ao `mater1`, subconjunto do banco de dados original `mater`, apenas com acréscimo da variável `imc`.  
+Lembrar que este banco de dados (`mater1`) é um subconjunto do banco de dados original `mater`, sem algumas variáveis, e com acréscimo da variável `imc`.  
 
 ### Função `sample_n()`
 
@@ -420,7 +422,7 @@ No final, retornará um novo dataframe que foi colocado em um objeto, denominado
 
 ## Manipulação de datas   
 
-Originalmente, todos os que trabalham com o R queixavam-se de como era frustrante trabalhar com datas. Era um processo que causava grande perda de tempo nas análises. O pacote lubridate foi criado para simplificar ao máximo a leitura de datas e extração de informações dessas datas.  
+Originalmente, todos os que trabalham com o *R* queixavam-se de como era frustrante trabalhar com datas. Era um processo que causava grande perda de tempo nas análises. O pacote lubridate foi criado para simplificar ao máximo a leitura de datas e extração de informações dessas datas.  
 
 Antes de usar, há necessidade de instalar e carregar o pacote. 
 
