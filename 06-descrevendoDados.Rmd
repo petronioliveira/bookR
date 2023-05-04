@@ -13,18 +13,18 @@ As maneiras mais usadas para resumir o conjunto de dados são:
 * Primeiro, um valor em torno do qual os dados têm uma tendência para se reunir ou se agrupar, denominado de *medida sumária de localização* ou *medida de tendência central*. 
 * Em segundo lugar, um valor que mede o grau em que os dados se dispersam, denominado de *medida de dispersão ou variabilidade*.
 
-Para trabalhar nesta seção, serão necessários os seguintes pacotes:
+Para trabalhar nesta seção, serão necessários os seguintes pacotes
 
 ```{r }
 pacman::p_load(dplyr, readxl)
 ```
 
-E o arquivo `dadosMater15.xlsx`, amostra de 15 recém-nascidos, que pode ser obtido [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosMater15.xlsx) e baixado para o seu diretório de trabalho. Esta amostra é proveniente do banco de dados original (`dadosMater.xlsx`), veja seção \@ref(sec-mater).
+e o arquivo `dadosMater15.xlsx`, amostra de 15 recém-nascidos, que pode ser obtido [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosMater15.xlsx) e baixado para o seu diretório de trabalho. Esta amostra é proveniente do banco de dados original (`dadosMater.xlsx`), veja seção \@ref(sec-mater).
 
 Agora, será criado um objeto, `mater15`, para receber os dados, a partir do diretório de trabalho, executando o seguinte código:
 
 ```{r}
-mater15 <- read_excel("Arquivos/dadosMater15.xlsx")
+mater15 <- readxl::read_excel("Arquivos/dadosMater15.xlsx")
 ```
 
 ### Medidas de tendência central

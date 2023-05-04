@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-04-26" />
+<meta name="date" content="2023-05-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -644,11 +644,11 @@ div.csl-indent {
 <li>Primeiro, um valor em torno do qual os dados têm uma tendência para se reunir ou se agrupar, denominado de <em>medida sumária de localização</em> ou <em>medida de tendência central</em>.</li>
 <li>Em segundo lugar, um valor que mede o grau em que os dados se dispersam, denominado de <em>medida de dispersão ou variabilidade</em>.</li>
 </ul>
-<p>Para trabalhar nesta seção, serão necessários os seguintes pacotes:</p>
+<p>Para trabalhar nesta seção, serão necessários os seguintes pacotes</p>
 <div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="descrevendo-os-dados.html#cb233-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr, readxl)</span></code></pre></div>
-<p>E o arquivo <code>dadosMater15.xlsx</code>, amostra de 15 recém-nascidos, que pode ser obtido <a href="https://github.com/petronioliveira/Arquivos/blob/main/dadosMater15.xlsx"><strong>aqui</strong></a> e baixado para o seu diretório de trabalho. Esta amostra é proveniente do banco de dados original (<code>dadosMater.xlsx</code>), veja seção <a href="manipulando-os-dados-no-r-studio.html#sec-mater">5.3</a>.</p>
+<p>e o arquivo <code>dadosMater15.xlsx</code>, amostra de 15 recém-nascidos, que pode ser obtido <a href="https://github.com/petronioliveira/Arquivos/blob/main/dadosMater15.xlsx"><strong>aqui</strong></a> e baixado para o seu diretório de trabalho. Esta amostra é proveniente do banco de dados original (<code>dadosMater.xlsx</code>), veja seção <a href="manipulando-os-dados-no-r-studio.html#sec-mater">5.3</a>.</p>
 <p>Agora, será criado um objeto, <code>mater15</code>, para receber os dados, a partir do diretório de trabalho, executando o seguinte código:</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="descrevendo-os-dados.html#cb234-1" aria-hidden="true" tabindex="-1"></a>mater15 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater15.xlsx&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="descrevendo-os-dados.html#cb234-1" aria-hidden="true" tabindex="-1"></a>mater15 <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater15.xlsx&quot;</span>)</span></code></pre></div>
 <div id="medidas-de-tendência-central" class="section level3 hasAnchor" number="6.2.1">
 <h3><span class="header-section-number">6.2.1</span> Medidas de tendência central<a href="descrevendo-os-dados.html#medidas-de-tendência-central" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="média" class="section level4 hasAnchor" number="6.2.1.1">
