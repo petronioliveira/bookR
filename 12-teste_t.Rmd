@@ -46,7 +46,7 @@ Para visualizar os dados, pode-se usar a função  `glimpse()` do pacote dplyr:
 dplyr::glimpse(dados)
 ```
 
-Observa-se que existem `r nrow(dados)` mulheres, sendo `r nrow(dados[which(dados$pop=="1"),])` moradoras na região 1 e  `r nrow(dados[which(dados$pop=="2"),])` na região 2. A variável `id` é a variável de identificação das mulheres (variável numérica), `altura` é uma variável numérica que corresponde a medida da altura em metros e `pop` é uma variável categórica, onde 1 é corresponde às mulheres da região 1 e 2 as da região2. No dataset, esta variável encontra-se como uma variável numérica e deverá ser transformada em fator.  
+Observa-se que existem `r nrow(dados)` mulheres, sendo `r nrow(dados[which(dados$pop=="1"),])` moradoras na região 1 e  `r nrow(dados[which(dados$pop=="2"),])` na região 2. A variável `id` é a variável de identificação das mulheres (variável numérica), `altura` é uma variável numérica que corresponde a medida da altura em metros e `pop` é uma variável categórica, onde 1 é corresponde às mulheres da região 1 e 2 as da região 2. No conjunto de dados, esta variável encontra-se como uma variável numérica e deverá ser transformada em fator.  
 
 Para uma visualização mais elegante e em uma apresentação mais amigável, pode-se usar a função `kable()` do pacote `knitr` e a função `kable_styling()` do pacote `kableExtra`. A função `kable ()`, neste exemplo, usa a função `head()` embutida. Ao executar os códigos serão exibido apenas 6 linhas do banco de dados (Tabela \@ref(tab:dadospop)):
 
@@ -208,7 +208,7 @@ Uma boa parte dos procedimentos estatísticos são testes paramétricos ^[Teste 
 
 Pode-se verificar a normalidade de maneira visual, observando o comportamento dos dados através de gráficos como o *histograma* (Figura \@ref(fig:histpop)) e o *gráfico Q-Q* (Figura \@ref(fig:qqpop)). É útil também sobrepor uma distribuição normal no histograma, para fins de comparação com a distribuição normal. Além disso, na Figura \@ref(fig:histpop), pode-se observar como as duas populações se sobrepõem.
 
-```{r histpop, echo=TRUE, fig.cap="Histogramas da altura das populações", out.width="80%", out.height="80%", fig.align='center'}
+```{r histpop, echo=TRUE, fig.cap="Histogramas da altura das mulheres", out.width="80%", out.height="80%", fig.align='center'}
 mu1 <- resumo$media[1]
 dp1 <- resumo$dp[1]
 mu2 <- resumo$media[2]

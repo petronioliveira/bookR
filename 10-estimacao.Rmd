@@ -25,34 +25,34 @@ pacman::p_load(DescTools,
 ## Estimativa Pontual e Intervalo de Confiança  
 
 Se for selecionada uma amostra e calculado o valor da estatística amostral, esse valor fornece a estimativa do parâmetro populacional correspondente.   
-Voltando a considerar, para fins didáticos, o *dataset* `dadosMater.xlsx` como se fosse uma população, serão calculadas as medidas sumarizadora básicas da variável `pesoRN`:
+Voltando a considerar, para fins didáticos, o *dataset* `dadosMater.xlsx` como se fosse uma população, serão calculadas as medidas sumarizadora básicas da variável `pesoRN`, considerando-se apenas os recém-nascidos a termo (idade gestacional $\ge$37 sem e $<$42 sem):
 
 ```{r}
-mater <- read_excel("Arquivos/dadosMater.xlsx") %>% 
+rnt <- read_excel("Arquivos/dadosMater.xlsx") %>% 
   filter(ig>=37 & ig<42) 
 
 # Média populacional
-mu <- round(mean(mater$pesoRN, na.rm = TRUE))
+mu <- round(mean(rnt$pesoRN, na.rm = TRUE))
 mu
 
 # Desvio padrão populacional  
-dp_pop <- round(sd(mater$pesoRN, na.rm = TRUE))
+dp_pop <- round(sd(rnt$pesoRN, na.rm = TRUE))
 dp_pop
 ```
 
 Agora, será extraída da população uma amostra de *n* = 30 ^[É importante lembrar que toda vez que for extraída uma nova amostra de tamanho *n* = 30, o resultado será um conjunto de números diferentes e, em consequência, a média será diferente.] e calculado os mesmas medidas resumidoras;
 
 ```{r}
-mater30 <- mater %>% slice_sample(n = 30)
+set.seed (1234)
+rnt30 <- rnt %>% slice_sample(n = 30)
 
 # Média amostral
-media30 <- round(mean(mater30$pesoRN, na.rm = TRUE))
+media30 <- round(mean(rnt30$pesoRN, na.rm = TRUE))
 media30
 
 # Desvio padrão amostral  
-dp30 <- round(sd(mater30$pesoRN, na.rm = TRUE))
+dp30 <- round(sd(rnt30$pesoRN, na.rm = TRUE))
 dp30
-
 ```
 
 O valor de `r media30`g é a média amostral, $\bar{x}$, usada como um estimativa da $\mu$, é denominada de *estimativa pontual*. Como já mencionado anteriormente, espera-se que cada amostra selecionada produza um valor diferente da estatística amostral.
@@ -63,7 +63,7 @@ Para melhorar a precisão, usa-se uma estimativa de intervalo. Em vez de atribui
 
 Este procedimento é conhecido como *estimação por intervalo* e o intervalo construído, estabelecendo um limite inferior e um limite superior em torno da estimativa amostral, é denominado de *intervalo de confiança*. Desta forma, é possível afirmar que o intervalo de confiança, provavelmente, contém o parâmetro populacional correspondente (Figura \@ref(fig:intconf)).
 
-```{r intconf, echo = FALSE, out.width = '80%', fig.align = 'center', fig.cap="Intervalo de Confiança.", fig.pos="H"}
+```{r intconf, echo = FALSE, out.width = '70%', fig.align = 'center', fig.cap="Intervalo de Confiança.", fig.pos="H"}
  knitr::include_graphics("https://i.imgur.com/CWTRd4J.png")
 ```
 
@@ -132,7 +132,7 @@ $$
 IC_{95\%}(\mu) \rightarrow  \bar{x} \pm  (1.96 \times \frac{\sigma}{\sqrt{n}})
 $$
 ```{r}
-n = length(mater30$pesoRN)
+n = length(rnt30$pesoRN)
 me <- 1.96 * dp_pop/sqrt(n)
 round(me)
 round (media30)
@@ -167,7 +167,7 @@ IC_z <- function (x, s, nc = 0.95)
 ```
 
 ```{r}
-IC_z(x = mater30$pesoRN, s = dp_pop, )
+IC_z(x = rnt30$pesoRN, s = dp_pop, )
 ```
 
 Portanto, tem-se uma confiança de 95% de que a média do peso dos recém-nascidos a termo da Maternidade do HGCS está entre `r round(lim_inf) ` e `r round(lim_sup)`g.
@@ -177,11 +177,12 @@ Estes limites também podem ser estendidos para outros níveis de confiança. Po
 ```{r}
 round(qnorm(0.995), 2)
 ```
+
 Substituindo na fórmula, usando o R:
 
 ```{r}
-l_inf <- mu - (2.58 * dp_pop/sqrt(n))
-l_sup <- mu + (2.58 * dp_pop/sqrt(n))
+l_inf <- media30 - (2.58 * dp_pop/sqrt(n))
+l_sup <- media30 + (2.58 * dp_pop/sqrt(n))
 ic99 <- c(l_inf, l_sup)
 round(ic99)
 ```
@@ -205,7 +206,7 @@ sd <- dp_pop
 n.reps <- 20
 my.mean <- mu
 alpha <- 0.05
-mydata <- mater$pesoRN
+mydata <- rnt$pesoRN
 mydata <- matrix(rnorm(n = n.reps * n, 
                        mean = my.mean, 
                        sd =sd), 
@@ -366,27 +367,22 @@ text(3, 0.04, cex = 1.0, col = "black",expression(italic(0.05)))
 
 **Dados**  
 
-Neste momento, será usada a variável `mater$altura`, altura das mulheres em metros, pertencente ao conjunto de dados `dadosMater.xlsx`:
+O conjunto de dados `dadosMater.xlsx` contém a altura em metros de 1368 mulheres, para fins didáticos, será considerado a população de estudo. Uma amostra aleatória da altura 30 mulheres será extraída para fazer inferência para essa população, *supondo que os parâmetros dessa população sejam desconhecidos*. Lembrar que se for retirada outra amostra da mesma população de *n* = 30, a média e o desvio padrão serão diferentes!
 
 ```{r message=FALSE}
-mater <- read_excel("Arquivos/dadosMater.xlsx")
-dados <- mater %>% select (altura)
-```
-
-O conjunto de dados resultante contém a altura de 1368 mulheres, que para fins didáticos será considerada a população de estudo. Será extraída uma amostra ^[Lembrar que se for retirada outra amostra da mesma população de *n* = 30, a média e o desvio padrão serão diferentes!] de 30 mulheres e fazer inferência para essa população, *supondo que os parâmetros dessa população sejam desconhecidos*.
-
-```{r}
-amostra <- sample (dados$altura, 30)
+altura30 <- read_excel("Arquivos/dadosMater.xlsx") %>% 
+  select (altura) %>% 
+  slice_sample(n = 30)
 ```
 
 A maneira mais intuitiva de estimar a média da população com base na amostra, é, simplesmente, calcular a média e o desvio padrão da amostra.
 
 ```{r}
-media <- round(mean(amostra),3)
-media
+media_altura30 <- mean(altura30$altura)  
+media_altura30
 
-dp <- round(sd(amostra),3)
-dp
+dp_altura30 <- sd(altura30$altura)
+dp_altura30
 ```
 
 Para termos maior precisão, vamos calcular os intervalos de confiança para esta estimativa, usando a distribuição *t*.
@@ -424,19 +420,19 @@ kable(data.frame(z = c("1,96", "1,96", "1,96", "1,96", "1,96", "1,96", "1,96", "
   kableExtra::column_spec(4, width = "2cm")
 ```
 
-Tem-se uma amostra de *n* = 30,  $\overline x = `r media`$ e $s = `r dp`$. Serão necessários os outros dados para obter o intervalo de confiança, usando uma distribuição *t* bicaudal e um nível de significância $\alpha = 0.05$:
+Tem-se uma amostra de *n* = 30,  $\overline x$ = `r media_altura30` e $s$ = `r dp_altura30`. Serão necessários os outros dados para obter o intervalo de confiança, usando uma distribuição *t* bicaudal e um nível de significância $\alpha = 0.05$:
 
 ```{r}
-n <-  30
+n1 <-  length(altura30$altura)
 alpha <- 0.05
 p <- 1 - alpha/2
 
-gl <- n - 1
+gl <- n1 - 1
 
 tc <-  qt(p, gl, lower.tail = TRUE)
 round(tc, 3)
 
-EP <- round(dp/sqrt(n),3)
+EP <- round(dp_altura30/sqrt(n1),3)
 EP
 ```
 
@@ -444,20 +440,20 @@ Onde *p* é a probabilidade decorrente do nível de significância, *gl* são os
 Com estes dados, pode-se calcular o intervalo de confiança de 95%:
 
 ```{r}
-ic <- c((media - tc * EP), (media + tc * EP))
-ic <- round(ic, 2)
-ic
+ic95 <- c((media_altura30 - tc * EP), (media_altura30 + tc * EP))
+ic95 <- round(ic95, 2)
+ic95
 ```
 
-Ou seja, temos uma confiança 95% de que a média populacional desconhecida se encontra entre `r ic`m
+Ou seja, temos uma confiança 95% de que a média populacional desconhecida se encontra entre `r ic95`m.
 
 **Cálculo usando uma função do R**
 
 O R possui algumas funções que calculam o intervalo de confiança para variáveis numéricas, baseadas na distribuição *t*. Entre elas, a função `CI()`, incluída no pacote `Rmisc`:
 
 ```{r}
-ic <- CI(amostra, ci = 0.95)
-round(ic, 2)
+IC95 <- CI(altura30$altura, ci = 0.95)
+round(IC95, 2)
 ```
 
 ## Intervalo de Confiança para uma proporção populacional
@@ -466,9 +462,10 @@ Com frequência , necessitanos estimar uma proporção populacional. Como não �
 
 ### Dados para estimar a proporção populacional
 
-Vamos usar uma amostra aleatória de *n* = 60 da variável` mater$fumo` para estimar a proporção de mulheres fumantes no conjunto de dados `dadosMater.xlsx`.
+Aqui, será utilizada uma amostra aleatória de *n* = 60 da variável`fumo` para estimar a proporção de mulheres fumantes no conjunto de dados `dadosMater.xlsx`.
 
 ```{r}
+set.seed(123)
 dados <- read_excel("Arquivos/dadosMater.xlsx") %>% 
   select (fumo) %>% 
   slice_sample(n = 60)
@@ -476,7 +473,7 @@ dados <- read_excel("Arquivos/dadosMater.xlsx") %>%
 head(dados)
 ```
 
-A seleção mostra que temos 60 observações da variável `fumo` e que a mesma é do tipo numérica (*dbl*), 1 = fumante e 2 = não fumante. Portanto, ela é uma variável categórica e deve ser transformada para fator.
+A seleção mostra que temos 60 observações da variável `fumo` e que a mesma está classificada como numérica (*dbl*), 1 = fumante e 2 = não fumante. Entretanto, ela é uma variável categórica e deve ser transformada para fator.
 
 ```{r}
 dados$fumo <- factor (dados$fumo, 

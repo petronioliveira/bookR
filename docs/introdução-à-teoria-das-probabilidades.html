@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-05-03" />
+<meta name="date" content="2023-05-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -942,12 +942,12 @@ Figure 7.5: Função densidade de probabilidade.
 </ul>
 <p>Com esta função é possível, por exemplo, gerar 10 observações de uma distribuição normal:</p>
 <div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="introdução-à-teoria-das-probabilidades.html#cb432-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1] -1.409970985 -0.005199654  0.487247967  1.594492092  0.852144061
-##  [6]  1.737755676 -0.008212253 -0.539782044 -0.708508685 -0.906881077</code></pre>
+<pre><code>##  [1]  1.73177666 -0.20993916 -0.67216395  0.63805528  0.04600677 -0.29639593
+##  [7] -0.78241022 -0.72893392 -0.57329193 -0.04527224</code></pre>
 <p>No entanto, deve-se notar que, se não especificar uma “semente” (<code>seed</code>), a saída não será reproduzível:</p>
 <div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="introdução-à-teoria-das-probabilidades.html#cb434-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1]  0.1053928 -0.1789060  1.1912808 -1.6896327  0.1005199  1.9632709
-##  [7]  1.5307126  0.5940127 -1.2384006  0.8601760</code></pre>
+<pre><code>##  [1]  1.24285167 -0.09152553 -0.34575136  0.23642537  0.07737234 -0.54937385
+##  [7] -0.30313665 -1.44283900  2.39777137  0.05641338</code></pre>
 <p>Pode-se usar a função <code>set.seed()</code> para tornar o código reproduzível. O valor da “semente” (número) não é importante desde que seja consistente na sua utilização. O que é verdadeiramente importante é que o código seja reproduzido fielmente.</p>
 <p>Para ilustrar, será construído dois conjuntos de 10 números que serão recebidos pelos objetos <em>x</em> e <em>y</em>. Para gerar o conjunto de números <em>x</em>, sera usado o número <code>123</code> como “semente”. A “semente” funciona como uma espécie de marca. Para o <em>y</em> não será usado a <code>set.seed()</code>.</p>
 <div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="introdução-à-teoria-das-probabilidades.html#cb436-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
