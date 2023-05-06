@@ -1,3 +1,214 @@
+--- 
+title: "Introdução à Bioestatística usando o R"
+author: "Petrônio Fagundes de Oliveira Filho"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib]
+csl: vancouver.csl
+---
+
+# Introdução
+
+Placeholder
+
+
+## Importância da Bioestatística 
+## Pílulas históricas da Estatística {#sec-historia}
+## História resumida do R
+
+<!--chapter:end:index.Rmd-->
+
+
+# Natureza dos Dados
+
+Placeholder
+
+
+## Variáveis e Dados
+## População e Amostra
+## Estimativas e Parâmetros
+## Escalas de medição
+### Escala Nominal
+### Escala Ordinal
+### Escala Intervalar
+### Escala de Razão
+## Tipos de Variáveis
+### Variáveis Numéricas
+### Variáveis Categóricas
+### Como identificar o tipo da variável?
+### Variáveis Dependentes e Independentes
+
+<!--chapter:end:02-dados.Rmd-->
+
+
+# Produção dos Dados
+
+Placeholder
+
+
+## Processo de Pesquisa
+### Questão de Pesquisa
+### Hipótese de Pesquisa
+## Processo de Amostragem
+### Amostras probabilística
+### Amostras não probabilísticas
+### Tamanho amostral
+## Principais Delineamentos de Pesquisa
+### Elementos básicos de um delineamento de pesquisa
+## Estudos Observacionais
+### Relato de Caso ou Série de casos
+### Estudos Transversais ou Seccionais
+### Estudos Caso-Controle  
+### Estudos de Coorte  
+## Ensaios Clínicos
+### Características de um ensaio clínico  
+### Elementos básicos de um ensaio clínico  
+### Ensaios clínicos de equivalência e não inferioridade  
+### Outros tipos de ensaios clínicos 
+### Fases de um ensaio clínico  
+
+<!--chapter:end:03-producaoDados.Rmd-->
+
+
+# Ambiente do *R*  
+
+Placeholder
+
+
+## Instalação do *R* básico  
+##  *RStudio*   
+### Instalação do *R Studio*  
+### Iniciando o  *RStudio*   
+## Pacotes  
+### Repositório de pacotes  
+### Instalação de um novo pacote 
+### Atualização dos pacotes  
+### Instalando e carregando mais de um pacote
+### Citação de pacotes em publicações
+## Diretório de trabalho
+## Projeto
+## O *R* como calculadora
+### Operadores
+## Objetos  {#sec-objetos}
+## Funções  
+### Criando funções  
+## Classes
+## Vetores {#sec-vetores}
+### Tipos de vetores  
+## Dataframes  {#sec-dataframes}
+## Fatores  {#sec-fatores}
+### Criando fatores 
+### Salvando o dataframe criado
+
+<!--chapter:end:04-ambienteR.Rmd-->
+
+
+# Manipulando os dados no *R Studio*
+
+Placeholder
+
+
+## Importando dados de outros *softwares*
+### Importando dados de um arquivo CSV  {#sec-csv} 
+### Importando um arquivo do Excel  {#sec-xlsx}
+### Importando arquivos com o RStudio  
+## Tibble  {#sec-tibble}
+## Pacote `dplyr` {#sec-mater}
+### Função `select()`
+### Função `filter()`
+### Função `mutate()`  
+### Função `sample_n()`
+### Função `slice()`  
+### Função `arrange()`
+### Função `count()`
+### Operador pipe %>%  
+## Manipulação de datas   
+### Operações com datas
+
+<!--chapter:end:05-manipulandoDados.Rmd-->
+
+
+# Descrevendo os dados  
+
+Placeholder
+
+
+## Dados brutos  
+## Medidas resumidoras
+### Medidas de tendência central
+#### Média
+#### Mediana
+#### Moda
+#### Quantil
+#### Média aparada
+### Medidas de Dispersão
+#### Amplitude  
+#### Intervalo Interquartil
+#### Variância e Desvio Padrão {#sec-variancia}
+#### Coeficiente de Variação
+### Escolha da medida resumidora
+## Tabelas 
+### Tabelas de Frequência  {#sec-freq}
+### Tabelas de contingência
+## Gráficos  
+### Gráfico de setores  
+### Gráfico de barras
+### Gráfico de barra de erro
+### Histograma  
+### Boxplot
+### Gráfico de Dispersão  
+## Introdução ao `ggplot2`  
+### Dados
+### `ggplot`
+### Tipos de `geoms`
+### Modificando argumentos do `geom`
+### Reta de ajuste em um gráfico de dispersão
+### Filtrando dados para o gráfico  
+### Resumo dos dados usando o geom  
+### Incluindo barras de erro  
+### Incluindo mais de um grupo no gráfico  
+### Modificando o tema  
+### Trabalhando com os eixos
+### Modificação das cores  
+### Exemplo final: Gráfico de barra de erro com colunas
+
+<!--chapter:end:06-descrevendoDados.Rmd-->
+
+
+# Introdução à Teoria das Probabilidades 
+
+Placeholder
+
+
+## Introdução  
+## Processo aleatório
+## Definição frequentista de probabilidade  
+## Propriedades das probabilidades  
+## Distribuição de Probabilidades  
+## Distribuição Normal  
+### Características da distribuição normal
+### Distribuição normal padronizada  {#sec-dnp}
+### Regra Empírica 68-95-99.7
+### Exercitando o raciocínio com a curva normal  
+## Distribuição Binomial  
+### Média e desvio padrão da distribuição binomial
+## Distribuição de Poisson  
+
+<!--chapter:end:07-probabilidades.Rmd-->
+
+
+# Assimetria e Curtose
+
+Placeholder
+
+
+## Assimetria  
+## Curtose  
+## Testando o raciocínio  
+
+<!--chapter:end:08-assimetria_curtose.Rmd-->
+
 # Distribuições Amostrais
 
 ## Pacotes necessários para este capítulo
@@ -186,8 +397,7 @@ resumo <- mater %>%
 resumo
 ```
 
-O desvio padrão é grande em relação à média, com um coeficiente de variação de `r round(sd(mater$renda, na.rm = TRUE)/mean (mater$renda, na.rm = TRUE)*100, 2)
-`% e uma mediana < média. Estas métricas junto com os coeficientes de assimetria e curtose apontam para a assimetria positiva da variável `renda familiar`. O gráfico da Figura \@ref(fig:skewpos) confirma esta afirmação:  
+O desvio padrão é grande em relação à média, com um coeficiente de variação de `r round((sd(mater$renda, na.rm = TRUE)/mean (mater$renda, na.rm = TRUE))*100),2)`% e uma mediana < média. Estas métricas junto com os coeficientes de assimetria e curtose apontam para a assimetria positiva da variável `renda familiar`. O gráfico da Figura \@ref(fig:skewpos) confirma esta afirmação:  
 
 ```{r skewpos, echo=FALSE, warning=FALSE, out.width="70%", out.height="70%", fig.align="center", fig.cap="Distribuição assimétrica positiva", fig.pos="H"}
 hist (mater$renda, 
@@ -377,4 +587,362 @@ ls
 
 Dessa forma, tem-se que a amostra de n = 100 é aceitável para uma população onde *p* = `r round (fr.fumo[1], 2)`
 
+
+
+<!--chapter:end:09-distAmostrais.Rmd-->
+
+
+# Estimação  
+
+Placeholder
+
+
+## Introdução  
+## Pacotes necessários para este capítulo
+## Estimativa Pontual e Intervalo de Confiança  
+## Estimação da média populacional: $\sigma$ conhecido
+### Interpretação do intervalo de confiança  
+## Estimação da média populacional: $\sigma$ desconhecido
+### Distribuição *t*  
+### Cálculo do intervalo de confiança com $\sigma$ desconhecido  
+## Intervalo de Confiança para uma proporção populacional
+### Dados para estimar a proporção populacional
+### Cálculo da estimativa pontual da proporção 
+### Cálculo do intervalo de confiança para a proporção
+
+<!--chapter:end:10-estimacao.Rmd-->
+
+
+# Teste de Hipóteses  
+
+Placeholder
+
+
+## Pacotes necessários para este capítulo
+## Exemplo  
+## Hipótese nula e alternativa
+## Escolha do teste estatítico e regra de decisão
+## Valor *P*
+## Poder do teste  
+## Resumo do teste de hipóteses: Passos principais
+### Primeiro Passo: Dados
+### Segundo Passo: Estabelecer as hipóteses estatísticas
+### Terceiro passo: Escolha do teste estatístico e regra de decisão  
+### Quarto passo: Conclusão 
+### Quinto passo: Valor *P*
+
+<!--chapter:end:11-testeHipoteses.Rmd-->
+
+
+# Comparação entre duas médias 
+
+Placeholder
+
+
+## Pacotes necessários para este capítulo
+## Teste *t* para comparar amostras independentes  
+### Dados do exemplo
+#### Leitura dos dados
+#### Exploração e resumo dos dados 
+### Definição das hipóteses estatísticas
+### Definição da regra de decisão  
+### Teste estatístico  
+#### Lógica do teste *t*
+#### Pressupostos do teste *t*  
+#### Execução do teste *t* para grupos independentes  
+### Conclusão
+### Tamanho do Efeito
+#### *d* de Cohen  
+## Teste *t* para grupos pareados
+### Dados do exemplo  
+#### Leitura e transformação dos dados
+#### Medidas Resumidoras
+#### Visualização dos dados
+#### Criação de uma variável que represente a diferença entre as médias
+### Definição das hipóteses estatísticas
+### Regra de decisão
+### Teste estatístico  
+#### Lógica do teste
+#### Pressupostos do teste  
+#### Execução do teste estatístico
+### Conclusão  
+### Tamanho do Efeito
+
+<!--chapter:end:12-teste_t.Rmd-->
+
+
+# Análise de Variância
+
+Placeholder
+
+
+## Pacotes necessários para este capítulo
+## ANOVA de um fator
+### Por que realizar uma ANOVA?
+### Lógica do Modelo da ANOVA
+### Distribuição *F*
+### Dados do exemplo
+#### Leitura dos dados
+#### Exploração e resumo dos dados 
+#### Visualização gráfica dos dados
+### Definição das hipóteses estatísticas
+### Definição da regra de decisão
+### Teste Estatístico
+#### Pressupostos do teste  
+#### Execução do teste estatístico  
+### Testes *post-hoc*
+### Tamanho do efeito
+### Conclusão
+#### Apresentação dos resultados
+## ANOVA de dois fatores  
+### Dados do exemplo  
+#### Leitura dos dados
+#### Exploração e sumarização dos dados  
+#### Visualização gráfica dos dados
+### Hipóteses estatísticas  
+### Pressupostos do modelo  
+### Verificação dos pressupostos nos dados brutos 
+#### Normalidade  
+#### Pesquisa de valores atípicos
+#### Verificação da homogeneidade das variâncias   
+### Verificação dos pressupostos nos resíduos  
+#### Avaliação da normalidade dos resíduos
+#### Pesquisa de valores atípicos nos resíduos
+#### Verificação da homogeneidade da variância nos resíduos
+### Realização do teste de ANOVA de dois fatores
+#### ANOVA com interação
+#### Tipos de ANOVA
+### Testes post-hoc
+### Relatando os resultados de uma ANOVA de dois fatores
+
+<!--chapter:end:13-anova.Rmd-->
+
+
+# ANOVA de medidas repetidas
+
+Placeholder
+
+
+## ANOVA de medidas repetidas de um fator
+### Pacotes necessários
+### Preparação dos dados  
+### Sumarização dos dados  
+### Visualização dos dados
+### Avaliação dos pressupostos
+#### Identificação de valores atípicos  
+#### Avaliação da normalidade
+#### Esfericidade  
+### Cálculo ANOVA de medidas repetidas 
+### Testes post hoc
+### Relatando os resultados da ANOVA de medidas repetidas unifatorial  
+## ANOVA de medidas repetidas de dois fatores
+### Preparação dos dados
+### Leitura dos dados
+### Transformação dos dados  
+### Sumarização dos dados
+### Visualização dos dados
+### Avaliação dos pressupostos  
+#### Identificação dos *outliers*
+#### Avaliação da normalidade
+#### Esferecidade  
+### Cálculo da ANOVA de medidas de repetidas  
+### Teste post hoc  
+#### Procedimento para uma interação significativa entre os dois fatores
+#### Procedimento para uma interação não significativa entre os dois fatores
+### Relatando os resultados da ANOVA de medidas repetidas de dois fatores
+#### Visualização: boxplots com valores P (Figura \@ref(fig:bxpauto2))
+
+<!--chapter:end:14-anovaRep.Rmd-->
+
+
+# Correlação e Regressão
+
+Placeholder
+
+
+## Pacotes necessários
+## Correlação  
+### Coeficiente de correlação de Pearson  
+### Dados do exemplo
+#### Leitura e visualização dos dados
+#### Medidas resumidoras  
+#### Visualização dos dados  
+### Pressupostos da Correlação
+### Execução do teste de correlação
+## Regressão Linear Simples
+### Resíduos  
+### Análise dos pressupostos do modelo de regressão  
+#### Gráficos diagnósticos  
+#### Avaliação da normalidade  
+#### *Outliers* nos resíduos  
+#### Homocedasticidade dos resíduos  
+#### Independência dos resíduos  
+### Tamanho amostral na regressão  
+### Realização da regressão linear  
+### Visualização dos resultados
+
+<!--chapter:end:15-correlacao_regressao.Rmd-->
+
+
+# Análise de Dados Categóricos
+
+Placeholder
+
+
+## Pacotes necessários
+## Qui-Quadrado  {#sec-qui} 
+### Distribuição qui-quadrado  
+### Estatística do qui-quadrado  
+#### Restrições ao qui-quadrado  
+#### Valor crítico do qui-quadrado  
+### Qui-quadrado de independência ou associação  
+#### Carregar, explorar e preparar os dados  
+#### Hipóteses estatísticas
+#### Cálculo do Qui-quadrado de Pearson no R 
+#### Conclusão
+### Teste Aderência ou do Melhor Ajuste  
+#### Dados  
+#### Hipóteses estatísticas
+#### Cálculo do teste estatístico  
+#### Conclusão
+### Qui-quadrado de Pearson para tabelas extensas
+#### Carregar o banco de dados
+#### Exploração e manipulação do banco de dados
+#### Hipóteses estatísticas
+#### Cálculo da estatística do teste
+#### Conclusão
+## Teste exato de Fisher
+### Dados
+### Entrando com os dados
+### Hipóteses estatísticas
+### Execução do teste estatístico
+### Conclusão
+## Teste de Macnemar  
+### Pressupostos do teste de McNemar  
+### Dados  
+### Hipóteses estatísticas  
+### Lógica do teste
+### Cálculo do teste de McNemar no R  
+### Conclusão  
+
+<!--chapter:end:16-dadosCategoricos.Rmd-->
+
+
+# Métodos não paramétricos  
+
+Placeholder
+
+
+## Pacotes necessários  
+## Distribuição livre
+## Postos
+## Teste de Mann-Whitney  
+### Dados  
+#### Leitura dos dados  
+#### Exploração e visualização dos dados
+#### Sumarização dos dados
+### Hipóteses estatísticas
+### Pressupostos do teste de Mann_Whitney
+### Execução do teste estatístico  
+#### Lógica do teste U de Mann-Whitney  
+#### Cálculo do U de Mann-Whitney no R  
+### Tamanho do efeito  
+### Conclusão 
+## Teste de Wilcoxon  
+### Dados  
+#### Exploração e transformação dos dados  
+#### Medidas resumidoras  
+#### Visualização dos dados  
+#### Criação de uma variável que represente a diferença entre os momentos
+### Definição das hipóteses estatísticas  
+### Execução do teste estatístico  
+#### Lógica do teste de Wilcoxon  
+#### Cálculo do teste de Wilcoxon no R  
+### Tamanho do efeito  
+### Conclusão  
+## Teste de Kruskal-Wallis
+### Dados
+#### Leitura dos dados   
+#### Exploração e visualização dos dados  
+#### Sumarização  e avaliação da normalidade dos dados  
+### Hipóteses estatísticas   
+### Pressupostos do teste  
+### Execução do teste estatístico 
+#### Lógica do teste de Kruskall-Wallis  
+#### Teste de Kruskal-Wallis no R  
+### Tamanho do efeito  
+### Testes post hoc  
+### Conclusão
+
+<!--chapter:end:17-testes_naoParametricos.Rmd-->
+
+
+# Estatística em Epidemiologia  {#sec-cap18} 
+
+Placeholder
+
+
+## Pacotes necessários
+## Raciocínio bayesiano no diagnóstico médico  {#sec-diagbayes}
+### Sensibilidade e Especificidade  
+#### Exemplo  
+### Valor Preditivo  
+### Razão de Probabilidade  
+#### Estimando a probabilidade de doença 
+### Curva ROC  
+#### Exemplo 
+#### Validade dos testes  
+#### Melhor ponto de corte  
+## Estatística *kappa*
+### Exemplo
+#### Baixar e carregar o conjunto de dados  
+#### Construção da tabela necessária para o cálculo  
+#### Cálculo do *kappa*  
+## Medidas de frequência  
+### Prevalência  
+#### Exemplo  
+### Incidência
+#### Exemplo  
+### Relação entre prevalência e incidência
+## Medidas de associação  
+### *Odds Ratio*  {#sec-or}
+#### Exemplo   
+### Risco Relativo {#sec-rr}  
+#### Exemplo  
+### *Odds Ratio* vs Risco Relativo  
+### Razão de Prevalência  
+#### Exemplo  
+## Medidas de impacto
+### Risco Atribuível
+### Redução Relativa do Risco  
+### Número Necessário para Tratar  
+### Número Necessário para Causar Dano
+#### Exemplo  
+## Análise de sobrevida  
+### Dados Censurados  
+### Método de Kaplan-Meier
+#### Pressupostos do método de Kaplan-Meier
+#### Exemplo  
+## Regressão logística binária
+### Pressupostos da regressão logística  
+### Dados para a regressão logística
+### Preparação dos dados
+### Criação do modelo de regressão (*enter*)  
+### Criação do modelo passo-a-passo (*stepwise*)
+### Uso do modelo para fazer predições
+### Avaliação do modelo
+#### Linearidade  
+#### Multicolinearidade
+#### Estatística $R^2$  
+#### Pesquisa de valores atípicos e pontos de alavancagem   
+#### Matriz de confusão  
+#### Curva ROC   
+
+<!--chapter:end:18-epidemiologia.Rmd-->
+
+`r if (knitr::is_html_output()) '
+# Referências {-}
+'`
+
+<!--chapter:end:19-references.Rmd-->
 

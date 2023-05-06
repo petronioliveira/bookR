@@ -1,8 +1,8 @@
-# Introdução à Teoria das Probabilidades
+# Introdução à Teoria das Probabilidades 
 
 ## Introdução  
 
-A teoria das probabilidades é a base sobre a qual a estatística é desenvolvida. Os jogos de azar deram um grande impulso ao conhecimento da moderna teoria das probabilidades, principalmente, pelo trabalho de Blaise Pascal (1623-1662), em parceria com Pierre de Fermat (1601-1665). Eles foram estimulados por um escritor francês e matemático amador, Antoine Gombaud (1607-1684), conhecido como Chevalier de Méré, que era muito interessados em jogos de azar[@debnath2015short].  
+A teoria das probabilidades é a base sobre a qual a estatística é desenvolvida. Os jogos de azar deram um grande impulso ao conhecimento da moderna teoria das probabilidades, principalmente, pelo trabalho de Blaise Pascal (1623-1662), em parceria com Pierre de Fermat (1601-1665). Eles foram estimulados por um escritor francês e matemático amador, Antoine Gombaud (1607-1684), conhecido como Chevalier de Méré, que era muito interessado em jogos de azar[@debnath2015short].  
 
 A Teoria das probabilidades permite que seja possível modelar populações, experimentos ou qualquer situação que possa ser considerada aleatória. Estes modelos possibilitam fazer inferência sobre populações a partir da observação de uma amostra dessa população. Ao usar apenas uma parte da população, inevitavelmente, é cometido um erro o *erro amostral*. Este erro amostral pode ser dimensionado pela teoria das probabilidades.  
 
@@ -46,7 +46,7 @@ plot (x,y/1:1000,
 abline(h = 0.5, col = "red", lty = 2)
 ```
 
-A definição frequentista também pode ser aplicada a uma medida contínua como a altura de mulheres. No conjunto de dados `dadosMater.xlsx` (veja seção \@ref(sec-mater)), encontra-se o registro da altura de 1368 mulheres. Esssas alturas serão selecionadas e colocadass em um objeto `am` (**a**ltura das **m**ulheres*):
+A definição frequentista também pode ser aplicada a uma medida contínua como a altura de mulheres. No conjunto de dados `dadosMater.xlsx` (veja seção \@ref(sec-mater)), encontra-se o registro da altura de 1368 mulheres. Essas alturas serão selecionadas e colocadas em um objeto `am` (**a**ltura das **m**ulheres):
 
 ```{r}
 library(readxl)
@@ -56,18 +56,26 @@ am <- read_excel("Arquivos/dadosMater.xlsx") %>%
 summary (am)
 ```
 
-A mediana da altura das gestantes é 1,60 m. Ou seja, metade dessas mulheres têm uma altura acima de 1,60 m. Em um longo conjunto de sorteios, a probabilidade de uma mulher ter altura acima de 1,60 m é 50%. O percentil 75 (3º quartil) é igual a 1,65 m, a probabilidade de estar acima deste valor, portanto, é 25%. É possível encontrar a probabilidade de a altura estar acima, abaixo ou entre quaisquer valores. Quando se faz a mensuração de uma variável contínua, fica-se limitado ao método usado, portanto, quando se diz que uma mulher tem 1,60 m, significa dizer que está entre 159,5 e 165,5 m, dependendo da precisão do instrumento de medição.   
+A mediana da altura das gestantes é 1,60 m. Ou seja, metade dessas mulheres têm uma altura acima de 1,60 m. Em um longo conjunto de sorteios, a probabilidade de uma mulher ter altura acima de 1,60 m é 50%. O percentil 75 (3º quartil) é igual a 1,65 m, a probabilidade de estar acima deste valor, portanto, é 25%. É possível encontrar a probabilidade de a altura estar acima, abaixo ou entre quaisquer valores. Quando se faz a mensuração de uma variável contínua, fica-se limitado ao método usado, portanto, quando se diz que uma mulher tem 1,60 m, significa dizer que está entre 159,5 e 160,5 m, dependendo da precisão do instrumento de medição.   
 
-Logo, o interesse está na probabilidade de a variável aleatória assumir valores entre certos limites. A probabilidade de encontrar um valor exatamente de 1,60 m é quase igual a zero (na realidade,  $2.7 \times 10^{-124}$).  
+Logo, o interesse está na probabilidade de a variável aleatória assumir valores entre certos limites. A probabilidade de encontrar um valor exatamente de 1,60 m é quase igual a zero. 
 
 Como se verá adiante, isto pode ser facilmente calculado no R:
 
 ```{r}
-# Distância do valor de 1,60 e a média em desvios padrão (escores Z) 
+# Distância do valor de 1,60 e a média em desvios padrão (escore Z) 
 z <- (1.60 - mean(am$altura))/sd(am$altura)
+z
 
-# Probabilidade 
-pnorm (z, mean(am$altura),sd(am$altura))
+# Probabilidade de encontrar uma mulher, na população am, com 1,60 m 
+prob <- pnorm (z, mean(am$altura),sd(am$altura))
+prob
+```
+
+Viram? É muito próximo de zero! Se o valor da probabilidade for arredondado para 125 digitos após a vírgula, retorna zero! 
+
+```{r}
+round(prob, 125)
 ```
 
 ## Propriedades das probabilidades  
@@ -267,11 +275,11 @@ normal_area(media = 0, dp = 1, linf = 1.94, lsup = 3, cor = "tomato", lwd = 2 )
 text(2.6, 0.05, "2.6%")
 ```
 
-A função `normal_area()` é uma função criada para desenhar a uma curva normal com a área da probabilidade desejada colorida. Ela pode ser obtida [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/normal_area.R) e baixada no seu diretório. Foi usada a função `text()` para escrever o valor da probabilidade.
+A função `normal_area()` é uma função criada para desenhar uma curva normal com a área da probabilidade desejada colorida. Ela pode ser obtida [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/normal_area.R) e baixada no seu diretório. Foi usada a função `text()` para escrever o valor da probabilidade.
 
 **Função `qnorm()`**
 
-A função `qnorm()` permite encontrar o quantil (percentil) *q* para qualquer probabilidade *p*. Portanto, a função `qnorm` é o inverso da função pnorm. A sintaxe do qnorm é a seguinte:
+A função `qnorm()` permite encontrar o quantil *q* para qualquer probabilidade *p*. Portanto, a função `qnorm` é o inverso da função `pnorm()`. A sintaxe da `qnorm()` é a seguinte:
 
 * **Sintaxe**   
  `qnorm(p, mean = 0, sd = 1, lower.tail = TRUE)`   
@@ -365,7 +373,7 @@ Com esta função é possível, por exemplo, gerar 10 observações de uma distr
 rnorm(10)
 ```
 
-No entanto, deve-se notar que, se não especificar uma "semente" (`seed`), a saída não será reproduzível:
+No entanto, deve-se notar que, se uma "semente" (`seed`) não for especificada, a saída não será reproduzível, ou seja, cada vez que o comando for executado, retornará um novo conjunto de observações:
 
 ```{r}
 rnorm(10)
@@ -377,14 +385,12 @@ Para ilustrar, será construído dois conjuntos de 10 números que serão recebi
 
 ```{r}
 n <- 10
-
 set.seed (123)
 x <- rnorm (n)
 x
 
 y <- rnorm(n)
 y
-
 ```
 
 Comparando os conjuntos com a função `identical()` do R base, observa-se que os conjuntos são diferentes:
@@ -409,7 +415,7 @@ identical(x, y)
 
 Observa-se que, agora,  tem-se conjuntos idênticos. 
 
-Agora, para usar `rnorm()`, serão gerados três vetores diferentes de números aleatórios de uma distribuição normal. 
+Agora, a função `rnorm()`será usada para gerar três vetores diferentes de números aleatórios de uma distribuição normal. 
 
 ```{r}
 set.seed(1234)
@@ -549,13 +555,13 @@ text(125, 0.055, "População 2", cex = 1, col = "darkred")
 
 Concluindo, ela pode pertencer a qualquer uma das populações. Pode ser uma mulher alta da população 2 ou uma "baixinha" da população 1!
 
-2. Usando as populações do exercício 1, qual a probabilidade de se encontrar mulheres, em qualquer das populações, abaixo do escore *z* -1.96?
+2. Usando as populações do exercício 1, qual a probabilidade de se encontrar mulheres, em qualquer das populações, abaixo do escore *z* = -1.96?
 
 ```{r}
 pnorm (-1.96)
 ```
 
-3. Usando as populações do exercício 1, qual a probabilidade de se encontrar mulheres, em qualquer das populações, acima do escore *z* 1.96?
+3. Usando as populações do exercício 1, qual a probabilidade de se encontrar mulheres, em qualquer das populações, acima do escore *z* = 1.96?
 
 ```{r}
 pnorm (1.96, lower.tail = FALSE)
@@ -592,7 +598,8 @@ A distribuição binomial é importante para variáveis discretas. Existem pouca
 
 A distribuição binomial é na verdade uma família de distribuições, cujos membros são definidos pelos valores de *n* e *p* (parâmetros da distribuição binomial).  
 
-A probabilidade de sucesso ^[*Sucesso*, aqui, não está no sentido de vitória, êxito, triunfo, glória e sim como obter o desfecho esperado. Por exemplo, se uma moeda é lançada e se espera obter cara, sucesso significa um resultado igual a cara.], em uma distribuição binomial, é dada pela fórmula:
+A probabilidade de sucesso ^[*Sucesso*, aqui, não está no sentido de vitória, êxito, triunfo, glória e sim com a conotação de obter o desfecho esperado. Por exemplo, se uma moeda é lançada e se espera obter cara, sucesso significa um resultado igual a cara.], em uma distribuição binomial, é dada pela fórmula:
+
 $$
 P(X = x)= C \times p^x \times (1 - p)^{n-x}
 $$
