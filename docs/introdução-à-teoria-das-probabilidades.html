@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-05-05" />
+<meta name="date" content="2023-05-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -563,7 +563,7 @@ div.csl-indent {
 <li class="chapter" data-level="18" data-path="sec-cap18.html"><a href="sec-cap18.html"><i class="fa fa-check"></i><b>18</b> Estatística em Epidemiologia</a>
 <ul>
 <li class="chapter" data-level="18.1" data-path="sec-cap18.html"><a href="sec-cap18.html#pacotes-necessários-4"><i class="fa fa-check"></i><b>18.1</b> Pacotes necessários</a></li>
-<li class="chapter" data-level="18.2" data-path="sec-cap18.html"><a href="sec-cap18.html#raciocínio-bayesiano-no-diagnóstico-médico"><i class="fa fa-check"></i><b>18.2</b> Raciocínio bayesiano no diagnóstico médico</a>
+<li class="chapter" data-level="18.2" data-path="sec-cap18.html"><a href="sec-cap18.html#sec-diagbayes"><i class="fa fa-check"></i><b>18.2</b> Raciocínio bayesiano no diagnóstico médico</a>
 <ul>
 <li class="chapter" data-level="18.2.1" data-path="sec-cap18.html"><a href="sec-cap18.html#sensibilidade-e-especificidade"><i class="fa fa-check"></i><b>18.2.1</b> Sensibilidade e Especificidade</a></li>
 <li class="chapter" data-level="18.2.2" data-path="sec-cap18.html"><a href="sec-cap18.html#valor-preditivo"><i class="fa fa-check"></i><b>18.2.2</b> Valor Preditivo</a></li>
@@ -634,16 +634,16 @@ div.csl-indent {
 <h1><span class="header-section-number">Capítulo 7</span> Introdução à Teoria das Probabilidades<a href="introdução-à-teoria-das-probabilidades.html#introdução-à-teoria-das-probabilidades" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="introdução-1" class="section level2 hasAnchor" number="7.1">
 <h2><span class="header-section-number">7.1</span> Introdução<a href="introdução-à-teoria-das-probabilidades.html#introdução-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>A teoria das probabilidades é a base sobre a qual a estatística é desenvolvida. Os jogos de azar deram um grande impulso ao conhecimento da teoria da probabilidade, principalmente, pelo trabalho de Blaise Pascal (1623-1662) em parceria com Pierre de Fermat (1601-1665), estimulados por um nobre francês, Antoine Gombaud, conhecido como Chevalier de Mère, inveterado jogador, que estava cansado dos resultados negativos em suas apostas <span class="citation">(83)</span>.</p>
+<p>A teoria das probabilidades é a base sobre a qual a estatística é desenvolvida. Os jogos de azar deram um grande impulso ao conhecimento da moderna teoria das probabilidades, principalmente, pelo trabalho de Blaise Pascal (1623-1662), em parceria com Pierre de Fermat (1601-1665). Eles foram estimulados por um escritor francês e matemático amador, Antoine Gombaud (1607-1684), conhecido como Chevalier de Méré, que era muito interessados em jogos de azar<span class="citation">(83)</span>.</p>
 <p>A Teoria das probabilidades permite que seja possível modelar populações, experimentos ou qualquer situação que possa ser considerada aleatória. Estes modelos possibilitam fazer inferência sobre populações a partir da observação de uma amostra dessa população. Ao usar apenas uma parte da população, inevitavelmente, é cometido um erro o <em>erro amostral</em>. Este erro amostral pode ser dimensionado pela teoria das probabilidades.</p>
-<p>Existem duas interpretações alternativas de probabilidades: a <em>frequentista</em> e a <em>bayesiana</em> <span class="citation">(84)</span>. Neste livro, será discutida, basicamente, a definição de probabilidade frequentista. O processo bayesiano de formulação de um modelo probabilístico faz uso do conhecimento subjetivo, estabelecendo uma especificação <em>a priori</em>, combinado com a informação objetiva ou empírica. A teoria bayesiana é a estrutura integradora dessas duas fontes de informação, derivando como resultado a distribuição <em>a posteriori</em> dos parâmetros de interesse. No capítulo sobre análise de testes diagnósticos, será abordado alguns aspectos relacionados a teoria bayesiana.</p>
+<p>Existem duas interpretações alternativas de probabilidades: a <em>frequentista</em> e a <em>bayesiana</em> <span class="citation">(84)</span>. Neste livro, será discutida, basicamente, a definição de probabilidade frequentista. O processo bayesiano de formulação de um modelo probabilístico faz uso do conhecimento subjetivo, estabelecendo uma especificação <em>a priori</em>, combinado com a informação objetiva ou empírica. A teoria bayesiana é a estrutura integradora dessas duas fontes de informação, derivando como resultado a distribuição <em>a posteriori</em> dos parâmetros de interesse. Na seção <a href="sec-cap18.html#sec-diagbayes">18.2</a>, sobre análise de testes diagnósticos, será abordado alguns aspectos relacionados a teoria bayesiana em medicina.</p>
 </div>
 <div id="processo-aleatório" class="section level2 hasAnchor" number="7.2">
 <h2><span class="header-section-number">7.2</span> Processo aleatório<a href="introdução-à-teoria-das-probabilidades.html#processo-aleatório" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Um processo ou experimento é dito <em>aleatório</em> quando em uma situação se sabe quais os resultados que podem acontecer, mas não se sabe qual resultado particular irá acontecer. Por exemplo, quando uma moeda é lançada, se conhece que a probabilidade de o desfecho cara ocorrer é de 50%, mas se desconhece o que irá ocorrer até que a moeda esteja no chão.</p>
 <p>O número de caras que podem surgir em vários lançamentos da moeda é chamado de <em>variável aleatória</em>, ou seja, uma variável que pode assumir mais de um valor com determinadas probabilidades <span class="citation">(85)</span>. Da mesma forma, um dado lançado pode mostrar seis faces, numeradas de um a seis, com igual probabilidade de 16,7%. Portanto, quando a probabilidade é associada a todos os conjuntos de valores possíveis de uma variável, diz-se que ela é aleatória. O conjunto de todos os possíveis resultados de um experimento aleatório é denominado <em>espaço amostral</em>.</p>
 <p>Na área da saúde, trabalha-se com uma infinidade de variáveis aleatórias, por exemplo, o número de filhos de uma mulher, o número de mortos diários em uma epidemia, o número de vacinados em uma campanha, etc. Essas variáveis são a variáveis aleatórias discretas, pois apenas permitem ser quantificadas por processo de contagem. Por outro lado, o peso, a altura de uma mulher são ditos variáveis aleatórias contínuas, pois podem assumir qualquer valor real entre uma medida e outra, dependendo da precisão do aparelho usado.</p>
-<p>Em geral, Variáveis aleatórias são representadas por letras maiúsculas, como X, Y e Z e sua a probabilidade pode ser denotada por:</p>
+<p>Em geral, <em>variáveis aleatórias</em> são representadas por letras maiúsculas, como X, Y e Z e sua a probabilidade pode ser denotada por:</p>
 <p><span class="math display">\[
 P[X] \quad ou \quad P[X=x]
 \]</span></p>
@@ -667,12 +667,12 @@ P[X] \quad ou \quad P[X=x]
 Figure 7.1: Simulação do lançamento de 1000 moedas.
 </p>
 </div>
-<p>A definição frequentista também pode ser aplicada a uma medida contínua como a altura de mulheres. No conjunto de dados <code>dadosMater.xlsx</code> (veja seção <a href="manipulando-os-dados-no-r-studio.html#sec-mater">5.3</a>), encontra-se o registro da altura de 1368 mulheres. Esssas alturas serão selecionadas e colocas em objeto <code>wh</code> (<em>women height</em>):</p>
+<p>A definição frequentista também pode ser aplicada a uma medida contínua como a altura de mulheres. No conjunto de dados <code>dadosMater.xlsx</code> (veja seção <a href="manipulando-os-dados-no-r-studio.html#sec-mater">5.3</a>), encontra-se o registro da altura de 1368 mulheres. Esssas alturas serão selecionadas e colocadass em um objeto <code>am</code> (<strong>a</strong>ltura das <strong>m</strong>ulheres*):</p>
 <div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="introdução-à-teoria-das-probabilidades.html#cb408-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
 <span id="cb408-2"><a href="introdução-à-teoria-das-probabilidades.html#cb408-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb408-3"><a href="introdução-à-teoria-das-probabilidades.html#cb408-3" aria-hidden="true" tabindex="-1"></a>wh <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb408-3"><a href="introdução-à-teoria-das-probabilidades.html#cb408-3" aria-hidden="true" tabindex="-1"></a>am <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb408-4"><a href="introdução-à-teoria-das-probabilidades.html#cb408-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(altura)</span>
-<span id="cb408-5"><a href="introdução-à-teoria-das-probabilidades.html#cb408-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span> (wh)</span></code></pre></div>
+<span id="cb408-5"><a href="introdução-à-teoria-das-probabilidades.html#cb408-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span> (am)</span></code></pre></div>
 <pre><code>##      altura     
 ##  Min.   :1.400  
 ##  1st Qu.:1.550  
@@ -684,10 +684,10 @@ Figure 7.1: Simulação do lançamento de 1000 moedas.
 <p>Logo, o interesse está na probabilidade de a variável aleatória assumir valores entre certos limites. A probabilidade de encontrar um valor exatamente de 1,60 m é quase igual a zero (na realidade, <span class="math inline">\(2.7 \times 10^{-124}\)</span>).</p>
 <p>Como se verá adiante, isto pode ser facilmente calculado no R:</p>
 <div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="introdução-à-teoria-das-probabilidades.html#cb410-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Distância do valor de 1,60 e a média em desvios padrão (escores Z) </span></span>
-<span id="cb410-2"><a href="introdução-à-teoria-das-probabilidades.html#cb410-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (<span class="fl">1.60</span> <span class="sc">-</span> <span class="fu">mean</span>(wh<span class="sc">$</span>altura))<span class="sc">/</span><span class="fu">sd</span>(wh<span class="sc">$</span>altura)</span>
+<span id="cb410-2"><a href="introdução-à-teoria-das-probabilidades.html#cb410-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (<span class="fl">1.60</span> <span class="sc">-</span> <span class="fu">mean</span>(am<span class="sc">$</span>altura))<span class="sc">/</span><span class="fu">sd</span>(am<span class="sc">$</span>altura)</span>
 <span id="cb410-3"><a href="introdução-à-teoria-das-probabilidades.html#cb410-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb410-4"><a href="introdução-à-teoria-das-probabilidades.html#cb410-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Probabilidade </span></span>
-<span id="cb410-5"><a href="introdução-à-teoria-das-probabilidades.html#cb410-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span> (z, <span class="fu">mean</span>(wh<span class="sc">$</span>altura),<span class="fu">sd</span>(wh<span class="sc">$</span>altura))</span></code></pre></div>
+<span id="cb410-5"><a href="introdução-à-teoria-das-probabilidades.html#cb410-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span> (z, <span class="fu">mean</span>(am<span class="sc">$</span>altura),<span class="fu">sd</span>(am<span class="sc">$</span>altura))</span></code></pre></div>
 <pre><code>## [1] 7.387473e-127</code></pre>
 </div>
 <div id="propriedades-das-probabilidades" class="section level2 hasAnchor" number="7.4">
@@ -811,25 +811,24 @@ onde:</p>
 </ul>
 <p>Qualquer distribuição de uma variável aleatória normal pode ser padronizada, usando o escore <em>z</em>. Isto permite que se calcule a probabilidade de se encontrar determinados intervalos de valores <span class="citation">(86)</span>.</p>
 <p>A altura das puérperas do conjunto de dados <code>dadosMater.xlsx</code> tem as seguintes medidas resumidoras:</p>
-<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="introdução-à-teoria-das-probabilidades.html#cb413-1" aria-hidden="true" tabindex="-1"></a>mater <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb413-2"><a href="introdução-à-teoria-das-probabilidades.html#cb413-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(altura) <span class="sc">%&gt;%</span> </span>
-<span id="cb413-3"><a href="introdução-à-teoria-das-probabilidades.html#cb413-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb413-4"><a href="introdução-à-teoria-das-probabilidades.html#cb413-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">media =</span> <span class="fu">mean</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb413-5"><a href="introdução-à-teoria-das-probabilidades.html#cb413-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">dp =</span> <span class="fu">sd</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb413-6"><a href="introdução-à-teoria-das-probabilidades.html#cb413-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">min =</span> <span class="fu">min</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb413-7"><a href="introdução-à-teoria-das-probabilidades.html#cb413-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">max =</span> <span class="fu">max</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb413-8"><a href="introdução-à-teoria-das-probabilidades.html#cb413-8" aria-hidden="true" tabindex="-1"></a>mater                    </span></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="introdução-à-teoria-das-probabilidades.html#cb413-1" aria-hidden="true" tabindex="-1"></a>resumo <span class="ot">&lt;-</span> am <span class="sc">%&gt;%</span> </span>
+<span id="cb413-2"><a href="introdução-à-teoria-das-probabilidades.html#cb413-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb413-3"><a href="introdução-à-teoria-das-probabilidades.html#cb413-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">media =</span> <span class="fu">mean</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb413-4"><a href="introdução-à-teoria-das-probabilidades.html#cb413-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">dp =</span> <span class="fu">sd</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb413-5"><a href="introdução-à-teoria-das-probabilidades.html#cb413-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">min =</span> <span class="fu">min</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb413-6"><a href="introdução-à-teoria-das-probabilidades.html#cb413-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">max =</span> <span class="fu">max</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb413-7"><a href="introdução-à-teoria-das-probabilidades.html#cb413-7" aria-hidden="true" tabindex="-1"></a>resumo                    </span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
 ##       n media     dp   min   max
 ##   &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1  1368  1.60 0.0655   1.4  1.85</code></pre>
-<p>Desta forma, pode-se verificar quantos desvios padrão uma mulher que mede 1,725m, pertencente a esta população, está afastada da média de 1.598m. Assim:</p>
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="introdução-à-teoria-das-probabilidades.html#cb415-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (<span class="fl">1.725</span> <span class="sc">-</span> mater<span class="sc">$</span>media)<span class="sc">/</span>mater<span class="sc">$</span>dp</span>
-<span id="cb415-2"><a href="introdução-à-teoria-das-probabilidades.html#cb415-2" aria-hidden="true" tabindex="-1"></a>z</span></code></pre></div>
-<pre><code>## [1] 1.940054</code></pre>
+<p>Desta forma, pode-se verificar quantos desvios padrão uma mulher que mede 1,725m, pertencente a esta população, está afastada da média de 1.6m. Assim:</p>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="introdução-à-teoria-das-probabilidades.html#cb415-1" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (<span class="fl">1.725</span> <span class="sc">-</span> resumo<span class="sc">$</span>media)<span class="sc">/</span>resumo<span class="sc">$</span>dp</span>
+<span id="cb415-2"><a href="introdução-à-teoria-das-probabilidades.html#cb415-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(z, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 1.94</code></pre>
 <p>Esta mulher está distante praticamente 2 desvios padrão acima da média da sua população. Portanto, ela é considerada alta. Por que?</p>
 <p>Para responder a essa pergunta, há necessidade de calcular a probabilidade de encontrar uma mulher com esta altura, nesta população.</p>
-<p>No R, existem as funções <code>dnorm()</code>, <code>pnorm()</code> e <code>qnorm()</code>, que permitem calcular a <em>densidade de probabilidade</em>, <em>distribuição cumulativa</em> e <em>função quantílica da distribuição normal</em> para um conjunto de valores. Além disso, a função <code>rnorm()</code> permite obter observações aleatórias que seguem uma distribuição normal <span class="citation">(87)</span>.</p>
+<p>No <em>R</em>, existem as funções <code>dnorm()</code>, <code>pnorm()</code> e <code>qnorm()</code>, que permitem calcular a <em>densidade de probabilidade</em>, <em>distribuição cumulativa</em> e <em>função quantílica da distribuição normal</em> para um conjunto de valores. Além disso, a função <code>rnorm()</code> permite obter observações aleatórias que seguem uma distribuição normal <span class="citation">(87)</span>.</p>
 <p><strong>Função <code>pnorm()</code></strong></p>
 <p>A função <code>pnorm()</code> fornece a <em>Função de Distribuição Cumulativa</em> (CDF) da distribuição Normal, que é a probabilidade de que a variável <em>X</em> contenha um valor menor ou igual a <em>x</em>.</p>
 <ul>
@@ -843,13 +842,13 @@ onde:</p>
 <li><em>lower.tail</em> <span class="math inline">\(\longrightarrow\)</span> Se <code>TRUE</code>, as probabilidades são (<span class="math inline">\(P \le x\)</span>), caso contrário <span class="math inline">\(P(X &gt; x)\)</span></li>
 </ul></li>
 </ul>
-<p>Se for usado <span class="math inline">\(mean = 0\)</span> e <span class="math inline">\(sd = 1\)</span>, o valor de q = z, caso contrário, toma-se os valores da média, o desvio padrão da população e o valor de <em>x</em>.<br />
-Com esta função pode-se responder a pergunta feita anteriormente em relação a probabilidade de encontrar uma mulher com mais de 1,725m, equivalente a 1.9400545 desvios padrão acima da média, em uma população com média = 1.5979678 e desvio padrão = 0.0654787.</p>
+<p>Se for usado <span class="math inline">\(mean = 0\)</span> e <span class="math inline">\(sd = 1\)</span>, o valor de q = z, caso contrário, toma-se os valores da média, o desvio padrão da população e o valor de <em>x</em>.</p>
+<p>Com esta função pode-se responder a pergunta feita anteriormente em relação a probabilidade de encontrar uma mulher com mais de 1,725m, equivalente a 1.94 desvios padrão acima da média, em uma população com média = 1.5979678 e desvio padrão = 0.0654787.</p>
 <div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="introdução-à-teoria-das-probabilidades.html#cb417-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(z, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb417-2"><a href="introdução-à-teoria-das-probabilidades.html#cb417-2" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
 <pre><code>## [1] 0.02618654</code></pre>
 <p>Ou, usando os valores:</p>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="introdução-à-teoria-das-probabilidades.html#cb419-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">1.725</span>, <span class="at">mean =</span> mater<span class="sc">$</span>media, <span class="at">sd =</span> mater<span class="sc">$</span>dp, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="introdução-à-teoria-das-probabilidades.html#cb419-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">1.725</span>, <span class="at">mean =</span> resumo<span class="sc">$</span>media, <span class="at">sd =</span> resumo<span class="sc">$</span>dp, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## [1] 0.02618654</code></pre>
 <p>Observa-se que, nesta população, apenas 2.6% das mulheres têm acima de 1,725m, razão de considerar-se uma mulher acima deste valor como sendo alta. Ou seja, é pouco provável encontrar mulheres acima dessa altura, nesta população. A Figura <a href="introdução-à-teoria-das-probabilidades.html#fig:prob1725">7.4</a> representa com clareza esta pequena probabilidade.</p>
 <div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="introdução-à-teoria-das-probabilidades.html#cb421-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;Arquivos/normal_area.R&quot;</span>)</span>
@@ -942,12 +941,12 @@ Figure 7.5: Função densidade de probabilidade.
 </ul>
 <p>Com esta função é possível, por exemplo, gerar 10 observações de uma distribuição normal:</p>
 <div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="introdução-à-teoria-das-probabilidades.html#cb432-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1]  1.73177666 -0.20993916 -0.67216395  0.63805528  0.04600677 -0.29639593
-##  [7] -0.78241022 -0.72893392 -0.57329193 -0.04527224</code></pre>
+<pre><code>##  [1] -0.3710554 -1.2409204  1.4334948  1.1389462 -0.4894149 -1.2164892
+##  [7] -0.2466062  1.0813703 -0.2994662  0.4487307</code></pre>
 <p>No entanto, deve-se notar que, se não especificar uma “semente” (<code>seed</code>), a saída não será reproduzível:</p>
 <div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="introdução-à-teoria-das-probabilidades.html#cb434-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1]  1.24285167 -0.09152553 -0.34575136  0.23642537  0.07737234 -0.54937385
-##  [7] -0.30313665 -1.44283900  2.39777137  0.05641338</code></pre>
+<pre><code>##  [1]  0.10822297 -0.49303419 -0.26701880 -0.01995437  0.65751169 -0.18868463
+##  [7]  0.55546443 -0.20136154 -1.04337133  1.45320697</code></pre>
 <p>Pode-se usar a função <code>set.seed()</code> para tornar o código reproduzível. O valor da “semente” (número) não é importante desde que seja consistente na sua utilização. O que é verdadeiramente importante é que o código seja reproduzido fielmente.</p>
 <p>Para ilustrar, será construído dois conjuntos de 10 números que serão recebidos pelos objetos <em>x</em> e <em>y</em>. Para gerar o conjunto de números <em>x</em>, sera usado o número <code>123</code> como “semente”. A “semente” funciona como uma espécie de marca. Para o <em>y</em> não será usado a <code>set.seed()</code>.</p>
 <div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="introdução-à-teoria-das-probabilidades.html#cb436-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
@@ -1006,15 +1005,15 @@ Figure 7.6: Histogramas construídos com amostras geradas pela função rnorm.
 <p>Esta regra pode ser usada para descrever uma população e ajudar a decidir se uma amostra de dados veio de uma distribuição normal. Se uma amostra é grande o suficiente e a observação do histograma tem um formato parecido com um sino, é possível verificar se os dados seguem as especificações 68-95-99,7%. Se sim, é razoável concluir que os dados vieram de uma distribuição normal.</p>
 <p>Usando a amostra dos recém-nascidos a termo da maternidade-escola do Hospital Geral de Caxias do Sul e for observado o histograma com uma curva normal sobreposta, tem-se</p>
 <div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="introdução-à-teoria-das-probabilidades.html#cb451-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Selecionando os recém-nascidos a termo</span></span>
-<span id="cb451-2"><a href="introdução-à-teoria-das-probabilidades.html#cb451-2" aria-hidden="true" tabindex="-1"></a>mater <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>)<span class="sc">%&gt;%</span> </span>
+<span id="cb451-2"><a href="introdução-à-teoria-das-probabilidades.html#cb451-2" aria-hidden="true" tabindex="-1"></a>rnt <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>)<span class="sc">%&gt;%</span> </span>
 <span id="cb451-3"><a href="introdução-à-teoria-das-probabilidades.html#cb451-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ig <span class="sc">&gt;=</span> <span class="dv">37</span> <span class="sc">&amp;</span> ig <span class="sc">&lt;</span> <span class="dv">42</span>)</span>
 <span id="cb451-4"><a href="introdução-à-teoria-das-probabilidades.html#cb451-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb451-5"><a href="introdução-à-teoria-das-probabilidades.html#cb451-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Média dos pesos dos recém-nascidos a termo</span></span>
-<span id="cb451-6"><a href="introdução-à-teoria-das-probabilidades.html#cb451-6" aria-hidden="true" tabindex="-1"></a>media <span class="ot">&lt;-</span>  <span class="fu">mean</span>(mater<span class="sc">$</span>pesoRN, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span>
+<span id="cb451-6"><a href="introdução-à-teoria-das-probabilidades.html#cb451-6" aria-hidden="true" tabindex="-1"></a>media <span class="ot">&lt;-</span>  <span class="fu">mean</span>(rnt<span class="sc">$</span>pesoRN, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span>
 <span id="cb451-7"><a href="introdução-à-teoria-das-probabilidades.html#cb451-7" aria-hidden="true" tabindex="-1"></a>media</span></code></pre></div>
 <pre><code>## [1] 3216.316</code></pre>
 <div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="introdução-à-teoria-das-probabilidades.html#cb453-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Desvio padrão dos pesos dos recém-nascidos a termo</span></span>
-<span id="cb453-2"><a href="introdução-à-teoria-das-probabilidades.html#cb453-2" aria-hidden="true" tabindex="-1"></a>dp  <span class="ot">&lt;-</span>  <span class="fu">sd</span>(mater<span class="sc">$</span>pesoRN, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span>
+<span id="cb453-2"><a href="introdução-à-teoria-das-probabilidades.html#cb453-2" aria-hidden="true" tabindex="-1"></a>dp  <span class="ot">&lt;-</span>  <span class="fu">sd</span>(rnt<span class="sc">$</span>pesoRN, <span class="at">na.rm =</span><span class="cn">TRUE</span>)</span>
 <span id="cb453-3"><a href="introdução-à-teoria-das-probabilidades.html#cb453-3" aria-hidden="true" tabindex="-1"></a>dp</span></code></pre></div>
 <pre><code>## [1] 462.1205</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:prn"></span>
@@ -1023,7 +1022,7 @@ Figure 7.6: Histogramas construídos com amostras geradas pela função rnorm.
 Figure 7.7: Histograma com curva normal sobreposta
 </p>
 </div>
-<p>e pode-se aceitar que a distribuição é aproximadamente normal (Figura <a href="introdução-à-teoria-das-probabilidades.html#fig:prn">7.7</a>). Consequentemente, 68% desses bebês pesam entre 2754.2 e 3678.4g (média <span class="math inline">\(\pm\)</span> 1 desvio padrão). As linhas verticais tracejadas são apenas para melhorar a visualização, pois não se necessita, praticamente, de nenhum cálculo.</p>
+<p>Pode-se aceitar que a distribuição é aproximadamente normal (Figura <a href="introdução-à-teoria-das-probabilidades.html#fig:prn">7.7</a>). Consequentemente, 68% desses bebês pesam entre 2754.2 e 3678.4g (média <span class="math inline">\(\pm\)</span> 1 desvio padrão). As linhas verticais tracejadas são apenas para melhorar a visualização, pois não se necessita, praticamente, de nenhum cálculo.</p>
 </div>
 <div id="exercitando-o-raciocínio-com-a-curva-normal" class="section level3 hasAnchor" number="7.6.4">
 <h3><span class="header-section-number">7.6.4</span> Exercitando o raciocínio com a curva normal<a href="introdução-à-teoria-das-probabilidades.html#exercitando-o-raciocínio-com-a-curva-normal" class="anchor-section" aria-label="Anchor link to header"></a></h3>

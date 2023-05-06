@@ -23,7 +23,7 @@ pacman::p_load(BiocManager,
                vcd)
 ```
 
-## Raciocínio bayesiano no diagnóstico médico  
+## Raciocínio bayesiano no diagnóstico médico  {#sec-diagbayes}
 
 O processo diagnóstico é o centro da atenção da atividade médica na busca de reduzir as incertezas e reconhecer a que classe pertence determinado paciente. Portanto, é extremamente importante saber quão bem os testes diagnósticos podem prever que um indivíduo é portador de certa condição ou doença. Entende-se aqui como teste diagnóstico todo o processo diagnótico, desde o exame clínico até o mais sofisticado exame de imagem ou laboratorial. A ideia é saber como o teste diagnóstico se comporta para separar um "doente" e um "não doente"; qual a sua validade neste processo?  
 

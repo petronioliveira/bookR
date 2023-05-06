@@ -2,11 +2,11 @@
 
 ## Introdução  
 
-A teoria das probabilidades é a base sobre a qual a estatística é desenvolvida. Os jogos de azar deram um grande impulso ao conhecimento da teoria da probabilidade, principalmente, pelo trabalho de Blaise Pascal (1623-1662) em parceria com Pierre de Fermat (1601-1665), estimulados por um nobre francês, Antoine Gombaud, conhecido como Chevalier de Mère, inveterado jogador, que estava cansado dos resultados negativos em suas apostas [@debnath2015short].  
+A teoria das probabilidades é a base sobre a qual a estatística é desenvolvida. Os jogos de azar deram um grande impulso ao conhecimento da moderna teoria das probabilidades, principalmente, pelo trabalho de Blaise Pascal (1623-1662), em parceria com Pierre de Fermat (1601-1665). Eles foram estimulados por um escritor francês e matemático amador, Antoine Gombaud (1607-1684), conhecido como Chevalier de Méré, que era muito interessados em jogos de azar[@debnath2015short].  
 
 A Teoria das probabilidades permite que seja possível modelar populações, experimentos ou qualquer situação que possa ser considerada aleatória. Estes modelos possibilitam fazer inferência sobre populações a partir da observação de uma amostra dessa população. Ao usar apenas uma parte da população, inevitavelmente, é cometido um erro o *erro amostral*. Este erro amostral pode ser dimensionado pela teoria das probabilidades.  
 
-Existem duas interpretações alternativas de probabilidades: a *frequentista* e a *bayesiana* [@menezes2004probabilidade]. Neste livro, será discutida, basicamente, a definição de probabilidade frequentista. O processo bayesiano de formulação de um modelo probabilístico faz uso do conhecimento subjetivo, estabelecendo uma especificação *a priori*, combinado com a informação objetiva ou empírica. A teoria bayesiana é a estrutura integradora dessas duas fontes de informação, derivando como resultado a distribuição *a posteriori* dos parâmetros de interesse. No capítulo sobre análise de testes diagnósticos, será abordado alguns aspectos relacionados a teoria bayesiana.
+Existem duas interpretações alternativas de probabilidades: a *frequentista* e a *bayesiana* [@menezes2004probabilidade]. Neste livro, será discutida, basicamente, a definição de probabilidade frequentista. O processo bayesiano de formulação de um modelo probabilístico faz uso do conhecimento subjetivo, estabelecendo uma especificação *a priori*, combinado com a informação objetiva ou empírica. A teoria bayesiana é a estrutura integradora dessas duas fontes de informação, derivando como resultado a distribuição *a posteriori* dos parâmetros de interesse. Na seção \@ref(sec-diagbayes), sobre análise de testes diagnósticos, será abordado alguns aspectos relacionados a teoria bayesiana em medicina.
 
 ## Processo aleatório
 
@@ -16,7 +16,7 @@ O número de caras que podem surgir em vários lançamentos da moeda é chamado 
 
 Na área da saúde, trabalha-se com uma infinidade de variáveis aleatórias, por exemplo, o número de filhos de uma mulher, o número de mortos diários em uma epidemia, o número de vacinados em uma campanha, etc. Essas variáveis são a variáveis aleatórias discretas, pois apenas permitem ser quantificadas por processo de contagem. Por outro lado, o peso, a altura de uma mulher são ditos variáveis aleatórias contínuas, pois podem assumir qualquer valor real entre uma medida e outra, dependendo da precisão do aparelho usado.   
 
-Em geral, Variáveis aleatórias são representadas por letras maiúsculas, como X, Y e Z e sua a probabilidade pode ser denotada por:
+Em geral, *variáveis aleatórias* são representadas por letras maiúsculas, como X, Y e Z e sua a probabilidade pode ser denotada por:
 
 $$
 P[X] \quad ou \quad P[X=x]
@@ -46,14 +46,14 @@ plot (x,y/1:1000,
 abline(h = 0.5, col = "red", lty = 2)
 ```
 
-A definição frequentista também pode ser aplicada a uma medida contínua como a altura de mulheres. No conjunto de dados `dadosMater.xlsx` (veja seção \@ref(sec-mater)), encontra-se o registro da altura de 1368 mulheres. Esssas alturas serão selecionadas e colocas em objeto `wh` (*women height*):
+A definição frequentista também pode ser aplicada a uma medida contínua como a altura de mulheres. No conjunto de dados `dadosMater.xlsx` (veja seção \@ref(sec-mater)), encontra-se o registro da altura de 1368 mulheres. Esssas alturas serão selecionadas e colocadass em um objeto `am` (**a**ltura das **m**ulheres*):
 
 ```{r}
 library(readxl)
 library(dplyr)
-wh <- read_excel("Arquivos/dadosMater.xlsx") %>% 
+am <- read_excel("Arquivos/dadosMater.xlsx") %>% 
   select(altura)
-summary (wh)
+summary (am)
 ```
 
 A mediana da altura das gestantes é 1,60 m. Ou seja, metade dessas mulheres têm uma altura acima de 1,60 m. Em um longo conjunto de sorteios, a probabilidade de uma mulher ter altura acima de 1,60 m é 50%. O percentil 75 (3º quartil) é igual a 1,65 m, a probabilidade de estar acima deste valor, portanto, é 25%. É possível encontrar a probabilidade de a altura estar acima, abaixo ou entre quaisquer valores. Quando se faz a mensuração de uma variável contínua, fica-se limitado ao método usado, portanto, quando se diz que uma mulher tem 1,60 m, significa dizer que está entre 159,5 e 165,5 m, dependendo da precisão do instrumento de medição.   
@@ -64,10 +64,10 @@ Como se verá adiante, isto pode ser facilmente calculado no R:
 
 ```{r}
 # Distância do valor de 1,60 e a média em desvios padrão (escores Z) 
-z <- (1.60 - mean(wh$altura))/sd(wh$altura)
+z <- (1.60 - mean(am$altura))/sd(am$altura)
 
 # Probabilidade 
-pnorm (z, mean(wh$altura),sd(wh$altura))
+pnorm (z, mean(am$altura),sd(am$altura))
 ```
 
 ## Propriedades das probabilidades  
@@ -209,28 +209,27 @@ Qualquer distribuição de uma variável aleatória normal pode ser padronizada,
 A altura das puérperas do conjunto de dados `dadosMater.xlsx` tem as seguintes medidas resumidoras:
 
 ```{r}
-mater <- readxl::read_excel("Arquivos/dadosMater.xlsx") %>% 
-  select(altura) %>% 
+resumo <- am %>% 
   dplyr::summarise(n = n(),
                    media = mean(altura, na.rm = TRUE),
                    dp = sd(altura, na.rm = TRUE),
                    min = min(altura, na.rm = TRUE),
                    max = max(altura, na.rm = TRUE))
-mater                    
+resumo                    
 ```
 
-Desta forma, pode-se verificar quantos desvios padrão uma mulher que mede 1,725m, pertencente a esta população, está afastada da média de `r round(mean(mater$media),3)`m. Assim:
+Desta forma, pode-se verificar quantos desvios padrão uma mulher que mede 1,725m, pertencente a esta população, está afastada da média de `r round(mean(resumo$media),2)`m. Assim:
 
 ```{r}
-z <- (1.725 - mater$media)/mater$dp
-z
+z <- (1.725 - resumo$media)/resumo$dp
+round(z, 2)
 ```
 
 Esta mulher está distante praticamente 2 desvios padrão acima da média da sua população. Portanto, ela é considerada alta. Por que? 
 
 Para responder a essa pergunta, há necessidade de calcular a probabilidade de encontrar uma mulher com esta altura, nesta população.  
 
-No R, existem as funções `dnorm()`, `pnorm()` e `qnorm()`, que permitem calcular a *densidade de probabilidade*, *distribuição cumulativa* e *função quantílica da distribuição normal* para um conjunto de valores. Além disso, a função `rnorm()` permite obter observações aleatórias que seguem uma distribuição normal [@jain_2022norm].  
+No *R*, existem as funções `dnorm()`, `pnorm()` e `qnorm()`, que permitem calcular a *densidade de probabilidade*, *distribuição cumulativa* e *função quantílica da distribuição normal* para um conjunto de valores. Além disso, a função `rnorm()` permite obter observações aleatórias que seguem uma distribuição normal [@jain_2022norm].  
 
 **Função `pnorm()`**  
 
@@ -246,7 +245,8 @@ A função `pnorm()` fornece a *Função de Distribuição Cumulativa* (CDF) da 
   - *lower.tail*  $\longrightarrow$ Se `TRUE`, as probabilidades são ($P \le x$), caso contrário $P(X > x)$
 
 Se for usado $mean = 0$ e $sd = 1$, o valor de q = z, caso contrário, toma-se os valores da média, o desvio padrão da população e o valor de *x*.  
-Com esta função pode-se responder a pergunta feita anteriormente em relação a probabilidade de encontrar uma mulher com mais de 1,725m, equivalente a  `r (1.725 - mater$media)/mater$dp` desvios padrão acima da média, em uma população com média = `r mater$media` e desvio padrão = `r mater$dp`. 
+
+Com esta função pode-se responder a pergunta feita anteriormente em relação a probabilidade de encontrar uma mulher com mais de 1,725m, equivalente a  `r round(z, 2)` desvios padrão acima da média, em uma população com média = `r resumo$media` e desvio padrão = `r resumo$dp`. 
 
 ```{r}
 p <- pnorm(z, mean = 0, sd = 1, lower.tail = FALSE)
@@ -256,8 +256,9 @@ p
 Ou, usando os valores:
 
 ```{r}
-pnorm(1.725, mean = mater$media, sd = mater$dp, lower.tail = FALSE)
+pnorm(1.725, mean = resumo$media, sd = resumo$dp, lower.tail = FALSE)
 ```
+
 Observa-se que, nesta população, apenas `r round(pnorm(1.94, mean = 0, sd = 1, lower.tail = FALSE),3)*100`% das mulheres têm acima de 1,725m, razão de considerar-se uma mulher acima deste valor como sendo alta. Ou seja, é pouco provável encontrar mulheres acima dessa altura, nesta população. A Figura \@ref(fig:prob1725) representa com clareza esta pequena probabilidade.
 
 ```{r prob1725, warning=FALSE, out.width="70%", out.height="70%", fig.align="center", fig.cap="Probabilidade de encontrar mulheres com mais de 1,725m", fig.pos="H"}
@@ -286,6 +287,7 @@ No exemplo anterior, a probabilidade de se encontrar mulheres, na maternidade, c
 ```{r}
 qnorm(p, mean = 0, sd = 1, lower.tail = FALSE)
 ```
+
 Outro exemplo, na mediana (p = 0,5), o escore z é igual a:
 
 ```{r}
@@ -313,6 +315,7 @@ dnorm(x = 0, mean = 0, sd = 1)
 Agora, para melhor comprenssão, será mostrado o que foi dito, representando a função de densidade de probabilidade da distribuição normal com o `dnorm()`.
   
 Inicialmente, será construído um vetor de escores *z*:
+
 ```{r}
 escores_z <- seq(-3,3, by = 0.1)
 escores_z
@@ -440,23 +443,23 @@ Usando a amostra dos recém-nascidos a termo da maternidade-escola do Hospital G
 
 ```{r}
 # Selecionando os recém-nascidos a termo
-mater <- readxl::read_excel("Arquivos/dadosMater.xlsx")%>% 
+rnt <- readxl::read_excel("Arquivos/dadosMater.xlsx")%>% 
   filter(ig >= 37 & ig < 42)
 
 # Média dos pesos dos recém-nascidos a termo
-media <-  mean(mater$pesoRN, na.rm =TRUE)
+media <-  mean(rnt$pesoRN, na.rm =TRUE)
 media
 
 
 # Desvio padrão dos pesos dos recém-nascidos a termo
-dp  <-  sd(mater$pesoRN, na.rm =TRUE)
+dp  <-  sd(rnt$pesoRN, na.rm =TRUE)
 dp
 ```
 
 
 ```{r prn, echo=FALSE, warning=FALSE, out.width="70%", out.height="70%", fig.align="center", fig.cap="Histograma com curva normal sobreposta", fig.pos="H"}
 library(ggplot2)
-ggplot(mater,
+ggplot(rnt,
        aes(x = pesoRN)) + 
   geom_histogram(aes(y = after_stat(density)), 
                  bins = 20,
@@ -474,7 +477,7 @@ ggplot(mater,
   theme_classic() 
 ```
 
- e pode-se aceitar que a distribuição é aproximadamente normal (Figura \@ref(fig:prn)). Consequentemente, 68% desses bebês pesam entre `r round(media - dp, 1)` e  `r round(media + dp, 1)`g (média $\pm$ 1 desvio padrão). As linhas verticais tracejadas são apenas para melhorar a visualização, pois não se necessita, praticamente, de nenhum cálculo.
+Pode-se aceitar que a distribuição é aproximadamente normal (Figura \@ref(fig:prn)). Consequentemente, 68% desses bebês pesam entre `r round(media - dp, 1)` e  `r round(media + dp, 1)`g (média $\pm$ 1 desvio padrão). As linhas verticais tracejadas são apenas para melhorar a visualização, pois não se necessita, praticamente, de nenhum cálculo.
 
 ### Exercitando o raciocínio com a curva normal  
 
@@ -495,6 +498,7 @@ z1
 p1 <- pnorm (z1)
 p1
 ```
+
 Ou seja, na população 1, apenas `r round(p1, 3)*100`% das mulheres tem altura abaixo de 1,50, `r 100 -(round(p1, 3)*100)`% é mais alta do que este valor.   
 
  *Probabilidade de pertencer à População 2*
@@ -560,6 +564,7 @@ pnorm (1.96, lower.tail = FALSE)
 Em outras palavras, se forem observadas as respostas das perguntas 2 e 3, chega-se a conclusão que entre os escores *z* -1,96 e 1,96 encontram-se 95% das mulheres de qualquer população cujo parametro tem distribuição normal. Na "regra empírica 68-95-99.7" usou-se o valor de 1,96 arredondado para 2.  
 
 4. Qual é o escore *z* do 50º percentil da distribuição normal?
+
 ```{r}
 qnorm (0.50)
 ```
