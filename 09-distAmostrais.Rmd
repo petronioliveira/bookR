@@ -52,7 +52,7 @@ ggplot(mater) +
 
 Os valores da média e do desvio padrão calculados para essa população fornecem os valores dos parâmetros populacionais  $\mu$ e $\sigma$. Esses valores são $\mu =$ `r round(mean(mater$altura, na.rm =TRUE), 3)`m e $\sigma =$ `r round(sd(mater$altura, na.rm =TRUE), 3)`m. 
 
-### Distribuição amostral  
+### Distribuição amostral  {#sec-dam}
 
 Conforme mencionado no início deste capítulo, o valor de um parâmetro da população é sempre constante. Por exemplo, para qualquer conjunto de dados populacionais, há apenas um valor para a média populacional, $\mu$.   
 
@@ -173,7 +173,7 @@ Na maioria das vezes, a população da qual as amostras são extraídas não é 
  knitr::include_graphics("https://i.imgur.com/I2CxksB.png")
 ```
 
-Se for tomado como exemplo a variável `renda`, do conjunto de dados `dadosMater.xlsx`, que representa a renda familiar em salários mínimos (SM). Como foi feito anteriormente, suponha que essa variável seja a população de estudo. Ela tem as seguintes medidas resumidoras e de assimetria:  
+Agora, será tomado como exemplo a variável `renda`, do conjunto de dados `dadosMater.xlsx`, que representa a renda familiar em salários mínimos (SM). Como foi feito anteriormente, suponha que essa variável seja a população de estudo. Ela tem as seguintes medidas resumidoras e de assimetria:  
 
 ```{r}
 resumo <- mater %>% 
@@ -305,6 +305,7 @@ mater$fumo <- factor (mater$fumo,
 # Proporção de fumantes:
 fumo <- with(mater, table(fumo))
 fr.fumo <- prop.table(fumo)
+fr.fumo
 ```
 
 Assim, a proporção de gestantes fumantes foi de `r round(fr.fumo[1], 2)`.

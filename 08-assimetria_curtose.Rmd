@@ -33,14 +33,14 @@ knitr::kable(data.frame(g1,assimetria),
   kableExtra::row_spec(0, bold = TRUE)
 ```
 
-Como exemplo, de avaliação do coeficiente de assimetria, será usada a distribuição da variável `altura`, correspondente a altura em metros de 1368 parturientes da Maternidade do HGCS (`dadosMater.xlsx`), já mostrado anteriormente (Figura \@ref(fig:histnormal)), repetido aqui com um boxplot sobreposto (Figura \@ref(fig:histbxp)):
+Como exemplo, de avaliação do coeficiente de assimetria, será usada a distribuição da variável `altura`, correspondente a altura em metros de 1368 parturientes da Maternidade do HGCS (`dadosMater.xlsx`), já mostrado anteriormente (Figura \@ref(fig:histnormal)), repetido aqui com um boxplot sobreposto (Figura \@ref(fig:histbxp)). A função `layout()` tem o formato `layout(mat)` onde `mat` é um objeto da classe matriz que permite dividir a janela de plotagem em áreas com tamanhos personalizados. Abaixo, cria-se uma matriz com uma coluna e duas linhas com uma relação de 1:8 entre as linhas. A função `par()` é utilizada para alterar as margens. Para mais detalhes acesse [**aqui**](https://bookdown.org/ndphillips/YaRrr/arranging-plots-with-parmfrow-and-layout.html).
 
 ```{r histbxp, warning=FALSE, out.width="70%", out.height="70%", fig.align="center", fig.cap="Posição de uma mulher com 1,50m comparando duas populações", fig.pos="H"}
 # Dados
 mater <- readxl::read_excel("Arquivos/dadosMater.xlsx")
 
 # Estruturação do layout do gráfico
-layout(matrix(c(1,2), nrow = 2 , ncol =1, byrow = TRUE), heights = c(1, 8))
+layout(matrix(c(1,2), nrow = 2 , ncol = 1, byrow = TRUE), heights = c(1, 8))
 
 # Boxplot
 par (mar=c (0, 4.3, 1.1, 2))
@@ -68,13 +68,13 @@ box(bty = "L")
 par (mar = c(5, 4, 4, 2) + 0.1)
 ```
 
-Observando o formato da distribuição no histograma e do boxplot, conclui-se que a variável `altura` tem uma assimetria positiva, provocada por alguns *outliers*, como uma mulher com altura de 1,85m. Para examinar os `outliers`, pode-se verificar as estatísticas do boxplot, que entregam as estatísticas dos 5 números (min, P25, mediana, P75 e max), o total de observações, o limite inferior e superior do intervalo de confiança de 95% e os valores aípicos (`outliers`):
+Observando o formato da distribuição no histograma e no boxplot, conclui-se que a variável `altura` tem uma assimetria positiva, provocada por alguns *outliers*, como uma mulher com altura de 1,85m (veja também seção \@ref(sec-dam)). Para examinar os `outliers`, pode-se verificar as estatísticas do boxplot, que entregam as estatísticas dos 5 números (min, P25, mediana, P75 e max), o total de observações, o limite inferior e superior do intervalo de confiança de 95% e os valores aípicos (`outliers`):
 
 ```{r}
 boxplot.stats(mater$altura)
 ```
 
-O formato formato dos dados se ajusta bem, como visto na Figura \@ref(fig:histbxp), ao modelo normal e os pressupostos deste modelo poderiam ser aplicados a estes dados.  
+O formato dos dados se ajusta bem, como visto na Figura \@ref(fig:histbxp), ao modelo normal e os pressupostos deste modelo poderiam ser aplicados a estes dados.  
 
 O valor da assimetria (`skewness`) pode ser obtida com a função `skewness()` do pacote `moments` [@komsta2022moments].
 
@@ -82,7 +82,7 @@ O valor da assimetria (`skewness`) pode ser obtida com a função `skewness()` d
 moments::skewness(mater$altura)
 ```
 
-O resultado da saída, confirmam a impressão visual, a variável altura tem uma distribuição praticamente simétrica. Esta conclusão tambem pode ser feita, analisando as medidas resumidoras dessa variável:
+O resultado da saída, confirmam a impressão visual, a variável `altura` tem uma distribuição praticamente simétrica. Esta conclusão tambem pode ser feita, analisando as medidas resumidoras dessa variável:
 
 ```{r}
 media <- mean(mater$altura, na.rm = TRUE)

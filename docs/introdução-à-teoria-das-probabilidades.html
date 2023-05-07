@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-05-06" />
+<meta name="date" content="2023-05-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -355,7 +355,7 @@ div.csl-indent {
 <li class="chapter" data-level="9.2" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuições-populacional-e-amostral"><i class="fa fa-check"></i><b>9.2</b> Distribuições populacional e amostral</a>
 <ul>
 <li class="chapter" data-level="9.2.1" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuição-populacional"><i class="fa fa-check"></i><b>9.2.1</b> Distribuição populacional</a></li>
-<li class="chapter" data-level="9.2.2" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuição-amostral"><i class="fa fa-check"></i><b>9.2.2</b> Distribuição amostral</a></li>
+<li class="chapter" data-level="9.2.2" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#sec-dam"><i class="fa fa-check"></i><b>9.2.2</b> Distribuição amostral</a></li>
 </ul></li>
 <li class="chapter" data-level="9.3" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#erros-amostrais-e-não-amostrais"><i class="fa fa-check"></i><b>9.3</b> Erros amostrais e não amostrais</a></li>
 <li class="chapter" data-level="9.4" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#média-e-desvio-padrão-da-média"><i class="fa fa-check"></i><b>9.4</b> Média e desvio padrão da média</a></li>
@@ -946,12 +946,12 @@ Figure 7.5: Função densidade de probabilidade.
 </ul>
 <p>Com esta função é possível, por exemplo, gerar 10 observações de uma distribuição normal:</p>
 <div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="introdução-à-teoria-das-probabilidades.html#cb436-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1]  0.15021740  1.73151312  0.35499901 -0.85537243 -0.58963965 -0.16523136
-##  [7] -0.17267553  0.70863533 -0.44607084  0.07492412</code></pre>
+<pre><code>##  [1] -1.04665356  0.05362829 -1.09218260 -0.75781064 -0.09248604 -0.83691322
+##  [7] -1.10838347 -0.60606805  0.64345465  0.61593180</code></pre>
 <p>No entanto, deve-se notar que, se uma “semente” (<code>seed</code>) não for especificada, a saída não será reproduzível, ou seja, cada vez que o comando for executado, retornará um novo conjunto de observações:</p>
 <div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="introdução-à-teoria-das-probabilidades.html#cb438-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(<span class="dv">10</span>)</span></code></pre></div>
-<pre><code>##  [1]  1.1165297 -0.4071936  2.4040477 -0.9443304 -0.1154629 -2.0400903
-##  [7] -0.8448098  1.7748365 -0.4812565 -1.2149651</code></pre>
+<pre><code>##  [1] -0.5194035 -1.2532380 -1.1583083 -1.1377077  0.5852851  1.2763004
+##  [7] -0.8481425  1.1970106 -0.6078935 -1.2255956</code></pre>
 <p>Pode-se usar a função <code>set.seed()</code> para tornar o código reproduzível. O valor da “semente” (número) não é importante desde que seja consistente na sua utilização. O que é verdadeiramente importante é que o código seja reproduzido fielmente.</p>
 <p>Para ilustrar, será construído dois conjuntos de 10 números que serão recebidos pelos objetos <em>x</em> e <em>y</em>. Para gerar o conjunto de números <em>x</em>, sera usado o número <code>123</code> como “semente”. A “semente” funciona como uma espécie de marca. Para o <em>y</em> não será usado a <code>set.seed()</code>.</p>
 <div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="introdução-à-teoria-das-probabilidades.html#cb440-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>

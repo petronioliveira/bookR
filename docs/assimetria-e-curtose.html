@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-05-06" />
+<meta name="date" content="2023-05-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -355,7 +355,7 @@ div.csl-indent {
 <li class="chapter" data-level="9.2" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuições-populacional-e-amostral"><i class="fa fa-check"></i><b>9.2</b> Distribuições populacional e amostral</a>
 <ul>
 <li class="chapter" data-level="9.2.1" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuição-populacional"><i class="fa fa-check"></i><b>9.2.1</b> Distribuição populacional</a></li>
-<li class="chapter" data-level="9.2.2" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuição-amostral"><i class="fa fa-check"></i><b>9.2.2</b> Distribuição amostral</a></li>
+<li class="chapter" data-level="9.2.2" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#sec-dam"><i class="fa fa-check"></i><b>9.2.2</b> Distribuição amostral</a></li>
 </ul></li>
 <li class="chapter" data-level="9.3" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#erros-amostrais-e-não-amostrais"><i class="fa fa-check"></i><b>9.3</b> Erros amostrais e não amostrais</a></li>
 <li class="chapter" data-level="9.4" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#média-e-desvio-padrão-da-média"><i class="fa fa-check"></i><b>9.4</b> Média e desvio padrão da média</a></li>
@@ -693,12 +693,12 @@ grave
 </tr>
 </tbody>
 </table>
-<p>Como exemplo, de avaliação do coeficiente de assimetria, será usada a distribuição da variável <code>altura</code>, correspondente a altura em metros de 1368 parturientes da Maternidade do HGCS (<code>dadosMater.xlsx</code>), já mostrado anteriormente (Figura <a href="descrevendo-os-dados.html#fig:histnormal">6.15</a>), repetido aqui com um boxplot sobreposto (Figura <a href="assimetria-e-curtose.html#fig:histbxp">8.2</a>):</p>
+<p>Como exemplo, de avaliação do coeficiente de assimetria, será usada a distribuição da variável <code>altura</code>, correspondente a altura em metros de 1368 parturientes da Maternidade do HGCS (<code>dadosMater.xlsx</code>), já mostrado anteriormente (Figura <a href="descrevendo-os-dados.html#fig:histnormal">6.15</a>), repetido aqui com um boxplot sobreposto (Figura <a href="assimetria-e-curtose.html#fig:histbxp">8.2</a>). A função <code>layout()</code> tem o formato <code>layout(mat)</code> onde <code>mat</code> é um objeto da classe matriz que permite dividir a janela de plotagem em áreas com tamanhos personalizados. Abaixo, cria-se uma matriz com uma coluna e duas linhas com uma relação de 1:8 entre as linhas. A função <code>par()</code> é utilizada para alterar as margens. Para mais detalhes acesse <a href="https://bookdown.org/ndphillips/YaRrr/arranging-plots-with-parmfrow-and-layout.html"><strong>aqui</strong></a>.</p>
 <div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="assimetria-e-curtose.html#cb492-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dados</span></span>
 <span id="cb492-2"><a href="assimetria-e-curtose.html#cb492-2" aria-hidden="true" tabindex="-1"></a>mater <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>)</span>
 <span id="cb492-3"><a href="assimetria-e-curtose.html#cb492-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb492-4"><a href="assimetria-e-curtose.html#cb492-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Estruturação do layout do gráfico</span></span>
-<span id="cb492-5"><a href="assimetria-e-curtose.html#cb492-5" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">2</span> , <span class="at">ncol =</span><span class="dv">1</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>), <span class="at">heights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">8</span>))</span>
+<span id="cb492-5"><a href="assimetria-e-curtose.html#cb492-5" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">nrow =</span> <span class="dv">2</span> , <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>), <span class="at">heights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">8</span>))</span>
 <span id="cb492-6"><a href="assimetria-e-curtose.html#cb492-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb492-7"><a href="assimetria-e-curtose.html#cb492-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot</span></span>
 <span id="cb492-8"><a href="assimetria-e-curtose.html#cb492-8" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span> (<span class="at">mar=</span><span class="fu">c</span> (<span class="dv">0</span>, <span class="fl">4.3</span>, <span class="fl">1.1</span>, <span class="dv">2</span>))</span>
@@ -729,7 +729,7 @@ Figure 8.2: Posição de uma mulher com 1,50m comparando duas populações
 </div>
 <div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="assimetria-e-curtose.html#cb493-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Restauração do padrão</span></span>
 <span id="cb493-2"><a href="assimetria-e-curtose.html#cb493-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span> (<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>) <span class="sc">+</span> <span class="fl">0.1</span>)</span></code></pre></div>
-<p>Observando o formato da distribuição no histograma e do boxplot, conclui-se que a variável <code>altura</code> tem uma assimetria positiva, provocada por alguns <em>outliers</em>, como uma mulher com altura de 1,85m. Para examinar os <code>outliers</code>, pode-se verificar as estatísticas do boxplot, que entregam as estatísticas dos 5 números (min, P25, mediana, P75 e max), o total de observações, o limite inferior e superior do intervalo de confiança de 95% e os valores aípicos (<code>outliers</code>):</p>
+<p>Observando o formato da distribuição no histograma e no boxplot, conclui-se que a variável <code>altura</code> tem uma assimetria positiva, provocada por alguns <em>outliers</em>, como uma mulher com altura de 1,85m (veja também seção <a href="distribuições-amostrais.html#sec-dam">9.2.2</a>). Para examinar os <code>outliers</code>, pode-se verificar as estatísticas do boxplot, que entregam as estatísticas dos 5 números (min, P25, mediana, P75 e max), o total de observações, o limite inferior e superior do intervalo de confiança de 95% e os valores aípicos (<code>outliers</code>):</p>
 <div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="assimetria-e-curtose.html#cb494-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot.stats</span>(mater<span class="sc">$</span>altura)</span></code></pre></div>
 <pre><code>## $stats
 ## [1] 1.42 1.55 1.60 1.65 1.78
@@ -742,11 +742,11 @@ Figure 8.2: Posição de uma mulher com 1,50m comparando duas populações
 ## 
 ## $out
 ## [1] 1.40 1.82 1.80 1.40 1.40 1.85 1.80</code></pre>
-<p>O formato formato dos dados se ajusta bem, como visto na Figura <a href="assimetria-e-curtose.html#fig:histbxp">8.2</a>, ao modelo normal e os pressupostos deste modelo poderiam ser aplicados a estes dados.</p>
+<p>O formato dos dados se ajusta bem, como visto na Figura <a href="assimetria-e-curtose.html#fig:histbxp">8.2</a>, ao modelo normal e os pressupostos deste modelo poderiam ser aplicados a estes dados.</p>
 <p>O valor da assimetria (<code>skewness</code>) pode ser obtida com a função <code>skewness()</code> do pacote <code>moments</code> <span class="citation">(92)</span>.</p>
 <div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="assimetria-e-curtose.html#cb496-1" aria-hidden="true" tabindex="-1"></a>moments<span class="sc">::</span><span class="fu">skewness</span>(mater<span class="sc">$</span>altura)</span></code></pre></div>
 <pre><code>## [1] 0.1812196</code></pre>
-<p>O resultado da saída, confirmam a impressão visual, a variável altura tem uma distribuição praticamente simétrica. Esta conclusão tambem pode ser feita, analisando as medidas resumidoras dessa variável:</p>
+<p>O resultado da saída, confirmam a impressão visual, a variável <code>altura</code> tem uma distribuição praticamente simétrica. Esta conclusão tambem pode ser feita, analisando as medidas resumidoras dessa variável:</p>
 <div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="assimetria-e-curtose.html#cb498-1" aria-hidden="true" tabindex="-1"></a>media <span class="ot">&lt;-</span> <span class="fu">mean</span>(mater<span class="sc">$</span>altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb498-2"><a href="assimetria-e-curtose.html#cb498-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(media, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 1.6</code></pre>

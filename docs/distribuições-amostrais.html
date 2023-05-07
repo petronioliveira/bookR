@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-05-06" />
+<meta name="date" content="2023-05-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -355,7 +355,7 @@ div.csl-indent {
 <li class="chapter" data-level="9.2" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuições-populacional-e-amostral"><i class="fa fa-check"></i><b>9.2</b> Distribuições populacional e amostral</a>
 <ul>
 <li class="chapter" data-level="9.2.1" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuição-populacional"><i class="fa fa-check"></i><b>9.2.1</b> Distribuição populacional</a></li>
-<li class="chapter" data-level="9.2.2" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#distribuição-amostral"><i class="fa fa-check"></i><b>9.2.2</b> Distribuição amostral</a></li>
+<li class="chapter" data-level="9.2.2" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#sec-dam"><i class="fa fa-check"></i><b>9.2.2</b> Distribuição amostral</a></li>
 </ul></li>
 <li class="chapter" data-level="9.3" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#erros-amostrais-e-não-amostrais"><i class="fa fa-check"></i><b>9.3</b> Erros amostrais e não amostrais</a></li>
 <li class="chapter" data-level="9.4" data-path="distribuições-amostrais.html"><a href="distribuições-amostrais.html#média-e-desvio-padrão-da-média"><i class="fa fa-check"></i><b>9.4</b> Média e desvio padrão da média</a></li>
@@ -659,8 +659,8 @@ Figure 9.1: Histograma da altura de 1368 puérperas
 </div>
 <p>Os valores da média e do desvio padrão calculados para essa população fornecem os valores dos parâmetros populacionais <span class="math inline">\(\mu\)</span> e <span class="math inline">\(\sigma\)</span>. Esses valores são <span class="math inline">\(\mu =\)</span> 1.598m e <span class="math inline">\(\sigma =\)</span> 0.065m.</p>
 </div>
-<div id="distribuição-amostral" class="section level3 hasAnchor" number="9.2.2">
-<h3><span class="header-section-number">9.2.2</span> Distribuição amostral<a href="distribuições-amostrais.html#distribuição-amostral" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="sec-dam" class="section level3 hasAnchor" number="9.2.2">
+<h3><span class="header-section-number">9.2.2</span> Distribuição amostral<a href="distribuições-amostrais.html#sec-dam" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Conforme mencionado no início deste capítulo, o valor de um parâmetro da população é sempre constante. Por exemplo, para qualquer conjunto de dados populacionais, há apenas um valor para a média populacional, <span class="math inline">\(\mu\)</span>.</p>
 <p>No entanto, não se pode dizer o mesmo sobre a média amostral. Amostras diferentes do mesmo tamanho, retiradas da mesma população, produzem valores diferentes da média amostral, <span class="math inline">\(\bar{x}\)</span>. O valor da média amostral, para qualquer amostra, dependerá dos elementos incluídos nessa amostra. Em decorrência, a média amostral é uma variável aleatória. Portanto, como outras variáveis aleatórias, a média amostral possui uma distribuição de probabilidade, que é mais comumente chamada de <em>distribuição amostral da média</em>.</p>
 <p>Outras estatísticas de amostra, como mediana, moda e desvio padrão, também possuem distribuições amostrais. Em geral, a distribuição de probabilidades de uma amostra é denominada de distribuição amostral.</p>
@@ -748,7 +748,7 @@ EP_{\bar{x}} = \frac {s}{\sqrt{n}}
 Figure 9.3: Erro padrão versus desvio padrão.
 </p>
 </div>
-<p>Se for tomado como exemplo a variável <code>renda</code>, do conjunto de dados <code>dadosMater.xlsx</code>, que representa a renda familiar em salários mínimos (SM). Como foi feito anteriormente, suponha que essa variável seja a população de estudo. Ela tem as seguintes medidas resumidoras e de assimetria:</p>
+<p>Agora, será tomado como exemplo a variável <code>renda</code>, do conjunto de dados <code>dadosMater.xlsx</code>, que representa a renda familiar em salários mínimos (SM). Como foi feito anteriormente, suponha que essa variável seja a população de estudo. Ela tem as seguintes medidas resumidoras e de assimetria:</p>
 <div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="distribuições-amostrais.html#cb528-1" aria-hidden="true" tabindex="-1"></a>resumo <span class="ot">&lt;-</span> mater <span class="sc">%&gt;%</span> </span>
 <span id="cb528-2"><a href="distribuições-amostrais.html#cb528-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span> (renda) <span class="sc">%&gt;%</span> </span>
 <span id="cb528-3"><a href="distribuições-amostrais.html#cb528-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span> (<span class="at">media.sm =</span> <span class="fu">mean</span> (mater<span class="sc">$</span>renda, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
@@ -821,20 +821,24 @@ erro \quad amostral = \hat{p} - p
 <span id="cb540-4"><a href="distribuições-amostrais.html#cb540-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">label =</span> <span class="fu">c</span> (<span class="st">&quot;sim&quot;</span>, <span class="st">&quot;não&quot;</span>))</span>
 <span id="cb540-5"><a href="distribuições-amostrais.html#cb540-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Proporção de fumantes:</span></span>
 <span id="cb540-6"><a href="distribuições-amostrais.html#cb540-6" aria-hidden="true" tabindex="-1"></a>fumo <span class="ot">&lt;-</span> <span class="fu">with</span>(mater, <span class="fu">table</span>(fumo))</span>
-<span id="cb540-7"><a href="distribuições-amostrais.html#cb540-7" aria-hidden="true" tabindex="-1"></a>fr.fumo <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(fumo)</span></code></pre></div>
+<span id="cb540-7"><a href="distribuições-amostrais.html#cb540-7" aria-hidden="true" tabindex="-1"></a>fr.fumo <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(fumo)</span>
+<span id="cb540-8"><a href="distribuições-amostrais.html#cb540-8" aria-hidden="true" tabindex="-1"></a>fr.fumo</span></code></pre></div>
+<pre><code>## fumo
+##       sim       não 
+## 0.2200292 0.7799708</code></pre>
 <p>Assim, a proporção de gestantes fumantes foi de 0.22.</p>
 <p>Considerando que este resultado fosse desconhecido e que as mulheres da maternidade do HGCS fosse a população, para verificar a proporção de mulheres fumantes, se extrairá uma amostra de <em>n</em> = 100 (Tabela <a href="distribuições-amostrais.html#tab:tabfumo">9.1</a>).</p>
-<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="distribuições-amostrais.html#cb541-1" aria-hidden="true" tabindex="-1"></a>amostra.fumo <span class="ot">&lt;-</span> mater <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">100</span>)</span>
-<span id="cb541-2"><a href="distribuições-amostrais.html#cb541-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb541-3"><a href="distribuições-amostrais.html#cb541-3" aria-hidden="true" tabindex="-1"></a>tabagismo <span class="ot">&lt;-</span> <span class="fu">with</span>(amostra.fumo, <span class="fu">table</span>(fumo))</span>
-<span id="cb541-4"><a href="distribuições-amostrais.html#cb541-4" aria-hidden="true" tabindex="-1"></a>fr <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(tabagismo)</span>
-<span id="cb541-5"><a href="distribuições-amostrais.html#cb541-5" aria-hidden="true" tabindex="-1"></a>fp <span class="ot">&lt;-</span> fr<span class="sc">*</span><span class="dv">100</span></span>
-<span id="cb541-6"><a href="distribuições-amostrais.html#cb541-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb541-7"><a href="distribuições-amostrais.html#cb541-7" aria-hidden="true" tabindex="-1"></a>tab.fumo <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">n =</span> tabagismo,</span>
-<span id="cb541-8"><a href="distribuições-amostrais.html#cb541-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">fr =</span> <span class="fu">round</span>(fr, <span class="dv">2</span>),</span>
-<span id="cb541-9"><a href="distribuições-amostrais.html#cb541-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">fp =</span> <span class="fu">round</span>(fp, <span class="dv">2</span>))</span>
-<span id="cb541-10"><a href="distribuições-amostrais.html#cb541-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb541-11"><a href="distribuições-amostrais.html#cb541-11" aria-hidden="true" tabindex="-1"></a>tab.fumo <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(tab.fumo)</span></code></pre></div>
+<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="distribuições-amostrais.html#cb542-1" aria-hidden="true" tabindex="-1"></a>amostra.fumo <span class="ot">&lt;-</span> mater <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">100</span>)</span>
+<span id="cb542-2"><a href="distribuições-amostrais.html#cb542-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb542-3"><a href="distribuições-amostrais.html#cb542-3" aria-hidden="true" tabindex="-1"></a>tabagismo <span class="ot">&lt;-</span> <span class="fu">with</span>(amostra.fumo, <span class="fu">table</span>(fumo))</span>
+<span id="cb542-4"><a href="distribuições-amostrais.html#cb542-4" aria-hidden="true" tabindex="-1"></a>fr <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(tabagismo)</span>
+<span id="cb542-5"><a href="distribuições-amostrais.html#cb542-5" aria-hidden="true" tabindex="-1"></a>fp <span class="ot">&lt;-</span> fr<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb542-6"><a href="distribuições-amostrais.html#cb542-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb542-7"><a href="distribuições-amostrais.html#cb542-7" aria-hidden="true" tabindex="-1"></a>tab.fumo <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">n =</span> tabagismo,</span>
+<span id="cb542-8"><a href="distribuições-amostrais.html#cb542-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">fr =</span> <span class="fu">round</span>(fr, <span class="dv">2</span>),</span>
+<span id="cb542-9"><a href="distribuições-amostrais.html#cb542-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">fp =</span> <span class="fu">round</span>(fp, <span class="dv">2</span>))</span>
+<span id="cb542-10"><a href="distribuições-amostrais.html#cb542-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb542-11"><a href="distribuições-amostrais.html#cb542-11" aria-hidden="true" tabindex="-1"></a>tab.fumo <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(tab.fumo)</span></code></pre></div>
 <table class="table lightable-classic" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: Cambria; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:tabfumo">Table 9.1: </span>Proporção de Tabagismo nas gestantes
@@ -900,14 +904,14 @@ não
 \left(\hat{p} - 3 \times\sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}, \quad \hat{p} + 3\times\sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}\right)
 \]</span></p>
 <p>Transportando os dados da amostra de gestantes, para a fórmula e usando o R para o cálculo, tem-se:</p>
-<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="distribuições-amostrais.html#cb542-1" aria-hidden="true" tabindex="-1"></a>p.chapeu <span class="ot">&lt;-</span> tab.fumo[<span class="dv">1</span>,<span class="dv">2</span>]</span>
-<span id="cb542-2"><a href="distribuições-amostrais.html#cb542-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> tab.fumo[<span class="dv">1</span>,<span class="dv">1</span>] <span class="sc">+</span> tab.fumo[<span class="dv">2</span>,<span class="dv">1</span>]</span>
-<span id="cb542-3"><a href="distribuições-amostrais.html#cb542-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb542-4"><a href="distribuições-amostrais.html#cb542-4" aria-hidden="true" tabindex="-1"></a>li <span class="ot">&lt;-</span> p.chapeu <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span><span class="fu">sqrt</span>((p.chapeu<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p.chapeu))<span class="sc">/</span>n)</span>
-<span id="cb542-5"><a href="distribuições-amostrais.html#cb542-5" aria-hidden="true" tabindex="-1"></a>li</span></code></pre></div>
+<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="distribuições-amostrais.html#cb543-1" aria-hidden="true" tabindex="-1"></a>p.chapeu <span class="ot">&lt;-</span> tab.fumo[<span class="dv">1</span>,<span class="dv">2</span>]</span>
+<span id="cb543-2"><a href="distribuições-amostrais.html#cb543-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> tab.fumo[<span class="dv">1</span>,<span class="dv">1</span>] <span class="sc">+</span> tab.fumo[<span class="dv">2</span>,<span class="dv">1</span>]</span>
+<span id="cb543-3"><a href="distribuições-amostrais.html#cb543-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb543-4"><a href="distribuições-amostrais.html#cb543-4" aria-hidden="true" tabindex="-1"></a>li <span class="ot">&lt;-</span> p.chapeu <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span><span class="fu">sqrt</span>((p.chapeu<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p.chapeu))<span class="sc">/</span>n)</span>
+<span id="cb543-5"><a href="distribuições-amostrais.html#cb543-5" aria-hidden="true" tabindex="-1"></a>li</span></code></pre></div>
 <pre><code>## [1] 0.1037502</code></pre>
-<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb544-1"><a href="distribuições-amostrais.html#cb544-1" aria-hidden="true" tabindex="-1"></a>ls <span class="ot">&lt;-</span> p.chapeu <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span><span class="fu">sqrt</span>((p.chapeu<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p.chapeu))<span class="sc">/</span>n)</span>
-<span id="cb544-2"><a href="distribuições-amostrais.html#cb544-2" aria-hidden="true" tabindex="-1"></a>ls</span></code></pre></div>
+<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="distribuições-amostrais.html#cb545-1" aria-hidden="true" tabindex="-1"></a>ls <span class="ot">&lt;-</span> p.chapeu <span class="sc">+</span> <span class="dv">3</span><span class="sc">*</span><span class="fu">sqrt</span>((p.chapeu<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p.chapeu))<span class="sc">/</span>n)</span>
+<span id="cb545-2"><a href="distribuições-amostrais.html#cb545-2" aria-hidden="true" tabindex="-1"></a>ls</span></code></pre></div>
 <pre><code>## [1] 0.3562498</code></pre>
 <p>Dessa forma, tem-se que a amostra de n = 100 é aceitável para uma população onde <em>p</em> = 0.22</p>
 
