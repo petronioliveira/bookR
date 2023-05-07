@@ -35,7 +35,7 @@ knitr::kable(data.frame(g1,assimetria),
 
 Como exemplo, de avaliação do coeficiente de assimetria, será usada a distribuição da variável `altura`, correspondente a altura em metros de 1368 parturientes da Maternidade do HGCS (`dadosMater.xlsx`), já mostrado anteriormente (Figura \@ref(fig:histnormal)), repetido aqui com um boxplot sobreposto (Figura \@ref(fig:histbxp)). A função `layout()` tem o formato `layout(mat)` onde `mat` é um objeto da classe matriz que permite dividir a janela de plotagem em áreas com tamanhos personalizados. Abaixo, cria-se uma matriz com uma coluna e duas linhas com uma relação de 1:8 entre as linhas. A função `par()` é utilizada para alterar as margens. Para mais detalhes acesse [**aqui**](https://bookdown.org/ndphillips/YaRrr/arranging-plots-with-parmfrow-and-layout.html).
 
-```{r histbxp, warning=FALSE, out.width="70%", out.height="70%", fig.align="center", fig.cap="Posição de uma mulher com 1,50m comparando duas populações", fig.pos="H"}
+```{r histbxp, warning=FALSE, out.width="70%", out.height="70%", fig.align="center", fig.cap="Altura das gestantes (m)", fig.pos="H"}
 # Dados
 mater <- readxl::read_excel("Arquivos/dadosMater.xlsx")
 
@@ -58,7 +58,7 @@ hist (mater$altura,
       col = "lightblue",
       border = "black",
       main = "",
-      xlab = "Altura das Puérperas (m)",
+      xlab = "Altura (m)",
       ylab = "Frequência",
       xlim = c(1.4,1.9),
       las = 1)
