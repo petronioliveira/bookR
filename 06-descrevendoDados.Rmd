@@ -505,7 +505,7 @@ addmargins (tabFumo, margin = c(1,2), FUN = sum)
 
 Para descrever os dados e visualizar o que está acontecendo, recomenda-se utilizar um gráfico adequado. O que é adequado depende principalmente do tipo de dados, bem como das características particulares do que se quer explorar. Além disso, um gráfico em um relatório sempre é um fator de "impacto". Ou seja, pode ter um efeito positivo no leitor ou fazê-lo abandonar a leitura. Finalmente, um gráfico de frequência pode ser utilizado para ilustrar, explicar uma situação complexa onde palavras ou uma tabela podem ser confusos, extensos ou de outro modo insuficiente. Por outro lado, deve-se evitar usar gráficos onde poucas palavras expressam claramente o que se quer mostrar. Aconselha-se que, ao analisar os dados, é importante inspecioná-los como se fossem uma imagem, uma fotografia, ver como eles se parecem, qual o seu aspecto, e só então pensar em interpretar os aspectos vitais da estatística [@field2012graphs].  
 
-O R básico fornece uma grande variedade de funções para visualizar dados, elas de uma maneira relativamente simples permitem a construção de gráficos que facilitam a interpretação tanto de variáveis categórica como contínuas. Para gráficos mais sofisticados existe um pacote denominado `ggplo2` [@wickham2016getting]. Este pacote é uma ferramenta extremamente versátil. É um pouco mais complexo e exige mais tempo para dominá-lo, mas, uma vez que se aprenda o básico sobre ele, oferece uma estrutura extremamente flexível para exibir os dados . Inicialmente, serão usadas as funções do R básico e,posteriormente, será feita uma introdução ao `ggplot2`.  
+O R básico fornece uma grande variedade de funções para visualizar dados, elas de uma maneira relativamente simples permitem a construção de gráficos que facilitam a interpretação tanto de variáveis categórica como contínuas. Para gráficos mais sofisticados existe um pacote denominado `ggplo2` [@wickham2016getting]. Este pacote é uma ferramenta extremamente versátil. É um pouco mais complexo e exige mais tempo para dominá-lo, mas, uma vez que se aprenda o básico sobre ele, oferece uma estrutura extremamente flexível para exibir os dados . Inicialmente, serão usadas as funções do R básico e,posteriormente, será feita uma introdução ao `ggplot2` (seção \@ref(sec-ggplot2)).  
 
 ### Gráfico de setores  
 
@@ -1185,7 +1185,7 @@ $$
 OBSERVAÇÃO: Para maiores detalhes sobre os parâmetros dos gráficos no R, consulte [**aqui**](https://www.statmethods.net/advgraphs/parameters.html). 
 
 
-## Introdução ao `ggplot2`  
+## Introdução ao `ggplot2`  {#sec-ggplot2}
 
 O R tem vários sistemas para fazer gráficos e, na ,maioria das vezes, eles são suficientes. Entretanto, o surgimento do `ggplot2` @wickham2016ggplot2 trouxe a possibilidade de serem construídos gráficos mais elegantes e versáteis. Além disso, torna o processo mais rápido,  baseado uma sofisticada gramática [@wickham2010layered].   
 
@@ -1204,14 +1204,14 @@ O gráfico é construído, usando função `ggplot()`, a partir de alguns elemen
 
 ### Dados
 
-Antes de trabalahar com os dados, há necessidade de instalar e carregar alguns pacotes. O pacote `pacman()` @tyler2018pacman será utilizado pela sua versatilidade em buscar e carregar múltiplos pacotes. Será utilizada a função `p_load()`, deste pacote:
+Antes de trabalhar com os dados, há necessidade de instalar e carregar alguns pacotes. O pacote `pacman()` @tyler2018pacman será utilizado pela sua versatilidade em buscar e carregar múltiplos pacotes. A função `p_load()`, deste pacote, cumpre este papel:
 
 ```{r}
 if(!require(pacman)){install.packages("pacman")}
 pacman::p_load(readxl, ggplot2, dplyr, knitr, kableExtra, ggpubr, scales, forcats)
 ```
 
-Com os pacotes devidamente ativos, o conjunto de dados `dadosMater.xlsx`, já bastante conhecido, é carregado:
+Com os pacotes devidamente ativos, o conjunto de dados `dadosMater.xlsx`, descrito na seção \@#ref(sec-mater), é carregado:
 
 ```{r}
 mater <- read_excel("Arquivos/dadosMater.xlsx")
@@ -1228,7 +1228,7 @@ dados <- mater %>%
 
 Após este processo, algumas variáveis serão transformadas:
 
-**Criação de das variáveis idadeCateg e escolaCateg**
+**Criação de das variáveis `idadeCateg` e `escolaCateg`**
 
 A partir da variável `idadeMae` e usando a função `cut()` será criada a variável `idadeCateg`:
 
@@ -1241,7 +1241,7 @@ dados$idadeCateg <- cut(dados$idadeMae,
                         ordered_result =TRUE)
 ```
 
-A variável `escolaCateg` será criada da mesma maneira, a partir da variável anosest. Até 9 anos de estudos completos: *ensino fundamental*; de 10 a 12 anos, o *ensino médio* e a partir de 13 anos de estudo, o ensino superior. 
+A variável `escolaCateg` será criada da mesma maneira, a partir da variável `anosest.` Até 9 anos de estudos completos: *ensino fundamental*; de 10 a 12 anos, o *ensino médio* e a partir de 13 anos de estudo, o *ensino superior*. 
 
 ```{r}
 dados$escolaCateg <- cut (dados$anosEst,
@@ -1256,7 +1256,7 @@ dados$escolaCateg <- cut (dados$anosEst,
 
 **Transformação de variáveis numéricas em fator**  
 
-As variáveis numéricas do banco que são categóricas serão modificadas para fatores:
+As variáveis categóricas, mas que foram expressas como numéricas, serão modificadas para fatores:
 
 ```{r}
 dados$fumo <- factor (dados$fumo,
@@ -1272,7 +1272,7 @@ dados$sexo <- factor (dados$sexo,
                       labels = c("masc", "fem"))
 ```
 
-Desta forma, os dados tem a seguinte configuração:
+Desta forma, os dados passam a ter a seguinte configuração:
 
 ```{r}
 str(dados)
@@ -1306,21 +1306,20 @@ O argumento `full_width =FALSE`, reduz a largura da tabela e a `boostrap_options
 ### `ggplot`
 
 A sintaxe do `ggplot2` é diferente do R básico. De acordo com os elementos básicos, um `ggplot` padrão precisa de três informações que devem ser especificadas: os *dados*, a *estética* e a *geometria*. Essas são as camadas principais.  
-Vamos construir um `ggplot` padrão (Figura \@ref(fig:padrao)) que será recebido por um objeto `g`, usando `data = dados` e a estética (`aes`) usará, no eixo *x*, a variável `compRN` e, no eixo *y*, a variável `pesoRN`.
+Será criado um `ggplot` padrão (Figura \@ref(fig:padrao)) que será atribuído a um objeto `g`, usando `data = dados` e a estética (`aes`), no eixo *x*, a variável `compRN` e, no eixo *y*, a variável `pesoRN`.
 
 ```{r padrao, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico ggplot padrão", fig.pos="H"}
 g <- ggplot (data = dados, aes (x = compRN, y = pesoRN))
 g
 ```
 
-A este gráfico básico "vazio" adiciona-se uma camada que especifique o tipo de gemometria desejada (Figura \@ref(fig:layer1)). Será utilizada a `geom_point()` que retorna um gráfico de dispersão.
+A este gráfico básico "vazio" adiciona-se uma camada que especifique o tipo de gemometria desejada (Figura \@ref(fig:layer1)). A geometria `geom_point()` retorna um gráfico de dispersão.
   
-
 ```{r layer1, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de dipersão", fig.pos="H"}
 g + geom_point()
 ```
 
-A estética (`aes`) pode ser definida tanto na camada `ggplot` como na `geom`. Especificando no `ggplot`, esta `aes` será usada em todos os geoms usados. Usando no `geom`, servirá apenas para ele. No exemplo. é indiferente o local de uso da `aes`, o resultado será o mesmo, pois temos apenas um `geom`.
+A estética (`aes`) pode ser definida tanto na camada `ggplot` como na `geom`. Especificando no `ggplot`, esta `aes` será usada em todos os outros geoms que aoarecerem. Usando no `geom`, servirá apenas para ele. No exemplo. é indiferente o local da `aes`, o resultado será o mesmo, pois existe apenas um `geom`.
 
 ### Tipos de `geoms`
 
@@ -1328,7 +1327,7 @@ Encontra-se uma grande possibilidade de geometrias, de acordo com o tipo de grá
 
 **Histograma**
     
-Para a construção de um histograma, usaremos a variável `pesoRN` e o `geom_histogram()`. Aqui, há necessidade apenas do eixo *x*, pois existe uma única variável onde se observa a sua distribuição (Figura \@ref(fig:gghist)):
+O `geom_histogram()` é a geometria para a construção de um histograma. Aqui, há necessidade apenas do eixo *x*, pois existe uma única variável (`pesoRN`). A execução do comando retorna a distribuição dessa variável (Figura \@ref(fig:gghist)):
 
 ```{r gghist, message=FALSE, out.width="80%", out.height="80%", fig.align='center', fig.cap="Histograma no 'ggplot2'", fig.pos="H"}
 ggplot(data = dados) +
@@ -1337,7 +1336,7 @@ ggplot(data = dados) +
 
 **Gráfico de barras** 
 
-Sera construído um gráfico de barras (Figura \@ref(fig:ggbar)) da variável `idadeCateg`, usando o `geom_bar()`.
+A função `geom_bar()`permite delinear um gráfico de barras (Figura \@ref(fig:ggbar)) com a variável `idadeCateg`:
 
 ```{r ggbar, message=FALSE, warning=FALSE, out.width="80%", out.height="80%", fig.align='center', fig.cap="Gráfico de barras no 'ggplot2'", fig.pos="H"}
 ggplot(data = dados) +
@@ -1346,7 +1345,7 @@ ggplot(data = dados) +
 
 **Boxplot**
 
-Com o `geom_boxplot()`, serão construídos boxplots (Figura \@ref(fig:ggbxp)) comparando os pesos dos neonatos por sexo..
+Com o `geom_boxplot()`, serão criados boxplots (Figura \@ref(fig:ggbxp)) comparando os pesos dos neonatos por sexo..
 
 ```{r ggbxp, out.width="80%", out.height="80%", fig.align='center', fig.cap="Boxplot no 'ggplot2'", fig.pos="H"}
 ggplot(data = dados) +
@@ -1355,16 +1354,16 @@ ggplot(data = dados) +
 
 **Gráfico de linhas**  
 
-Para obter os dados clique [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosObitos.xlsx) e baixar para o seu diretório de trabalho o arquivo `dadosObitos.xlsx`. Este conjunto de dados é constituído pelos óbitos por COVID-19 no Rio Grande do Sul, 2020-2022.  
+Os dados, para produzir o gráfico de linha com a função `geom_line()`, podem ser obtidos, clicando [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosObitos.xlsx) e baixar para o seu diretório de trabalho o arquivo `dadosObitos.xlsx`. Este conjunto de dados é constituído pelos óbitos por COVID-19 no Rio Grande do Sul entre 2020 e 2022.  
 
-Crie o objeto `obitos` para receber o banco de dados, a partir do diretório de trabalho.
+Atribua os dados ao objeto `obitos`, a partir do diretório de trabalho.
 
 ```{r}
 obitos <- read_excel("Arquivos/dadosObitos.xlsx")
 str(obitos)
 ```
 
-Para a construção do gráfico de linha (Figura \@ref{fig:ggline)), será usado o `geom_line()`.
+Para a construção do gráfico de linha (Figura \@ref{fig:ggline)), use o seguinte comando:
 
 ```{r ggline, out.width="80%", out.height="80%", fig.align='center', fig.cap="Gráfico de linha no 'ggplot2'", fig.pos="H"}
 ggplot(data = obitos) +
@@ -1373,9 +1372,9 @@ ggplot(data = obitos) +
 
 ### Modificando argumentos do `geom`
 
-Agora, serão modificados alguns argumentos no `geom`. Cada tipo de `geom` possibilita alterações específicas.
+É possível mofificar alguns argumentos no `geom`. Cada tipo de `geom` possibilita alterações específicas.
 
-Inicialmente, serão realizadas modificações no gráfico de dispersão, construído acima com o `geom_point`, modificando a cor, de acordo com o sexo do recém-nascido (Figura \@ref(fig:point)):
+Inicialmente, serão realizadas modificações no gráfico de dispersão, construído acima com a `geom_point`, modificando a cor, de acordo com o sexo do recém-nascido (Figura \@ref(fig:point)):
 
 ```{r point, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de dispersão modificado com cores de acordo com o sexo", fig.pos="H"}
 ggplot(data = dados) +
@@ -1383,18 +1382,18 @@ ggplot(data = dados) +
                  color = sexo))
 ```
 
-Como o argumento cor foi colocado dentro da `aes`, ele será definido por uma variável, no caso `sexo`. Neste caso, cada um dos sexos serão representados por pontos coloridos diferentes. A escolha da cor foi automática pelo `ggplot2` entregando duas cores conforme o  padrão da sua paleta. 
+Como o argumento cor foi colocado dentro da `aes`, ele será definido por uma variável, no caso `sexo`. Desta forma, cada um dos sexos serão representados por pontos coloridos diferentes. A escolha da cor foi automática pelo `ggplot2`, entregando duas cores conforme o padrão da sua paleta. 
 
 O tamanho dos pontos pode ser alterado com o argumento `size` (Figura \@ref(fig:point2)). 
 
-```{r point2, warning =FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de dispersão com cores e tamanhos diferentes dos pontos, de acordo com o sexo", fig.pos="H"}
+```{r point2, warning =T, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de dispersão com cores e tamanhos diferentes dos pontos, de acordo com o sexo", fig.pos="H"}
 ggplot(data = dados) +
   geom_point(aes(x = compRN, y = pesoRN, 
                  color = sexo,
                  size = sexo))
 ```
 
-Ficou meio bagunçado, pois os pontos se sobrepõem e dificulta a visualização e inclusive o R libera um aviso informando que isto não é recomendado.
+Ficou meio bagunçado, pois os pontos se sobrepõem e dificulta a visualização e inclusive o R libera um aviso informando que usar o argumento size com variáveis discreta não é recomendado.
 
 O formato pode ser modificado com o argumento `shape`(Figura \@ref(fig:point3)):
 
@@ -1406,7 +1405,7 @@ ggplot(data = dados) +
                  size = sexo))
 ```
 
-Agora, ficou muito pior! Não teria, logicamente, muito sentido modificar tudo ao mesmo tempo, com a mesma variável. Foi realizado, aqui, apenas para mostrar a possibilidade do `ggplot2`.  
+Agora, ficou muito pior! Não teria, logicamente, muito sentido modificar tudo ao mesmo tempo, com a mesma variável. Foi realizado, aqui, apenas para mostrar os recursos do `ggplot2`.  
 
 Estes argumentos foram modificados dentro da estética (`aes`), usando o nome da variável. Entretanto, também é possível colocar os argumentos fora da `aes`. Nesta situação (Figura \@ref(fig:point4)), colocando a cor fora da `aes`, há necessidade de escolher uma determinada cor para os pontos. 
 
@@ -1419,7 +1418,7 @@ ggplot(data = dados) +
              size = 3)
 ```
 
-O formato (`shape`) pode ser colocado fora do `aes` (Figura \@ref(fig:point6)) e  [**aqui**](http://www.sthda.com/english/wiki/ggplot2-point-shapes) se encontram vários formatos que podem ser usados no `ggplot2`També é possível observar os diferentes formatos (`shape`), usando o seguinte comando, encontrado no pacote `ggpubr`:  
+O formato (`shape`) pode ser colocado fora do `aes` (Figura \@ref(fig:point6)) e  [**aqui**](http://www.sthda.com/english/wiki/ggplot2-point-shapes) se encontram vários formatos que podem ser usados no `ggplot2`Também é possível observar os diferentes formatos (`shape`), usando o seguinte comando, encontrado no pacote `ggpubr`:  
 
 ```{r}
 ggpubr::show_point_shapes()
@@ -1454,7 +1453,7 @@ Quando se usa mais de um `geom`, é importante a ordem em que eles são escritos
 
 ### Filtrando dados para o gráfico  
 
-Faz-se isso, usando a função `filter()` do pacote `dplyr`. Será construído um gráficoigual ao anterior, filtrando apenas o sexo masculino (Figura \@ref(fig:point8)):
+Faz-se isso, usando a função `filter()` do pacote `dplyr`. Será construído um gráfico igual ao anterior, filtrando apenas o sexo masculino (Figura \@ref(fig:point8)):
 
 ```{r point8, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de dispersão com reta de ajuste para o sexo masculino", fig.pos="H"}
 dados %>% filter (sexo == "masc") %>%
@@ -1464,7 +1463,7 @@ dados %>% filter (sexo == "masc") %>%
   geom_smooth(method = "lm", 
               se = FALSE, 
               color = "black", 
-              size = 0.5,
+              linewidth = 0.5,
               linetype = "dashed")
 ```
 
@@ -1500,7 +1499,7 @@ ggplot(data = dados, aes(x = sexo, y = pesoRN, color = sexo)) +
                 show.legend = FALSE)
 ```
 
-Usando o pacote `ggpubr` consegue-se criar um gráfico semelhante (Figura \@ref(fig:erro1)) ao anterior (média $\pm$ se), mas com o intervalo de confiança (média $\pm$ $1.96 \times se$).
+Usando o pacote `ggpubr` consegue-se produzir um gráfico semelhante (Figura \@ref(fig:erro1)) ao anterior (média $\pm$ se), mas com o intervalo de confiança (média $\pm$ $1.96 \times se$).
 
 ```{r erro1, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de barra de erro no `ggpubr`", fig.pos="H"}
 ggplot(data = dados, aes(x = sexo, y = pesoRN, color = sexo)) +
@@ -1516,7 +1515,7 @@ ggplot(data = dados, aes(x = sexo, y = pesoRN, color = sexo)) +
 
 ### Incluindo mais de um grupo no gráfico  
 
-Agora, será construído o mesmo gráfico do peso dos recém nascidos por sexo, levando em consideração o tabagismo materno (Figura \@ref(fig:erro2)). Em primeiro lugar, filtra-se pelo tabagismo, presente ou ausente. Depois seguindo a mesma programação anterior, separando as cores pelo tabagismo (`fumo`). Coloca-se também o argumento `position = position_dodge (0.4)` para que não haja sobreposição das barras no gráfico e exibe-se a legenda (`show.legend = TRUE`):
+Agora, será delineado o mesmo gráfico do peso dos recém nascidos por sexo, levando em consideração o tabagismo materno (Figura \@ref(fig:erro2)). Em primeiro lugar, filtra-se pelo tabagismo, presente ou ausente. Depois seguindo a mesma programação anterior, separando as cores pelo tabagismo (`fumo`). Coloca-se também o argumento `position = position_dodge (0.4)` para que não haja sobreposição das barras no gráfico e exibe-se a legenda (`show.legend = TRUE`):
 
 ```{r erro2, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico do peso do neonato de acordo com sexo e tabagismo materno", fig.pos="H"}
 dados %>% filter(fumo %in% c("sim", "não")) %>% 
@@ -1535,7 +1534,7 @@ dados %>% filter(fumo %in% c("sim", "não")) %>%
 
 ### Modificando o tema  
 
-O tema padrão do `ggplot2` é uma aparência acinzentada que pode ser modificada pela definição de outro tema integrado, como o `theme_bw()` (Figura \@ref(fig:tema)) que é uma variação de `theme_grey()`, padrão, que usa um fundo branco e linhas finas de grade cinza. Outro tema interessante é o `theme_classic()` que é um tema de aparência clássica, com linhas dos eixos *x* e *y* e sem linhas de grade, já usado no gráfico anterior. Para ver outras possibilidades clique [**aqui**](https://ggplot2-book.org/polishing.html).
+O tema padrão do `ggplot2` trem uma aparência acinzentada que pode ser modificada pela definição de outro tema integrado, como o `theme_bw()` (Figura \@ref(fig:tema)) que é uma variação de `theme_grey()`, padrão, que usa um fundo branco e linhas finas de grade cinza. Outro tema interessante é o `theme_classic()` que é um tema de aparência clássica, com linhas dos eixos *x* e *y* e sem linhas de grade, já usado no gráfico anterior. Para ver outras possibilidades clique [**aqui**](https://ggplot2-book.org/polishing.html).
 
 ```{r tema, out.width="80%", out.height="80%", fig.align="center", fig.cap="Boxplots do peso do neonato de acordo com sexo", fig.pos="H"}
 ggplot(data = dados) +
@@ -1665,9 +1664,9 @@ ggplot(data = dados, aes(x = sexo, y = pesoRN, color = sexo)) +
 
 **Modificando os limites dos eixos**
 
-O sistema de coordenadas cartesianas é o tipo de sistema de coordenadas mais familiar e comum. Definir limites no sistema de coordenadas ampliará o gráfico (como se você estivesse olhando para ele com uma lupa) e não alterará os dados subjacentes, como definir limites em uma escala. Para realizar este trabalho, vamos usar a função `coord_cartesian ()` ou `scale_y_continuous ()` ou `scale_x_continuous ()`.
+O sistema de coordenadas cartesianas é o tipo de sistema de coordenadas mais familiar e comum. Definir limites no sistema de coordenadas ampliará o gráfico (como se você estivesse olhando para ele com uma lupa) e não alterará os dados subjacentes, como definir limites em uma escala. Para realizar este trabalho, se fará uso da função `coord_cartesian ()` ou `scale_y_continuous ()` ou `scale_x_continuous ()`.
 
-Será usado aqui o gráfico já construído acima (Figura \@ref(fig:point7)) com pequenas alteraçõese vamos armazená-lo em um objeto, denominado `gd` (gráfico de dipersão). Isto facilita a repetição do gráfico em outros códigos, pois basta escrever `gd` e executar (Figura \@ref(fig:gd)).
+Tomando o gráfico, já construído acima (Figura \@ref(fig:point7)) com pequenas alteraçõese e armazenando-o em um objeto, denominado `gd` (gráfico de dipersão), isto facilita a repetição do gráfico em outros códigos, pois basta escrever `gd` e executar (Figura \@ref(fig:gd)).
 
 ```{r gd, message=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de dispersão", fig.pos="H"}
 gd <- ggplot(data = dados, aes(x = compRN, y = pesoRN)) + 
@@ -1711,7 +1710,7 @@ gd + scale_x_continuous(limits = c(45, 55)) +
 
 **Modificando a expansão**  
 
-Mostrou-se que é possível interfir na expansão da margem com o argumento `expand = TRUE` ou `FALSE` que pode ser usado também com a função `scale_y_continuous()`. Agora, será visto um exemplo de um gráfico de barras das faixas etárias das gestantes (Figura \@ref(fig:axis)):
+Mostrou-se que é possível intervir na expansão da margem com o argumento `expand = TRUE` ou `FALSE` que pode ser usado também com a função `scale_y_continuous()`. Agora, será visto um exemplo de um gráfico de barras das faixas etárias das gestantes (Figura \@ref(fig:axis)):
 
 ```{r axis, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico de barras", fig.pos="H"}
 gb <- ggplot(data = dados) +
@@ -1883,7 +1882,7 @@ ggplot(data = dados) +
 
 ### Exemplo final: Gráfico de barra de erro com colunas
 
-Será construído um gráfico de barras de erro para visualizar a influência do sexo e do tabagismo materno no peso do recém-nascido (Figura \@ref(fig:final). Será incluído a representação das colunas (barras) e as barras de erro com intervalo de confiança de 95%, calculado usando *média* $\pm$ *margem de erro*, onde margem de erro = 1.96 $\times$ *erro padrão*. Estes conceitos serão discutidos em outros capítulos.  
+Será construído um gráfico de barras de erro para visualizar a influência do sexo e do tabagismo materno no peso do recém-nascido (Figura \@ref(fig:final). Será incluído a representação das colunas (barras) e as barras de erro com intervalo de confiança de 95%, calculado usando *média* $\pm$ *margem de erro*, onde margem de erro = 1.96 $\times$ *erro padrão*. Estes conceitos serão discutidos adiante (\@ref(sec-estimacao)).  
 
 Em primeiro lugar, faz-se um resumo dos dados que serão usados no gráfico:
 
