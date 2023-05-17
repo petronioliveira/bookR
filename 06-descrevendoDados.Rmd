@@ -19,7 +19,7 @@ Para trabalhar nesta seção, serão necessários os seguintes pacotes
 pacman::p_load(dplyr, readxl)
 ```
 
-e o arquivo `dadosMater15.xlsx`, amostra de 15 recém-nascidos, que pode ser obtido [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosMater15.xlsx) e baixado para o seu diretório de trabalho. Esta amostra é proveniente do banco de dados original (`dadosMater.xlsx`), veja seção \@ref(sec-mater).
+e o arquivo `dadosMater15.xlsx`, amostra de 15 recém-nascidos, que pode ser obtido [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosMater15.xlsx) e baixado para o seu diretório de trabalho. Esta amostra é proveniente do banco de dados original (`dadosMater.xlsx`), veja a seção \@ref(sec-mater).
 
 Agora, será criado um objeto, `mater15`, para receber os dados, a partir do diretório de trabalho, executando o seguinte código:
 
@@ -1211,7 +1211,7 @@ if(!require(pacman)){install.packages("pacman")}
 pacman::p_load(readxl, ggplot2, dplyr, knitr, kableExtra, ggpubr, scales, forcats)
 ```
 
-Com os pacotes devidamente ativos, o conjunto de dados `dadosMater.xlsx`, descrito na seção \@#ref(sec-mater), é carregado:
+Com os pacotes devidamente ativos, o conjunto de dados `dadosMater.xlsx`, descrito na seção \@ref(sec-mater), é carregado:
 
 ```{r}
 mater <- read_excel("Arquivos/dadosMater.xlsx")
@@ -1363,7 +1363,7 @@ obitos <- read_excel("Arquivos/dadosObitos.xlsx")
 str(obitos)
 ```
 
-Para a construção do gráfico de linha (Figura \@ref{fig:ggline)), use o seguinte comando:
+Para a construção do gráfico de linha (Figura \@ref(fig:ggline)), use o seguinte comando:
 
 ```{r ggline, out.width="80%", out.height="80%", fig.align='center', fig.cap="Gráfico de linha no 'ggplot2'", fig.pos="H"}
 ggplot(data = obitos) +
@@ -1882,7 +1882,7 @@ ggplot(data = dados) +
 
 ### Exemplo final: Gráfico de barra de erro com colunas
 
-Será construído um gráfico de barras de erro para visualizar a influência do sexo e do tabagismo materno no peso do recém-nascido (Figura \@ref(fig:final). Será incluído a representação das colunas (barras) e as barras de erro com intervalo de confiança de 95%, calculado usando *média* $\pm$ *margem de erro*, onde margem de erro = 1.96 $\times$ *erro padrão*. Estes conceitos serão discutidos adiante (\@ref(sec-estimacao)).  
+Será construído um gráfico de barras de erro para visualizar a influência do sexo e do tabagismo materno no peso do recém-nascido (Figura \@ref(fig:final). Será incluído a representação das colunas (barras) e as barras de erro com intervalo de confiança de 95%, calculado usando *média* $\pm$ *margem de erro*, onde margem de erro = 1.96 $\times$ *erro padrão*. Estes conceitos serão discutidos adiante (Capítulo \@ref(sec-estimacao)).  
 
 Em primeiro lugar, faz-se um resumo dos dados que serão usados no gráfico:
 
