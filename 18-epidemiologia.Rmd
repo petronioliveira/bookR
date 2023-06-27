@@ -1856,7 +1856,7 @@ Essas variáveis foram adicionadas ao conjunto0 de dados `dados2`. podem ser obs
 dplyr::glimpse(dados2)
 ```
 
-Para criar `dados4`, as variáveis `pd`, `insulina`, `triceps` e `gestaCateg` do `dados2` são removidas, pois mostraram-se não dados2 %>%  quando se criou o `mod2` no método passo-a-passo (`stepwise`):
+Para criar `dados4`, as variáveis `pd`, `insulina`, `triceps` e `gestaCateg` do `dados2` são removidas, pois mostraram-se não significativas  quando se criou o `mod2` no método passo-a-passo (`stepwise`):
 
 ```{r}
 dados4 <- dados2 %>% 
@@ -1919,7 +1919,7 @@ residuos_p <- rstandard(mod2)
 summary(residuos_p)
 ```
 
-Em uma amostra normalmente distribuída, ao redor de 95% dos valores estão entre –1,96 e +1,96, 99% deve estar entre –2,58 e +2,58 e quase todos (99,9%) devem situar-se entre –3,09 e +3,09. Portanto, resíduos padronizados com um valor absoluto maior que 3 são motivo de preocupação porque em uma amostra média é improvável que aconteça um valor tão alto por acaso (Field, 2012). Na Saída, observa-se que os valores estão dentro de –3 e +3.   
+Em uma amostra normalmente distribuída, ao redor de 95% dos valores estão entre –1,96 e +1,96, 99% deve estar entre –2,58 e +2,58 e quase todos (99,9%) devem situar-se entre –3,09 e +3,09. Portanto, resíduos padronizados com um valor absoluto maior que 3 são motivo de preocupação porque em uma amostra média é improvável que aconteça um valor tão alto por acaso [@field2012outliers]. Na Saída, observa-se que os valores estão dentro de –3 e +3.   
 
 Essa avaliação pode ser acompanhada de um gráfico diagnóstico (veja seção da regressão linear para maiores detalhes), usando a função `plot()` para a função modelo `mod2`.
 
@@ -1945,7 +1945,7 @@ cook <- cooks.distance(mod2)
 summary (cook)
 ```
 
-Se a distância de Cook é < 1, não há necessidade real de excluir esse ponto, uma vez que não tem um grande efeito na análise de regressão [@stevens1984outliers]. Na Figura \@ref(fig:graph5,) verifica-se que os casos mais distantes não alcançam a distância de Cook.  
+Se a distância de Cook é < 1, não há necessidade real de excluir esse ponto, uma vez que não tem um grande efeito na análise de regressão [@stevens1984outliers]. Na Figura \@ref(fig:graph5), verifica-se que os casos mais distantes não alcançam a distância de Cook.  
 
 #### Matriz de confusão  
 

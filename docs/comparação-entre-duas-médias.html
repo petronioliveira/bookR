@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 12 Comparação entre duas médias | bookdownproj.knit</title>
   <meta name="description" content="" />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo 12 Comparação entre duas médias | bookdownproj.knit" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-05-17" />
+<meta name="date" content="2023-06-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -121,6 +121,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -637,17 +641,17 @@ div.csl-indent {
 <p>A necessidade de determinar se duas médias populacionais, representadas por amostras aleatórias representativas dessas populações, são diferentes entre si é uma situação extremamente frequente em pesquisas científicas. Por exemplo, se um grupo experimental difere de um grupo controle, se um grupo difere antes de depois de uma intervenção ou um <em>teste t</em> para uma amostra.</p>
 <div id="pacotes-necessários-para-este-capítulo-3" class="section level2 hasAnchor" number="12.1">
 <h2><span class="header-section-number">12.1</span> Pacotes necessários para este capítulo<a href="comparação-entre-duas-médias.html#pacotes-necessários-para-este-capítulo-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="comparação-entre-duas-médias.html#cb621-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(car,</span>
-<span id="cb621-2"><a href="comparação-entre-duas-médias.html#cb621-2" aria-hidden="true" tabindex="-1"></a>               dplyr,</span>
-<span id="cb621-3"><a href="comparação-entre-duas-médias.html#cb621-3" aria-hidden="true" tabindex="-1"></a>               ggplot2,</span>
-<span id="cb621-4"><a href="comparação-entre-duas-médias.html#cb621-4" aria-hidden="true" tabindex="-1"></a>               ggpubr,</span>
-<span id="cb621-5"><a href="comparação-entre-duas-médias.html#cb621-5" aria-hidden="true" tabindex="-1"></a>               ggsci,</span>
-<span id="cb621-6"><a href="comparação-entre-duas-médias.html#cb621-6" aria-hidden="true" tabindex="-1"></a>               kableExtra,</span>
-<span id="cb621-7"><a href="comparação-entre-duas-médias.html#cb621-7" aria-hidden="true" tabindex="-1"></a>               knitr,</span>
-<span id="cb621-8"><a href="comparação-entre-duas-médias.html#cb621-8" aria-hidden="true" tabindex="-1"></a>               lsr,</span>
-<span id="cb621-9"><a href="comparação-entre-duas-médias.html#cb621-9" aria-hidden="true" tabindex="-1"></a>               readxl,</span>
-<span id="cb621-10"><a href="comparação-entre-duas-médias.html#cb621-10" aria-hidden="true" tabindex="-1"></a>               rstatix,</span>
-<span id="cb621-11"><a href="comparação-entre-duas-médias.html#cb621-11" aria-hidden="true" tabindex="-1"></a>               tidyr)</span></code></pre></div>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="comparação-entre-duas-médias.html#cb619-1" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(car,</span>
+<span id="cb619-2"><a href="comparação-entre-duas-médias.html#cb619-2" tabindex="-1"></a>               dplyr,</span>
+<span id="cb619-3"><a href="comparação-entre-duas-médias.html#cb619-3" tabindex="-1"></a>               ggplot2,</span>
+<span id="cb619-4"><a href="comparação-entre-duas-médias.html#cb619-4" tabindex="-1"></a>               ggpubr,</span>
+<span id="cb619-5"><a href="comparação-entre-duas-médias.html#cb619-5" tabindex="-1"></a>               ggsci,</span>
+<span id="cb619-6"><a href="comparação-entre-duas-médias.html#cb619-6" tabindex="-1"></a>               kableExtra,</span>
+<span id="cb619-7"><a href="comparação-entre-duas-médias.html#cb619-7" tabindex="-1"></a>               knitr,</span>
+<span id="cb619-8"><a href="comparação-entre-duas-médias.html#cb619-8" tabindex="-1"></a>               lsr,</span>
+<span id="cb619-9"><a href="comparação-entre-duas-médias.html#cb619-9" tabindex="-1"></a>               readxl,</span>
+<span id="cb619-10"><a href="comparação-entre-duas-médias.html#cb619-10" tabindex="-1"></a>               rstatix,</span>
+<span id="cb619-11"><a href="comparação-entre-duas-médias.html#cb619-11" tabindex="-1"></a>               tidyr)</span></code></pre></div>
 </div>
 <div id="teste-t-para-comparar-amostras-independentes" class="section level2 hasAnchor" number="12.2">
 <h2><span class="header-section-number">12.2</span> Teste <em>t</em> para comparar amostras independentes<a href="comparação-entre-duas-médias.html#teste-t-para-comparar-amostras-independentes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -659,9 +663,9 @@ div.csl-indent {
 <div id="leitura-dos-dados" class="section level4 hasAnchor" number="12.2.1.1">
 <h4><span class="header-section-number">12.2.1.1</span> Leitura dos dados<a href="comparação-entre-duas-médias.html#leitura-dos-dados" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Para a leitura dos dados, será usado a função <code>read_excel()</code> incluído no pacote <code>readxl</code> que deve ser instalado e carregado. Os dados serão recebidos por um objeto que será denominado de <code>dados</code>:</p>
-<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="comparação-entre-duas-médias.html#cb622-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosPop.xlsx&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="comparação-entre-duas-médias.html#cb620-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosPop.xlsx&quot;</span>)</span></code></pre></div>
 <p>Para visualizar os dados, pode-se usar a função <code>glimpse()</code> do pacote dplyr:</p>
-<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="comparação-entre-duas-médias.html#cb623-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(dados)</span></code></pre></div>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="comparação-entre-duas-médias.html#cb621-1" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(dados)</span></code></pre></div>
 <pre><code>## Rows: 60
 ## Columns: 3
 ## $ id     &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, …
@@ -669,17 +673,17 @@ div.csl-indent {
 ## $ pop    &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …</code></pre>
 <p>Observa-se que existem 60 mulheres, sendo 30 moradoras na região 1 e 30 na região 2. A variável <code>id</code> é a variável de identificação das mulheres (variável numérica), <code>altura</code> é uma variável numérica que corresponde a medida da altura em metros e <code>pop</code> é uma variável categórica, onde 1 é corresponde às mulheres da região 1 e 2 as da região 2. No conjunto de dados, esta variável encontra-se como uma variável numérica e deverá ser transformada em fator.</p>
 <p>Para uma visualização mais elegante e em uma apresentação mais amigável, pode-se usar a função <code>kable()</code> do pacote <code>knitr</code> e a função <code>kable_styling()</code> do pacote <code>kableExtra</code>. A função <code>kable ()</code>, neste exemplo, usa a função <code>head()</code> embutida. Ao executar os códigos serão exibido apenas 6 linhas do banco de dados (Tabela <a href="comparação-entre-duas-médias.html#tab:dadospop">12.1</a>):</p>
-<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="comparação-entre-duas-médias.html#cb625-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(dados),</span>
-<span id="cb625-2"><a href="comparação-entre-duas-médias.html#cb625-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb625-3"><a href="comparação-entre-duas-médias.html#cb625-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Id&quot;</span>, <span class="st">&quot;Altura&quot;</span>, <span class="st">&quot;Pop&quot;</span>),</span>
-<span id="cb625-4"><a href="comparação-entre-duas-médias.html#cb625-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Altura (m) de dois grupos de mulheres.&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb625-5"><a href="comparação-entre-duas-médias.html#cb625-5" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb625-6"><a href="comparação-entre-duas-médias.html#cb625-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">latex_options =</span> <span class="st">&quot;hold_position&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb625-7"><a href="comparação-entre-duas-médias.html#cb625-7" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_classic</span>(<span class="at">html_font =</span> <span class="st">&quot;Cambria&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb625-8"><a href="comparação-entre-duas-médias.html#cb625-8" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">width =</span> <span class="st">&quot;2cm&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb625-9"><a href="comparação-entre-duas-médias.html#cb625-9" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">column_spec</span>(<span class="dv">2</span>, <span class="at">width =</span> <span class="st">&quot;3.5cm&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb625-10"><a href="comparação-entre-duas-médias.html#cb625-10" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">column_spec</span>(<span class="dv">3</span>, <span class="at">width =</span> <span class="st">&quot;3.5cm&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb625-11"><a href="comparação-entre-duas-médias.html#cb625-11" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="comparação-entre-duas-médias.html#cb623-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(dados),</span>
+<span id="cb623-2"><a href="comparação-entre-duas-médias.html#cb623-2" tabindex="-1"></a>             <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb623-3"><a href="comparação-entre-duas-médias.html#cb623-3" tabindex="-1"></a>             <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Id&quot;</span>, <span class="st">&quot;Altura&quot;</span>, <span class="st">&quot;Pop&quot;</span>),</span>
+<span id="cb623-4"><a href="comparação-entre-duas-médias.html#cb623-4" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Altura (m) de dois grupos de mulheres.&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb623-5"><a href="comparação-entre-duas-médias.html#cb623-5" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb623-6"><a href="comparação-entre-duas-médias.html#cb623-6" tabindex="-1"></a>                          <span class="at">latex_options =</span> <span class="st">&quot;hold_position&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb623-7"><a href="comparação-entre-duas-médias.html#cb623-7" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_classic</span>(<span class="at">html_font =</span> <span class="st">&quot;Cambria&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb623-8"><a href="comparação-entre-duas-médias.html#cb623-8" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">width =</span> <span class="st">&quot;2cm&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb623-9"><a href="comparação-entre-duas-médias.html#cb623-9" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">column_spec</span>(<span class="dv">2</span>, <span class="at">width =</span> <span class="st">&quot;3.5cm&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb623-10"><a href="comparação-entre-duas-médias.html#cb623-10" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">column_spec</span>(<span class="dv">3</span>, <span class="at">width =</span> <span class="st">&quot;3.5cm&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb623-11"><a href="comparação-entre-duas-médias.html#cb623-11" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <table class="table lightable-classic" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: Cambria; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:dadospop">Table 12.1: </span>Altura (m) de dois grupos de mulheres.
@@ -770,31 +774,31 @@ Pop
 <div id="exploração-e-resumo-dos-dados" class="section level4 hasAnchor" number="12.2.1.2">
 <h4><span class="header-section-number">12.2.1.2</span> Exploração e resumo dos dados<a href="comparação-entre-duas-médias.html#exploração-e-resumo-dos-dados" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Inicialmente, a variável <code>pop</code> será transformada em fator:</p>
-<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb626-1"><a href="comparação-entre-duas-médias.html#cb626-1" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>pop <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dados<span class="sc">$</span>pop)</span></code></pre></div>
+<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="comparação-entre-duas-médias.html#cb624-1" tabindex="-1"></a>dados<span class="sc">$</span>pop <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dados<span class="sc">$</span>pop)</span></code></pre></div>
 <p>A seguir, calcular a média e o desvio padrão da variável <code>altura</code> de acordo com <code>pop</code>, usando a função <code>group_by ()</code> e <code>summarise</code> do pacote <code>dplyr</code></p>
-<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="comparação-entre-duas-médias.html#cb627-1" aria-hidden="true" tabindex="-1"></a>resumo <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
-<span id="cb627-2"><a href="comparação-entre-duas-médias.html#cb627-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(pop) <span class="sc">%&gt;%</span> </span>
-<span id="cb627-3"><a href="comparação-entre-duas-médias.html#cb627-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span> <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb627-4"><a href="comparação-entre-duas-médias.html#cb627-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">media =</span> <span class="fu">mean</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb627-5"><a href="comparação-entre-duas-médias.html#cb627-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">dp =</span> <span class="fu">sd</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb627-6"><a href="comparação-entre-duas-médias.html#cb627-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">mediana =</span> <span class="fu">median</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb627-7"><a href="comparação-entre-duas-médias.html#cb627-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">me =</span> <span class="fl">1.96</span> <span class="sc">*</span> dp<span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
-<span id="cb627-8"><a href="comparação-entre-duas-médias.html#cb627-8" aria-hidden="true" tabindex="-1"></a>resumo</span></code></pre></div>
+<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="comparação-entre-duas-médias.html#cb625-1" tabindex="-1"></a>resumo <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
+<span id="cb625-2"><a href="comparação-entre-duas-médias.html#cb625-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(pop) <span class="sc">%&gt;%</span> </span>
+<span id="cb625-3"><a href="comparação-entre-duas-médias.html#cb625-3" tabindex="-1"></a>  dplyr<span class="sc">::</span> <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb625-4"><a href="comparação-entre-duas-médias.html#cb625-4" tabindex="-1"></a>                    <span class="at">media =</span> <span class="fu">mean</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb625-5"><a href="comparação-entre-duas-médias.html#cb625-5" tabindex="-1"></a>                    <span class="at">dp =</span> <span class="fu">sd</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb625-6"><a href="comparação-entre-duas-médias.html#cb625-6" tabindex="-1"></a>                    <span class="at">mediana =</span> <span class="fu">median</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb625-7"><a href="comparação-entre-duas-médias.html#cb625-7" tabindex="-1"></a>                    <span class="at">me =</span> <span class="fl">1.96</span> <span class="sc">*</span> dp<span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
+<span id="cb625-8"><a href="comparação-entre-duas-médias.html#cb625-8" tabindex="-1"></a>resumo</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 6
 ##   pop       n media     dp mediana     me
 ##   &lt;fct&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
 ## 1 1        30  1.60 0.0621    1.6  0.0222
 ## 2 2        30  1.39 0.0736    1.38 0.0263</code></pre>
 <p>Para melhor observar os dados, ainda é possível construir um gráfico do tipo boxplot (Figura <a href="comparação-entre-duas-médias.html#fig:bxppop">12.1</a>), usando o pacote <code>ggplot2</code>:</p>
-<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="comparação-entre-duas-médias.html#cb629-1" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="at">data =</span> dados, <span class="fu">aes</span>(<span class="at">x =</span> pop, </span>
-<span id="cb629-2"><a href="comparação-entre-duas-médias.html#cb629-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">y =</span> altura, </span>
-<span id="cb629-3"><a href="comparação-entre-duas-médias.html#cb629-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">fill =</span> pop)) <span class="sc">+</span> </span>
-<span id="cb629-4"><a href="comparação-entre-duas-médias.html#cb629-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">stat =</span> <span class="st">&quot;boxplot&quot;</span>, <span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb629-5"><a href="comparação-entre-duas-médias.html#cb629-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
-<span id="cb629-6"><a href="comparação-entre-duas-médias.html#cb629-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">x =</span> <span class="st">&quot;Populações&quot;</span>, </span>
-<span id="cb629-7"><a href="comparação-entre-duas-médias.html#cb629-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&quot;Altura (m)&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb629-8"><a href="comparação-entre-duas-médias.html#cb629-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
-<span id="cb629-9"><a href="comparação-entre-duas-médias.html#cb629-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="comparação-entre-duas-médias.html#cb627-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="at">data =</span> dados, <span class="fu">aes</span>(<span class="at">x =</span> pop, </span>
+<span id="cb627-2"><a href="comparação-entre-duas-médias.html#cb627-2" tabindex="-1"></a>                                  <span class="at">y =</span> altura, </span>
+<span id="cb627-3"><a href="comparação-entre-duas-médias.html#cb627-3" tabindex="-1"></a>                                  <span class="at">fill =</span> pop)) <span class="sc">+</span> </span>
+<span id="cb627-4"><a href="comparação-entre-duas-médias.html#cb627-4" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">stat =</span> <span class="st">&quot;boxplot&quot;</span>, <span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb627-5"><a href="comparação-entre-duas-médias.html#cb627-5" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb627-6"><a href="comparação-entre-duas-médias.html#cb627-6" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">x =</span> <span class="st">&quot;Populações&quot;</span>, </span>
+<span id="cb627-7"><a href="comparação-entre-duas-médias.html#cb627-7" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&quot;Altura (m)&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb627-8"><a href="comparação-entre-duas-médias.html#cb627-8" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
+<span id="cb627-9"><a href="comparação-entre-duas-médias.html#cb627-9" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:bxppop"></span>
 <img src="bookdownproj_files/figure-html/bxppop-1.png" alt=" Boxplot dos dados" width="70%" height="70%" />
 <p class="caption">
@@ -817,18 +821,18 @@ H_{A}: \mu_{pop1} \neq \mu_{pop2}
 <h3><span class="header-section-number">12.2.3</span> Definição da regra de decisão<a href="comparação-entre-duas-médias.html#definição-da-regra-de-decisão" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>O nível significância, <span class="math inline">\(\alpha\)</span>, escolhido é igual a <code>0.05</code>. A distribuição <em>t</em> é dependente dos graus de liberdade, dados por:</p>
 <p>No exemplo,</p>
-<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="comparação-entre-duas-médias.html#cb630-1" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> resumo<span class="sc">$</span>n[<span class="dv">1</span>]</span>
-<span id="cb630-2"><a href="comparação-entre-duas-médias.html#cb630-2" aria-hidden="true" tabindex="-1"></a>n1</span></code></pre></div>
+<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="comparação-entre-duas-médias.html#cb628-1" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> resumo<span class="sc">$</span>n[<span class="dv">1</span>]</span>
+<span id="cb628-2"><a href="comparação-entre-duas-médias.html#cb628-2" tabindex="-1"></a>n1</span></code></pre></div>
 <pre><code>## [1] 30</code></pre>
-<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="comparação-entre-duas-médias.html#cb632-1" aria-hidden="true" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> resumo<span class="sc">$</span>n[<span class="dv">2</span>]</span>
-<span id="cb632-2"><a href="comparação-entre-duas-médias.html#cb632-2" aria-hidden="true" tabindex="-1"></a>n2</span></code></pre></div>
+<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="comparação-entre-duas-médias.html#cb630-1" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> resumo<span class="sc">$</span>n[<span class="dv">2</span>]</span>
+<span id="cb630-2"><a href="comparação-entre-duas-médias.html#cb630-2" tabindex="-1"></a>n2</span></code></pre></div>
 <pre><code>## [1] 30</code></pre>
-<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="comparação-entre-duas-médias.html#cb634-1" aria-hidden="true" tabindex="-1"></a>gl <span class="ot">&lt;-</span> n1 <span class="sc">+</span> n2 <span class="sc">-</span><span class="dv">2</span></span>
-<span id="cb634-2"><a href="comparação-entre-duas-médias.html#cb634-2" aria-hidden="true" tabindex="-1"></a>gl</span></code></pre></div>
+<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="comparação-entre-duas-médias.html#cb632-1" tabindex="-1"></a>gl <span class="ot">&lt;-</span> n1 <span class="sc">+</span> n2 <span class="sc">-</span><span class="dv">2</span></span>
+<span id="cb632-2"><a href="comparação-entre-duas-médias.html#cb632-2" tabindex="-1"></a>gl</span></code></pre></div>
 <pre><code>## [1] 58</code></pre>
 <p>Para um <span class="math inline">\(\alpha = 0,05\)</span>, o valor crítico de <em>t</em> para gl =58 para uma hipótese alternativa bicaudal é obtido com a função <code>qt (p, df)</code>, onde <span class="math inline">\(df = gl\)</span> e <span class="math inline">\(p = 1 - \alpha/2\)</span></p>
-<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="comparação-entre-duas-médias.html#cb636-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb636-2"><a href="comparação-entre-duas-médias.html#cb636-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span> (<span class="fu">qt</span>((<span class="dv">1</span><span class="sc">-</span>alpha<span class="sc">/</span><span class="dv">2</span>), gl), <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="comparação-entre-duas-médias.html#cb634-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb634-2"><a href="comparação-entre-duas-médias.html#cb634-2" tabindex="-1"></a><span class="fu">round</span> (<span class="fu">qt</span>((<span class="dv">1</span><span class="sc">-</span>alpha<span class="sc">/</span><span class="dv">2</span>), gl), <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 2.002</code></pre>
 <p>Portanto, se</p>
 <p><span class="math display">\[
@@ -889,39 +893,39 @@ EP_d = \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}
 <p><strong>Avaliação da normalidade</strong></p>
 <p>Uma boa parte dos procedimentos estatísticos são testes paramétricos <a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a> com base na distribuição normal. Ou seja, se assume que a distribuição dos dados segue o modelo da distribuição normal. Se essa suposição não for atendida, a lógica por trás do teste de hipóteses pode ser violada.</p>
 <p>Pode-se verificar a normalidade de maneira visual, observando o comportamento dos dados através de gráficos como o <em>histograma</em> (Figura <a href="comparação-entre-duas-médias.html#fig:histpop">12.2</a>) e o <em>gráfico Q-Q</em> (Figura <a href="comparação-entre-duas-médias.html#fig:qqpop">12.3</a>). É útil também sobrepor uma distribuição normal no histograma, para fins de comparação com a distribuição normal. Além disso, na Figura <a href="comparação-entre-duas-médias.html#fig:histpop">12.2</a>, pode-se observar como as duas populações se sobrepõem (veja também a Figura <a href="introdução-à-teoria-das-probabilidades.html#fig:woman">7.8</a>).</p>
-<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="comparação-entre-duas-médias.html#cb638-1" aria-hidden="true" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> resumo<span class="sc">$</span>media[<span class="dv">1</span>]</span>
-<span id="cb638-2"><a href="comparação-entre-duas-médias.html#cb638-2" aria-hidden="true" tabindex="-1"></a>dp1 <span class="ot">&lt;-</span> resumo<span class="sc">$</span>dp[<span class="dv">1</span>]</span>
-<span id="cb638-3"><a href="comparação-entre-duas-médias.html#cb638-3" aria-hidden="true" tabindex="-1"></a>mu2 <span class="ot">&lt;-</span> resumo<span class="sc">$</span>media[<span class="dv">2</span>]</span>
-<span id="cb638-4"><a href="comparação-entre-duas-médias.html#cb638-4" aria-hidden="true" tabindex="-1"></a>dp2 <span class="ot">&lt;-</span> resumo<span class="sc">$</span>dp[<span class="dv">2</span>]</span>
-<span id="cb638-5"><a href="comparação-entre-duas-médias.html#cb638-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb638-6"><a href="comparação-entre-duas-médias.html#cb638-6" aria-hidden="true" tabindex="-1"></a>pop1 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> <span class="fu">filter</span> (pop <span class="sc">==</span> <span class="dv">1</span>)</span>
-<span id="cb638-7"><a href="comparação-entre-duas-médias.html#cb638-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb638-8"><a href="comparação-entre-duas-médias.html#cb638-8" aria-hidden="true" tabindex="-1"></a>pop2 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> <span class="fu">filter</span> (pop <span class="sc">==</span> <span class="dv">2</span>)</span>
-<span id="cb638-9"><a href="comparação-entre-duas-médias.html#cb638-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb638-10"><a href="comparação-entre-duas-médias.html#cb638-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dados) <span class="sc">+</span>                       </span>
-<span id="cb638-11"><a href="comparação-entre-duas-médias.html#cb638-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">#facet_wrap(~pop) +</span></span>
-<span id="cb638-12"><a href="comparação-entre-duas-médias.html#cb638-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> altura, <span class="at">fill =</span> pop,</span>
-<span id="cb638-13"><a href="comparação-entre-duas-médias.html#cb638-13" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> <span class="fu">after_stat</span>(density)), </span>
-<span id="cb638-14"><a href="comparação-entre-duas-médias.html#cb638-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">col=</span> <span class="st">&quot;white&quot;</span>, </span>
-<span id="cb638-15"><a href="comparação-entre-duas-médias.html#cb638-15" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
-<span id="cb638-16"><a href="comparação-entre-duas-médias.html#cb638-16" aria-hidden="true" tabindex="-1"></a>                 <span class="at">bins =</span> <span class="dv">15</span>) <span class="sc">+</span></span>
-<span id="cb638-17"><a href="comparação-entre-duas-médias.html#cb638-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">data =</span> pop1,</span>
-<span id="cb638-18"><a href="comparação-entre-duas-médias.html#cb638-18" aria-hidden="true" tabindex="-1"></a>                <span class="at">fun =</span> dnorm,</span>
-<span id="cb638-19"><a href="comparação-entre-duas-médias.html#cb638-19" aria-hidden="true" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">&quot;red&quot;</span>,</span>
-<span id="cb638-20"><a href="comparação-entre-duas-médias.html#cb638-20" aria-hidden="true" tabindex="-1"></a>                <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>,</span>
-<span id="cb638-21"><a href="comparação-entre-duas-médias.html#cb638-21" aria-hidden="true" tabindex="-1"></a>                <span class="at">lwd =</span> <span class="dv">1</span>,</span>
-<span id="cb638-22"><a href="comparação-entre-duas-médias.html#cb638-22" aria-hidden="true" tabindex="-1"></a>                <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mu1,</span>
-<span id="cb638-23"><a href="comparação-entre-duas-médias.html#cb638-23" aria-hidden="true" tabindex="-1"></a>                            <span class="at">sd =</span> dp1)) <span class="sc">+</span></span>
-<span id="cb638-24"><a href="comparação-entre-duas-médias.html#cb638-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">data =</span> pop2,</span>
-<span id="cb638-25"><a href="comparação-entre-duas-médias.html#cb638-25" aria-hidden="true" tabindex="-1"></a>                <span class="at">fun =</span> dnorm,</span>
-<span id="cb638-26"><a href="comparação-entre-duas-médias.html#cb638-26" aria-hidden="true" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">&quot;darkred&quot;</span>,</span>
-<span id="cb638-27"><a href="comparação-entre-duas-médias.html#cb638-27" aria-hidden="true" tabindex="-1"></a>                <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>,</span>
-<span id="cb638-28"><a href="comparação-entre-duas-médias.html#cb638-28" aria-hidden="true" tabindex="-1"></a>                <span class="at">lwd =</span> <span class="dv">1</span>,</span>
-<span id="cb638-29"><a href="comparação-entre-duas-médias.html#cb638-29" aria-hidden="true" tabindex="-1"></a>                <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mu2,</span>
-<span id="cb638-30"><a href="comparação-entre-duas-médias.html#cb638-30" aria-hidden="true" tabindex="-1"></a>                            <span class="at">sd =</span> dp2)) <span class="sc">+</span></span>
-<span id="cb638-31"><a href="comparação-entre-duas-médias.html#cb638-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Altura (m)&quot;</span>, <span class="at">y=</span><span class="st">&quot;Densidade&quot;</span>) <span class="sc">+</span></span>
-<span id="cb638-32"><a href="comparação-entre-duas-médias.html#cb638-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;pink2&quot;</span>, <span class="st">&quot;pink3&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb638-33"><a href="comparação-entre-duas-médias.html#cb638-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="comparação-entre-duas-médias.html#cb636-1" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> resumo<span class="sc">$</span>media[<span class="dv">1</span>]</span>
+<span id="cb636-2"><a href="comparação-entre-duas-médias.html#cb636-2" tabindex="-1"></a>dp1 <span class="ot">&lt;-</span> resumo<span class="sc">$</span>dp[<span class="dv">1</span>]</span>
+<span id="cb636-3"><a href="comparação-entre-duas-médias.html#cb636-3" tabindex="-1"></a>mu2 <span class="ot">&lt;-</span> resumo<span class="sc">$</span>media[<span class="dv">2</span>]</span>
+<span id="cb636-4"><a href="comparação-entre-duas-médias.html#cb636-4" tabindex="-1"></a>dp2 <span class="ot">&lt;-</span> resumo<span class="sc">$</span>dp[<span class="dv">2</span>]</span>
+<span id="cb636-5"><a href="comparação-entre-duas-médias.html#cb636-5" tabindex="-1"></a></span>
+<span id="cb636-6"><a href="comparação-entre-duas-médias.html#cb636-6" tabindex="-1"></a>pop1 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> <span class="fu">filter</span> (pop <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb636-7"><a href="comparação-entre-duas-médias.html#cb636-7" tabindex="-1"></a></span>
+<span id="cb636-8"><a href="comparação-entre-duas-médias.html#cb636-8" tabindex="-1"></a>pop2 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> <span class="fu">filter</span> (pop <span class="sc">==</span> <span class="dv">2</span>)</span>
+<span id="cb636-9"><a href="comparação-entre-duas-médias.html#cb636-9" tabindex="-1"></a></span>
+<span id="cb636-10"><a href="comparação-entre-duas-médias.html#cb636-10" tabindex="-1"></a><span class="fu">ggplot</span>(dados) <span class="sc">+</span>                       </span>
+<span id="cb636-11"><a href="comparação-entre-duas-médias.html#cb636-11" tabindex="-1"></a>  <span class="co">#facet_wrap(~pop) +</span></span>
+<span id="cb636-12"><a href="comparação-entre-duas-médias.html#cb636-12" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> altura, <span class="at">fill =</span> pop,</span>
+<span id="cb636-13"><a href="comparação-entre-duas-médias.html#cb636-13" tabindex="-1"></a>                     <span class="at">y =</span> <span class="fu">after_stat</span>(density)), </span>
+<span id="cb636-14"><a href="comparação-entre-duas-médias.html#cb636-14" tabindex="-1"></a>                 <span class="at">col=</span> <span class="st">&quot;white&quot;</span>, </span>
+<span id="cb636-15"><a href="comparação-entre-duas-médias.html#cb636-15" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
+<span id="cb636-16"><a href="comparação-entre-duas-médias.html#cb636-16" tabindex="-1"></a>                 <span class="at">bins =</span> <span class="dv">15</span>) <span class="sc">+</span></span>
+<span id="cb636-17"><a href="comparação-entre-duas-médias.html#cb636-17" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">data =</span> pop1,</span>
+<span id="cb636-18"><a href="comparação-entre-duas-médias.html#cb636-18" tabindex="-1"></a>                <span class="at">fun =</span> dnorm,</span>
+<span id="cb636-19"><a href="comparação-entre-duas-médias.html#cb636-19" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb636-20"><a href="comparação-entre-duas-médias.html#cb636-20" tabindex="-1"></a>                <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>,</span>
+<span id="cb636-21"><a href="comparação-entre-duas-médias.html#cb636-21" tabindex="-1"></a>                <span class="at">lwd =</span> <span class="dv">1</span>,</span>
+<span id="cb636-22"><a href="comparação-entre-duas-médias.html#cb636-22" tabindex="-1"></a>                <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mu1,</span>
+<span id="cb636-23"><a href="comparação-entre-duas-médias.html#cb636-23" tabindex="-1"></a>                            <span class="at">sd =</span> dp1)) <span class="sc">+</span></span>
+<span id="cb636-24"><a href="comparação-entre-duas-médias.html#cb636-24" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">data =</span> pop2,</span>
+<span id="cb636-25"><a href="comparação-entre-duas-médias.html#cb636-25" tabindex="-1"></a>                <span class="at">fun =</span> dnorm,</span>
+<span id="cb636-26"><a href="comparação-entre-duas-médias.html#cb636-26" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">&quot;darkred&quot;</span>,</span>
+<span id="cb636-27"><a href="comparação-entre-duas-médias.html#cb636-27" tabindex="-1"></a>                <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>,</span>
+<span id="cb636-28"><a href="comparação-entre-duas-médias.html#cb636-28" tabindex="-1"></a>                <span class="at">lwd =</span> <span class="dv">1</span>,</span>
+<span id="cb636-29"><a href="comparação-entre-duas-médias.html#cb636-29" tabindex="-1"></a>                <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mu2,</span>
+<span id="cb636-30"><a href="comparação-entre-duas-médias.html#cb636-30" tabindex="-1"></a>                            <span class="at">sd =</span> dp2)) <span class="sc">+</span></span>
+<span id="cb636-31"><a href="comparação-entre-duas-médias.html#cb636-31" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&quot;Altura (m)&quot;</span>, <span class="at">y=</span><span class="st">&quot;Densidade&quot;</span>) <span class="sc">+</span></span>
+<span id="cb636-32"><a href="comparação-entre-duas-médias.html#cb636-32" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;pink2&quot;</span>, <span class="st">&quot;pink3&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb636-33"><a href="comparação-entre-duas-médias.html#cb636-33" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:histpop"></span>
 <img src="bookdownproj_files/figure-html/histpop-1.png" alt="Histogramas da altura das mulheres" width="80%" height="80%" />
 <p class="caption">
@@ -930,9 +934,9 @@ Figure 12.2: Histogramas da altura das mulheres
 </div>
 <p>O <em>gráfico QQ</em> (ou gráfico quantil-quantil) desenha a correlação entre uma determinada amostra e a distribuição normal. Uma linha de referência de 45 graus também é plotada. Um gráfico Q-Q é um gráfico de dispersão criado plotando dois conjuntos de quantis um contra o outro. Se ambos os conjuntos de quantis vierem da mesma distribuição, veremos os pontos formando uma linha aproximadamente reta.</p>
 <p>Se os valores caírem na diagonal do gráfico, a variável é normalmente distribuída. Os desvios da diagonal mostram desvios da normalidade. Para desenhar um gráfico Q-Q pode ser usado a função <code>ggqqplot ()</code> do pacote <code>ggpubr</code> que produz um gráfico QQ normal com uma linha de referência, acompanhada de area sombreada, correspondente ao IC95%.</p>
-<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="comparação-entre-duas-médias.html#cb639-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggqqplot</span>(dados, <span class="at">x =</span> <span class="st">&quot;altura&quot;</span>, <span class="at">color =</span> <span class="st">&quot;pop&quot;</span>) <span class="sc">+</span></span>
-<span id="cb639-2"><a href="comparação-entre-duas-médias.html#cb639-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Altura (m)&quot;</span>,</span>
-<span id="cb639-3"><a href="comparação-entre-duas-médias.html#cb639-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Quantis teóricos&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb637-1"><a href="comparação-entre-duas-médias.html#cb637-1" tabindex="-1"></a><span class="fu">ggqqplot</span>(dados, <span class="at">x =</span> <span class="st">&quot;altura&quot;</span>, <span class="at">color =</span> <span class="st">&quot;pop&quot;</span>) <span class="sc">+</span></span>
+<span id="cb637-2"><a href="comparação-entre-duas-médias.html#cb637-2" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Altura (m)&quot;</span>,</span>
+<span id="cb637-3"><a href="comparação-entre-duas-médias.html#cb637-3" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Quantis teóricos&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:qqpop"></span>
 <img src="bookdownproj_files/figure-html/qqpop-1.png" alt="Gráficos Q-Q" width="70%" height="70%" />
 <p class="caption">
@@ -943,10 +947,10 @@ Figure 12.3: Gráficos Q-Q
 <p>Outra maneira de analisar a normalidade é verificar se a distribuição como um todo se desvia de uma distribuição normal comparável. Para isso, usam-se <em>testes estatísticos de normalidade</em>. Os dois principais são o <em>teste de Shapiro-Wilk</em> e o <em>teste de Kolmogorov-Smirnov (K-S)</em>.</p>
 <p>Esses testes comparam os dados da amostra com um conjunto de valores normalmente distribuídos com a mesma média e desvio padrão. Se o teste não for significativo (<em>P</em> &gt; 0,05), informa-se que a distribuição da amostra não é significativamente diferente de uma distribuição normal. Se, no entanto, o teste for significativo (<em>P</em> <span class="math inline">\(\le\)</span> 0,05), a distribuição em questão será significativamente diferente de uma distribuição normal.</p>
 <p>O método de Shapiro-Wilk é amplamente recomendado para teste de normalidade <span class="citation">(103)</span>, <span class="citation">(104)</span>, <span class="citation">(105)</span>.</p>
-<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="comparação-entre-duas-médias.html#cb640-1" aria-hidden="true" tabindex="-1"></a>sw <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
-<span id="cb640-2"><a href="comparação-entre-duas-médias.html#cb640-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(pop) <span class="sc">%&gt;%</span></span>
-<span id="cb640-3"><a href="comparação-entre-duas-médias.html#cb640-3" aria-hidden="true" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">shapiro_test</span>(altura)</span>
-<span id="cb640-4"><a href="comparação-entre-duas-médias.html#cb640-4" aria-hidden="true" tabindex="-1"></a>sw</span></code></pre></div>
+<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="comparação-entre-duas-médias.html#cb638-1" tabindex="-1"></a>sw <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
+<span id="cb638-2"><a href="comparação-entre-duas-médias.html#cb638-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(pop) <span class="sc">%&gt;%</span></span>
+<span id="cb638-3"><a href="comparação-entre-duas-médias.html#cb638-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">shapiro_test</span>(altura)</span>
+<span id="cb638-4"><a href="comparação-entre-duas-médias.html#cb638-4" tabindex="-1"></a>sw</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 4
 ##   pop   variable statistic     p
 ##   &lt;fct&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;
@@ -956,19 +960,19 @@ Figure 12.3: Gráficos Q-Q
 <p><strong>Homogeneidade da Variância</strong></p>
 <p>Na visualização da Figura <a href="comparação-entre-duas-médias.html#fig:homo">12.4</a> nos dois grupos de mulheres, observa-se que há, entre os limites inferior e superior, uma dispersão das medidas em torno da região central que vai progressivamente diminuindo. Esta dispersão parece ser semelhante nos grupos. Isto sugere que haja <em>homogeneidade das variâncias</em>.</p>
 <p>Portanto, homogeneidade da variância é o pressuposto de que a dispersão das medidas é aproximadamente igual em diferentes grupos de casos, ou que a dispersão dos valores são aproximadamente iguais em pontos diferentes da variável preditora.</p>
-<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="comparação-entre-duas-médias.html#cb642-1" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x =</span> pop, <span class="at">y =</span> altura)) <span class="sc">+</span></span>
-<span id="cb642-2"><a href="comparação-entre-duas-médias.html#cb642-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">shape =</span> pop, <span class="at">color =</span> pop), </span>
-<span id="cb642-3"><a href="comparação-entre-duas-médias.html#cb642-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="fl">0.2</span>),</span>
-<span id="cb642-4"><a href="comparação-entre-duas-médias.html#cb642-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb642-5"><a href="comparação-entre-duas-médias.html#cb642-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">color =</span> pop),</span>
-<span id="cb642-6"><a href="comparação-entre-duas-médias.html#cb642-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">fun.data=</span> <span class="st">&quot;mean_sdl&quot;</span>,  </span>
-<span id="cb642-7"><a href="comparação-entre-duas-médias.html#cb642-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">fun.args =</span> <span class="fu">list</span>(<span class="at">mult=</span><span class="dv">1</span>), </span>
-<span id="cb642-8"><a href="comparação-entre-duas-médias.html#cb642-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">geom =</span> <span class="st">&quot;pointrange&quot;</span>) <span class="sc">+</span></span>
-<span id="cb642-9"><a href="comparação-entre-duas-médias.html#cb642-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;População&quot;</span>, </span>
-<span id="cb642-10"><a href="comparação-entre-duas-médias.html#cb642-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;Altura (m)&#39;</span>) <span class="sc">+</span></span>
-<span id="cb642-11"><a href="comparação-entre-duas-médias.html#cb642-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb642-12"><a href="comparação-entre-duas-médias.html#cb642-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_nejm</span>() <span class="sc">+</span></span>
-<span id="cb642-13"><a href="comparação-entre-duas-médias.html#cb642-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="comparação-entre-duas-médias.html#cb640-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x =</span> pop, <span class="at">y =</span> altura)) <span class="sc">+</span></span>
+<span id="cb640-2"><a href="comparação-entre-duas-médias.html#cb640-2" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">shape =</span> pop, <span class="at">color =</span> pop), </span>
+<span id="cb640-3"><a href="comparação-entre-duas-médias.html#cb640-3" tabindex="-1"></a>              <span class="at">position =</span> <span class="fu">position_jitter</span>(<span class="fl">0.2</span>),</span>
+<span id="cb640-4"><a href="comparação-entre-duas-médias.html#cb640-4" tabindex="-1"></a>              <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb640-5"><a href="comparação-entre-duas-médias.html#cb640-5" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="fu">aes</span>(<span class="at">color =</span> pop),</span>
+<span id="cb640-6"><a href="comparação-entre-duas-médias.html#cb640-6" tabindex="-1"></a>               <span class="at">fun.data=</span> <span class="st">&quot;mean_sdl&quot;</span>,  </span>
+<span id="cb640-7"><a href="comparação-entre-duas-médias.html#cb640-7" tabindex="-1"></a>               <span class="at">fun.args =</span> <span class="fu">list</span>(<span class="at">mult=</span><span class="dv">1</span>), </span>
+<span id="cb640-8"><a href="comparação-entre-duas-médias.html#cb640-8" tabindex="-1"></a>               <span class="at">geom =</span> <span class="st">&quot;pointrange&quot;</span>) <span class="sc">+</span></span>
+<span id="cb640-9"><a href="comparação-entre-duas-médias.html#cb640-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;População&quot;</span>, </span>
+<span id="cb640-10"><a href="comparação-entre-duas-médias.html#cb640-10" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;Altura (m)&#39;</span>) <span class="sc">+</span></span>
+<span id="cb640-11"><a href="comparação-entre-duas-médias.html#cb640-11" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb640-12"><a href="comparação-entre-duas-médias.html#cb640-12" tabindex="-1"></a>  <span class="fu">scale_fill_nejm</span>() <span class="sc">+</span></span>
+<span id="cb640-13"><a href="comparação-entre-duas-médias.html#cb640-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>) </span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:homo"></span>
 <img src="bookdownproj_files/figure-html/homo-1.png" alt="Gráfico mostrando a dispersão dos dados" width="70%" height="70%" />
 <p class="caption">
@@ -982,17 +986,17 @@ Figure 12.4: Gráfico mostrando a dispersão dos dados
 <li><em>center</em> <span class="math inline">\(\to\)</span> O nome de uma função para calcular o centro de cada grupo; <code>mean</code> fornece o teste de Levene original; o padrão, <code>median</code>, fornece um teste mais robusto;</li>
 <li><em>data</em> <span class="math inline">\(\to\)</span> conjunto de dados para avaliar a <code>formula</code>.</li>
 </ul>
-<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="comparação-entre-duas-médias.html#cb643-1" aria-hidden="true" tabindex="-1"></a>levene <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">leveneTest</span>(altura<span class="sc">~</span>pop, </span>
-<span id="cb643-2"><a href="comparação-entre-duas-médias.html#cb643-2" aria-hidden="true" tabindex="-1"></a>                          <span class="at">center =</span> mean, </span>
-<span id="cb643-3"><a href="comparação-entre-duas-médias.html#cb643-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">data =</span> dados)</span>
-<span id="cb643-4"><a href="comparação-entre-duas-médias.html#cb643-4" aria-hidden="true" tabindex="-1"></a>levene</span></code></pre></div>
+<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="comparação-entre-duas-médias.html#cb641-1" tabindex="-1"></a>levene <span class="ot">&lt;-</span> car<span class="sc">::</span><span class="fu">leveneTest</span>(altura<span class="sc">~</span>pop, </span>
+<span id="cb641-2"><a href="comparação-entre-duas-médias.html#cb641-2" tabindex="-1"></a>                          <span class="at">center =</span> mean, </span>
+<span id="cb641-3"><a href="comparação-entre-duas-médias.html#cb641-3" tabindex="-1"></a>                          <span class="at">data =</span> dados)</span>
+<span id="cb641-4"><a href="comparação-entre-duas-médias.html#cb641-4" tabindex="-1"></a>levene</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = mean)
 ##       Df F value Pr(&gt;F)
 ## group  1  0.1599 0.6907
 ##       58</code></pre>
 <p>O valor <em>P</em> &gt; 0,05, confirma a impressão visual dos boxplots de que os grupos têm homogeneidade das variâncias, portanto a hipótese nula de igualdade das variâncias não pode ser rejeitada.</p>
 <p>Um outro teste que compara duas variância poderia ser usado. É o teste F que pode ser calculado com a função <code>var.test()</code> do pacote <code>stats</code>, incluído no R base. Seus argumentos pode ser consultados na ajuda do R.</p>
-<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="comparação-entre-duas-médias.html#cb645-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var.test</span>(altura<span class="sc">~</span>pop, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="at">data =</span> dados)</span></code></pre></div>
+<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="comparação-entre-duas-médias.html#cb643-1" tabindex="-1"></a><span class="fu">var.test</span>(altura<span class="sc">~</span>pop, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>, <span class="at">data =</span> dados)</span></code></pre></div>
 <pre><code>## 
 ##  F test to compare two variances
 ## 
@@ -1024,9 +1028,9 @@ Figure 12.4: Gráfico mostrando a dispersão dos dados
 </ul>
 <p><strong>Método 1</strong></p>
 <p>Dados apresentados em dois vetores numéricos <em>x</em> e <em>y</em>.</p>
-<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="comparação-entre-duas-médias.html#cb647-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(dados<span class="sc">$</span>altura[dados<span class="sc">$</span>pop <span class="sc">==</span> <span class="st">&quot;1&quot;</span>],</span>
-<span id="cb647-2"><a href="comparação-entre-duas-médias.html#cb647-2" aria-hidden="true" tabindex="-1"></a>       dados<span class="sc">$</span>altura[dados<span class="sc">$</span>pop <span class="sc">==</span> <span class="st">&quot;2&quot;</span>],</span>
-<span id="cb647-3"><a href="comparação-entre-duas-médias.html#cb647-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="comparação-entre-duas-médias.html#cb645-1" tabindex="-1"></a><span class="fu">t.test</span>(dados<span class="sc">$</span>altura[dados<span class="sc">$</span>pop <span class="sc">==</span> <span class="st">&quot;1&quot;</span>],</span>
+<span id="cb645-2"><a href="comparação-entre-duas-médias.html#cb645-2" tabindex="-1"></a>       dados<span class="sc">$</span>altura[dados<span class="sc">$</span>pop <span class="sc">==</span> <span class="st">&quot;2&quot;</span>],</span>
+<span id="cb645-3"><a href="comparação-entre-duas-médias.html#cb645-3" tabindex="-1"></a>       <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Two Sample t-test
 ## 
@@ -1040,10 +1044,10 @@ Figure 12.4: Gráfico mostrando a dispersão dos dados
 ##  1.602333  1.390333</code></pre>
 <p><strong>Método 2</strong></p>
 <p>Emprega uma fórmula (<em>variável resposta ~ grupo</em>) com os dados do banco de dados:</p>
-<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="comparação-entre-duas-médias.html#cb649-1" aria-hidden="true" tabindex="-1"></a>teste <span class="ot">&lt;-</span> <span class="fu">t.test</span>(altura<span class="sc">~</span>pop,</span>
-<span id="cb649-2"><a href="comparação-entre-duas-médias.html#cb649-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">var.equal =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb649-3"><a href="comparação-entre-duas-médias.html#cb649-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> dados)</span>
-<span id="cb649-4"><a href="comparação-entre-duas-médias.html#cb649-4" aria-hidden="true" tabindex="-1"></a>teste</span></code></pre></div>
+<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="comparação-entre-duas-médias.html#cb647-1" tabindex="-1"></a>teste <span class="ot">&lt;-</span> <span class="fu">t.test</span>(altura<span class="sc">~</span>pop,</span>
+<span id="cb647-2"><a href="comparação-entre-duas-médias.html#cb647-2" tabindex="-1"></a>                <span class="at">var.equal =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb647-3"><a href="comparação-entre-duas-médias.html#cb647-3" tabindex="-1"></a>                <span class="at">data =</span> dados)</span>
+<span id="cb647-4"><a href="comparação-entre-duas-médias.html#cb647-4" tabindex="-1"></a>teste</span></code></pre></div>
 <pre><code>## 
 ##  Two Sample t-test
 ## 
@@ -1073,34 +1077,34 @@ Figure 12.4: Gráfico mostrando a dispersão dos dados
 <ol style="list-style-type: decimal">
 <li>Calcular o teste estatístico com a função <code>t_test()</code> do pacote <code>rstatix</code> <span class="citation">(107)</span> e colocar em um objeto denominado <code>t_teste</code>:</li>
 </ol>
-<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="comparação-entre-duas-médias.html#cb651-1" aria-hidden="true" tabindex="-1"></a>t_teste <span class="ot">&lt;-</span> <span class="fu">t_test</span>(dados, </span>
-<span id="cb651-2"><a href="comparação-entre-duas-médias.html#cb651-2" aria-hidden="true" tabindex="-1"></a>                altura<span class="sc">~</span>pop,</span>
-<span id="cb651-3"><a href="comparação-entre-duas-médias.html#cb651-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">p.adjust.method =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb651-4"><a href="comparação-entre-duas-médias.html#cb651-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">paired =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb651-5"><a href="comparação-entre-duas-médias.html#cb651-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">var.equal =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb651-6"><a href="comparação-entre-duas-médias.html#cb651-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>,</span>
-<span id="cb651-7"><a href="comparação-entre-duas-médias.html#cb651-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">mu =</span> <span class="dv">0</span>,</span>
-<span id="cb651-8"><a href="comparação-entre-duas-médias.html#cb651-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">conf.level =</span> <span class="fl">0.95</span>,</span>
-<span id="cb651-9"><a href="comparação-entre-duas-médias.html#cb651-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">detailed =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="comparação-entre-duas-médias.html#cb649-1" tabindex="-1"></a>t_teste <span class="ot">&lt;-</span> <span class="fu">t_test</span>(dados, </span>
+<span id="cb649-2"><a href="comparação-entre-duas-médias.html#cb649-2" tabindex="-1"></a>                altura<span class="sc">~</span>pop,</span>
+<span id="cb649-3"><a href="comparação-entre-duas-médias.html#cb649-3" tabindex="-1"></a>                <span class="at">p.adjust.method =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb649-4"><a href="comparação-entre-duas-médias.html#cb649-4" tabindex="-1"></a>                <span class="at">paired =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb649-5"><a href="comparação-entre-duas-médias.html#cb649-5" tabindex="-1"></a>                <span class="at">var.equal =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb649-6"><a href="comparação-entre-duas-médias.html#cb649-6" tabindex="-1"></a>                <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>,</span>
+<span id="cb649-7"><a href="comparação-entre-duas-médias.html#cb649-7" tabindex="-1"></a>                <span class="at">mu =</span> <span class="dv">0</span>,</span>
+<span id="cb649-8"><a href="comparação-entre-duas-médias.html#cb649-8" tabindex="-1"></a>                <span class="at">conf.level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb649-9"><a href="comparação-entre-duas-médias.html#cb649-9" tabindex="-1"></a>                <span class="at">detailed =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Construir um boxplot (Figura <a href="comparação-entre-duas-médias.html#fig:bxpt">12.5</a>) exibindo o valor <em>P</em></li>
 </ol>
-<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="comparação-entre-duas-médias.html#cb652-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span>pop, <span class="at">y=</span>altura)) <span class="sc">+</span></span>
-<span id="cb652-2"><a href="comparação-entre-duas-médias.html#cb652-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">stat =</span> <span class="st">&quot;boxplot&quot;</span>, <span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb652-3"><a href="comparação-entre-duas-médias.html#cb652-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">color =</span> pop)) <span class="sc">+</span></span>
-<span id="cb652-4"><a href="comparação-entre-duas-médias.html#cb652-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_nejm</span>() <span class="sc">+</span></span>
-<span id="cb652-5"><a href="comparação-entre-duas-médias.html#cb652-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb652-6"><a href="comparação-entre-duas-médias.html#cb652-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>) </span>
-<span id="cb652-7"><a href="comparação-entre-duas-médias.html#cb652-7" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span>  </span>
-<span id="cb652-8"><a href="comparação-entre-duas-médias.html#cb652-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Região&quot;</span>, </span>
-<span id="cb652-9"><a href="comparação-entre-duas-médias.html#cb652-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;Altura (m)&#39;</span>, </span>
-<span id="cb652-10"><a href="comparação-entre-duas-médias.html#cb652-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&#39;Comparação da Altura de Mulheres&#39;</span>,</span>
-<span id="cb652-11"><a href="comparação-entre-duas-médias.html#cb652-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> rstatix<span class="sc">::</span><span class="fu">get_test_label</span>(<span class="at">stat.test =</span> t_teste,</span>
-<span id="cb652-12"><a href="comparação-entre-duas-médias.html#cb652-12" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">correction =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb652-13"><a href="comparação-entre-duas-médias.html#cb652-13" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">detailed =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb652-14"><a href="comparação-entre-duas-médias.html#cb652-14" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">type =</span> <span class="st">&quot;expression&quot;</span>,</span>
-<span id="cb652-15"><a href="comparação-entre-duas-médias.html#cb652-15" aria-hidden="true" tabindex="-1"></a>                                          <span class="at">p.col =</span> <span class="st">&quot;p&quot;</span>,),</span>
-<span id="cb652-16"><a href="comparação-entre-duas-médias.html#cb652-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&#39;petronioliveira@gmail.com&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="comparação-entre-duas-médias.html#cb650-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span>pop, <span class="at">y=</span>altura)) <span class="sc">+</span></span>
+<span id="cb650-2"><a href="comparação-entre-duas-médias.html#cb650-2" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">stat =</span> <span class="st">&quot;boxplot&quot;</span>, <span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb650-3"><a href="comparação-entre-duas-médias.html#cb650-3" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">color =</span> pop)) <span class="sc">+</span></span>
+<span id="cb650-4"><a href="comparação-entre-duas-médias.html#cb650-4" tabindex="-1"></a>  <span class="fu">scale_color_nejm</span>() <span class="sc">+</span></span>
+<span id="cb650-5"><a href="comparação-entre-duas-médias.html#cb650-5" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb650-6"><a href="comparação-entre-duas-médias.html#cb650-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>) </span>
+<span id="cb650-7"><a href="comparação-entre-duas-médias.html#cb650-7" tabindex="-1"></a>p <span class="sc">+</span>  </span>
+<span id="cb650-8"><a href="comparação-entre-duas-médias.html#cb650-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Região&quot;</span>, </span>
+<span id="cb650-9"><a href="comparação-entre-duas-médias.html#cb650-9" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;Altura (m)&#39;</span>, </span>
+<span id="cb650-10"><a href="comparação-entre-duas-médias.html#cb650-10" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&#39;Comparação da Altura de Mulheres&#39;</span>,</span>
+<span id="cb650-11"><a href="comparação-entre-duas-médias.html#cb650-11" tabindex="-1"></a>       <span class="at">subtitle =</span> rstatix<span class="sc">::</span><span class="fu">get_test_label</span>(<span class="at">stat.test =</span> t_teste,</span>
+<span id="cb650-12"><a href="comparação-entre-duas-médias.html#cb650-12" tabindex="-1"></a>                                          <span class="at">correction =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb650-13"><a href="comparação-entre-duas-médias.html#cb650-13" tabindex="-1"></a>                                          <span class="at">detailed =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb650-14"><a href="comparação-entre-duas-médias.html#cb650-14" tabindex="-1"></a>                                          <span class="at">type =</span> <span class="st">&quot;expression&quot;</span>,</span>
+<span id="cb650-15"><a href="comparação-entre-duas-médias.html#cb650-15" tabindex="-1"></a>                                          <span class="at">p.col =</span> <span class="st">&quot;p&quot;</span>,),</span>
+<span id="cb650-16"><a href="comparação-entre-duas-médias.html#cb650-16" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&#39;petronioliveira@gmail.com&#39;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:bxpt"></span>
 <img src="bookdownproj_files/figure-html/bxpt-1.png" alt="Boxplots comparando os dois grupos" width="70%" height="70%" />
 <p class="caption">
@@ -1110,27 +1114,27 @@ Figure 12.5: Boxplots comparando os dois grupos
 <ol start="3" style="list-style-type: decimal">
 <li>Ou um gráfico de barra de erro (Figura <a href="comparação-entre-duas-médias.html#fig:barerror">12.6</a>) com IC95%</li>
 </ol>
-<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="comparação-entre-duas-médias.html#cb653-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(resumo, </span>
-<span id="cb653-2"><a href="comparação-entre-duas-médias.html#cb653-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>pop, <span class="at">y=</span>media, <span class="at">fill=</span>pop)) <span class="sc">+</span></span>
-<span id="cb653-3"><a href="comparação-entre-duas-médias.html#cb653-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">stat =</span> <span class="st">&quot;summary&quot;</span>,</span>
-<span id="cb653-4"><a href="comparação-entre-duas-médias.html#cb653-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>,</span>
-<span id="cb653-5"><a href="comparação-entre-duas-médias.html#cb653-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">1</span>,</span>
-<span id="cb653-6"><a href="comparação-entre-duas-médias.html#cb653-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb653-7"><a href="comparação-entre-duas-médias.html#cb653-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">width =</span> <span class="fl">0.5</span>,<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">color=</span> <span class="st">&quot;black&quot;</span>,  </span>
-<span id="cb653-8"><a href="comparação-entre-duas-médias.html#cb653-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">position=</span><span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
-<span id="cb653-9"><a href="comparação-entre-duas-médias.html#cb653-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>media<span class="sc">-</span>me, <span class="at">ymax=</span>media<span class="sc">+</span>me), <span class="at">width=</span>.<span class="dv">1</span>,</span>
-<span id="cb653-10"><a href="comparação-entre-duas-médias.html#cb653-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">position=</span><span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.2</span>)) <span class="sc">+</span></span>
-<span id="cb653-11"><a href="comparação-entre-duas-médias.html#cb653-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Comparação da Altura de Mulheres&quot;</span>,</span>
-<span id="cb653-12"><a href="comparação-entre-duas-médias.html#cb653-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">get_test_label</span>(<span class="at">stat.test =</span> t_teste,</span>
-<span id="cb653-13"><a href="comparação-entre-duas-médias.html#cb653-13" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">correction =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb653-14"><a href="comparação-entre-duas-médias.html#cb653-14" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">detailed =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb653-15"><a href="comparação-entre-duas-médias.html#cb653-15" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">type =</span> <span class="st">&quot;expression&quot;</span>),</span>
-<span id="cb653-16"><a href="comparação-entre-duas-médias.html#cb653-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">&quot;Região&quot;</span>, </span>
-<span id="cb653-17"><a href="comparação-entre-duas-médias.html#cb653-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Altura (m)&quot;</span>,</span>
-<span id="cb653-18"><a href="comparação-entre-duas-médias.html#cb653-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;petronioliveira@gmail.com&quot;</span>)<span class="sc">+</span></span>
-<span id="cb653-19"><a href="comparação-entre-duas-médias.html#cb653-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
-<span id="cb653-20"><a href="comparação-entre-duas-médias.html#cb653-20" aria-hidden="true" tabindex="-1"></a>  ggsci<span class="sc">::</span><span class="fu">scale_fill_nejm</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb653-21"><a href="comparação-entre-duas-médias.html#cb653-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="comparação-entre-duas-médias.html#cb651-1" tabindex="-1"></a><span class="fu">ggplot</span>(resumo, </span>
+<span id="cb651-2"><a href="comparação-entre-duas-médias.html#cb651-2" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>pop, <span class="at">y=</span>media, <span class="at">fill=</span>pop)) <span class="sc">+</span></span>
+<span id="cb651-3"><a href="comparação-entre-duas-médias.html#cb651-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">stat =</span> <span class="st">&quot;summary&quot;</span>,</span>
+<span id="cb651-4"><a href="comparação-entre-duas-médias.html#cb651-4" tabindex="-1"></a>             <span class="at">fun =</span> <span class="st">&quot;mean&quot;</span>,</span>
+<span id="cb651-5"><a href="comparação-entre-duas-médias.html#cb651-5" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">1</span>,</span>
+<span id="cb651-6"><a href="comparação-entre-duas-médias.html#cb651-6" tabindex="-1"></a>             <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb651-7"><a href="comparação-entre-duas-médias.html#cb651-7" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">width =</span> <span class="fl">0.5</span>,<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">color=</span> <span class="st">&quot;black&quot;</span>,  </span>
+<span id="cb651-8"><a href="comparação-entre-duas-médias.html#cb651-8" tabindex="-1"></a>           <span class="at">position=</span><span class="fu">position_dodge</span>()) <span class="sc">+</span></span>
+<span id="cb651-9"><a href="comparação-entre-duas-médias.html#cb651-9" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>media<span class="sc">-</span>me, <span class="at">ymax=</span>media<span class="sc">+</span>me), <span class="at">width=</span>.<span class="dv">1</span>,</span>
+<span id="cb651-10"><a href="comparação-entre-duas-médias.html#cb651-10" tabindex="-1"></a>                <span class="at">position=</span><span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.2</span>)) <span class="sc">+</span></span>
+<span id="cb651-11"><a href="comparação-entre-duas-médias.html#cb651-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Comparação da Altura de Mulheres&quot;</span>,</span>
+<span id="cb651-12"><a href="comparação-entre-duas-médias.html#cb651-12" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">get_test_label</span>(<span class="at">stat.test =</span> t_teste,</span>
+<span id="cb651-13"><a href="comparação-entre-duas-médias.html#cb651-13" tabindex="-1"></a>                                 <span class="at">correction =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb651-14"><a href="comparação-entre-duas-médias.html#cb651-14" tabindex="-1"></a>                                 <span class="at">detailed =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb651-15"><a href="comparação-entre-duas-médias.html#cb651-15" tabindex="-1"></a>                                 <span class="at">type =</span> <span class="st">&quot;expression&quot;</span>),</span>
+<span id="cb651-16"><a href="comparação-entre-duas-médias.html#cb651-16" tabindex="-1"></a>       <span class="at">x=</span><span class="st">&quot;Região&quot;</span>, </span>
+<span id="cb651-17"><a href="comparação-entre-duas-médias.html#cb651-17" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Altura (m)&quot;</span>,</span>
+<span id="cb651-18"><a href="comparação-entre-duas-médias.html#cb651-18" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;petronioliveira@gmail.com&quot;</span>)<span class="sc">+</span></span>
+<span id="cb651-19"><a href="comparação-entre-duas-médias.html#cb651-19" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
+<span id="cb651-20"><a href="comparação-entre-duas-médias.html#cb651-20" tabindex="-1"></a>  ggsci<span class="sc">::</span><span class="fu">scale_fill_nejm</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb651-21"><a href="comparação-entre-duas-médias.html#cb651-21" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>) </span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:barerror"></span>
 <img src="bookdownproj_files/figure-html/barerror-1.png" alt="Gráfico de barra de erro comparando os dois grupos" width="70%" height="70%" />
 <p class="caption">
@@ -1164,8 +1168,8 @@ s_o =\sqrt \frac{(n_1 - 1)s_1^2 + (n_2 -1)s_2^2}{n_1 + n_2 - 2}
 <li><em>mu</em> <span class="math inline">\(\to\)</span> O valor “nulo” contra o qual o tamanho do efeito deve ser medido. Quase sempre é 0 (padrão); raramente especificado.</li>
 </ul>
 <p>Assim, o <em>d</em> de Cohen pode ser obtido da seguinte forma:</p>
-<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="comparação-entre-duas-médias.html#cb654-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> lsr<span class="sc">::</span><span class="fu">cohensD</span> (altura <span class="sc">~</span> pop, <span class="at">data =</span> dados)</span>
-<span id="cb654-2"><a href="comparação-entre-duas-médias.html#cb654-2" aria-hidden="true" tabindex="-1"></a>d</span></code></pre></div>
+<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="comparação-entre-duas-médias.html#cb652-1" tabindex="-1"></a>d <span class="ot">&lt;-</span> lsr<span class="sc">::</span><span class="fu">cohensD</span> (altura <span class="sc">~</span> pop, <span class="at">data =</span> dados)</span>
+<span id="cb652-2"><a href="comparação-entre-duas-médias.html#cb652-2" tabindex="-1"></a>d</span></code></pre></div>
 <pre><code>## [1] 3.112768</code></pre>
 <p>Bastante simples! Agora, como interpretar este resultado de d = 1,1 (arredondado)? Sua interpretação não é intuitiva, recomenda-se usar a Tabela <a href="comparação-entre-duas-médias.html#tab:effect">12.2</a> para interpretar <span class="citation">(108)</span>.</p>
 <table class="table lightable-classic" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: Cambria; margin-left: auto; margin-right: auto;">
@@ -1230,9 +1234,9 @@ grande
 <div id="leitura-e-transformação-dos-dados" class="section level4 hasAnchor" number="12.3.1.1">
 <h4><span class="header-section-number">12.3.1.1</span> Leitura e transformação dos dados<a href="comparação-entre-duas-médias.html#leitura-e-transformação-dos-dados" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Crie um objeto <code>dados</code> para recebê-lo, a partir do diretório de trabalho, executando o seguinte código:</p>
-<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="comparação-entre-duas-médias.html#cb656-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosPar.xlsx&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="comparação-entre-duas-médias.html#cb654-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosPar.xlsx&quot;</span>)</span></code></pre></div>
 <p>A função <code>read_excel()</code> do pacote <code>readxl</code> abre o arquivo <code>dadosPar.xlsx</code>. Eles podem ser visualizados, usando a função <code>head()</code> que mostra estrutura e o formato dos dados, exibindo as 6 primeiras linhas:</p>
-<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="comparação-entre-duas-médias.html#cb657-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dados)</span></code></pre></div>
+<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="comparação-entre-duas-médias.html#cb655-1" tabindex="-1"></a><span class="fu">head</span>(dados)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 3
 ##      id basal final
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1250,12 +1254,12 @@ grande
 <li><em>values_to</em> <span class="math inline">\(\to\)</span> Especifica o nome da coluna a ser criada a partir dos dados armazenados nos valores das células;</li>
 <li><em>…</em> <span class="math inline">\(\to\)</span> possui outros argumento. Ver ajuda.</li>
 </ul>
-<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="comparação-entre-duas-médias.html#cb659-1" aria-hidden="true" tabindex="-1"></a>dadosL <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
-<span id="cb659-2"><a href="comparação-entre-duas-médias.html#cb659-2" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="fu">c</span>(basal, final), </span>
-<span id="cb659-3"><a href="comparação-entre-duas-médias.html#cb659-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">names_to =</span> <span class="st">&quot;momento&quot;</span>, </span>
-<span id="cb659-4"><a href="comparação-entre-duas-médias.html#cb659-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">values_to =</span> <span class="st">&quot;medidas&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="comparação-entre-duas-médias.html#cb657-1" tabindex="-1"></a>dadosL <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
+<span id="cb657-2"><a href="comparação-entre-duas-médias.html#cb657-2" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="fu">c</span>(basal, final), </span>
+<span id="cb657-3"><a href="comparação-entre-duas-médias.html#cb657-3" tabindex="-1"></a>                      <span class="at">names_to =</span> <span class="st">&quot;momento&quot;</span>, </span>
+<span id="cb657-4"><a href="comparação-entre-duas-médias.html#cb657-4" tabindex="-1"></a>                      <span class="at">values_to =</span> <span class="st">&quot;medidas&quot;</span>)</span></code></pre></div>
 <p>A estrutura do banco de dados <code>dadosL</code> é:</p>
-<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="comparação-entre-duas-médias.html#cb660-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dadosL)</span></code></pre></div>
+<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="comparação-entre-duas-médias.html#cb658-1" tabindex="-1"></a><span class="fu">head</span>(dadosL)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 3
 ##      id momento medidas
 ##   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;
@@ -1269,16 +1273,16 @@ grande
 <div id="medidas-resumidoras-1" class="section level4 hasAnchor" number="12.3.1.2">
 <h4><span class="header-section-number">12.3.1.2</span> Medidas Resumidoras<a href="comparação-entre-duas-médias.html#medidas-resumidoras-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Para resumir as variáveis, serão usadas as funções <code>group_by()</code>, <code>summarise()</code> e <code>mutate()</code> do pacote <code>dplyr</code>, aplicadas ao formato longo <code>dadosL</code>:</p>
-<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="comparação-entre-duas-médias.html#cb662-1" aria-hidden="true" tabindex="-1"></a>resumo <span class="ot">&lt;-</span> dadosL <span class="sc">%&gt;%</span> </span>
-<span id="cb662-2"><a href="comparação-entre-duas-médias.html#cb662-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(momento) <span class="sc">%&gt;%</span> </span>
-<span id="cb662-3"><a href="comparação-entre-duas-médias.html#cb662-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span> (),</span>
-<span id="cb662-4"><a href="comparação-entre-duas-médias.html#cb662-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">media =</span> <span class="fu">mean</span>(medidas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb662-5"><a href="comparação-entre-duas-médias.html#cb662-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">dp =</span> <span class="fu">sd</span> (medidas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb662-6"><a href="comparação-entre-duas-médias.html#cb662-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">mediana =</span> <span class="fu">median</span> (medidas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb662-7"><a href="comparação-entre-duas-médias.html#cb662-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">IIQ =</span> <span class="fu">IQR</span> (medidas, <span class="at">na.rm =</span><span class="cn">TRUE</span>),</span>
-<span id="cb662-8"><a href="comparação-entre-duas-médias.html#cb662-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ep =</span> dp<span class="sc">/</span><span class="fu">sqrt</span>(n),</span>
-<span id="cb662-9"><a href="comparação-entre-duas-médias.html#cb662-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">me =</span> ep <span class="sc">*</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>), n <span class="sc">-</span> <span class="dv">1</span>)) </span>
-<span id="cb662-10"><a href="comparação-entre-duas-médias.html#cb662-10" aria-hidden="true" tabindex="-1"></a>resumo</span></code></pre></div>
+<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="comparação-entre-duas-médias.html#cb660-1" tabindex="-1"></a>resumo <span class="ot">&lt;-</span> dadosL <span class="sc">%&gt;%</span> </span>
+<span id="cb660-2"><a href="comparação-entre-duas-médias.html#cb660-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(momento) <span class="sc">%&gt;%</span> </span>
+<span id="cb660-3"><a href="comparação-entre-duas-médias.html#cb660-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span> (),</span>
+<span id="cb660-4"><a href="comparação-entre-duas-médias.html#cb660-4" tabindex="-1"></a>                   <span class="at">media =</span> <span class="fu">mean</span>(medidas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb660-5"><a href="comparação-entre-duas-médias.html#cb660-5" tabindex="-1"></a>                   <span class="at">dp =</span> <span class="fu">sd</span> (medidas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb660-6"><a href="comparação-entre-duas-médias.html#cb660-6" tabindex="-1"></a>                   <span class="at">mediana =</span> <span class="fu">median</span> (medidas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb660-7"><a href="comparação-entre-duas-médias.html#cb660-7" tabindex="-1"></a>                   <span class="at">IIQ =</span> <span class="fu">IQR</span> (medidas, <span class="at">na.rm =</span><span class="cn">TRUE</span>),</span>
+<span id="cb660-8"><a href="comparação-entre-duas-médias.html#cb660-8" tabindex="-1"></a>                   <span class="at">ep =</span> dp<span class="sc">/</span><span class="fu">sqrt</span>(n),</span>
+<span id="cb660-9"><a href="comparação-entre-duas-médias.html#cb660-9" tabindex="-1"></a>                   <span class="at">me =</span> ep <span class="sc">*</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>), n <span class="sc">-</span> <span class="dv">1</span>)) </span>
+<span id="cb660-10"><a href="comparação-entre-duas-médias.html#cb660-10" tabindex="-1"></a>resumo</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 8
 ##   momento     n media    dp mediana   IIQ    ep    me
 ##   &lt;chr&gt;   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1291,16 +1295,16 @@ grande
 <li><em>Tabela</em></li>
 </ol>
 <p>É possível exibir os dados, tanto o banco de dados <code>dados</code> como o <code>dadosL</code>, de uma maneira mais elegante, usando a função <code>kable()</code> do pacote <code>knitr</code> e a função <code>kable_styling()</code> do pacote <code>kableExtra</code>. A função <code>kable ()</code> usa a função <code>head()</code> embutida. Ao executar os códigos, se não for especificado, é mostrado apenas 6 linhas. Será mostrado o formato amplo e todas as suas 15 linhas:</p>
-<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb664-1"><a href="comparação-entre-duas-médias.html#cb664-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(dados, <span class="dv">15</span>), </span>
-<span id="cb664-2"><a href="comparação-entre-duas-médias.html#cb664-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb664-3"><a href="comparação-entre-duas-médias.html#cb664-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Id&quot;</span>, <span class="st">&quot;Basal&quot;</span>, <span class="st">&quot;Final&quot;</span>),</span>
-<span id="cb664-4"><a href="comparação-entre-duas-médias.html#cb664-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Função pulmonar de 15 escolares asmáticos antes-e-depois </span><span class="sc">\\</span><span class="st"> do uso de um corticoide inalatório&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb664-5"><a href="comparação-entre-duas-médias.html#cb664-5" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>(<span class="at">position =</span> <span class="st">&quot;center&quot;</span>,</span>
-<span id="cb664-6"><a href="comparação-entre-duas-médias.html#cb664-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">latex_options =</span> <span class="st">&quot;hold_position&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb664-7"><a href="comparação-entre-duas-médias.html#cb664-7" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_classic</span>(<span class="at">full_width =</span> F, <span class="at">html_font =</span> <span class="st">&quot;Cambria&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb664-8"><a href="comparação-entre-duas-médias.html#cb664-8" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">column_spec</span>(<span class="dv">2</span>, <span class="at">width =</span> <span class="st">&quot;3.5cm&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb664-9"><a href="comparação-entre-duas-médias.html#cb664-9" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">column_spec</span>(<span class="dv">3</span>, <span class="at">width =</span> <span class="st">&quot;3.5cm&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb664-10"><a href="comparação-entre-duas-médias.html#cb664-10" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="comparação-entre-duas-médias.html#cb662-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(dados, <span class="dv">15</span>), </span>
+<span id="cb662-2"><a href="comparação-entre-duas-médias.html#cb662-2" tabindex="-1"></a>             <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb662-3"><a href="comparação-entre-duas-médias.html#cb662-3" tabindex="-1"></a>             <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Id&quot;</span>, <span class="st">&quot;Basal&quot;</span>, <span class="st">&quot;Final&quot;</span>),</span>
+<span id="cb662-4"><a href="comparação-entre-duas-médias.html#cb662-4" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Função pulmonar de 15 escolares asmáticos antes-e-depois </span><span class="sc">\\</span><span class="st"> do uso de um corticoide inalatório&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb662-5"><a href="comparação-entre-duas-médias.html#cb662-5" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>(<span class="at">position =</span> <span class="st">&quot;center&quot;</span>,</span>
+<span id="cb662-6"><a href="comparação-entre-duas-médias.html#cb662-6" tabindex="-1"></a>                          <span class="at">latex_options =</span> <span class="st">&quot;hold_position&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb662-7"><a href="comparação-entre-duas-médias.html#cb662-7" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_classic</span>(<span class="at">full_width =</span> F, <span class="at">html_font =</span> <span class="st">&quot;Cambria&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb662-8"><a href="comparação-entre-duas-médias.html#cb662-8" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">column_spec</span>(<span class="dv">2</span>, <span class="at">width =</span> <span class="st">&quot;3.5cm&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb662-9"><a href="comparação-entre-duas-médias.html#cb662-9" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">column_spec</span>(<span class="dv">3</span>, <span class="at">width =</span> <span class="st">&quot;3.5cm&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb662-10"><a href="comparação-entre-duas-médias.html#cb662-10" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <table class="table lightable-classic" style="margin-left: auto; margin-right: auto; font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:unnamed-chunk-255">Table 12.3: </span>Função pulmonar de 15 escolares asmáticos antes-e-depois  do uso de um corticoide inalatório
@@ -1491,17 +1495,17 @@ Final
 </ol>
 <p>Apenas, por uma questão didática, serão apresentadas várias maneiras de mostrar os dados visualmente. Podem ser usados qualquer um dos tipos a seguir, pois todos dão, praticamente, a mesma informação.</p>
 <p><strong>Gráfico de barra de erro</strong></p>
-<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="comparação-entre-duas-médias.html#cb665-1" aria-hidden="true" tabindex="-1"></a>resumo <span class="sc">%&gt;%</span> </span>
-<span id="cb665-2"><a href="comparação-entre-duas-médias.html#cb665-2" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>momento, <span class="at">y=</span>media, <span class="at">fill=</span>momento)) <span class="sc">+</span> </span>
-<span id="cb665-3"><a href="comparação-entre-duas-médias.html#cb665-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">width =</span> <span class="fl">0.4</span>, <span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb665-4"><a href="comparação-entre-duas-médias.html#cb665-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb665-5"><a href="comparação-entre-duas-médias.html#cb665-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>media<span class="sc">-</span>me, <span class="at">ymax=</span>media<span class="sc">+</span>me), <span class="at">width=</span><span class="fl">0.1</span>,</span>
-<span id="cb665-6"><a href="comparação-entre-duas-médias.html#cb665-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">position=</span><span class="fu">position_dodge</span>(.<span class="dv">9</span>)) <span class="sc">+</span></span>
-<span id="cb665-7"><a href="comparação-entre-duas-médias.html#cb665-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Basal x Final - IC95%&quot;</span> , </span>
-<span id="cb665-8"><a href="comparação-entre-duas-médias.html#cb665-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">&quot;Momento&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Volume Forçado em 1 seg (L)&quot;</span>)<span class="sc">+</span></span>
-<span id="cb665-9"><a href="comparação-entre-duas-médias.html#cb665-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb665-10"><a href="comparação-entre-duas-médias.html#cb665-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
-<span id="cb665-11"><a href="comparação-entre-duas-médias.html#cb665-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;cyan4&quot;</span>,<span class="st">&quot;cyan3&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="comparação-entre-duas-médias.html#cb663-1" tabindex="-1"></a>resumo <span class="sc">%&gt;%</span> </span>
+<span id="cb663-2"><a href="comparação-entre-duas-médias.html#cb663-2" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>momento, <span class="at">y=</span>media, <span class="at">fill=</span>momento)) <span class="sc">+</span> </span>
+<span id="cb663-3"><a href="comparação-entre-duas-médias.html#cb663-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">width =</span> <span class="fl">0.4</span>, <span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb663-4"><a href="comparação-entre-duas-médias.html#cb663-4" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb663-5"><a href="comparação-entre-duas-médias.html#cb663-5" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>media<span class="sc">-</span>me, <span class="at">ymax=</span>media<span class="sc">+</span>me), <span class="at">width=</span><span class="fl">0.1</span>,</span>
+<span id="cb663-6"><a href="comparação-entre-duas-médias.html#cb663-6" tabindex="-1"></a>                <span class="at">position=</span><span class="fu">position_dodge</span>(.<span class="dv">9</span>)) <span class="sc">+</span></span>
+<span id="cb663-7"><a href="comparação-entre-duas-médias.html#cb663-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Basal x Final - IC95%&quot;</span> , </span>
+<span id="cb663-8"><a href="comparação-entre-duas-médias.html#cb663-8" tabindex="-1"></a>       <span class="at">x=</span><span class="st">&quot;Momento&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Volume Forçado em 1 seg (L)&quot;</span>)<span class="sc">+</span></span>
+<span id="cb663-9"><a href="comparação-entre-duas-médias.html#cb663-9" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb663-10"><a href="comparação-entre-duas-médias.html#cb663-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb663-11"><a href="comparação-entre-duas-médias.html#cb663-11" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;cyan4&quot;</span>,<span class="st">&quot;cyan3&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:be"></span>
 <img src="bookdownproj_files/figure-html/be-1.png" alt="Gráfico de barra de erro comparando o grupo antes-e-depois" width="70%" height="70%" />
 <p class="caption">
@@ -1510,21 +1514,21 @@ Figure 12.7: Gráfico de barra de erro comparando o grupo antes-e-depois
 </div>
 <p>Neste gráfico (Figura <a href="comparação-entre-duas-médias.html#fig:be">12.7</a>), a altura da barra representa a média do <em>Volume Forçado em 1 seg</em> (VEF1) nos diferentes momentos (basal e final).O erro corresponde a margem de erro (me) a partir do ponto (média), ou seja, é o intervalo de confiança de 95%.</p>
 <p><strong>Boxplot</strong></p>
-<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="comparação-entre-duas-médias.html#cb666-1" aria-hidden="true" tabindex="-1"></a>dadosL <span class="sc">%&gt;%</span> </span>
-<span id="cb666-2"><a href="comparação-entre-duas-médias.html#cb666-2" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> momento, <span class="at">y =</span> medidas, <span class="at">fill =</span> momento)) <span class="sc">+</span></span>
-<span id="cb666-3"><a href="comparação-entre-duas-médias.html#cb666-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">stat =</span> <span class="st">&quot;boxplot&quot;</span>, <span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb666-4"><a href="comparação-entre-duas-médias.html#cb666-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span> (<span class="at">outlier.color =</span> <span class="st">&quot;red&quot;</span>, </span>
-<span id="cb666-5"><a href="comparação-entre-duas-médias.html#cb666-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">outlier.shape =</span> <span class="dv">1</span>,</span>
-<span id="cb666-6"><a href="comparação-entre-duas-médias.html#cb666-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">outlier.size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb666-7"><a href="comparação-entre-duas-médias.html#cb666-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;cyan4&quot;</span>,<span class="st">&quot;cyan3&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb666-8"><a href="comparação-entre-duas-médias.html#cb666-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Volume Forçado em 1 seg (L)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb666-9"><a href="comparação-entre-duas-médias.html#cb666-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Momento&quot;</span>) <span class="sc">+</span></span>
-<span id="cb666-10"><a href="comparação-entre-duas-médias.html#cb666-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> mean, </span>
-<span id="cb666-11"><a href="comparação-entre-duas-médias.html#cb666-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, </span>
-<span id="cb666-12"><a href="comparação-entre-duas-médias.html#cb666-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">shape =</span> <span class="dv">19</span>, <span class="at">size =</span> <span class="dv">2</span>,  <span class="at">color=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb666-13"><a href="comparação-entre-duas-médias.html#cb666-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
-<span id="cb666-14"><a href="comparação-entre-duas-médias.html#cb666-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)) <span class="sc">+</span></span>
-<span id="cb666-15"><a href="comparação-entre-duas-médias.html#cb666-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb664-1"><a href="comparação-entre-duas-médias.html#cb664-1" tabindex="-1"></a>dadosL <span class="sc">%&gt;%</span> </span>
+<span id="cb664-2"><a href="comparação-entre-duas-médias.html#cb664-2" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> momento, <span class="at">y =</span> medidas, <span class="at">fill =</span> momento)) <span class="sc">+</span></span>
+<span id="cb664-3"><a href="comparação-entre-duas-médias.html#cb664-3" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">stat =</span> <span class="st">&quot;boxplot&quot;</span>, <span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb664-4"><a href="comparação-entre-duas-médias.html#cb664-4" tabindex="-1"></a>  <span class="fu">geom_boxplot</span> (<span class="at">outlier.color =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb664-5"><a href="comparação-entre-duas-médias.html#cb664-5" tabindex="-1"></a>                <span class="at">outlier.shape =</span> <span class="dv">1</span>,</span>
+<span id="cb664-6"><a href="comparação-entre-duas-médias.html#cb664-6" tabindex="-1"></a>                <span class="at">outlier.size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb664-7"><a href="comparação-entre-duas-médias.html#cb664-7" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;cyan4&quot;</span>,<span class="st">&quot;cyan3&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb664-8"><a href="comparação-entre-duas-médias.html#cb664-8" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Volume Forçado em 1 seg (L)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb664-9"><a href="comparação-entre-duas-médias.html#cb664-9" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Momento&quot;</span>) <span class="sc">+</span></span>
+<span id="cb664-10"><a href="comparação-entre-duas-médias.html#cb664-10" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> mean, </span>
+<span id="cb664-11"><a href="comparação-entre-duas-médias.html#cb664-11" tabindex="-1"></a>               <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>, </span>
+<span id="cb664-12"><a href="comparação-entre-duas-médias.html#cb664-12" tabindex="-1"></a>               <span class="at">shape =</span> <span class="dv">19</span>, <span class="at">size =</span> <span class="dv">2</span>,  <span class="at">color=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb664-13"><a href="comparação-entre-duas-médias.html#cb664-13" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
+<span id="cb664-14"><a href="comparação-entre-duas-médias.html#cb664-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)) <span class="sc">+</span></span>
+<span id="cb664-15"><a href="comparação-entre-duas-médias.html#cb664-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:bp"></span>
 <img src="bookdownproj_files/figure-html/bp-1.png" alt="Boxplots comparando o grupo antes-e-depois" width="70%" height="70%" />
 <p class="caption">
@@ -1533,18 +1537,18 @@ Figure 12.8: Boxplots comparando o grupo antes-e-depois
 </div>
 <p>A altura da caixa dos boxplots (Figura <a href="comparação-entre-duas-médias.html#fig:bp">12.8</a>) é o intervalo interquartil (IIQ) e corresponde a 50% dos dados. A linha que corta horizontalmente a caixa é a mediana. Os bigodes da caixa (whiskers) em suas extrimidades são os limites inferior e superior dos dados, excluindo os valores atípicos (outliers), representado no boxplot final por um ponto vermelho, acima do limite superior. Os pontos em vermelho (dentro das caixas) representam as médias.</p>
 <p><strong>Gráfico de linha</strong></p>
-<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb667-1"><a href="comparação-entre-duas-médias.html#cb667-1" aria-hidden="true" tabindex="-1"></a>resumo <span class="sc">%&gt;%</span></span>
-<span id="cb667-2"><a href="comparação-entre-duas-médias.html#cb667-2" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>momento, <span class="at">y=</span>media, <span class="at">group=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb667-3"><a href="comparação-entre-duas-médias.html#cb667-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linetype =</span><span class="st">&#39;dashed&#39;</span>) <span class="sc">+</span></span>
-<span id="cb667-4"><a href="comparação-entre-duas-médias.html#cb667-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>media <span class="sc">-</span> me,</span>
-<span id="cb667-5"><a href="comparação-entre-duas-médias.html#cb667-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ymax=</span>media <span class="sc">+</span> me),</span>
-<span id="cb667-6"><a href="comparação-entre-duas-médias.html#cb667-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">width=</span><span class="fl">0.1</span>,</span>
-<span id="cb667-7"><a href="comparação-entre-duas-médias.html#cb667-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">linewidth =</span> <span class="dv">1</span>,</span>
-<span id="cb667-8"><a href="comparação-entre-duas-médias.html#cb667-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;cyan4&quot;</span>,<span class="st">&quot;cyan3&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb667-9"><a href="comparação-entre-duas-médias.html#cb667-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="fu">c</span>(<span class="st">&quot;cyan4&quot;</span>, <span class="st">&quot;cyan3&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb667-10"><a href="comparação-entre-duas-médias.html#cb667-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
-<span id="cb667-11"><a href="comparação-entre-duas-médias.html#cb667-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&#39;Momento&#39;</span>,</span>
-<span id="cb667-12"><a href="comparação-entre-duas-médias.html#cb667-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">&#39;Volume Forçado em 1 seg (L)&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="comparação-entre-duas-médias.html#cb665-1" tabindex="-1"></a>resumo <span class="sc">%&gt;%</span></span>
+<span id="cb665-2"><a href="comparação-entre-duas-médias.html#cb665-2" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>momento, <span class="at">y=</span>media, <span class="at">group=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb665-3"><a href="comparação-entre-duas-médias.html#cb665-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linetype =</span><span class="st">&#39;dashed&#39;</span>) <span class="sc">+</span></span>
+<span id="cb665-4"><a href="comparação-entre-duas-médias.html#cb665-4" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>media <span class="sc">-</span> me,</span>
+<span id="cb665-5"><a href="comparação-entre-duas-médias.html#cb665-5" tabindex="-1"></a>                    <span class="at">ymax=</span>media <span class="sc">+</span> me),</span>
+<span id="cb665-6"><a href="comparação-entre-duas-médias.html#cb665-6" tabindex="-1"></a>                <span class="at">width=</span><span class="fl">0.1</span>,</span>
+<span id="cb665-7"><a href="comparação-entre-duas-médias.html#cb665-7" tabindex="-1"></a>                <span class="at">linewidth =</span> <span class="dv">1</span>,</span>
+<span id="cb665-8"><a href="comparação-entre-duas-médias.html#cb665-8" tabindex="-1"></a>                <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;cyan4&quot;</span>,<span class="st">&quot;cyan3&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb665-9"><a href="comparação-entre-duas-médias.html#cb665-9" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="fu">c</span>(<span class="st">&quot;cyan4&quot;</span>, <span class="st">&quot;cyan3&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb665-10"><a href="comparação-entre-duas-médias.html#cb665-10" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb665-11"><a href="comparação-entre-duas-médias.html#cb665-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&#39;Momento&#39;</span>,</span>
+<span id="cb665-12"><a href="comparação-entre-duas-médias.html#cb665-12" tabindex="-1"></a>       <span class="at">y=</span><span class="st">&#39;Volume Forçado em 1 seg (L)&#39;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:lin"></span>
 <img src="bookdownproj_files/figure-html/lin-1.png" alt="Gráfico de linha comparando o grupo antes-e-depois" width="70%" height="70%" />
 <p class="caption">
@@ -1556,8 +1560,8 @@ Figure 12.9: Gráfico de linha comparando o grupo antes-e-depois
 <div id="criação-de-uma-variável-que-represente-a-diferença-entre-as-médias" class="section level4 hasAnchor" number="12.3.1.4">
 <h4><span class="header-section-number">12.3.1.4</span> Criação de uma variável que represente a diferença entre as médias<a href="comparação-entre-duas-médias.html#criação-de-uma-variável-que-represente-a-diferença-entre-as-médias" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A diferença entre as média basal e final será atribuída ao nome <code>D</code>. Esta ação será realizada, utilizando o banco de dados amplo (<code>dados</code>):</p>
-<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb668-1"><a href="comparação-entre-duas-médias.html#cb668-1" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>D <span class="ot">&lt;-</span> dados<span class="sc">$</span>basal <span class="sc">-</span> dados<span class="sc">$</span>final</span>
-<span id="cb668-2"><a href="comparação-entre-duas-médias.html#cb668-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> (dados)</span></code></pre></div>
+<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="comparação-entre-duas-médias.html#cb666-1" tabindex="-1"></a>dados<span class="sc">$</span>D <span class="ot">&lt;-</span> dados<span class="sc">$</span>basal <span class="sc">-</span> dados<span class="sc">$</span>final</span>
+<span id="cb666-2"><a href="comparação-entre-duas-médias.html#cb666-2" tabindex="-1"></a><span class="fu">head</span> (dados)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 4
 ##      id basal final     D
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1570,14 +1574,14 @@ Figure 12.9: Gráfico de linha comparando o grupo antes-e-depois
 <p>Atenção, agora, o banco de dados apresenta uma nova variável <code>dif</code>, pois o foco do teste <em>t</em> pareado é essa diferença entre as médias, basal e final, a média das diferenças.</p>
 <p><strong>Resumo da variável <code>D</code></strong></p>
 <p>Ao resumo será atribuído ao nome <code>sumario</code> (sem acento):</p>
-<div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb670-1"><a href="comparação-entre-duas-médias.html#cb670-1" aria-hidden="true" tabindex="-1"></a>sumario <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
-<span id="cb670-2"><a href="comparação-entre-duas-médias.html#cb670-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span> (D),</span>
-<span id="cb670-3"><a href="comparação-entre-duas-médias.html#cb670-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">dp =</span> <span class="fu">sd</span> (D),</span>
-<span id="cb670-4"><a href="comparação-entre-duas-médias.html#cb670-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">mediana =</span> <span class="fu">median</span> (D),</span>
-<span id="cb670-5"><a href="comparação-entre-duas-médias.html#cb670-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">IIQ =</span> <span class="fu">IQR</span> (D),</span>
-<span id="cb670-6"><a href="comparação-entre-duas-médias.html#cb670-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">min =</span> <span class="fu">min</span> (D),</span>
-<span id="cb670-7"><a href="comparação-entre-duas-médias.html#cb670-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">max =</span> <span class="fu">max</span> (D))</span>
-<span id="cb670-8"><a href="comparação-entre-duas-médias.html#cb670-8" aria-hidden="true" tabindex="-1"></a>sumario</span></code></pre></div>
+<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb668-1"><a href="comparação-entre-duas-médias.html#cb668-1" tabindex="-1"></a>sumario <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
+<span id="cb668-2"><a href="comparação-entre-duas-médias.html#cb668-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span> (D),</span>
+<span id="cb668-3"><a href="comparação-entre-duas-médias.html#cb668-3" tabindex="-1"></a>                   <span class="at">dp =</span> <span class="fu">sd</span> (D),</span>
+<span id="cb668-4"><a href="comparação-entre-duas-médias.html#cb668-4" tabindex="-1"></a>                   <span class="at">mediana =</span> <span class="fu">median</span> (D),</span>
+<span id="cb668-5"><a href="comparação-entre-duas-médias.html#cb668-5" tabindex="-1"></a>                   <span class="at">IIQ =</span> <span class="fu">IQR</span> (D),</span>
+<span id="cb668-6"><a href="comparação-entre-duas-médias.html#cb668-6" tabindex="-1"></a>                   <span class="at">min =</span> <span class="fu">min</span> (D),</span>
+<span id="cb668-7"><a href="comparação-entre-duas-médias.html#cb668-7" tabindex="-1"></a>                   <span class="at">max =</span> <span class="fu">max</span> (D))</span>
+<span id="cb668-8"><a href="comparação-entre-duas-médias.html#cb668-8" tabindex="-1"></a>sumario</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 6
 ##    media    dp mediana   IIQ   min     max
 ##    &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
@@ -1607,8 +1611,8 @@ Onde <em>n</em> é o número de pares. No exemplo, <em>n</em> = 15, consequentem
 gl = 15 - 1 = 14
 \]</span></p>
 <p>Para um <span class="math inline">\(\alpha = 0,05\)</span>, o valor crítico de <em>t</em> para <span class="math inline">\(gl = 14\)</span> para uma hipótese alternativa bicaudal:</p>
-<div class="sourceCode" id="cb672"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb672-1"><a href="comparação-entre-duas-médias.html#cb672-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb672-2"><a href="comparação-entre-duas-médias.html#cb672-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> alpha<span class="sc">/</span><span class="dv">2</span>, <span class="dv">14</span>), <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb670-1"><a href="comparação-entre-duas-médias.html#cb670-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb670-2"><a href="comparação-entre-duas-médias.html#cb670-2" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> alpha<span class="sc">/</span><span class="dv">2</span>, <span class="dv">14</span>), <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 2.145</code></pre>
 <p>Portanto, se</p>
 <p><span class="math display">\[
@@ -1654,16 +1658,16 @@ s_{D} = \sqrt{\frac {\Sigma (D_{i} - \bar{D})^2}{n - 1}}
 </ol>
 <p>Ao usar um teste <em>t</em> pareado, a variação entre os pares de medidas é a estatística mais importante e a variação entre os participantes, como no teste t de duas amostras independentes, é de pouco interesse, não havendo necessidade de se verificar se as variâncias dos grupos são iguais.</p>
 <p>Para testar o pressuposto de <em>normalidade</em> das diferenças, usa-se a variável criada da diferença entre os pares, <em>D</em>. Verifica-se a normalidade dessa variável com o teste Shapiro-Wilk, usando a função <code>shapiro.test()</code> do pacote <code>stats</code>, incluída no R base.</p>
-<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="comparação-entre-duas-médias.html#cb674-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span> (dados<span class="sc">$</span>D)</span></code></pre></div>
+<div class="sourceCode" id="cb672"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb672-1"><a href="comparação-entre-duas-médias.html#cb672-1" tabindex="-1"></a><span class="fu">shapiro.test</span> (dados<span class="sc">$</span>D)</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  dados$D
 ## W = 0.94216, p-value = 0.4103</code></pre>
 <p>Além disso, um gráfico Q-Q (Figura <a href="comparação-entre-duas-médias.html#fig:qq">12.10</a>) pode ser usado para avaliar a normalidade, com a função <code>ggqqplot()</code> do pacote <code>ggpubr</code> que produz um gráfico QQ normal com uma linha de referência, acompanhada de area sombreada, correspondente ao IC95%</p>
-<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="comparação-entre-duas-médias.html#cb676-1" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggqqplot</span> (dados<span class="sc">$</span>D) <span class="sc">+</span></span>
-<span id="cb676-2"><a href="comparação-entre-duas-médias.html#cb676-2" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Diferença Basal-Inicial&quot;</span>, </span>
-<span id="cb676-3"><a href="comparação-entre-duas-médias.html#cb676-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">x =</span> <span class="st">&quot;Quantis teóricos&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="comparação-entre-duas-médias.html#cb674-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggqqplot</span> (dados<span class="sc">$</span>D) <span class="sc">+</span></span>
+<span id="cb674-2"><a href="comparação-entre-duas-médias.html#cb674-2" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Diferença Basal-Inicial&quot;</span>, </span>
+<span id="cb674-3"><a href="comparação-entre-duas-médias.html#cb674-3" tabindex="-1"></a>           <span class="at">x =</span> <span class="st">&quot;Quantis teóricos&quot;</span>) </span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:qq"></span>
 <img src="bookdownproj_files/figure-html/qq-1.png" alt="Gráfico Q-Q para avaliar a normalidade" width="60%" height="60%" />
 <p class="caption">
@@ -1675,13 +1679,13 @@ Figure 12.10: Gráfico Q-Q para avaliar a normalidade
 <div id="execução-do-teste-estatístico" class="section level4 hasAnchor" number="12.3.4.3">
 <h4><span class="header-section-number">12.3.4.3</span> Execução do teste estatístico<a href="comparação-entre-duas-médias.html#execução-do-teste-estatístico" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>O cálculo do teste <em>t</em> pareado usa a mesma função do teste <em>t</em> para amostras independentes, <code>t.test()</code>, mudando o argumento <code>paired =TRUE</code>(padrão) por <code>paired =FALSE</code>. Assim:</p>
-<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="comparação-entre-duas-médias.html#cb677-1" aria-hidden="true" tabindex="-1"></a>teste_par <span class="ot">&lt;-</span> <span class="fu">t.test</span>(dados<span class="sc">$</span>basal, </span>
-<span id="cb677-2"><a href="comparação-entre-duas-médias.html#cb677-2" aria-hidden="true" tabindex="-1"></a>                    dados<span class="sc">$</span>final, </span>
-<span id="cb677-3"><a href="comparação-entre-duas-médias.html#cb677-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>,</span>
-<span id="cb677-4"><a href="comparação-entre-duas-médias.html#cb677-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb677-5"><a href="comparação-entre-duas-médias.html#cb677-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">conf.level =</span> <span class="fl">0.95</span>,</span>
-<span id="cb677-6"><a href="comparação-entre-duas-médias.html#cb677-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">var.equal=</span><span class="cn">TRUE</span>)</span>
-<span id="cb677-7"><a href="comparação-entre-duas-médias.html#cb677-7" aria-hidden="true" tabindex="-1"></a>teste_par</span></code></pre></div>
+<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb675-1"><a href="comparação-entre-duas-médias.html#cb675-1" tabindex="-1"></a>teste_par <span class="ot">&lt;-</span> <span class="fu">t.test</span>(dados<span class="sc">$</span>basal, </span>
+<span id="cb675-2"><a href="comparação-entre-duas-médias.html#cb675-2" tabindex="-1"></a>                    dados<span class="sc">$</span>final, </span>
+<span id="cb675-3"><a href="comparação-entre-duas-médias.html#cb675-3" tabindex="-1"></a>                    <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>,</span>
+<span id="cb675-4"><a href="comparação-entre-duas-médias.html#cb675-4" tabindex="-1"></a>                    <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb675-5"><a href="comparação-entre-duas-médias.html#cb675-5" tabindex="-1"></a>                    <span class="at">conf.level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb675-6"><a href="comparação-entre-duas-médias.html#cb675-6" tabindex="-1"></a>                    <span class="at">var.equal=</span><span class="cn">TRUE</span>)</span>
+<span id="cb675-7"><a href="comparação-entre-duas-médias.html#cb675-7" tabindex="-1"></a>teste_par</span></code></pre></div>
 <pre><code>## 
 ##  Paired t-test
 ## 
@@ -1701,10 +1705,10 @@ Figure 12.10: Gráfico Q-Q para avaliar a normalidade
 <li><em>sample estimates</em> é estimativa da diferença média</li>
 </ul>
 <p>Também pode ser calculado usando a fórmula <code>y ~ x</code> com os dados no formato longo (<code>dadosL</code>):</p>
-<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="comparação-entre-duas-médias.html#cb679-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">formula =</span> medidas <span class="sc">~</span> momento, </span>
-<span id="cb679-2"><a href="comparação-entre-duas-médias.html#cb679-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">data =</span> dadosL, </span>
-<span id="cb679-3"><a href="comparação-entre-duas-médias.html#cb679-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">alternative =</span> <span class="st">&#39;two.sided&#39;</span>, </span>
-<span id="cb679-4"><a href="comparação-entre-duas-médias.html#cb679-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="comparação-entre-duas-médias.html#cb677-1" tabindex="-1"></a><span class="fu">t.test</span>(<span class="at">formula =</span> medidas <span class="sc">~</span> momento, </span>
+<span id="cb677-2"><a href="comparação-entre-duas-médias.html#cb677-2" tabindex="-1"></a>       <span class="at">data =</span> dadosL, </span>
+<span id="cb677-3"><a href="comparação-entre-duas-médias.html#cb677-3" tabindex="-1"></a>       <span class="at">alternative =</span> <span class="st">&#39;two.sided&#39;</span>, </span>
+<span id="cb677-4"><a href="comparação-entre-duas-médias.html#cb677-4" tabindex="-1"></a>       <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Paired t-test
 ## 
@@ -1726,39 +1730,39 @@ Figure 12.10: Gráfico Q-Q para avaliar a normalidade
 <div id="tamanho-do-efeito-1" class="section level3 hasAnchor" number="12.3.6">
 <h3><span class="header-section-number">12.3.6</span> Tamanho do Efeito<a href="comparação-entre-duas-médias.html#tamanho-do-efeito-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>O tamanho do efeito pode ser determinado, também, com o teste <em>d</em> de Cohen, usando a função <code>cohensD()</code> do pacote <code>lsr</code>:</p>
-<div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb681-1"><a href="comparação-entre-duas-médias.html#cb681-1" aria-hidden="true" tabindex="-1"></a>d_par <span class="ot">&lt;-</span> lsr<span class="sc">::</span><span class="fu">cohensD</span> (dados<span class="sc">$</span>basal, dados<span class="sc">$</span>final)</span>
-<span id="cb681-2"><a href="comparação-entre-duas-médias.html#cb681-2" aria-hidden="true" tabindex="-1"></a>d_par</span></code></pre></div>
+<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="comparação-entre-duas-médias.html#cb679-1" tabindex="-1"></a>d_par <span class="ot">&lt;-</span> lsr<span class="sc">::</span><span class="fu">cohensD</span> (dados<span class="sc">$</span>basal, dados<span class="sc">$</span>final)</span>
+<span id="cb679-2"><a href="comparação-entre-duas-médias.html#cb679-2" tabindex="-1"></a>d_par</span></code></pre></div>
 <pre><code>## [1] 0.8379499</code></pre>
 <p>Dessa forma, o uso do novo corticoide inalatório modificou significativamente o VEF1 dos escolares asmáticos com o uso de um novo corticoide inalatório (<em>P</em> &lt; 0,00001), mostrando um aumento deste e que a magnitude dessa diferença é grande (<em>d</em> = 0.84).</p>
 <p>Os resultados poderiam ser apresentados usando um gráfico de linha (Figura <a href="comparação-entre-duas-médias.html#fig:fim">12.11</a>), aproveitando a função <code>t_test()</code> do pacote <code>rstatix</code> e colocar em um objeto denominado <code>t_par</code>.</p>
-<div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb683-1"><a href="comparação-entre-duas-médias.html#cb683-1" aria-hidden="true" tabindex="-1"></a>t_par <span class="ot">&lt;-</span> <span class="fu">t_test</span>(dadosL, </span>
-<span id="cb683-2"><a href="comparação-entre-duas-médias.html#cb683-2" aria-hidden="true" tabindex="-1"></a>                medidas<span class="sc">~</span>momento,</span>
-<span id="cb683-3"><a href="comparação-entre-duas-médias.html#cb683-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">p.adjust.method =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb683-4"><a href="comparação-entre-duas-médias.html#cb683-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb683-5"><a href="comparação-entre-duas-médias.html#cb683-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>,</span>
-<span id="cb683-6"><a href="comparação-entre-duas-médias.html#cb683-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">mu =</span> <span class="dv">0</span>,</span>
-<span id="cb683-7"><a href="comparação-entre-duas-médias.html#cb683-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">conf.level =</span> <span class="fl">0.95</span>,</span>
-<span id="cb683-8"><a href="comparação-entre-duas-médias.html#cb683-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">detailed =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb684-1"><a href="comparação-entre-duas-médias.html#cb684-1" aria-hidden="true" tabindex="-1"></a>resumo <span class="sc">%&gt;%</span> </span>
-<span id="cb684-2"><a href="comparação-entre-duas-médias.html#cb684-2" aria-hidden="true" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>momento, <span class="at">y=</span>media, <span class="at">group=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb684-3"><a href="comparação-entre-duas-médias.html#cb684-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linetype =</span><span class="st">&#39;dashed&#39;</span>) <span class="sc">+</span></span>
-<span id="cb684-4"><a href="comparação-entre-duas-médias.html#cb684-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>media <span class="sc">-</span> me, </span>
-<span id="cb684-5"><a href="comparação-entre-duas-médias.html#cb684-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ymax=</span>media <span class="sc">+</span> me), </span>
-<span id="cb684-6"><a href="comparação-entre-duas-médias.html#cb684-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">width=</span><span class="fl">0.1</span>,</span>
-<span id="cb684-7"><a href="comparação-entre-duas-médias.html#cb684-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">size =</span> <span class="dv">1</span>,</span>
-<span id="cb684-8"><a href="comparação-entre-duas-médias.html#cb684-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;cyan4&quot;</span>,<span class="st">&quot;cyan3&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb684-9"><a href="comparação-entre-duas-médias.html#cb684-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb684-10"><a href="comparação-entre-duas-médias.html#cb684-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
-<span id="cb684-11"><a href="comparação-entre-duas-médias.html#cb684-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Avaliação do Uso de Corticosteroide Inalatório&quot;</span>,</span>
-<span id="cb684-12"><a href="comparação-entre-duas-médias.html#cb684-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> rstatix<span class="sc">::</span><span class="fu">get_test_label</span>(<span class="at">stat.test =</span> t_par,</span>
-<span id="cb684-13"><a href="comparação-entre-duas-médias.html#cb684-13" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">correction =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb684-14"><a href="comparação-entre-duas-médias.html#cb684-14" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">detailed =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb684-15"><a href="comparação-entre-duas-médias.html#cb684-15" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">type =</span> <span class="st">&quot;expression&quot;</span>),</span>
-<span id="cb684-16"><a href="comparação-entre-duas-médias.html#cb684-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">&quot;Momento&quot;</span>, </span>
-<span id="cb684-17"><a href="comparação-entre-duas-médias.html#cb684-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Volume Forçado em 1 seg (L)&quot;</span>,</span>
-<span id="cb684-18"><a href="comparação-entre-duas-médias.html#cb684-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;d Cohen = 0,84&quot;</span>)<span class="sc">+</span></span>
-<span id="cb684-19"><a href="comparação-entre-duas-médias.html#cb684-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
-<span id="cb684-20"><a href="comparação-entre-duas-médias.html#cb684-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb681-1"><a href="comparação-entre-duas-médias.html#cb681-1" tabindex="-1"></a>t_par <span class="ot">&lt;-</span> <span class="fu">t_test</span>(dadosL, </span>
+<span id="cb681-2"><a href="comparação-entre-duas-médias.html#cb681-2" tabindex="-1"></a>                medidas<span class="sc">~</span>momento,</span>
+<span id="cb681-3"><a href="comparação-entre-duas-médias.html#cb681-3" tabindex="-1"></a>                <span class="at">p.adjust.method =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb681-4"><a href="comparação-entre-duas-médias.html#cb681-4" tabindex="-1"></a>                <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb681-5"><a href="comparação-entre-duas-médias.html#cb681-5" tabindex="-1"></a>                <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>,</span>
+<span id="cb681-6"><a href="comparação-entre-duas-médias.html#cb681-6" tabindex="-1"></a>                <span class="at">mu =</span> <span class="dv">0</span>,</span>
+<span id="cb681-7"><a href="comparação-entre-duas-médias.html#cb681-7" tabindex="-1"></a>                <span class="at">conf.level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb681-8"><a href="comparação-entre-duas-médias.html#cb681-8" tabindex="-1"></a>                <span class="at">detailed =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb682-1"><a href="comparação-entre-duas-médias.html#cb682-1" tabindex="-1"></a>resumo <span class="sc">%&gt;%</span> </span>
+<span id="cb682-2"><a href="comparação-entre-duas-médias.html#cb682-2" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>momento, <span class="at">y=</span>media, <span class="at">group=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb682-3"><a href="comparação-entre-duas-médias.html#cb682-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linetype =</span><span class="st">&#39;dashed&#39;</span>) <span class="sc">+</span></span>
+<span id="cb682-4"><a href="comparação-entre-duas-médias.html#cb682-4" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>media <span class="sc">-</span> me, </span>
+<span id="cb682-5"><a href="comparação-entre-duas-médias.html#cb682-5" tabindex="-1"></a>                    <span class="at">ymax=</span>media <span class="sc">+</span> me), </span>
+<span id="cb682-6"><a href="comparação-entre-duas-médias.html#cb682-6" tabindex="-1"></a>                <span class="at">width=</span><span class="fl">0.1</span>,</span>
+<span id="cb682-7"><a href="comparação-entre-duas-médias.html#cb682-7" tabindex="-1"></a>                <span class="at">size =</span> <span class="dv">1</span>,</span>
+<span id="cb682-8"><a href="comparação-entre-duas-médias.html#cb682-8" tabindex="-1"></a>                <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;cyan4&quot;</span>,<span class="st">&quot;cyan3&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb682-9"><a href="comparação-entre-duas-médias.html#cb682-9" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb682-10"><a href="comparação-entre-duas-médias.html#cb682-10" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb682-11"><a href="comparação-entre-duas-médias.html#cb682-11" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Avaliação do Uso de Corticosteroide Inalatório&quot;</span>,</span>
+<span id="cb682-12"><a href="comparação-entre-duas-médias.html#cb682-12" tabindex="-1"></a>       <span class="at">subtitle =</span> rstatix<span class="sc">::</span><span class="fu">get_test_label</span>(<span class="at">stat.test =</span> t_par,</span>
+<span id="cb682-13"><a href="comparação-entre-duas-médias.html#cb682-13" tabindex="-1"></a>                                 <span class="at">correction =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb682-14"><a href="comparação-entre-duas-médias.html#cb682-14" tabindex="-1"></a>                                 <span class="at">detailed =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb682-15"><a href="comparação-entre-duas-médias.html#cb682-15" tabindex="-1"></a>                                 <span class="at">type =</span> <span class="st">&quot;expression&quot;</span>),</span>
+<span id="cb682-16"><a href="comparação-entre-duas-médias.html#cb682-16" tabindex="-1"></a>       <span class="at">x=</span><span class="st">&quot;Momento&quot;</span>, </span>
+<span id="cb682-17"><a href="comparação-entre-duas-médias.html#cb682-17" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Volume Forçado em 1 seg (L)&quot;</span>,</span>
+<span id="cb682-18"><a href="comparação-entre-duas-médias.html#cb682-18" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;d Cohen = 0,84&quot;</span>)<span class="sc">+</span></span>
+<span id="cb682-19"><a href="comparação-entre-duas-médias.html#cb682-19" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
+<span id="cb682-20"><a href="comparação-entre-duas-médias.html#cb682-20" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>) </span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fim"></span>
 <img src="bookdownproj_files/figure-html/fim-1.png" alt="Gráfico de linha comparando o grupo antes-e-depois" width="70%" height="70%" />
 <p class="caption">

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 15 Correlação e Regressão | bookdownproj.knit</title>
   <meta name="description" content="" />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo 15 Correlação e Regressão | bookdownproj.knit" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-05-17" />
+<meta name="date" content="2023-06-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -121,6 +121,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -634,15 +638,15 @@ div.csl-indent {
 <h1><span class="header-section-number">Capítulo 15</span> Correlação e Regressão<a href="correlação-e-regressão.html#correlação-e-regressão" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="pacotes-necessários-1" class="section level2 hasAnchor" number="15.1">
 <h2><span class="header-section-number">15.1</span> Pacotes necessários<a href="correlação-e-regressão.html#pacotes-necessários-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb838"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb838-1"><a href="correlação-e-regressão.html#cb838-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(car,</span>
-<span id="cb838-2"><a href="correlação-e-regressão.html#cb838-2" aria-hidden="true" tabindex="-1"></a>               dplyr, </span>
-<span id="cb838-3"><a href="correlação-e-regressão.html#cb838-3" aria-hidden="true" tabindex="-1"></a>               ggplot2,</span>
-<span id="cb838-4"><a href="correlação-e-regressão.html#cb838-4" aria-hidden="true" tabindex="-1"></a>               ggpubr,</span>
-<span id="cb838-5"><a href="correlação-e-regressão.html#cb838-5" aria-hidden="true" tabindex="-1"></a>               ggsci,</span>
-<span id="cb838-6"><a href="correlação-e-regressão.html#cb838-6" aria-hidden="true" tabindex="-1"></a>               kableExtra,</span>
-<span id="cb838-7"><a href="correlação-e-regressão.html#cb838-7" aria-hidden="true" tabindex="-1"></a>               lmtest,</span>
-<span id="cb838-8"><a href="correlação-e-regressão.html#cb838-8" aria-hidden="true" tabindex="-1"></a>               readxl,</span>
-<span id="cb838-9"><a href="correlação-e-regressão.html#cb838-9" aria-hidden="true" tabindex="-1"></a>               rstatix)</span></code></pre></div>
+<div class="sourceCode" id="cb836"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb836-1"><a href="correlação-e-regressão.html#cb836-1" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(car,</span>
+<span id="cb836-2"><a href="correlação-e-regressão.html#cb836-2" tabindex="-1"></a>               dplyr, </span>
+<span id="cb836-3"><a href="correlação-e-regressão.html#cb836-3" tabindex="-1"></a>               ggplot2,</span>
+<span id="cb836-4"><a href="correlação-e-regressão.html#cb836-4" tabindex="-1"></a>               ggpubr,</span>
+<span id="cb836-5"><a href="correlação-e-regressão.html#cb836-5" tabindex="-1"></a>               ggsci,</span>
+<span id="cb836-6"><a href="correlação-e-regressão.html#cb836-6" tabindex="-1"></a>               kableExtra,</span>
+<span id="cb836-7"><a href="correlação-e-regressão.html#cb836-7" tabindex="-1"></a>               lmtest,</span>
+<span id="cb836-8"><a href="correlação-e-regressão.html#cb836-8" tabindex="-1"></a>               readxl,</span>
+<span id="cb836-9"><a href="correlação-e-regressão.html#cb836-9" tabindex="-1"></a>               rstatix)</span></code></pre></div>
 </div>
 <div id="correlação" class="section level2 hasAnchor" number="15.2">
 <h2><span class="header-section-number">15.2</span> Correlação<a href="correlação-e-regressão.html#correlação" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -699,9 +703,9 @@ Os dados estão no banco de dados<code>dadosReg.xlsx</code>. Para baixar o banco
 <div id="leitura-e-visualização-dos-dados" class="section level4 hasAnchor" number="15.2.2.1">
 <h4><span class="header-section-number">15.2.2.1</span> Leitura e visualização dos dados<a href="correlação-e-regressão.html#leitura-e-visualização-dos-dados" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>O conjunto de dados será atribuído ao objeto <code>dados</code>.</p>
-<div class="sourceCode" id="cb839"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb839-1"><a href="correlação-e-regressão.html#cb839-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosReg.xlsx&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb837"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb837-1"><a href="correlação-e-regressão.html#cb837-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosReg.xlsx&quot;</span>)</span></code></pre></div>
 <p>Observe os dados com a função <code>glimpse()</code>, do pacote <code>dplyr</code>:</p>
-<div class="sourceCode" id="cb840"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb840-1"><a href="correlação-e-regressão.html#cb840-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(dados)</span></code></pre></div>
+<div class="sourceCode" id="cb838"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb838-1"><a href="correlação-e-regressão.html#cb838-1" tabindex="-1"></a><span class="fu">glimpse</span>(dados)</span></code></pre></div>
 <pre><code>## Rows: 40
 ## Columns: 5
 ## $ id     &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, …
@@ -710,16 +714,16 @@ Os dados estão no banco de dados<code>dadosReg.xlsx</code>. Para baixar o banco
 ## $ irmaos &lt;dbl&gt; 0, 0, 2, 0, 0, 1, 1, 1, 0, 1, 2, 0, 1, 0, 0, 0, 0, 1, 0, 1, 1, …
 ## $ sexo   &lt;chr&gt; &quot;masc&quot;, &quot;fem&quot;, &quot;masc&quot;, &quot;fem&quot;, &quot;masc&quot;, &quot;fem&quot;, &quot;masc&quot;, &quot;fem&quot;, &quot;ma…</code></pre>
 <p>De acordo com uma das exigências da correlação, as variáveis <code>idade</code> e comp pertencem a classe das variáveis numéricas. A variável <code>sexo</code> foi lida como um variável numérica e será transformada em fator:</p>
-<div class="sourceCode" id="cb842"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb842-1"><a href="correlação-e-regressão.html#cb842-1" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>sexo <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dados<span class="sc">$</span>sexo)</span></code></pre></div>
+<div class="sourceCode" id="cb840"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb840-1"><a href="correlação-e-regressão.html#cb840-1" tabindex="-1"></a>dados<span class="sc">$</span>sexo <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dados<span class="sc">$</span>sexo)</span></code></pre></div>
 <p>Uma das exigências da correlação é de que as variáveis sejam numéricas e,portanto, não será necessário nenhum tipo de transformação.</p>
 </div>
 <div id="medidas-resumidoras-2" class="section level4 hasAnchor" number="15.2.2.2">
 <h4><span class="header-section-number">15.2.2.2</span> Medidas resumidoras<a href="correlação-e-regressão.html#medidas-resumidoras-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Ass medidas resumidoras serão calculadas, usando a função <code>get_summary_stats ()</code> do pacote <code>rstatix</code> que necessita dos seguintes argumentos:</p>
-<div class="sourceCode" id="cb843"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb843-1"><a href="correlação-e-regressão.html#cb843-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
-<span id="cb843-2"><a href="correlação-e-regressão.html#cb843-2" aria-hidden="true" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">get_summary_stats</span>(idade,</span>
-<span id="cb843-3"><a href="correlação-e-regressão.html#cb843-3" aria-hidden="true" tabindex="-1"></a>                             comp,</span>
-<span id="cb843-4"><a href="correlação-e-regressão.html#cb843-4" aria-hidden="true" tabindex="-1"></a>                             <span class="at">type =</span> <span class="st">&quot;mean_sd&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb841"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb841-1"><a href="correlação-e-regressão.html#cb841-1" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb841-2"><a href="correlação-e-regressão.html#cb841-2" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">get_summary_stats</span>(idade,</span>
+<span id="cb841-3"><a href="correlação-e-regressão.html#cb841-3" tabindex="-1"></a>                             comp,</span>
+<span id="cb841-4"><a href="correlação-e-regressão.html#cb841-4" tabindex="-1"></a>                             <span class="at">type =</span> <span class="st">&quot;mean_sd&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 4
 ##   variable     n  mean    sd
 ##   &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -729,18 +733,18 @@ Os dados estão no banco de dados<code>dadosReg.xlsx</code>. Para baixar o banco
 <div id="visualização-dos-dados-3" class="section level4 hasAnchor" number="15.2.2.3">
 <h4><span class="header-section-number">15.2.2.3</span> Visualização dos dados<a href="correlação-e-regressão.html#visualização-dos-dados-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Aqui, será usado o gráfico de dispersão (Figura <a href="correlação-e-regressão.html#fig:idadealtura">15.4</a>), usando a função <code>geom_point</code> do pacote <code>ggplot2</code>:</p>
-<div class="sourceCode" id="cb845"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb845-1"><a href="correlação-e-regressão.html#cb845-1" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(dados, </span>
-<span id="cb845-2"><a href="correlação-e-regressão.html#cb845-2" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x=</span>idade, </span>
-<span id="cb845-3"><a href="correlação-e-regressão.html#cb845-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">y=</span>comp, </span>
-<span id="cb845-4"><a href="correlação-e-regressão.html#cb845-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">color =</span> sexo)) <span class="sc">+</span> </span>
-<span id="cb845-5"><a href="correlação-e-regressão.html#cb845-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, </span>
-<span id="cb845-6"><a href="correlação-e-regressão.html#cb845-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">19</span>) <span class="sc">+</span></span>
-<span id="cb845-7"><a href="correlação-e-regressão.html#cb845-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Idade (meses)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb845-8"><a href="correlação-e-regressão.html#cb845-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span> (<span class="st">&quot;Comprimento(cm)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb845-9"><a href="correlação-e-regressão.html#cb845-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb845-10"><a href="correlação-e-regressão.html#cb845-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, </span>
-<span id="cb845-11"><a href="correlação-e-regressão.html#cb845-11" aria-hidden="true" tabindex="-1"></a>                            <span class="at">color =</span> <span class="cn">NULL</span>, </span>
-<span id="cb845-12"><a href="correlação-e-regressão.html#cb845-12" aria-hidden="true" tabindex="-1"></a>                            <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb843"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb843-1"><a href="correlação-e-regressão.html#cb843-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(dados, </span>
+<span id="cb843-2"><a href="correlação-e-regressão.html#cb843-2" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x=</span>idade, </span>
+<span id="cb843-3"><a href="correlação-e-regressão.html#cb843-3" tabindex="-1"></a>                    <span class="at">y=</span>comp, </span>
+<span id="cb843-4"><a href="correlação-e-regressão.html#cb843-4" tabindex="-1"></a>                    <span class="at">color =</span> sexo)) <span class="sc">+</span> </span>
+<span id="cb843-5"><a href="correlação-e-regressão.html#cb843-5" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, </span>
+<span id="cb843-6"><a href="correlação-e-regressão.html#cb843-6" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">19</span>) <span class="sc">+</span></span>
+<span id="cb843-7"><a href="correlação-e-regressão.html#cb843-7" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Idade (meses)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb843-8"><a href="correlação-e-regressão.html#cb843-8" tabindex="-1"></a>  <span class="fu">ylab</span> (<span class="st">&quot;Comprimento(cm)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb843-9"><a href="correlação-e-regressão.html#cb843-9" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb843-10"><a href="correlação-e-regressão.html#cb843-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, </span>
+<span id="cb843-11"><a href="correlação-e-regressão.html#cb843-11" tabindex="-1"></a>                            <span class="at">color =</span> <span class="cn">NULL</span>, </span>
+<span id="cb843-12"><a href="correlação-e-regressão.html#cb843-12" tabindex="-1"></a>                            <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:idadealtura"></span>
 <img src="bookdownproj_files/figure-html/idadealtura-1.png" alt="Correlação entre a idade e a altura de uma criança." width="70%" height="70%" />
 <p class="caption">
@@ -776,13 +780,13 @@ Figure 15.4: Correlação entre a idade e a altura de uma criança.
 <li><strong>Normalidade das variáveis</strong></li>
 </ol>
 <p>Para verificar se as variáveis têm distribuição normal, é possível usar o teste de Shapiro-Wilk, usando a função <code>shapiro.test()</code>, incluída no <em>R</em> base:</p>
-<div class="sourceCode" id="cb846"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb846-1"><a href="correlação-e-regressão.html#cb846-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(dados<span class="sc">$</span>idade)</span></code></pre></div>
+<div class="sourceCode" id="cb844"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb844-1"><a href="correlação-e-regressão.html#cb844-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(dados<span class="sc">$</span>idade)</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  dados$idade
 ## W = 0.9582, p-value = 0.1453</code></pre>
-<div class="sourceCode" id="cb848"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb848-1"><a href="correlação-e-regressão.html#cb848-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(dados<span class="sc">$</span>comp)</span></code></pre></div>
+<div class="sourceCode" id="cb846"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb846-1"><a href="correlação-e-regressão.html#cb846-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(dados<span class="sc">$</span>comp)</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -790,22 +794,22 @@ Figure 15.4: Correlação entre a idade e a altura de uma criança.
 ## W = 0.95782, p-value = 0.141</code></pre>
 <p>O teste de Shapiro-Wilk de ambas as variáveis retorna um valor <em>P</em> &gt; 0,05, indicando que não é possível rejeitar a <span class="math inline">\(H_{0}\)</span>; os dados seguem a distribuição normal, portanto o pressuposto foi atendido.</p>
 <p>O teste estatístico fornece uma prova, mas também pode-se fazer uma verificação visual rápida da normalidade dos dados, usando a função <code>ggqqplot()</code> do pacote <code>ggpubr</code>que produz um gráfico quantil-quantil, onde os pontos devem cair próximos da linha de referência (Figuras <a href="correlação-e-regressão.html#fig:qqidade">15.5</a> e <a href="correlação-e-regressão.html#fig:qqcomp">15.6</a>.</p>
-<div class="sourceCode" id="cb850"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb850-1"><a href="correlação-e-regressão.html#cb850-1" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggqqplot</span>(dados,</span>
-<span id="cb850-2"><a href="correlação-e-regressão.html#cb850-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">x =</span> <span class="st">&quot;idade&quot;</span>,</span>
-<span id="cb850-3"><a href="correlação-e-regressão.html#cb850-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>,</span>
-<span id="cb850-4"><a href="correlação-e-regressão.html#cb850-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">xlab =</span> <span class="st">&quot;Quantis normais&quot;</span>, </span>
-<span id="cb850-5"><a href="correlação-e-regressão.html#cb850-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">ylab =</span> <span class="st">&quot;Idade (meses)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb848"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb848-1"><a href="correlação-e-regressão.html#cb848-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggqqplot</span>(dados,</span>
+<span id="cb848-2"><a href="correlação-e-regressão.html#cb848-2" tabindex="-1"></a>                 <span class="at">x =</span> <span class="st">&quot;idade&quot;</span>,</span>
+<span id="cb848-3"><a href="correlação-e-regressão.html#cb848-3" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>,</span>
+<span id="cb848-4"><a href="correlação-e-regressão.html#cb848-4" tabindex="-1"></a>                 <span class="at">xlab =</span> <span class="st">&quot;Quantis normais&quot;</span>, </span>
+<span id="cb848-5"><a href="correlação-e-regressão.html#cb848-5" tabindex="-1"></a>                 <span class="at">ylab =</span> <span class="st">&quot;Idade (meses)&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:qqidade"></span>
 <img src="bookdownproj_files/figure-html/qqidade-1.png" alt="Gráfico QQ da idade." width="70%" height="70%" />
 <p class="caption">
 Figure 15.5: Gráfico QQ da idade.
 </p>
 </div>
-<div class="sourceCode" id="cb851"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb851-1"><a href="correlação-e-regressão.html#cb851-1" aria-hidden="true" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggqqplot</span>(dados,</span>
-<span id="cb851-2"><a href="correlação-e-regressão.html#cb851-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">x =</span> <span class="st">&quot;comp&quot;</span>,</span>
-<span id="cb851-3"><a href="correlação-e-regressão.html#cb851-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>,</span>
-<span id="cb851-4"><a href="correlação-e-regressão.html#cb851-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">xlab =</span> <span class="st">&quot;Quantis normais&quot;</span>,</span>
-<span id="cb851-5"><a href="correlação-e-regressão.html#cb851-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">ylab =</span> <span class="st">&quot;Comprimento (cm)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb849"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb849-1"><a href="correlação-e-regressão.html#cb849-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggqqplot</span>(dados,</span>
+<span id="cb849-2"><a href="correlação-e-regressão.html#cb849-2" tabindex="-1"></a>                 <span class="at">x =</span> <span class="st">&quot;comp&quot;</span>,</span>
+<span id="cb849-3"><a href="correlação-e-regressão.html#cb849-3" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>,</span>
+<span id="cb849-4"><a href="correlação-e-regressão.html#cb849-4" tabindex="-1"></a>                 <span class="at">xlab =</span> <span class="st">&quot;Quantis normais&quot;</span>,</span>
+<span id="cb849-5"><a href="correlação-e-regressão.html#cb849-5" tabindex="-1"></a>                 <span class="at">ylab =</span> <span class="st">&quot;Comprimento (cm)&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:qqcomp"></span>
 <img src="bookdownproj_files/figure-html/qqcomp-1.png" alt="Gráfico QQ do comprimento" width="70%" height="70%" />
 <p class="caption">
@@ -817,20 +821,20 @@ Figure 15.6: Gráfico QQ do comprimento
 <li><strong>Pesquisa de valores atípicos</strong></li>
 </ol>
 <p>A presença de <em>outliers</em> pode ser verificada construindo boxplots (Figura <a href="correlação-e-regressão.html#fig:atipicos">15.7</a>) com as variáveis <code>idade</code> e <code>comp</code></p>
-<div class="sourceCode" id="cb852"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb852-1"><a href="correlação-e-regressão.html#cb852-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span> (<span class="at">mfrow=</span><span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb852-2"><a href="correlação-e-regressão.html#cb852-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(dados<span class="sc">$</span>idade, </span>
-<span id="cb852-3"><a href="correlação-e-regressão.html#cb852-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">&quot;Idade (meses)&quot;</span>,</span>
-<span id="cb852-4"><a href="correlação-e-regressão.html#cb852-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">&quot;lightgreen&quot;</span>) </span>
-<span id="cb852-5"><a href="correlação-e-regressão.html#cb852-5" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(dados<span class="sc">$</span>comp,</span>
-<span id="cb852-6"><a href="correlação-e-regressão.html#cb852-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">&quot;Comprimento (cm)&quot;</span>,</span>
-<span id="cb852-7"><a href="correlação-e-regressão.html#cb852-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">&quot;salmon&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb850"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb850-1"><a href="correlação-e-regressão.html#cb850-1" tabindex="-1"></a><span class="fu">par</span> (<span class="at">mfrow=</span><span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb850-2"><a href="correlação-e-regressão.html#cb850-2" tabindex="-1"></a><span class="fu">boxplot</span>(dados<span class="sc">$</span>idade, </span>
+<span id="cb850-3"><a href="correlação-e-regressão.html#cb850-3" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">&quot;Idade (meses)&quot;</span>,</span>
+<span id="cb850-4"><a href="correlação-e-regressão.html#cb850-4" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">&quot;lightgreen&quot;</span>) </span>
+<span id="cb850-5"><a href="correlação-e-regressão.html#cb850-5" tabindex="-1"></a><span class="fu">boxplot</span>(dados<span class="sc">$</span>comp,</span>
+<span id="cb850-6"><a href="correlação-e-regressão.html#cb850-6" tabindex="-1"></a>       <span class="at">ylab =</span> <span class="st">&quot;Comprimento (cm)&quot;</span>,</span>
+<span id="cb850-7"><a href="correlação-e-regressão.html#cb850-7" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">&quot;salmon&quot;</span>) </span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:atipicos"></span>
 <img src="bookdownproj_files/figure-html/atipicos-1.png" alt="Pesquisa de valores atípicos com boxplots" width="70%" height="70%" />
 <p class="caption">
 Figure 15.7: Pesquisa de valores atípicos com boxplots
 </p>
 </div>
-<div class="sourceCode" id="cb853"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb853-1"><a href="correlação-e-regressão.html#cb853-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span> (<span class="at">mfrow=</span><span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb851"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb851-1"><a href="correlação-e-regressão.html#cb851-1" tabindex="-1"></a><span class="fu">par</span> (<span class="at">mfrow=</span><span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
 <p>Não se observa valores atípicos nos boxplots. Isto também pode ser verificado com as estatísticas dos boxplots que retorna:</p>
 <ul>
 <li><em>stats</em>: um vetor de tamanho 5, contendo o <em>whisker</em> inferior, 1º quartil, a mediana, a 3º quartil e o <em>whisker</em> superior;</li>
@@ -838,7 +842,7 @@ Figure 15.7: Pesquisa de valores atípicos com boxplots
 <li><em>conf</em>: os extremos inferior e superior do <em>entalhe</em>. Os entalhes (se solicitados) se estendem a <span class="math inline">\(\pm 1,58 \times IQR/sqrt(n)\)</span>;</li>
 <li><em>out</em>: os valores de quaisquer pontos de dados que estão além dos extremos dos <em>whisker</em>.</li>
 </ul>
-<div class="sourceCode" id="cb854"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb854-1"><a href="correlação-e-regressão.html#cb854-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot.stats</span> (dados<span class="sc">$</span>idade)</span></code></pre></div>
+<div class="sourceCode" id="cb852"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb852-1"><a href="correlação-e-regressão.html#cb852-1" tabindex="-1"></a><span class="fu">boxplot.stats</span> (dados<span class="sc">$</span>idade)</span></code></pre></div>
 <pre><code>## $stats
 ## [1] 18.0 22.5 26.5 31.5 36.0
 ## 
@@ -850,7 +854,7 @@ Figure 15.7: Pesquisa de valores atípicos com boxplots
 ## 
 ## $out
 ## numeric(0)</code></pre>
-<div class="sourceCode" id="cb856"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb856-1"><a href="correlação-e-regressão.html#cb856-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot.stats</span> (dados<span class="sc">$</span>comp)</span></code></pre></div>
+<div class="sourceCode" id="cb854"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb854-1"><a href="correlação-e-regressão.html#cb854-1" tabindex="-1"></a><span class="fu">boxplot.stats</span> (dados<span class="sc">$</span>comp)</span></code></pre></div>
 <pre><code>## $stats
 ## [1]  80.00  85.00  90.25  96.00 100.00
 ## 
@@ -870,17 +874,17 @@ Figure 15.7: Pesquisa de valores atípicos com boxplots
 <p>Uma correlação linear pode ser descrita por uma reta. Em uma correlação linear perfeita, a reta passa por todos os pontos. Normalmente, não é possível traçar uma reta que passe por todos os pontos. A melhor reta é aquela que promove o melhor ajuste,ou seja, é aquela cuja distância dos pontos até a reta é a menor possível. Os <strong>resíduos</strong> são a diferença entre o valor observado e o valor previsto pelo melhor ajuste, estabelecido pelo modelo de regressao linear.</p>
 <p><em>Construção do modelo</em>:</p>
 <p>Para ajustar a um modelo linear, usa-se a função <code>lm()</code> que deve conter um objeto da classe <code>formula</code> como argumento. Demais características da função podem ser obtidas com <code>?lm</code> ou direto na ajuda do <code>RStudio</code>. O modelo será atribuído a um objeto denominado <code>mod_reg</code>.</p>
-<div class="sourceCode" id="cb858"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb858-1"><a href="correlação-e-regressão.html#cb858-1" aria-hidden="true" tabindex="-1"></a>mod_reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(comp <span class="sc">~</span> idade, dados)</span></code></pre></div>
+<div class="sourceCode" id="cb856"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb856-1"><a href="correlação-e-regressão.html#cb856-1" tabindex="-1"></a>mod_reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(comp <span class="sc">~</span> idade, dados)</span></code></pre></div>
 <p><em>Análise gráfica da homoscedasticidade</em> (Figura <a href="correlação-e-regressão.html#fig:homo1">15.8</a>):</p>
-<div class="sourceCode" id="cb859"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb859-1"><a href="correlação-e-regressão.html#cb859-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb859-2"><a href="correlação-e-regressão.html#cb859-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod_reg, <span class="at">which=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb857"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb857-1"><a href="correlação-e-regressão.html#cb857-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb857-2"><a href="correlação-e-regressão.html#cb857-2" tabindex="-1"></a><span class="fu">plot</span>(mod_reg, <span class="at">which=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:homo1"></span>
 <img src="bookdownproj_files/figure-html/homo1-1.png" alt="Gráficos diagnósticos 1 e 3" width="70%" height="70%" />
 <p class="caption">
 Figure 15.8: Gráficos diagnósticos 1 e 3
 </p>
 </div>
-<div class="sourceCode" id="cb860"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb860-1"><a href="correlação-e-regressão.html#cb860-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb858"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb858-1"><a href="correlação-e-regressão.html#cb858-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
 <p>Os gráficos de diagnóstico dos resíduos são apresentados de quatro maneiras diferentes e, para maioress detalhes consulte <a href="https://data.library.virginia.edu/diagnostic-plots/"><strong>aqui</strong></a> .O primeiro e terceiro tipo serão avaliados:</p>
 <p><strong>Gráfico 1</strong>: <em>valores previstos <span class="math inline">\(\times\)</span> resíduos</em></p>
 <p>No gráfico 1, tem-se os resíduos em função dos valores estimados. Pode-se utilizar este gráfico para observar a independência e a homocedasticidade, se os resíduos se distribuem de maneira razoavelmente aleatória e com mesma amplitude em torno do zero.</p>
@@ -892,7 +896,7 @@ Figure 15.8: Gráficos diagnósticos 1 e 3
 <span class="math inline">\(H_{A}\)</span>: Heterocedasticidade. Os resíduos não têm variância constante sobre o modelo verdadeiro.</font></p>
 </blockquote>
 <p>Se o valor <em>P</em> &gt; 0,05 não se rejeita a <span class="math inline">\(H_{0}\)</span> de homocedasticidade. O teste de Breusch-Pagan é encontrado na função <code>bptest()</code>, incluída no pacote <code>lmtest</code>:</p>
-<div class="sourceCode" id="cb861"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb861-1"><a href="correlação-e-regressão.html#cb861-1" aria-hidden="true" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">bptest</span>(mod_reg)</span></code></pre></div>
+<div class="sourceCode" id="cb859"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb859-1"><a href="correlação-e-regressão.html#cb859-1" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">bptest</span>(mod_reg)</span></code></pre></div>
 <pre><code>## 
 ##  studentized Breusch-Pagan test
 ## 
@@ -920,10 +924,10 @@ Figure 15.8: Gráficos diagnósticos 1 e 3
 <li><strong>alternative</strong> <span class="math inline">\(\longrightarrow\)</span> hipótese alternativa “two.sided” (bilateral) ou “greater” ou “less” (unilateral a direita ou a esquerda, respectivamente);
 conf.level | nivel de confiança. Padrão 0.95.</li>
 </ul>
-<div class="sourceCode" id="cb863"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb863-1"><a href="correlação-e-regressão.html#cb863-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(dados<span class="sc">$</span>idade, </span>
-<span id="cb863-2"><a href="correlação-e-regressão.html#cb863-2" aria-hidden="true" tabindex="-1"></a>              dados<span class="sc">$</span>comp, </span>
-<span id="cb863-3"><a href="correlação-e-regressão.html#cb863-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span>
-<span id="cb863-4"><a href="correlação-e-regressão.html#cb863-4" aria-hidden="true" tabindex="-1"></a>r</span></code></pre></div>
+<div class="sourceCode" id="cb861"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb861-1"><a href="correlação-e-regressão.html#cb861-1" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(dados<span class="sc">$</span>idade, </span>
+<span id="cb861-2"><a href="correlação-e-regressão.html#cb861-2" tabindex="-1"></a>              dados<span class="sc">$</span>comp, </span>
+<span id="cb861-3"><a href="correlação-e-regressão.html#cb861-3" tabindex="-1"></a>              <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>)</span>
+<span id="cb861-4"><a href="correlação-e-regressão.html#cb861-4" tabindex="-1"></a>r</span></code></pre></div>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -1010,10 +1014,10 @@ perfeita
 </ol>
 <p>Se os pressupostos são violados é recomendado o uso de correlação não paramétrica, incluindo testes de correlação baseados em postos de Spearman e Kendall <span class="citation">(131)</span>.<br />
 Usa-se a mesma função, usada para a correlação de Pearson, mudando o argumento <code>method</code>:</p>
-<div class="sourceCode" id="cb865"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb865-1"><a href="correlação-e-regressão.html#cb865-1" aria-hidden="true" tabindex="-1"></a>rho <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(dados<span class="sc">$</span>idade, </span>
-<span id="cb865-2"><a href="correlação-e-regressão.html#cb865-2" aria-hidden="true" tabindex="-1"></a>              dados<span class="sc">$</span>comp, </span>
-<span id="cb865-3"><a href="correlação-e-regressão.html#cb865-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span>
-<span id="cb865-4"><a href="correlação-e-regressão.html#cb865-4" aria-hidden="true" tabindex="-1"></a>rho</span></code></pre></div>
+<div class="sourceCode" id="cb863"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb863-1"><a href="correlação-e-regressão.html#cb863-1" tabindex="-1"></a>rho <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(dados<span class="sc">$</span>idade, </span>
+<span id="cb863-2"><a href="correlação-e-regressão.html#cb863-2" tabindex="-1"></a>              dados<span class="sc">$</span>comp, </span>
+<span id="cb863-3"><a href="correlação-e-regressão.html#cb863-3" tabindex="-1"></a>              <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span>
+<span id="cb863-4"><a href="correlação-e-regressão.html#cb863-4" tabindex="-1"></a>rho</span></code></pre></div>
 <pre><code>## 
 ##  Spearman&#39;s rank correlation rho
 ## 
@@ -1027,10 +1031,10 @@ Usa-se a mesma função, usada para a correlação de Pearson, mudando o argumen
 <li><strong>Coeficiente de correlação de Kendall (<span class="math inline">\(\tau\)</span>)</strong></li>
 </ol>
 <p>O coeficiente de correlação de postos de Kendall ou estatística tau de Kendall é usado para estimar uma medida de associação baseada em postos:</p>
-<div class="sourceCode" id="cb867"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb867-1"><a href="correlação-e-regressão.html#cb867-1" aria-hidden="true" tabindex="-1"></a>tau <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(dados<span class="sc">$</span>idade, </span>
-<span id="cb867-2"><a href="correlação-e-regressão.html#cb867-2" aria-hidden="true" tabindex="-1"></a>              dados<span class="sc">$</span>comp, </span>
-<span id="cb867-3"><a href="correlação-e-regressão.html#cb867-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">method =</span> <span class="st">&quot;kendall&quot;</span>)</span>
-<span id="cb867-4"><a href="correlação-e-regressão.html#cb867-4" aria-hidden="true" tabindex="-1"></a>tau</span></code></pre></div>
+<div class="sourceCode" id="cb865"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb865-1"><a href="correlação-e-regressão.html#cb865-1" tabindex="-1"></a>tau <span class="ot">&lt;-</span> <span class="fu">cor.test</span>(dados<span class="sc">$</span>idade, </span>
+<span id="cb865-2"><a href="correlação-e-regressão.html#cb865-2" tabindex="-1"></a>              dados<span class="sc">$</span>comp, </span>
+<span id="cb865-3"><a href="correlação-e-regressão.html#cb865-3" tabindex="-1"></a>              <span class="at">method =</span> <span class="st">&quot;kendall&quot;</span>)</span>
+<span id="cb865-4"><a href="correlação-e-regressão.html#cb865-4" tabindex="-1"></a>tau</span></code></pre></div>
 <pre><code>## 
 ##  Kendall&#39;s rank correlation tau
 ## 
@@ -1064,19 +1068,19 @@ Figure 15.9: Reta de regressão, coeficiente angular e coeficiente linear.
 <div id="resíduos" class="section level3 hasAnchor" number="15.3.1">
 <h3><span class="header-section-number">15.3.1</span> Resíduos<a href="correlação-e-regressão.html#resíduos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>No exemplo usado no início desta seção, verificou-se que existe uma correlação linear entre o a idade e o comprimento de crianças, usando uma amostra de 40 crianças entre 18 e 36 meses. A correlação de Pearson foi muito forte (<em>r</em> = 0,96, <em>P</em> &lt; 0,00001). Esta relação linear pode ser descrita pela reta, mostrada na Figura <a href="correlação-e-regressão.html#fig:retareg1">15.10</a>.</p>
-<div class="sourceCode" id="cb869"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb869-1"><a href="correlação-e-regressão.html#cb869-1" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(dados, </span>
-<span id="cb869-2"><a href="correlação-e-regressão.html#cb869-2" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> idade, </span>
-<span id="cb869-3"><a href="correlação-e-regressão.html#cb869-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">y =</span> comp,</span>
-<span id="cb869-4"><a href="correlação-e-regressão.html#cb869-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">color =</span> <span class="st">&quot;tomato&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb869-5"><a href="correlação-e-regressão.html#cb869-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, </span>
-<span id="cb869-6"><a href="correlação-e-regressão.html#cb869-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb869-7"><a href="correlação-e-regressão.html#cb869-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb869-8"><a href="correlação-e-regressão.html#cb869-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb869-9"><a href="correlação-e-regressão.html#cb869-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
-<span id="cb869-10"><a href="correlação-e-regressão.html#cb869-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Idade (meses&quot;</span>) <span class="sc">+</span></span>
-<span id="cb869-11"><a href="correlação-e-regressão.html#cb869-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Comprimento (cm)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb869-12"><a href="correlação-e-regressão.html#cb869-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)) <span class="sc">+</span></span>
-<span id="cb869-13"><a href="correlação-e-regressão.html#cb869-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb867"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb867-1"><a href="correlação-e-regressão.html#cb867-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(dados, </span>
+<span id="cb867-2"><a href="correlação-e-regressão.html#cb867-2" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> idade, </span>
+<span id="cb867-3"><a href="correlação-e-regressão.html#cb867-3" tabindex="-1"></a>                    <span class="at">y =</span> comp,</span>
+<span id="cb867-4"><a href="correlação-e-regressão.html#cb867-4" tabindex="-1"></a>                    <span class="at">color =</span> <span class="st">&quot;tomato&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb867-5"><a href="correlação-e-regressão.html#cb867-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, </span>
+<span id="cb867-6"><a href="correlação-e-regressão.html#cb867-6" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb867-7"><a href="correlação-e-regressão.html#cb867-7" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb867-8"><a href="correlação-e-regressão.html#cb867-8" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb867-9"><a href="correlação-e-regressão.html#cb867-9" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
+<span id="cb867-10"><a href="correlação-e-regressão.html#cb867-10" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Idade (meses&quot;</span>) <span class="sc">+</span></span>
+<span id="cb867-11"><a href="correlação-e-regressão.html#cb867-11" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Comprimento (cm)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb867-12"><a href="correlação-e-regressão.html#cb867-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)) <span class="sc">+</span></span>
+<span id="cb867-13"><a href="correlação-e-regressão.html#cb867-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:retareg1"></span>
 <img src="bookdownproj_files/figure-html/retareg1-1.png" alt="Reta de regressão" width="70%" height="70%" />
 <p class="caption">
@@ -1086,29 +1090,29 @@ Figure 15.10: Reta de regressão
 <p>Não é possível traçar uma reta que passe por todos os pontos. Esta reta ideal descreveria uma correlação perfeita, que não é o caso. Pode haver várias retas, a reta calculada pela regressão linear é aquela que promove o melhor ajuste, ou seja, é aquela cuja distância dos pontos até a reta é a menor possível.</p>
 <p>Os resíduos são a diferença entre o valor observado e o valor previsto pelo modelo de regressão linear, construído anteriormente (<code>mod_reg</code>). A técnica estatística para achar a melhor reta que ajusta um conjunto de dados é denominada de método dos mínimos quadrados (<em>Ordinary Least Square</em>). A melhor reta ajustada é aquela em que a soma dos quadrados da distância de cada ponto (soma dos quadrados residual) em relação à reta é minimizada.</p>
 <p>Para se obter os resíduos, graficamente, pode ser usar os seguintes comandos que resultam na Figura <a href="correlação-e-regressão.html#fig:residuos">15.11</a>.</p>
-<div class="sourceCode" id="cb870"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb870-1"><a href="correlação-e-regressão.html#cb870-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Obter e salvar os valores preditos e residuais</span></span>
-<span id="cb870-2"><a href="correlação-e-regressão.html#cb870-2" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>previsto <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod_reg) </span>
-<span id="cb870-3"><a href="correlação-e-regressão.html#cb870-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb870-4"><a href="correlação-e-regressão.html#cb870-4" aria-hidden="true" tabindex="-1"></a>dados<span class="sc">$</span>residuos <span class="ot">&lt;-</span> <span class="fu">residuals</span>(mod_reg)</span></code></pre></div>
-<div class="sourceCode" id="cb871"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb871-1"><a href="correlação-e-regressão.html#cb871-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construção do gráfico com os resíduos</span></span>
-<span id="cb871-2"><a href="correlação-e-regressão.html#cb871-2" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(dados, </span>
-<span id="cb871-3"><a href="correlação-e-regressão.html#cb871-3" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> idade, </span>
-<span id="cb871-4"><a href="correlação-e-regressão.html#cb871-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">y =</span> comp)) <span class="sc">+</span></span>
-<span id="cb871-5"><a href="correlação-e-regressão.html#cb871-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, </span>
-<span id="cb871-6"><a href="correlação-e-regressão.html#cb871-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb871-7"><a href="correlação-e-regressão.html#cb871-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb871-8"><a href="correlação-e-regressão.html#cb871-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> idade, </span>
-<span id="cb871-9"><a href="correlação-e-regressão.html#cb871-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">yend =</span> previsto), </span>
-<span id="cb871-10"><a href="correlação-e-regressão.html#cb871-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">linewidth =</span> <span class="fl">0.7</span>,</span>
-<span id="cb871-11"><a href="correlação-e-regressão.html#cb871-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>) <span class="sc">+</span></span>
-<span id="cb871-12"><a href="correlação-e-regressão.html#cb871-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> previsto), </span>
-<span id="cb871-13"><a href="correlação-e-regressão.html#cb871-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">19</span>, </span>
-<span id="cb871-14"><a href="correlação-e-regressão.html#cb871-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
-<span id="cb871-15"><a href="correlação-e-regressão.html#cb871-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb871-16"><a href="correlação-e-regressão.html#cb871-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
-<span id="cb871-17"><a href="correlação-e-regressão.html#cb871-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Idade (meses&quot;</span>) <span class="sc">+</span></span>
-<span id="cb871-18"><a href="correlação-e-regressão.html#cb871-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Comprimento (cm)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb871-19"><a href="correlação-e-regressão.html#cb871-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb868"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb868-1"><a href="correlação-e-regressão.html#cb868-1" tabindex="-1"></a><span class="co"># Obter e salvar os valores preditos e residuais</span></span>
+<span id="cb868-2"><a href="correlação-e-regressão.html#cb868-2" tabindex="-1"></a>dados<span class="sc">$</span>previsto <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod_reg) </span>
+<span id="cb868-3"><a href="correlação-e-regressão.html#cb868-3" tabindex="-1"></a></span>
+<span id="cb868-4"><a href="correlação-e-regressão.html#cb868-4" tabindex="-1"></a>dados<span class="sc">$</span>residuos <span class="ot">&lt;-</span> <span class="fu">residuals</span>(mod_reg)</span></code></pre></div>
+<div class="sourceCode" id="cb869"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb869-1"><a href="correlação-e-regressão.html#cb869-1" tabindex="-1"></a><span class="co"># Construção do gráfico com os resíduos</span></span>
+<span id="cb869-2"><a href="correlação-e-regressão.html#cb869-2" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(dados, </span>
+<span id="cb869-3"><a href="correlação-e-regressão.html#cb869-3" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x =</span> idade, </span>
+<span id="cb869-4"><a href="correlação-e-regressão.html#cb869-4" tabindex="-1"></a>                    <span class="at">y =</span> comp)) <span class="sc">+</span></span>
+<span id="cb869-5"><a href="correlação-e-regressão.html#cb869-5" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, </span>
+<span id="cb869-6"><a href="correlação-e-regressão.html#cb869-6" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb869-7"><a href="correlação-e-regressão.html#cb869-7" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb869-8"><a href="correlação-e-regressão.html#cb869-8" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">xend =</span> idade, </span>
+<span id="cb869-9"><a href="correlação-e-regressão.html#cb869-9" tabindex="-1"></a>                   <span class="at">yend =</span> previsto), </span>
+<span id="cb869-10"><a href="correlação-e-regressão.html#cb869-10" tabindex="-1"></a>               <span class="at">linewidth =</span> <span class="fl">0.7</span>,</span>
+<span id="cb869-11"><a href="correlação-e-regressão.html#cb869-11" tabindex="-1"></a>               <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>) <span class="sc">+</span></span>
+<span id="cb869-12"><a href="correlação-e-regressão.html#cb869-12" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> previsto), </span>
+<span id="cb869-13"><a href="correlação-e-regressão.html#cb869-13" tabindex="-1"></a>             <span class="at">shape =</span> <span class="dv">19</span>, </span>
+<span id="cb869-14"><a href="correlação-e-regressão.html#cb869-14" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb869-15"><a href="correlação-e-regressão.html#cb869-15" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb869-16"><a href="correlação-e-regressão.html#cb869-16" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
+<span id="cb869-17"><a href="correlação-e-regressão.html#cb869-17" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Idade (meses&quot;</span>) <span class="sc">+</span></span>
+<span id="cb869-18"><a href="correlação-e-regressão.html#cb869-18" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Comprimento (cm)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb869-19"><a href="correlação-e-regressão.html#cb869-19" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:residuos"></span>
 <img src="bookdownproj_files/figure-html/residuos-1.png" alt="Resíduos" width="70%" height="70%" />
 <p class="caption">
@@ -1117,11 +1121,11 @@ Figure 15.11: Resíduos
 </div>
 <p>Uma boa maneira de testar a qualidade do ajuste do modelo é observar os resíduos <span class="citation">(133)</span> ou as diferenças entre os valores reais (pontos pretos) e os valores previstos (pontos vermelhos). A reta de regressão, em azul no gráfico, representa os valores previstos. A linha vertical pontilhada da linha reta até o valor dos dados observados é o <strong>resíduo</strong>.</p>
 <p>A ideia aqui é que a soma dos resíduos seja aproximadamente zero ou o mais baixo possível. Na vida real, a maioria dos casos não seguirá uma linha perfeitamente reta, portanto, resíduos são esperados. Na saída do resumo da função <code>lm()</code> em (<code>mod_reg$residuals</code>), você pode ver estatísticas descritivas sobre os resíduos do modelo (<em>residuals</em>), elas mostram como os resíduos são aproximadamente zero. Pode-se observar isso, usando a função <code>summary ()</code> e <code>sum()</code>:</p>
-<div class="sourceCode" id="cb872"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb872-1"><a href="correlação-e-regressão.html#cb872-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod_reg<span class="sc">$</span>residuals)</span></code></pre></div>
+<div class="sourceCode" id="cb870"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb870-1"><a href="correlação-e-regressão.html#cb870-1" tabindex="-1"></a><span class="fu">summary</span>(mod_reg<span class="sc">$</span>residuals)</span></code></pre></div>
 <pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
 ## -3.20326 -1.20326  0.08994  0.00000  1.25849  3.49221</code></pre>
-<div class="sourceCode" id="cb874"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb874-1"><a href="correlação-e-regressão.html#cb874-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(mod_reg<span class="sc">$</span>residuals)</span></code></pre></div>
-<pre><code>## [1] -1.69309e-15</code></pre>
+<div class="sourceCode" id="cb872"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb872-1"><a href="correlação-e-regressão.html#cb872-1" tabindex="-1"></a><span class="fu">sum</span>(mod_reg<span class="sc">$</span>residuals)</span></code></pre></div>
+<pre><code>## [1] -3.538836e-15</code></pre>
 <p>Onde os resultados são praticamente iguais a zero.</p>
 </div>
 <div id="análise-dos-pressupostos-do-modelo-de-regressão" class="section level3 hasAnchor" number="15.3.2">
@@ -1131,15 +1135,15 @@ Figure 15.11: Resíduos
 <h4><span class="header-section-number">15.3.2.1</span> Gráficos diagnósticos<a href="correlação-e-regressão.html#gráficos-diagnósticos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Os gráficos de diagnóstico da regressão (Figura <a href="correlação-e-regressão.html#fig:diagreg">15.12</a>) podem ser criados usando a função <code>plot()</code> do R base, como mostrado para a correlação:</p>
 <p>O modelo de regressão, anteriormente criado, <code>mod_reg</code>, entra como argumento da função:</p>
-<div class="sourceCode" id="cb876"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb876-1"><a href="correlação-e-regressão.html#cb876-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb876-2"><a href="correlação-e-regressão.html#cb876-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span> (mod_reg)</span></code></pre></div>
+<div class="sourceCode" id="cb874"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb874-1"><a href="correlação-e-regressão.html#cb874-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb874-2"><a href="correlação-e-regressão.html#cb874-2" tabindex="-1"></a><span class="fu">plot</span> (mod_reg)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:diagreg"></span>
 <img src="bookdownproj_files/figure-html/diagreg-1.png" alt="Gráficos diagnósticos" width="70%" height="90%" />
 <p class="caption">
 Figure 15.12: Gráficos diagnósticos
 </p>
 </div>
-<div class="sourceCode" id="cb877"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb877-1"><a href="correlação-e-regressão.html#cb877-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb875"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb875-1"><a href="correlação-e-regressão.html#cb875-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div>
 <p>Os gráficos de diagnóstico mostram resíduos de quatro maneiras diferentes:</p>
 <ol style="list-style-type: decimal">
 <li><p><em>Resíduos vs. ajustados (Residuals vs Fitted)</em>. Usado para verificar os pressupostos de relação linear. Uma linha horizontal, sem padrões distintos é um indicativo de uma relação linear, o que é bom. Os dados do exemplo (linha azul) afastam-se muito pouco do zero, mas a acompanham e não se observa nenhum padrão distinto, como uma parábola por exemplo.</p></li>
@@ -1153,12 +1157,12 @@ Figure 15.12: Gráficos diagnósticos
 <h4><span class="header-section-number">15.3.2.2</span> Avaliação da normalidade<a href="correlação-e-regressão.html#avaliação-da-normalidade-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Além de observar o gráfico QQ plot, é possível realizar um teste estatístico de normalidade dos resíduos como, por exemplo o teste de Shapiro-Wilk. Ele pode ser executado, usando a função shapiro.test() do pacote stats, incluído no R base.</p>
 <p>Ao ser criado o modelo de regressão (<code>mod_reg</code>), ele fornece uma série de variáveis que pode ser listada da seguinte maneira:</p>
-<div class="sourceCode" id="cb878"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb878-1"><a href="correlação-e-regressão.html#cb878-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>(mod_reg)</span></code></pre></div>
+<div class="sourceCode" id="cb876"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb876-1"><a href="correlação-e-regressão.html#cb876-1" tabindex="-1"></a><span class="fu">ls</span>(mod_reg)</span></code></pre></div>
 <pre><code>##  [1] &quot;assign&quot;        &quot;call&quot;          &quot;coefficients&quot;  &quot;df.residual&quot;  
 ##  [5] &quot;effects&quot;       &quot;fitted.values&quot; &quot;model&quot;         &quot;qr&quot;           
 ##  [9] &quot;rank&quot;          &quot;residuals&quot;     &quot;terms&quot;         &quot;xlevels&quot;</code></pre>
 <p>Usando a variável <code>residuals</code>, confirma-se o observado no <code>QQPlot</code> de que os resíduos apresentam distribuição normal, pois o valor de <em>P</em> &gt; 0,05.</p>
-<div class="sourceCode" id="cb880"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb880-1"><a href="correlação-e-regressão.html#cb880-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span> (mod_reg<span class="sc">$</span>residuals)</span></code></pre></div>
+<div class="sourceCode" id="cb878"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb878-1"><a href="correlação-e-regressão.html#cb878-1" tabindex="-1"></a><span class="fu">shapiro.test</span> (mod_reg<span class="sc">$</span>residuals)</span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -1169,8 +1173,8 @@ Figure 15.12: Gráficos diagnósticos
 <h4><span class="header-section-number">15.3.2.3</span> <em>Outliers</em> nos resíduos<a href="correlação-e-regressão.html#outliers-nos-resíduos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Existe uma função pode ser usada para verificar valores atípicos nos resíduos da regressão para modelos lineares como <code>rstandard()</code> do pacote <code>stats</code>, que analisa os resíduos padronizados.</p>
 <p>A função padroniza todos os resíduos e inclui no objeto <code>residuos_p</code>. Para analisá-los, faz-se um sumário, usando a função <code>summary()</code>. Esta função exibirá os a estatística dos 5 números mais a média para os resíduos padronizados:</p>
-<div class="sourceCode" id="cb882"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb882-1"><a href="correlação-e-regressão.html#cb882-1" aria-hidden="true" tabindex="-1"></a>residuos_p <span class="ot">&lt;-</span> <span class="fu">rstandard</span>(mod_reg)</span>
-<span id="cb882-2"><a href="correlação-e-regressão.html#cb882-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(residuos_p)</span></code></pre></div>
+<div class="sourceCode" id="cb880"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb880-1"><a href="correlação-e-regressão.html#cb880-1" tabindex="-1"></a>residuos_p <span class="ot">&lt;-</span> <span class="fu">rstandard</span>(mod_reg)</span>
+<span id="cb880-2"><a href="correlação-e-regressão.html#cb880-2" tabindex="-1"></a><span class="fu">summary</span>(residuos_p)</span></code></pre></div>
 <pre><code>##       Min.    1st Qu.     Median       Mean    3rd Qu.       Max. 
 ## -1.9327846 -0.7271178  0.0548028  0.0006059  0.7779208  2.1154118</code></pre>
 <p>Em uma amostra normalmente distribuída, ao redor de 95% dos valores estão entre –1,96 e +1,96, 99% deve estar entre –2,58 e +2,58 e quase todos (99,9%) deve se situar entre –3,09 e +3,09.</p>
@@ -1185,7 +1189,7 @@ Figure 15.12: Gráficos diagnósticos
 <span class="math inline">\(H_{A}\)</span>: Heterocedasticidade. Os resíduos não têm variância constante sobre o modelo verdadeiro.</font></p>
 </blockquote>
 <p>Se o valor <em>P</em> &gt; 0,05 não se rejeita a <span class="math inline">\(H_{0}\)</span> de homocedasticidade. O teste de Breusch-Pagan é encontrado na função <code>bptes()</code>, incluída no pacote <code>lmtest</code><span class="citation">(135)</span>.</p>
-<div class="sourceCode" id="cb884"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb884-1"><a href="correlação-e-regressão.html#cb884-1" aria-hidden="true" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">bptest</span>(mod_reg)</span></code></pre></div>
+<div class="sourceCode" id="cb882"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb882-1"><a href="correlação-e-regressão.html#cb882-1" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">bptest</span>(mod_reg)</span></code></pre></div>
 <pre><code>## 
 ##  studentized Breusch-Pagan test
 ## 
@@ -1197,9 +1201,9 @@ Figure 15.12: Gráficos diagnósticos
 <div id="independência-dos-resíduos" class="section level4 hasAnchor" number="15.3.2.5">
 <h4><span class="header-section-number">15.3.2.5</span> Independência dos resíduos<a href="correlação-e-regressão.html#independência-dos-resíduos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Os resíduos no modelo devem ser independentes, ou seja, não devem ser correlacionados entre si. Para verificar isso, pode-se executar o <em>teste Durbin-Watson</em> (<code>teste dw</code>), utilizando a função <code>durbinWatsonTest()</code> do pacote ´car`. O teste retorna um valor entre 0 e 4. Um valor maior que 2 indica uma correlação negativa entre resíduos adjacentes, enquanto um valor menor que 2 indica uma correlação positiva. Se o valor for dois, é provável que exista independência. Existe uma sugestão de que valores abaixo de 1 ou mais de 3 são um motivo definitivo de preocupação <span class="citation">(134)</span>. É importante mencionar que o teste tem como pressuposto a normalidade dos dados.</p>
-<div class="sourceCode" id="cb886"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb886-1"><a href="correlação-e-regressão.html#cb886-1" aria-hidden="true" tabindex="-1"></a><span class="fu">durbinWatsonTest</span>(mod_reg)</span></code></pre></div>
+<div class="sourceCode" id="cb884"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb884-1"><a href="correlação-e-regressão.html#cb884-1" tabindex="-1"></a><span class="fu">durbinWatsonTest</span>(mod_reg)</span></code></pre></div>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1      -0.1044054      2.204843   0.644
+##    1      -0.1044054      2.204843   0.632
 ##  Alternative hypothesis: rho != 0</code></pre>
 <p>Como na saída do teste o valor <em>P</em> &gt; 0,05 e a estatística DW é igual a 2,2, não se rejeita a hipótese nula de independência (rho = 0).</p>
 </div>
@@ -1291,8 +1295,8 @@ Valor r
 <h3><span class="header-section-number">15.3.4</span> Realização da regressão linear<a href="correlação-e-regressão.html#realização-da-regressão-linear" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Após analisar os pressupostos do modelo de regressão do exemplo, verificou-se que as variáveis <code>idade</code> e <code>comprimento</code> da criança têm relação linear, que os resíduos do modelo têm distribuição normal, que existe homoscedasticidade e que não há pontos influentes. E, portanto, o modelo permite que se realize uma análise de regressão linear para avaliar a relação entre as variáveis independentes e dependentes.</p>
 <p>Para realizar uma análise de regressão linear simples e verificar os resultados, há necessidade de executar dois comandos. O primeiro, que cria o modelo linear já foi realizado na análise dos gráficos e será repetido aqui. O segundo, imprime o resumo do modelo com a função <code>summary()</code>:</p>
-<div class="sourceCode" id="cb888"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb888-1"><a href="correlação-e-regressão.html#cb888-1" aria-hidden="true" tabindex="-1"></a>mod_reg <span class="ot">&lt;-</span> <span class="fu">lm</span> (comp <span class="sc">~</span> idade, dados)</span>
-<span id="cb888-2"><a href="correlação-e-regressão.html#cb888-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span> (mod_reg)</span></code></pre></div>
+<div class="sourceCode" id="cb886"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb886-1"><a href="correlação-e-regressão.html#cb886-1" tabindex="-1"></a>mod_reg <span class="ot">&lt;-</span> <span class="fu">lm</span> (comp <span class="sc">~</span> idade, dados)</span>
+<span id="cb886-2"><a href="correlação-e-regressão.html#cb886-2" tabindex="-1"></a><span class="fu">summary</span> (mod_reg)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = comp ~ idade, data = dados)
@@ -1329,32 +1333,32 @@ Valor r
 \hat {y} = 61,44 + 1,1 x
 \]</span></p>
 <p>O erro padrão das estimativas são fornecidos. Esses dados permitem calcular o IC95%. Ou pode-se usar a função <code>confint()</code> do pacote <code>stats</code>, que será colocada dentro da função <code>round()</code> para arredondar os valores até um digito.</p>
-<div class="sourceCode" id="cb890"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb890-1"><a href="correlação-e-regressão.html#cb890-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span> (<span class="fu">confint</span> (mod_reg, <span class="at">level =</span> <span class="fl">0.95</span>), <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb888"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb888-1"><a href="correlação-e-regressão.html#cb888-1" tabindex="-1"></a><span class="fu">round</span> (<span class="fu">confint</span> (mod_reg, <span class="at">level =</span> <span class="fl">0.95</span>), <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>##             2.5 % 97.5 %
 ## (Intercept)  58.7   64.2
 ## idade         1.0    1.2</code></pre>
 <p>Dessa forma, é possível prever que uma criança de 30 meses, de acordo com o modelo, terá o seguinte comprimento:</p>
-<div class="sourceCode" id="cb892"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb892-1"><a href="correlação-e-regressão.html#cb892-1" aria-hidden="true" tabindex="-1"></a>comp_30m <span class="ot">&lt;-</span> <span class="fl">61.4</span> <span class="sc">+</span> <span class="fl">1.1</span> <span class="sc">*</span><span class="dv">30</span></span>
-<span id="cb892-2"><a href="correlação-e-regressão.html#cb892-2" aria-hidden="true" tabindex="-1"></a>comp_30m</span></code></pre></div>
+<div class="sourceCode" id="cb890"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb890-1"><a href="correlação-e-regressão.html#cb890-1" tabindex="-1"></a>comp_30m <span class="ot">&lt;-</span> <span class="fl">61.4</span> <span class="sc">+</span> <span class="fl">1.1</span> <span class="sc">*</span><span class="dv">30</span></span>
+<span id="cb890-2"><a href="correlação-e-regressão.html#cb890-2" tabindex="-1"></a>comp_30m</span></code></pre></div>
 <pre><code>## [1] 94.4</code></pre>
-<div class="sourceCode" id="cb894"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb894-1"><a href="correlação-e-regressão.html#cb894-1" aria-hidden="true" tabindex="-1"></a>lim.sup <span class="ot">&lt;-</span> <span class="fl">64.2</span> <span class="sc">+</span> <span class="fl">1.2</span><span class="sc">*</span><span class="dv">30</span></span>
-<span id="cb894-2"><a href="correlação-e-regressão.html#cb894-2" aria-hidden="true" tabindex="-1"></a>lim.inf <span class="ot">&lt;-</span> <span class="fl">58.7</span> <span class="sc">+</span> <span class="fl">1.0</span><span class="sc">*</span><span class="dv">30</span></span>
-<span id="cb894-3"><a href="correlação-e-regressão.html#cb894-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span> (<span class="fu">c</span>(lim.inf, lim.sup))</span></code></pre></div>
+<div class="sourceCode" id="cb892"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb892-1"><a href="correlação-e-regressão.html#cb892-1" tabindex="-1"></a>lim.sup <span class="ot">&lt;-</span> <span class="fl">64.2</span> <span class="sc">+</span> <span class="fl">1.2</span><span class="sc">*</span><span class="dv">30</span></span>
+<span id="cb892-2"><a href="correlação-e-regressão.html#cb892-2" tabindex="-1"></a>lim.inf <span class="ot">&lt;-</span> <span class="fl">58.7</span> <span class="sc">+</span> <span class="fl">1.0</span><span class="sc">*</span><span class="dv">30</span></span>
+<span id="cb892-3"><a href="correlação-e-regressão.html#cb892-3" tabindex="-1"></a><span class="fu">print</span> (<span class="fu">c</span>(lim.inf, lim.sup))</span></code></pre></div>
 <pre><code>## [1]  88.7 100.2</code></pre>
 <p>Ou seja, espera-se que uma criança tenha, aos 30 meses de idade, um comprimento médio de 94,4 cm (IC95%: 88,7-100,2)</p>
 </div>
 <div id="visualização-dos-resultados" class="section level3 hasAnchor" number="15.3.5">
 <h3><span class="header-section-number">15.3.5</span> Visualização dos resultados<a href="correlação-e-regressão.html#visualização-dos-resultados" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Será obtido um gráfico de dispersão com a reta de regressão e seu intervalo de confiança de 95% (Figura <a href="correlação-e-regressão.html#fig:resreg">15.13</a>). Além disso, adicionou-se a equação do modelo de regressão (o R arredondou os valores), juntamente com o coeficiente de determinação <span class="math inline">\(R^{2}\)</span>.</p>
-<div class="sourceCode" id="cb896"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb896-1"><a href="correlação-e-regressão.html#cb896-1" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span> <span class="fu">ggplot</span> (dados, <span class="fu">aes</span> (<span class="at">x =</span> idade, <span class="at">y =</span> comp)) <span class="sc">+</span></span>
-<span id="cb896-2"><a href="correlação-e-regressão.html#cb896-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span> (<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb896-3"><a href="correlação-e-regressão.html#cb896-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span> (<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb896-4"><a href="correlação-e-regressão.html#cb896-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_regline_equation</span> (<span class="at">label.y =</span> <span class="dv">100</span>, <span class="fu">aes</span> (<span class="at">label =</span> (..eq.label..))) <span class="sc">+</span> </span>
-<span id="cb896-5"><a href="correlação-e-regressão.html#cb896-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_regline_equation</span> (<span class="at">label.y =</span> <span class="dv">99</span>, <span class="fu">aes</span> (<span class="at">label =</span> (..rr.label..))) <span class="sc">+</span>       </span>
-<span id="cb896-6"><a href="correlação-e-regressão.html#cb896-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span> () <span class="sc">+</span></span>
-<span id="cb896-7"><a href="correlação-e-regressão.html#cb896-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span> (<span class="st">&quot;Idade (meses)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb896-8"><a href="correlação-e-regressão.html#cb896-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span> (<span class="st">&quot;Comprimento(cm)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb896-9"><a href="correlação-e-regressão.html#cb896-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb894"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb894-1"><a href="correlação-e-regressão.html#cb894-1" tabindex="-1"></a>ggplot2<span class="sc">::</span> <span class="fu">ggplot</span> (dados, <span class="fu">aes</span> (<span class="at">x =</span> idade, <span class="at">y =</span> comp)) <span class="sc">+</span></span>
+<span id="cb894-2"><a href="correlação-e-regressão.html#cb894-2" tabindex="-1"></a>  <span class="fu">geom_point</span> (<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb894-3"><a href="correlação-e-regressão.html#cb894-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span> (<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">&quot;steelblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb894-4"><a href="correlação-e-regressão.html#cb894-4" tabindex="-1"></a>  <span class="fu">stat_regline_equation</span> (<span class="at">label.y =</span> <span class="dv">100</span>, <span class="fu">aes</span> (<span class="at">label =</span> (..eq.label..))) <span class="sc">+</span> </span>
+<span id="cb894-5"><a href="correlação-e-regressão.html#cb894-5" tabindex="-1"></a>  <span class="fu">stat_regline_equation</span> (<span class="at">label.y =</span> <span class="dv">99</span>, <span class="fu">aes</span> (<span class="at">label =</span> (..rr.label..))) <span class="sc">+</span>       </span>
+<span id="cb894-6"><a href="correlação-e-regressão.html#cb894-6" tabindex="-1"></a>  <span class="fu">theme_classic</span> () <span class="sc">+</span></span>
+<span id="cb894-7"><a href="correlação-e-regressão.html#cb894-7" tabindex="-1"></a>  <span class="fu">xlab</span> (<span class="st">&quot;Idade (meses)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb894-8"><a href="correlação-e-regressão.html#cb894-8" tabindex="-1"></a>  <span class="fu">ylab</span> (<span class="st">&quot;Comprimento(cm)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb894-9"><a href="correlação-e-regressão.html#cb894-9" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:resreg"></span>
 <img src="bookdownproj_files/figure-html/resreg-1.png" alt="Resultado da regressão linear" width="70%" height="70%" />
 <p class="caption">

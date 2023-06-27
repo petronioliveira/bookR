@@ -1675,7 +1675,7 @@ gd <- ggplot(data = dados, aes(x = compRN, y = pesoRN)) +
   geom_smooth(method = "lm", 
               se = FALSE, 
               color = "black", 
-              size = 0.8,
+              linewidth = 0.8,
               linetype = "dashed") +
   labs(x = "Comprimento do RN (cm)", y = "Peso do RN (g)",
        title = "Gráfico de Dispersão",

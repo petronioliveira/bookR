@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 4 Ambiente do R | bookdownproj.knit</title>
   <meta name="description" content="" />
-  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo 4 Ambiente do R | bookdownproj.knit" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-05-17" />
+<meta name="date" content="2023-06-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -121,6 +121,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -750,8 +754,8 @@ Figure 4.7: Ajuda do RStudio
 <div id="instalação-de-um-novo-pacote" class="section level3 hasAnchor" number="4.3.2">
 <h3><span class="header-section-number">4.3.2</span> Instalação de um novo pacote<a href="ambiente-do-r.html#instalação-de-um-novo-pacote" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Instalar um pacote significa simplesmente baixar o código do pacote em um computador pessoal. Existem duas maneiras principais de instalar novos pacotes. O método mais comum é baixá-los do CRAN, usando a função <code>install.packages ()</code>. Dentro dos parênteses, como argumento, coloca-se entre aspas (duplas ou simples) o nome do pacote. Como visto, deve-se, de preferência, digitar o comando no <em>R Script</em>. Por exemplo, será instalado o pacote <code>ggplot2</code> que contém múltiplas funções gráficas como abaixo:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="ambiente-do-r.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
-<span id="cb1-2"><a href="ambiente-do-r.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="ambiente-do-r.html#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb1-2"><a href="ambiente-do-r.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
 <p>Para carregar o pacote, isto é, para fazer com que suas funções se tornem ativas para uso na na sessão, deve-se usar a função <code>library()</code>, como mostrado no comando acima. Se o <em>RStudio</em> for fechado e reaberto, o o pacote deverá ser novamente ativado. Observe que a função <code>library()</code> não requer que o nome do pacote seja digitado entre aspas. Isto acontece porque antes de o pacote ser instalado o <em>R</em> não o reconhece , portanto, há necessidade de indicar o nome (caracteres), para que o <em>R</em> procure na internet, por exemplo, o que ele deve baixar. Já, depois de instalado, o pacote é um objeto conhecido pelo R, logo as aspas não são mais necessárias.</p>
 <p>Uma outra maneira de instalar pacotes no R, é usar o botão <strong>Install</strong>, localizado na aba <em>Packages</em>, no painel inferior, à direita. Clicando em <strong>Install</strong>, abre-se a caixa de diálogo da Figura <a href="ambiente-do-r.html#fig:install">4.8</a>. Digitar em <em>Packages</em> o nome do pacote (<code>ggplot2</code>) e o <em>RStudio</em> completará com opções para achar o pacote. Clicar em <code>ggplot2</code> e verifique se <em>Install dependencies</em> foi selecionado. A seguir clicar em <em>Install</em> e aguardar aparecer no <em>Console</em> a mensagem que o pacote foi instalado com sucesso.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:install"></span>
@@ -765,39 +769,38 @@ Figure 4.8: Instalação do pacote ‘ggplot2’ usando a caixa de diálogo ‘I
 <h3><span class="header-section-number">4.3.3</span> Atualização dos pacotes<a href="ambiente-do-r.html#atualização-dos-pacotes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Periodicamente, há necessidade de atualizar os pacotes instalados. Essa necessidade advém do fato que, com o tempo, os autores de pacotes lançarão novas versões com correções de defeitos e novos recursos e, geralmente, é uma boa ideia manter-se atualizado.
 Para realizar a atualização proceda da seguinte maneira:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="ambiente-do-r.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># atualiza todos os pacotes disponíveis, solicitando permissão</span></span>
-<span id="cb2-2"><a href="ambiente-do-r.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">update.packages</span>()</span>
-<span id="cb2-3"><a href="ambiente-do-r.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># atualiza, sem solicitações de permissão/esclarecimento</span></span>
-<span id="cb2-4"><a href="ambiente-do-r.html#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">update.packages</span>(<span class="at">ask =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb2-5"><a href="ambiente-do-r.html#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># atualiza um pacote específico</span></span>
-<span id="cb2-6"><a href="ambiente-do-r.html#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">update.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="ambiente-do-r.html#cb2-1" tabindex="-1"></a><span class="co"># atualiza todos os pacotes disponíveis, solicitando permissão</span></span>
+<span id="cb2-2"><a href="ambiente-do-r.html#cb2-2" tabindex="-1"></a><span class="fu">update.packages</span>()</span>
+<span id="cb2-3"><a href="ambiente-do-r.html#cb2-3" tabindex="-1"></a><span class="co"># atualiza, sem solicitações de permissão/esclarecimento</span></span>
+<span id="cb2-4"><a href="ambiente-do-r.html#cb2-4" tabindex="-1"></a><span class="fu">update.packages</span>(<span class="at">ask =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-5"><a href="ambiente-do-r.html#cb2-5" tabindex="-1"></a><span class="co"># atualiza um pacote específico</span></span>
+<span id="cb2-6"><a href="ambiente-do-r.html#cb2-6" tabindex="-1"></a><span class="fu">update.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
 </div>
 <div id="instalando-e-carregando-mais-de-um-pacote" class="section level3 hasAnchor" number="4.3.4">
 <h3><span class="header-section-number">4.3.4</span> Instalando e carregando mais de um pacote<a href="ambiente-do-r.html#instalando-e-carregando-mais-de-um-pacote" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Para carregar mais de um pacote simultaneamente, pode-se usar uma das funções: <code>libraries()</code> ou <code>packages()</code> do pacote <code>easypackages</code>. Em primeiro lugar, instalar e carregar o pacote:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="ambiente-do-r.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;easypackages&quot;</span>)</span>
-<span id="cb3-2"><a href="ambiente-do-r.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easypackages)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="ambiente-do-r.html#cb3-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;easypackages&quot;</span>)</span>
+<span id="cb3-2"><a href="ambiente-do-r.html#cb3-2" tabindex="-1"></a><span class="fu">library</span>(easypackages)</span></code></pre></div>
 <p>Posteriormente, basta usar uma das funções do <code>easypackages</code>:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="ambiente-do-r.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">libraries</span>(<span class="st">&quot;readxl&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;car&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="ambiente-do-r.html#cb4-1" tabindex="-1"></a><span class="fu">libraries</span>(<span class="st">&quot;readxl&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>, <span class="st">&quot;car&quot;</span>)</span></code></pre></div>
 <p>Outro pacote que gerencia pacotes do <em>R</em> é o <code>pacman</code>. Este pacote tem a função <code>p_load()</code> que instala e carrega um ou mais pacotes. Usar esta função, escrevendo o nome dos pacotes sem necessidade de aspas:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="ambiente-do-r.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
-<span id="cb5-2"><a href="ambiente-do-r.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pacman)</span>
-<span id="cb5-3"><a href="ambiente-do-r.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">p_load</span>(readxl, dplyr, ggplot2, car)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="ambiente-do-r.html#cb5-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
+<span id="cb5-2"><a href="ambiente-do-r.html#cb5-2" tabindex="-1"></a><span class="fu">library</span>(pacman)</span>
+<span id="cb5-3"><a href="ambiente-do-r.html#cb5-3" tabindex="-1"></a><span class="fu">p_load</span>(readxl, dplyr, ggplot2, car)</span></code></pre></div>
 <p>Ou, escrever diretamente:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="ambiente-do-r.html#cb6-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(readxl, dplyr, ggplot2, car)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="ambiente-do-r.html#cb6-1" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(readxl, dplyr, ggplot2, car)</span></code></pre></div>
 <p>O pacote <code>pacman</code> tem outas funções, entre elas a função <code>p_update()</code> que atualiza o pacote e , se usada sem especificar o pacote , atualiza todos. Para saber mais sobre o pacote <code>pacman</code>, use a ajuda.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="ambiente-do-r.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">p_update</span>(readxl, dplyr, ggplot2, car)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="ambiente-do-r.html#cb7-1" tabindex="-1"></a><span class="fu">p_update</span>(readxl, dplyr, ggplot2, car)</span></code></pre></div>
 </div>
 <div id="citação-de-pacotes-em-publicações" class="section level3 hasAnchor" number="4.3.5">
 <h3><span class="header-section-number">4.3.5</span> Citação de pacotes em publicações<a href="ambiente-do-r.html#citação-de-pacotes-em-publicações" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>No <em>R</em> existe um comando que mostra como citar o <em>R</em> ou um de seus pacotes. Basta digitar a função <code>citation()</code> no <em>Console</em> ou no <em>R Script</em> e observar a saída. Para um pacote específico, basta colocar o nome do pacote entre aspas, na função.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="ambiente-do-r.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">citation</span>()</span></code></pre></div>
-<pre><code>## 
-## To cite R in publications use:
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="ambiente-do-r.html#cb8-1" tabindex="-1"></a><span class="fu">citation</span>()</span></code></pre></div>
+<pre><code>## To cite R in publications use:
 ## 
-##   R Core Team (2023). R: A language and environment for statistical
-##   computing. R Foundation for Statistical Computing, Vienna, Austria.
-##   URL https://www.R-project.org/.
+##   R Core Team (2023). _R: A Language and Environment for Statistical
+##   Computing_. R Foundation for Statistical Computing, Vienna, Austria.
+##   &lt;https://www.R-project.org/&gt;.
 ## 
 ## A BibTeX entry for LaTeX users is
 ## 
@@ -813,9 +816,8 @@ Para realizar a atualização proceda da seguinte maneira:</p>
 ## We have invested a lot of time and effort in creating R, please cite it
 ## when using it for data analysis. See also &#39;citation(&quot;pkgname&quot;)&#39; for
 ## citing R packages.</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="ambiente-do-r.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">citation</span> (<span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
-<pre><code>## 
-## To cite ggplot2 in publications, please use:
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="ambiente-do-r.html#cb10-1" tabindex="-1"></a><span class="fu">citation</span> (<span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
+<pre><code>## To cite ggplot2 in publications, please use
 ## 
 ##   H. Wickham. ggplot2: Elegant Graphics for Data Analysis.
 ##   Springer-Verlag New York, 2016.
@@ -868,83 +870,83 @@ Figure 4.10: Assistente de novo projeto.
 <p>Operadores são usados para realizar operações com variáveis e valores.</p>
 <p><strong>Operadores aritméticos</strong></p>
 <p>No <em>R</em>, você pode usar operadores aritméticos para realizar operações matemáticas comuns.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="ambiente-do-r.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Adição</span></span>
-<span id="cb12-2"><a href="ambiente-do-r.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">+</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="ambiente-do-r.html#cb12-1" tabindex="-1"></a><span class="co"># Adição</span></span>
+<span id="cb12-2"><a href="ambiente-do-r.html#cb12-2" tabindex="-1"></a><span class="dv">10</span> <span class="sc">+</span> <span class="dv">5</span></span></code></pre></div>
 <pre><code>## [1] 15</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="ambiente-do-r.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subtração</span></span>
-<span id="cb14-2"><a href="ambiente-do-r.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">-</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="ambiente-do-r.html#cb14-1" tabindex="-1"></a><span class="co"># Subtração</span></span>
+<span id="cb14-2"><a href="ambiente-do-r.html#cb14-2" tabindex="-1"></a><span class="dv">10</span> <span class="sc">-</span> <span class="dv">5</span></span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="ambiente-do-r.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Multiplicação</span></span>
-<span id="cb16-2"><a href="ambiente-do-r.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">*</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="ambiente-do-r.html#cb16-1" tabindex="-1"></a><span class="co"># Multiplicação</span></span>
+<span id="cb16-2"><a href="ambiente-do-r.html#cb16-2" tabindex="-1"></a><span class="dv">10</span> <span class="sc">*</span> <span class="dv">5</span></span></code></pre></div>
 <pre><code>## [1] 50</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="ambiente-do-r.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Divisão</span></span>
-<span id="cb18-2"><a href="ambiente-do-r.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">/</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="ambiente-do-r.html#cb18-1" tabindex="-1"></a><span class="co"># Divisão</span></span>
+<span id="cb18-2"><a href="ambiente-do-r.html#cb18-2" tabindex="-1"></a><span class="dv">10</span> <span class="sc">/</span> <span class="dv">5</span></span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="ambiente-do-r.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Potência  </span></span>
-<span id="cb20-2"><a href="ambiente-do-r.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">^</span> <span class="dv">5</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="ambiente-do-r.html#cb20-1" tabindex="-1"></a><span class="co"># Potência  </span></span>
+<span id="cb20-2"><a href="ambiente-do-r.html#cb20-2" tabindex="-1"></a><span class="dv">10</span> <span class="sc">^</span> <span class="dv">5</span></span></code></pre></div>
 <pre><code>## [1] 1e+05</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="ambiente-do-r.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Divisão modular (divisão com resto)</span></span>
-<span id="cb22-2"><a href="ambiente-do-r.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">%%</span> <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="ambiente-do-r.html#cb22-1" tabindex="-1"></a><span class="co"># Divisão modular (divisão com resto)</span></span>
+<span id="cb22-2"><a href="ambiente-do-r.html#cb22-2" tabindex="-1"></a><span class="dv">10</span> <span class="sc">%%</span> <span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="ambiente-do-r.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Divisão inteiro</span></span>
-<span id="cb24-2"><a href="ambiente-do-r.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span> <span class="sc">%/%</span> <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="ambiente-do-r.html#cb24-1" tabindex="-1"></a><span class="co"># Divisão inteiro</span></span>
+<span id="cb24-2"><a href="ambiente-do-r.html#cb24-2" tabindex="-1"></a><span class="dv">10</span> <span class="sc">%/%</span> <span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>O resultado da exponenciação é exibido como notação científica, onde <span class="math inline">\(e+05\)</span> significa <span class="math inline">\(10^5\)</span>.</p>
 <p><strong>Operadores de atribuição</strong></p>
 <p>Operadores de atribuição são usados para atribuir valores a variáveis, como será visto na seção <a href="ambiente-do-r.html#sec-objetos">4.7</a>, adiante.</p>
 <p><strong>Operadores de comparação</strong></p>
 <p>São usados para comparar dois valores.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="ambiente-do-r.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Igualdade</span></span>
-<span id="cb26-2"><a href="ambiente-do-r.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">==</span> <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="ambiente-do-r.html#cb26-1" tabindex="-1"></a><span class="co"># Igualdade</span></span>
+<span id="cb26-2"><a href="ambiente-do-r.html#cb26-2" tabindex="-1"></a><span class="dv">3</span> <span class="sc">==</span> <span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="ambiente-do-r.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">==</span> <span class="dv">4</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="ambiente-do-r.html#cb28-1" tabindex="-1"></a><span class="dv">3</span> <span class="sc">==</span> <span class="dv">4</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="ambiente-do-r.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Não igual (diferente)</span></span>
-<span id="cb30-2"><a href="ambiente-do-r.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">!=</span> <span class="dv">4</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="ambiente-do-r.html#cb30-1" tabindex="-1"></a><span class="co"># Não igual (diferente)</span></span>
+<span id="cb30-2"><a href="ambiente-do-r.html#cb30-2" tabindex="-1"></a><span class="dv">3</span> <span class="sc">!=</span> <span class="dv">4</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="ambiente-do-r.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Maior</span></span>
-<span id="cb32-2"><a href="ambiente-do-r.html#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="sc">&gt;</span> <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="ambiente-do-r.html#cb32-1" tabindex="-1"></a><span class="co"># Maior</span></span>
+<span id="cb32-2"><a href="ambiente-do-r.html#cb32-2" tabindex="-1"></a><span class="dv">6</span> <span class="sc">&gt;</span> <span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="ambiente-do-r.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Menor</span></span>
-<span id="cb34-2"><a href="ambiente-do-r.html#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">&lt;</span> <span class="dv">4</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="ambiente-do-r.html#cb34-1" tabindex="-1"></a><span class="co"># Menor</span></span>
+<span id="cb34-2"><a href="ambiente-do-r.html#cb34-2" tabindex="-1"></a><span class="dv">3</span> <span class="sc">&lt;</span> <span class="dv">4</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="ambiente-do-r.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Maior ou igual</span></span>
-<span id="cb36-2"><a href="ambiente-do-r.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="sc">&gt;=</span> <span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="ambiente-do-r.html#cb36-1" tabindex="-1"></a><span class="co"># Maior ou igual</span></span>
+<span id="cb36-2"><a href="ambiente-do-r.html#cb36-2" tabindex="-1"></a><span class="dv">5</span> <span class="sc">&gt;=</span> <span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="ambiente-do-r.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Menor ou igual  </span></span>
-<span id="cb38-2"><a href="ambiente-do-r.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">&lt;=</span> <span class="dv">4</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="ambiente-do-r.html#cb38-1" tabindex="-1"></a><span class="co"># Menor ou igual  </span></span>
+<span id="cb38-2"><a href="ambiente-do-r.html#cb38-2" tabindex="-1"></a><span class="dv">3</span> <span class="sc">&lt;=</span> <span class="dv">4</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Observe que, na linguagem R, o sinal de igualdade é escrito com duplo <span class="math inline">\(=\)</span>.</p>
 <p><strong>Operadores lógicos</strong></p>
 <p>Operadores lógicos são usados para combinar declarações condicionais:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="ambiente-do-r.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Conjunção lógica E, retorna TRUE se ambos elementos são  verdadeiros </span></span>
-<span id="cb40-2"><a href="ambiente-do-r.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="sc">==</span> <span class="dv">6</span> <span class="sc">&amp;</span> <span class="dv">7</span> <span class="sc">==</span> <span class="dv">8</span></span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="ambiente-do-r.html#cb40-1" tabindex="-1"></a><span class="co"># Conjunção lógica E, retorna TRUE se ambos elementos são  verdadeiros </span></span>
+<span id="cb40-2"><a href="ambiente-do-r.html#cb40-2" tabindex="-1"></a><span class="dv">6</span> <span class="sc">==</span> <span class="dv">6</span> <span class="sc">&amp;</span> <span class="dv">7</span> <span class="sc">==</span> <span class="dv">8</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="ambiente-do-r.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Conjunção lógica E, retorna TRUE se ambos elementos são  verdadeiros</span></span>
-<span id="cb42-2"><a href="ambiente-do-r.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="dv">3</span> <span class="sc">&amp;&amp;</span> <span class="dv">1</span> <span class="sc">*</span> <span class="dv">6</span></span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="ambiente-do-r.html#cb42-1" tabindex="-1"></a><span class="co"># Conjunção lógica E, retorna TRUE se ambos elementos são  verdadeiros</span></span>
+<span id="cb42-2"><a href="ambiente-do-r.html#cb42-2" tabindex="-1"></a><span class="dv">2</span> <span class="sc">*</span> <span class="dv">3</span> <span class="sc">&amp;&amp;</span> <span class="dv">1</span> <span class="sc">*</span> <span class="dv">6</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="ambiente-do-r.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Conjunção lógica OU, retorna TRUE se um dos elementos é verdadeiro</span></span>
-<span id="cb44-2"><a href="ambiente-do-r.html#cb44-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">2</span> <span class="sc">*</span> <span class="dv">2</span>) <span class="sc">|</span> <span class="fu">sqrt</span>(<span class="dv">16</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="ambiente-do-r.html#cb44-1" tabindex="-1"></a><span class="co"># Conjunção lógica OU, retorna TRUE se um dos elementos é verdadeiro</span></span>
+<span id="cb44-2"><a href="ambiente-do-r.html#cb44-2" tabindex="-1"></a>(<span class="dv">2</span> <span class="sc">*</span> <span class="dv">2</span>) <span class="sc">|</span> <span class="fu">sqrt</span>(<span class="dv">16</span>)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="ambiente-do-r.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="sc">==</span> <span class="dv">6</span> <span class="sc">|</span> <span class="dv">7</span> <span class="sc">==</span> <span class="dv">8</span> </span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="ambiente-do-r.html#cb46-1" tabindex="-1"></a><span class="dv">6</span> <span class="sc">==</span> <span class="dv">6</span> <span class="sc">|</span> <span class="dv">7</span> <span class="sc">==</span> <span class="dv">8</span> </span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="ambiente-do-r.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Conjunção lógica NÃO, retorna FALSE se o  elemento é verdadeiro</span></span>
-<span id="cb48-2"><a href="ambiente-do-r.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span><span class="dv">6</span><span class="sc">==</span><span class="dv">6</span></span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="ambiente-do-r.html#cb48-1" tabindex="-1"></a><span class="co"># Conjunção lógica NÃO, retorna FALSE se o  elemento é verdadeiro</span></span>
+<span id="cb48-2"><a href="ambiente-do-r.html#cb48-2" tabindex="-1"></a><span class="sc">!</span><span class="dv">6</span><span class="sc">==</span><span class="dv">6</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="ambiente-do-r.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="sc">!</span><span class="dv">2</span><span class="sc">==</span><span class="dv">4</span></span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="ambiente-do-r.html#cb50-1" tabindex="-1"></a><span class="sc">!</span><span class="dv">2</span><span class="sc">==</span><span class="dv">4</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p><strong>Logarítimo</strong></p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="ambiente-do-r.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logarítmo natural (base e)</span></span>
-<span id="cb52-2"><a href="ambiente-do-r.html#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span> (<span class="dv">10</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="ambiente-do-r.html#cb52-1" tabindex="-1"></a><span class="co"># Logarítmo natural (base e)</span></span>
+<span id="cb52-2"><a href="ambiente-do-r.html#cb52-2" tabindex="-1"></a><span class="fu">log</span> (<span class="dv">10</span>) </span></code></pre></div>
 <pre><code>## [1] 2.302585</code></pre>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="ambiente-do-r.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logarítmo base 10</span></span>
-<span id="cb54-2"><a href="ambiente-do-r.html#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">log10</span> (<span class="dv">10</span>)       </span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="ambiente-do-r.html#cb54-1" tabindex="-1"></a><span class="co"># Logarítmo base 10</span></span>
+<span id="cb54-2"><a href="ambiente-do-r.html#cb54-2" tabindex="-1"></a><span class="fu">log10</span> (<span class="dv">10</span>)       </span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p><strong>Raiz quadrada</strong></p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="ambiente-do-r.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span> (<span class="dv">81</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="ambiente-do-r.html#cb56-1" tabindex="-1"></a><span class="fu">sqrt</span> (<span class="dv">81</span>)</span></code></pre></div>
 <pre><code>## [1] 9</code></pre>
 <p><strong>Resultado absoluto</strong></p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="ambiente-do-r.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">abs</span> (<span class="dv">3</span> <span class="sc">-</span> <span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="ambiente-do-r.html#cb58-1" tabindex="-1"></a><span class="fu">abs</span> (<span class="dv">3</span> <span class="sc">-</span> <span class="dv">6</span>)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 </div>
 </div>
@@ -956,21 +958,21 @@ Figure 4.10: Assistente de novo projeto.
 <p>Quando se usa um objeto com o nome <code>pi</code>, ele assumirá outro valor diferente de 3,141593. Preservando este nome, toda vez que usarmos a palavra <code>pi</code>, o <em>R</em> assume o valor pré-estabelecido. Além disso, o <em>R</em> faz a diferença entre letras maiúsculas e minúsculas. Ou seja, <code>soma</code> é um objeto diferente de <code>Soma</code> e ambos são diferentes de <code>SOMA</code>.</p>
 <p>Para exibir o conteúdo de um objeto, basta digitar seu nome no <em>R Script</em> ou no <em>Console</em> e executar. Em análises mais extensas, verificar se já há um objeto com o mesmo nome, pois seus valores serão substituídos ao executar o novo objeto. Para saber se já existe um objeto com o nome definido, digite as primeiras letras do objeto criado e o <em>R Studio</em> listará, usando a sua função de autocompletar, tudo que começar com essas letras no arquivo. Assim ficará fácil verificar se já existe um objeto com o nome desejado.</p>
 <p>No comando abaixo, é criado um objeto que receberá a soma de dez números, utilizando a função <code>sum()</code>. O objeto foi denominado de <code>soma</code>. Para exibir o valor contido no objeto <code>soma</code>, é necessário digitar <code>soma</code> no <em>R Script</em> ou <em>Console</em> e executar:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="ambiente-do-r.html#cb60-1" aria-hidden="true" tabindex="-1"></a>soma <span class="ot">&lt;-</span> <span class="fu">sum</span> (<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">21</span>, <span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">13</span>, <span class="dv">21</span>)</span>
-<span id="cb60-2"><a href="ambiente-do-r.html#cb60-2" aria-hidden="true" tabindex="-1"></a>soma</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="ambiente-do-r.html#cb60-1" tabindex="-1"></a>soma <span class="ot">&lt;-</span> <span class="fu">sum</span> (<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">21</span>, <span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">13</span>, <span class="dv">21</span>)</span>
+<span id="cb60-2"><a href="ambiente-do-r.html#cb60-2" tabindex="-1"></a>soma</span></code></pre></div>
 <pre><code>## [1] 106</code></pre>
 </div>
 <div id="funções" class="section level2 hasAnchor" number="4.8">
 <h2><span class="header-section-number">4.8</span> Funções<a href="ambiente-do-r.html#funções" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A função é uma orientação ao<em>R</em>para que ele execute algum procedimento específico, por isso, em geral, têm nomes sugestivos do que elas realizam. Por exemplo, a função <code>mean ()</code> realiza a média aritmética de uma série de números colocados entre parênteses. O resultado, como regra geral, deve ser colocado em um objeto que será armazenado na memória do computador.</p>
 <p>Esta série de números pode antes ser armazenada por um objeto, nomeado <code>dados</code>e, posteriormente, se usa a função <code>mean()</code>com este objeto <code>dados</code>. O resultado da função <code>mean</code>, exibido no <em>Console</em>, será recebido por outro objeto <code>media_dados</code> que será colocado na memória do computador.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="ambiente-do-r.html#cb62-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">7</span>)</span>
-<span id="cb62-2"><a href="ambiente-do-r.html#cb62-2" aria-hidden="true" tabindex="-1"></a>media_dados <span class="ot">&lt;-</span> <span class="fu">mean</span>(dados)</span>
-<span id="cb62-3"><a href="ambiente-do-r.html#cb62-3" aria-hidden="true" tabindex="-1"></a>media_dados</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="ambiente-do-r.html#cb62-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">7</span>)</span>
+<span id="cb62-2"><a href="ambiente-do-r.html#cb62-2" tabindex="-1"></a>media_dados <span class="ot">&lt;-</span> <span class="fu">mean</span>(dados)</span>
+<span id="cb62-3"><a href="ambiente-do-r.html#cb62-3" tabindex="-1"></a>media_dados</span></code></pre></div>
 <pre><code>## [1] 6.166667</code></pre>
 <p>As <em>funções</em> podem ser criadas pelo pesquisador, de acordo com as suas necessidades. Entretanto, na maioria das vezes, elas são encontradas prontas, fazendo parte de um pacote. Pacotes contêm muitas funções que para serem executadas necessitam que estes estejam instalados e carregados. As funções para exercerem a sua ação devem receber dentro delas (entre parênteses) os <em>argumentos</em> que elas exigem. Os argumentos de uma função são sempre separados por vírgulas.</p>
 <p>Para se saber quais argumentos necessários para uma determinada função basta consultar a ajuda, onde se encontrará a documentação da mesma. Para isso basta digitar no <em>Console</em>, no caso da função <code>mean()</code>, <code>help(mean)</code> ou <code>?mean</code>:</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="ambiente-do-r.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">help</span>(mean)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="ambiente-do-r.html#cb64-1" tabindex="-1"></a><span class="fu">help</span>(mean)</span></code></pre></div>
 <p>O resultado deste comando aparecerá na aba <em>Help</em>, na parte inferior, à direita (Figura <a href="ambiente-do-r.html#fig:help">4.11</a>:</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:help"></span>
 <img src="https://i.imgur.com/Dy3gA7R.png" alt="Ajuda para Média Aritmética." width="60%" />
@@ -986,12 +988,12 @@ Figure 4.11: Ajuda para Média Aritmética.
 </ul>
 <p>Este último argumento é muito importante quando, na sequência de valores existe algum não informado ou inexistente. No R, els são denominados de valores ausentes (<em>missing values</em>) e denotados por <strong>NA</strong> (<em>Not Available</em>).</p>
 <p>Por exemplo, em uma coleta de uma série de valores, correspondentes ao peso de 15 recém-nascidos, havendo a “falta” de um dos registros, ao calcular a média com a função <code>mean()</code>, ela retornará NA.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="ambiente-do-r.html#cb65-1" aria-hidden="true" tabindex="-1"></a>pesoRN <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">3340</span>,<span class="dv">3345</span>,<span class="dv">3750</span>,<span class="dv">3650</span>,<span class="dv">3220</span>,<span class="dv">4070</span>,<span class="cn">NA</span>,<span class="dv">3970</span>,<span class="dv">3060</span>,<span class="dv">3180</span>,  </span>
-<span id="cb65-2"><a href="ambiente-do-r.html#cb65-2" aria-hidden="true" tabindex="-1"></a>             <span class="dv">2865</span>,<span class="dv">2815</span>,<span class="dv">3245</span>,<span class="dv">2051</span>,<span class="dv">2630</span>)</span>
-<span id="cb65-3"><a href="ambiente-do-r.html#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span> (pesoRN)</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="ambiente-do-r.html#cb65-1" tabindex="-1"></a>pesoRN <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">3340</span>,<span class="dv">3345</span>,<span class="dv">3750</span>,<span class="dv">3650</span>,<span class="dv">3220</span>,<span class="dv">4070</span>,<span class="cn">NA</span>,<span class="dv">3970</span>,<span class="dv">3060</span>,<span class="dv">3180</span>,  </span>
+<span id="cb65-2"><a href="ambiente-do-r.html#cb65-2" tabindex="-1"></a>             <span class="dv">2865</span>,<span class="dv">2815</span>,<span class="dv">3245</span>,<span class="dv">2051</span>,<span class="dv">2630</span>)</span>
+<span id="cb65-3"><a href="ambiente-do-r.html#cb65-3" tabindex="-1"></a><span class="fu">mean</span> (pesoRN)</span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
 <p>Colocando o argumento <code>na.rm = TRUE</code>, para remover os valores faltantes, a função retornará a média aritmética sem este valor:</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="ambiente-do-r.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span> (pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="ambiente-do-r.html#cb67-1" tabindex="-1"></a><span class="fu">mean</span> (pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## [1] 3227.929</code></pre>
 <div id="criando-funções" class="section level3 hasAnchor" number="4.8.1">
 <h3><span class="header-section-number">4.8.1</span> Criando funções<a href="ambiente-do-r.html#criando-funções" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1002,28 +1004,28 @@ Figure 4.11: Ajuda para Média Aritmética.
 <p><font size=3>nome_da_funcao &lt;- function (x){transformar x}</font></p>
 </blockquote>
 <p>Por exemplo, a área de um circulo é igual a <span class="math inline">\(\pi\times raio^2\)</span>. Para calcular a área do círculo, pode-se criar uma função que faça este trabalho:</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="ambiente-do-r.html#cb69-1" aria-hidden="true" tabindex="-1"></a>area.circ <span class="ot">&lt;-</span> <span class="cf">function</span>(r){</span>
-<span id="cb69-2"><a href="ambiente-do-r.html#cb69-2" aria-hidden="true" tabindex="-1"></a>  area <span class="ot">&lt;-</span> pi<span class="sc">*</span>r<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb69-3"><a href="ambiente-do-r.html#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(area)                </span>
-<span id="cb69-4"><a href="ambiente-do-r.html#cb69-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="ambiente-do-r.html#cb69-1" tabindex="-1"></a>area.circ <span class="ot">&lt;-</span> <span class="cf">function</span>(r){</span>
+<span id="cb69-2"><a href="ambiente-do-r.html#cb69-2" tabindex="-1"></a>  area <span class="ot">&lt;-</span> pi<span class="sc">*</span>r<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb69-3"><a href="ambiente-do-r.html#cb69-3" tabindex="-1"></a>  <span class="fu">return</span>(area)                </span>
+<span id="cb69-4"><a href="ambiente-do-r.html#cb69-4" tabindex="-1"></a>}</span></code></pre></div>
 <p>Ao executar essa função, é possível usá-la para calcular a área de um círculo, cujo raio é igual a 5 cm:</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="ambiente-do-r.html#cb70-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">=</span> <span class="dv">5</span></span>
-<span id="cb70-2"><a href="ambiente-do-r.html#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">area.circ</span>(<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="ambiente-do-r.html#cb70-1" tabindex="-1"></a>r <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb70-2"><a href="ambiente-do-r.html#cb70-2" tabindex="-1"></a><span class="fu">area.circ</span>(<span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 78.53982</code></pre>
 <p><strong>Outros exemplos</strong></p>
 <p>O Indice de Massa Corporal é igual ao peso (kg) dividido pela <span class="math inline">\(altura^2\)</span>, em metros. Uma função para fazer este cálculo é:</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="ambiente-do-r.html#cb72-1" aria-hidden="true" tabindex="-1"></a>imc <span class="ot">&lt;-</span> <span class="cf">function</span>(peso, altura){</span>
-<span id="cb72-2"><a href="ambiente-do-r.html#cb72-2" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> peso<span class="sc">/</span>altura<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb72-3"><a href="ambiente-do-r.html#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(res)</span>
-<span id="cb72-4"><a href="ambiente-do-r.html#cb72-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="ambiente-do-r.html#cb72-1" tabindex="-1"></a>imc <span class="ot">&lt;-</span> <span class="cf">function</span>(peso, altura){</span>
+<span id="cb72-2"><a href="ambiente-do-r.html#cb72-2" tabindex="-1"></a>  res <span class="ot">&lt;-</span> peso<span class="sc">/</span>altura<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb72-3"><a href="ambiente-do-r.html#cb72-3" tabindex="-1"></a>  <span class="fu">return</span>(res)</span>
+<span id="cb72-4"><a href="ambiente-do-r.html#cb72-4" tabindex="-1"></a>}</span></code></pre></div>
 <p>Logo, o IMC de um indivíduo que tenha 67 kg e 1,7 m é:</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="ambiente-do-r.html#cb73-1" aria-hidden="true" tabindex="-1"></a>peso <span class="ot">&lt;-</span>  <span class="dv">67</span></span>
-<span id="cb73-2"><a href="ambiente-do-r.html#cb73-2" aria-hidden="true" tabindex="-1"></a>altura <span class="ot">&lt;-</span>  <span class="fl">1.70</span></span>
-<span id="cb73-3"><a href="ambiente-do-r.html#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="fu">imc</span>(<span class="dv">67</span>, <span class="fl">1.70</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="ambiente-do-r.html#cb73-1" tabindex="-1"></a>peso <span class="ot">&lt;-</span>  <span class="dv">67</span></span>
+<span id="cb73-2"><a href="ambiente-do-r.html#cb73-2" tabindex="-1"></a>altura <span class="ot">&lt;-</span>  <span class="fl">1.70</span></span>
+<span id="cb73-3"><a href="ambiente-do-r.html#cb73-3" tabindex="-1"></a><span class="fu">imc</span>(<span class="dv">67</span>, <span class="fl">1.70</span>)</span></code></pre></div>
 <pre><code>## [1] 23.18339</code></pre>
 <p><strong>Ativação de uma função criada</strong></p>
 <p>Para ativar uma função previamente criada, usa-se a função nativa <code>source ()</code>. O argumento desta função é o caminho (no exemplo, é o diretório do autor) onde se encontra a função buscada, por exemplo, a função <code>imc()</code> criada acima:</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="ambiente-do-r.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&#39;C:/Users/petro/Dropbox/Estatistica/Bioestatistica_usando_R/Funcoes/imc.R&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="ambiente-do-r.html#cb75-1" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&#39;C:/Users/petro/Dropbox/Estatistica/Bioestatistica_usando_R/Funcoes/imc.R&#39;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="classes" class="section level2 hasAnchor" number="4.9">
@@ -1031,66 +1033,66 @@ Figure 4.11: Ajuda para Média Aritmética.
 <p>São os atributos de um objeto e o seu conhecimento é de suma importância. A partir do conhecimento do tipo de classe que as funções sabem o que extamente fazer com um objeto. Por exemplo, não é possivel somar duas letras e se for feita a tentativa de somar “a” e “b”, O<em>R</em>retorna um erro: <span style="color:red"> Error in “a” + “b”: non-numeric argument to binary operator </span>.</p>
 <p>No R, os textos são escritos entre aspas simples ou duplas. As aspas servem para diferenciar nomes (objetos, funções, pacotes) de textos (letras e palavras). Os textos são muito comuns em variáveis categóricas e são popularmente chamados de <em>strings</em> ou <em>character</em>. Alé desta classe, o <em>R</em> tem outras classes básicas que são a <em>numeric</em> e a <em>logical</em>. Um objeto de qualquer uma dessas classes é chamado de <em>objeto atômico</em>. Esse nome se deve ao fato de essas classes não se misturarem <span class="citation">(55)</span>.</p>
 <p>Para saber qual o tipo de classe que um objeto pertence, basta usar a função <code>class ()</code>.</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="ambiente-do-r.html#cb76-1" aria-hidden="true" tabindex="-1"></a>idade <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">7</span>)</span>
-<span id="cb76-2"><a href="ambiente-do-r.html#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span> (idade)</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="ambiente-do-r.html#cb76-1" tabindex="-1"></a>idade <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">7</span>)</span>
+<span id="cb76-2"><a href="ambiente-do-r.html#cb76-2" tabindex="-1"></a><span class="fu">class</span> (idade)</span></code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="ambiente-do-r.html#cb78-1" aria-hidden="true" tabindex="-1"></a>nome <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Pedro&quot;</span>, <span class="st">&quot;Maria&quot;</span>, <span class="st">&quot;Margarida&quot;</span>, <span class="st">&quot;Alice&quot;</span>, <span class="st">&quot;João&quot;</span>, <span class="st">&quot;Luís&quot;</span>)</span>
-<span id="cb78-2"><a href="ambiente-do-r.html#cb78-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(nome)</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="ambiente-do-r.html#cb78-1" tabindex="-1"></a>nome <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Pedro&quot;</span>, <span class="st">&quot;Maria&quot;</span>, <span class="st">&quot;Margarida&quot;</span>, <span class="st">&quot;Alice&quot;</span>, <span class="st">&quot;João&quot;</span>, <span class="st">&quot;Luís&quot;</span>)</span>
+<span id="cb78-2"><a href="ambiente-do-r.html#cb78-2" tabindex="-1"></a><span class="fu">class</span>(nome)</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 </div>
 <div id="sec-vetores" class="section level2 hasAnchor" number="4.10">
 <h2><span class="header-section-number">4.10</span> Vetores<a href="ambiente-do-r.html#sec-vetores" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Um <strong>vetor</strong> é uma variável com um ou mais valores do mesmo tipo. Por exemplo, o número de filhos em 10 famílias foi
 4, 5, 3, 2, 2, 1, 2, 1, 3 e 2. O vetor nomeado de <code>n.filhos</code> é um objeto numérico de comprimento = 10. A maneira mais fácil de criar um vetor em <em>R</em> é concatenar (ligar) os 10 valores, usando a função concatenar <code>c()</code> assim:</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="ambiente-do-r.html#cb80-1" aria-hidden="true" tabindex="-1"></a>n.filhos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>)</span>
-<span id="cb80-2"><a href="ambiente-do-r.html#cb80-2" aria-hidden="true" tabindex="-1"></a>n.filhos</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="ambiente-do-r.html#cb80-1" tabindex="-1"></a>n.filhos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb80-2"><a href="ambiente-do-r.html#cb80-2" tabindex="-1"></a>n.filhos</span></code></pre></div>
 <pre><code>##  [1] 4 5 3 2 2 1 2 1 3 2</code></pre>
 <p>Como os vetores são conjuntos <em>indexados</em>, pode-se dizer que cada valor dentro de um vetor tem uma <strong>posição</strong>. Essa posição é dada pela ordem em que os elementos foram colocados no momento em que o vetor foi criado. Isso nos permite acessar individualmente cada valor de um vetor <span class="citation">(55)</span>.<br />
 Para acessar um determinado valor, basta colocar a posição do mesmo entre colchetes [ ]. Se há interesse em conhecer o número de filhos da quinta família, procede-se da seguinte forma:</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="ambiente-do-r.html#cb82-1" aria-hidden="true" tabindex="-1"></a>n.filhos[<span class="dv">5</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="ambiente-do-r.html#cb82-1" tabindex="-1"></a>n.filhos[<span class="dv">5</span>]</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>Se houver tentativa de acessar um valor inexixtente, o <em>R</em> retorna <code>NA</code>.</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="ambiente-do-r.html#cb84-1" aria-hidden="true" tabindex="-1"></a>n.filhos[<span class="dv">11</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="ambiente-do-r.html#cb84-1" tabindex="-1"></a>n.filhos[<span class="dv">11</span>]</span></code></pre></div>
 <pre><code>## [1] NA</code></pre>
 <p>Se houver necessidade de excluir um dos elementos, basta colocar entre colchetes a posição do mesmo com sinal negativo. Por exemplo, para excluir o valor correspondente a sexta família, usa-se:</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="ambiente-do-r.html#cb86-1" aria-hidden="true" tabindex="-1"></a>n.filhos[<span class="sc">-</span><span class="dv">6</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="ambiente-do-r.html#cb86-1" tabindex="-1"></a>n.filhos[<span class="sc">-</span><span class="dv">6</span>]</span></code></pre></div>
 <pre><code>## [1] 4 5 3 2 2 2 1 3 2</code></pre>
 <p>Observa-se que o valor 1 foi excluído da série de elementos.</p>
 <p>Quando são colocados elementos em um vetor que pertençam a classes diferentes, o <em>R</em> promove o que se denomina de <strong>coerção</strong>, pois o vetor pode ter apenas uma classe de objeto. Dessa forma, as classes mais fortes reprimem as mais fracas. Por exemplo, sempre que for misturado números e texto em um vetor, os números serão considerados como texto:</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="ambiente-do-r.html#cb88-1" aria-hidden="true" tabindex="-1"></a>vetor <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;D&quot;</span>)</span>
-<span id="cb88-2"><a href="ambiente-do-r.html#cb88-2" aria-hidden="true" tabindex="-1"></a>vetor</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="ambiente-do-r.html#cb88-1" tabindex="-1"></a>vetor <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;D&quot;</span>)</span>
+<span id="cb88-2"><a href="ambiente-do-r.html#cb88-2" tabindex="-1"></a>vetor</span></code></pre></div>
 <pre><code>## [1] &quot;12&quot; &quot;15&quot; &quot;4&quot;  &quot;6&quot;  &quot;A&quot;  &quot;D&quot;</code></pre>
 <p>Observe que, agora, todos os elementos do vetor passaram a ser textos e, porisso, estão entre aspas.</p>
 <div id="tipos-de-vetores" class="section level3 hasAnchor" number="4.10.1">
 <h3><span class="header-section-number">4.10.1</span> Tipos de vetores<a href="ambiente-do-r.html#tipos-de-vetores" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Dado um vetor, pode-se determinar seu tipo com <code>typeof()</code>, ou verificar se é um tipo específico com uma das funções: <code>is.character()</code>, ’is.double()<code>,</code>is.integer()<code>,</code>is.logical( )`.</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="ambiente-do-r.html#cb90-1" aria-hidden="true" tabindex="-1"></a>n.filhos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>)</span>
-<span id="cb90-2"><a href="ambiente-do-r.html#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(n.filhos)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="ambiente-do-r.html#cb90-1" tabindex="-1"></a>n.filhos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb90-2"><a href="ambiente-do-r.html#cb90-2" tabindex="-1"></a><span class="fu">typeof</span>(n.filhos)</span></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="ambiente-do-r.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.numeric</span>(n.filhos)</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="ambiente-do-r.html#cb92-1" tabindex="-1"></a><span class="fu">is.numeric</span>(n.filhos)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>As expressões do tipo <em>character</em> devem aparecer entre aspas duplas ou simples. Os números no <em>R</em> são geralmente tratados como objetos numéricos (números reais de dupla precisão). Mesmo números inteiros são tratados como numéricos. Para fazer um número inteiro ser tratado como objeto inteiro, deve-se utilizar a letra L após o número.</p>
 <p>Os valores lógicos (ou booleanos) são TRUE ou FALSE. T ou F também são aceitos.</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="ambiente-do-r.html#cb94-1" aria-hidden="true" tabindex="-1"></a>n.filhos <span class="ot">&lt;-</span> <span class="fu">c</span>(4L, 5L, 3L, 2L, 2L, 1L, 2L, 1L, 3L, 2L)</span>
-<span id="cb94-2"><a href="ambiente-do-r.html#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(n.filhos)</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="ambiente-do-r.html#cb94-1" tabindex="-1"></a>n.filhos <span class="ot">&lt;-</span> <span class="fu">c</span>(4L, 5L, 3L, 2L, 2L, 1L, 2L, 1L, 3L, 2L)</span>
+<span id="cb94-2"><a href="ambiente-do-r.html#cb94-2" tabindex="-1"></a><span class="fu">typeof</span>(n.filhos)</span></code></pre></div>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="ambiente-do-r.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.numeric</span>(n.filhos)</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="ambiente-do-r.html#cb96-1" tabindex="-1"></a><span class="fu">is.numeric</span>(n.filhos)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="ambiente-do-r.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.double</span>(n.filhos)</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="ambiente-do-r.html#cb98-1" tabindex="-1"></a><span class="fu">is.double</span>(n.filhos)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="ambiente-do-r.html#cb100-1" aria-hidden="true" tabindex="-1"></a>nomes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;Maria&#39;</span>, <span class="st">&#39;João&#39;</span>, <span class="st">&#39;Manuel&#39;</span>, <span class="st">&#39;Petronio&#39;</span>, <span class="st">&#39;José&#39;</span>)</span>
-<span id="cb100-2"><a href="ambiente-do-r.html#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(nomes)</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="ambiente-do-r.html#cb100-1" tabindex="-1"></a>nomes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;Maria&#39;</span>, <span class="st">&#39;João&#39;</span>, <span class="st">&#39;Manuel&#39;</span>, <span class="st">&#39;Petronio&#39;</span>, <span class="st">&#39;José&#39;</span>)</span>
+<span id="cb100-2"><a href="ambiente-do-r.html#cb100-2" tabindex="-1"></a><span class="fu">typeof</span>(nomes)</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="ambiente-do-r.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.numeric</span>(nomes)</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="ambiente-do-r.html#cb102-1" tabindex="-1"></a><span class="fu">is.numeric</span>(nomes)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="ambiente-do-r.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.double</span>(nomes)</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="ambiente-do-r.html#cb104-1" tabindex="-1"></a><span class="fu">is.double</span>(nomes)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="ambiente-do-r.html#cb106-1" aria-hidden="true" tabindex="-1"></a>altura <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.60</span>, <span class="fl">1.78</span>, <span class="fl">1.55</span>, <span class="fl">1.67</span>, <span class="fl">1.69</span>)</span>
-<span id="cb106-2"><a href="ambiente-do-r.html#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(altura)</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="ambiente-do-r.html#cb106-1" tabindex="-1"></a>altura <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.60</span>, <span class="fl">1.78</span>, <span class="fl">1.55</span>, <span class="fl">1.67</span>, <span class="fl">1.69</span>)</span>
+<span id="cb106-2"><a href="ambiente-do-r.html#cb106-2" tabindex="-1"></a><span class="fu">typeof</span>(altura)</span></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="ambiente-do-r.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.numeric</span>(altura)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="ambiente-do-r.html#cb108-1" tabindex="-1"></a><span class="fu">is.numeric</span>(altura)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="ambiente-do-r.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.double</span>(altura)</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="ambiente-do-r.html#cb110-1" tabindex="-1"></a><span class="fu">is.double</span>(altura)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 </div>
 </div>
@@ -1099,27 +1101,27 @@ Para acessar um determinado valor, basta colocar a posição do mesmo entre colc
 <p><strong>Dataframes</strong> são objetos de dados genéricos de R, usados para armazenar os dados tabulares, onde os dados são organizados de maneira lógica em um formato de linha-e-coluna semelhante ao de uma planilha do Excel. O data frame é uma estrutura bidimensional. Estas dimensões podem ser encontradas com a função <code>dim()</code>.
 Os Data frames podem ser formados com objetos criados previamente, desde que tenham o mesmo comprimento <span class="citation">(56)</span>.</p>
 <p>Abaixo serão criadas algumas variáveis, todas relacionadas ao nascimento de 15 bebês:</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="ambiente-do-r.html#cb112-1" aria-hidden="true" tabindex="-1"></a>id <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">15</span>)</span>
-<span id="cb112-2"><a href="ambiente-do-r.html#cb112-2" aria-hidden="true" tabindex="-1"></a>pesoRN <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">3340</span>,<span class="dv">3345</span>,<span class="dv">3750</span>,<span class="dv">3650</span>,<span class="dv">3220</span>,<span class="dv">4070</span>,<span class="dv">3380</span>,<span class="dv">3970</span>,<span class="dv">3060</span>,<span class="dv">3180</span>,  </span>
-<span id="cb112-3"><a href="ambiente-do-r.html#cb112-3" aria-hidden="true" tabindex="-1"></a>             <span class="dv">2865</span>,<span class="dv">2815</span>,<span class="dv">3245</span>,<span class="dv">2051</span>,<span class="dv">2630</span>)  </span>
-<span id="cb112-4"><a href="ambiente-do-r.html#cb112-4" aria-hidden="true" tabindex="-1"></a>compRN <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">50</span>,<span class="dv">48</span>,<span class="dv">52</span>,<span class="dv">48</span>,<span class="dv">50</span>,<span class="dv">51</span>,<span class="dv">50</span>,<span class="dv">51</span>,<span class="dv">47</span>,<span class="dv">47</span>,<span class="dv">47</span>,<span class="dv">49</span>,<span class="dv">51</span>,<span class="dv">50</span>,<span class="dv">44</span>)</span>
-<span id="cb112-5"><a href="ambiente-do-r.html#cb112-5" aria-hidden="true" tabindex="-1"></a>sexo <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>)</span>
-<span id="cb112-6"><a href="ambiente-do-r.html#cb112-6" aria-hidden="true" tabindex="-1"></a>tipoParto <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)</span>
-<span id="cb112-7"><a href="ambiente-do-r.html#cb112-7" aria-hidden="true" tabindex="-1"></a>idadeMae <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">40</span>,<span class="dv">19</span>,<span class="dv">26</span>,<span class="dv">19</span>,<span class="dv">32</span>,<span class="dv">24</span>,<span class="dv">27</span>,<span class="dv">20</span>,<span class="dv">21</span>,<span class="dv">19</span>,<span class="dv">23</span>,<span class="dv">36</span>,<span class="dv">21</span>,<span class="dv">23</span>,<span class="dv">23</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="ambiente-do-r.html#cb112-1" tabindex="-1"></a>id <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">15</span>)</span>
+<span id="cb112-2"><a href="ambiente-do-r.html#cb112-2" tabindex="-1"></a>pesoRN <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">3340</span>,<span class="dv">3345</span>,<span class="dv">3750</span>,<span class="dv">3650</span>,<span class="dv">3220</span>,<span class="dv">4070</span>,<span class="dv">3380</span>,<span class="dv">3970</span>,<span class="dv">3060</span>,<span class="dv">3180</span>,  </span>
+<span id="cb112-3"><a href="ambiente-do-r.html#cb112-3" tabindex="-1"></a>             <span class="dv">2865</span>,<span class="dv">2815</span>,<span class="dv">3245</span>,<span class="dv">2051</span>,<span class="dv">2630</span>)  </span>
+<span id="cb112-4"><a href="ambiente-do-r.html#cb112-4" tabindex="-1"></a>compRN <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">50</span>,<span class="dv">48</span>,<span class="dv">52</span>,<span class="dv">48</span>,<span class="dv">50</span>,<span class="dv">51</span>,<span class="dv">50</span>,<span class="dv">51</span>,<span class="dv">47</span>,<span class="dv">47</span>,<span class="dv">47</span>,<span class="dv">49</span>,<span class="dv">51</span>,<span class="dv">50</span>,<span class="dv">44</span>)</span>
+<span id="cb112-5"><a href="ambiente-do-r.html#cb112-5" tabindex="-1"></a>sexo <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>)</span>
+<span id="cb112-6"><a href="ambiente-do-r.html#cb112-6" tabindex="-1"></a>tipoParto <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb112-7"><a href="ambiente-do-r.html#cb112-7" tabindex="-1"></a>idadeMae <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">40</span>,<span class="dv">19</span>,<span class="dv">26</span>,<span class="dv">19</span>,<span class="dv">32</span>,<span class="dv">24</span>,<span class="dv">27</span>,<span class="dv">20</span>,<span class="dv">21</span>,<span class="dv">19</span>,<span class="dv">23</span>,<span class="dv">36</span>,<span class="dv">21</span>,<span class="dv">23</span>,<span class="dv">23</span>) </span></code></pre></div>
 <p>Tem-se um grupo de variáveis isoladas. Seria útil reuni-las em um só objeto, usando a função <code>data.frame()</code>. Este novo objeto receberá o nome de <code>dadosNeonatos</code>.</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="ambiente-do-r.html#cb113-1" aria-hidden="true" tabindex="-1"></a>dadosNeonatos <span class="ot">&lt;-</span> <span class="fu">data.frame</span> (id,</span>
-<span id="cb113-2"><a href="ambiente-do-r.html#cb113-2" aria-hidden="true" tabindex="-1"></a>                             pesoRN, </span>
-<span id="cb113-3"><a href="ambiente-do-r.html#cb113-3" aria-hidden="true" tabindex="-1"></a>                             compRN, </span>
-<span id="cb113-4"><a href="ambiente-do-r.html#cb113-4" aria-hidden="true" tabindex="-1"></a>                             sexo, </span>
-<span id="cb113-5"><a href="ambiente-do-r.html#cb113-5" aria-hidden="true" tabindex="-1"></a>                             tipoParto, </span>
-<span id="cb113-6"><a href="ambiente-do-r.html#cb113-6" aria-hidden="true" tabindex="-1"></a>                             idadeMae)</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="ambiente-do-r.html#cb113-1" tabindex="-1"></a>dadosNeonatos <span class="ot">&lt;-</span> <span class="fu">data.frame</span> (id,</span>
+<span id="cb113-2"><a href="ambiente-do-r.html#cb113-2" tabindex="-1"></a>                             pesoRN, </span>
+<span id="cb113-3"><a href="ambiente-do-r.html#cb113-3" tabindex="-1"></a>                             compRN, </span>
+<span id="cb113-4"><a href="ambiente-do-r.html#cb113-4" tabindex="-1"></a>                             sexo, </span>
+<span id="cb113-5"><a href="ambiente-do-r.html#cb113-5" tabindex="-1"></a>                             tipoParto, </span>
+<span id="cb113-6"><a href="ambiente-do-r.html#cb113-6" tabindex="-1"></a>                             idadeMae)</span></code></pre></div>
 <p>Ao ser executado o comando retornará um novo objeto da classe <code>data.frame</code>:</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="ambiente-do-r.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span> (dadosNeonatos)</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="ambiente-do-r.html#cb114-1" tabindex="-1"></a><span class="fu">class</span> (dadosNeonatos)</span></code></pre></div>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
 <p>Havendo necessidade de acrescentar outra variável no banco de dados <code>dadosNeonatos</code>, por exemplo, os dados da ida ou não dos recém-nascidos para a UTI. Para isso, será atribuido a um vetor, contendo a situação dos 15 recém-nascidos, o nome de utiNeo e para relacioná-lo a uma coluna do dataframe dadosNeonatos, será usado o símbolo $, como mostrado abaixo <a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>:</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="ambiente-do-r.html#cb116-1" aria-hidden="true" tabindex="-1"></a>dadosNeonatos<span class="sc">$</span>utiNeo <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="ambiente-do-r.html#cb116-1" tabindex="-1"></a>dadosNeonatos<span class="sc">$</span>utiNeo <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>)</span></code></pre></div>
 <p>Para observar o novo banco de dados, pode-se usar a função <code>str()</code> do <em>R</em> base. Digitar no <em>R Script</em>:</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="ambiente-do-r.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span> (dadosNeonatos)</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="ambiente-do-r.html#cb117-1" tabindex="-1"></a><span class="fu">str</span> (dadosNeonatos)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    15 obs. of  7 variables:
 ##  $ id       : num  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ pesoRN   : num  3340 3345 3750 3650 3220 ...
@@ -1144,17 +1146,17 @@ Os Data frames podem ser formados com objetos criados previamente, desde que ten
 <li><strong>ordered</strong> <span class="math inline">\(\longrightarrow\)</span> vetor lógico (TRUE ou FALSE). Se TRUE, os níveis dos fatores são assumidos como ordenados</li>
 </ul>
 <p>No exemplo, as variáveis não têm uma ordem lógica, então, o argumento <code>ordered</code> não será usado.</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="ambiente-do-r.html#cb119-1" aria-hidden="true" tabindex="-1"></a>dadosNeonatos<span class="sc">$</span>utiNeo <span class="ot">&lt;-</span> <span class="fu">factor</span> (dadosNeonatos<span class="sc">$</span>utiNeo,</span>
-<span id="cb119-2"><a href="ambiente-do-r.html#cb119-2" aria-hidden="true" tabindex="-1"></a>                                <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), </span>
-<span id="cb119-3"><a href="ambiente-do-r.html#cb119-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&#39;sim&#39;</span>,<span class="st">&#39;não&#39;</span>))</span>
-<span id="cb119-4"><a href="ambiente-do-r.html#cb119-4" aria-hidden="true" tabindex="-1"></a>dadosNeonatos<span class="sc">$</span>tipoParto <span class="ot">&lt;-</span> <span class="fu">factor</span>(dadosNeonatos<span class="sc">$</span>tipoParto, </span>
-<span id="cb119-5"><a href="ambiente-do-r.html#cb119-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
-<span id="cb119-6"><a href="ambiente-do-r.html#cb119-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;normal&quot;</span>,<span class="st">&quot;cesareo&quot;</span>))</span>
-<span id="cb119-7"><a href="ambiente-do-r.html#cb119-7" aria-hidden="true" tabindex="-1"></a>dadosNeonatos<span class="sc">$</span>sexo <span class="ot">&lt;-</span> <span class="fu">factor</span> (dadosNeonatos<span class="sc">$</span>sexo, </span>
-<span id="cb119-8"><a href="ambiente-do-r.html#cb119-8" aria-hidden="true" tabindex="-1"></a>                               <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), </span>
-<span id="cb119-9"><a href="ambiente-do-r.html#cb119-9" aria-hidden="true" tabindex="-1"></a>                               <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;M&quot;</span>,<span class="st">&quot;F&quot;</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="ambiente-do-r.html#cb119-1" tabindex="-1"></a>dadosNeonatos<span class="sc">$</span>utiNeo <span class="ot">&lt;-</span> <span class="fu">factor</span> (dadosNeonatos<span class="sc">$</span>utiNeo,</span>
+<span id="cb119-2"><a href="ambiente-do-r.html#cb119-2" tabindex="-1"></a>                                <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), </span>
+<span id="cb119-3"><a href="ambiente-do-r.html#cb119-3" tabindex="-1"></a>                                <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&#39;sim&#39;</span>,<span class="st">&#39;não&#39;</span>))</span>
+<span id="cb119-4"><a href="ambiente-do-r.html#cb119-4" tabindex="-1"></a>dadosNeonatos<span class="sc">$</span>tipoParto <span class="ot">&lt;-</span> <span class="fu">factor</span>(dadosNeonatos<span class="sc">$</span>tipoParto, </span>
+<span id="cb119-5"><a href="ambiente-do-r.html#cb119-5" tabindex="-1"></a>                                   <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb119-6"><a href="ambiente-do-r.html#cb119-6" tabindex="-1"></a>                                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;normal&quot;</span>,<span class="st">&quot;cesareo&quot;</span>))</span>
+<span id="cb119-7"><a href="ambiente-do-r.html#cb119-7" tabindex="-1"></a>dadosNeonatos<span class="sc">$</span>sexo <span class="ot">&lt;-</span> <span class="fu">factor</span> (dadosNeonatos<span class="sc">$</span>sexo, </span>
+<span id="cb119-8"><a href="ambiente-do-r.html#cb119-8" tabindex="-1"></a>                               <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), </span>
+<span id="cb119-9"><a href="ambiente-do-r.html#cb119-9" tabindex="-1"></a>                               <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;M&quot;</span>,<span class="st">&quot;F&quot;</span>)) </span></code></pre></div>
 <p>Após a transformação, executa-se novamente a função <code>str()</code> para ver como ficou o dataframe:</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="ambiente-do-r.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(dadosNeonatos)</span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="ambiente-do-r.html#cb120-1" tabindex="-1"></a><span class="fu">str</span>(dadosNeonatos)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    15 obs. of  7 variables:
 ##  $ id       : num  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ pesoRN   : num  3340 3345 3750 3650 3220 ...
@@ -1165,7 +1167,7 @@ Os Data frames podem ser formados com objetos criados previamente, desde que ten
 ##  $ utiNeo   : Factor w/ 2 levels &quot;sim&quot;,&quot;não&quot;: 2 2 2 2 1 2 1 2 2 2 ...</code></pre>
 <p>Agora, as três varáveis passaram a ser fatores e as outras mantiveram-se numéricas.</p>
 <p>Desta forma, é possível trabalhar com ela fazendo, por exemplo, uma contagem da frequência do tipo de parto, usando a função <code>table()</code>:</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="ambiente-do-r.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dadosNeonatos<span class="sc">$</span>tipoParto)</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="ambiente-do-r.html#cb122-1" tabindex="-1"></a><span class="fu">table</span>(dadosNeonatos<span class="sc">$</span>tipoParto)</span></code></pre></div>
 <pre><code>## 
 ##  normal cesareo 
 ##      10       5</code></pre>
@@ -1175,16 +1177,16 @@ Os Data frames podem ser formados com objetos criados previamente, desde que ten
 <h3><span class="header-section-number">4.12.2</span> Salvando o dataframe criado<a href="ambiente-do-r.html#salvando-o-dataframe-criado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>O data frame, criado e modificado anteriormente, pode ser salvo para uso posterior no diretório de trabalho.</p>
 <p>Para isso existe a função <code>save ()</code>, fornecendo como argumentos o data frame a ser salvo e o nome do arquivo (<code>file =</code>) entre aspas. Por convenção, esta função salva com a extensão <code>.RData</code> que deve ser digitada, pois o <em>R</em> não a adiciona automaticamente.</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="ambiente-do-r.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(dadosNeonatos, <span class="at">file =</span> <span class="st">&quot;dadosNeonatos.RData&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="ambiente-do-r.html#cb124-1" tabindex="-1"></a><span class="fu">save</span>(dadosNeonatos, <span class="at">file =</span> <span class="st">&quot;dadosNeonatos.RData&quot;</span>)</span></code></pre></div>
 <p>Este comando colocará o arquivo no diretório de trabalho em uso. Portanto, se o objetivo é salvar em outro local, deve ser informado ao <em>R</em> qual o novo diretório.</p>
 <p>Para carregar o objeto salvo anteriormente com o comando <code>save ()</code>, usa-se a função <code>load ()</code>. Se o arquivo a ser lido não estiver no diretório de trabalho da sessão, há necessidade de especificar o caminho até o arquivo:</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="ambiente-do-r.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;dadosNeonatos.RData&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="ambiente-do-r.html#cb125-1" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;dadosNeonatos.RData&quot;</span>)</span></code></pre></div>
 <p>Ou, indicando o diretório onde está o arquivo:</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="ambiente-do-r.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;C:/Users/petro/Dropbox/Estatistica/Meus_Livros/Bioestatistica_R/Book/dadosNeonatos.RData&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="ambiente-do-r.html#cb126-1" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;C:/Users/petro/Dropbox/Estatistica/Meus_Livros/Bioestatistica_R/Book/dadosNeonatos.RData&quot;</span>)</span></code></pre></div>
 <p>É possível salvar em outro tipo de extensão como Excel (<code>.xlsx</code>), Valores Separados por Vírgula (<code>.csv</code>), etc. O procedimento é o mesmo, mudando a função. Para salvar em uma extensão <code>.xlsx</code>,utiliza-se a função <code>write_xlsx ()</code> do pacote <code>writexl</code> <span class="citation">(58)</span>:</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="ambiente-do-r.html#cb127-1" aria-hidden="true" tabindex="-1"></a>writexl<span class="sc">::</span><span class="fu">write_xlsx</span>(dadosNeonatos, <span class="st">&quot;dadosNeonatos.xlsx&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="ambiente-do-r.html#cb127-1" tabindex="-1"></a>writexl<span class="sc">::</span><span class="fu">write_xlsx</span>(dadosNeonatos, <span class="st">&quot;dadosNeonatos.xlsx&quot;</span>)</span></code></pre></div>
 <p>Para salvar com a extensão <code>.csv</code>, usar a função <code>write.csv()</code> ou <code>write.csv2()</code> que faz parte do pacote <code>utils</code>, incluido no <em>R</em> base. A primeira função, usa <code>"."</code> para a separação dos decimais e <code>","</code> para separar as variáveis; a segunda função usa <code>","</code> para os decimais e <code>";"</code> para separar as variáveis, convenção do Excel para algumas localidades, como o Brasil <span class="citation">(59)</span>. Portanto, uma maneira de salvar o arquivo é:</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="ambiente-do-r.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv2</span> (dadosNeonatos, <span class="st">&quot;dadosNeonatos.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="ambiente-do-r.html#cb128-1" tabindex="-1"></a><span class="fu">write.csv2</span> (dadosNeonatos, <span class="st">&quot;dadosNeonatos.csv&quot;</span>)</span></code></pre></div>
 
 </div>
 </div>
