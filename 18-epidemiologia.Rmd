@@ -1850,7 +1850,7 @@ dados2$imcInt <- log(dados2$imc)*dados2$imc
 dados2$pedigreeInt <- log(dados2$pedigree)*dados2$pedigree
 ```
 
-Essas variáveis foram adicionadas ao conjunto0 de dados `dados2`. podem ser observadas com a função `glimpse()`.   
+Essas variáveis foram adicionadas ao conjunto de dados `dados2`. podem ser observadas com a função `glimpse()`.   
 
 ```{r}
 dplyr::glimpse(dados2)
