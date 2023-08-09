@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-06-28" />
+<meta name="date" content="2023-08-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -2710,7 +2710,8 @@ Figure 6.40: Gráfico de dispersão com alteração do formato
 <p>O formato (<code>shape</code>) pode ser colocado fora do <code>aes</code> (Figura <a href="descrevendo-os-dados.html#fig:point6">6.41</a>) e <a href="http://www.sthda.com/english/wiki/ggplot2-point-shapes"><strong>aqui</strong></a> se encontram vários formatos que podem ser usados no <code>ggplot2</code>Também é possível observar os diferentes formatos (<code>shape</code>), usando o seguinte comando, encontrado no pacote <code>ggpubr</code>:</p>
 <div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="descrevendo-os-dados.html#cb366-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">show_point_shapes</span>()</span></code></pre></div>
 <pre><code>## Scale for y is already present.
-## Adding another scale for y, which will replace the existing scale.</code></pre>
+## Adding another scale for y, which will replace the
+## existing scale.</code></pre>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-149-1.png" width="672" /></p>
 <div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="descrevendo-os-dados.html#cb368-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> dados) <span class="sc">+</span></span>
 <span id="cb368-2"><a href="descrevendo-os-dados.html#cb368-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> compRN, </span>
@@ -3121,7 +3122,8 @@ Figure 6.64: Gráfico de barras com eixo x modificado
 <div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="descrevendo-os-dados.html#cb395-1" tabindex="-1"></a>gbp <span class="sc">+</span> <span class="fu">scale_x_discrete</span> (<span class="at">limits =</span> <span class="fu">c</span>(<span class="st">&quot;20-35a&quot;</span>, <span class="st">&quot;&lt;20a&quot;</span>, <span class="st">&quot;&gt;35a&quot;</span>),</span>
 <span id="cb395-2"><a href="descrevendo-os-dados.html#cb395-2" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Adulta jovem&quot;</span>, <span class="st">&quot;Adolescente&quot;</span>, <span class="st">&quot;Gestante idosa&quot;</span>))</span></code></pre></div>
 <pre><code>## Scale for x is already present.
-## Adding another scale for x, which will replace the existing scale.</code></pre>
+## Adding another scale for x, which will replace the
+## existing scale.</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:ordem"></span>
 <img src="bookdownproj_files/figure-html/ordem-1.png" alt="Gráfico de barras com eixo x modificado" width="80%" height="80%" />
 <p class="caption">

@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-06-28" />
+<meta name="date" content="2023-08-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1479,7 +1479,7 @@ OR = \frac{odds_{exp}\ {casos}}{odds_{exp}\ {controles}}=\frac{\frac{a}{c}}{\fra
 ## 
 ## Point estimates and 95% CIs:
 ## -------------------------------------------------------------------
-## Odds ratio                                     8.00 (3.49, 18.34)
+## Exposure odds ratio                            8.00 (3.49, 18.34)
 ## Attrib fraction (est) in the exposed (%)      87.24 (69.26, 95.03)
 ## Attrib fraction (est) in the population (%)   70.00 (48.69, 82.46)
 ## -------------------------------------------------------------------
@@ -1557,7 +1557,7 @@ RR = \frac{incidência_{exp}}{incidência_{não \ exp}}=\frac{\frac{a}{a + b}}{\
 ## Point estimates and 95% CIs:
 ## -------------------------------------------------------------------
 ## Inc risk ratio                                 5.57 (1.94, 16.03)
-## Odds ratio                                     23.45 (5.84, 94.18)
+## Inc odds ratio                                 23.45 (5.84, 94.18)
 ## Attrib risk in the exposed *                   65.34 (46.92, 83.77)
 ## Attrib fraction in the exposed (%)            82.06 (48.41, 93.76)
 ## Attrib risk in the population *                47.05 (28.46, 65.63)
@@ -1727,18 +1727,18 @@ RPP = \frac{prevalência \ de \ exposição_{doentes}}{prevalência \ de \ expos
 <span id="cb1194-3"><a href="sec-cap18.html#cb1194-3" tabindex="-1"></a>               <span class="at">conf.level =</span> <span class="fl">0.95</span>, </span>
 <span id="cb1194-4"><a href="sec-cap18.html#cb1194-4" tabindex="-1"></a>               <span class="at">units =</span> <span class="dv">100</span>, </span>
 <span id="cb1194-5"><a href="sec-cap18.html#cb1194-5" tabindex="-1"></a>               <span class="at">outcome =</span> <span class="st">&quot;as.columns&quot;</span>)</span></code></pre></div>
-<pre><code>##              Outcome +    Outcome -      Total               Prevalence *
-## Exposed +            7          212        219        3.20 (1.29 to 6.47)
-## Exposed -          119         1030       1149      10.36 (8.65 to 12.26)
-## Total              126         1242       1368       9.21 (7.73 to 10.87)
+<pre><code>##              Outcome +    Outcome -      Total               Prev risk *
+## Exposed +            7          212        219       3.20 (1.29 to 6.47)
+## Exposed -          119         1030       1149     10.36 (8.65 to 12.26)
+## Total              126         1242       1368      9.21 (7.73 to 10.87)
 ## 
 ## Point estimates and 95% CIs:
 ## -------------------------------------------------------------------
-## Prevalence ratio                               0.31 (0.15, 0.65)
-## Odds ratio                                     0.29 (0.13, 0.62)
-## Attrib prevalence in the exposed *             -7.16 (-10.08, -4.24)
+## Prev risk ratio                                0.31 (0.15, 0.65)
+## Prev odds ratio                                0.29 (0.13, 0.62)
+## Attrib prev in the exposed *                   -7.16 (-10.08, -4.24)
 ## Attrib fraction in the exposed (%)            -224.02 (-584.89, -53.29)
-## Attrib prevalence in the population *          -1.15 (-3.48, 1.19)
+## Attrib prev in the population *                -1.15 (-3.48, 1.19)
 ## Attrib fraction in the population (%)         -12.45 (-17.53, -7.58)
 ## -------------------------------------------------------------------
 ## Uncorrected chi2 test that OR = 1: chi2(1) = 11.278 Pr&gt;chi2 = &lt;0.001
@@ -2805,7 +2805,7 @@ Figure 18.21: Curva ROC do modelo de regressão.
 <li id="fn21"><p>Foi mantido o nome das variáveis em inglês, pois no banco de dados <code>oswego</code> elas estão nessa língua.<a href="sec-cap18.html#fnref21" class="footnote-back">↩︎</a></p></li>
 <li id="fn22"><p>em inglês, <em>built-in bias</em><a href="sec-cap18.html#fnref22" class="footnote-back">↩︎</a></p></li>
 <li id="fn23"><p>Aproveite para revisar como construir matriz<a href="sec-cap18.html#fnref23" class="footnote-back">↩︎</a></p></li>
-<li id="fn24"><p>Se houver uma justificativa, esta referência pode ser modificada, usando a função <code>relevel()</code> do pacote <code>stats</code>. Por exemplo, para mudar a referência da variável <code>idadeCateg</code> para 31-40, deve-se executar: <code>dados$idadeCateg &lt;- relevel (dadosPima$idadeCateg, ref = "31-40")</code>.<a href="sec-cap18.html#fnref24" class="footnote-back">↩︎</a></p></li>
+<li id="fn24"><p>Se houver uma justificativa, esta referência pode ser modificada, usando a função <code>relevel()</code> do pacote <code>stats</code>. Por exemplo, para mudar a referência da variável <code>idadeCateg</code> para 31-40, deve-se executar: <code>dados$idadeCateg &lt;- relevel (dados$idadeCateg, ref = "31-40")</code>.<a href="sec-cap18.html#fnref24" class="footnote-back">↩︎</a></p></li>
 <li id="fn25"><p><a href="https://www.scribbr.com/statistics/akaike-information-criterion/" class="uri">https://www.scribbr.com/statistics/akaike-information-criterion/</a><a href="sec-cap18.html#fnref25" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
