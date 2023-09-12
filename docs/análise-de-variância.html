@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-08-09" />
+<meta name="date" content="2023-09-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -666,7 +666,7 @@ Figure 13.1: Impacto do tabagismo materno no peso ao nascer
 <div id="por-que-realizar-uma-anova" class="section level3 hasAnchor" number="13.2.1">
 <h3><span class="header-section-number">13.2.1</span> Por que realizar uma ANOVA?<a href="análise-de-variância.html#por-que-realizar-uma-anova" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Inicialmente, para analisar os grupos, se ficaria tentado a fazer comparações por pares usando um teste <em>t</em> de amostras independentes. Com existem quatro grupos, é possível compará-los realizando seis testes, grupo 1 versus grupo 2, grupo 1 versus grupo 3, grupo 1 versus grupo 4, grupo 2 versus grupo 3, grupo 2 versus grupo 4 e grupo 3 versus grupo 4. Se os dados têm <em>k</em> grupos são necessários <span class="math inline">\(\frac {k!}{2!(k-2)!}\)</span> testes.</p>
-<p>A probabilidade de um erro do tipo I não ocorrer para cada teste <em>t</em> é de 0,95 (isto é, 1 – 0,05), supondo um <span class="math inline">\(\alpha\)</span> = 0,05. Os três testes são independentes; portanto, a probabilidade de um erro do tipo I não ocorrer nos seis testes é de <span class="math inline">\((0,95)^6 = 0,735\)</span>. Dessa maneira, a probabilidade de ocorrer pelo menos um erro do tipo I nos seis testes <em>t</em> de duas amostras é de 1 – 0,735 ou 0,265 (26,5%), o que é mais alto do que o nível de significância definido de 0,05 <span class="citation">(110)</span>.</p>
+<p>A probabilidade de um erro do tipo I não ocorrer para cada teste <em>t</em> é de 0,95 (isto é, 1 – 0,05), supondo um <span class="math inline">\(\alpha\)</span> = 0,05. Os três testes são independentes; portanto, a probabilidade de um erro do tipo I não ocorrer nos seis testes é de <span class="math inline">\((0,95)^6 = 0,735\)</span>. Dessa maneira, a probabilidade de ocorrer pelo menos um erro do tipo I nos seis testes <em>t</em> de duas amostras é de 1 – 0,735 ou 0,265 (26,5%), o que é mais alto do que o nível de significância definido de 0,05 <span class="citation">(111)</span>.</p>
 <p>Logo, uma ANOVA de um fator é usada para verificar as diferenças entre vários grupos dentro de um fator, reduzindo assim o número de comparações em pares e a probabilidade de ocorrer um erro tipo I.</p>
 </div>
 <div id="lógica-do-modelo-da-anova" class="section level3 hasAnchor" number="13.2.2">
@@ -681,7 +681,7 @@ Figure 13.1: Impacto do tabagismo materno no peso ao nascer
 Figure 13.2: Três distribuições diferentes
 </p>
 </div>
-<p>Agora, observe o Figura <a href="análise-de-variância.html#fig:logicb">13.3</a>, onde a distribuição da variável X é mostrada, mantendo as mesmas médias, mas com variâncias maiores. Isto torna claro que se o objetivo é distinguir observações provenientes desses grupos não basta avaliar suas médias, há necessidade de comparar a variação entre os grupos com a variação dentro de cada grupo <span class="citation">(111)</span>.</p>
+<p>Agora, observe o Figura <a href="análise-de-variância.html#fig:logicb">13.3</a>, onde a distribuição da variável X é mostrada, mantendo as mesmas médias, mas com variâncias maiores. Isto torna claro que se o objetivo é distinguir observações provenientes desses grupos não basta avaliar suas médias, há necessidade de comparar a variação entre os grupos com a variação dentro de cada grupo <span class="citation">(112)</span>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:logicb"></span>
 <img src="bookdownproj_files/figure-html/logicb-1.png" alt="Distribuições com mesmas médias da figura anterior, mas variâncias maiores" width="70%" height="70%" />
 <p class="caption">
@@ -733,7 +733,7 @@ Figure 13.4: Distribuições F.
 <span id="cb692-4"><a href="análise-de-variância.html#cb692-4" tabindex="-1"></a>Fc <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">qf</span>(q, <span class="at">df1 =</span> gl1, <span class="at">df2 =</span> gl2, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>), <span class="dv">2</span>)</span>
 <span id="cb692-5"><a href="análise-de-variância.html#cb692-5" tabindex="-1"></a>Fc</span></code></pre></div>
 <pre><code>## [1] 0.97</code></pre>
-<p>Observando a Figura <a href="análise-de-variância.html#fig:distf814">13.5</a>, construído com função <code>shadeDist()</code> do pacote <code>fastGraph</code> <span class="citation">(112)</span> , verifica-se que a área sob a curva abaixo de 0,97 é igual a 50%. Consulte a ajuda do <em>RStudio</em> para maiores detalhes dos argumentos da função.</p>
+<p>Observando a Figura <a href="análise-de-variância.html#fig:distf814">13.5</a>, construído com função <code>shadeDist()</code> do pacote <code>fastGraph</code> <span class="citation">(113)</span> , verifica-se que a área sob a curva abaixo de 0,97 é igual a 50%. Consulte a ajuda do <em>RStudio</em> para maiores detalhes dos argumentos da função.</p>
 <div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb694-1"><a href="análise-de-variância.html#cb694-1" tabindex="-1"></a>fastGraph<span class="sc">::</span><span class="fu">shadeDist</span> (<span class="at">xshade =</span> Fc,</span>
 <span id="cb694-2"><a href="análise-de-variância.html#cb694-2" tabindex="-1"></a>                      <span class="at">ddist =</span> <span class="st">&quot;df&quot;</span>,</span>
 <span id="cb694-3"><a href="análise-de-variância.html#cb694-3" tabindex="-1"></a>                      <span class="at">parm1 =</span> gl1, </span>
@@ -911,7 +911,7 @@ F = \frac {s_{E}^2}{s_{D}^2} = \frac {\frac {SQ_{E}}{gl_{E}}}{\frac {SQ_{D}}{gl_
 <li>As populações das quais as amostras são retiradas são normalmente distribuídas;</li>
 <li>As populações das quais as amostras são retiradas têm a mesma variância (homocedasticidade);</li>
 <li>Amostras aleatórias e independentes;</li>
-<li>Todos os grupos devem ter tamanho amostral adequado. Grupos com menos de 10 participantes são problemáticos por reduzirem a precisão da média. Na prática, deve-se evitar menos de 30 participantes. A relação entre os grupos não deve ser maior do que 1:4 <span class="citation">(113)</span>;</li>
+<li>Todos os grupos devem ter tamanho amostral adequado. Grupos com menos de 10 participantes são problemáticos por reduzirem a precisão da média. Na prática, deve-se evitar menos de 30 participantes. A relação entre os grupos não deve ser maior do que 1:4 <span class="citation">(114)</span>;</li>
 <li>Não devem existir valores atípicos (<em>outliers</em>);</li>
 <li>A mensuração dos dados deve ser em nível intervalar ou de razão.</li>
 </ol>
@@ -961,7 +961,7 @@ Figure 13.9: Gráficos Q-Q
 <p>Como mostrado nos boxplots, existe um valor atípico, ou seja, está abaixo de 1,5 IIQ. Entretanto, ele não é extremo (&gt; 3 IIQ).</p>
 <p>Da mesma maneira que no teste <em>t</em>, os pressupostos têm mais importância em grupos pequenos e desiguais. Para o exemplo em análise, os pressupostos foram verificados e pode-se assumir que os grupos são independentes e as médias têm distribuição normal e existe homocedasticidade, além disso, os grupos têm o mesmo tamanho (n = 50). Portanto, a análise pode ser continuada.</p>
 <p><strong>O que fazer se os pressupostos são violados?</strong></p>
-<p>Se a homogeneidade da variância é o problema, um teste possível de ser implementado no R é o <em>F de Welch</em>, aplicando a função<code>welch.test()</code>, incluída no pacote <code>onewaytests</code> <span class="citation">(114)</span>. Existem também testes não paramétricos, como o <em>Teste de Kruskal-Wallis</em>, que será visto mais adiante.</p>
+<p>Se a homogeneidade da variância é o problema, um teste possível de ser implementado no R é o <em>F de Welch</em>, aplicando a função<code>welch.test()</code>, incluída no pacote <code>onewaytests</code> <span class="citation">(115)</span>. Existem também testes não paramétricos, como o <em>Teste de Kruskal-Wallis</em>, que será visto mais adiante.</p>
 </div>
 <div id="execução-do-teste-estatístico-1" class="section level4 hasAnchor" number="13.2.7.2">
 <h4><span class="header-section-number">13.2.7.2</span> Execução do teste estatístico<a href="análise-de-variância.html#execução-do-teste-estatístico-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1018,7 +1018,7 @@ Figure 13.10: Gráficos do Teste de Tukey
 <div id="tamanho-do-efeito-2" class="section level3 hasAnchor" number="13.2.9">
 <h3><span class="header-section-number">13.2.9</span> Tamanho do efeito<a href="análise-de-variância.html#tamanho-do-efeito-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Uma das medidas de tamanho de efeito mais comumente relatadas para a ANOVA é o <strong>eta ao quadrado</strong> (<span class="math inline">\(\eta^2\)</span>), que é um índice da força da associação entre um fator e uma variável dependente. Eta ao quadrado é a proporção da variação total atribuível ao fator. É calculado como a razão da variância do fator para a variância total e os valores variam de 0 a 1.</p>
-<p>Esta medida pode ser obtida com o pacote <code>effectsize</code> <span class="citation">(115)</span>, usando a função <code>eta_squared()</code>com um objeto da classe tipo <code>modelo.aov</code>.</p>
+<p>Esta medida pode ser obtida com o pacote <code>effectsize</code> <span class="citation">(116)</span>, usando a função <code>eta_squared()</code>com um objeto da classe tipo <code>modelo.aov</code>.</p>
 <div class="sourceCode" id="cb721"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb721-1"><a href="análise-de-variância.html#cb721-1" tabindex="-1"></a>effectsize<span class="sc">::</span><span class="fu">eta_squared</span> (modelo.aov, <span class="at">partial =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## # Effect Size for ANOVA (Type I)
 ## 
@@ -1036,7 +1036,7 @@ Figure 13.10: Gráficos do Teste de Tukey
 ## fumo      |   0.10 | [0.04, 1.00]
 ## 
 ## - One-sided CIs: upper bound fixed at [1.00].</code></pre>
-<p>Apesar de ser controverso, pode-se seguir a orientação da Tabela <a href="análise-de-variância.html#tab:effectsize">13.1</a>, para a interpretação <span class="citation">(116)</span>:</p>
+<p>Apesar de ser controverso, pode-se seguir a orientação da Tabela <a href="análise-de-variância.html#tab:effectsize">13.1</a>, para a interpretação <span class="citation">(117)</span>:</p>
 <table class="table lightable-classic" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: Cambria; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:effectsize">Table 13.1: </span>Interpretação do Tamanho do Efeito
@@ -1129,7 +1129,7 @@ Quando se tem dois ou mais fatores, além de observar o efeito desses fatores so
 <div id="dados-do-exemplo-3" class="section level3 hasAnchor" number="13.3.1">
 <h3><span class="header-section-number">13.3.1</span> Dados do exemplo<a href="análise-de-variância.html#dados-do-exemplo-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>O conjunto de dados <code>dadosMemoria.xlsx</code> que contém informações de um teste de memória realizado em homens e mulheres, após o consumo de álcool, categorizado em três grupos (nenhum, 3 latas e 6 latas de cerveja tipo <em>pilsen</em> com 4,5% de álcool). O grupo sem consumo de álcool (cerveja sem álcool) serve como controle. Após o consumo de álcool, foi avaliada a memória para a realização de uma tarefa cognitiva.</p>
-<p>Neste exemplo, modificado de Andy Field <span class="citation">(117)</span>, o efeito do álcool sobre a memória do indivíduo é a variável focal, a principal preocupação. Acredita-se que o efeito de álcool depende de outro fator, sexo, que são chamados de variáveis moderadoras.</p>
+<p>Neste exemplo, modificado de Andy Field <span class="citation">(118)</span>, o efeito do álcool sobre a memória do indivíduo é a variável focal, a principal preocupação. Acredita-se que o efeito de álcool depende de outro fator, sexo, que são chamados de variáveis moderadoras.</p>
 <p>Para baixar o banco de dados, clique <a href="https://github.com/petronioliveira/Arquivos/blob/main/dadosMemoria.xlsx"><strong>aqui</strong></a>. Salve o mesmo no seu diretório de trabalho.</p>
 <div id="leitura-dos-dados-2" class="section level4 hasAnchor" number="13.3.1.1">
 <h4><span class="header-section-number">13.3.1.1</span> Leitura dos dados<a href="análise-de-variância.html#leitura-dos-dados-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1181,7 +1181,7 @@ Quando se tem dois ou mais fatores, além de observar o efeito desses fatores so
 </div>
 <div id="visualização-gráfica-dos-dados-1" class="section level4 hasAnchor" number="13.3.1.3">
 <h4><span class="header-section-number">13.3.1.3</span> Visualização gráfica dos dados<a href="análise-de-variância.html#visualização-gráfica-dos-dados-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Para visualizar os dados, será construido um gráfico com boxplots (Figura <a href="análise-de-variância.html#fig:alcool">13.12</a>), usando o pacote <code>ggpubr</code><span class="citation">(118)</span>, com a função <code>ggboxplot()</code>, que fornece algumas funções fáceis de usar para criar e personalizar gráficos prontos para publicação baseados em ‘ggplot2’. O boxplot irá plotar os dados agrupados pelas combinações dos níveis dos dois fatores.</p>
+<p>Para visualizar os dados, será construido um gráfico com boxplots (Figura <a href="análise-de-variância.html#fig:alcool">13.12</a>), usando o pacote <code>ggpubr</code><span class="citation">(119)</span>, com a função <code>ggboxplot()</code>, que fornece algumas funções fáceis de usar para criar e personalizar gráficos prontos para publicação baseados em ‘ggplot2’. O boxplot irá plotar os dados agrupados pelas combinações dos níveis dos dois fatores.</p>
 <div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb731-1"><a href="análise-de-variância.html#cb731-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span> (dados,</span>
 <span id="cb731-2"><a href="análise-de-variância.html#cb731-2" tabindex="-1"></a>                   <span class="at">bxp.errorbar =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb731-3"><a href="análise-de-variância.html#cb731-3" tabindex="-1"></a>                   <span class="at">bxp.errorbar.width =</span> <span class="fl">0.2</span>,</span>
@@ -1257,7 +1257,7 @@ Se esta premissa for violada, você pode incluir uma variável de bloqueio e/ou 
 <p>Existe uma discussão se os pressupostos devem ser avaliados nos dados brutos ou apenas nos resíduos. Aqui serão realizadas as duas abordagens que frequentemente resultam no mesmo resultado.</p>
 <div id="normalidade" class="section level4 hasAnchor" number="13.3.4.1">
 <h4><span class="header-section-number">13.3.4.1</span> Normalidade<a href="análise-de-variância.html#normalidade" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>A variável dependente (<code>escore</code>) deve apresentar distribuição aproximadamente normal dentro de cada grupo. Os grupos aqui serão formados pela combinação das duas variáveis independentes (<code>sexo</code> e <code>alcool</code>). A normalidade será avaliada pelo <code>teste de Shapiro-Wilk</code>, com a função <code>shapiro_test()</code> do pacote <code>rstatix</code> <span class="citation">(107)</span>, separando os grupos com a função <code>group_by()</code> do pacote <code>dplyr</code>, encadeadas com o operador <code>pipe</code> (<code>%&gt;%</code>):</p>
+<p>A variável dependente (<code>escore</code>) deve apresentar distribuição aproximadamente normal dentro de cada grupo. Os grupos aqui serão formados pela combinação das duas variáveis independentes (<code>sexo</code> e <code>alcool</code>). A normalidade será avaliada pelo <code>teste de Shapiro-Wilk</code>, com a função <code>shapiro_test()</code> do pacote <code>rstatix</code> <span class="citation">(108)</span>, separando os grupos com a função <code>group_by()</code> do pacote <code>dplyr</code>, encadeadas com o operador <code>pipe</code> (<code>%&gt;%</code>):</p>
 <div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb733-1"><a href="análise-de-variância.html#cb733-1" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> </span>
 <span id="cb733-2"><a href="análise-de-variância.html#cb733-2" tabindex="-1"></a>     dplyr<span class="sc">::</span><span class="fu">group_by</span> (sexo, alcool) <span class="sc">%&gt;%</span> </span>
 <span id="cb733-3"><a href="análise-de-variância.html#cb733-3" tabindex="-1"></a>     rstatix<span class="sc">::</span><span class="fu">shapiro_test</span> (escore)</span></code></pre></div>
@@ -1288,7 +1288,7 @@ Agora, para confirmar esse achado, será usado a função <code>identify_outlier
 </div>
 <div id="verificação-da-homogeneidade-das-variâncias" class="section level4 hasAnchor" number="13.3.4.3">
 <h4><span class="header-section-number">13.3.4.3</span> Verificação da homogeneidade das variâncias<a href="análise-de-variância.html#verificação-da-homogeneidade-das-variâncias" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Para verificar a homocedasticidade, como os dados têm distribuição normal, é possível usar o teste de Levene, o <code>leveneTest()</code> do pacote <code>car</code> <span class="citation">(106)</span>.</p>
+<p>Para verificar a homocedasticidade, como os dados têm distribuição normal, é possível usar o teste de Levene, o <code>leveneTest()</code> do pacote <code>car</code> <span class="citation">(107)</span>.</p>
 <div class="sourceCode" id="cb737"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb737-1"><a href="análise-de-variância.html#cb737-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">leveneTest</span> (escore <span class="sc">~</span> sexo<span class="sc">*</span>alcool, </span>
 <span id="cb737-2"><a href="análise-de-variância.html#cb737-2" tabindex="-1"></a>                 <span class="at">data =</span> dados, </span>
 <span id="cb737-3"><a href="análise-de-variância.html#cb737-3" tabindex="-1"></a>                 <span class="at">center =</span> mean)</span></code></pre></div>
@@ -1557,7 +1557,7 @@ Figure 13.15: Resíduos versus ajuste
 <p><strong>Efeitos principais simples</strong></p>
 <p>No exemplo usado nesta seção, poder-se-ia, portanto, investigar o efeito do consumo de álcool no sexo ou investigar o efeito do sexo em todos os níveis da variável consumo de alcool.</p>
 <p>Aqui, será executada uma ANOVA de um fator do consumo de álcool em cada nível de sexo.
-Observe que, se as premissas da ANOVA de duas vias foram atendidas (por exemplo, homogeneidade de variâncias), é melhor usar o termo de erro geral (da ANOVA dois fatores) como entrada no modelo ANOVA de um fator. Isso tornará mais fácil detectar quaisquer diferenças estatisticamente significativas, caso existam <span class="citation">(120)</span> <span class="citation">(121)</span>.
+Observe que, se as premissas da ANOVA de duas vias foram atendidas (por exemplo, homogeneidade de variâncias), é melhor usar o termo de erro geral (da ANOVA dois fatores) como entrada no modelo ANOVA de um fator. Isso tornará mais fácil detectar quaisquer diferenças estatisticamente significativas, caso existam <span class="citation">(121)</span> <span class="citation">(122)</span>.
 Se o pressuposto da homocedasticidade for violado, pode-se considerar a execução da ANOVA de um fator separadas com termos de erro separados.</p>
 <p>No exemplo do efeito do álcool na memória de homens e mulheres, serão agrupados os dados por sexo e analisados os efeitos principais simples do nível do consumo de álcool no escore de memória. O argumento erro é usado para especificar o modelo ANOVA, no caso modelo lm (<code>mod.int.lm</code>), na função <code>anova_test()</code> do pacote <code>rstatix</code>:</p>
 <div class="sourceCode" id="cb772"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb772-1"><a href="análise-de-variância.html#cb772-1" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> </span>
@@ -1572,7 +1572,7 @@ Se o pressuposto da homocedasticidade for violado, pode-se considerar a execuç�
 Em outras palavras, há uma diferença estatisticamente significativa no escore médio de memória entre homens com o consumo de alcool F (2, 42) = 31,4, P &lt;0,0001. Esta conclusão não é válida para mulheres, F (2, 542) = 0,615, P = 0,546.</p>
 <p><strong>Comparações por pares</strong></p>
 <p>Um efeito principal simples, estatisticamente significativo, pode ser seguido por múltiplas comparações de pares para determinar quais médias de grupo são diferentes. Agora, serão realizadas múltiplas comparações entre pares nos diferentes grupos de consumo de álcool por sexo.</p>
-<p>Pode-se executar e interpretar todas as comparações de pares possíveis usando um ajuste de Bonferroni. Isso pode ser feito facilmente usando a função <code>emmeans_test()</code>, incluída no pacote <code>rstatix</code> (médias marginais estimadas, também conhecidas como médias dos mínimos quadrados ou médias ajustadas <span class="citation">(122)</span>).</p>
+<p>Pode-se executar e interpretar todas as comparações de pares possíveis usando um ajuste de Bonferroni. Isso pode ser feito facilmente usando a função <code>emmeans_test()</code>, incluída no pacote <code>rstatix</code> (médias marginais estimadas, também conhecidas como médias dos mínimos quadrados ou médias ajustadas <span class="citation">(123)</span>).</p>
 <p>Serão comparados os escores dos diferentes sexos por níveis de consumo de álcool:</p>
 <div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb774-1"><a href="análise-de-variância.html#cb774-1" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
 <span id="cb774-2"><a href="análise-de-variância.html#cb774-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(alcool) <span class="sc">%&gt;%</span></span>
@@ -1804,7 +1804,7 @@ Figure 13.17: Efeito do álcool na memória de acordo com o sexo.
 <hr />
 <ol start="18">
 <li id="fn18"><p>Pode ser usada também para comparar a média de duas populações e o resultado será o mesmo de um teste <em>t</em> para amostras independentes.<a href="análise-de-variância.html#fnref18" class="footnote-back">↩︎</a></p></li>
-<li id="fn19"><p>Outros gráficos diagnósticos podem ser obtidos para analisar resíduos em um modelo de regressão <span class="citation">(119)</span><a href="análise-de-variância.html#fnref19" class="footnote-back">↩︎</a></p></li>
+<li id="fn19"><p>Outros gráficos diagnósticos podem ser obtidos para analisar resíduos em um modelo de regressão <span class="citation">(120)</span><a href="análise-de-variância.html#fnref19" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

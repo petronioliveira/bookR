@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-08-09" />
+<meta name="date" content="2023-09-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -637,8 +637,8 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="teste-de-hipóteses" class="section level1 hasAnchor" number="11">
 <h1><span class="header-section-number">Capítulo 11</span> Teste de Hipóteses<a href="teste-de-hipóteses.html#teste-de-hipóteses" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p><em>Teste de hipóteses</em> é um dos procedimentos básicos para a inferência estatística. Em um teste de hipóteses, testa-se uma teoria ou crença sobre um parâmetro populacional <span class="citation">(96)</span>. Na maioria das vezes, como mencionado anteriormente, obtém-se informações a partir de uma amostra em função da impossibilidade ou dificuldade de se conseguir essas informações a partir da população. Portanto, extrapolar ou estender os resultados, obtidos de uma amostra, para a população, significa aceitá-los como representações adequadas da mesma.</p>
-<p>Sabe-se que as estimativas amostrais diferem dos valores reais (populacionais) e o objetivo dos testes de hipóteses é estabelecer a probabilidade de essa diferença ser explicada pelo acaso. O teste de hipóteses fornece um sistema referencial para a tomada de decisão sobre a adequação ou não dos dados amostrais serem representativos de uma população. Este sistema referencial é a distribuição de probabilidade do evento observado <span class="citation">(97)</span>.</p>
+<p><em>Teste de hipóteses</em> é um dos procedimentos básicos para a inferência estatística. Em um teste de hipóteses, testa-se uma teoria ou crença sobre um parâmetro populacional <span class="citation">(97)</span>. Na maioria das vezes, como mencionado anteriormente, obtém-se informações a partir de uma amostra em função da impossibilidade ou dificuldade de se conseguir essas informações a partir da população. Portanto, extrapolar ou estender os resultados, obtidos de uma amostra, para a população, significa aceitá-los como representações adequadas da mesma.</p>
+<p>Sabe-se que as estimativas amostrais diferem dos valores reais (populacionais) e o objetivo dos testes de hipóteses é estabelecer a probabilidade de essa diferença ser explicada pelo acaso. O teste de hipóteses fornece um sistema referencial para a tomada de decisão sobre a adequação ou não dos dados amostrais serem representativos de uma população. Este sistema referencial é a distribuição de probabilidade do evento observado <span class="citation">(98)</span>.</p>
 <div id="pacotes-necessários-para-este-capítulo-2" class="section level2 hasAnchor" number="11.1">
 <h2><span class="header-section-number">11.1</span> Pacotes necessários para este capítulo<a href="teste-de-hipóteses.html#pacotes-necessários-para-este-capítulo-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="teste-de-hipóteses.html#cb607-1" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(BSDA,dplyr,readxl)</span></code></pre></div>
@@ -680,7 +680,7 @@ div.csl-indent {
 ##   &lt;fct&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1 masc     57 3319.  428.
 ## 2 fem      43 3227.  515.</code></pre>
-<p>Esta amostra de 57 meninos e 43 meninas, informa que os meninos têm, em média, 3319g ao nascer e as meninas 3227g. Esta diferença de peso entre os sexos pode ter ocorrido devido ao acaso. Portanto, há necessidade de realizar um teste de hipóteses para tomar uma decisão sobre o parâmetro populacional <span class="citation">(98)</span>. Esta diferença é grande o suficiente para rejeitar a hipótese de igualdade entre os pesos e concluir há uma diferença real entre eles?</p>
+<p>Esta amostra de 57 meninos e 43 meninas, informa que os meninos têm, em média, 3319g ao nascer e as meninas 3227g. Esta diferença de peso entre os sexos pode ter ocorrido devido ao acaso. Portanto, há necessidade de realizar um teste de hipóteses para tomar uma decisão sobre o parâmetro populacional <span class="citation">(99)</span>. Esta diferença é grande o suficiente para rejeitar a hipótese de igualdade entre os pesos e concluir há uma diferença real entre eles?</p>
 </div>
 <div id="hipótese-nula-e-alternativa" class="section level2 hasAnchor" number="11.3">
 <h2><span class="header-section-number">11.3</span> Hipótese nula e alternativa<a href="teste-de-hipóteses.html#hipótese-nula-e-alternativa" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -746,7 +746,7 @@ Qual o valor de <span class="math inline">\(\alpha\)</span> que pode representar
 P(não \quad rejeitar \quad H_{0}|H_{0} \quad falsa) = \beta
 \]</span>
 Na construção de um teste de hipótese, o erro tipo II é considerado menos grave que o erro tipo I. Entretanto, ele é bastante importante. Tradicionalmente, adota-se o limite de 0,10 a 0,20 para o erro tipo II.</p>
-<p>Abaixo (Figura <a href="teste-de-hipóteses.html#fig:erros">11.2</a>) estão resumidas as possíveis consequências na tomada de decisão em um teste de hipótese <span class="citation">(99)</span>.</p>
+<p>Abaixo (Figura <a href="teste-de-hipóteses.html#fig:erros">11.2</a>) estão resumidas as possíveis consequências na tomada de decisão em um teste de hipótese <span class="citation">(100)</span>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:erros"></span>
 <img src="https://i.imgur.com/wL61R9C.png" alt="Tomada de decisão e erros." width="80%" />
 <p class="caption">
@@ -800,7 +800,7 @@ z=\frac{\bar{x}_1 - \bar{x}_2}{\sigma_{\bar{x}_1 - \bar{x}_2 }} = \frac{\bar{x}_
 <div id="valor-p" class="section level2 hasAnchor" number="11.5">
 <h2><span class="header-section-number">11.5</span> Valor <em>P</em><a href="teste-de-hipóteses.html#valor-p" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Nas seções anteriores, foi discutido um procedimento onde se encontrou o valor de probabilidade tal que uma dada hipótese nula é rejeitada ou não é rejeitada, de acordo com o nível de significância, <span class="math inline">\(H_{0}\)</span>, fixado, pelo pesquisador, no início da pesquisa.</p>
-<p>Essa abordagem do valor de probabilidade, mais comumente chamada de abordagem do valor <em>P</em>, fornece esse valor. Uma vez realizada a pesquisa, o pesquisador calcula a <em>probabilidade de obter um resultado tão ou mais extremo que o observado, uma vez que a hipótese nula é verdadeira</em>. O valor <em>P</em> também é conhecido como <em>nível descritivo do teste</em> <span class="citation">(100)</span>.</p>
+<p>Essa abordagem do valor de probabilidade, mais comumente chamada de abordagem do valor <em>P</em>, fornece esse valor. Uma vez realizada a pesquisa, o pesquisador calcula a <em>probabilidade de obter um resultado tão ou mais extremo que o observado, uma vez que a hipótese nula é verdadeira</em>. O valor <em>P</em> também é conhecido como <em>nível descritivo do teste</em> <span class="citation">(101)</span>.</p>
 <p>O objetivo de um teste estatístico é transformar em probabilidade a magnitude do desvio verificado em relação ao valor esperado, fornecendo o valor <em>P</em>. A partir daí pode-se, também, definir a regra de decisão, usando esse valor <em>P</em>. Toma-se o valor predeterminado (em geral, 0,05) de <span class="math inline">\(\alpha\)</span> e, então, compara-se o valor P com <span class="math inline">\(\alpha\)</span> e toma-se a decisão. Usando essa abordagem, rejeita-se a <span class="math inline">\(H_{0}\)</span> se o valor <em>P</em> &lt; <span class="math inline">\(\alpha\)</span> e não se rejeita se o valor <em>P</em> &gt; <span class="math inline">\(\alpha\)</span>. Costuma-se dizer que se o valor <em>P</em> &lt; <span class="math inline">\(\alpha\)</span>, o resultado é significativo e não significativo quando <em>P</em> &gt; <span class="math inline">\(\alpha\)</span>.</p>
 <p>Uma boa parte dos pesquisadores, principalmente no início da carreira, ficam empolgados pelo conhecimento do valor <em>P</em>. Entretanto, deve ser sempre lembrado que encontrar o valor <em>P</em> não é o único foco da pesquisa. O foco deve estar dirigido ao <em>tamanho do efeito</em> (<em>effect size</em>). O valor <em>P</em> obtido pelo teste estatístico, vai informar apenas sobre a probabilidade de se cometer erro ao rejeitar ou não rejeitar a hipóteses nula.</p>
 <p><strong>Exemplo</strong> (continuação)</p>

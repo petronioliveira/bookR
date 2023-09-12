@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-08-09" />
+<meta name="date" content="2023-09-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -847,7 +847,7 @@ t_{calculado}| \ge t_{crítico}| \to rejeita-se \quad H_{0}
 <h3><span class="header-section-number">12.2.4</span> Teste estatístico<a href="comparação-entre-duas-médias.html#teste-estatístico" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="lógica-do-teste-t" class="section level4 hasAnchor" number="12.2.4.1">
 <h4><span class="header-section-number">12.2.4.1</span> Lógica do teste <em>t</em><a href="comparação-entre-duas-médias.html#lógica-do-teste-t" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>O teste <em>t</em> compara as médias de duas amostras independentes, usando o erro padrão como métrica da diferença entre essas médias. Quanto maior o valor de <em>t</em> , maior a probabilidade de que as amostras pertençam a populações diferentes, ocorrendo nessas circunstâncias a rejeição da hipótese nula <span class="citation">(101)</span>.</p>
+<p>O teste <em>t</em> compara as médias de duas amostras independentes, usando o erro padrão como métrica da diferença entre essas médias. Quanto maior o valor de <em>t</em> , maior a probabilidade de que as amostras pertençam a populações diferentes, ocorrendo nessas circunstâncias a rejeição da hipótese nula <span class="citation">(102)</span>.</p>
 <p>Calcula-se o teste <em>t</em> com a seguinte equação:</p>
 <p><span class="math display">\[
 t = \frac{(\bar{x}_1 - \bar{x}_2) - (\mu_1 - \mu_2)}{EP_{d}}
@@ -890,7 +890,7 @@ EP_d = \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}
 <li>Deve haver distribuição normal. Entretanto, quando as amostras são grandes (teorema do limite central), isso não é muito importante;</li>
 <li>Exista homocedasticidade, ou seja, as variâncias dos grupos devem ser iguais.</li>
 </ol>
-<p>Violar o pressuposto de número 3 tem importância se os tamanhos dos grupos forem diferentes. Se os grupos tiverem o mesmo tamanho e a amostra for grande, este pressuposto torna-se menos importante, não importando muito se esta hipótese foi violada <span class="citation">(102)</span>. O pressuposto tem mais importância em grupos pequenos e desiguais. Existe um teste, denominado <em>teste t de Welch</em> que corrige essa violação. É possível portanto, esquecer esse pressuposto e fazer o teste de Welch sempre.</p>
+<p>Violar o pressuposto de número 3 tem importância se os tamanhos dos grupos forem diferentes. Se os grupos tiverem o mesmo tamanho e a amostra for grande, este pressuposto torna-se menos importante, não importando muito se esta hipótese foi violada <span class="citation">(103)</span>. O pressuposto tem mais importância em grupos pequenos e desiguais. Existe um teste, denominado <em>teste t de Welch</em> que corrige essa violação. É possível portanto, esquecer esse pressuposto e fazer o teste de Welch sempre.</p>
 <p><strong>Avaliação da normalidade</strong></p>
 <p>Uma boa parte dos procedimentos estatísticos são testes paramétricos <a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a> com base na distribuição normal. Ou seja, se assume que a distribuição dos dados segue o modelo da distribuição normal. Se essa suposição não for atendida, a lógica por trás do teste de hipóteses pode ser violada.</p>
 <p>Pode-se verificar a normalidade de maneira visual, observando o comportamento dos dados através de gráficos como o <em>histograma</em> (Figura <a href="comparação-entre-duas-médias.html#fig:histpop">12.2</a>) e o <em>gráfico Q-Q</em> (Figura <a href="comparação-entre-duas-médias.html#fig:qqpop">12.3</a>). É útil também sobrepor uma distribuição normal no histograma, para fins de comparação com a distribuição normal. Além disso, na Figura <a href="comparação-entre-duas-médias.html#fig:histpop">12.2</a>, pode-se observar como as duas populações se sobrepõem (veja também a Figura <a href="introdução-à-teoria-das-probabilidades.html#fig:woman">7.8</a>).</p>
@@ -947,7 +947,7 @@ Figure 12.3: Gráficos Q-Q
 <p>Observando os gráficos, verifica-se que a variável <code>altura</code> tem uma distribuição visualmente normal aceitável, pois o histograma se ajusta à curva normal e os gráficos Q-Q mostram que os dados seguem a linha diagonal.</p>
 <p>Outra maneira de analisar a normalidade é verificar se a distribuição como um todo se desvia de uma distribuição normal comparável. Para isso, usam-se <em>testes estatísticos de normalidade</em>. Os dois principais são o <em>teste de Shapiro-Wilk</em> e o <em>teste de Kolmogorov-Smirnov (K-S)</em>.</p>
 <p>Esses testes comparam os dados da amostra com um conjunto de valores normalmente distribuídos com a mesma média e desvio padrão. Se o teste não for significativo (<em>P</em> &gt; 0,05), informa-se que a distribuição da amostra não é significativamente diferente de uma distribuição normal. Se, no entanto, o teste for significativo (<em>P</em> <span class="math inline">\(\le\)</span> 0,05), a distribuição em questão será significativamente diferente de uma distribuição normal.</p>
-<p>O método de Shapiro-Wilk é amplamente recomendado para teste de normalidade <span class="citation">(103)</span>, <span class="citation">(104)</span>, <span class="citation">(105)</span>.</p>
+<p>O método de Shapiro-Wilk é amplamente recomendado para teste de normalidade <span class="citation">(104)</span>, <span class="citation">(105)</span>, <span class="citation">(106)</span>.</p>
 <div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="comparação-entre-duas-médias.html#cb638-1" tabindex="-1"></a>sw <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
 <span id="cb638-2"><a href="comparação-entre-duas-médias.html#cb638-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(pop) <span class="sc">%&gt;%</span></span>
 <span id="cb638-3"><a href="comparação-entre-duas-médias.html#cb638-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">shapiro_test</span>(altura)</span>
@@ -980,7 +980,7 @@ Figure 12.3: Gráficos Q-Q
 Figure 12.4: Gráfico mostrando a dispersão dos dados
 </p>
 </div>
-<p>Ao comparar grupos, essa suposição pode ser testada com o <em>teste de Levene</em>. Neste teste, a <span class="math inline">\(H_{0}\)</span> é todas as variâncias são iguais. No R, a função que calcula o teste é <code>leveneTest()</code> do pacote <code>car</code> <span class="citation">(106)</span>. Os argumentos são:</p>
+<p>Ao comparar grupos, essa suposição pode ser testada com o <em>teste de Levene</em>. Neste teste, a <span class="math inline">\(H_{0}\)</span> é todas as variâncias são iguais. No R, a função que calcula o teste é <code>leveneTest()</code> do pacote <code>car</code> <span class="citation">(107)</span>. Os argumentos são:</p>
 <ul>
 <li><em>y</em> <span class="math inline">\(\to\)</span> variável de resposta para o método padrão ou um objeto <code>lm</code> ou <code>fórmula</code>. Se <code>y</code> for um objeto de modelo linear ou uma fórmula, as variáveis do lado direito do modelo devem ser todas fatores e devem ser completamente cruzadas;</li>
 <li><em>group</em> <span class="math inline">\(\to\)</span> fator que define os grupos;</li>
@@ -1076,7 +1076,7 @@ Figure 12.4: Gráfico mostrando a dispersão dos dados
 <p>Concluindo, a altura das mulheres da população 1 e a altura das mulheres da população 2 são diferentes, a diferença (<span class="math inline">\(\mu_1 - \mu_2\)</span>) encontrada é estatisticamente significativa (<em>t</em> = 12.056, gl = 58, <em>P</em> &lt; 0,0001), com uma confiança de 95%.</p>
 <p>Esta conclusão pode ser visualizada em um gráfico:</p>
 <ol style="list-style-type: decimal">
-<li>Calcular o teste estatístico com a função <code>t_test()</code> do pacote <code>rstatix</code> <span class="citation">(107)</span> e colocar em um objeto denominado <code>t_teste</code>:</li>
+<li>Calcular o teste estatístico com a função <code>t_test()</code> do pacote <code>rstatix</code> <span class="citation">(108)</span> e colocar em um objeto denominado <code>t_teste</code>:</li>
 </ol>
 <div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="comparação-entre-duas-médias.html#cb649-1" tabindex="-1"></a>t_teste <span class="ot">&lt;-</span> <span class="fu">t_test</span>(dados, </span>
 <span id="cb649-2"><a href="comparação-entre-duas-médias.html#cb649-2" tabindex="-1"></a>                altura<span class="sc">~</span>pop,</span>
@@ -1150,7 +1150,7 @@ Figure 12.6: Gráfico de barra de erro comparando os dois grupos
 <p>Normalmente, em ensaios clínicos tem-se um grupo de tratamento e um grupo de controle. O grupo de tratamento é uma intervenção que se espera efetue um resultado específico. O valor do tamanho do efeito mostrará se a terapia teve um efeito pequeno, médio ou grande. Isso tem mais relevância do que simplesmente informar o tamanho do valor <em>P</em>.</p>
 <div id="d-de-cohen" class="section level4 hasAnchor" number="12.2.6.1">
 <h4><span class="header-section-number">12.2.6.1</span> <em>d</em> de Cohen<a href="comparação-entre-duas-médias.html#d-de-cohen" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Também conhecida como <em>diferença média padronizada</em>, o <em>d</em> de Cohen <span class="citation">(108)</span> <span class="citation">(109)</span> é uma medida adequada e bastante popular para encontrar a magnitude do efeito na comparação entre duas médias.</p>
+<p>Também conhecida como <em>diferença média padronizada</em>, o <em>d</em> de Cohen <span class="citation">(109)</span> <span class="citation">(110)</span> é uma medida adequada e bastante popular para encontrar a magnitude do efeito na comparação entre duas médias.</p>
 <p>Para calcular a diferença média padronizada se verifica a diferença entre as médias dos dois grupos e se divide pelo desvio padrão conjugado:</p>
 <p><span class="math display">\[
 d = \frac{(\bar{x}_1 - \bar{x}_2)}{s_{o}}
@@ -1172,7 +1172,7 @@ s_o =\sqrt \frac{(n_1 - 1)s_1^2 + (n_2 -1)s_2^2}{n_1 + n_2 - 2}
 <div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="comparação-entre-duas-médias.html#cb652-1" tabindex="-1"></a>d <span class="ot">&lt;-</span> lsr<span class="sc">::</span><span class="fu">cohensD</span> (altura <span class="sc">~</span> pop, <span class="at">data =</span> dados)</span>
 <span id="cb652-2"><a href="comparação-entre-duas-médias.html#cb652-2" tabindex="-1"></a>d</span></code></pre></div>
 <pre><code>## [1] 3.112768</code></pre>
-<p>Bastante simples! Agora, como interpretar este resultado de d = 1,1 (arredondado)? Sua interpretação não é intuitiva, recomenda-se usar a Tabela <a href="comparação-entre-duas-médias.html#tab:effect">12.2</a> para interpretar <span class="citation">(108)</span>.</p>
+<p>Bastante simples! Agora, como interpretar este resultado de d = 1,1 (arredondado)? Sua interpretação não é intuitiva, recomenda-se usar a Tabela <a href="comparação-entre-duas-médias.html#tab:effect">12.2</a> para interpretar <span class="citation">(109)</span>.</p>
 <table class="table lightable-classic" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: Cambria; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:effect">Table 12.2: </span>Tamanho do Efeito

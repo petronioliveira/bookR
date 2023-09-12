@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-08-09" />
+<meta name="date" content="2023-09-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -640,7 +640,7 @@ div.csl-indent {
 <div id="assimetria" class="section level2 hasAnchor" number="8.1">
 <h2><span class="header-section-number">8.1</span> Assimetria<a href="assimetria-e-curtose.html#assimetria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A assimetria analisa a proximidade ou o afastamento de um conjunto de dados quantitativos em relação à distribuição normal. Mede o grau de afastamento de uma distribuição em relação a um eixo central (geralmente a média).</p>
-<p>Quando a curva é simétrica, a média, a mediana e a moda coincidem, num mesmo ponto, havendo um perfeito equilíbrio na distribuição. Quando o equilíbrio não acontece, isto é, a média, a mediana e a moda recaem em pontos diferentes da distribuição esta será assimétrica; enviesada a direita ou esquerda. podendo-se caracterizar como curvas assimétricas à direita ou à esquerda. Quando a distribuição é assimétrica à esquerda ou assimetria negativa, a cauda da curva localiza-se à esquerda, desviando a média para este lado (Figura <a href="assimetria-e-curtose.html#fig:skew">8.1</a>). Na assimetria positiva, ocorre o contrário, a cauda está localizada à direita e da mesma forma a média <span class="citation">(90)</span>.</p>
+<p>Quando a curva é simétrica, a média, a mediana e a moda coincidem, num mesmo ponto, havendo um perfeito equilíbrio na distribuição. Quando o equilíbrio não acontece, isto é, a média, a mediana e a moda recaem em pontos diferentes da distribuição esta será assimétrica; enviesada a direita ou esquerda. podendo-se caracterizar como curvas assimétricas à direita ou à esquerda. Quando a distribuição é assimétrica à esquerda ou assimetria negativa, a cauda da curva localiza-se à esquerda, desviando a média para este lado (Figura <a href="assimetria-e-curtose.html#fig:skew">8.1</a>). Na assimetria positiva, ocorre o contrário, a cauda está localizada à direita e da mesma forma a média <span class="citation">(91)</span>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:skew"></span>
 <img src="https://i.imgur.com/KRTdQ5v.png" alt="Assimetria" width="80%" />
 <p class="caption">
@@ -648,7 +648,7 @@ Figure 8.1: Assimetria
 </p>
 </div>
 <p>O <em>R</em> dispões de diversas maneiras para o cálculo do <em>coeficiente de assimetria</em> (<em>g</em>1). O coeficiente de assimetria é um método numérico estatístico para medir a assimetria da distribuição ou conjunto de dados. Ele fala sobre a posição da maioria dos valores de dados na distribuição em torno do valor médio.</p>
-<p>Quando a <span class="math inline">\(assimetria = 0\)</span>, tem-se uma distribuição simétrica e a média, a mediana e a moda coincidem; quando a <span class="math inline">\({assimetria} &lt; {0}\)</span>, <span class="math inline">\({média} &lt; {mediana} &lt; {moda}\)</span>, a distribuição tem <em>assimetria negativa</em> e quando a <span class="math inline">\({assimetria} &gt; {0}\)</span>, <span class="math inline">\({média} &gt; {mediana} &gt; {moda}\)</span>, a distribuição tem <em>assimetria positiva</em>. A Tabela <a href="assimetria-e-curtose.html#tab:assimetria">8.1</a> sugere uma forma de interpretar o coeficiente de assimetria <span class="citation">(91)</span>.</p>
+<p>Quando a <span class="math inline">\(assimetria = 0\)</span>, tem-se uma distribuição simétrica e a média, a mediana e a moda coincidem; quando a <span class="math inline">\({assimetria} &lt; {0}\)</span>, <span class="math inline">\({média} &lt; {mediana} &lt; {moda}\)</span>, a distribuição tem <em>assimetria negativa</em> e quando a <span class="math inline">\({assimetria} &gt; {0}\)</span>, <span class="math inline">\({média} &gt; {mediana} &gt; {moda}\)</span>, a distribuição tem <em>assimetria positiva</em>. A Tabela <a href="assimetria-e-curtose.html#tab:assimetria">8.1</a> sugere uma forma de interpretar o coeficiente de assimetria <span class="citation">(92)</span>.</p>
 <table class="table table-striped lightable-classic" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: Cambria; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:assimetria">Table 8.1: </span>Interpretação do g1
@@ -748,7 +748,7 @@ Figure 8.2: Altura das gestantes (m)
 ## $out
 ## [1] 1.40 1.82 1.80 1.40 1.40 1.85 1.80</code></pre>
 <p>O formato dos dados se ajusta bem, como visto na Figura <a href="assimetria-e-curtose.html#fig:histbxp">8.2</a>, ao modelo normal e os pressupostos deste modelo poderiam ser aplicados a estes dados.</p>
-<p>O valor da assimetria (<code>skewness</code>) pode ser obtida com a função <code>skewness()</code> do pacote <code>moments</code> <span class="citation">(92)</span>.</p>
+<p>O valor da assimetria (<code>skewness</code>) pode ser obtida com a função <code>skewness()</code> do pacote <code>moments</code> <span class="citation">(93)</span>.</p>
 <div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="assimetria-e-curtose.html#cb496-1" tabindex="-1"></a>moments<span class="sc">::</span><span class="fu">skewness</span>(mater<span class="sc">$</span>altura)</span></code></pre></div>
 <pre><code>## [1] 0.1812196</code></pre>
 <p>O resultado da saída, confirmam a impressão visual, a variável <code>altura</code> tem uma distribuição praticamente simétrica. Esta conclusão tambem pode ser feita, analisando as medidas resumidoras dessa variável:</p>

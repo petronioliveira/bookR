@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-08-09" />
+<meta name="date" content="2023-09-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -872,7 +872,7 @@ Figure 10.5: Distribuição t com gl = 10, unilateral.
 <pre><code>## [1] 0.07328185</code></pre>
 <p>Para termos maior precisão, vamos calcular os intervalos de confiança para esta estimativa, usando a distribuição <em>t</em>.</p>
 <p><strong>Cálculo manual do IC</strong></p>
-<p>Quando o desvio padrão da população (<span class="math inline">\(\sigma\)</span>) não é conhecido, pode-se usar o seu estimador que é o desvio padrão da amostra (<em>s</em>), respeitando os pressupostos <span class="citation">(94)</span>. Então, o erro padrão da média (<span class="math inline">\(\sigma_{\bar{x}}\)</span>) pode ser estimado pelo <span class="math inline">\(EP_{\bar{x}}\)</span>.</p>
+<p>Quando o desvio padrão da população (<span class="math inline">\(\sigma\)</span>) não é conhecido, pode-se usar o seu estimador que é o desvio padrão da amostra (<em>s</em>), respeitando os pressupostos <span class="citation">(95)</span>. Então, o erro padrão da média (<span class="math inline">\(\sigma_{\bar{x}}\)</span>) pode ser estimado pelo <span class="math inline">\(EP_{\bar{x}}\)</span>.</p>
 <p><span class="math display">\[
 EP_{\bar{x}}=\frac{s}{\sqrt{n}}
 \]</span></p>
@@ -1113,7 +1113,7 @@ Com estes dados, pode-se calcular o intervalo de confiança de 95%:</p>
 <pre><code>##   sim   sim 
 ## 0.126 0.340</code></pre>
 <p><strong>Cálculo usando uma função</strong></p>
-<p>O chamado <em>Intervalo de Confiança Exato</em> corrigem as deficiências da aproximação normal. O R tem uma função para este cálculo: <code>BinomCI()</code> do pacote <code>DescTools</code><span class="citation">(95)</span>. É preferível usar o método de Clopper e Pearson que fornece o IC exato.</p>
+<p>O chamado <em>Intervalo de Confiança Exato</em> corrigem as deficiências da aproximação normal. O R tem uma função para este cálculo: <code>BinomCI()</code> do pacote <code>DescTools</code><span class="citation">(96)</span>. É preferível usar o método de Clopper e Pearson que fornece o IC exato.</p>
 <p>Os argumentos da função <code>BinomCI()</code> são:</p>
 <ul>
 <li><em>x</em> <span class="math inline">\(\to\)</span> é o número de desfechos, sucessos;</li>

@@ -1671,11 +1671,11 @@ glimpse(dados2)
 Agora, pode-se prosseguir com a análise com uma regressão logística binária, usando a função `glm()` do pacote `stats` que pode usar vários argumentos: 
 
 * *formula*	$\longrightarrow$ objeto da classe “formula”. Um preditor típico tem a forma "resposta ~ preditor" em que resposta, na regressão logística binária, é uma variável dicotômica e o preditor pode ser uma série de variáveis numéricas ou categóricas;
-* *family* $\longrightarrow$	uma descrição da distribuição de erro e função de linka ser usada no modelo glm, pode ser uma *string* que nomeia uma função de *family*. O padrão é `family = gaussian()`. No caso da regressão logística binária ´family = binomial()` ou `family = binomial (link = ”logit”)`. Para outras informações, use `help(glm)` ou `help(family)`;
+* *family* $\longrightarrow$	uma descrição da distribuição de erro e função de link a ser usada no modelo glm, pode ser uma *string* que nomeia uma função de *family*. O padrão é `family = gaussian()`. No caso da regressão logística binária `family = binomial()` ou `family = binomial (link = ”logit”)`. Para outras informações, use `help(glm)` ou `help(family)`;
 * *data* $\longrightarrow$	banco de dados.
 * *...* $\longrightarrow$	...
 
-A função `glm()` diz ao R para executar um modelo linear generalizado. Dentro dos parênteses, são fornecidas informações importantes sobre o modelo. À esquerda do til (~) está a variável dependente: ´. Deve ser codificada como 0 e 1 para a função glm ler como binária. Após o til (~), são listadas as variáveis preditoras. Quando depois do sinal til é colocado um ponto (~.), significa a presença de todas as variáveis preditoras. Quando é colocado o asterisco (*) entre duas variáveis preditoras, isto indica que não se deseja apenas o efeito principal, mas também um termo de interação entre elas. No exemplo, não foi pedido essa análise. Finalmente, após a vírgula, especifica-se que a distribuição é binomial. A função link padrão em `glm` para uma variável desfecho binomial é o `logit`, portanto, não há necessidade de especificar no modelo.  
+A função `glm()` diz ao R para executar um modelo linear generalizado. Dentro dos parênteses, são fornecidas informações importantes sobre o modelo. À esquerda do til (~) está a variável dependente: ´. Deve ser codificada como 0 e 1 para a função `glm` ler como binária. Após o til (~), são listadas as variáveis preditoras. Quando depois do sinal til é colocado um ponto (~.), significa a presença de todas as variáveis preditoras. Quando é colocado o asterisco (*) entre duas variáveis preditoras, isto indica que não se deseja apenas o efeito principal, mas também um termo de interação entre elas. No exemplo, não foi pedido essa análise. Finalmente, após a vírgula, especifica-se que a distribuição é binomial. A função link padrão em `glm` para uma variável desfecho binomial é o `logit`, portanto, não há necessidade de especificar no modelo.  
 
 Inicialmente, será feita uma regressão logística do tipo entrada forçada (`enter`), método padrão de conduzir uma regressão que consiste em simplesmente colocar todos os preditores no modelo de regressão em um bloco e estimar parâmetros para cada um [@field2012logit].  O conjunto de dados `dados2` será usado no modelo com todos os preditores dentro da função. O objeto criado será denominado de `mod1`.
 
@@ -1696,7 +1696,7 @@ Essas estatísticas resumidas ajudam a entender melhor o modelo, fornecendo-nos 
 *	Distribuição dos desvios residuais; 
 *	Estimativas do Intercepto e inclinação junto com o erro padrão, valor z (estatística de Wald) e valor *P*;
 *	Valor AIC e
-*	Desvio residual e desvio nulo.  
+*	Desviância residual e desviância nula.  
 
 Em uma regressão logística, a resposta que está sendo modelada é o `log(odds)` ou `logit` de que o desfecho é igual a 1. Os coeficientes de regressão fornecem a mudança no `log(odds)` no desfecho para a mudança de uma unidade na variável preditora, mantendo todas as outras variáveis preditivas constantes [@hosmer2013applied].  
 
@@ -1708,7 +1708,7 @@ Estar na faixa etária de 31-40 anos, versus faixa etária de 20-30, muda o `log
 
 Como o `log(odds)` é difícil de interpretar, é possível exponenciar o `log(odds)` para colocar os resultados em uma escala de *odds*. O R calcula as *odds ratios* e seus IC95, usando a função `exp()` e, dentro dela, a função `coef()` – do coeficiente *b* para as variáveis preditoras – e a função `confint()`, que fornece os intervalos de confiança. A função `cbind()` combinará as duas. A função `round()` é dispensável, foi usada apenas para que o resultado tenha 5 dígitos:
 
-```{r}
+```{r message=FALSE}
 round (exp(cbind(OR = coef(mod1), confint(mod1))), 5)
 ```
 
@@ -1719,9 +1719,7 @@ A função `exp()` transformou o `log(odds)` em *odds*. A Saída mostra que a ch
 Existem vários métodos para seleção de variáveis, aqui será usado o método passo a passo (stepwise). O procedimento de seleção é realizado automaticamente por pacotes estatísticos como o pacote MASS @ripley2023mass através da função `stepAIC()` que utiliza o AIC (Critério de Informação de Akaike ^[https://www.scribbr.com/statistics/akaike-information-criterion/]) para a seleção [@field2012logisticreg]. Esta função usa os seguintes argumentos:
 
 * *object* $\longrightarrow$ um objeto que representa um modelo de uma classe apropriada;
-* *direction* $\longrightarrow$	o modo de pesquisa passo a passo pode ser “backward" (para trás), "forward" (para frentmod2 <- stepAIC(mod1, direction = “backward”)
-summary (mod2)
-e) ou “both" (ambos) que é o padrão . Se o argumento scope estiver faltando, o padrão para a direção kwaré "bacd";
+* *direction* $\longrightarrow$	o modo de pesquisa passo a passo pode ser “backward" (para trás), "forward" (para frente) ou “both" (ambos), que é o padrão . Se o argumento `scope` estiver faltando, o padrão para a direção é "backward";
 * *scope* $\longrightarrow$	define a gama de modelos examinados na pesquisa passo a passo
 * ...	 $\longrightarrow$ para maiores informações, use o *help*.
 
@@ -1736,7 +1734,7 @@ Depois de implementar a função `stepAIC()`, restam agora quatro variáveis ind
 
 Observe o cálculo das *odds ratios* com o `mod2` e compare com o `mod1` 
 
-```{r}
+```{r message=FALSE}
 round(exp(cbind(OR = coef(mod2), confint(mod2))), 5)                   
 ```
 
@@ -1890,13 +1888,13 @@ Qualquer variável com um valor VIF alto (acima de 5 ou 10) deve ser removida do
 
 *R ao quadrado* é uma métrica útil para regressão linear simples e múltipla, mas não tem o mesmo significado na regressão logística.   
 
-Os estatísticos descobriram uma variedade de análogos de R ao quadrado para regressão logística que eles referem, coletivamente, como *pseudo R ao quadrado*. Não têm a mesma interpretação, na medida em que não são simplesmente a proporção da variância explicada pelo modelo.   
+Os estatísticos descobriram uma variedade de análogos do R ao quadrado para regressão logística que eles referem, coletivamente, como *pseudo R ao quadrado*. Não têm a mesma interpretação, na medida em que não são simplesmente a proporção da variância explicada pelo modelo.   
 
 Infelizmente, existem muitas maneiras diferentes de calcular um $R^2$ para regressão logística e nenhum consenso sobre qual é a melhor. Os dois métodos mais frequentemente relatados em softwares estatísticos são um proposto por McFadden (1974) e outro por Cox-Snell (1989). No entanto, também é bastante relatado o de Nagelkerke. Os valores mais altos indicam um melhor ajuste do modelo.  
 
 O $R^2$ de McFadden é uma versão, baseada no log-likelihood para o modelo somente com o intercepto e o modelo estimado completo. O $R^2$ de Cox e Snell é baseado no log-likelihood para o modelo em comparação com o log-likelihood para um modelo basal. No entanto, com resultados categóricos, tem um valor máximo teórico inferior a 1, mesmo para um modelo "perfeito". O $R^2$ de Nagelkerke é uma versão ajustada do $R^2$ de Cox e Snell que ajusta a escala da estatística para cobrir todo o intervalo de 0 a 1.  
 
-Em seguida, será calculado os vários valores de $R^2$, usando a função `PseudoR2()` do pacote `DescTools`:
+Em seguida, serão calculados os vários valores de $R^2$, usando a função `PseudoR2()` do pacote `DescTools`:
 
 ```{r}
 PseudoR2(mod2, which =c("Nagelkerke", "McFadden", "CoxSnell"))

@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-08-09" />
+<meta name="date" content="2023-09-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -656,7 +656,7 @@ div.csl-indent {
 <p>Dois testes de hipótese são proeminentes na pesquisa na área da saúde. Um é o teste <em>t</em> de duas amostras, que é usado para testar a igualdade de duas médias populacionais independentes. O segundo é o teste qui-quadrado (denotado por <span class="math inline">\(\chi^{2}\)</span>). O teste é denominado teste qui-quadrado porque usa a distribuição qui-quadrado ou <span class="math inline">\(\chi^{2}\)</span>.</p>
 <div id="distribuição-qui-quadrado" class="section level3 hasAnchor" number="16.2.1">
 <h3><span class="header-section-number">16.2.1</span> Distribuição qui-quadrado<a href="análise-de-dados-categóricos.html#distribuição-qui-quadrado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Se uma variável <em>X</em> é normalmente distribuída, então a variável <span class="math inline">\(X^{2}\)</span> tem uma distribuição qui-quadrado <span class="citation">(138)</span>. A distribuição qui-quadrado com <em>k</em> categorias é a distribuição de uma soma dos quadrados de <em>k</em> variáveis aleatórias independentes com distribuição normal. O número de categorias determina o número de graus de liberdade. O formato da distribuição qui-quadrado depende desses graus de liberdade.<br />
+<p>Se uma variável <em>X</em> é normalmente distribuída, então a variável <span class="math inline">\(X^{2}\)</span> tem uma distribuição qui-quadrado <span class="citation">(139)</span>. A distribuição qui-quadrado com <em>k</em> categorias é a distribuição de uma soma dos quadrados de <em>k</em> variáveis aleatórias independentes com distribuição normal. O número de categorias determina o número de graus de liberdade. O formato da distribuição qui-quadrado depende desses graus de liberdade.<br />
 Em geral, ela é assimétrica com apenas valores positivos, iniciando em zero. A assimetria diminui à medida que aumentam os graus de liberdade. Para cada grau de liberdade tem-se curvas de distribuição diferentes.</p>
 <div class="sourceCode" id="cb896"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb896-1"><a href="análise-de-dados-categóricos.html#cb896-1" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dchisq</span>(x, <span class="at">df =</span> <span class="dv">5</span>), <span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">60</span>, <span class="at">col =</span> <span class="st">&quot;royalblue&quot;</span>, <span class="at">lwd =</span><span class="dv">2</span>, <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>)</span>
 <span id="cb896-2"><a href="análise-de-dados-categóricos.html#cb896-2" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dchisq</span>(x, <span class="at">df =</span> <span class="dv">10</span>), <span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">60</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span><span class="dv">2</span>, <span class="at">add =</span> T)</span>
@@ -807,7 +807,7 @@ gl = (numero \ de \ linhas - 1) \ \times \ (numero \ de \ colunas - 1)
 Figure 16.2: Distribuição do qui-quadrado, gl = 1, alpha = 0,05.
 </p>
 </div>
-<p>O gráfico foi criado com a função <code>plotchisqteste()</code> do pacote <code>nhstplot</code>, pacote simples e conveniente para representar graficamente os testes de significância de hipótese nula mais comuns, como testes <em>F</em>, testes <em>t</em> e testes <em>z</em> <span class="citation">(139)</span>.</p>
+<p>O gráfico foi criado com a função <code>plotchisqteste()</code> do pacote <code>nhstplot</code>, pacote simples e conveniente para representar graficamente os testes de significância de hipótese nula mais comuns, como testes <em>F</em>, testes <em>t</em> e testes <em>z</em> <span class="citation">(140)</span>.</p>
 </div>
 </div>
 <div id="qui-quadrado-de-independência-ou-associação" class="section level3 hasAnchor" number="16.2.3">
@@ -916,7 +916,7 @@ Figure 16.2: Distribuição do qui-quadrado, gl = 1, alpha = 0,05.
 <li>reunir alguns níveis (especialmente aqueles com um pequeno número de observações) para aumentar o número de observações nos subgrupos, ou</li>
 <li>usar o teste exato de Fisher.</li>
 </ul>
-<p>Existe uma função no pacote <code>gmodels</code> <span class="citation">(140)</span>, muito interessante, onde se encontra a função <code>CrossTable()</code> que que imprime, além de uma tabela de frequência com as probabilidade e outros teste, como o teste <span class="math inline">\(\chi^2\)</span>, o teste exato de Fisher e o teste de McNemar com e sem correção de continuidade. Consulte a ajuda para melhor estudar esta elegante função! Neste momento, será explorado apenas o qui-quadrado e os valores esperados com três dígitos:</p>
+<p>Existe uma função no pacote <code>gmodels</code> <span class="citation">(141)</span>, muito interessante, onde se encontra a função <code>CrossTable()</code> que que imprime, além de uma tabela de frequência com as probabilidade e outros teste, como o teste <span class="math inline">\(\chi^2\)</span>, o teste exato de Fisher e o teste de McNemar com e sem correção de continuidade. Consulte a ajuda para melhor estudar esta elegante função! Neste momento, será explorado apenas o qui-quadrado e os valores esperados com três dígitos:</p>
 <div class="sourceCode" id="cb928"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb928-1"><a href="análise-de-dados-categóricos.html#cb928-1" tabindex="-1"></a><span class="fu">CrossTable</span> (dados<span class="sc">$</span>fumo, </span>
 <span id="cb928-2"><a href="análise-de-dados-categóricos.html#cb928-2" tabindex="-1"></a>            dados<span class="sc">$</span>baixoPeso,</span>
 <span id="cb928-3"><a href="análise-de-dados-categóricos.html#cb928-3" tabindex="-1"></a>            <span class="at">digits =</span> <span class="dv">3</span>,</span>
@@ -975,7 +975,7 @@ Figure 16.2: Distribuição do qui-quadrado, gl = 1, alpha = 0,05.
 <p>Usando a correção de continuidade de Yates, pois é uma tabela <span class="math inline">\(2 \times 2\)</span>, vê-se que o valor <em>P</em> é menor que o nível de significância de 5% e, consequentemente, rejeita-se a hipótese nula e conclui-se que existe uma associação significativa entre tabagismo na gestação e o baixo peso ao nascimento (<span class="math inline">\(\chi^{2}_{com \ correção \ de \ Yates} (1)=12;P=0,0005\)</span>).</p>
 <p>Além disso, no relato dos resultados pode-se apresentar uma tabela ou em um gráfico.</p>
 <p><strong>Tabela</strong></p>
-<p>Para a construção da tabela, pode-se usar a função <code>ctable()</code> do pacote <code>summarytools</code><span class="citation">(141)</span> para obter uma tabela com todos os dados a serem exibidos. O argumento <code>prop = "r"</code> exibe os percentuais das linhas (“c”, nas colunas). Na realidade, são maneiras diferente de se obter o mesmo resultado.</p>
+<p>Para a construção da tabela, pode-se usar a função <code>ctable()</code> do pacote <code>summarytools</code><span class="citation">(142)</span> para obter uma tabela com todos os dados a serem exibidos. O argumento <code>prop = "r"</code> exibe os percentuais das linhas (“c”, nas colunas). Na realidade, são maneiras diferente de se obter o mesmo resultado.</p>
 <div class="sourceCode" id="cb930"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb930-1"><a href="análise-de-dados-categóricos.html#cb930-1" tabindex="-1"></a><span class="fu">ctable</span>(dados<span class="sc">$</span>fumo, dados<span class="sc">$</span>baixoPeso,</span>
 <span id="cb930-2"><a href="análise-de-dados-categóricos.html#cb930-2" tabindex="-1"></a>       <span class="at">prop =</span> <span class="st">&quot;r&quot;</span>, </span>
 <span id="cb930-3"><a href="análise-de-dados-categóricos.html#cb930-3" tabindex="-1"></a>       <span class="at">chisq =</span> <span class="cn">TRUE</span>, </span>
@@ -1088,7 +1088,7 @@ Figure 16.3: Gráfico de barras empilhadas: tabagismo vs baixo peso ao nascer.
 </div>
 <div id="teste-aderência-ou-do-melhor-ajuste" class="section level3 hasAnchor" number="16.2.4">
 <h3><span class="header-section-number">16.2.4</span> Teste Aderência ou do Melhor Ajuste<a href="análise-de-dados-categóricos.html#teste-aderência-ou-do-melhor-ajuste" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>O teste de qualidade de ajuste do qui-quadrado (<em>chi-square goodness of fit</em>) é usado para comparar a distribuição observada com uma distribuição esperada, em uma situação em que se tem duas ou mais categorias em dados discretos. Em outras palavras, ele compara várias proporções observadas com as probabilidades esperadas <span class="citation">(142)</span>.</p>
+<p>O teste de qualidade de ajuste do qui-quadrado (<em>chi-square goodness of fit</em>) é usado para comparar a distribuição observada com uma distribuição esperada, em uma situação em que se tem duas ou mais categorias em dados discretos. Em outras palavras, ele compara várias proporções observadas com as probabilidades esperadas <span class="citation">(143)</span>.</p>
 <div id="dados-1" class="section level4 hasAnchor" number="16.2.4.1">
 <h4><span class="header-section-number">16.2.4.1</span> Dados<a href="análise-de-dados-categóricos.html#dados-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Há uma dúvida se o número de pacientes que procura uma determinada Unidade de Pronto Atendimento (UPA) é aproximadamente o mesmo em todos os dias da semana. Esta é uma informação importante sob o ponto de vista administrativo. Para se atingir este objetivo registrou-se o número de pacientes que procurou a UPA por dia da semana.</p>
@@ -1415,7 +1415,7 @@ No contexto, rejeitar a hipótese nula para o teste exato de independência de F
 <p>É um teste estatístico não paramétrico aplicável nos estudos tipo “antes-e-depois” em que cada indivíduo é utilizado como seu próprio controle e a medida é efetuada em escala nominal. O <em>teste de McNemar</em> é usado para determinar se há uma diferença estatisticamente significativa nas proporções entre os dados emparelhados.</p>
 <p>As medidas coletadas nesses tipos de projetos de estudo não são independentes e, portanto, os testes do Qui-quadrado não podem ser usados porque os pressupostos serão violados.</p>
 <p>O teste de McNemar é usado para avaliar se há uma mudança significativa nas proporções ao longo do tempo para dados emparelhados ou se há uma diferença significativa nas proporções entre casos e controles. O resultado de interesse é a mudança dentro da pessoa (ou diferenças dentro do par) e não há variáveis explicativas.</p>
-<p>O teste é calculado examinando o número de respostas que são <em>concordantes</em> para positivo (sim em ambas as ocasiões) e negativo (não em ambas as ocasiões) e o número de pares <em>disconcordantes</em> (sim e não, ou não e sim). Os pares concordantes não fornecem informações sobre as diferenças e não são usados na avaliação. Em vez disso, deve-se concentrar nos pares discordantes, que podem ser divididos em dois tipos: um par discordante do tipo <em>sim – não</em> e um par discordante tipo <em>não – sim</em> <span class="citation">(143)</span>.</p>
+<p>O teste é calculado examinando o número de respostas que são <em>concordantes</em> para positivo (sim em ambas as ocasiões) e negativo (não em ambas as ocasiões) e o número de pares <em>disconcordantes</em> (sim e não, ou não e sim). Os pares concordantes não fornecem informações sobre as diferenças e não são usados na avaliação. Em vez disso, deve-se concentrar nos pares discordantes, que podem ser divididos em dois tipos: um par discordante do tipo <em>sim – não</em> e um par discordante tipo <em>não – sim</em> <span class="citation">(144)</span>.</p>
 <div id="pressupostos-do-teste-de-mcnemar" class="section level3 hasAnchor" number="16.4.1">
 <h3><span class="header-section-number">16.4.1</span> Pressupostos do teste de McNemar<a href="análise-de-dados-categóricos.html#pressupostos-do-teste-de-mcnemar" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Os pressupostos para o teste de McNemar são:</p>
@@ -1423,7 +1423,7 @@ No contexto, rejeitar a hipótese nula para o teste exato de independência de F
 <li>A variável desfecho é binária, dicotômica;</li>
 <li>Cada participante é representado na tabela apenas uma vez;</li>
 <li>A diferença entre as proporções emparelhadas é o resultado de interesse;</li>
-<li>O teste de McNemar pode não ser confiável se houver contagens baixas nas células “discordantes”. Existe recomendação de que a soma dessas células seja <span class="math inline">\(\ge 20\)</span> <span class="citation">(144)</span>.</li>
+<li>O teste de McNemar pode não ser confiável se houver contagens baixas nas células “discordantes”. Existe recomendação de que a soma dessas células seja <span class="math inline">\(\ge 20\)</span> <span class="citation">(145)</span>.</li>
 </ol>
 </div>
 <div id="dados-3" class="section level3 hasAnchor" number="16.4.2">

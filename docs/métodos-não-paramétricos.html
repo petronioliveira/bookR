@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-08-09" />
+<meta name="date" content="2023-09-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -929,7 +929,7 @@ Figure 17.1: Impacto da infecção no tempo de hopsitalização.
 ## Confidence interval:
 ##  2.5% 97.5% 
 ##   4.5  19.5</code></pre>
-<p>Para calcular intervalos de confiança para a diferença das medianas, foi usada a função <code>ci_quantile_diff()</code> do pacote <code>confintr</code> <span class="citation">(145)</span>.</p>
+<p>Para calcular intervalos de confiança para a diferença das medianas, foi usada a função <code>ci_quantile_diff()</code> do pacote <code>confintr</code> <span class="citation">(146)</span>.</p>
 <p>Dessa forma, a mediana da diferença entre os dois grupos foi de 14 dias (IC95%; 5 - 20).</p>
 </div>
 </div>
@@ -1001,7 +1001,7 @@ Figure 17.1: Impacto da infecção no tempo de hopsitalização.
 <div class="sourceCode" id="cb1015"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1015-1"><a href="métodos-não-paramétricos.html#cb1015-1" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="dv">56</span></span>
 <span id="cb1015-2"><a href="métodos-não-paramétricos.html#cb1015-2" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="dv">88</span></span></code></pre></div>
 <ol start="6" style="list-style-type: decimal">
-<li>Calcular a estística do teste, usando a fórmula preconizada por Altman <span class="citation">(146)</span>:</li>
+<li>Calcular a estística do teste, usando a fórmula preconizada por Altman <span class="citation">(147)</span>:</li>
 </ol>
 <p><span class="math display">\[
 U =n_{1} \times n_{2} \ +\left [\frac{n_{1} \times \left (n_{1} + 1  \right )}{2}  \right ] - T
@@ -1073,7 +1073,7 @@ r = \frac {Z_{U}}{\sqrt{n}}
 <div class="sourceCode" id="cb1030"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1030-1"><a href="métodos-não-paramétricos.html#cb1030-1" tabindex="-1"></a>r <span class="ot">&lt;-</span> Z_U<span class="sc">/</span><span class="fu">sqrt</span>(n1<span class="sc">+</span>n2)</span>
 <span id="cb1030-2"><a href="métodos-não-paramétricos.html#cb1030-2" tabindex="-1"></a><span class="fu">round</span>(r,<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 0.278</code></pre>
-<p>O R possui a função <code>wilcox_effsize()</code> do pacote <code>rstatix</code> e necessita também do pacote <code>coin</code> <span class="citation">(147)</span> , instalado para calcular a estatística <em>r</em>. A saída exibirá junto a magnitude o efeito, que no caso é pequena (veja Tabela <a href="métodos-não-paramétricos.html#tab:wilcoxef">17.2</a>).</p>
+<p>O R possui a função <code>wilcox_effsize()</code> do pacote <code>rstatix</code> e necessita também do pacote <code>coin</code> <span class="citation">(148)</span> , instalado para calcular a estatística <em>r</em>. A saída exibirá junto a magnitude o efeito, que no caso é pequena (veja Tabela <a href="métodos-não-paramétricos.html#tab:wilcoxef">17.2</a>).</p>
 <div class="sourceCode" id="cb1032"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1032-1"><a href="métodos-não-paramétricos.html#cb1032-1" tabindex="-1"></a><span class="fu">wilcox_effsize</span>(dados, tempohosp<span class="sc">~</span>infec)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 7
 ##   .y.       group1 group2 effsize    n1    n2 magnitude
@@ -1337,7 +1337,7 @@ O teste de Wilcoxon é usado para avaliar a hipótese nula de que a distribuiç�
 <pre><code>## [1] 2</code></pre>
 <p>No teste <code>wilcox.test</code>, T = V.</p>
 <ol start="8" style="list-style-type: decimal">
-<li>Para dados com tamanhos grandes (&gt; 20 pares), a significância de <em>T</em> pode ser determinada <span class="citation">(148)</span>, considerando que a distribuição de <em>T</em> tem aproximadamente distribuição normal com média igual a</li>
+<li>Para dados com tamanhos grandes (&gt; 20 pares), a significância de <em>T</em> pode ser determinada <span class="citation">(149)</span>, considerando que a distribuição de <em>T</em> tem aproximadamente distribuição normal com média igual a</li>
 </ol>
 <p><span class="math display">\[
 \mu_{T} =\frac{n \times \left (n + 1  \right )}{4}
@@ -1457,7 +1457,7 @@ Figure 17.5: Impacto de exercícios aeróbicos na função respiratória de 10 e
 <p>O teste não usa diretamente medições de quantidade conhecida, utiliza, como outros testes não paramétricos, os postos dos valores analisados. Em função disso, é também conhecido como</p>
 <div id="dados-6" class="section level3 hasAnchor" number="17.6.1">
 <h3><span class="header-section-number">17.6.1</span> Dados<a href="métodos-não-paramétricos.html#dados-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Um experimento foi realizado para verificar se o álcool ou o café afetam os tempos de reação ao dirigir <span class="citation">(149)</span>. O estudo tem três grupos diferentes de participantes: 10 bebendo água (controle), 10 bebendo cerveja contendo duas unidades de álcool e 10 bebendo café. O tempo de reação em uma simulação de direção foi medido para cada participante.</p>
+<p>Um experimento foi realizado para verificar se o álcool ou o café afetam os tempos de reação ao dirigir <span class="citation">(150)</span>. O estudo tem três grupos diferentes de participantes: 10 bebendo água (controle), 10 bebendo cerveja contendo duas unidades de álcool e 10 bebendo café. O tempo de reação em uma simulação de direção foi medido para cada participante.</p>
 <p>Os dados encontram-se no arquivo <code>dadosResposta.xlsx</code>. Clique <a href="https://github.com/petronioliveira/Arquivos/blob/main/dadosResposta.xlsx"><strong>aqui</strong></a> para baixar e, após, salve o mesmo no seu diretório de trabalho.</p>
 <p>As variáveis são:</p>
 <ul>
@@ -1576,7 +1576,7 @@ Figure 17.6: Impacto do tipo de bebida no tempo de reação ao dirigir.
 <div id="lógica-do-teste-de-kruskall-wallis" class="section level4 hasAnchor" number="17.6.4.1">
 <h4><span class="header-section-number">17.6.4.1</span> Lógica do teste de Kruskall-Wallis<a href="métodos-não-paramétricos.html#lógica-do-teste-de-kruskall-wallis" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A teoria do teste Kruskal-Wallis é semelhante à do teste de Mann-Whitney, ou seja, tem como base a soma dos postos. Em primeiro lugar, os escores são ordenados do menor para o maior, independentemente do grupo que pertençam.</p>
-<p>O menor recebe o posto 1 e assim por diante. Após a atribuição dos postos, soma-se os postos por grupo. A soma dos postos de cada grupo é representada por <span class="math inline">\(R_{1}\)</span>, <span class="math inline">\(R_{2}\)</span>, <span class="math inline">\(R_{3}\)</span>, …, <span class="math inline">\(R_{i}\)</span>. A estatística do teste, <em>H</em>, é calculada com a equação <span class="citation">(150)</span>:</p>
+<p>O menor recebe o posto 1 e assim por diante. Após a atribuição dos postos, soma-se os postos por grupo. A soma dos postos de cada grupo é representada por <span class="math inline">\(R_{1}\)</span>, <span class="math inline">\(R_{2}\)</span>, <span class="math inline">\(R_{3}\)</span>, …, <span class="math inline">\(R_{i}\)</span>. A estatística do teste, <em>H</em>, é calculada com a equação <span class="citation">(151)</span>:</p>
 <p><span class="math display">\[
 H =\frac {12}{N \times \left (N + 1  \right )} \sum_{i=1}^{k} \frac {R_{i}^{2}}{n_{{i}}}-3 \times\left (N + 1\right)
 \]</span></p>
@@ -1626,7 +1626,7 @@ H =\frac {12}{N \times \left (N + 1  \right )} \sum_{i=1}^{k} \frac {R_{i}^{2}}{
 <ol start="4" style="list-style-type: decimal">
 <li>Cálculo do Valor <em>P</em></li>
 </ol>
-<p>Se existir três grupos, com cinco ou menos participantes em cada grupo, há necessidade de usar a tabela especial para tamanhos de amostra pequenos <span class="citation">(151)</span>. Se você tiver mais de cinco participantes por grupo, trate <em>H</em> como qui-quadrado. A estatística <em>H</em> é estatisticamente significativo se for igual ou maior que o valor crítico qui-quadrado para o grau de liberdade específico, igual a <span class="math inline">\(k - 1\)</span>. Aqui, tem-se 10 participantes por grupo e, assumindo um <span class="math inline">\(\alpha = 0,05\)</span>, o <span class="math inline">\(H_{crítico}\)</span> é igual a:</p>
+<p>Se existir três grupos, com cinco ou menos participantes em cada grupo, há necessidade de usar a tabela especial para tamanhos de amostra pequenos <span class="citation">(152)</span>. Se você tiver mais de cinco participantes por grupo, trate <em>H</em> como qui-quadrado. A estatística <em>H</em> é estatisticamente significativo se for igual ou maior que o valor crítico qui-quadrado para o grau de liberdade específico, igual a <span class="math inline">\(k - 1\)</span>. Aqui, tem-se 10 participantes por grupo e, assumindo um <span class="math inline">\(\alpha = 0,05\)</span>, o <span class="math inline">\(H_{crítico}\)</span> é igual a:</p>
 <div class="sourceCode" id="cb1096"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1096-1"><a href="métodos-não-paramétricos.html#cb1096-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
 <span id="cb1096-2"><a href="métodos-não-paramétricos.html#cb1096-2" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">3</span></span>
 <span id="cb1096-3"><a href="métodos-não-paramétricos.html#cb1096-3" tabindex="-1"></a>gl <span class="ot">=</span> k <span class="sc">-</span> <span class="dv">1</span></span>
@@ -1663,19 +1663,19 @@ H =\frac {12}{N \times \left (N + 1  \right )} \sum_{i=1}^{k} \frac {R_{i}^{2}}{
 <p><span class="math display">\[
 \eta_{H}^{2} = \frac {\left (H - k + 1 \right)}{\left (N - k\right)}
 \]</span></p>
-<p>onde <em>H</em> é a estatística obtida no teste de Kruskal-Wallis; <em>k</em> é o número de grupos; N é o número total de observações <span class="citation">(152)</span>.</p>
+<p>onde <em>H</em> é a estatística obtida no teste de Kruskal-Wallis; <em>k</em> é o número de grupos; N é o número total de observações <span class="citation">(153)</span>.</p>
 <p>A estimativa eta ao quadrado assume valores de 0 a 1 e, multiplicada por 100, indica a porcentagem de variância na variável dependente explicada pela variável independente. Pode ser obtido no R com a função <code>kruskal_effsize()</code> do pacote <code>rstatix:</code></p>
 <div class="sourceCode" id="cb1102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1102-1"><a href="métodos-não-paramétricos.html#cb1102-1" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> <span class="fu">kruskal_effsize</span> (tempo<span class="sc">~</span>bebida)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
 ##   .y.       n effsize method  magnitude
 ## * &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;ord&gt;    
 ## 1 tempo    30   0.530 eta2[H] large</code></pre>
-<p>Um efeito <span class="math inline">\(\ge 0,14\)</span> é considerado grande e <span class="math inline">\(&lt;0,06\)</span> é pequeno <span class="citation">(116)</span>.</p>
+<p>Um efeito <span class="math inline">\(\ge 0,14\)</span> é considerado grande e <span class="math inline">\(&lt;0,06\)</span> é pequeno <span class="citation">(117)</span>.</p>
 </div>
 <div id="testes-post-hoc-3" class="section level3 hasAnchor" number="17.6.6">
 <h3><span class="header-section-number">17.6.6</span> Testes post hoc<a href="métodos-não-paramétricos.html#testes-post-hoc-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A partir do resultado do teste de Kruskal-Wallis, sabe-se que há uma diferença significativa entre os grupos, mas não se sabe quais pares de grupos são diferentes.</p>
-<p>Um teste de Kruskal-Wallis significativo é geralmente seguido pelo teste de Dunn <span class="citation">(153)</span> para identificar quais grupos são diferentes.</p>
+<p>Um teste de Kruskal-Wallis significativo é geralmente seguido pelo teste de Dunn <span class="citation">(154)</span> para identificar quais grupos são diferentes.</p>
 <p>Para realizar as múltiplas comparações, no R, pode ser usada a função <code>dunn_test()</code> com de ajuste de <em>P</em> pelo método de Bonferroni, incluído no pacote <code>rstatix</code>:</p>
 <div class="sourceCode" id="cb1104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1104-1"><a href="métodos-não-paramétricos.html#cb1104-1" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
 <span id="cb1104-2"><a href="métodos-não-paramétricos.html#cb1104-2" tabindex="-1"></a>  <span class="fu">dunn_test</span> (tempo <span class="sc">~</span> bebida, <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>) </span>
