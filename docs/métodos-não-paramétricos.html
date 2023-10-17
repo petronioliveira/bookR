@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 17 Métodos não paramétricos | bookdownproj.knit</title>
   <meta name="description" content="" />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo 17 Métodos não paramétricos | bookdownproj.knit" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-09-12" />
+<meta name="date" content="2023-10-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -610,7 +610,7 @@ div.csl-indent {
 <li class="chapter" data-level="18.8.2" data-path="sec-cap18.html"><a href="sec-cap18.html#dados-para-a-regressão-logística"><i class="fa fa-check"></i><b>18.8.2</b> Dados para a regressão logística</a></li>
 <li class="chapter" data-level="18.8.3" data-path="sec-cap18.html"><a href="sec-cap18.html#preparação-dos-dados-2"><i class="fa fa-check"></i><b>18.8.3</b> Preparação dos dados</a></li>
 <li class="chapter" data-level="18.8.4" data-path="sec-cap18.html"><a href="sec-cap18.html#criação-do-modelo-de-regressão-enter"><i class="fa fa-check"></i><b>18.8.4</b> Criação do modelo de regressão (<em>enter</em>)</a></li>
-<li class="chapter" data-level="18.8.5" data-path="sec-cap18.html"><a href="sec-cap18.html#criação-do-modelo-passo-a-passo-stepwise"><i class="fa fa-check"></i><b>18.8.5</b> Criação do modelo passo-a-passo (<em>stepwise</em>)</a></li>
+<li class="chapter" data-level="18.8.5" data-path="sec-cap18.html"><a href="sec-cap18.html#criação-do-modelo-passo-a-passo-stepwise"><i class="fa fa-check"></i><b>18.8.5</b> Criação do modelo passo a passo (<em>stepwise</em>)</a></li>
 <li class="chapter" data-level="18.8.6" data-path="sec-cap18.html"><a href="sec-cap18.html#uso-do-modelo-para-fazer-predições"><i class="fa fa-check"></i><b>18.8.6</b> Uso do modelo para fazer predições</a></li>
 <li class="chapter" data-level="18.8.7" data-path="sec-cap18.html"><a href="sec-cap18.html#avaliação-do-modelo"><i class="fa fa-check"></i><b>18.8.7</b> Avaliação do modelo</a></li>
 </ul></li>
@@ -1454,7 +1454,7 @@ Figure 17.5: Impacto de exercícios aeróbicos na função respiratória de 10 e
 <h2><span class="header-section-number">17.6</span> Teste de Kruskal-Wallis<a href="métodos-não-paramétricos.html#teste-de-kruskal-wallis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Quando os pressupostos subjacentes a ANOVA não são atendidos, é possível usar o teste não paramétrico de Kruskal-Wallis (KW) para testar a hipótese de que os parâmetros de localização são iguais. Pode ser considerado uma extensão do teste de Wilcoxon-Mann-Whitney.</p>
 <p>Enquanto a ANOVA depende da hipótese de que todas as populações são independentes e normalmente distribuídas, o teste de Kruskal-Wallis exige apenas amostras aleatórias independentes provenientes de suas respectivas populações. Entretanto, este teste somente deve ser aplicado se a amostra for pequena e/ou os pressupostos para a ANOVA forem seriamente violados.</p>
-<p>O teste não usa diretamente medições de quantidade conhecida, utiliza, como outros testes não paramétricos, os postos dos valores analisados. Em função disso, é também conhecido como</p>
+<p>O teste não usa diretamente medições de quantidade conhecida, utiliza, como outros testes não paramétricos, os postos dos valores analisados. Em função disso, é também conhecido como <em>análise de variância de um fator em postos</em>.</p>
 <div id="dados-6" class="section level3 hasAnchor" number="17.6.1">
 <h3><span class="header-section-number">17.6.1</span> Dados<a href="métodos-não-paramétricos.html#dados-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Um experimento foi realizado para verificar se o álcool ou o café afetam os tempos de reação ao dirigir <span class="citation">(150)</span>. O estudo tem três grupos diferentes de participantes: 10 bebendo água (controle), 10 bebendo cerveja contendo duas unidades de álcool e 10 bebendo café. O tempo de reação em uma simulação de direção foi medido para cada participante.</p>
@@ -1477,9 +1477,9 @@ Figure 17.5: Impacto de exercícios aeróbicos na função respiratória de 10 e
 <pre><code>##        id            tempo           bebida         
 ##  Min.   : 1.00   Min.   :0.3700   Length:30         
 ##  1st Qu.: 8.25   1st Qu.:0.9575   Class :character  
-##  Median :14.50   Median :1.5450   Mode  :character  
-##  Mean   :14.83   Mean   :1.6500                     
-##  3rd Qu.:21.75   3rd Qu.:1.9700                     
+##  Median :15.50   Median :1.5450   Mode  :character  
+##  Mean   :15.50   Mean   :1.6500                     
+##  3rd Qu.:22.75   3rd Qu.:1.9700                     
 ##  Max.   :30.00   Max.   :3.4700</code></pre>
 <p>A variável <code>bebida</code> encontra-se como caracter e deve ser fator:</p>
 <div class="sourceCode" id="cb1081"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1081-1"><a href="métodos-não-paramétricos.html#cb1081-1" tabindex="-1"></a>dados<span class="sc">$</span>bebida <span class="ot">&lt;-</span> <span class="fu">factor</span>(dados<span class="sc">$</span>bebida, </span>
@@ -1488,9 +1488,9 @@ Figure 17.5: Impacto de exercícios aeróbicos na função respiratória de 10 e
 <span id="cb1081-4"><a href="métodos-não-paramétricos.html#cb1081-4" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span> (dados)</span></code></pre></div>
 <pre><code>## Rows: 30
 ## Columns: 3
-## $ id     &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16, 17, 9, 21, 22, …
-## $ tempo  &lt;dbl&gt; 0.37, 0.38, 0.61, 0.78, 0.83, 0.86, 0.90, 0.95, 0.98, 1.11, 1.2…
-## $ bebida &lt;fct&gt; agua, agua, agua, agua, agua, agua, agua, agua, cafe, cafe, caf…</code></pre>
+## $ id     &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, …
+## $ tempo  &lt;dbl&gt; 0.37, 0.38, 0.61, 0.78, 0.83, 0.86, 0.90, 0.95, 1.63, 1.97, 0.9…
+## $ bebida &lt;fct&gt; agua, agua, agua, agua, agua, agua, agua, agua, agua, agua, caf…</code></pre>
 <p>Os dados serão observados visualmente através de boxplots (Figura <a href="métodos-não-paramétricos.html#fig:bebida">17.6</a>), usando a função <code>ggplot()</code> do pacote <code>ggplot2</code>, com cores do <code>nejm</code> (<em>New England Journal of Medicine</em>) o pacote <code>ggsci</code>.</p>
 <div class="sourceCode" id="cb1083"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1083-1"><a href="métodos-não-paramétricos.html#cb1083-1" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(dados, </span>
 <span id="cb1083-2"><a href="métodos-não-paramétricos.html#cb1083-2" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x=</span>bebida, </span>

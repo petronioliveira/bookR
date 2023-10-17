@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 10 Estimação | bookdownproj.knit</title>
   <meta name="description" content="" />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo 10 Estimação | bookdownproj.knit" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-09-12" />
+<meta name="date" content="2023-10-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -610,7 +610,7 @@ div.csl-indent {
 <li class="chapter" data-level="18.8.2" data-path="sec-cap18.html"><a href="sec-cap18.html#dados-para-a-regressão-logística"><i class="fa fa-check"></i><b>18.8.2</b> Dados para a regressão logística</a></li>
 <li class="chapter" data-level="18.8.3" data-path="sec-cap18.html"><a href="sec-cap18.html#preparação-dos-dados-2"><i class="fa fa-check"></i><b>18.8.3</b> Preparação dos dados</a></li>
 <li class="chapter" data-level="18.8.4" data-path="sec-cap18.html"><a href="sec-cap18.html#criação-do-modelo-de-regressão-enter"><i class="fa fa-check"></i><b>18.8.4</b> Criação do modelo de regressão (<em>enter</em>)</a></li>
-<li class="chapter" data-level="18.8.5" data-path="sec-cap18.html"><a href="sec-cap18.html#criação-do-modelo-passo-a-passo-stepwise"><i class="fa fa-check"></i><b>18.8.5</b> Criação do modelo passo-a-passo (<em>stepwise</em>)</a></li>
+<li class="chapter" data-level="18.8.5" data-path="sec-cap18.html"><a href="sec-cap18.html#criação-do-modelo-passo-a-passo-stepwise"><i class="fa fa-check"></i><b>18.8.5</b> Criação do modelo passo a passo (<em>stepwise</em>)</a></li>
 <li class="chapter" data-level="18.8.6" data-path="sec-cap18.html"><a href="sec-cap18.html#uso-do-modelo-para-fazer-predições"><i class="fa fa-check"></i><b>18.8.6</b> Uso do modelo para fazer predições</a></li>
 <li class="chapter" data-level="18.8.7" data-path="sec-cap18.html"><a href="sec-cap18.html#avaliação-do-modelo"><i class="fa fa-check"></i><b>18.8.7</b> Avaliação do modelo</a></li>
 </ul></li>
@@ -755,28 +755,26 @@ IC_{95\%}(\mu) \rightarrow  \bar{x} \pm  (1.96 \times \frac{\sigma}{\sqrt{n}})
 </ul>
 <div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="sec-estimacao.html#cb566-1" tabindex="-1"></a>IC_z <span class="ot">&lt;-</span> <span class="cf">function</span> (x, s, <span class="at">nc =</span> <span class="fl">0.95</span>)</span>
 <span id="cb566-2"><a href="sec-estimacao.html#cb566-2" tabindex="-1"></a>{</span>
-<span id="cb566-3"><a href="sec-estimacao.html#cb566-3" tabindex="-1"></a>  <span class="st">`</span><span class="at">%&gt;%</span><span class="st">`</span> <span class="ot">&lt;-</span> magrittr<span class="sc">::</span><span class="st">`</span><span class="at">%&gt;%</span><span class="st">`</span></span>
-<span id="cb566-4"><a href="sec-estimacao.html#cb566-4" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb566-5"><a href="sec-estimacao.html#cb566-5" tabindex="-1"></a>  me <span class="ot">&lt;-</span> <span class="fu">abs</span>(<span class="fu">qnorm</span>((<span class="dv">1</span><span class="sc">-</span>nc)<span class="sc">/</span><span class="dv">2</span>))<span class="sc">*</span> dp_pop<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
-<span id="cb566-6"><a href="sec-estimacao.html#cb566-6" tabindex="-1"></a>  df_out <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( <span class="at">tamanho_amostral =</span> n, </span>
-<span id="cb566-7"><a href="sec-estimacao.html#cb566-7" tabindex="-1"></a>                        <span class="at">media_amostral =</span> <span class="fu">mean</span>(x), </span>
-<span id="cb566-8"><a href="sec-estimacao.html#cb566-8" tabindex="-1"></a>                        <span class="at">dp_amostral =</span> <span class="fu">sd</span>(x),</span>
-<span id="cb566-9"><a href="sec-estimacao.html#cb566-9" tabindex="-1"></a>                        <span class="at">margem_erro =</span> me,</span>
-<span id="cb566-10"><a href="sec-estimacao.html#cb566-10" tabindex="-1"></a>                        <span class="st">&#39;IC limite inferior&#39;</span><span class="ot">=</span>(<span class="fu">mean</span>(x) <span class="sc">-</span> me),</span>
-<span id="cb566-11"><a href="sec-estimacao.html#cb566-11" tabindex="-1"></a>                        <span class="st">&#39;IC limite superior&#39;</span><span class="ot">=</span>(<span class="fu">mean</span>(x) <span class="sc">+</span> me)) <span class="sc">%&gt;%</span></span>
-<span id="cb566-12"><a href="sec-estimacao.html#cb566-12" tabindex="-1"></a>    tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">&quot;Medidas&quot;</span>, <span class="at">values_to =</span><span class="st">&quot;valores&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span> )</span>
-<span id="cb566-13"><a href="sec-estimacao.html#cb566-13" tabindex="-1"></a>  <span class="fu">return</span>(df_out)</span>
-<span id="cb566-14"><a href="sec-estimacao.html#cb566-14" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb566-3"><a href="sec-estimacao.html#cb566-3" tabindex="-1"></a>  <span class="st">`</span><span class="at">%&gt;%</span><span class="st">`</span> <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="st">`</span><span class="at">%&gt;%</span><span class="st">`</span></span>
+<span id="cb566-4"><a href="sec-estimacao.html#cb566-4" tabindex="-1"></a>   n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb566-5"><a href="sec-estimacao.html#cb566-5" tabindex="-1"></a>   me <span class="ot">&lt;-</span> <span class="fu">abs</span>(<span class="fu">qnorm</span>((<span class="dv">1</span><span class="sc">-</span>nc)<span class="sc">/</span><span class="dv">2</span>))<span class="sc">*</span> dp_pop<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb566-6"><a href="sec-estimacao.html#cb566-6" tabindex="-1"></a>   df_out <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( <span class="at">tamanho_amostral =</span> n, </span>
+<span id="cb566-7"><a href="sec-estimacao.html#cb566-7" tabindex="-1"></a>                         <span class="at">media_amostral =</span> <span class="fu">mean</span>(x), </span>
+<span id="cb566-8"><a href="sec-estimacao.html#cb566-8" tabindex="-1"></a>                         <span class="at">margem_erro =</span> me,</span>
+<span id="cb566-9"><a href="sec-estimacao.html#cb566-9" tabindex="-1"></a>                         <span class="st">&#39;IC limite inferior&#39;</span><span class="ot">=</span>(<span class="fu">mean</span>(x) <span class="sc">-</span> me),</span>
+<span id="cb566-10"><a href="sec-estimacao.html#cb566-10" tabindex="-1"></a>                         <span class="st">&#39;IC limite superior&#39;</span><span class="ot">=</span>(<span class="fu">mean</span>(x) <span class="sc">+</span> me)) <span class="sc">%&gt;%</span></span>
+<span id="cb566-11"><a href="sec-estimacao.html#cb566-11" tabindex="-1"></a>    tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">&quot;Medidas&quot;</span>, <span class="at">values_to =</span><span class="st">&quot;valores&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span> )</span>
+<span id="cb566-12"><a href="sec-estimacao.html#cb566-12" tabindex="-1"></a>  <span class="fu">return</span>(df_out)</span>
+<span id="cb566-13"><a href="sec-estimacao.html#cb566-13" tabindex="-1"></a>}</span></code></pre></div>
 <div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="sec-estimacao.html#cb567-1" tabindex="-1"></a><span class="fu">IC_z</span>(<span class="at">x =</span> rnt30<span class="sc">$</span>pesoRN, <span class="at">s =</span> dp_pop, )</span></code></pre></div>
-<pre><code>## # A tibble: 6 × 2
+<pre><code>## # A tibble: 5 × 2
 ##   Medidas            valores
 ##   &lt;chr&gt;                &lt;dbl&gt;
 ## 1 tamanho_amostral       30 
 ## 2 media_amostral       3222.
-## 3 dp_amostral           407.
-## 4 margem_erro           165.
-## 5 IC.limite.inferior   3056.
-## 6 IC.limite.superior   3387.</code></pre>
+## 3 margem_erro           165.
+## 4 IC.limite.inferior   3056.
+## 5 IC.limite.superior   3387.</code></pre>
 <p>Portanto, tem-se uma confiança de 95% de que a média do peso dos recém-nascidos a termo da Maternidade do HGCS está entre 3057 e 3387g.</p>
 <p>Estes limites também podem ser estendidos para outros níveis de confiança. Por exemplo, para um nível de confiança de 99% <span class="math inline">\({({1}-\frac{\alpha}{2})} = {({1} – \frac{0,01}{2})} = {0,995}\)</span>, o <em>z</em> crítico é igual:</p>
 <div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="sec-estimacao.html#cb569-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">qnorm</span>(<span class="fl">0.995</span>), <span class="dv">2</span>)</span></code></pre></div>

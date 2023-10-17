@@ -1225,7 +1225,7 @@ $$
 NNT = \frac{1}{RAR} = \frac{1}{I_{não \ expostos} - I_{expostos}}
 $$
 
-No exemplo do *Physicians' Health Study*, o RRA igual a: 
+No exemplo do *Physicians' Health Study*, o RAR igual a: 
 
 $$
 RA = \left|I_{expostos} - I_{não \ expostos}\right| = \left|0,0126 - 0,0217\right| = 0,0091
@@ -1235,7 +1235,7 @@ $$
 NNT = \frac{1}{0,0091} = 109,89 \simeq 110
 $$
 
-Pode-se calcular os IC95%, calculando o NNT para os limites do RRA usando a seguinte equação [@bender2001calculating]:
+Pode-se calcular os IC95%, calculando o NNT para os limites do RAR usando a seguinte equação [@bender2001calculating]:
 
 $$
 IC_{95\%} \longrightarrow RAR \pm z_{\left({1 - \frac{\alpha}{2}}\right)} \times EP_{RAR}
@@ -1288,11 +1288,11 @@ round (p0, 4)
 
 Os resultados da matriz de dados e o cálculo das incidências *p0* (incidência no grupo placebo) e *p1* (incidência no grupo de tratamento) já eram conhecidos e foram repetidos apenas para entrar na programação do cálculo do IC95%.
 
-*Cálculo do erro padrão da RRA*  
+*Cálculo do erro padrão da RAR*  
 
 ```{r}
 RAR <- abs(p0 - p1)
-NNT <- 1/RRA
+NNT <- 1/RAR
 
 alpha <- 0.05
 z <- qnorm (1 - (alpha/2))
@@ -1301,12 +1301,12 @@ round (z, 3)
 EP_RAR <- sqrt((((p0*(1-p0)) / n0)) + (((p1*(1-p1)) / n1)))
 
 # Limite inferior
-li_RRA <- RRA - (z * EP_RRA)
-round (li_RRA, 4)
+li_RAR <- RAR - (z * EP_RAR)
+round (li_RAR, 4)
 
 # Limite superior
-ls_RRA <- RRA + (z * EP_RRA)
-round (ls_RRA, 4)
+ls_RAR <- RAR + (z * EP_RAR)
+round (ls_RAR, 4)
 
 round(print(c(li_RAR, RAR, ls_RAR), 4))
 ```
@@ -1318,7 +1318,8 @@ Portando, ao Redução Absoluta do Risco foi igual a 0,0091 (IC95%: 0,0056-0,012
 li_NNT <- 1/ls_RAR
 ls_NNT <- 1/li_RAR
 
-round(print(c(li_NNT, ls_NNT), 0))
+li_NNT 
+ls_NNT
 ```
 
 Concluindo, o uso da aspirina no *Physicians' Health Study* reduziu o risco de infarto agudo do miocárdio em 42% (RRR), ou seja, foi eficaz. Por outro lado, para ter este impacto será necessário tratar 110 (IC95%: 80-177) pacientes para que um tenha benefício. Este NNT é grande; o ideal é um NNT < 10. Apesar disso, como a aspirina tem baixo custo e seus benefícios suplantam os efeitos adversos, seu uso pode estar justificado.
@@ -1664,7 +1665,7 @@ Após a visualização e modificações das variáveis, serão retiradas as vari
 ```{r}
 dados <- dados %>% 
   dplyr::select(-idade, -gesta)
-glimpse(dados2)
+glimpse(dados)
 ```
 
 ### Criação do modelo de regressão (*enter*)  
@@ -1753,8 +1754,8 @@ A regressão logística fornece uma curva de probabilidade em forma de S (Figura
 Esta função verifica o impacto da variação dos níveis de uma variável preditora sobre a probabilidade do desfecho. Por exemplo, verifica o impacto da concentração sérica de glicose na probabilidade de ser diabético.  
 
 ```{r predict, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Probabilidade de diabetes de acordo com a glicemia em mulheres de herança Pima.", fig.pos="H"}
-predito <- predict(mod2, data=dados2, type = "response")
-dados2 %>%
+predito <- predict(mod2, data=dados, type = "response")
+dados %>%
     mutate(predito = ifelse(diabetes == "1", 1, 0)) %>%
     ggplot(aes(glicose, predito)) +
     geom_point() +
@@ -1771,7 +1772,7 @@ Em primeiro lugar constrói-se um modelo logístico novo, usando apenas a `glico
 ```{r}
 mod3 <- glm(diabetes ~ glicose, 
               family = binomial(link="logit"), 
-              data = dados2)
+              data = dados)
 summary(mod3)  
 ```
 
@@ -1849,7 +1850,7 @@ dados$imcInt <- log(dados$imc)*dados$imc
 dados$pedigreeInt <- log(dados$pedigree)*dados$pedigree
 ```
 
-Essas variáveis foram adicionadas ao conjunto de dados `dados2`. podem ser observadas com a função `str()`.   
+Essas variáveis foram adicionadas ao conjunto de dados `dados`. podem ser observadas com a função `str()`.   
 
 ```{r}
 str(dados)
