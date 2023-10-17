@@ -152,16 +152,15 @@ O *R* não tem um comando específico para encontrar os intervalos de confiança
 ```{r}
 IC_z <- function (x, s, nc = 0.95)
 {
-  `%>%` <- magrittr::`%>%`
-  n <- length(x)
-  me <- abs(qnorm((1-nc)/2))* dp_pop/sqrt(n)
-  df_out <- data.frame( tamanho_amostral = n, 
-                        media_amostral = mean(x), 
-                        dp_amostral = sd(x),
-                        margem_erro = me,
-                        'IC limite inferior'=(mean(x) - me),
-                        'IC limite superior'=(mean(x) + me)) %>%
-    tidyr::pivot_longer(names_to = "Medidas", values_to ="valores", 1:6 )
+  `%>%` <- dplyr::`%>%`
+   n <- length(x)
+   me <- abs(qnorm((1-nc)/2))* dp_pop/sqrt(n)
+   df_out <- data.frame( tamanho_amostral = n, 
+                         media_amostral = mean(x), 
+                         margem_erro = me,
+                         'IC limite inferior'=(mean(x) - me),
+                         'IC limite superior'=(mean(x) + me)) %>%
+    tidyr::pivot_longer(names_to = "Medidas", values_to ="valores", 1:5 )
   return(df_out)
 }
 ```

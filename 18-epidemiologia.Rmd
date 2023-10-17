@@ -23,6 +23,13 @@ pacman::p_load(BiocManager,
                vcd)
 ```
 
+O pacote limma também vai ser usado indiretamente neste capítulo e a sua instalação é feita através do BiocManager da seguinte maneira:
+
+```{r}
+BiocManager::install("limma")
+library (limma)
+```
+
 ## Raciocínio bayesiano no diagnóstico médico  {#sec-diagbayes}
 
 O processo diagnóstico é o centro da atenção da atividade médica na busca de reduzir as incertezas e reconhecer a que classe pertence determinado paciente. Portanto, é extremamente importante saber quão bem os testes diagnósticos podem prever que um indivíduo é portador de certa condição ou doença. Entende-se aqui como teste diagnóstico todo o processo diagnótico, desde o exame clínico até o mais sofisticado exame de imagem ou laboratorial. A ideia é saber como o teste diagnóstico se comporta para separar um "doente" e um "não doente"; qual a sua validade neste processo?  
@@ -53,7 +60,7 @@ De forma similar que a sensibilidade pode-se usar o mnemônico *SpPin*, do ingl�
 Estas estatísticas de diagnóstico podem ser calculadas a partir das equações, cujas letras representam as caselas da tabela $2 \times 2$, acima;  
 
 $$
-Sensibilidade = \frac {a}{\left (a + c\right )} \quad \quad Especificidade = \frac {b}{\left (b + d\right )}
+Sensibilidade = \frac {a}{\left (a + c\right )} \quad \quad Especificidade = \frac {d}{\left (b + d\right )}
 $$
 
 A taxa de falsos negativos (TFN) é a proporção de indivíduos que têm a doença e que têm um resultado de teste negativo e a taxa de falsos positivos (TFP) é a proporção de pacientes que não possuem a doença e que apresentam resultados positivos. Podem ser expressas pelas equações:  
@@ -218,7 +225,7 @@ A razão de probabilidade negativa é definida como a probabilidade de um indiv�
 Ou seja,
 
 $$
-LR(+)=\frac{1 - sensibilidade}{especificidade}
+LR(-)=\frac{sensibilidade}{1-especificidade}
 $$
 
 Razão de probabilidade negativa menor que 1 significa que um teste negativo é menos provável de ocorrer em pessoas com a doença do que em pessoas sem a doença. Um LR muito baixo (abaixo de 0,1) praticamente exclui a chance de que uma pessoa tenha a doença [@guyatt2015diagnostic].  
@@ -230,65 +237,68 @@ Voltando aos dados anteriores, a LR (-) para a ultrassonografia é igual a 0.49 
 
 Uma grande vantagem das razões de probabilidade é que elas podem ser usadas para ajudar o médico a adaptar a sensibilidade e a especificidade dos testes aos pacientes individuais. Ao se atender um paciente em uma clínica, pode-se decidir realizar um teste específico, após uma anamnese e um exame físico. A decisão de fazer o teste baseia-se nos sintomas e sinais do paciente e na experiência pessoal. Existe suspeita de um determinado diagnóstico e o objetivo é excluir ou confirmar esse diagnóstico. Antes de solicitar o teste, geralmente existe uma estimativa aproximada da probabilidade do paciente de ter essa doença, conhecida como probabilidade pré-teste ou *a priori*, que geralmente é estimada com base na experiência pessoal do médico, dados de prevalência local e publicações científicas.  
 
-A razão mais importante pela qual um teste é realizado é tentar modificar a probabilidade de doença. Um teste positivo pode aumentar a probabilidade pré-teste e um teste negativo pode reduzir a probabilidade pré-teste. A probabilidade pós-teste de doença é o que mais interessa aos médicos e pacientes, pois isso pode ajudar a decidir se devem confirmar, descartar um diagnóstico ou realizar outros testes.  
+A razão mais importante pela qual um teste é realizado é tentar modificar a probabilidade de doença. Um teste positivo pode aumentar a probabilidade pós-teste e um teste negativo pode reduzir essa probabilidade. A probabilidade pós-teste de doença é o que mais interessa aos médicos e pacientes, pois isso pode ajudar a decidir se devem confirmar, descartar um diagnóstico ou realizar outros testes.  
 
 Os resultados dos testes clínicos são geralmente usados não para fazer ou excluir categoricamente um diagnóstico, mas para modificar a probabilidade do pré-teste a fim de gerar a probabilidade do pós-teste. O teorema de Bayes é uma relação matemática que permite estimar a probabilidade pós-teste.  
 
 Para se compreender este conceito, é importante entender a diferença entre probabilidade e odds [@oliveira2022diagnostico].   
 
-Probabilidade é a proporção de pessoas que apresentam uma determinada característica (teste positivo, sinal clínico). *Odds* (chance) representa a razão entre duas características complementares, ou seja, a probabilidade de um evento dividido pela probabilidade de não evento (1 – evento). Ambos contêm as mesmas informações de maneiras diferentes. Por exemplo, usando os dados da  tabela `tab_ap`  
+Probabilidade é a proporção de pessoas que apresentam uma determinada característica (teste positivo, sinal clínico). *Odds* (chance) representa a razão entre duas características complementares, ou seja, a probabilidade de um evento dividido pela probabilidade do não evento (1 – evento). Ambos contêm as mesmas informações de maneiras diferentes. Por exemplo, usando os dados da  tabela `tab_ap`, , verifica-se que a probabilidade (*p*) de uma ultrassonografia positiva para apendicite aguda é igual  
 
 ```{r}
-addmargins(tab_ap)
-```
-
-verifica-se que a probabilidade (*p*) de ultrassonografia positiva é de 
-
-```{r}
-p = 92/156
+a <- 85
+b <- 7
+c <- 46
+d <- 18
+p <- (a + b)/(a + b + c + d)
 p
 ```
 
 e que o *odds* da ultrassonografia positiva^[Existem duas maneiras de descrever uma estimativa de odds: ou como um número isolado, por exemplo, 0,25, subentendendo que expressa uma razão, 0,25: 1,0, ou de forma clara como uma razão 1:4. Ou seja, para cada indivíduo com o fator existem quatro sem o fator. Tradicional e comumente usados no mundo das apostas em corridas de cavalos.] é  
 
 ```{r}
-odds = (92/156)/(64/156)  
-odds
+ odds <- (a + b)/(c + d) 
+ odds
 ```
 
-Pode-se transformar a *odds* em probabilidade e vice-versa da seguinte maneira:
+Para transformar a *odds* em probabilidades e vice-versa, procede-se da seguinte maneira:
 
 $$
 p=\frac{odds}{1+odds}
 $$
+Voltando ao exemplo:
 
 ```{r}
-p = 1.44/(1 + 1.44)
-round(p, 2)
+p = odds/(1 + odds)
+p
 ```
 
-
+e
 
 $$
 odds=\frac{p}{1-p}
 $$
 
 ```{r}
-odds = 0.59/(1-0.59)
-round(odds, 2)
+odds = p/(1-p)
+odds
 ```
 
 Pelo teorema de Bayes, sabendo-se a *probabilidade a priori* ou *probabilidade pré-teste*, é possível obter a *probabilidade pós-teste* ou *a posteriori*, usando a razão de probabilidades.  
 
-Para atingir este objetivo, basta multiplicar o *odds pré-teste* pela razão de probabilidades:  
+Para atingir este objetivo, basta, inicialmente, multiplicar o *odds pré-teste* pela razão de probabilidades:  
 
 $$
-odds_{pos-teste} = odds_{pre-teste \times LR}
+odds_{pos} = odds_{pre \times LR}
 $$
 
-Para encontrar a probabilidade pós-teste, basta converter o odds pós-teste em probabilidade.  
+Após, para encontrar a probabilidade pós-teste, basta converter o odds pós-teste em probabilidade:  
 
-Voltando da `tab_ap`, foi verificado que o LR (+) é igual a 2,32 e a prevalência de apendicite aguda é em torno de 7% pode-se prever a probabilidade de haver apendicite aguda, diante de uma ultrassonografia alterada:  
+$$
+p_{pos} = \frac{odds_{pos}}{1-odds_{pos}}
+$$
+
+No exemplo da `tab_ap`, foi verificado que o LR (+) é igual a 2,32 e a prevalência de apendicite aguda é em torno de 7% pode-se prever a probabilidade de haver apendicite aguda, diante de uma ultrassonografia alterada:  
 
 ```{r}
 prev <-  0.07
@@ -300,7 +310,7 @@ odds_pos <- odds_pre * LR
 
 p_pos <- odds_pos/(odds_pos +1)
 
-round(p_pos, 2)
+round(p_pos, 3)
 ```
 
 Ou, em outras palavras, diante de um teste positivo, a probabilidade de o paciente ter apendicite aguda passa de 7% antes do teste para praticamente 15%!  
@@ -319,11 +329,30 @@ Nem sempre o resultado de um teste é dicotômico (positivo/negativo). Com frequ
 
 A escolha do ponto de corte depende das consequências de um resultado falso positivo ou de um falso negativo. Falsos positivos estão associados com custos (emocional ou financeiro) e com a dificuldade de “desrotular” alguém que recebeu o rótulo de “positivo”. Resultados falsos negativos podem “tranquilizar” pessoas doentes que não são seguidas ou tratadas precocemente.   
 
-A distribuição dos níveis glicêmicos em diabéticos e não diabéticos não tem um ponto de corte bem nítido. As duas populações se sobrepõem (Figura \@ref(fig:diabetes)), gerando falso positivos ou falso negativos, dependendo do ponto de corte escolhido [@oliveira2022diagnostico].  
+A distribuição dos níveis glicêmicos em diabéticos e não diabéticos não tem um ponto de corte bem nítido. As duas populações se sobrepõem (Figura \@ref(fig:diabetes)), gerando falso positivos ou falso negativos, dependendo do ponto de corte escolhido [@oliveira2022diagnostico]. 
 
-```{r diabetes, echo = FALSE, out.width = '80%', fig.align = 'center', fig.cap="Populações de indivíduos normais e diabétticos", fig.pos="ht"}
- knitr::include_graphics("https://i.imgur.com/MPH6a6B.png")
+```{r diabetes, echo = FALSE, out.width = '80%', fig.align = 'center', fig.cap="Populações de indivíduos normais (curva em azul) e diabétticos (curva em vermelho", fig.pos="ht"}
+curve(dnorm(x, 90,20), 
+      from = 0, to = 300, 
+      ylim = c(0, 0.02),
+      col = "royalblue", 
+      lwd =2, 
+      bty = "n",
+      ylab = "Densidade de Probabilidade",
+      xlab = "Glicemia (mg/dL")
+curve(dnorm(x, 150,50), 
+      from = 0, to = 300, 
+      ylim = c(0, 0.03),
+      col = "tomato", 
+      lwd =2, 
+      bty = "n",
+      ylab = "Densidade de Probabilidade",
+      add = TRUE)
+box(bty="L")
+abline(v=80, lty = "dashed", col = "gray40")
+abline(v=200, lty = "dashed", col = "gray40")
 ```
+
 
 Suponha que ao se examinar uma população fosse escolhido o ponto de corte de 80mg/dL, haveria um aumento no número de indivíduos com teste positivo com uma taxa de falsos positivos elevada, diminuindo a especificidade do teste. Se, por outro lado, o ponto de corte fosse elevado para 200mg/dL, o número de falsos negativos teria um grande aumento, reduzindo a sensibilidade. Esta oscilação entre a sensibilidade e a especificidade ocorre pelo fato de a localização do ponto de corte ser uma decisão arbitrária num contínuo entre o normal e anormal.   
 
@@ -339,47 +368,28 @@ O conjunto de dados `dadosTestes.xlsx` contém informações para os resultados 
 
 **Leitura e observação dos dados**
 
+Como é um arquivo em Excel, a leitura será realizada pela função `read_excel()` do pacote `readxl`:
+
 ```{r}
 dados <- readxl::read_excel("Arquivos/dadosTestes.xlsx")
+str(dados)
+```
 
+A variável `doença` será transformada em fator:
+
+```{r}
 dados$doenca <- as.factor(dados$doenca)
 ```
 
 As curvas ROC são usadas para avaliar qual teste é mais útil para prever quais pacientes serão positivos para a doença. A hipótese nula é que a área sob a curva ROC é igual a 0,5, ou seja, a habilidade do teste para identificar casos positivos e negativos é a esperada por acaso.    
 
-As Figuras \@ref(fig:status1), \@ref(fig:status2) e \@ref(fig:status3) mostram a quantidade de sobreposição na distribuição da medição dos testes bioquímicos contínuos em ambos os grupos doença positiva e doença negativa. No Teste 1, a sobreposição é completa e não haverá um ponto de corte que separe efetivamente os dois grupos. Nos Testes 2 e 3, há uma maior separação das medidas de teste entre os grupos, particularmente para Teste 3.
+A Figura \@ref(fig:status123) mostra a quantidade de sobreposição na distribuição da medição dos testes bioquímicos contínuos em ambos os grupos doença positiva e doença negativa. No Teste 1, a sobreposição é completa e não haverá um ponto de corte que separe efetivamente os dois grupos. Nos Testes 2 e 3, há uma maior separação das medidas de teste entre os grupos, particularmente para Teste 3.
 
-```{r status1, echo=FALSE, out.width="65%", fig.align = 'center',  fig.cap="Gráfico de dispersão:  Teste 1 vs doença.", fig.pos="ht"}
-p1 <- ggplot(dados, aes(x = doenca, y = teste1)) + 
-  geom_point() +
-  theme_classic() +
-  labs(x = "Doença",
-       y = "Valores do Teste 1",
-       caption = "1 = Doente; 2 = Não doente")
-p1
+```{r status123, echo = FALSE, out.width = '60%', fig.align = 'center', fig.cap="Resultado do teste vs doença.", fig.pos="ht"}
+ knitr::include_graphics("https://i.imgur.com/bTZ7RuY.png")
 ```
 
-```{r status2, echo=FALSE, out.width="65%", fig.align = 'center',  fig.cap="Gráfico de dispersão:  Teste 2 vs doença.", fig.pos="ht"}
-p2 <- ggplot(dados, aes(x = doenca, y = teste2)) + 
-  geom_point() +
-  theme_classic() +
-  labs(x = "Doença",
-       y = "Valores do Teste 2",
-       caption = "1 = Doente; 2 = Não doente")
-p2
-```
-
-```{r status3, echo=FALSE, out.width="65%", fig.align = 'center',  fig.cap="Gráfico de dispersão:  Teste 3 vs doença.", fig.pos="ht"}
-p3 <- ggplot(dados, aes(x = doenca, y = teste3)) + 
-  geom_point() +
-  theme_classic() +
-  labs(x = "Doença",
-       y = "Valores do Teste 3",
-       caption = "1 = Doente; 2 = Não doente")
-p3
-```
-
-#### Validade dos testes  
+#### Construção da curva ROC
 
 A validade dos testes, na distinção entre os grupos doença-positivo e doença-negativo, pode ser quantificada pelas curvas ROC, usando a função `roc()` do pacote `pROC` [@robin2011proc].  Este pacote tem várias funções: 
 
@@ -394,11 +404,9 @@ A validade dos testes, na distinção entre os grupos doença-positivo e doença
 * **roc.test**:  Compara a AUC de duas curvas ROC correlacionadas;  
 * **smooth**:  suaviza a curva ROC  
 
-**Construção das curvas ROC**  
+Usar a função com os argumentos variável resposta (`doenca`), variável preditora (`teste3`, `teste2` e `teste1`), indicação de que o gráfico deve ser desenhado (`plot = TRUE`). Como por padrão o gráfico é plotado com a sensibilidade no eixo *x* e a especificidade no eixo *y*; deve-se acrescentar o argumento `legacy.axes = TRUE` para aparecer o seu complemento, os falsos positivos ($1 – especificidade$).  
 
-Usando a função mencionada com os argumentos variável resposta (`doenca`), variável preditora (`teste3`, `teste2` e `teste1`), indicação de que o gráfico deve ser desenhado (`plot = TRUE`). Como por padrão o gráfico é plotado com a sensibilidade no eixo *x* e a especificidade no eixo *y*, deve-se acrescentar o argumento `legacy.axes = TRUE` para aparecer o seu complemento, os falsos positivos ($1 – especificidade$).  
-
-Além desse, pode-se usar vários outros argumentos como: `print.auc = TRUE`, que imprime no gráfico a `AUC` e `ci` que imprime junto o intervalo de confiança da AUC. Para que a sensibilidade e especificidade apareça como uma percentagem, deve-se usar o argumento `percent = TRUE`, pois o padrão é `FALSE`. Os demais argumentos são os rótulos dos eixos, cor da curva, largura da curva (`lwd`).
+Além desses, pode-se usar vários outros argumentos como: `print.auc = TRUE`, que imprime no gráfico a `AUC` e `ci` que é o intervalo de confiança da AUC. Para que a sensibilidade e especificidade apareçam como uma percentagem, deve-se usar o argumento `percent = TRUE`, pois o padrão é `FALSE`. Os demais argumentos são os rótulos dos eixos, cor da curva, largura da curva (`lwd`).
 
 ```{r roc, message=FALSE, echo=TRUE, fig.align = 'center', out.width="80%", out.height="80%", fig.cap="Curvas ROC para os Testes 1, 2 e 3.", fig.pos="ht"}
 roc3 <- roc (dados$doenca,
@@ -448,11 +456,9 @@ text (0.35,0.65,"Teste 1", col="tomato", cex = 1)
 
 ```
 
-Estes comandos geram a Figura \@ref(fig:roc), que exibe o desempenho diagnóstico dos três testes.  
-
 **Interpretação do resultado**  
 
-Em uma curva ROC, a sensibilidade é calculada usando cada valor do teste no conjunto de dados como um ponto de corte e é plotada em relação à (1 – especificidade) correspondente nesse ponto, como mostrado na Figura \@ref(fig:roc).   
+A Figura \@ref(fig:roc), que exibe o desempenho diagnóstico dos três testes.  Em uma curva ROC, a sensibilidade é calculada usando cada valor do teste no conjunto de dados como um ponto de corte e é plotada em relação à (1 – especificidade) correspondente nesse ponto, como mostrado na Figura \@ref(fig:roc).   
 
 Assim, a curva são os Verdadeiros Positivos (VP) plotados em relação aos Falsos Positivos (FP), calculados usando cada valor do teste como ponto de corte. A reta diagonal indica onde o teste cairia se os resultados não fossem melhores do que o acaso para predizer a presença de uma doença. O Teste 1 está próximo desta reta, confirmando que  ele tem pouca capacidade de discriminar os pacientes doentes e não doentes.  
 
@@ -508,7 +514,7 @@ O Teste 3 tem uma AUC que o caracteriza como um bom teste e o teste de DeLong, e
 
 #### Melhor ponto de corte  
 
-O melhor ponto de corte (*Best Critical Value*), que às vezes é chamado de *ponto de diagnóstico ótimo* ou *de Youden*, é o ponto da curva mais próximo da parte superior do eixo y (Figura \@ref(fig:roc), Teste 3). Este é o ponto em que a taxa de verdadeiros positivos é otimizada e a de taxa de falsos positivos é minimizada. O melhor ponto de corte para o Teste 3 é mostrado na Figura \@ref(fig:roc3). Este melhor ponto de corte pode ser identificado a partir dos pontos de coordenadas da curva, usando a função `roc()` com os seguintes argumentos:
+O melhor ponto de corte (*Best Critical Value*), que às vezes é chamado de *ponto de diagnóstico ótimo* ou *de Youden*, é o ponto da curva mais próximo da parte superior do eixo y (Figura \@ref(fig:roc), Teste 3). Este é o ponto em que a taxa de verdadeiros positivos é otimizada e a taxa de falsos positivos é minimizada. O melhor ponto de corte para o Teste 3 é mostrado na Figura \@ref(fig:roc3). Este melhor ponto de corte pode ser identificado a partir dos pontos de coordenadas da curva, usando a função `roc()` com os seguintes argumentos:
 
 ```{r roc3, message=FALSE, echo=TRUE, out.width="70%", fig.align = 'center',  fig.cap="Curvas ROC para os Testes 1, 2 e 3.", fig.pos="ht"}
 
@@ -519,7 +525,7 @@ best <- roc (dados$doenca,
      thresholds="best", 
      print.thres="best",
      legacy.axes=TRUE,
-     main="Melhor Ponto de Corte - Teste 3",
+     main="",
      ylab="Sensibilidade",
      xlab="1 - Especificidade",
      col="steelblue",
@@ -533,7 +539,7 @@ $$
 LR \left(+\right) = \frac{0.845}{\left (1-0.854\right)} = 5,79
 $$
 
-As coordenadas da curva ROC pode ser obtida com a seguinte programação, a partir de uma sensibilidade e especificidade acima de 0 (zero):  
+As coordenadas da curva ROC podem ser obtida com a seguinte programação, a partir de uma sensibilidade e especificidade acima de 0 (zero):  
 
 ```{r message=FALSE, warning=FALSE}
 coordenadas <- dados %>% roc(doenca, teste3) %>% coords (transpose = F)
@@ -557,7 +563,7 @@ coords(roc3, x = "best", ret="threshold", transpose = FALSE,
        best.method="youden")
 ```
 
-O método para obter o melhor ponto de corte (`best.method`) pode ser pelo método e `youden` ou `closest.topleft`. No exemplo, o resultado é o mesmo. Para maiores detalhes consulte a ajuda da função (`?coord`).  
+O método para obter o melhor ponto de corte (`best.method`) pode ser pelo método de `youden` ou `closest.topleft`. No exemplo, o resultado é o mesmo. Para maiores detalhes consulte a ajuda da função (`?coord`).  
 
 
 ## Estatística *kappa*
@@ -574,7 +580,7 @@ Por exemplo, dois radiologistas podem revisar independentemente uma série de ra
 
 A interpretação dos valores de *kappa* é mostrada na Tabela \@ref(tab:kappa) [@landis1977measurement]. Quando a proporção observada de concordância é menor que a esperada por acaso, o *kappa* terá um valor negativo indicando não concordância. Um valor de *kappa* igual a 0 indica que a concordância observada é igual à concordância casual.  
 
-O teste de hipóteses (calcula o valor *P*) testa a hipótese de que a concordância entre os dois avaliadores seja puramente aleatória. Quando o valor *P* é menor que 0,05, rejeitamos a hipótese de que a concordância foi puramente aleatória. As premissas para o *kappa* de Cohen são que os participantes ou itens a serem classificados são independentes e também que os avaliadores e categorias são independentes.
+O teste de hipóteses testa a hipótese de que a concordância entre os dois avaliadores seja puramente aleatória. Quando o valor *P* é menor que 0,05, rejeitamos a hipótese de que a concordância foi puramente aleatória. As premissas para o *kappa* de Cohen são que os participantes ou itens a serem classificados são independentes e também que os avaliadores e categorias são independentes.
 
 ```{r kappa, echo=FALSE, message=FALSE, warning=FALSE}
 concor <-c("pobre", "leve", "razoável", "moderada", "substancial", "quase perfeita")
@@ -597,14 +603,14 @@ Existem diferentes tipos de estatísticas *kappa*. Para dados com três ou mais 
 
 ### Exemplo
 
-O arquivo `dadosPneumonia.xlsx` contém os dados de 54 crianças com suspeita de pneumonia, cujas radiografias foram avaliadas por dois radiologistas.  O objetivo foi medir a concordância diagnóstica dos dois profissionais. Para o cálculo do coeficiente *kappa* será usada a função `Kappa()` do pacote `vcd` [@zeileis2007residual]. Usa os seguintes argumentos:
+O arquivo `dadosPneumonia.xlsx` contém os dados de 54 crianças com suspeita de pneumonia, cujas radiografias foram avaliadas por dois radiologistas.  O objetivo foi medir a concordância diagnóstica dos dois profissionais. Para o cálculo do coeficiente *kappa* será usada a função `Kappa()` do pacote `vcd` [@zeileis2007residual]. Essa função tem os seguintes argumentos:
 
 * *x* $\longrightarrow$ matriz ou tabela 
 * *weights* $\longrightarrow$ matriz especificada pelo usuário com as mesmas dimensões de *x*, desnecessário para *kappa* não ponderado.  
 
 Na impressão do *kappa* pode-se usar `print (k, digits = 3, CI = TRUE, level = 0.95)`. Onde *k* é o coeficiente de *kappa*, calculado pela função `Kappa()`, *CI* é o intervalo de confiança e o nível de confiança padrão é 95%.
 
-#### Baixar e carregar o conjunto de dados  
+#### Leitura e exploração dos dados  
 
 O conjunto de dados `dadosPneumonia.xlsx` pode ser obtido [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosPneumonia.xlsx). Após salvar o arquivo em seu diretório, ele pode ser carregado com a função `read_excel()` do pacote `readxl`:  
 
@@ -612,9 +618,9 @@ O conjunto de dados `dadosPneumonia.xlsx` pode ser obtido [**aqui**](https://git
 dados <- readxl::read_excel("Arquivos/dadosPneumonia.xlsx")
 ```
 
-#### Construção da tabela necessária para o cálculo  
+#### Construção da tabela  
 
-Cruzar os resultados da opinião dos radiologistas, variáveis `rx1` e `rx2`:  
+O cálculo do *kappa* com a função `Kappa()` exige uma tabela, onde os dados dos dois radiologistas são cruzados. As variáveis a serem cruzadas são `rx1` e `rx2`:  
 
 ```{r}
 dados$rx1 <- factor(dados$rx1,
@@ -632,7 +638,7 @@ tabk
 
 #### Cálculo do *kappa*  
 
-O *kappa* é dados por:  
+O *kappa* é dado pela execução da função:  
 
 ```{r}
 k <- vcd::Kappa(tabk)
@@ -643,7 +649,7 @@ print (k,
 
 ```
 
-A saída exibe o *kappa* pontual os intervalos de confiança de 95%, podendo-se concluir desses resultados que existe uma boa confiabilidade nos resultados dos radiologistas (substancial, de acordo com a Tabela \@ref(tab:kappa)).
+A saída exibe o *kappa* pontual e os intervalos de confiança de 95%, podendo-se concluir, desses resultados, que existe uma boa confiabilidade nos diagnósticos dos radiologistas (k = 0,67, concordância substancial,de acordo com a Tabela \@ref(tab:kappa)).
 
 ## Medidas de frequência  
 
@@ -651,7 +657,7 @@ A saída exibe o *kappa* pontual os intervalos de confiança de 95%, podendo-se 
 
 A prevalência, ou mais adequadamente, a *prevalência pontual* de uma doença é a proporção da população portadora da doença em um determinado ponto do tempo.  É uma medida instantânea por excelência e fornece uma medida estática da frequência da doença. É também conhecida como *taxa de prevalência* e é expressa em percentagem ou por $10^{n}$ habitantes. As medidas de prevalência geram informações úteis para o planejamento e administração de serviços de saúde.  
 
-A *prevalência por período* descreve os casos que estavam presentes em qualquer momento durante um determinado período de tempo. Descreve o número total de casos de uma doença que se sabe haver existido durante um período de tempo.  
+A *prevalência por período* descreve os casos que estavam presentes em qualquer momento durante um determinado período de tempo. Diz o número total de casos de uma doença que se sabe haver existido durante um período de tempo.  
 
 Um tipo especial de prevalência de período é a prevalência ao longo da vida, que mede a frequência cumulativa ao longo da vida de um resultado até o momento presente (ou seja, a proporção de pessoas que tiveram o evento em qualquer momento no passado).  
 
@@ -659,18 +665,18 @@ As doenças, quanto a sua duração, podem ser agudas e de longa duração ou cr
 A prevalência é dada pela razão:
 
 $$
-Prevalência = \frac{Número \ de \ casos \ conhecidos \ da \ doença}{Total \ da \ População} \times 10^{n}
+prevalência = \frac{número \ de \ casos \ conhecidos \ da \ doença}{total \ da \ População} \times 10^{n}
 $$
  
 #### Exemplo  
 
-Como exemplo, será verificada a frequência de tabagismo entre as puérperas da maternidade do HGCS. O banco de dados `dadosMater.xlsx` contém informação de 1368 nascimentos e pode ser obtido [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosMater.xlsx). Depois de salvo em seu diretório de trabalho, ele pode ser carregado com a função `read_excel()` do pacote `readxl`.  
+Como exemplo, será verificada a frequência de tabagismo entre as puérperas da maternidade do HGCS. O banco de dados dadosMater.xlsx contém informação de 1368 nascimentos e pode ser consultado na Seção 5.3. Depois de salvo em seu diretório de trabalho, ele pode ser carregado com a função `read_excel()` do pacote `readxl`. 
 
 ```{r}
 dados <- readxl::read_excel ("Arquivos/dadosMater.xlsx")
 ```
 
-Inicialmente, verifica-se quantas fumantes existem. O conjunto de dados contém uma variável `fumo`, onde `1 = fumante` e `2 = não fumante`. Portanto, há necessidade de transformar a variável numérica em um fator:
+Inicialmente, será verificado quantas fumantes existem. O conjunto de dados contém uma variável `fumo`, onde `1 = fumante` e `2 = não fumante`. Portanto, há necessidade de transformar a variável numérica em um fator:
 
 ```{r}
 dados$fumo <- factor (dados$fumo,
@@ -688,13 +694,13 @@ A função `epi.conf()` usa os seguintes argumentos:
 
 * *dat* $\longrightarrow$ matriz ou tabela; 
 * *ctype* $\longrightarrow$ tipo de intervalo de confiança a ser calculado. Opções: *mean.single*, *mean.unpair*, *mean.pair*, *prop.single*, *prop.unpaired*, *prevalence*, *inc.risk*, *inc.rate*, *odds* e *smr* (*standardized mortality rate*);  
-* *method*  $\longrightarrow$ método a ser usado. `Quando `ctype = "inc.risk"` ou `ctype = "prevalence"`, as opções são `exact`, wilson` e `fleiss` Quando `ctype = "inc.rate"` as opções são `exact` e `byar`;
+* *method*  $\longrightarrow$ método a ser usado. Quando `ctype = "inc.risk"` ou `ctype = "prevalence"`, as opções são `exact`, `wilson` e `fleiss` Quando `ctype = "inc.rate"` as opções são `exact` e `byar`;
 * *N* $\longrightarrow$ tamanho da população;
 * *conf.level* $\longrightarrow$ magnitude do intervalo de confiança retornado. Deve ser um único número entre 0 e 1.
 
 **Construção da matriz**
 
-Com os dados da `tabFumo`, constroi-se uma matriz de duas colunas:  
+Com os dados da `tabFumo`, constrói-se uma matriz de duas colunas:  
 
 ```{r}
 n1 <- 301
@@ -732,7 +738,7 @@ A *taxa de incidência* (densidade de incidência ou taxa de incidência) é o n
 
 O conceito de pessoas-tempo pode ser ilustrado com o seguinte exemplo: a Figura \@ref(fig:incidencia1) representa um estudo epidemiológico hipotético com duração de cinco anos, onde D é o desfecho e C representa os sujeitos que deixaram o estudo por migração ou morte (censurados) por causa não relacionada ao desfecho
 
-```{r incidencia1, echo = FALSE, out.width = '75%', fig.align = 'center', fig.cap="Estudo epidemiológico hipotético.", fig.pos="ht"}
+```{r incidencia1, echo = FALSE, out.width = '65%', fig.align = 'center', fig.cap="Pessoas-tempo (estudo epidemiológico hipotético).", fig.pos="ht"}
  knitr::include_graphics("https://i.imgur.com/drqeIs8.png")
 ```
 
@@ -754,7 +760,7 @@ A taxa de incidência pode ser calculada, usando-se a mesma função `epi.conf()
 
 **Pessoas totalmente cegas**
 
-Inicialmente, controi-se a matriz:  
+Inicialmente, contrói-se a matriz:  
 
 ```{r}
 n2 <- 136
@@ -771,9 +777,9 @@ epiR::epi.conf(mat2,
                method = "exact", 
                conf.level = 0.95)*1000
 ```
-**Pessoas com grave deficência visual**
+**Pessoas com grave deficiência visual**
 
-Inicialmente, controi-se a matriz:  
+Inicialmente, contrói-se a matriz:  
 
 ```{r}
 n3 <- 1709
@@ -782,7 +788,7 @@ mat3 <- as.matrix(cbind (n3, N3))
 mat3
 ```
 
-Logo, a incidência de câncer nos com grave deficência visual é:
+Logo, a incidência de câncer nos com grave deficiência visual é:
 
 ```{r}
 epiR::epi.conf(mat3, 
@@ -791,7 +797,7 @@ epiR::epi.conf(mat3,
                conf.level = 0.95)*1000
 ```
 
-As saídas mostram que para cada 1000 pessoas cegas (a função foi multiplicada por 1000) acompanhadas por um ano, ocorreu 6,2 ((IC95%: 5,2 – 7,3) casos de câncer. Uma taxa de incidência, praticamente, metade da taxa de incidências das pessoas com deficiência visual grave. Os IC95% não são coincidentes, o que significa que essa diferença é significativa. Houve, na amostra, uma redução da incidência de câncer entre os indivíduos totalmente cegos, sugerindo que a melatonina possa ser um fator protetor contra o câncer.
+As saídas mostram que para cada 1000 pessoas cegas (a função foi multiplicada por 1000) acompanhadas por um ano, ocorreu 6,2 ((IC95%: 5,2 – 7,3) casos de câncer. Uma taxa de incidência, praticamente, metade da taxa de incidências das pessoas com deficiência visual grave. Os IC95% não são coincidentes, o que significa que essa diferença é significativa. Houve, na amostra, uma incidência menor de câncer entre os indivíduos totalmente cegos, sugerindo que a melatonina possa ser um fator protetor contra o câncer.
 
 ### Relação entre prevalência e incidência
 
@@ -812,12 +818,20 @@ Por exemplo, se a incidência da doença for de 0,8% ao ano e sua duração méd
 
 A *odds ratio* (OR) expressa a *odds* de exposição entre os que têm o desfecho (casos) pela *odds* de exposição nos livres de desfecho (controles).   
 
-Usando a Figura \@ref(fig:2x2) e a fórmula $odds =\frac{p}{1 -p}$, tem-se:
-
 ```{r 2x2, echo = FALSE, out.width = '75%', fig.align = 'center', fig.cap="Tabela de contingência 2 x 2", fig.pos="ht"}
  knitr::include_graphics("https://i.imgur.com/KAWIH8W.png")
 ```
 
+Usando a Figura \@ref(fig:2x2), a fórmula $odds =\frac{p}{1 -p}$ e que 
+
+$$
+p_{exp \ doentes} = \frac{a}{a+c}
+$$
+$$
+p_{exp \ não \ doentes} = \frac{b}{b+d}
+$$
+
+tem-se:
 
 $$
 odds_{exp} \ {casos} = \frac{\frac{a}{a+c}}{1- \frac{a}{a+c}}=\frac{a}{c}
@@ -831,6 +845,7 @@ Portanto, a OR é igual a:
 $$
 OR = \frac{odds_{exp}\ {casos}}{odds_{exp}\ {controles}}=\frac{\frac{a}{c}}{\frac{b}{d}}=\frac{a \times d}{c \times b} 
 $$
+Em decorrência da última fórmula, a OR é definida como a razão dos produtos cruzados em uma tabela de contingência 2×2.
 
 #### Exemplo   
 
@@ -842,7 +857,7 @@ Os dados desse estudo hipotético estão no arquivo `dadosCasoControle.xlsx`. O 
 cc <- readxl::read_excel ("Arquivos/dadosCasoControle.xlsx")
 ```
 
-Colocar os níveis das variáveis `cc$exposto` e `cc$desfecho` como fatores e na ordem `sim`, `não`, uma vez que o R coloca em ordem alfabética (`não`, `sim`):
+As variáveis `cc$exposto` e `cc$desfecho` devem ser transformadas em fatores e na ordem `sim`, `não`, uma vez que o R coloca em ordem alfabética (`não`, `sim`):
 
 ```{r}
 cc$exposto <- factor (cc$exposto,
@@ -853,13 +868,13 @@ cc$desfecho <- factor (cc$desfecho,
 
 ``` 
 
-Construir uma tabela $2 \times 2$: 
+Após essa etapa, construir uma tabela $2 \times 2$: 
 
 ```{r}
 tab_cc <- table (cc$exposto, 
                  cc$desfecho, 
                  dnn = c("Exposição", "Desfecho"))
-tab_cc         
+addmargins(tab_cc)         
 ```
 
 A OR será obtida utilizando a função `epi.2by2()` do pacote `epiR` @stevenson2022epir. Esta função tem os seguintes argumentos:
@@ -881,7 +896,7 @@ epiR::epi.2by2(tab_cc,
 
 A saída exibe os dados em uma tabela $2 \times 2$, mostrando as `odds` e os IC95% e outras estatísticas epidemiológicas relacionadas.
 
-A OR varia de zero ao infinito. Quando o valor da OR se aproxima de 1, a doença e o fator de risco não estão associados. Acima de 1 significa um que existe associação e valores menores de 1 indicam uma associação negativa (efeito protetor).   
+A OR varia de zero ao infinito. Quando o valor da OR se aproxima de 1, a doença e o fator de risco não estão associados. Acima de 1 significa que existe associação e valores menores de 1 indicam uma associação negativa (efeito protetor).   
 
 No exemplo hipotético, os indivíduos que se expuseram ao fator de risco têm uma chance 8 vezes maior de apresentar este tipo de câncer. O valor *P* do qui-quadrado é altamente significativo (*P* < 0,001).
 
@@ -906,9 +921,9 @@ data(oswego)
 dplyr::glimpse(oswego)
 ```
 
-Observe que existem 75 observações de 21 variáveis, algumas características dos indivíduos como idade, sexo, etc. Importante para a análise é a variável `ill` (Y – sim, doente; N – não doente) e a variáveis relacionadas aos alimentos ingeridos durante o jantar na igreja. O sorvete de baunilha foi considerado o principal responsável pelo surto.  
+Existem 75 observações de 21 variáveis, algumas características dos indivíduos como idade, sexo, etc. Importante para a análise é a variável `ill` (Y – sim, doente; N – não doente) e a variáveis relacionadas aos alimentos ingeridos durante o jantar na igreja. O sorvete de baunilha foi considerado o principal responsável pelo surto.  
 
-A seguir, as variáveis `oswego$vanilla.ice.cream` e `oswego$ill` ^[Foi mantido o nome das variáveis em inglês, pois no banco de dados `oswego` elas estão nessa língua.] serão transformadas em fator e os níveis colocados na ordem `Y`, `N`, uma vez que o R coloca em ordem alfabética (´N`, `Y`) :
+A seguir, as variáveis `oswego$vanilla.ice.cream` e `oswego$ill` ^[Foi mantido o nome das variáveis em inglês, pois no banco de dados `oswego` elas estão nessa língua.] serão transformadas em fator e os níveis colocados na ordem `Y`, `N`, uma vez que o R coloca em ordem alfabética (`N`, `Y`) :
 
 ```{r}
 oswego$ill <- factor (oswego$ill,
@@ -917,7 +932,7 @@ oswego$vanilla.ice.cream <- factor (oswego$vanilla.ice.cream,
                                     levels = c ("Y", "N"))
 ```
  
-Agora será construída uma tabela para o cálculo do RR:  
+Realizada essa etapa, será construída uma tabela para o cálculo do RR:
 
 ```{r}
 tab_vanilla <- table (oswego$vanilla.ice.cream, 
@@ -936,7 +951,7 @@ epiR::epi.2by2(tab_vanilla,
                outcome = "as.columns")
 ```
 
-Os resultados da saída indicam que os indivíduos que ingeriram sorvete de baunilha (n = 54) tiveram um risco maior de desenvolver gastrenterite aguda quando comparado aos que não ingeriram (n = 21). Dividindo o risco dos indivíduos expostos (incidência = 79,6) pelo risco dos não expostos (incidência = 14,3), encontra-se o RR = 5,57.   
+Os resultados da saída indicam que os indivíduos que ingeriram sorvete de baunilha (n = 54) tiveram um risco maior de desenvolver gastrenterite aguda quando comparado aos que não ingeriram (n = 21). Dividindo o risco dos indivíduos expostos (incidência = 79,6) pelo risco dos não expostos (incidência = 14,3), encontra-se o RR = 5,57. Isso confirma que o sorvete de baunilha foi o principal responsável. 
 
 Quanto maior o RR mais forte é a associação entre a doença em questão e a exposição ao fator de risco. Um RR = 1 indica que a doença e a exposição ao fator de risco não estão associadas. Valores < 1 indicam uma associação negativa entre o fator de risco e a doença (efeito protetor).   
 
@@ -981,9 +996,10 @@ knitr::kable(df,
 
 ### Razão de Prevalência  
 
-Quando dados transversais estão disponíveis, muitas vezes as associações são avaliadas, usando a *razão de prevalências pontuais* (RPP). Tem o mesmo princípio das duas medidas anteriores, a razão de prevalência (RPP) compara a prevalência do desfecho entre os expostos com a prevalência do desfecho entre os não expostos.  
+Quando dados transversais estão disponíveis, muitas vezes as associações são avaliadas, usando a *razão de prevalência pontual* (RPP).   
+Tendo o mesmo princípio das duas medidas anteriores, a razão de prevalência (RPP) compara a prevalência do desfecho entre os expostos com a prevalência do desfecho entre os não expostos.  
 
-Matematicamente, a RPP é calculada de maneira semelhante ao RR. Apenas, deve-se ter em mente que o desfecho e a exposição foram medidos no mesmo momento, enquanto que para o cálculo do RR há necessidade de calcular a incidência.   
+Matematicamente, a RPP é calculada de maneira semelhante ao RR. Apenas, deve-se ter em mente que o desfecho e a exposição foram medidos no mesmo momento, enquanto para o cálculo do RR há necessidade de calcular a incidência.   
 
 Usando uma tabela de contingência 2 x 2 (Figura \@ref(fig:2x2)), tem-se:
 
@@ -1036,12 +1052,12 @@ Após estes procedimentos, constroi-se uma tabela $2 \times 2$:
 tab_infCong <- table(dados$faixaEtaria,
                      dados$infCong,
                      dnn = c("Faixa Etária", "Inf. Cong."))
-tab_infCong            
+addmargins(tab_infCong)            
 ```
 
 *Cálculo da RPP*  
 
-Usando a tabela `tab_infCong` com a função `epi.2by2()` do pacote `epiR`, cujos argumentos foram mostrados no cálculo da OR e RR, mudando a tabela para `tab_infCong` e `method = “cross.sectional”`:
+Usando a tabela `tab_infCong` com a função `epi.2by2()` do pacote `epiR`, cujos argumentos foram mostrados no cálculo da OR e RR, e mudando a tabela para `tab_infCong` e `method = “cross.sectional”`, obtem-se:
 
 ```{r}
 epiR::epi.2by2(tab_infCong, 
@@ -1051,7 +1067,7 @@ epiR::epi.2by2(tab_infCong,
                outcome = "as.columns")
 ```
 
-A saída exibe várias informações. Foi feita a hipótese de uma maior prevalência entre as mulheres com menos de 20 anos. Por este motivo, elas aparecem como as expostas (`Exposed +`) e tem uma prevalência de 3,20/100, enquanto que as mulheres com mais de 20 anos tiveram uma prevalência de 10,36/100. Isto mostra que a razão de prevalência é igual a 0,31, ou seja, < 1, sugerindo que ao contrário da hipótese inicial, as adolescentes têm, neste estudo, uma menor prevalência de infecções congênitas.
+A saída exibe várias informações. Foi feita a hipótese de uma maior prevalência entre as mulheres com menos de 20 anos. Por este motivo, elas aparecem como as expostas (`Exposed +`) e tem uma prevalência de 3,20/100, enquanto as mulheres com mais de 20 anos tiveram uma prevalência de 10,36/100. Isto mostra que a razão de prevalência é igual a 0,31 (IC95%: 0,15-0,65)^[Observem que todo o intervalo de confiança de 95% encontra-se abaixo de 1, indicando que existe significância estatística.], ou seja, < 1, sugerindo que ao contrário da hipótese inicial, as adolescentes têm, neste estudo, uma menor prevalência de infecções congênitas.
 
 ## Medidas de impacto
 
@@ -1060,9 +1076,9 @@ A saída exibe várias informações. Foi feita a hipótese de uma maior preval�
 O *Risco Atribuível* (RA) possui características de medida de impacto. O RA, ao invés de concentrar-se na associação em si, refere-se mais às consequências e às repercussões da exposição sobre a ocorrência do desfecho.  
 
 O RA é a medida do excesso ou acréscimo absoluto de risco que pode ser atribuído à exposição [@szklo2019ar]. Com o RA é possível estimar o número de casos que podem ser prevenidos se a exposição for eliminada e assim estimar a magnitude do impacto, em termos de saúde pública, imposto por esta exposição.  
-O risco de desenvolver o desfecho (incidência) está aumentado em RA nos indivíduos expostos em comparação com os que não estão expostos. Nos estudos de coorte, costuma-se usar mais a expressão *Risco Atribuível* ou *Diferença de Risco*. Nos ensaios clínicos, usa-se mais a expressão *Redução do Risco Absoluto* (RRA), pois se espera que a intervenção reduza o risco.  
+O risco de desenvolver o desfecho (incidência) está aumentado em RA nos indivíduos expostos em comparação com os que não estão expostos. Nos estudos de coorte, costuma-se usar mais a expressão *Risco Atribuível* ou *Diferença de Risco*. Nos ensaios clínicos, usa-se mais a expressão *Redução Absoluta do Risco* (RAR), pois se espera que a intervenção reduza o risco.  
 
-Calcula-se o RA ou a RRA pela diferença absoluta entre as incidências dos expostos e não expostos:
+Calcula-se o RA ou a RAR pela diferença absoluta entre as incidências dos expostos e não expostos:
 
 $$
 RA = \left|I_{expostos} - I_{não \ expostos}\right|
@@ -1074,7 +1090,7 @@ $$
 RA = \left|\frac{a}{a + b} -\frac{c}{c + d}\right|
 $$
 
-No exemplo mostrado no Risco Relativo, o RA pode ser calculado usando a mesma tabela de contingência, repetida aqui para facilitar a compreensão (Figura \@ref(fig:vanilla)):
+No exemplo do Risco Relativo, o RA pode ser calculado usando a mesma tabela de contingência, repetida aqui para facilitar a leitura (Figura \@ref(fig:vanilla)):
 
 ```{r vanilla, echo = FALSE, out.width = '75%', fig.align = 'center', fig.cap=" Taxa de ataque de gastrenterite com sorvete de baunilha - Oswego", fig.pos="ht"}
  knitr::include_graphics("https://i.imgur.com/mT8id4Q.png")
@@ -1090,7 +1106,7 @@ O risco atribuível na exposição mede o excesso de risco associado a uma deter
 
 O RA expresso em relação à incidência nos expostos e apresentado em percentual é denominado de *Risco Atribuível Proporcional* (RAP) ou *Fração Atribuível nos Expostos*.
 
-O RAP informa qual a proporção de desfecho, expresso em percentagem, entre os expostos que poderia tertimes sido prevenida se a exposição fosse eliminada. É dado pela fórmula:
+O RAP informa qual a proporção de desfecho, expresso em percentagem, entre os expostos que poderia ter sido prevenida se a exposição fosse eliminada. É dado pela fórmula:
 
 $$
 RAP = \left(\frac{I_{expostos} - I_{não \ expostos}}{I_{expostos}}\right) \times 100
@@ -1189,11 +1205,7 @@ A função `risks()` usa como argumento:
 * *p0* $\longrightarrow$ incidência do desfecho de interesse no grupo não exposto;
 * *p1* $\longrightarrow$ incidência do desfecho de interesse no grupo exposto.  
 
-Antes de executar a função, deve-se instalar o pacote `BiocManager` para instalar o pacote `limma`:
-
-```{r warning=FALSE, message=FALSE}
-BiocManager::install("limma")
-```
+Além disso, para o seu funcionamento, deve-se ter instalado o pacote `BiocManager` para poder instalar o pacote `limma`, necessário para a execução do pacote `MKmisc.` Veja início do capítulo em pacotes usados neste capítulo.
 
 A função `risks()` será usada dentro da função `round()` para reduzir o número de dígitos decimais:
 
@@ -1207,10 +1219,10 @@ round(MKmisc::risks(p0,p1), 4)
 
 Os resultados da função `risks()` entrega junto o *Número Necessário para Tratar* (NNT) que deve ser arredondado para o número inteiro mais próximo (no caso, 110) e significa a estimativa do número de indivíduos que devem receber uma intervenção terapêutica, durante um período específico de tempo, para evitar um efeito adverso ou produzir um desfecho positivo.  
 
-O NNT equivale à recíproca do RRA (Redução do Risco Absoluto ou Diferença de Risco):
+O NNT equivale à recíproca do RAR (Redução Absoluta do Risco ou Diferença de Risco):
 
 $$
-NNT = \frac{1}{RRA} = \frac{1}{I_{controle} - I_{tratamento}}
+NNT = \frac{1}{RAR} = \frac{1}{I_{não \ expostos} - I_{expostos}}
 $$
 
 No exemplo do *Physicians' Health Study*, o RRA igual a: 
@@ -1226,13 +1238,13 @@ $$
 Pode-se calcular os IC95%, calculando o NNT para os limites do RRA usando a seguinte equação [@bender2001calculating]:
 
 $$
-IC_{95\%} \longrightarrow RRA \pm z_{\left({1 - \frac{\alpha}{2}}\right)} \times EP_{RRA}
+IC_{95\%} \longrightarrow RAR \pm z_{\left({1 - \frac{\alpha}{2}}\right)} \times EP_{RAR}
 $$
 
 Onde,  
 
 $$
-EP_{RRA} = \sqrt{\frac{p0\left(1 - p0\right)}{n_{1}}+\frac{p1\left(1 - p1\right)}{n_{2}}}
+EP_{RAR} = \sqrt{\frac{p0\left(1 - p0\right)}{n_{1}}+\frac{p1\left(1 - p1\right)}{n_{2}}}
 $$
 
 Usando os dados do *Physicians' Health Study*, pode-se criar um *script* no *RStudio* para os cálculos: 
@@ -1279,51 +1291,43 @@ Os resultados da matriz de dados e o cálculo das incidências *p0* (incidência
 *Cálculo do erro padrão da RRA*  
 
 ```{r}
-RRA <- abs(p0 - p1)
-round(RRA, 4)
+RAR <- abs(p0 - p1)
 NNT <- 1/RRA
-round(NNT, 0)
 
 alpha <- 0.05
 z <- qnorm (1 - (alpha/2))
 round (z, 3)
 
-EP_RRA <- sqrt((((p0*(1-p0)) / n0)) + (((p1*(1-p1)) / n1)))
-round (EP_RRA, 4)
-```
+EP_RAR <- sqrt((((p0*(1-p0)) / n0)) + (((p1*(1-p1)) / n1)))
 
-*Cálculo do intervalo de confiança de 95% da RRA* 
-
-ls = limite superior 
-li = limite inferior
-
-```{r}
+# Limite inferior
 li_RRA <- RRA - (z * EP_RRA)
 round (li_RRA, 4)
 
+# Limite superior
 ls_RRA <- RRA + (z * EP_RRA)
 round (ls_RRA, 4)
+
+round(print(c(li_RAR, RAR, ls_RAR), 4))
 ```
 
-Portando, ao Redução Absoluta do Risco foi igual a 0,0091 (0,0056-0,0125). A partir destes resultados, pode-se calcular o intervalo de confiança para o NNT.
+Portando, ao Redução Absoluta do Risco foi igual a 0,0091 (IC95%: 0,0056-0,0125). A partir destes resultados, pode-se calcular o intervalo de confiança para o NNT:
 
-*Cálculo do intervalo de confiança de 95% do NNT*
 
 ```{r}
-li_NNT <- 1/ls_RRA
-round (li_NNT, 0)
+li_NNT <- 1/ls_RAR
+ls_NNT <- 1/li_RAR
 
-ls_NNT <- 1/li_RRA
-round (ls_NNT, 0)
+round(print(c(li_NNT, ls_NNT), 0))
 ```
 
-Concluindo, o uso da aspirina no *Physicians' Health Study* reduziu o risco de infarto agudo do miocárdio em 42% (RRR), ou seja, foi eficaz. Por outro lado, para ter este impacto será necessário tratar 110 (IC95%: 80-177) pacientes para que um tenha benefício. Este NNT é grande; o ideal é um NNT < 10. Apesar disso, como a aspirina tem baixo custo e se benefícios suplantarem os efeitos adversos, seu uso pode estar justificado.
+Concluindo, o uso da aspirina no *Physicians' Health Study* reduziu o risco de infarto agudo do miocárdio em 42% (RRR), ou seja, foi eficaz. Por outro lado, para ter este impacto será necessário tratar 110 (IC95%: 80-177) pacientes para que um tenha benefício. Este NNT é grande; o ideal é um NNT < 10. Apesar disso, como a aspirina tem baixo custo e seus benefícios suplantam os efeitos adversos, seu uso pode estar justificado.
 
 ### Número Necessário para Causar Dano
 
 Deve-se comparar o NNT com o *Número Necessário para causar Dano* (NND), em inglês, *Number Needed to Harm* (NNH). Deve ser interpretado como o número de pacientes tratados para que um deles apresente um efeito adverso.  
 
-O NND é calculado pela recíproca do aumento do risco absoluto (ARA), equivalente a diferença de risco ou redução do risco absoluto:
+O NND é calculado pela recíproca do aumento absoluto do risco  (ARA), equivalente a diferença de risco ou redução absoluta do risco:
 
 $$
 NND = \frac{1}{ARA} = \frac{1}{I_{expostos} - I_{não \ expostos}}
@@ -1355,14 +1359,14 @@ p1 <- 0.0108
 round (MKmisc::risks (p0, p1), 4)
 ```
 
-Os resultados mostram que o NND (NNH) é igual a 526. Ou seja, para evitar um IAM há necessidade de tratar 110 pacientes e a cada 526 tratados espera-se um caso de AVC, havendo um benefício bem maior quando comparado ao risco de AVC.
+Os resultados mostram que o NND^[Em inglês, NNH (number needed to harm).] é igual a 526. Ou seja, para evitar um IAM há necessidade de tratar 110 pacientes e a cada 526 tratados espera-se um caso de AVC, havendo um benefício bem maior quando comparado ao risco de AVC.
 
 
 ## Análise de sobrevida  
 
 A análise de sobrevida é utilizada quando se pretende investigar o tempo entre o início de um estudo e a ocorrência subsequente de um evento que modifica o estado de saúde do indivíduo. É bastante usada em estudos sobre câncer, por exemplo, analisando o tempo desde a cirurgia até a morte, o tempo desde o início do tratamento até a progressão da doença, o tempo desde a resposta até a recorrência da doença. Ela também é usada para medir a ocorrência de outros eventos como o tempo desde a infecção pelo  vírus da imunodeficiência humana (HIV)  até o desenvolvimento da Síndrome de Imunodeficiência Adquirida (SIDA), o tempo de hospitalização, tempo de amamentação, etc.
 
-O interesse está centrado na verificação do efeito dos fatores de risco ou de prognóstico sobre o tempo de sobrevida de um indivíduo ou de um grupo, bem como definir as probabilidades de sobrevida em diversos momentos no seguimento do grupo. Considera-se tempo de sobrevida, ou simplesmente sobrevida, o tempo a entre a entrada do indivíduo no estudo e a ocorrência do evento de interesse. Com relação aos dados relacionados ao tempo, podem ocorrer problemas. O tempo para um evento geralmente não tem distribuição normal. Além disso, nem sempre se pode esperar até que o evento ocorra em todos os pacientes e alguns pacientes abandonam o estudo mais cedo. Todos devem ser considerad dadosos e as análises de sobrevida contornam esses problemas.
+O interesse está centrado na verificação do efeito dos fatores de risco ou de prognóstico sobre o tempo de sobrevida de um indivíduo ou de um grupo, bem como definir as probabilidades de sobrevida em diversos momentos no seguimento do grupo. Considera-se tempo de sobrevida, ou simplesmente sobrevida, o tempo a entre a entrada do indivíduo no estudo e a ocorrência do evento de interesse. Com relação aos dados relacionados ao tempo, podem ocorrer problemas. O tempo para um evento geralmente não tem distribuição normal. Além disso, nem sempre se pode esperar até que o evento ocorra em todos os pacientes e alguns pacientes abandonam o estudo mais cedo. Todos devem ser considerados e as análises de sobrevida contornam esses problemas.
 
 Em estudos de sobrevida, os indivíduos são observados até a ocorrência de um evento final que, geralmente, corresponde à morte, ou à variação de um parâmetro biológico ou outro evento que indique a modificação do estado inicial (cura, recorrência, retorno ao trabalho, etc.) O evento final é denominado de *falha*, por referir-se, em geral, a algo indesejável.
  
@@ -1382,7 +1386,7 @@ O método de Kaplan-Meier (KM) é um método não paramétrico usado para estima
 
 A função de sobrevida é a probabilidade de sobreviver a pelo menos um determinado ponto no tempo e o gráfico desta probabilidade é a curva de sobrevida. O método de sobrevida de Kaplan-Meier pode ser usado para comparar as curvas de sobrevida de dois ou mais grupos, como comparar um grupo tratado a um grupo não tratado (placebo), ou homens comparados a mulheres.  
 
-A curva de sobrevida KM, um gráfico da probabilidade de sobrevida de Kaplan-Meier em relação ao tempo, fornece um resumo útil dos dados que podem ser usados para estimar medidas como a mediana de sobrevida.
+A curva de sobrevida KM, um gráfico da probabilidade de sobrevida de Kaplan-Meier em relação ao tempo, fornece um resumo útil dos dados que podem ser usados para estimar medidas como a *mediana de sobrevida*.
 
 #### Pressupostos do método de Kaplan-Meier
 
@@ -1396,7 +1400,7 @@ Os pressupostos para o uso da análise de sobrevida são as seguintes [@peat2014
 *	as perspectivas de sobrevida dos participantes permanecem constantes, ou seja, os participantes inscritos no início ou no final do estudo devem ter as mesmas perspectivas de sobrevida;
 *	a probabilidade de censura não está relacionada à probabilidade do evento.  
 
-Como em todas as análises, se o número total de pacientes em qualquer grupo for pequeno, digamos menos de 30 participantes em cada grupo, os erros padrão em torno das estatísticas resumidas serão grandes e, portanto, as estimativas de sobrevida serão imprecisas. Para estudos de sobrevida, recomenda-se fazer o cálculo do tamanho amostral previamente. O R dispõe de um pacote que possibilita este cálculo, o powerSurvEpi [@qiu2015powersurvepi].
+Como em todas as análises, se o número total de pacientes em qualquer grupo for pequeno, digamos menos de 30 participantes em cada grupo, os erros padrão em torno das estatísticas resumidas serão grandes e, portanto, as estimativas de sobrevida serão imprecisas. Para estudos de sobrevida, recomenda-se fazer o cálculo do tamanho amostral previamente. O R dispõe de um pacote que possibilita este cálculo, o `powerSurvEpi` [@qiu2015powersurvepi].
 
 #### Exemplo  
 
@@ -1468,7 +1472,8 @@ legend (legend = c ("Tratamento novo", "Tratamento padrão"),
         fill = c ("steelblue", "rosybrown"), 
         bty="n", 
         cex = 1, 
-        'bottomleft')
+        y = 0.3,
+        x = 5)
 ```
 
 Outra maneira, mais sofisticada, de produzir a curva de KM é usando a função `ggsurvplot()`, incluída no pacote `survminer` @kassambara2021survminer que utiliza o pacote `ggplot2` (Figura \@ref(fig:survival1)) 
@@ -1479,20 +1484,21 @@ Com essa função é possível mostrar:
 *	o número e/ou a porcentagem de indivíduos em risco por tempo, utilizando a opção `risk.table`. Os valores permitidos para a `risk.table` incluem: 
   -	`TRUE` ou `FALSE` especificando se deve mostrar ou não a tabela de risco. O padrão é FALSE.
   -	`absolute` ou `percentage`: para mostrar o número absoluto e o percentual de sujeitos em risco por tempo, respectivamente. Use `abs_pct` para mostrar o número absoluto e a porcentagem.
+  - o	nrisk_cumcensor e nrisk_cumevents . Mostra o número em risco e o número acumulado de censura e eventos, respectivamente.
 *	o valor *P* do teste `Log-Rank` comparando os grupos usando `pval = TRUE`.
 *	linha horizontal/vertical na sobrevida mediana usando o argumento `surv.median.line`. Os valores permitidos incluem um de `c(“nenhum”, “hv”, “h”, “v”)`. Onde v = vertical, h = horizontal.
 
 ```{r survival1, echo=TRUE, out.width="70%", fig.align = 'center',  fig.cap="Curva de sobrevida comparando dois grupos de tratamento, usando ggsurvplot().", fig.pos="ht"}
 ggsurvplot (tabsurv,
             pval = TRUE, 
-            conf.int = TRUE,
+            conf.int = FALSE,
             risk.table = "abs_pct",
             risk.table.col = "strata", 
             surv.median.line = "hv", 
             ggtheme = theme_bw (), 
             legend.labs = c ("Tratamento Novo", 
                              "Tratamento padrão"),
-            palette = c ("steelblue", " rosybrown "))
+            palette = c ("steelblue", "tomato"))
 ```
 
 O teste `Log Rank` pondera todos os pontos de tempo igualmente e é a estatística de sobrevida mais usada [@bland2004logrank]. O teste de log rank é um teste não paramétrico, que não faz suposições sobre as distribuições de sobrevivência. Os pressupostos deste teste são os mesmos do método de Kaplan-Meier. No exemplo, o valor *P* do teste é fornecido na Figura \@ref(fig:survival1) e é igual a 0,083, ou seja, acima de 0,05, indicando não rejeição da $H_{0}$. A hipótese nula diz que não há diferença na sobrevivência entre os dois grupos.  
@@ -1520,10 +1526,10 @@ $$
 
 Onde,
 
-*	*t* é o tempo de sobrevida, indica que o risco varia com o tepo;
-*	*h(t)* é a função de risco (*hazard*) determinada por um conjunto de *n* covariáveis ($x_{1}, x_{2}, ..., x_{n}$)
-*	Os *coeficientes* ($b_{1}, b_{2}, ..., b_{n}$) medem o tamanho do efeito das covariáveis
-*	*h(0)* é o risco basal, o valor do risco se todos os $x_{i}$ fossem iguais a zero (exp (0) é igual a 1). 
+*	*t* é o tempo de sobrevida, indica que o risco varia com o tempo;
+*	*h(t)* é a função de risco (*hazard*) determinada por um conjunto de *n* covariáveis ($x_{1}, x_{2}, ..., x_{n}$);
+*	Os *coeficientes* ($b_{1}, b_{2}, ..., b_{n}$) medem o tamanho do efeito das covariáveis;
+*	*h(0)* é o risco basal, o valor do risco se todos os $x_{i}$ fossem iguais a zero ($exp(0) = 1$). 
 
 As quantidades exp($b_{i}$) são chamadas de *hazard ratio* (HR). Uma hazard ratio acima de 1 indica uma covariável que está positivamente associada à probabilidade do evento e, portanto, negativamente associada ao tempo de sobrevida.  
 
@@ -1535,10 +1541,10 @@ Resumindo,
 
 Para calcular o modelo de Cox no R serão utilizados os mesmos dados da do arquivo `dadosSobrevida.xlsx`.
 
-O pacote `survival` tem uma função para calcular o modelo de Cox, `coxph(), que usa os argumentos:`
+O pacote `survival` tem uma função para calcular o modelo de Cox, `coxph()`, que usa os argumentos:
 
 * *formula* $\longrightarrow$	é o modelo linear com um objeto de sobrevivida como variável desfecho. O objeto de sobrevida é criado usando a função `Surv()` como segue: `Surv(tempo, evento)`.
-* *data** $\longrightarrow$	um banco de dados contendo as variáveis
+* *data* $\longrightarrow$	um banco de dados contendo as variáveis.
 
 ```{r}
 mod.cox <- coxph (Surv (tempo, evento) ~ grupo, data = sobrevida)
@@ -1555,7 +1561,7 @@ Os resultados da regressão de Cox, podem ser interpretados da seguinte forma:
 
 *	*Significância estatística*. A coluna marcada com *z* fornece o valor da estatística Wald. Corresponde à razão de cada coeficiente de regressão para seu erro padrão ($z = \frac{coef}{EP_{coef}}$). A estatística Wald avalia se o coeficiente beta ($\beta$) de uma determinada variável é estatisticamente diferente de 0. A partir da saída, pode-se concluir que não há diferença estatisticamente significativa entre os grupos (*P* = 0,0875).  
 
-*	*Coeficientes de regressão*. A seguir deve-se observar, no modelo de Cox, o sinal dos coeficientes de regressão (coef). Um sinal positivo significa que o *hazard* (risco) é maior e, portanto, pior o prognóstico, para sujeitos com valores mais elevados dessa variável. No exemplo, a variável grupo é codificada como 1=novo, 2=padrão. O resumo do modelo de Cox fornece a *hazard ratio* (HR) para o segundo grupo em relação ao primeiro grupo, ou seja, tratamento padrão versus tratamento novo. O coeficiente beta para grupo = 0,7698 indica que os i ndivíduos do tratamento padrão têm maior risco de morte (taxas de sobrevivência mais baixas) do que os do grupo tratamento novo, nesses dados. Entretanto, esta diferença não é estatisticamente significativa.  
+*	*Coeficientes de regressão*. A seguir deve-se observar, no modelo de Cox, o sinal dos coeficientes de regressão (coef). Um sinal positivo significa que o *hazard* (risco) é maior e, portanto, pior o prognóstico, para sujeitos com valores mais elevados dessa variável. No exemplo, a variável grupo é codificada como 1=novo, 2=padrão. O resumo do modelo de Cox fornece a *hazard ratio* (HR) para o segundo grupo em relação ao primeiro grupo, ou seja, tratamento padrão versus tratamento novo. O coeficiente beta para grupo = 0,7698 indica que os indivíduos do tratamento padrão têm maior risco de morte (taxas de sobrevivência mais baixas) do que os do grupo tratamento novo, nesses dados. Entretanto, esta diferença não é estatisticamente significativa.  
 
 *	*Hazard ratios*. Os coeficientes exponenciados (exp(coef) = exp(0,7698) = 2,1593), também conhecidos como *hazard ratio*, fornecem o tamanho do efeito das covariáveis. Por exemplo, ser do grupo padrão aumenta o risco por um fator de 2,1593. Se esta diferença fosse significativa (P < 0,05), pertencer ao grupo padrão estaria associado a um mau prognóstico.
 
@@ -1614,12 +1620,7 @@ Carregar os dados, usando a função `read_excel ()` do pacote `readxl`:
 
 ```{r}
 dados <- readxl::read_excel("Arquivos/dadosPima.xlsx")
-```
-
-Para observar a estrutura dos dados, pode-se usar a função `glimpse()` do pacote `dplyr`:
-
-```{r}
-dplyr::glimpse(dados)
+str(dados)
 ```
 
 Para realizar a regressão logística, os dados devem ser inseridos como na regressão linear: organizados em colunas (uma representando cada variável). Olhando a saída da função `glimpse`, nota-se que as variáveis categóricas foram carregadas como `<dbl>` (numéricas). A variável diabetes foi codificada como 1 (evento ocorreu) e 0 (evento não ocorreu); neste caso, 1 representa ter diabetes e 0 representa uma ausência de diabetes. Como o R codifica os fatores na ordem 0 e 1, mantém-se assim e transforma-se a variável diabetes em fator.
@@ -1628,7 +1629,7 @@ Para realizar a regressão logística, os dados devem ser inseridos como na regr
 dados$diabetes <- as.factor(dados$diabetes)
 ```
 
-As variáveis idade e a variável gesta (número de gravidezes) são altamente assimétricas (Figura: \@ref(fig:pima)):
+As variáveis idade e gesta (número de gravidezes) são altamente assimétricas (Figura: \@ref(fig:pima)):
 
 ```{r pima, warning=FALSE, out.width="100%", out.height="70%", fig.align="center", fig.cap="Histogramas das variáveis idade e número de gravidezes.", fig.pos="H"}
 # Este comando coloca os gráficos em uma mesma linha, em duas colunas:
@@ -1658,10 +1659,10 @@ dados$gestaCateg <- cut (dados$gesta,
                          include.lowest = TRUE)
 ```
 
-Após a visualização e modificações das variáveis, construído um novo banco de dados (`dados2`), retirando as variáveis contínuas `idade` e `gesta` e mantendo as variáveis categóricas `idadeCateg` e `gestaCateg`:  
+Após a visualização e modificações das variáveis, serão retiradas as variáveis contínuas `idade` e `gesta`, mantendo as demais variáveis:`:  
 
 ```{r}
-dados2 <- dados %>% 
+dados <- dados %>% 
   dplyr::select(-idade, -gesta)
 glimpse(dados2)
 ```
@@ -1675,13 +1676,13 @@ Agora, pode-se prosseguir com a análise com uma regressão logística binária,
 * *data* $\longrightarrow$	banco de dados.
 * *...* $\longrightarrow$	...
 
-A função `glm()` diz ao R para executar um modelo linear generalizado. Dentro dos parênteses, são fornecidas informações importantes sobre o modelo. À esquerda do til (~) está a variável dependente: ´. Deve ser codificada como 0 e 1 para a função `glm` ler como binária. Após o til (~), são listadas as variáveis preditoras. Quando depois do sinal til é colocado um ponto (~.), significa a presença de todas as variáveis preditoras. Quando é colocado o asterisco (*) entre duas variáveis preditoras, isto indica que não se deseja apenas o efeito principal, mas também um termo de interação entre elas. No exemplo, não foi pedido essa análise. Finalmente, após a vírgula, especifica-se que a distribuição é binomial. A função link padrão em `glm` para uma variável desfecho binomial é o `logit`, portanto, não há necessidade de especificar no modelo.  
+A função `glm()` diz ao R para executar um modelo linear generalizado. Dentro dos parênteses, são fornecidas informações importantes sobre o modelo. À esquerda do til (~) está a variável dependente. Deve ser codificada como 0 e 1 para a função ler como binária. Após o til (~), são listadas as variáveis preditoras. Quando depois do sinal til é colocado um ponto (~.), significa a presença de todas as variáveis preditoras. Quando é colocado o asterisco (*) entre duas variáveis preditoras, isto indica que não se deseja apenas o efeito principal, mas também um termo de interação entre elas. No exemplo, não foi pedido essa análise. Finalmente, após a vírgula, especifica-se que a distribuição é binomial. A função link padrão em `glm` para uma variável desfecho binomial é o `logit`, portanto, não há necessidade de especificar no modelo.  
 
-Inicialmente, será feita uma regressão logística do tipo entrada forçada (`enter`), método padrão de conduzir uma regressão que consiste em simplesmente colocar todos os preditores no modelo de regressão em um bloco e estimar parâmetros para cada um [@field2012logit].  O conjunto de dados `dados2` será usado no modelo com todos os preditores dentro da função. O objeto criado será denominado de `mod1`.
+Inicialmente, será feita uma regressão logística do tipo entrada forçada (`enter`), método padrão de conduzir uma regressão que consiste em simplesmente colocar todos os preditores no modelo de regressão em um bloco e estimar parâmetros para cada um [@field2012logit].  O dataframe `dados` será usado no modelo com todos os preditores dentro da função. O objeto criado será denominado de `mod1`.
 
 ```{r}
 mod1 <- glm(diabetes ~ ., 
-            data = dados2, 
+            data = dados, 
             family = binomial()) 
 ```
 
@@ -1704,7 +1705,7 @@ Nas *variáveis contínuas*, para cada aumento de uma unidade na concentração 
 
 Para *variáveis categóricas*, o desempenho de cada categoria é avaliado em relação a uma categoria de base. A categoria de base para a variável `idadeCateg` é 20–30 (primeira categoria que aparece quando se observa os níveis ^[Se houver uma justificativa, esta referência pode ser modificada, usando a função `relevel()` do pacote `stats`. Por exemplo, para mudar a referência da variável `idadeCateg` para 31-40, deve-se executar: `dados$idadeCateg <- relevel (dados$idadeCateg, ref = "31-40")`.]) e para `gestaCateg` é 0–5. A interpretação de tais variáveis é a seguinte:   
 
-Estar na faixa etária de 31-40 anos, versus faixa etária de 20-30, muda o `log(odds)` de ser diabético “1 = pos” (versus ser diabético “0 = neg”) em 0,854. Estar na faixa de 6–10 gravidezes, versus 0–5 gravidezes, muda o `log(odds)` de ser diabético “pos” (versus ser diabético “neg”) em -0,24.   
+* Estar na faixa etária de 31-40 anos, versus faixa etária de 20-30, muda o `log(odds)` de ser diabético “1 = pos” (versus ser diabético “0 = neg”) em 0,854. - * Estar na faixa de 6–10 gravidezes, versus 0–5 gravidezes, muda o `log(odds)` de ser diabético “pos” (versus ser diabético “neg”) em -0,24.   
 
 Como o `log(odds)` é difícil de interpretar, é possível exponenciar o `log(odds)` para colocar os resultados em uma escala de *odds*. O R calcula as *odds ratios* e seus IC95, usando a função `exp()` e, dentro dela, a função `coef()` – do coeficiente *b* para as variáveis preditoras – e a função `confint()`, que fornece os intervalos de confiança. A função `cbind()` combinará as duas. A função `round()` é dispensável, foi usada apenas para que o resultado tenha 5 dígitos:
 
@@ -1714,7 +1715,7 @@ round (exp(cbind(OR = coef(mod1), confint(mod1))), 5)
 
 A função `exp()` transformou o `log(odds)` em *odds*. A Saída mostra que a chance de ser diabético aumenta em um fator de 1,04 para um aumento de uma unidade na concentração de glicose, mantendo todas as outras variáveis constantes. Todo o IC95% encontra-se acima de 1. Isto ocorre com a `triceps` (prega cutânea tricipital), com o `imc`, `pedigree` (herança Pima), `idade acima de 30 anos`, indicando haver significância estatística, para essas variáveis, até este momento da análise.
 
-### Criação do modelo passo-a-passo (*stepwise*)
+### Criação do modelo passo a passo (*stepwise*)
 
 Existem vários métodos para seleção de variáveis, aqui será usado o método passo a passo (stepwise). O procedimento de seleção é realizado automaticamente por pacotes estatísticos como o pacote MASS @ripley2023mass através da função `stepAIC()` que utiliza o AIC (Critério de Informação de Akaike ^[https://www.scribbr.com/statistics/akaike-information-criterion/]) para a seleção [@field2012logisticreg]. Esta função usa os seguintes argumentos:
 
@@ -1774,48 +1775,48 @@ mod3 <- glm(diabetes ~ glicose,
 summary(mod3)  
 ```
 
-A seguir, utiliza-se a `glicose = c(90, 120, 150, 180)`, criando assim um novo *dataframe*, chamado `glicemia`. 
+A seguir, utiliza-se a `glicose = c(90, 120, 150, 180)`, criando assim um novo *dataframe*, chamado `diabetes`. 
 
 ```{r}
-glicemia <- data.frame (glicose = c(90, 120, 150, 180))
-glicemia
+diabetes <- data.frame (glicose = c(90, 120, 150, 180))
+diabetes
 ```
 
-A partir daí calcula-se as predições, colocando, no dataframe `glicemia`, uma variável de probabilidade de predição (`pred.prob`):  
+A partir daí calcula-se as predições, colocando, no dataframe `diabetes`, uma variável de probabilidade de predição (`pred.prob`):  
 
 ```{r}
-glicemia$pred.prob = predict(mod3, 
-                             newdata=glicemia, 
+diabetes$pred.prob = predict(mod3, 
+                             newdata=diabetes, 
                              type="response")
-glicemia
+diabetes
 ```
 
 A Saída mostra que a probabilidade de uma mulher de herança Pima ter diabete com uma glicemia de 90 mg% é 9,2%. Esta probabilidade sobe para 82,3% quando a glicemia é de 180 mg%.   
 
-Esta ferramenta permite também que o pesquisador faça a comparação das probabilidades usando outros preditores. Para isso basta acrescentar ao modelo de regressão logística outras variáveis, por exemplo, IMC igual a 25.
+Esta ferramenta permite também que se faça a comparação das probabilidades usando outros preditores. Para isso basta acrescentar ao modelo de regressão logística outras variáveis, por exemplo, IMC igual a 25.
 
 ```{r}
 mod4 <- glm(diabetes ~ glicose + imc, 
             family = binomial(link="logit"), 
-            data = dados2)
+            data = dados)
 summary(mod4)
 ```
 
 Acrescentar o ICM = 25 aos dados:  
 
 ```{r}
-dados3 <- data.frame (glicose = c(90, 120, 150, 180),
-                     imc = c(25, 25, 25, 25))
-dados3
+diabetes2 <- data.frame (glicose = c(90, 120, 150, 180),
+                         imc = c(25, 25, 25, 25))
+diabetes2
 ```
 
 A seguir, faz-se as predições:  
 
 ```{r}
-dados3$pred.prob = predict(mod4, 
-                          newdata=dados3, 
+diabetes2$pred.prob = predict(mod4, 
+                          newdata=diabetes2, 
                           type="response")
-dados3
+diabetes2
 ```
 
 Ou seja, uma mulher com herança Pima e um ICM = 25 kg/m2 e uma glicemia de 180 mg% tem 69,4% de probabilidade de ser diabética.  
@@ -1833,40 +1834,40 @@ Esta suposição pode ser testada examinando se o termo de interação entre o p
 **Glicose**  
 
 ```{r}
-dados2$glicoseInt <- log(dados2$glicose)*dados2$glicose
+dados$glicoseInt <- log(dados$glicose)*dados$glicose
 ```
 
 **IMC**  
 
 ```{r}
-dados2$imcInt <- log(dados2$imc)*dados2$imc
+dados$imcInt <- log(dados$imc)*dados$imc
 ```
 
 **Pedigree**  
 
 ```{r}
-dados2$pedigreeInt <- log(dados2$pedigree)*dados2$pedigree
+dados$pedigreeInt <- log(dados$pedigree)*dados$pedigree
 ```
 
-Essas variáveis foram adicionadas ao conjunto de dados `dados2`. podem ser observadas com a função `glimpse()`.   
+Essas variáveis foram adicionadas ao conjunto de dados `dados2`. podem ser observadas com a função `str()`.   
 
 ```{r}
-dplyr::glimpse(dados2)
+str(dados)
 ```
 
-Para criar `dados4`, as variáveis `pd`, `insulina`, `triceps` e `gestaCateg` do `dados2` são removidas, pois mostraram-se não significativas  quando se criou o `mod2` no método passo-a-passo (`stepwise`):
+As variáveis `pd`, `insulina`, `triceps` e `gestaCateg` serão removidas, pois mostraram-se não significativas quando se criou o `mod2` no método passo a passo (stepwise)::
 
 ```{r}
-dados4 <- dados2 %>% 
+dados <- dados %>% 
   dplyr::select(-c(gestaCateg, pd, insulina, triceps))
 
-names(dados4)
+names(dados)
 ```
 
-O conjunto de dados `dados4` será usado para criar um quinto modelo, `mod5`, para examinar o comportamento da interação entre o preditor e sua log transformação:
+Com as variáveis restantes, será criado um quinto modelo , mod5, para examinar o comportamento da interação entre o preditor e sua log transformação:
 
 ```{r}
-mod5 <- glm(diabetes~., family = binomial, data = dados4)
+mod5 <- glm(diabetes~., family = binomial, data = dados)
 summary(mod5)
 ```
 
@@ -1919,7 +1920,7 @@ summary(residuos_p)
 
 Em uma amostra normalmente distribuída, ao redor de 95% dos valores estão entre –1,96 e +1,96, 99% deve estar entre –2,58 e +2,58 e quase todos (99,9%) devem situar-se entre –3,09 e +3,09. Portanto, resíduos padronizados com um valor absoluto maior que 3 são motivo de preocupação porque em uma amostra média é improvável que aconteça um valor tão alto por acaso [@field2012outliers]. Na Saída, observa-se que os valores estão dentro de –3 e +3.   
 
-Essa avaliação pode ser acompanhada de um gráfico diagnóstico (veja seção da regressão linear para maiores detalhes), usando a função `plot()` para a função modelo `mod2`.
+Essa avaliação pode ser acompanhada de um gráfico diagnóstico (veja seção da regressão linear para maiores detalhes), usando a função `plot()` para o modelo `mod2`.
 
 ```{r graph5, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Gráfico diagnóstico dos resíduos e pontos de alavancagem.", fig.pos="H"}
 plot (mod2, which = 5)
@@ -1952,13 +1953,13 @@ Se a distância de Cook é < 1, não há necessidade real de excluir esse ponto,
 Inicialmente, será criada uma variável correspondente aos valores previstos (`mod2$fitted.values`) classificando como "pos" se o valor ajustado exceder 0,5, caso contrário, "neg".   
 
 ```{r}
-dados2$predito <- ifelse(mod2$fitted.values >0.5,"pos","neg")
+dados$predito <- ifelse(mod2$fitted.values >0.5,"pos","neg")
 ```
 
 Pode-se avaliar o desempenho do modelo (acurácia) com a comparação tabular entre os valores observados e os previstos:
 
 ```{r}
-tabDiabetes <- table(dados2$diabetes,dados2$predito)
+tabDiabetes <- table(dados$diabetes, dados$predito)
 rownames(tabDiabetes) <- c("Obs.neg", "Obs.pos")
 colnames(tabDiabetes) <- c("Pred.neg", "Pred.pos")
 tabDiabetes
@@ -1971,9 +1972,9 @@ acuracia <- sum(diag(tabDiabetes))/sum(tabDiabetes)
 acuracia
 ```
 
-A partir da matriz de confusão a acurácia do modelo é de 81,4%.
+De acordo com a matriz de confusão, a acurácia do modelo é de 81,4%.
 
-#### Curva ROC   
+#### Avaliação do modelo com a Curva ROC   
 
 A curva ROC permite explicar o desempenho do modelo avaliando a sensibilidade versus especificidade.  
 
@@ -1982,10 +1983,10 @@ Para se obter a curva ROC será usada a função `roc()` do pacote `pROC` (veja 
 Os comandos abaixo exibem em seus resultados (Figura \@ref(fig:rocpima)) a curva ROC e a área sob a curva (AUC) e seus IC95%. Quanto maior a área sob a curva melhor é o poder de predição do modelo [@fawcett2006introduction].
 
 ```{r rocpima, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Curva ROC do modelo de regressão.", fig.pos="H"}
-roc (dados2$diabetes,
+roc (dados$diabetes,
      mod2$fitted.values, 
      plot=TRUE,
-     legacy.axes=TRUE, 
+     legacy.axes=FALSE, 
      print.auc=TRUE,
      print.auc.y = 0.2,
      ci = TRUE,
