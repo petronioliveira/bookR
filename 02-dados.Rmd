@@ -27,7 +27,7 @@ Na pesquisa em saúde, a não ser quando se realiza um censo, coleta-se dados de
 > <font size=3> **População** ou **população-alvo** consiste em todos os elementos (indivíduos, itens, objetos) cujas características estão sendo estudadas.\
 > **Amostra** é a parte, subconjunto, da população selecionada para estudo. </font>
 
-Em decorrência do acaso, diferentes amostras de uma mesma população fornecem resultados diferentes. Este fato deve ser levado em consideração ao usar uma amostra para fazer inferência sobre uma população. Este fenômeno é denominado de **variação amostral** ou **erro amostral** e é a essência da estatística. O grau de certeza na inferência estatística depende da representatividade da amostra.
+Em decorrência do acaso, diferentes amostras de uma mesma população fornecem resultados diferentes. Este fato deve ser levado em consideração ao usar uma amostra para fazer inferência sobre uma população. Este fenômeno é denominado de **variação amostral** ou **erro amostral**^[Consulte também o capítulo 9] e é a essência da estatística. O grau de certeza na inferência estatística depende da representatividade da amostra.
 
 O processo de obtenção da amostra é chamado de **amostragem**. Mesmo que este processo seja adequado, a amostra nunca será uma cópia perfeita da população de onde ela foi extraída. Desta forma, em qualquer conclusão baseada em dados de uma amostra, sempre haverá o que é conhecido como erro amostral. Este erro deve ser tratado estatisticamente tendo em mente a teoria da amostragem, baseada em probabilidades.
 
@@ -35,9 +35,9 @@ O processo de obtenção da amostra é chamado de **amostragem**. Mesmo que este
  knitr::include_graphics("https://imgur.com/kEsGwnk.png")
 ```
 
-## Estimativas e Parâmetros
+## Estatística e Parâmetro
 
-**Estimativa** é uma característica que resume os dados de uma amostra (estatística amostral) e o **parâmetro** é uma característica estabelecida para toda a população. Os valores dos parâmetros são normalmente desconhecidos, porque é inviável medir uma população inteira. A estimativa é um valor aproximado do parâmetro. As estimativas são representadas por letras romanas e os parâmetros por letras gregas. Por exemplo, a media da população é representada por $\mu$ e a média da amostra por $\bar{x}$; o desvio padrão da população é denotado $\sigma$ e o desvio padrão da amostra por *s*.
+**Estatística** é uma característica que resume os dados de uma amostra e o **parâmetro** é uma característica estabelecida para toda a população. Os valores dos parâmetros são normalmente desconhecidos, porque é inviável medir uma população inteira. A estatística é um valor aproximado, uma estimativa, do parâmetro. As estatísticas são representadas por letras romanas^[Também podem ser representadas pela letra grega correspondente ao respectivo parâmetro com um acento circunflexo, por exemplo, a média amostral é $\hat{\mu}$, dita (mü chapéu).] e os parâmetros por letras gregas. Por exemplo, a media da população é representada por $\mu$ e a média da amostra por $\bar{x}$; o desvio padrão da população é denotado $\sigma$ e o desvio padrão da amostra por *s*.
 
 Na maioria dos estudos, são utilizadas amostras que fornecem estimativas que, para serem representativas da população, devem ser probabilísticas. Ou seja, a amostra deve ser recrutada de forma aleatória, permitindo que cada um dos membros da população tenha a mesma probabilidade de ser incluído na amostra. Além disso, uma amostra deve ter um tamanho adequado para permitir inferências válidas.
 

@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-10-17" />
+<meta name="date" content="2023-10-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,7 +175,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-e-dados"><i class="fa fa-check"></i><b>2.1</b> Variáveis e Dados</a></li>
 <li class="chapter" data-level="2.2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#população-e-amostra"><i class="fa fa-check"></i><b>2.2</b> População e Amostra</a></li>
-<li class="chapter" data-level="2.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#estimativas-e-parâmetros"><i class="fa fa-check"></i><b>2.3</b> Estimativas e Parâmetros</a></li>
+<li class="chapter" data-level="2.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#estatística-e-parâmetro"><i class="fa fa-check"></i><b>2.3</b> Estatística e Parâmetro</a></li>
 <li class="chapter" data-level="2.4" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escalas-de-medição"><i class="fa fa-check"></i><b>2.4</b> Escalas de medição</a>
 <ul>
 <li class="chapter" data-level="2.4.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-nominal"><i class="fa fa-check"></i><b>2.4.1</b> Escala Nominal</a></li>
@@ -669,7 +669,7 @@ Voltando a considerar, para fins didáticos, o <em>dataset</em> <code>dadosMater
 <span id="cb550-2"><a href="sec-estimacao.html#cb550-2" tabindex="-1"></a>dp_pop <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">sd</span>(rnt<span class="sc">$</span>pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
 <span id="cb550-3"><a href="sec-estimacao.html#cb550-3" tabindex="-1"></a>dp_pop</span></code></pre></div>
 <pre><code>## [1] 462</code></pre>
-<p>Agora, será extraída da população uma amostra de <em>n</em> = 30 <a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a> e calculado os mesmas medidas resumidoras;</p>
+<p>Agora, será extraída da população uma amostra de <em>n</em> = 30 <a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a> e calculado os mesmas medidas resumidoras;</p>
 <div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="sec-estimacao.html#cb552-1" tabindex="-1"></a><span class="fu">set.seed</span> (<span class="dv">1234</span>)</span>
 <span id="cb552-2"><a href="sec-estimacao.html#cb552-2" tabindex="-1"></a>rnt30 <span class="ot">&lt;-</span> rnt <span class="sc">%&gt;%</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">30</span>)</span>
 <span id="cb552-3"><a href="sec-estimacao.html#cb552-3" tabindex="-1"></a></span>
@@ -747,7 +747,7 @@ IC_{95\%}(\mu) \rightarrow  \bar{x} \pm  (1.96 \times \frac{\sigma}{\sqrt{n}})
 <span id="cb564-3"><a href="sec-estimacao.html#cb564-3" tabindex="-1"></a>ic95 <span class="ot">&lt;-</span> <span class="fu">c</span>(lim_inf, lim_sup)</span>
 <span id="cb564-4"><a href="sec-estimacao.html#cb564-4" tabindex="-1"></a><span class="fu">round</span>(ic95)</span></code></pre></div>
 <pre><code>## [1] 3057 3387</code></pre>
-<p>O <em>R</em> não tem um comando específico para encontrar os intervalos de confiança para a média dos dados normais quando o desvio padrão da população é conhecido. Então, foi criada uma função para calcular o intervalo de confiança, conhecendo-se o desvio padrão da população <a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a>. Esta função necessita dos seguintes argumentos:</p>
+<p>O <em>R</em> não tem um comando específico para encontrar os intervalos de confiança para a média dos dados normais quando o desvio padrão da população é conhecido. Então, foi criada uma função para calcular o intervalo de confiança, conhecendo-se o desvio padrão da população <a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a>. Esta função necessita dos seguintes argumentos:</p>
 <ul>
 <li><em>x</em> <span class="math inline">\(\rightarrow\)</span> conjunto de números da amostra</li>
 <li><em>s</em> <span class="math inline">\(\rightarrow\)</span> desvio padrão populacional</li>
@@ -790,7 +790,7 @@ IC_{95\%}(\mu) \rightarrow  \bar{x} \pm  (1.96 \times \frac{\sigma}{\sqrt{n}})
 <div id="interpretação-do-intervalo-de-confiança" class="section level3 hasAnchor" number="10.4.1">
 <h3><span class="header-section-number">10.4.1</span> Interpretação do intervalo de confiança<a href="sec-estimacao.html#interpretação-do-intervalo-de-confiança" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Se fossem extraídas todas as possíveis amostras de tamanho 30 da população de recém-nascidos a termo e construído para cada uma delas um intervalo de confiança de 95% em torno de cada média amostral, espera-se que 95% desses intervalos incluirão a média populacional e 5% não incluirão.</p>
-<p>O IC95% informa sobre a <em>precisão</em> com que a média amostral estima a média populacional desconhecida <a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a>.</p>
+<p>O IC95% informa sobre a <em>precisão</em> com que a média amostral estima a média populacional desconhecida <a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a>.</p>
 <p>Na Figura <a href="sec-estimacao.html#fig:vinte">10.2</a>, são mostradas 20 amostras diferentes de tamanho <em>n</em> = 30, retiradas da mesma população de recém-nascidos a termo da Maternidade do HGCS. Junto aparecem os intervalos de confiança de 95% construídos em torno dessas amostras. Observa-se que apenas uma amostra (em vermelho) não inclui a média populacional (linha tracejada vertical em azul). Pode-se afirmar com 95% de confiança que se forem extraídas muitas amostras do mesmo tamanho de uma população e construído intervalos de confiança de 95% em torno das médias dessas amostras, 95% desses intervalos de confiança incluirão a média populacional.</p>
 <div class="figure"><span style="display:block;" id="fig:vinte"></span>
 <img src="bookdownproj_files/figure-html/vinte-1.png" alt="IC 95% - 20 amostras de n = 30" width="672" />
@@ -1135,10 +1135,10 @@ Com estes dados, pode-se calcular o intervalo de confiança de 95%:</p>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="12">
-<li id="fn12"><p>É importante lembrar que toda vez que for extraída uma nova amostra de tamanho <em>n</em> = 30, o resultado será um conjunto de números diferentes e, em consequência, a média será diferente.<a href="sec-estimacao.html#fnref12" class="footnote-back">↩︎</a></p></li>
-<li id="fn13"><p>Situação rara! A regra é este ser desconhecido.<a href="sec-estimacao.html#fnref13" class="footnote-back">↩︎</a></p></li>
-<li id="fn14"><p>Anteriormente, mostrou-se a media populacional por uma questão didática. A regra é não se conhecer a média populacional, razão da importância do intervalo de confiança<a href="sec-estimacao.html#fnref14" class="footnote-back">↩︎</a></p></li>
+<ol start="14">
+<li id="fn14"><p>É importante lembrar que toda vez que for extraída uma nova amostra de tamanho <em>n</em> = 30, o resultado será um conjunto de números diferentes e, em consequência, a média será diferente.<a href="sec-estimacao.html#fnref14" class="footnote-back">↩︎</a></p></li>
+<li id="fn15"><p>Situação rara! A regra é este ser desconhecido.<a href="sec-estimacao.html#fnref15" class="footnote-back">↩︎</a></p></li>
+<li id="fn16"><p>Anteriormente, mostrou-se a media populacional por uma questão didática. A regra é não se conhecer a média populacional, razão da importância do intervalo de confiança<a href="sec-estimacao.html#fnref16" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-10-17" />
+<meta name="date" content="2023-10-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,7 +175,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-e-dados"><i class="fa fa-check"></i><b>2.1</b> Variáveis e Dados</a></li>
 <li class="chapter" data-level="2.2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#população-e-amostra"><i class="fa fa-check"></i><b>2.2</b> População e Amostra</a></li>
-<li class="chapter" data-level="2.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#estimativas-e-parâmetros"><i class="fa fa-check"></i><b>2.3</b> Estimativas e Parâmetros</a></li>
+<li class="chapter" data-level="2.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#estatística-e-parâmetro"><i class="fa fa-check"></i><b>2.3</b> Estatística e Parâmetro</a></li>
 <li class="chapter" data-level="2.4" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escalas-de-medição"><i class="fa fa-check"></i><b>2.4</b> Escalas de medição</a>
 <ul>
 <li class="chapter" data-level="2.4.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-nominal"><i class="fa fa-check"></i><b>2.4.1</b> Escala Nominal</a></li>
@@ -665,7 +665,7 @@ div.csl-indent {
 ##   &lt;fct&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
 ## 1 masc    592 3274.  458.
 ## 2 fem     493 3147.  458.</code></pre>
-<p>Suponha que se faça uma afimação de que existe uma diferença significativa entre os pesos ao nascer de meninos e meninas. Para confirmar isso, foi extraída uma amostra de 100 casos do conjunto <code>rnt</code>,sem reposição, considerada como a população de estudo. <a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a></p>
+<p>Suponha que se faça uma afimação de que existe uma diferença significativa entre os pesos ao nascer de meninos e meninas. Para confirmar isso, foi extraída uma amostra de 100 casos do conjunto <code>rnt</code>,sem reposição, considerada como a população de estudo. <a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a></p>
 <div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb610-1"><a href="teste-de-hipóteses.html#cb610-1" tabindex="-1"></a><span class="fu">set.seed</span> (<span class="dv">123</span>)</span>
 <span id="cb610-2"><a href="teste-de-hipóteses.html#cb610-2" tabindex="-1"></a>rnt100 <span class="ot">&lt;-</span> rnt <span class="sc">%&gt;%</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">100</span>)</span></code></pre></div>
 <p>Este conjunto de dados contém 100 observações de 30 variáveis. Como serão usadas apenas as variáveis <code>sexo</code> e <code>pesoRN</code>, ele será reduzido e a seguir serão obtidas as medidas sumarizadoras por sexo e atribuídas ao objeto <code>resumo2</code>:</p>
@@ -858,7 +858,7 @@ Figure 11.3: Nível de significância, probabilidade de erro tipo II, poder e n�
 </div>
 <div id="terceiro-passo-escolha-do-teste-estatístico-e-regra-de-decisão" class="section level3 hasAnchor" number="11.7.3">
 <h3><span class="header-section-number">11.7.3</span> Terceiro passo: Escolha do teste estatístico e regra de decisão<a href="teste-de-hipóteses.html#terceiro-passo-escolha-do-teste-estatístico-e-regra-de-decisão" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Escolher o teste a ser usado como mencionado acima. Verificar os seus pressupostos <a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a>, executar o teste e comparar o resultado com o valor crítico predeterminado pelo nível de significância , <span class="math inline">\(\alpha\)</span>. Para um teste <em>z</em>, por exemplo, para um <span class="math inline">\(\alpha = 0,05\)</span>, o valor crítico, para um teste bilateral, é igual a <span class="math inline">\(\pm\)</span> 1,96, como visto anteriormente.</p>
+<p>Escolher o teste a ser usado como mencionado acima. Verificar os seus pressupostos <a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a>, executar o teste e comparar o resultado com o valor crítico predeterminado pelo nível de significância , <span class="math inline">\(\alpha\)</span>. Para um teste <em>z</em>, por exemplo, para um <span class="math inline">\(\alpha = 0,05\)</span>, o valor crítico, para um teste bilateral, é igual a <span class="math inline">\(\pm\)</span> 1,96, como visto anteriormente.</p>
 </div>
 <div id="quarto-passo-conclusão" class="section level3 hasAnchor" number="11.7.4">
 <h3><span class="header-section-number">11.7.4</span> Quarto passo: Conclusão<a href="teste-de-hipóteses.html#quarto-passo-conclusão" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -873,9 +873,9 @@ Figure 11.3: Nível de significância, probabilidade de erro tipo II, poder e n�
 </div>
 <div class="footnotes">
 <hr />
-<ol start="15">
-<li id="fn15"><p>Conhecer os parâmetros da população, é muito raro. Aqui isto aconteceu, artificialmente, para fins didáticos.<a href="teste-de-hipóteses.html#fnref15" class="footnote-back">↩︎</a></p></li>
-<li id="fn16"><p>Ao estudar cada um dos testes será comentado com mais detalhes sobre estes pressupostos<a href="teste-de-hipóteses.html#fnref16" class="footnote-back">↩︎</a></p></li>
+<ol start="17">
+<li id="fn17"><p>Conhecer os parâmetros da população, é muito raro. Aqui isto aconteceu, artificialmente, para fins didáticos.<a href="teste-de-hipóteses.html#fnref17" class="footnote-back">↩︎</a></p></li>
+<li id="fn18"><p>Ao estudar cada um dos testes será comentado com mais detalhes sobre estes pressupostos<a href="teste-de-hipóteses.html#fnref18" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

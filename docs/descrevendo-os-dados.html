@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-10-17" />
+<meta name="date" content="2023-10-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,7 +175,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-e-dados"><i class="fa fa-check"></i><b>2.1</b> Variáveis e Dados</a></li>
 <li class="chapter" data-level="2.2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#população-e-amostra"><i class="fa fa-check"></i><b>2.2</b> População e Amostra</a></li>
-<li class="chapter" data-level="2.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#estimativas-e-parâmetros"><i class="fa fa-check"></i><b>2.3</b> Estimativas e Parâmetros</a></li>
+<li class="chapter" data-level="2.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#estatística-e-parâmetro"><i class="fa fa-check"></i><b>2.3</b> Estatística e Parâmetro</a></li>
 <li class="chapter" data-level="2.4" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escalas-de-medição"><i class="fa fa-check"></i><b>2.4</b> Escalas de medição</a>
 <ul>
 <li class="chapter" data-level="2.4.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-nominal"><i class="fa fa-check"></i><b>2.4.1</b> Escala Nominal</a></li>
@@ -1260,7 +1260,7 @@ Total
 <h3><span class="header-section-number">6.3.2</span> Tabelas de contingência<a href="descrevendo-os-dados.html#tabelas-de-contingência" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>As tabelas de contingência, também chamadas tabelas cruzadas, são bastante usadas em estatísticas epidemiológicas para resumir a relação entre duas ou mais variáveis categóricas.</p>
 <p>Uma tabela de contingência é um tipo especial de tabela de distribuição de frequência, onde duas variáveis são mostradas simultaneamente. Por exemplo, um pesquisador pode estar interessado em saber se o hábito de fumar na gestação aumenta o risco de o recém-nascido precisar de cuidados intensivos.<br />
-Existem duas variáveis <code>fumo</code> (fumo na gestação) e <code>utiNeo</code> (necessidade de cuidados intensivos neonatais) no banco de dados <code>dadosMater.xlsx</code>. Cada uma dessas variáveis tem duas alternativas, <code>sim</code> e <code>não</code>, por isso a tabela de cruzamento é denominada tabela de contingência 2 x 2. No arquivo, estão registradas como variáveis numéricas , 1 e 2, e devem ser transformadas para fatores (1 = sim e 2 = não)<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>, usando a função <code>factor()</code>.</p>
+Existem duas variáveis <code>fumo</code> (fumo na gestação) e <code>utiNeo</code> (necessidade de cuidados intensivos neonatais) no banco de dados <code>dadosMater.xlsx</code>. Cada uma dessas variáveis tem duas alternativas, <code>sim</code> e <code>não</code>, por isso a tabela de cruzamento é denominada tabela de contingência 2 x 2. No arquivo, estão registradas como variáveis numéricas , 1 e 2, e devem ser transformadas para fatores (1 = sim e 2 = não)<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>, usando a função <code>factor()</code>.</p>
 <div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="descrevendo-os-dados.html#cb288-1" tabindex="-1"></a>mater<span class="sc">$</span>fumo <span class="ot">&lt;-</span> <span class="fu">factor</span> (mater<span class="sc">$</span>fumo, </span>
 <span id="cb288-2"><a href="descrevendo-os-dados.html#cb288-2" tabindex="-1"></a>                      <span class="at">ordered =</span> <span class="cn">TRUE</span>, </span>
 <span id="cb288-3"><a href="descrevendo-os-dados.html#cb288-3" tabindex="-1"></a>                      <span class="at">levels =</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">2</span>), </span>
@@ -2710,8 +2710,7 @@ Figure 6.40: Gráfico de dispersão com alteração do formato
 <p>O formato (<code>shape</code>) pode ser colocado fora do <code>aes</code> (Figura <a href="descrevendo-os-dados.html#fig:point6">6.41</a>) e <a href="http://www.sthda.com/english/wiki/ggplot2-point-shapes"><strong>aqui</strong></a> se encontram vários formatos que podem ser usados no <code>ggplot2</code>Também é possível observar os diferentes formatos (<code>shape</code>), usando o seguinte comando, encontrado no pacote <code>ggpubr</code>:</p>
 <div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="descrevendo-os-dados.html#cb366-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">show_point_shapes</span>()</span></code></pre></div>
 <pre><code>## Scale for y is already present.
-## Adding another scale for y, which will replace the existing
-## scale.</code></pre>
+## Adding another scale for y, which will replace the existing scale.</code></pre>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-149-1.png" width="672" /></p>
 <div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="descrevendo-os-dados.html#cb368-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> dados) <span class="sc">+</span></span>
 <span id="cb368-2"><a href="descrevendo-os-dados.html#cb368-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x =</span> compRN, </span>
@@ -2728,7 +2727,7 @@ Figure 6.41: Gráfico de dispersão por sexo com alteração do argumento <code>
 </div>
 <div id="reta-de-ajuste-em-um-gráfico-de-dispersão" class="section level3 hasAnchor" number="6.5.5">
 <h3><span class="header-section-number">6.5.5</span> Reta de ajuste em um gráfico de dispersão<a href="descrevendo-os-dados.html#reta-de-ajuste-em-um-gráfico-de-dispersão" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Acrescenta-se uma nova camada , chamada <code>geom_smoot</code>, além da <code>geom_point</code>. Os argumentos são o <code>method = "lm"</code>que irá ajustar uma reta aos pontos. Também é possível colocar um intervalo de mais ou menos um erro padrão para a reta com o argumento<code>se = TRUE</code>. No exemplo (Figura <a href="descrevendo-os-dados.html#fig:point7">6.42</a>), foi usado <code>se = FALSE</code>. Além disso, foi solicitado que cor da reta seja preta (<code>color = "black"</code>), reduzido o seu tamanho (<code>size = 0.5</code>) e estabelecido que a reta seja tracejada (<code>linetype = "dashed"</code>) <a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>:</p>
+<p>Acrescenta-se uma nova camada , chamada <code>geom_smoot</code>, além da <code>geom_point</code>. Os argumentos são o <code>method = "lm"</code>que irá ajustar uma reta aos pontos. Também é possível colocar um intervalo de mais ou menos um erro padrão para a reta com o argumento<code>se = TRUE</code>. No exemplo (Figura <a href="descrevendo-os-dados.html#fig:point7">6.42</a>), foi usado <code>se = FALSE</code>. Além disso, foi solicitado que cor da reta seja preta (<code>color = "black"</code>), reduzido o seu tamanho (<code>size = 0.5</code>) e estabelecido que a reta seja tracejada (<code>linetype = "dashed"</code>) <a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>:</p>
 <div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="descrevendo-os-dados.html#cb369-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> dados, <span class="fu">aes</span>(<span class="at">x =</span> compRN, <span class="at">y =</span> pesoRN)) <span class="sc">+</span> </span>
 <span id="cb369-2"><a href="descrevendo-os-dados.html#cb369-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;tomato&quot;</span>, </span>
 <span id="cb369-3"><a href="descrevendo-os-dados.html#cb369-3" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
@@ -3122,8 +3121,7 @@ Figure 6.64: Gráfico de barras com eixo x modificado
 <div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="descrevendo-os-dados.html#cb395-1" tabindex="-1"></a>gbp <span class="sc">+</span> <span class="fu">scale_x_discrete</span> (<span class="at">limits =</span> <span class="fu">c</span>(<span class="st">&quot;20-35a&quot;</span>, <span class="st">&quot;&lt;20a&quot;</span>, <span class="st">&quot;&gt;35a&quot;</span>),</span>
 <span id="cb395-2"><a href="descrevendo-os-dados.html#cb395-2" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Adulta jovem&quot;</span>, <span class="st">&quot;Adolescente&quot;</span>, <span class="st">&quot;Gestante idosa&quot;</span>))</span></code></pre></div>
 <pre><code>## Scale for x is already present.
-## Adding another scale for x, which will replace the existing
-## scale.</code></pre>
+## Adding another scale for x, which will replace the existing scale.</code></pre>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:ordem"></span>
 <img src="bookdownproj_files/figure-html/ordem-1.png" alt="Gráfico de barras com eixo x modificado" width="80%" height="80%" />
 <p class="caption">
@@ -3280,9 +3278,9 @@ Figure 6.71: Influência do sexo e tabagismo materno no peso ao nascer.
 </div>
 <div class="footnotes">
 <hr />
-<ol start="9">
-<li id="fn9"><p>Poderiam ser transformados em fatores sem trocar os rótulos e manter os números 1 e 2, como se fossem palavras. O autor prefere usar nomes.<a href="descrevendo-os-dados.html#fnref9" class="footnote-back">↩︎</a></p></li>
-<li id="fn10"><p>Para outras opções do tipo de linha, pode-se usar a função <code>show_lines_types()</code> do pacote <code>ggpubr</code><a href="descrevendo-os-dados.html#fnref10" class="footnote-back">↩︎</a></p></li>
+<ol start="11">
+<li id="fn11"><p>Poderiam ser transformados em fatores sem trocar os rótulos e manter os números 1 e 2, como se fossem palavras. O autor prefere usar nomes.<a href="descrevendo-os-dados.html#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p>Para outras opções do tipo de linha, pode-se usar a função <code>show_lines_types()</code> do pacote <code>ggpubr</code><a href="descrevendo-os-dados.html#fnref12" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

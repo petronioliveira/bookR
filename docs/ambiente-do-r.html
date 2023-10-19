@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-10-17" />
+<meta name="date" content="2023-10-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,7 +175,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-e-dados"><i class="fa fa-check"></i><b>2.1</b> Variáveis e Dados</a></li>
 <li class="chapter" data-level="2.2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#população-e-amostra"><i class="fa fa-check"></i><b>2.2</b> População e Amostra</a></li>
-<li class="chapter" data-level="2.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#estimativas-e-parâmetros"><i class="fa fa-check"></i><b>2.3</b> Estimativas e Parâmetros</a></li>
+<li class="chapter" data-level="2.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#estatística-e-parâmetro"><i class="fa fa-check"></i><b>2.3</b> Estatística e Parâmetro</a></li>
 <li class="chapter" data-level="2.4" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escalas-de-medição"><i class="fa fa-check"></i><b>2.4</b> Escalas de medição</a>
 <ul>
 <li class="chapter" data-level="2.4.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-nominal"><i class="fa fa-check"></i><b>2.4.1</b> Escala Nominal</a></li>
@@ -659,8 +659,8 @@ div.csl-indent {
 <div id="instalação-do-r-studio" class="section level3 hasAnchor" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> Instalação do <em>R Studio</em><a href="ambiente-do-r.html#instalação-do-r-studio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Para instalar o <em>RStudio</em> , acessar o <a href="https://www.rstudio.com/products/rstudio/download/"><strong>site</strong></a> e clicar em <em>Download</em> para obter a versão desejada. Recomenda-se a versão <em>RStudio Desktop</em> – <em>Open Source License</em> que é gratuita. Esta versão entrega as ferramentas integradas para o <em>R</em>.</p>
-<p>A seguir, aparecerão os instaladores disponíveis, conforme a plataforma suportada pelo seu computador. As mais utilizadas são Windows e Mac OS X. Neste livro, como base, serão mostrados os passos para a plataforma Windows <a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>.</p>
-<p>Em sequência, executar o instalador baixado <em>RStudio-2023.03.0-386.exe</em> <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> e seguir as suas instruções.</p>
+<p>A seguir, aparecerão os instaladores disponíveis, conforme a plataforma suportada pelo seu computador. As mais utilizadas são Windows e Mac OS X. Neste livro, como base, serão mostrados os passos para a plataforma Windows <a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>.</p>
+<p>Em sequência, executar o instalador baixado <em>RStudio-2023.03.0-386.exe</em> <a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> e seguir as suas instruções.</p>
 </div>
 <div id="iniciando-o-rstudio" class="section level3 hasAnchor" number="4.2.2">
 <h3><span class="header-section-number">4.2.2</span> Iniciando o <em>RStudio</em><a href="ambiente-do-r.html#iniciando-o-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1119,7 +1119,7 @@ Os Data frames podem ser formados com objetos criados previamente, desde que ten
 <p>Ao ser executado o comando retornará um novo objeto da classe <code>data.frame</code>:</p>
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="ambiente-do-r.html#cb114-1" tabindex="-1"></a><span class="fu">class</span> (dadosNeonatos)</span></code></pre></div>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<p>Havendo necessidade de acrescentar outra variável no banco de dados <code>dadosNeonatos</code>, por exemplo, os dados da ida ou não dos recém-nascidos para a UTI. Para isso, será atribuido a um vetor, contendo a situação dos 15 recém-nascidos, o nome de utiNeo e para relacioná-lo a uma coluna do dataframe dadosNeonatos, será usado o símbolo $, como mostrado abaixo <a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>:</p>
+<p>Havendo necessidade de acrescentar outra variável no banco de dados <code>dadosNeonatos</code>, por exemplo, os dados da ida ou não dos recém-nascidos para a UTI. Para isso, será atribuido a um vetor, contendo a situação dos 15 recém-nascidos, o nome de utiNeo e para relacioná-lo a uma coluna do dataframe dadosNeonatos, será usado o símbolo $, como mostrado abaixo <a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>:</p>
 <div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="ambiente-do-r.html#cb116-1" tabindex="-1"></a>dadosNeonatos<span class="sc">$</span>utiNeo <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>)</span></code></pre></div>
 <p>Para observar o novo banco de dados, pode-se usar a função <code>str()</code> do <em>R</em> base. Digitar no <em>R Script</em>:</p>
 <div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="ambiente-do-r.html#cb117-1" tabindex="-1"></a><span class="fu">str</span> (dadosNeonatos)</span></code></pre></div>
@@ -1194,10 +1194,10 @@ Os Data frames podem ser formados com objetos criados previamente, desde que ten
 </div>
 <div class="footnotes">
 <hr />
-<ol start="3">
-<li id="fn3"><p>A instalação para Mac OS X pode ser facilmente obtida em busca do Google. Depois de instalado, o uso do <em>RStudio</em> não difere do Windows<a href="ambiente-do-r.html#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p>Versão disponível em 10/04/2023<a href="ambiente-do-r.html#fnref4" class="footnote-back">↩︎</a></p></li>
-<li id="fn5"><p>A variável criada, <code>utiNeo</code>, possui dois níveis: 1 = sim; 2 = não, referente se o bebê foi ou não para a UTI.<a href="ambiente-do-r.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<ol start="5">
+<li id="fn5"><p>A instalação para Mac OS X pode ser facilmente obtida em busca do Google. Depois de instalado, o uso do <em>RStudio</em> não difere do Windows<a href="ambiente-do-r.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>Versão disponível em 10/04/2023<a href="ambiente-do-r.html#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>A variável criada, <code>utiNeo</code>, possui dois níveis: 1 = sim; 2 = não, referente se o bebê foi ou não para a UTI.<a href="ambiente-do-r.html#fnref7" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

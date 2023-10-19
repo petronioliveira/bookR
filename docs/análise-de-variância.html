@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-10-17" />
+<meta name="date" content="2023-10-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,7 +175,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-e-dados"><i class="fa fa-check"></i><b>2.1</b> Variáveis e Dados</a></li>
 <li class="chapter" data-level="2.2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#população-e-amostra"><i class="fa fa-check"></i><b>2.2</b> População e Amostra</a></li>
-<li class="chapter" data-level="2.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#estimativas-e-parâmetros"><i class="fa fa-check"></i><b>2.3</b> Estimativas e Parâmetros</a></li>
+<li class="chapter" data-level="2.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#estatística-e-parâmetro"><i class="fa fa-check"></i><b>2.3</b> Estatística e Parâmetro</a></li>
 <li class="chapter" data-level="2.4" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escalas-de-medição"><i class="fa fa-check"></i><b>2.4</b> Escalas de medição</a>
 <ul>
 <li class="chapter" data-level="2.4.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-nominal"><i class="fa fa-check"></i><b>2.4.1</b> Escala Nominal</a></li>
@@ -671,7 +671,7 @@ Figure 13.1: Impacto do tabagismo materno no peso ao nascer
 </div>
 <div id="lógica-do-modelo-da-anova" class="section level3 hasAnchor" number="13.2.2">
 <h3><span class="header-section-number">13.2.2</span> Lógica do Modelo da ANOVA<a href="análise-de-variância.html#lógica-do-modelo-da-anova" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>O procedimento de ANOVA é utilizado para testar a hipótese nula de que as médias de três <a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a> ou mais populações são as mesmas contra hipótese alternativa de que nem todas as médias são iguais.</p>
+<p>O procedimento de ANOVA é utilizado para testar a hipótese nula de que as médias de três <a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a> ou mais populações são as mesmas contra hipótese alternativa de que nem todas as médias são iguais.</p>
 <p>No capítulo de comparação de duas médias, foi usado um teste para comparar duas variâncias, denominado de <em>teste F</em>. Este teste, é uma razão entre duas variâncias e recebeu este nome em homenagem a Sir Ronald Aylmer <em>Fisher</em>.</p>
 <p>A variância é uma medida de dispersão que mensura como os dados estão espalhados em torno da média. Quanto maior o seu valor, maior a dispersão.</p>
 <p>Considere a Figura <a href="análise-de-variância.html#fig:logica">13.2</a>, onde está representada a distribuição de uma variável X em três grupos independentes. Pode-se, claramente, distinguir observações provenientes dessas distribuições, pois a sobreposição delas é pequena. Cada uma dela se dispersa pouco em torno da média.</p>
@@ -1373,7 +1373,7 @@ Figure 13.14: Normalidade dos resíduos - QQ plot.
 ##       Df F value Pr(&gt;F)
 ## group  5  1.5268 0.2021
 ##       42</code></pre>
-<p>Uma outra maneira de avaliar a homogeneidade da variância, é construir um gráfico diagnóstico<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a> (Figura <a href="análise-de-variância.html#fig:residuals">13.15</a>) do modelo com a função <code>plot()</code>, tipo 1, resíduos versus ajustes (<em>Residuals vs Fitted</em>).</p>
+<p>Uma outra maneira de avaliar a homogeneidade da variância, é construir um gráfico diagnóstico<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a> (Figura <a href="análise-de-variância.html#fig:residuals">13.15</a>) do modelo com a função <code>plot()</code>, tipo 1, resíduos versus ajustes (<em>Residuals vs Fitted</em>).</p>
 <div class="sourceCode" id="cb753"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb753-1"><a href="análise-de-variância.html#cb753-1" tabindex="-1"></a><span class="fu">plot</span>(mod.int.lm, <span class="dv">1</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:residuals"></span>
 <img src="bookdownproj_files/figure-html/residuals-1.png" alt="Resíduos versus ajuste" width="70%" height="70%" />
@@ -1802,9 +1802,9 @@ Figure 13.17: Efeito do álcool na memória de acordo com o sexo.
 </div>
 <div class="footnotes">
 <hr />
-<ol start="18">
-<li id="fn18"><p>Pode ser usada também para comparar a média de duas populações e o resultado será o mesmo de um teste <em>t</em> para amostras independentes.<a href="análise-de-variância.html#fnref18" class="footnote-back">↩︎</a></p></li>
-<li id="fn19"><p>Outros gráficos diagnósticos podem ser obtidos para analisar resíduos em um modelo de regressão <span class="citation">(120)</span><a href="análise-de-variância.html#fnref19" class="footnote-back">↩︎</a></p></li>
+<ol start="20">
+<li id="fn20"><p>Pode ser usada também para comparar a média de duas populações e o resultado será o mesmo de um teste <em>t</em> para amostras independentes.<a href="análise-de-variância.html#fnref20" class="footnote-back">↩︎</a></p></li>
+<li id="fn21"><p>Outros gráficos diagnósticos podem ser obtidos para analisar resíduos em um modelo de regressão <span class="citation">(120)</span><a href="análise-de-variância.html#fnref21" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

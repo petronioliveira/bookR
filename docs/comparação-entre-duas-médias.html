@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-10-17" />
+<meta name="date" content="2023-10-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,7 +175,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-e-dados"><i class="fa fa-check"></i><b>2.1</b> Variáveis e Dados</a></li>
 <li class="chapter" data-level="2.2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#população-e-amostra"><i class="fa fa-check"></i><b>2.2</b> População e Amostra</a></li>
-<li class="chapter" data-level="2.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#estimativas-e-parâmetros"><i class="fa fa-check"></i><b>2.3</b> Estimativas e Parâmetros</a></li>
+<li class="chapter" data-level="2.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#estatística-e-parâmetro"><i class="fa fa-check"></i><b>2.3</b> Estatística e Parâmetro</a></li>
 <li class="chapter" data-level="2.4" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escalas-de-medição"><i class="fa fa-check"></i><b>2.4</b> Escalas de medição</a>
 <ul>
 <li class="chapter" data-level="2.4.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-nominal"><i class="fa fa-check"></i><b>2.4.1</b> Escala Nominal</a></li>
@@ -892,7 +892,7 @@ EP_d = \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}
 </ol>
 <p>Violar o pressuposto de número 3 tem importância se os tamanhos dos grupos forem diferentes. Se os grupos tiverem o mesmo tamanho e a amostra for grande, este pressuposto torna-se menos importante, não importando muito se esta hipótese foi violada <span class="citation">(103)</span>. O pressuposto tem mais importância em grupos pequenos e desiguais. Existe um teste, denominado <em>teste t de Welch</em> que corrige essa violação. É possível portanto, esquecer esse pressuposto e fazer o teste de Welch sempre.</p>
 <p><strong>Avaliação da normalidade</strong></p>
-<p>Uma boa parte dos procedimentos estatísticos são testes paramétricos <a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a> com base na distribuição normal. Ou seja, se assume que a distribuição dos dados segue o modelo da distribuição normal. Se essa suposição não for atendida, a lógica por trás do teste de hipóteses pode ser violada.</p>
+<p>Uma boa parte dos procedimentos estatísticos são testes paramétricos <a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a> com base na distribuição normal. Ou seja, se assume que a distribuição dos dados segue o modelo da distribuição normal. Se essa suposição não for atendida, a lógica por trás do teste de hipóteses pode ser violada.</p>
 <p>Pode-se verificar a normalidade de maneira visual, observando o comportamento dos dados através de gráficos como o <em>histograma</em> (Figura <a href="comparação-entre-duas-médias.html#fig:histpop">12.2</a>) e o <em>gráfico Q-Q</em> (Figura <a href="comparação-entre-duas-médias.html#fig:qqpop">12.3</a>). É útil também sobrepor uma distribuição normal no histograma, para fins de comparação com a distribuição normal. Além disso, na Figura <a href="comparação-entre-duas-médias.html#fig:histpop">12.2</a>, pode-se observar como as duas populações se sobrepõem (veja também a Figura <a href="introdução-à-teoria-das-probabilidades.html#fig:woman">7.8</a>).</p>
 <div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="comparação-entre-duas-médias.html#cb636-1" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> resumo<span class="sc">$</span>media[<span class="dv">1</span>]</span>
 <span id="cb636-2"><a href="comparação-entre-duas-médias.html#cb636-2" tabindex="-1"></a>dp1 <span class="ot">&lt;-</span> resumo<span class="sc">$</span>dp[<span class="dv">1</span>]</span>
@@ -1776,8 +1776,8 @@ Figure 12.11: Gráfico de linha comparando o grupo antes-e-depois
 </div>
 <div class="footnotes">
 <hr />
-<ol start="17">
-<li id="fn17"><p>Teste paramétricos são testes estatísticos que se baseiam nos padrões da distribuição populacional da variável em estudo, por exemplo, a distribuição normal é descrita por dois parâmetros – média e desvio padrão – que são suficientes para se conhecer as probabilidades. Os testes que não requerem a especificação da forma de distribuição da população, ou seja, têm distribuição livre, são denominados de não paramétricos.<a href="comparação-entre-duas-médias.html#fnref17" class="footnote-back">↩︎</a></p></li>
+<ol start="19">
+<li id="fn19"><p>Teste paramétricos são testes estatísticos que se baseiam nos padrões da distribuição populacional da variável em estudo, por exemplo, a distribuição normal é descrita por dois parâmetros – média e desvio padrão – que são suficientes para se conhecer as probabilidades. Os testes que não requerem a especificação da forma de distribuição da população, ou seja, têm distribuição livre, são denominados de não paramétricos.<a href="comparação-entre-duas-médias.html#fnref19" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

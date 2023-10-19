@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-10-17" />
+<meta name="date" content="2023-10-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,7 +175,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#variáveis-e-dados"><i class="fa fa-check"></i><b>2.1</b> Variáveis e Dados</a></li>
 <li class="chapter" data-level="2.2" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#população-e-amostra"><i class="fa fa-check"></i><b>2.2</b> População e Amostra</a></li>
-<li class="chapter" data-level="2.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#estimativas-e-parâmetros"><i class="fa fa-check"></i><b>2.3</b> Estimativas e Parâmetros</a></li>
+<li class="chapter" data-level="2.3" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#estatística-e-parâmetro"><i class="fa fa-check"></i><b>2.3</b> Estatística e Parâmetro</a></li>
 <li class="chapter" data-level="2.4" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escalas-de-medição"><i class="fa fa-check"></i><b>2.4</b> Escalas de medição</a>
 <ul>
 <li class="chapter" data-level="2.4.1" data-path="natureza-dos-dados.html"><a href="natureza-dos-dados.html#escala-nominal"><i class="fa fa-check"></i><b>2.4.1</b> Escala Nominal</a></li>
@@ -773,7 +773,7 @@ bom
 <p><font size=3> <strong>População</strong> ou <strong>população-alvo</strong> consiste em todos os elementos (indivíduos, itens, objetos) cujas características estão sendo estudadas.<br />
 <strong>Amostra</strong> é a parte, subconjunto, da população selecionada para estudo. </font></p>
 </blockquote>
-<p>Em decorrência do acaso, diferentes amostras de uma mesma população fornecem resultados diferentes. Este fato deve ser levado em consideração ao usar uma amostra para fazer inferência sobre uma população. Este fenômeno é denominado de <strong>variação amostral</strong> ou <strong>erro amostral</strong> e é a essência da estatística. O grau de certeza na inferência estatística depende da representatividade da amostra.</p>
+<p>Em decorrência do acaso, diferentes amostras de uma mesma população fornecem resultados diferentes. Este fato deve ser levado em consideração ao usar uma amostra para fazer inferência sobre uma população. Este fenômeno é denominado de <strong>variação amostral</strong> ou <strong>erro amostral</strong><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> e é a essência da estatística. O grau de certeza na inferência estatística depende da representatividade da amostra.</p>
 <p>O processo de obtenção da amostra é chamado de <strong>amostragem</strong>. Mesmo que este processo seja adequado, a amostra nunca será uma cópia perfeita da população de onde ela foi extraída. Desta forma, em qualquer conclusão baseada em dados de uma amostra, sempre haverá o que é conhecido como erro amostral. Este erro deve ser tratado estatisticamente tendo em mente a teoria da amostragem, baseada em probabilidades.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:pop"></span>
 <img src="https://imgur.com/kEsGwnk.png" alt="População, amostra e inferência estatística" width="70%" />
@@ -782,9 +782,9 @@ Figure 2.1: População, amostra e inferência estatística
 </p>
 </div>
 </div>
-<div id="estimativas-e-parâmetros" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> Estimativas e Parâmetros<a href="natureza-dos-dados.html#estimativas-e-parâmetros" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>Estimativa</strong> é uma característica que resume os dados de uma amostra (estatística amostral) e o <strong>parâmetro</strong> é uma característica estabelecida para toda a população. Os valores dos parâmetros são normalmente desconhecidos, porque é inviável medir uma população inteira. A estimativa é um valor aproximado do parâmetro. As estimativas são representadas por letras romanas e os parâmetros por letras gregas. Por exemplo, a media da população é representada por <span class="math inline">\(\mu\)</span> e a média da amostra por <span class="math inline">\(\bar{x}\)</span>; o desvio padrão da população é denotado <span class="math inline">\(\sigma\)</span> e o desvio padrão da amostra por <em>s</em>.</p>
+<div id="estatística-e-parâmetro" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Estatística e Parâmetro<a href="natureza-dos-dados.html#estatística-e-parâmetro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Estatística</strong> é uma característica que resume os dados de uma amostra e o <strong>parâmetro</strong> é uma característica estabelecida para toda a população. Os valores dos parâmetros são normalmente desconhecidos, porque é inviável medir uma população inteira. A estatística é um valor aproximado, uma estimativa, do parâmetro. As estatísticas são representadas por letras romanas<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> e os parâmetros por letras gregas. Por exemplo, a media da população é representada por <span class="math inline">\(\mu\)</span> e a média da amostra por <span class="math inline">\(\bar{x}\)</span>; o desvio padrão da população é denotado <span class="math inline">\(\sigma\)</span> e o desvio padrão da amostra por <em>s</em>.</p>
 <p>Na maioria dos estudos, são utilizadas amostras que fornecem estimativas que, para serem representativas da população, devem ser probabilísticas. Ou seja, a amostra deve ser recrutada de forma aleatória, permitindo que cada um dos membros da população tenha a mesma probabilidade de ser incluído na amostra. Além disso, uma amostra deve ter um tamanho adequado para permitir inferências válidas.</p>
 </div>
 <div id="escalas-de-medição" class="section level2 hasAnchor" number="2.4">
@@ -845,6 +845,13 @@ Figure 2.2: Caminho para identificar o tipo de variável
 
 </div>
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="2">
+<li id="fn2"><p>Consulte também o capítulo 9<a href="natureza-dos-dados.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Também podem ser representadas pela letra grega correspondente ao respectivo parâmetro com um acento circunflexo, por exemplo, a média amostral é <span class="math inline">\(\hat{\mu}\)</span>, dita (mü chapéu).<a href="natureza-dos-dados.html#fnref3" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 
