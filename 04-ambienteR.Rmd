@@ -108,7 +108,7 @@ No lado superior direito há um painel com quatro abas (Figura \@ref(fig:inicial
  knitr::include_graphics("https://i.imgur.com/wSgusUJ.png")
 ```
 
-**Arquivos, Gráficos, Pacotes e Ajuda**  
+**Arquivos, Gráficos, Pacotes, Ajuda e Apresentação**  
 
 No lado direito, abaixo, existem outras abas muito úteis (Figura \@ref(fig:inicial), em amarelo):
 
@@ -118,7 +118,9 @@ No lado direito, abaixo, existem outras abas muito úteis (Figura \@ref(fig:inic
 
 3) **Pacotes (Packages)** - mostra uma lista de todos os pacotes *R* instalados no seu computador e indica se eles estão atualmente carregados ou não. Pacotes que estão sendo executados na sessão atual, estão marcados, enquanto aqueles que estão instalados, mas ainda inativos, estão desmarcados.  
 
-4) **Ajuda (Help)** - menu de ajuda para as funções *R*. Você pode digitar o nome de uma função na janela de pesquisa (por exemplo, `histogram` ou usar o `?hist`), no *Console* ou no *R Script*, para procurar ajuda sobre uma função (Figura \@ref(fig:ajuda)). A Ajuda no *R Studio* pode também ser acessada no menu *Help* da barra de ferramentas onde existem várias opções. Para complementar, alguns livros são muito uteis, como o *R Cookbook* @chang2021cookbook ou *Using *R* for introductory statistics* @verzani2004using. No entanto, na maioria das vezes a forma mais prática de conseguir ajuda com uma dúvida específica é a busca em fóruns na internet, como o *Stack Overflow*: <https://stackoverflow.com/>.
+4) **Ajuda (Help)** - menu de ajuda para as funções *R*. Você pode digitar o nome de uma função na janela de pesquisa (por exemplo, `histogram` ou usar o `?hist`), no *Console* ou no *R Script*, para procurar ajuda sobre uma função (Figura \@ref(fig:ajuda)). A Ajuda no *R Studio* pode também ser acessada no menu *Help* da barra de ferramentas onde existem várias opções. Para complementar, alguns livros são muito uteis, como o *R Cookbook* @chang2021cookbook ou *Using *R* for introductory statistics* @verzani2004using. No entanto, na maioria das vezes a forma mais prática de conseguir ajuda com uma dúvida específica é a busca em fóruns na internet, como o *Stack Overflow*: <https://stackoverflow.com/>.  
+
+5) **Apresentação (Presentation) ** – é visualizador de apresentações. Nas últimas versões do Rstudio, é possível com o Quarto, editar um código em R Markdown para construir uma apresentação. Não faz parte do objetivo deste livro desenvolver este assunto. É possível encontrar um tutorial em <https://quarto.org/docs/get-started/hello/rstudio.html>. 
 
 ```{r ajuda, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap="Ajuda do RStudio", fig.pos="ht"}
  knitr::include_graphics("https://i.imgur.com/XlGJgCt.png")
@@ -138,7 +140,7 @@ Quando se identifica a necessidade de um novo pacote, é fundamental saber onde 
 
 Estando na página do CRAN, no menu, à esquerda, clique em *Packages* . Isto o colocará na página dos *Contributed Packages*, onde a maioria dos pacotes podem ser encontrados em *Table of available packages, sorted by name* . Também é possível clicar em CRAN *Task Views* , onde estão os pacotes separados por tópicos.  
 
-### Instalação de um novo pacote 
+### Instalação de um  pacote novo
 
 Instalar um pacote significa simplesmente baixar o código do pacote em um computador pessoal. Existem duas maneiras principais de instalar novos pacotes. O método mais comum é baixá-los do CRAN, usando a função `install.packages ()`. Dentro dos parênteses, como argumento, coloca-se entre aspas (duplas ou simples) o nome do pacote. Como visto, deve-se, de preferência, digitar o comando no *R Script*. Por exemplo, será instalado o pacote `ggplot2` que contém múltiplas funções gráficas como abaixo: 
 
@@ -184,7 +186,7 @@ Posteriormente, basta usar uma das funções do `easypackages`:
 libraries("readxl", "dplyr", "ggplot2", "car")
 ```
 
-Outro pacote que gerencia pacotes do *R* é o `pacman`. Este pacote tem a função `p_load()` que instala e carrega um ou mais pacotes.  Usar  esta função, escrevendo o nome dos pacotes sem necessidade de aspas:
+Outro pacote que gerencia pacotes do *R* é o `pacman` [@tyler2018pacman]. Este pacote tem a função `p_load()` que instala e carrega um ou mais pacotes.  Usar  esta função, escrevendo o nome dos pacotes sem necessidade de aspas:
 
 ```{r eval=FALSE}
 install.packages("pacman")
@@ -257,31 +259,17 @@ Operadores são usados para realizar operações com variáveis e valores.
 
 No *R*, você pode usar operadores aritméticos para realizar operações matemáticas comuns. 
 
-
 ```{r}
-# Adição
-10 + 5
-
-# Subtração
-10 - 5
-
-# Multiplicação
-10 * 5
-
-# Divisão
-10 / 5
-
-# Potência  
-10 ^ 5
-
-# Divisão modular (divisão com resto)
-10 %% 3
-
-# Divisão inteiro
-10 %/% 3
+ 10 + 5        # Adição
+ 10 - 5        # Subtração
+ 10 * 5        # Multiplicação
+ 10 / 5        # Divisão
+ 10 ^ 5        # Potência
+ 10 %% 3       # Divisão modular (divisão com resto)
+ 10 %/% 3      # Divisão inteiro
 ```
 
-O resultado da exponenciação é exibido como notação científica, onde $e+05$ significa $10^5$.
+Observe que o R repete a operação e coloca em baixo o resultado precedido por [1]. O resultado da operação de exponenciação é exibido como notação científica, onde $e+05$ significa $10^5$.
 
 **Operadores de atribuição**
 
@@ -332,9 +320,14 @@ Operadores lógicos são usados para combinar declarações condicionais:
 # Conjunção lógica NÃO, retorna FALSE se o  elemento é verdadeiro
 !6==6
 !2==4
+
+# Operador lógico que verifica se um elemento pertence a um conjunto (%in%)
+
+ pares <- c(0, 2, 4, 6, 8, 10)
+ 5 %in% pares
 ```
 
-**Logarítimo**
+**Outros operadores**
 
 ```{r}
 # Logarítmo natural (base e)
@@ -342,17 +335,11 @@ log (10)
 
 # Logarítmo base 10
 log10 (10)       
-```
 
-**Raiz quadrada**
-
-```{r}
+# Raiz quadrada
 sqrt (81)
-```
 
-**Resultado absoluto**
-
-```{r}
+# Resultado absoluto
 abs (3 - 6)
 ```
 

@@ -8,7 +8,7 @@ Foi visto. quando estudou-se os dataframes, que é possível inserir dados diret
 
 O formato CSV significa *Comma Separated Values*, ou seja, é um arquivo de valores separados por vírgula. Esse formato de armazenamento é simples e agrupa informações de arquivos de texto em planilhas. É possível gerar um arquivo `.csv`, a partir de uma planilha do Excel, usando o menu `salvar como` e escolher `CSV`.  
 
-As funções `read.csv()` e `read.csv2()`, incluídas no*R*base, podem ser utilizadas para importar arquivos CSV. Existe uma pequena diferença entre elas. Dois argumentos dessas funções têm padrão diferentes em cada uma. São eles: `sep` (separador de colunas) e `dec` (separador de decimais). Em `read.csv()`, o padrão é `sep = ”,”` e `dec = ”.”` e em `read.csv2()` o padrão é `sep = “;”` e `dec = ”,”`. Portanto, quando se importa um arquivo `.csv`, é importante saber qual a sua estrutura. Verificar se os decimais estão separados por *ponto* ou por *vírgula* e se as colunas (variáveis), por *vírgula* ou *ponto e vírgula*.   
+As funções `read.csv()` e `read.csv2()`, incluídas no*R*base, podem ser utilizadas para importar arquivos CSV. Existe uma pequena diferença entre elas. Dois argumentos dessas funções têm padrão diferentes em cada uma. São eles: `sep` (separador de colunas) e `dec` (separador de decimais). Em `read.csv()`, o padrão é `sep = ”,”` e `dec = ”.”` e em `read.csv2()` o padrão é `sep = “;”` e `dec = ”,”`. Portanto, quando se importa um arquivo `.csv`, é importante saber qual a sua estrutura. Verificar se os decimais estão separados por *ponto* ou por *vírgula* e se as colunas (variáveis), por *vírgula* ou *ponto e vírgula*. Para ver isso, basta abrir o arquivo em um bloco de notas (por exemplo, *Bloco de Notas do Windows*, *Notepad ++*). 
 
 Quando se usa o `read.csv()` há necessidade de informar o separador e o decimal, pois senão ele usará o padrão inglês e o arquivo não será lido. Já com `read.csv2()`, que usa o padrão brasileiro, não há necessidade de informar ao*R*qual o separador de colunas e nem o separador dos decimais.  
 
@@ -16,28 +16,33 @@ Além disso, é necessário saber em que diretório do computador está o arquiv
 
 Como exemplo, será importado o arquivo `dadosNeonatos.csv` que se encontra no diretório de trabalho do autor, salvo anteriormente. Para obter o arquivo, clique no [**link**](https://github.com/petronioliveira/Arquivos/blob/main/dadosNeonatos.csv) e salve em seu diretório de trabalho.  
 
-A estrutura deste arquivo mostra que as colunas estão separadas por ponto-e-virgula e, portanto, a leitura dos dados será feita com a função `read.csv2()` e, como o arquivo está no diretório de trabalho, não há necessidade de informar o diretório completo. Os dados serão colocados em um objeto de nome `neonatos`: 
+A estrutura deste arquivo mostra que as colunas estão separadas por ponto-e-virgula e, portanto, a leitura dos dados será feita com a função `read.csv2()` e, como o arquivo está no diretório de trabalho, não há necessidade de informar o diretório completo. Os dados serão colocados em um objeto de nome `neonatos` ^[A mudança do nome do dataframe de dadosNeonatos para neonatos é desnecessária. Foi realizada apenas por questões didáticas.]: 
 
 ```{r}
 neonatos <- read.csv2("./Arquivos/dadosNeonatos.csv")
 ```
 
+Use a função `str()` para visualizar o conjunto de dados:^[Observe, na saída, que na variável `utiNeo` aparece palavras com acentuação (“não”). Às vezes, ao abrir o arquivo com a função `read.csv2()`, pode acontecer de esta palavra aparecer, por exemplo, como: “n\xe3o”. Louco, não é? Se ocorrer isso, use, após o nome do arquivo e separado por vírgula, o argumento `fileEncoding = “latin1”`. Dessa forma, o erro será corrigido.]  
 ```{r}
 str(neonatos)
 ```
 
-Recentemente, foi desenvolvido o pacote `readr`, incluído no conjunto de pacotes `tidyverse`@wickham2019tidyverse, para lidar rapidamente com a leitura de grandes arquivos. O pacote fornece substituições para funções como `read.csv()`. As funções `read_csv()` e `read_csv2()` oferecidas pelo `readr` são análogas às do*R*base. Entretanto, são muito mais rápidas e fornecem mais recursos, como um método compacto para especificar tipos de coluna.  
-
-Uma leitura típica para `read_csv2()` terá a seguinte aparência. Será criado um outro objeto de nome `recemNascidos` apenas para facilitar, didaticamente, ele é exatamente igual ao neonatos: 
+Recentemente, foi desenvolvido o pacote `readr`, incluído no conjunto de pacotes `tidyverse`@wickham2019tidyverse, para lidar rapidamente com a leitura de grandes arquivos. O pacote fornece substituições para funções como `read.csv()`. As funções `read_csv()` e `read_csv2()` oferecidas pelo `readr` são análogas às do*R*base. Entretanto, são muito mais rápidas e fornecem mais recursos, como um método compacto para especificar tipos de coluna. Além disso, produzem `tibbles` (ver adiante, neste mesmo capítulo) que são mais reproduzíveis, pois as funções básicas do R herdam alguns comportamentos do sistema operacional e das variáveis de ambiente, portanto, o código de importação que funciona no seu computador pode não funcionar no de outra pessoa. 
+Para usar a função é necessário instalar e ativar o pacote `readr`. A função `read_csv2()` será utilizada para criar um outro objeto de nome `recemNascidos`, mas o conjunto de dados a ser ativado é o mesmo (`dadosNeonatos`):
 
 ```{r}
-library(readr)
-recemNascidos <- read_csv2("Arquivos/dadosNeonatos.csv")
+ library(readr)
+ recemNascidos <- read_csv2("Arquivos/dadosNeonatos.csv")
 ```
+
+Quando você executa `read_csv2()`, ele imprime uma especificação de coluna que fornece o nome e o tipo de cada coluna.
+
+Novamente, a função `str()` mostrará a estrutura do arquivo ^[Da mesma maneira, como acontece com a função `read.csv2()`, a função equivalente do `readr` pode retornar erro na leitura de palavras com acento. Para corrigir isso, usa-se o argumento `locale (encoding = "latin1")`]:
 
 ```{r}
 str(recemNascidos)
-```  
+```
+
 
 ### Importando um arquivo do Excel  {#sec-xlsx}
 
@@ -53,15 +58,11 @@ Os dados serão atribuídos a um objeto com outro nome (`recemNatos`):
 
 ```{r}
 library(readxl)
-```
-
-```{r}
 recemNatos <- read_excel("Arquivos/dadosNeonatos.xlsx")
-```
-
-```{r}
 str(recemNatos)
 ```
+
+Na Figura \@ref(fig:sheet), o duplo dois pontos (`::`) precedido do nome pacote, no caso `readr`, especifica a procedência da função usada. Nesta situação, não há necessidade de usar a função `library()` para carregar o pacote já instalado em um diretório (biblioteca) previamente.
 
 ### Importando arquivos com o RStudio  
 
@@ -266,24 +267,19 @@ str(meninas)
 
 Esta função tem a finalidade de computar ou anexar uma ou mais colunas (variáveis) novas.  
 
-O Índice de Massa Corporal (IMC) é igual a
+O Índice de Massa Corporal (IMC) é igual a 
 
-$$
-IMC=\frac{peso}{altura^{2}}
-$$
-Será acrescentado a variável `imc`, no banco de dados `mater1`, usando a função `mutate()`:  
+$$IMC = \frac {peso}{altura ^2}$$. 
+
+O peso deve ser expreso em kg e a altura em metros. Para acrescentar este indicador no banco de dados `mater1` , se fará uso da função `mutate()`, nomeando a nova variável de imc:
+
+
+Será acrescentado a variável `imc`, no banco de dados `mater1`, usando a função `mutate()`, nomenando essa variável de `imc`:  
 
 ```{r}
 mater1 <- mutate(mater1, imc = peso/altura^2)
-```
-
-Para ver esta variável presente no banco de dados, executar:
-
-```{r}
 str (mater1)
 ```
-
-Lembrar que este banco de dados (`mater1`) é um subconjunto do banco de dados original `mater`, sem algumas variáveis, e com acréscimo da variável `imc`.  
 
 ### Função `sample_n()`
 
@@ -293,75 +289,86 @@ Função usada para selecionar de forma aleatória linhas de um dataframe. Sempr
 * **size**     $\longrightarrow$ número de linhas para selecionar
 * **replace**  $\longrightarrow$ amostra com ou sem reposição?. Padrão = FALSE
 
-Uma mostra de 20 neonatos selecionados do banco de dados `meninos`pode ser selecionada do seguinte modo:
+Uma mostra de 20 neonatos do banco de dados  meninos, pode ser selecionada, usando a função `sample_n`:
 
 ```{r}
 meninos1 <- sample_n(meninos, 20)
 ```
 
-Usando a função `str()`, verifica-se a estrutura deste pequeno conjunto de dados que pode ser considerado uma miniatura do original (`r round((length(meninos1$sexo)/length(meninos$sexo)*100),1)`%).
+Assim, selecionou-se uma amostra de 20 meninos do banco de dados de recém-nascidos a termo. Pode-se, fazer um resumo da variável peso do recém-nascido (`meninos1$pesoRN`) para ver como ela se comporta, usando a função `summary()`:
 
 ```{r}
-str(meninos1)
+summary(meninos1$pesoRN)
 ```
 
-Uma outra função semelhante a esta é `sample_frac()`. Ela usa os mesmos argumentos que a sample_n(), modificando o argumento size, onde se informa a fração desejada até 1 (100%). Por exemplo, para se ter uma amostra de tamanho semelhante a anterior, há necessidade de selecionar, aproximadamente, uma fração de `r round((length(meninos1$sexo)/length(meninos$sexo)),3)` da amostra.
+É importante mencionar que toda vez que esta função for executada ela irá gerar uma amostra diferente. Então, por exemplo, não se deve esperar que a média dos pesos dos recém-nascidos de amostras diferentes sejam iguais.
 
 ```{r}
-meninos2 <- sample_frac(meninos, 0.027)
+meninos2 <- sample_n(meninos, 20)
+summary(meninos2$pesoRN)
 ```
 
-```{r}
-str(meninos2)
-```
+No capítulo 9 sobre Distribuições Amostrais, este assunto voltará à cena.
 
-É importante mencionar que toda vez que estas funções forem executadas elas irão gerar amostras diferentes. Então, por exemplo, não se deve esperar que a média dos pesos dos recém-nascidos de amostras diferentes sejam iguais. No capítulo sobre `Distribuições Amostrais`, este assunto voltará à cena.
-
-As funções `sample_n()` e `sample_frac()` estão com os dias contados, pois foram substituídas por `slice_sample()` do conjunto de funções que acompanham a função `slice()`
+As funções `sample_n()` estão com os dias contados, pois foram substituídas por `slice_sample()` do conjunto de funções que acompanham a função `slice()`
 
 ### Função `slice()`  
 
 Esta função é usada para selecionar um subconjunto linhas com base em seus locais inteiros. Permite selecionar, remover e duplicar linhas. Para os exemplos, será usado o conjunto de dados `meninos`, criado acima.
+Os argumentos básicos da função slice() são
 
-*Selecionando um subconjunto de uma linha específica*  
+*	*.data* ⟶ dataframe
+*	*.by* ⟶ seleciona por grupo
+*	*n, prop* ⟶ fornecer n, o número de linhas, ou prop, a proporção de linhas a serem selecionadas.
+*	*...*
 
+Exemplpos:
 ```{r}
 # Selecionando a linha 10
-meninos %>% 
-  slice(10)
+slice(.data = meninos, 10)
+
+# Selecionando varias linhas, por exemplo, de 1 a 5
+slice(.data = meninos, 1:5)
 ```
+
+É possível também selecionar linhas de acordo com determinado grupo. Como grupo, será usada a variável fumo que tem dois níveis (sim e não). Será selecionada uma linha de cada grupo:
 
 ```{r}
-# Selecionando várias linhas, por exemplo, linhas de 1 a 5
-meninos %>% 
-  slice(1:5)
+slice(.data = meninos, .by = fumo, 1)
 ```
 
-É possível também selecionar linhas de acordo com determinado grupo, usando a função `group_by()`, incluído no pacote `dplyr`.  
+Para separa por grupo , é possível usar a função `group_by()`, incluída no pacote `dplyr`. A melhor solução, neste caso, para aplicar diversas funções de manipulação em um dataframe é aplicar o operador pipe: `%>%`. No final desta seção, será discutido com mais detalhes este operador.
 
 ```{r}
-meninos %>% 
-  group_by(fumo) %>% 
-  slice (1)
+ meninos %>% 
+   group_by(fumo) %>% 
+   slice (1)
 ```
 
+A saída desse código é a mesma vista anteriormente. A vantagem é termos escrito o código na ordem em que as funções são aplicadas. Portanto, é um código mais legível.
 
-A função `slice()` é acompanhada por vários auxiliares para casos de uso comuns:  
+#### Funções auxiliares da função slice()
 
-* `slice_head()` e `slice_tail()` selecionam a primeira ou a última linha;
-* `slice_sample()` seleciona linhas aleatoriamente;
-* `slice_min()` e `slice_max()` selecionam linhas com valores mais altos ou mais baixos de uma variável.
+A função `slice()` é acompanhada por várias funções auxiliares para casos de uso comuns:
+*	`slice_head()` e `slice_tail()` selecionam a primeira ou a última linha;
+*	`slice_sample()` seleciona linhas aleatoriamente, substitui a `sample_n()`;
+*	`slice_min()` e `slice_max()` selecionam linhas com valores mais altos ou mais baixos de uma variável.  
 
-*Selecionando um subconjunto de forma aleatória*  
-
-A função `slice_sample()` substitui a `sample_n()`. Por exemplo, para selecionar uma amostra aleatória de 20 meninos, usa-se:
+Por exemplo, para selecionar uma amostra aleatória de 20 meninos do conjunto de dados `meninos`, pode-se usar a função `slice_sample()`:
 
 ```{r}
-meninos3 <- meninos %>% slice_sample(n = 20)
-meninos3
+ meninos3 <- slice_sample(.data = meninos, n = 20)
+ str (meninos3)
 ```
 
-Para maiores informações em relação a estas funções consulte a ajuda (`?slice()`).
+Como se observa no código, o argumento `n` da função deve ser nomeado explicitamente (`n = 20`). É possível também usar o argumento `prop`, colocando a proporção de linhas que se deseja selecionar. Se o objetivo é selecionar 10% da amostra, coloca-se o argumento como `prop = 0.10`. Como o dataframe `meninos` contém  592 casos, serão selecionados 59. Além disso, a função permite selecionar por grupos com o argumento `by =`.
+
+```{r}
+meninos4 <- slice_sample(.data = meninos, prop = 0.10)
+str (meninos4)
+```
+
+Para maiores informações em relação a estas funções consulte a ajuda (?slice()).
 
 ### Função `arrange()`
 
@@ -383,10 +390,10 @@ arrange(meninos1, desc(pesoRN))
 
 Permite contar rapidamente os valores únicos de uma ou mais variáveis. Esta função tem os seguintes argumentos:
 
-* **x**       $\longrightarrow$ dataframe
-* **wt**      $\longrightarrow$ pode ser NULL (padrão) ou uma variável
-* **sort**    $\longrightarrow$ padrão = FALSE; se TRUE, mostrará os maiores grupos no topo
-* **name**    $\longrightarrow$ O nome da nova coluna na saída; padrão = NULL
+* *x*       $\longrightarrow$ dataframe
+* *wt*      $\longrightarrow$ pode ser NULL (padrão) ou uma variável
+* *sort*    $\longrightarrow$ padrão = FALSE; se TRUE, mostrará os maiores grupos no topo
+* *name*    $\longrightarrow$ O nome da nova coluna na saída; padrão = NULL
 
 Quando o argumento `name` é omitido, a função retorna *n* como nome padrão.
 
@@ -423,113 +430,159 @@ No final, retornará um novo dataframe que foi colocado em um objeto, denominado
 ## Manipulação de datas   
 
 Originalmente, todos os que trabalham com o *R* queixavam-se de como era frustrante trabalhar com datas. Era um processo que causava grande perda de tempo nas análises. O pacote `lubridate` foi criado @grolemund2011dates para simplificar ao máximo a leitura de datas e extração de informações dessas datas.  
+Quando o `lubridate` é carregado aparece uma mensagem, avisando que alguns nomes de funções também estão contidas no pacote base do R.  
 
-Antes de usar, há necessidade de instalar e carregar o pacote. 
-
-```{r eval=FALSE}
-install.packages("lubridate")
-```
-
-```{r message=FALSE}
+```{r message=TRUE}
 library(lubridate)
 ```
 
-A função mais importante para leitura de dados no `lubridate` é a `ymd()`. Essa função serve para ler qualquer data de uma *string* no formato `YYYY-MM-DD`.  
+Para evitar confusões e verificar que as funções corretas estão sendo usadas, usa-se o duplo dois pontos (`::`) antes do nome da função, precedido do nome do pacote, por exemplo: `lubridate::date()`.  
 
-Para iniciar, será registrada uma data qualquer. Observe que o *R* registrou esta dada como um objeto da classe numérica. 
-
-```{r}
-data.hoje <- "29/10/2022"
-class (data.hoje)
-```
-
-Para converter esta data da classe `character` para a classe `date`, usar a função `dmy()`:
-
+Para obter a data atual ou a data-hora, você pode usar as funções  `today()`^[Equivalente ao `Sys.Date()`que acessa a data do sistema operacional.]  ou now()^[Equivalente ao `Sys.time()` que acessa a data e hora do sistema operacional.]:
 
 ```{r}
-data.hoje <- dmy(data.hoje)
-class(data.hoje)
+today() 
+now()
 ```
 
-Uma grande facilidade que essas funções trazem é poder criar objetos com classe `date` a partir de números e `character` em diversos formatos.  
+### Convertendo strings ou caractere para data  
+
+Para converter string ou caracteres em datas, basta executar funções específicas adequadas aos dados. Elas determinam automaticamente o formato quando você especifica a ordem do componente. Para usá-los, identifique a ordem em que o ano, o mês e o dia aparecem em suas datas e, em seguida, organize "y", "m" e "d" na mesma ordem. Isso lhe dá o nome da função `lubridate` que analisará a data. Por exemplo, suponhamos a data de 25/12/2022:
 
 ```{r}
-dmy(29102022)
-dmy("29/10/2022")
-dmy("29102022")
-dmy("29.10.2022")
+natal <- "25/12/2022"
+natal
 ```
+Aparentemente, o R aceitou a informação como uma data. Entretanto, se for verificada a classe do objeto, tem-se:
 
+```{r}
+class(natal)
+```
+Estando como caractere, esta data não poderá ser usada em operações com datas, pois necessitaria estar como uma classe `date`. Para converte-la em data, usa-se a função `dmy()`:
+
+```{r}
+natal <- dmy(natal)
+natal
+class(natal)
+```
+Dessa forma, a data, agora está sendo reconhecida pelo R como `date`. Como se verifica, é sempre importante verificar a classe da data.  
+
+Às vezes, observa-se datas escritas com o mês abreviado, como 25/dez/2022. O procedimento é o mesmo
+
+```{r}
+minha.data <- "25/dez/2022"
+class (minha.data)
+```
+```{r}
+minha.data <- dmy(minha.data)
+class (minha.data)
+```
 Se além da data, houver necessidade de especificar o horário, basta usar `dmy_h()`, `dmy_hm()` e `dmy_hms()`. Se for usado o padrão americano, pode ser usado `ymd()`.  
 
-O `lubridate` traz diversas funções para extrair os componentes de um objeto da classe `date`.
+O lubridate traz diversas funções para extrair os componentes de um objeto da classe date.  
 
-* `second()` - extrai os segundos.
-* `minute()` - extrai os minutos.
-* `hour()` - extrai a hora.
-* `wday()` - extrai o dia da semana.
-* `mday()` - extrai o dia do mês.
-* `month()` - extrai o mês.
-* `year()` - extrai o ano.
+*	`second()` $\rightarrow$ extrai os segundos.
+* `minute()` $\rightarrow$ extrai os minutos.
+*	`hour()` $\rightarrow$ extrai a hora.
+*	`wday()` $\rightarrow$ extrai o dia da semana.
+*	`mday()` $\rightarrow$ extrai o dia do mês.
+*	`month()` $\rightarrow$ extrai o mês.
+*	`year()` $\rightarrow$ extrai o ano.
 
-Por exemplo,
+Por exemplo, usando a data de nascimento (`dn`) do autor:
 
 ```{r}
 dn <- dmy("04/10/1947")
 year(dn)
 ```
-
-Para acrescentar um horário ao objeto data de nascimento (dn):
+Para acrescentar um horário ao objeto data de nascimento (`dn`)^[UTC = Coordinated Universal Time}:  
 
 ```{r}
 hour(dn) <- 04
 dn
 ```
+### Juntando componenetes de datas
 
-Data e horário do dia em que essa página foi editada pela última vez.
+Para juntar componentes de datas e horas, pode-se utilizar as funções `make_date()` e `make_datetime()`. Em muitos arquivos, os componentes da data estão em colunas diferentes e há necessidade de juntá-los em uma única coluna para compor a data:
 
 ```{r}
-today()
-now()
+minha.data <- make_date(year = 1947, month = 10, day = 4)
+minha.data
 ```
+Para juntar ano, mês, dia, hora e minuto:
 
+```{r}
+minha.data <- make_datetime(year = 1947, 
+                            month = 10, 
+                            day = 04, 
+                            hour = 04 ,
+                            min = 30, 
+                            sec = 15)
+minha.data
+```
+### Extraindo componentes de datas  
+
+Quando temos objetos do tipo POSIXt^[POSIXt é uma classe de objetos do R que representa datas e horas. POSIXt significa Portable Operating System Interface for Unix Time, que é um padrão para medir o tempo em segundos desde 1 de janeiro de 1970. Existem duas formas internas de implementar POSIXt: POSIXct e POSIXlt. POSIXct armazena os segundos desde a época UNIX e POSIXlt armazena uma lista de dia, mês, ano, hora, minuto, segundo, etc.]  podemos extrair componentes ou elementos deles. Para isso são usadas algumas funções específicas do pacote `lubridate` como mostrado a seguir.  
+
+```{r}
+data <- now()
+
+year(data)            # Extrai o ano
+ 
+month(data)           # Extrai o mês
+
+week(data)                # Extrai a semana
+
+day(data)             # Extrai o dia
+
+minute(data)              # Extrai o minuto
+
+second(data)              # Extrai o segundo
+```
+Para verificar o número de dias tem em um determinado mês, usa-se a função `days_in_month()`:  
+
+```{r}
+ data1 <- dmy("25/02/2000")
+ days_in_month(data1)          
+```
 ### Operações com datas
 
-**Intervalos**
-
-Intervalos podem ser salvos em objetos com a função `interval()`.
+O pacote `lubridate` possui funções de duração e de período para manipular as datas.  As funções de duração calculam o número de segundos em um determinado num determinado número de dias. As funções de duração não levam em consideração anos bissextos e horário de verão, enquanto as funções de período consideram esses fatores. 
 
 ```{r}
-inicio <- dmy("01/01/2022")
-final <- dmy("29/10/2022")
+ddays (1)             # Número de segundos em 1 dia
 
-periodo <- interval(inicio, final)
-periodo
+dhours (1)           # Número de segundos em 1 hora
 
-class(periodo)
+dminutes (1)        # Número de segundos em 1 minuto
+
+days (5)            # Cria um período de 5 dias
+
+weeks (5)           # Cria um período de 5 semanas
 ```
-
-**Aritmética com datas**
+Suponhamos que se necessita saber em qual dia cairá após acrescentarmos  5 semanas à `data1` (25/02/2000),  criada acima:
 
 ```{r}
-# Somando datas
-
-today() + ddays(60)    # hoje + 60 dias
-
-today() + dyears(1)    # hoje + 1 ano
-
-# Duração de um intervalo
-
-intervalo <-dmy("10-01-2022") %--% dmy("17-10-2022")
-intervalo
-
-intervalo/ddays(1)    # Número de dias
-
-intervalo/dmonths(1)  # Número de meses
-
-intervalo / dweeks(1) # Número de semanas 
-
-as.period(intervalo)
+data1 + weeks (5)           
 ```
+Adicionando 1 ano à `data1` (25/02/2000) com uma função de duração, tem-se: 
 
-Para mais informações sobre o `lubridate`, consulte a ajuda do pacote.
+```{r}
+data1 + dyears (1)           
+```
+Se for adicionado um ano à mesma data, mas agora com uma função de período, tem-se:
+
+```{r}
+data1 + years (1)           
+```
+Pode-se definir um intervalo de tempo a partir de uma data inicial e uma data final. A sintaxe para calcular um intervalo é dada por `data.inicial %--% data.final` .Suponha que uma gestante tenha como data da sua última menstruação em 04/10/2022. O bebê nasceu em 30/06/2023. Qual o intervalo em dias?
+
+```{r}
+data.inicial <- dmy("04/10/2022")
+data.final <- dmy("30/06/2023")
+tempo <- (data.inicial %--% data.final) %/% days(1)
+tempo
+```
+Ou seja a gestação durou 269 dias, constituindo-se em um parto a termo, entre 37 (259 dias) e 42 semanas (294 dias).
+
+Para mais informações sobre o `lubridate`, consulte a ajuda do pacote ou o capítulo 16 do livro R for Data Science, Hadley Wickman e Garrett Grolemund, 2017 (https://r4ds.had.co.nz/index.html) .
