@@ -57,9 +57,7 @@ $$
 \overline{x}= \frac{\sum(x_1 + x_2 + x_3 + ... + x_n)}{n}
 $$
 
-Se no conjunto de dados houver algum valor ausente (*missing*), o comando mostra o resultado como NA (*not available*). Para corrigir isto, basta colocar o argumento `na.rm = TRUE` na função `mean()`. Assim, o R vai retornar a média, ignorando os valores ausentes. Recomenda-se sempre usar o argumento.  
-
-A média aritmética dos pesos dos recém-nascidos (`pesoRN`) do arquivo `dadosMater15.xlsx` é calculado por:
+O R base possui uma função para o cálculo da média – `mean()`. Ela já foi apresentada no Capítulo 4, seção sobre funções, onde foi mostrado os seus argumentos. Se a variável analisada contiver algum valor ausente (`missing`), deve-se usar o argumento `na.rm = TRUE`, para removê-los, pois, caso contrário, a função retorna um resultado como NA (*Not Available*). Para evitar transtornos, recomenta-se usar sempre o argumento.
 
 ```{r}
 mean (dados$pesoRN, na.rm = TRUE)
@@ -68,7 +66,7 @@ mean (dados$pesoRN, na.rm = TRUE)
 #### Mediana
 
 A mediana (Md) representa o valor central em uma série ordenada de valores. Assim, metade dos valores será igual ou menor que o valor mediano e a outra metade igual ou maior do que ele.  
-No R, usa-se a função `median()` para calcular o valor da mediana. Vanos utilizar a variável `mater15$apgar1`. Como o Apgar é um escore, a medida resumidora mais adequada é a mediana. 
+No R, usa-se a função `median()` para calcular o valor da mediana. Vanos utilizar a variável `dados$apgar1`. Como o Apgar é um escore, a medida resumidora mais adequada é a mediana. 
 
 ```{r}
 median (dados$apgar1, na.rm = TRUE)
@@ -169,7 +167,7 @@ Os graus de liberdade representam o número de desvios que estão livres para va
 A variância é a razão entre a soma dos quadrados e as observações realizadas menos um. 
 
 $$
-s^2= \frac{\sum(x_i - \overline{x})^2}{\overline{n-1}}
+s^2= \frac{\sum(x_i - \overline{x})^2}{n-1}
 $$
 
 No R existem as funções `sd()` e `var()`, também incluídas no R base, que facilmente calculam essas medidas de dispersão.   
@@ -326,13 +324,13 @@ Para demonstrar como construir uma tabela de frequência, usando o R, será usad
 Para realizar este trabalho de transformação da variável numérica em categórica, será usada a função `cut()` do pacote R base.
  Esta função tem vários argumentos:
 
-* **x**      $\longrightarrow$ vetor numérico
-* **breaks**     $\longrightarrow$ vetor numérico de dois ou mais pontos de corte exclusivos ou um único número (maior ou igual a 2) dando o número de intervalos nos quais *x* deve ser subdividido
-* **labels**  $\longrightarrow$ rótulos para os níveis das categorias resultante. Por padrão, os rótulos são construídos usando a notação de intervalo $(a, b]$ (aberto à esquerda e fechado à direita). 
-* **include.lowest**      $\longrightarrow$ valor lógico, se o menor valor será incluido, ou o maior, se `right = TRUE`. Padrão = `include.lowest=TRUE`
-* **right**      $\longrightarrow$ valor lógico indicando se o intervalo deve ser fechado à direita e aberto a esquerda. Padrão = 
+* *x*      $\longrightarrow$ vetor numérico
+* *breaks*     $\longrightarrow$ vetor numérico de dois ou mais pontos de corte exclusivos ou um único número (maior ou igual a 2) dando o número de intervalos nos quais *x* deve ser subdividido
+* *labels*  $\longrightarrow$ rótulos para os níveis das categorias resultante. Por padrão, os rótulos são construídos usando a notação de intervalo $(a, b]$ (aberto à esquerda e fechado à direita). 
+* *include.lowest*      $\longrightarrow$ valor lógico, se o menor valor será incluido, ou o maior, se `right = TRUE`. Padrão = `include.lowest=TRUE`
+* *right*      $\longrightarrow$ valor lógico indicando se o intervalo deve ser fechado à direita e aberto a esquerda. Padrão = 
 `right = TRUE`.
-* **ordered_result** $\longrightarrow$ valor lógico indicando se o resultado deve ser um fator ordenado.  
+* *ordered_result* $\longrightarrow$ valor lógico indicando se o resultado deve ser um fator ordenado.  
 
 ```{r}
 mater$categIdade <- cut(mater$idadeMae,
@@ -398,14 +396,14 @@ tab1
 
 Esta uma tabela simples que serve para visualizar as informações. Não serve para publicações. Para obter uma tabela simples, mas muito mais profissional (Tabela \@ref(tab:tisch)) pode ser utilizada a função `kable()` do pacote `knitr` @xie2018knitr. Esta função possui um grande número de argumentos para personalizar a aparência das tabelas^[Para maiores detalhes: https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf ou consulte a ajuda digitando no Console `?kable()` ou `help(kable)`.]:
 
-*	x $\rightarrow$é um objeto do R, tipicamente uma matiz ou dataframe;
-*	format $\rightarrow$ sequência de caracteres. Os valores possíveis são ”latex”, “html”, “pipe”, “simple”; 
-*	digits $\rightarrow$ número máximo de dígitos para colunas numéricas, passado para `round()`;
-*	row.names $\rightarrow$lógico: se deve incluir nomes de linhas. Por padrão, os nomes de linhas serão incluídos se rownames(x) não for NULL nem idêntico a `1:nrow(x)`.
-*	col.names $\rightarrow$ vetor de caracteres de nomes de colunas a serem usados na tabela.;
-*	align $\rightarrow$ alinhamento da coluna: um vetor de caracteres que consiste em “l” (esquerda), “c”' (centro) e/ou “r” (direita). Por padrão ou se `align = NULL`, as colunas numéricas são alinhadas à direita e as outras colunas são alinhadas à esquerda.; 
-*	caption $\rightarrow$ título da tabela;
-*	. . . $\rightarrow$ outros argumentos
+*	*x* $\rightarrow$ é um objeto do R, tipicamente uma matiz ou dataframe;
+*	*format* $\rightarrow$ sequência de caracteres. Os valores possíveis são ”latex”, “html”, “pipe”, “simple”; 
+*	*digits* $\rightarrow$ número máximo de dígitos para colunas numéricas, passado para `round()`;
+*	*row.names* $\rightarrow$lógico: se deve incluir nomes de linhas. Por padrão, os nomes de linhas serão incluídos se rownames(x) não for NULL nem idêntico a `1:nrow(x)`.
+*	*col.names* $\rightarrow$ vetor de caracteres de nomes de colunas a serem usados na tabela.;
+*	*align* $\rightarrow$ alinhamento da coluna: um vetor de caracteres que consiste em “l” (esquerda), “c”' (centro) e/ou “r” (direita). Por padrão ou se `align = NULL`, as colunas numéricas são alinhadas à direita e as outras colunas são alinhadas à esquerda.; 
+*	*caption* $\rightarrow$ título da tabela;
+*	... $\rightarrow$ outros argumentos
 
 Um pacote adicional, `kableExtra` @zhu2021construct, permite opções de formatação simples, melhorando o aspecto da tabela, utilizando-se o operador pipe %>%. O pacote `kableExtra` foi projetado para estender a funcionalidade básica das tabelas produzidas usando `knitr::kable()`. Podem ser acrescentadas várias das suas funções como `kable_styling()` ou `kable_classic()` para especificar estilos à tabela, como extensão da tabela, alinhamento, tipo e tamanho da fonte ^[Consulte https://cran.r-project.org/web/packages/kableExtra/kableExtra.pdf].
 
@@ -969,7 +967,7 @@ Note que as informações deste gráfico são as mesmas de uma tabela de frequê
 
 O *boxplot* descreve a distribuição de uma variável contínua exibindo o resumo de cinco números: mínimo, 1º quartil (percentil 25), mediana (percentil 50), 3ª quartil (percentil 75) e máximo (Figura \@ref(fig:boxplot)).
 
-```{r boxplot, echo = FALSE, out.width = '80%', fig.align = 'center', fig.cap="Boxplot", fig.pos="H"}
+```{r boxplot, echo = FALSE,out.height= '70%', out.width = '70%', fig.align = 'center', fig.cap="Boxplot", fig.pos="H"}
  knitr::include_graphics("https://i.imgur.com/Dh2UszX.png")
 ```
 
@@ -1079,11 +1077,11 @@ A função `boxplot.stats()` do pacote `grDevices` fornece as estatísticas do b
 boxplot.stats (rnt$pesoRN)
 ```
 
-__Interpretação__
-* $stats = é o resumo dos 5 números: mínimo, percentil 25, mediana, percentil 75 e máximo
-* $n = nº de obs; 
-* $conf = limite inf/sup do entalhe se houver;
-* $out = são os *outliers*  
+__Interpretação__  
+* $stats = é o resumo dos 5 números: mínimo, percentil 25, mediana, percentil 75 e máximo;  
+* $n = nº de obs;   
+* $conf = limite inf/sup do entalhe se houver;  
+* $out = são os *outliers*.  
 
 #### Múltiplos boxplots
 
@@ -1345,7 +1343,7 @@ A estética (`aes`) pode ser definida tanto na camada `ggplot` como na `geom`. E
 
 Encontra-se uma grande possibilidade de geometrias, de acordo com o tipo de gráfico que será plotado. Elas podem ser visualizadas [**aqui**](https://ggplot2.tidyverse.org/reference/).
 
-### Histograma
+#### Histograma
     
 O `geom_histogram()` é a geometria para a construção de um histograma. Aqui, há necessidade apenas do eixo *x*, pois existe uma única variável (`pesoRN`). A execução do comando retorna a distribuição dessa variável (Figura \@ref(fig:gghist)):
 
