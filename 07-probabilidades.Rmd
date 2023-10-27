@@ -1,5 +1,12 @@
 # Introdução à Teoria das Probabilidades 
 
+## Pacotes necessários neste capítulo
+
+```{r}
+pacman::p_load(dplyr, readxl)
+```
+
+
 ## Introdução  
 
 A teoria das probabilidades é a base sobre a qual a estatística é desenvolvida. Os jogos de azar deram um grande impulso ao conhecimento da moderna teoria das probabilidades, principalmente, pelo trabalho de Blaise Pascal (1623-1662), em parceria com Pierre de Fermat (1601-1665). Eles foram estimulados por um escritor francês e matemático amador, Antoine Gombaud (1607-1684), conhecido como Chevalier de Méré, que era muito interessado em jogos de azar[@debnath2015short].  
@@ -16,17 +23,33 @@ O número de caras que podem surgir em vários lançamentos da moeda é chamado 
 
 Na área da saúde, trabalha-se com uma infinidade de variáveis aleatórias, por exemplo, o número de filhos de uma mulher, o número de mortos diários em uma epidemia, o número de vacinados em uma campanha, etc. Essas variáveis são a variáveis aleatórias discretas, pois apenas permitem ser quantificadas por processo de contagem. Por outro lado, o peso, a altura de uma mulher são ditos variáveis aleatórias contínuas, pois podem assumir qualquer valor real entre uma medida e outra, dependendo da precisão do aparelho usado.   
 
-Em geral, *variáveis aleatórias* são representadas por letras maiúsculas, como X, Y e Z e sua a probabilidade pode ser denotada por:
+Em geral, *variáveis aleatórias* são representadas por letras maiúsculas, como X, Y e Z e sua a probabilidade, por exemplo, pode ser denotada por: $P(X)$.
 
-$$
-P[X] \quad ou \quad P[X=x]
-$$
+## Definição frequentista  
 
-## Definição frequentista de probabilidade  
+A probabilidade se relaciona a eventos futuros ou que ainda não ocorreram, desta forma a probabilidade pode ser entendida como uma medida de incerteza em relação ao evento. A probabilidade de um evento ocorrer, em determinadas circunstâncias, pode ser definida como a proporção de vezes que o evento é observado quando o experimento é repetido um número infinitamente grande de vezes [@menezes2004probabilidade]. Pode-se dizer que a visão frequentista define a probabilidade como uma **frequência de longo prazo**. 
 
-A probabilidade se relaciona a eventos futuros ou que ainda não ocorreram, desta forma a probabilidade pode ser entendida como uma medida de incerteza em relação ao evento. A probabilidade de um evento ocorrer, em determinadas circunstâncias, pode ser definida como a proporção de vezes que o evento é observado quando o experimento é repetido um número infinitamente grande de vezes [@menezes2004probabilidade].  
+A chamada *Lei dos Grandes Números* diz que à medida que múltiplas observações são coletadas, a proporção observada de ocorrências de um determinado desfecho, após *n* ensaios, converge para a probabilidade real P desse desfecho. Ou seja, quanto mais vezes for repetido uma experiência, a melhor estimativa de probabilidade tende a ocorrer. Suponha que seja lançada uma moeda honesta repetidas vezes. Por definição, essa é uma moeda que tem $P(cara)=0,5$. O que se observaria? O autor fez 20 lançamentos seguidos com uma mesma moeda e obteve o seguinte resultado, onde 1 = cara (Figura \@ref(fig:moeda20)):  
 
-A chamada *Lei dos Grandes Números* diz que à medida que múltiplas observações são coletadas, a proporção observada de ocorrências de um determinado desfecho, após *n* ensaios, converge para a probabilidade real *P* desse desfecho. Ou seja, quanto mais vezes for repetido uma experiência, a melhor estimativa de probabilidade tende a ocorrer.   
+```{r moeda20, echo = FALSE, out.height = '80%', out.width = '80%', fig.align = 'center', fig.cap="20 lançamentos seguidos de uma moeda", fig.pos="H"}
+ knitr::include_graphics("https://i.imgur.com/57v7i9n.png")
+```
+
+Neste caso, 10 (50%) desses lançamentos deram cara. Agora, suponha que foram feitos registros do número de caras ($n_1$) dos primeiros lançamentos (*N*) e calculadas as proporções de caras ($n_1⁄N$) todas as vezes. O resultado está na Tabela \@ref(tab:propmoeda).
+
+```{r propmoeda, echo = FALSE, out.height = '80%', out.width = '80%', fig.align = 'center', fig.cap="Proporção em 20 lançamentos de moeda", fig.pos="H"}
+ knitr::include_graphics("https://i.imgur.com/GpF0Y7J.png")
+```
+
+Observa-se, nessa sequência, que a proporção de caras flutua muito, variando de 0,17 a 0,75. Se o número de lançamentos for aumentando tem-se a sensação de que a proporção se aproxima da “correta”. Por exemplo, com 100 jogadas, obteve-se 53 caras (0,53); com 150 jogadas, 79 (0,53) e com 200  jogadas, 111 (0,56). Quando N se aproximar do infinito ($N \to\infty$) a proporção de caras convergirá para 0,50. A definição frequentista de probabilidade segue essa definição. Ninguém consegue um número infinito de lançamentos de moedas, mas um computador pode simular milhares de lançamentos. A Figura \@ref(fig:nmoeda) mostra o que acontece com a proporção $n_1⁄N$ à medida que N aumenta em lançamentos de moedas. As simulações foram repetidas 4 vezes somente para ter certeza de que o que aconteceu não foi obra do acaso.
+
+```{r nmoeda, echo = FALSE, out.height = '80%', out.width = '80%', fig.align = 'center', fig.cap="Proporção à medida que N aumenta em lançamentos de moedas", fig.pos="H"}
+ knitr::include_graphics("https://i.imgur.com/H1eeJNj.png")
+```
+
+Embora nenhuma das simulações tenha realmente terminado com um valor exato de 0,5, elas se aproximaram, oscilando muito pouco em torno desse valor.
+
+### Aplicando a visão frequentista no dia a dia
 
 O resultado dos comandos abaixo simulam 1000 lançamentos de uma moeda, mostrando que quando chega próximo de 300 lançamentos, a probabilidade se mantém praticamente constante em torno de 50% (Figura \@ref(fig:coin)).
 
