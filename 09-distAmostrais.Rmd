@@ -3,10 +3,12 @@
 ## Pacotes necessários para este capítulo
 
 ```{r}
-pacman::p_load(dplyr,
-               ggplot2,
-               kableExtra,
-               knitr,
+pacman::p_load(dplyr, 
+               e1071, 
+               ggplot2, 
+               ggpubr, 
+               kableExtra, 
+               knitr, 
                readxl)
 ```
 
@@ -20,37 +22,18 @@ Um parâmetro populacional é sempre uma constante, enquanto uma estatística de
 
 A distribuição populacional é a distribuição de probabilidade derivada das informações sobre todos os elementos de uma população.  
 
-O conjunto de dados de 1368 observações de puérperas e recém-nascidos da Maternidade-escola do Hospital Geral de Caxias do Sul, RS, será novamente, para fins didáticos, considerado a *população*. O gráfico, abaixo, mostra a distribuição da `altura` das puérperas dessa 'população' (Figura \@ref(fig:alturapop)).
+Para fins de raciocínio didático, o conjunto de dados de 1368 observações de puérperas e recém-nascidos da Maternidade-escola do Hospital Geral de Caxias do Sul, RS, será considerado a população. O gráfico da Figura \@ref(fig:histbxp), da Seção \@ref(sec-assimetria), mostra a distribuição da `altura` das puérperas dessa ‘população’. Os parâmetros ($\mu$ e $\sigma$) dessa ‘população’ são:
 
 ```{r}
-mater <- readxl::read_excel("Arquivos/dadosMater.xlsx")
-media = mean(mater$altura, na.rm =TRUE)
-dp = sd(mater$altura, na.rm =TRUE)
+dadosAltura <- read_excel("Arquivos/dadosMater.xlsx") %>% 
+  select(altura)
+
+ media = mean(dadosAltura$altura, na.rm =TRUE)
+ round(media, 3)
+ dp = sd(dadosAltura$altura, na.rm =TRUE)
+ round(dp, 3)
+
 ```
-
-
-```{r alturapop, echo=FALSE, warning=FALSE, out.width="70%", out.height="70%", fig.align="center", fig.cap="Histograma da altura de 1368 puérperas", fig.pos="H"}
-ggplot(mater) + 
-  geom_histogram(aes(x = altura,
-                     y =after_stat(density)), 
-                 bins = 15,
-                 fill='darksalmon',
-                 col='red') + 
-  geom_function(fun=dnorm,
-                args=list(mean=media,sd=dp), 
-                col='dodgerblue4',
-                lwd=1,
-                lty=4) + 
-  geom_vline(xintercept = mean(mater$altura,na.rm =T), 
-             lty = 4,
-             lwd = 1,
-             col='dodgerblue4') +
-  labs(x='Altura das puérperas (m)',    
-       y='Densidade de probabilidade') +
-  theme_classic() 
-```
-
-Os valores da média e do desvio padrão calculados para essa população fornecem os valores dos parâmetros populacionais  $\mu$ e $\sigma$. Esses valores são $\mu =$ `r round(mean(mater$altura, na.rm =TRUE), 3)`m e $\sigma =$ `r round(sd(mater$altura, na.rm =TRUE), 3)`m. 
 
 ### Distribuição amostral  {#sec-dam}
 
@@ -65,8 +48,8 @@ Voltando à variável altura das puérperas da Maternidade do HGCS, convencionad
 Usando a função `slice_sample()` do pacote `dplyr`, será extraída uma amostra de n = 30 da população e calculada a média e o desvio padrão: 
 
 ```{r warning=FALSE, message=FALSE}
-amostra1 <- mater %>% 
-  dplyr::select(altura) %>% 
+set.seed(234)
+amostra1 <- dadosAltura %>% 
   dplyr::slice_sample(n = 30)
 
 media1 <- mean(amostra1$altura, na.rm =TRUE)
@@ -74,11 +57,11 @@ dp1 <-  sd(amostra1$altura, na.rm =TRUE)
 print(c(media1, dp1))
 ```
 
-A `amostra1` tem média igual a `r  round(mean(amostra1$altura, na.rm =TRUE), 3)` e desvio padrão igual a `r  round(sd(amostra1$altura, na.rm =TRUE), 3)`. Se este processo for repetido várias vezes, a cada amostra aleatória, serão gerados médias e desvios padrão diferentes.
+Se este processo for repetido várias vezes, a cada amostra aleatória, serão gerados médias e desvios padrão diferentes.
 
 ```{r}
-amostra2 <- mater %>% 
-  dplyr::select(altura) %>% 
+set.seed(236)
+amostra2 <- dadosAltura %>% 
   dplyr::slice_sample(n = 30)
 
 media2 <- mean(amostra2$altura, na.rm =TRUE)
@@ -94,52 +77,56 @@ Agora, para exemplificar este conceito, serão geradas 5000 amostras e calculada
 # extraindo 5000 amostras
 amostras5000 <- rep (0, 5000)
 for (i in 1:5000) {
-  amostra <- mater %>% dplyr::slice_sample (n = 30) 
+  amostra <- dadosAltura %>% dplyr::slice_sample (n = 30) 
   amostras5000 [i] <- mean(amostra$altura)
 }
-# Media e desvio padrão das 5000 amostras
-round (mean (amostras5000), digits = 3)
-round (sd (amostras5000), digits = 3)
 ```
 
+Media e desvio padrão das 5000 amostras
+
+```{r}
+mu <- round (mean (amostras5000), digits = 3)
+sigma <- round (sd (amostras5000), digits = 3)
+print(c(mu, sigma))
+```
 
 ```{r dam, echo=FALSE, warning=FALSE, out.width="70%", out.height="70%", fig.align="center", fig.cap="Distribuição amostral das médias de 5000 amostras de n = 30", fig.pos="H"}
-# Histograma das medias
-hist (amostras5000, 
-      breaks=25, 
-      col = "steelblue3", 
-      ylim = c (0,800), 
-      xlim = c (1.55,1.65), 
-      main =NULL, 
-      xlab = "Altura das Puérperas (m)", 
-      ylab = "Frequência", 
-      probability = FALSE,
-      cex.lab =1,
-      cex.axis = 1,
-      las = 1)
-box(bty = "L")
+amostras5000 <- as.data.frame(amostras5000)
+
+ggplot(data = amostras5000)+ 
+  geom_histogram(aes(x = amostras5000,
+                     y = after_stat(density)),
+                 bins = 20,
+                 col = "black",
+                 fill ="tomato") +
+  geom_function(fun=dnorm,
+                args=list(mean=mu,sd=sigma), 
+                col='dodgerblue4',
+                lwd=1,
+                lty=2) +
+  labs(y = "Densidade de Probabilidade",
+       x = "Altura de parturientes (m)") +
+  theme_bw()
 ```
 
-Se a média, $\bar{x}_{\bar{x}}$, dessas 5000 amostras de n = 30, for comparada com a média populacional, $\mu$, observa-se que até 3 dígitos decimais não há uma diferença. Entretanto, o desvio padrão é bem menor (`r round (sd (amostras5000), digits = 3)`) que o da população (`r round(sd(mater$altura, na.rm =TRUE), 3)`).
+
+Se a média, $\bar{x}_{\bar{x}}$, dessas 5000 amostras de n = 30, for comparada com a média populacional, $\mu$, observa-se que até 3 dígitos decimais não há uma diferença. Entretanto, o desvio padrão é bem menor (`r round (sigma,  3)`) que o da população (`r round(dp, 3)`).
 
 ## Erros amostrais e não amostrais  
 
-Normalmente, amostras diferentes selecionadas da mesma população darão resultados diferentes porque contêm elementos diferentes. Isso é evidente nas medias das amostra1 e amostra2, `r round(mean(amostra1$altura, na.rm =TRUE), 3)`m e `r round(mean(amostra2$altura, na.rm =TRUE), 3)`m, respectivamente, comparadas com a média da população igual a `r round(mean(mater$altura, na.rm =TRUE), 3)`m .
+Amostras diferentes selecionadas da mesma população darão resultados diferentes porque contêm elementos diferentes. Isso é evidente nas medias das amostra1 e amostra2, `r round(mean(amostra1$altura, na.rm =TRUE), 3)`m e `r round(mean(amostra2$altura, na.rm =TRUE), 3)`m, respectivamente, comparadas com a média da população igual a `r round(mean(dadosAltura$altura, na.rm =TRUE), 3)`m .
 
 ```{r}
-erro1 <- abs(mean(amostra1$altura, na.rm =TRUE) - mean(mater$altura, na.rm =TRUE))
-round(erro1, 3)
-erro2 <- abs(mean(amostra2$altura, na.rm =TRUE) - mean(mater$altura, na.rm =TRUE))
-round(erro2, 3)
+erro1 <- abs(mean(amostra1$altura, na.rm =TRUE) - mean(dadosAltura$altura, na.rm =TRUE))
+erro2 <- abs(mean(amostra2$altura, na.rm =TRUE) - mean(dadosAltura$altura, na.rm =TRUE))
+print(c(erro1, erro2), digits = 2)
 ```
-
-Se outras amostras forem extraídas, o resultado obtido de qualquer amostra geralmente será diferente do resultado obtido da população correspondente. A diferença (erro) entre o valor de uma estatística amostral obtida de uma amostra e o valor do parâmetro populacional correspondente, é chamada de *erro amostral*. Observe que essa diferença representa o erro amostral apenas se a amostra for aleatória e não houver nenhum erro não amostral. Caso contrário, apenas uma parte dessa diferença será devido ao erro de amostragem.
+Se outras amostras forem extraídas, o resultado obtido de qualquer amostra geralmente será diferente do resultado obtido da população correspondente. A diferença entre o valor de uma estatística amostral obtida de uma amostra e o valor do parâmetro populacional correspondente, é chamada de *erro amostral*. Observe que essa diferença representa o erro amostral apenas se a amostra for aleatória e não houver nenhum erro não amostral. Caso contrário, apenas uma parte dessa diferença será devido ao erro amostral.
 
 $$
-\mu = \bar{x}_{i} + erro \quad amostral
+ erro \quad amostral = \bar{x}_{i} - \mu  
 $$
-
-É importante lembrar que o erro amostral ocorre devido ao acaso. Os erros que ocorrem por outros motivos, como erros cometidos durante a coleta, registro e tabulação dos dados, são chamados de *erros não amostrais*. Esses erros ocorrem, em geral, por causa de erros humanos e não por acaso.  
+É importante lembrar que o erro amostral ocorre devido ao acaso. Não é possível evitar o erro amostral. É possível limitar o seu valor através da seleção de uma amostra adequada. Os erros que ocorrem por outros motivos, como erros cometidos durante a coleta, registro e tabulação dos dados, são chamados de *erros não amostrais*. Esses erros ocorrem, em geral, por causa de erros humanos e não por acaso.  
 
 ## Média e desvio padrão da média  
 
@@ -173,105 +160,89 @@ Na maioria das vezes, a população da qual as amostras são extraídas não é 
  knitr::include_graphics("https://i.imgur.com/I2CxksB.png")
 ```
 
-Agora, será tomado como exemplo a variável `renda`, do conjunto de dados `dadosMater.xlsx`, que representa a renda familiar em salários mínimos (SM). Como foi feito anteriormente, suponha que essa variável seja a população de estudo. Ela tem as seguintes medidas resumidoras e de assimetria:  
+Agora, será tomado como exemplo a variável `renda`, do conjunto de dados `dadosMater.xlsx`, que representa a renda familiar em salários mínimos (*sm*). Como foi feito anteriormente, suponha que essa variável seja a população de estudo. Ela tem as seguintes medidas resumidoras e de assimetria:  
 
 ```{r}
+mater <- readxl::read_excel("Arquivos/dadosMater.xlsx")
 resumo <- mater %>% 
   select (renda) %>% 
   dplyr::summarise (media.sm = mean (mater$renda, na.rm = TRUE),
                     dp.sm = sd(mater$renda, na.rm = TRUE),
                     mediana.sm = median(mater$renda, na.rm = TRUE),
-                    assimetria = moments::skewness(mater$renda),
-                    curtose = moments::kurtosis(mater$renda))
+                    assimetria = e1071::skewness(mater$renda),
+                    curtose = e1071::kurtosis(mater$renda))
 resumo
 ```
 
-O desvio padrão é grande em relação à média, com um coeficiente de variação de `r round(sd(mater$renda, na.rm = TRUE)/mean (mater$renda, na.rm = TRUE)*100, 2)
-`% e uma mediana < média. Estas métricas junto com os coeficientes de assimetria e curtose apontam para a assimetria positiva da variável `renda familiar`. O gráfico da Figura \@ref(fig:skewpos) confirma esta afirmação:  
+O desvio padrão é grande em relação à média, com um coeficiente de variação de `r round(resumo$dp.sm/resumo$media.sm, 3)*100`% e uma mediana < média. Estas métricas junto com os coeficientes de assimetria e curtose apontam para a assimetria positiva da variável `renda familiar`. O gráfico da Figura \@ref(fig:skewpos) confirma esta afirmação:  
 
 ```{r skewpos, echo=FALSE, warning=FALSE, out.width="70%", out.height="70%", fig.align="center", fig.cap="Distribuição assimétrica positiva", fig.pos="H"}
-hist (mater$renda, 
-      breaks=20, 
-      col = "chartreuse2", 
-      border = "chartreuse4",
-      ylim = c (0,0.7), 
-      xlim = c (0.2,11), 
-      main =NULL, 
-      xlab = "Renda Familiar (SM)", 
-      ylab = "Densidade de Probabilidade", 
-      probability = TRUE,
-      cex.lab =1,
-      cex.axis = 1,
-      las = 1)
-box(bty = "L")
-
-curve (dnorm (x,
-              mean=mean (mater$renda),
-              sd=sd (mater$renda)),
-       col="chartreuse4",
-       lty=4,
-       lwd=2,
-       add=TRUE)
-
-abline (v = mean (mater$renda), 
-        col = "chartreuse4", 
-        lty=2, 
-        lwd=1)
+ggplot(data = mater)+ 
+  geom_histogram(aes(x = renda,
+                     y = after_stat(density)),
+                 bins = 20,
+                 col = "white",
+                 fill ="darkolivegreen4") +
+  geom_function(fun=dnorm,
+                args=list(mean=resumo$media.sm,sd=resumo$dp.sm), 
+                col='red',
+                lwd=1,
+                lty=2) +
+  labs(y = "Densidade de Probabilidade",
+       x = "Renda Familiar em SM") +
+  theme_bw()
 ```
 
-Os valores da média e do desvio padrão calculados para a distribuição de probabilidade dessa população fornecem os valores dos parâmetros populacionais  $\mu$ e $\sigma$. Esses valores são $\mu =$ `r round(mean(mater$renda, na.rm =TRUE), 3)`sm e $\sigma =$ `r round(sd(mater$renda, na.rm =TRUE), 3)`sm.  
-
+Os valores da média e do desvio padrão calculados para a distribuição de probabilidade dessa população fornecem os valores dos parâmetros populacionais  $\mu$ e $\sigma$. Esses valores são $\mu$ =`r round(resumo$media.sm, 2)`*sm* e $\sigma$ =`r round(resumo$dp.sm, 2)`*sm*.  
 Se extrairmos múltiplas amostras dessa população, observa-se a modificação do formato da distribuição à medida que aumenta o tamanho amostral, se aproximando progressivamente do modelo normal, com um número grande de amostras.
 
+*Extração de múltiplas amostras(1000)*
 ```{r}
-# extraindo 1000 amostras
 amostras1000 <- rep (0, 1000)
 for (i in 1:1000) {
   amostra.sm <- sample (mater$renda, 30) 
   amostras1000 [i] <- mean(amostra.sm)
 }
-# Media e desvio padrão das 1000 amostras
-round (mean (amostras1000), digits = 3)
-round (sd (amostras1000), digits = 3)
-round (median(amostras1000), digits = 3)
-
-print(moments::skewness(amostras1000))
-print(moments::kurtosis(amostras1000))
 ```
+
+*Media e desvio padrão das 1000 amostras*
+```{r}
+mu <- round (mean (amostras1000), digits = 3)
+sigma <- round (sd (amostras1000), digits = 3)
+md <- round (median(amostras1000), digits = 3)
+print(c(mu, sigma, md))
+```
+
+*Assimetria e curtose*
+
+```{r}
+b1 <- e1071::skewness(amostras1000)
+b2 <- e1071::kurtosis(amostras1000)
+print(c(b1, b2))
+```
+
 
 ```{r semskew, echo=FALSE, warning=FALSE, out.width="70%", out.height="70%", fig.align="center", fig.cap="Distribuição praticamente normal", fig.pos="H"}
-hist (amostras1000, 
-      breaks=15, 
-      col = "chartreuse2", 
-      border = "chartreuse4",
-      ylim = c (0,2), 
-      xlim = c (1.5,3), 
-      main =NULL, 
-      xlab = "Renda Familiar (SM)", 
-      ylab = "Densidade de Probabilidade", 
-      probability = TRUE,
-      cex.lab =1,
-      cex.axis = 1,
-      las = 1)
-box(bty = "L")
-
-curve (dnorm (x,
-              mean=mean (amostras1000),
-              sd=sd (amostras1000)),
-       col="chartreuse4",
-       lty=4,
-       lwd=2,
-       add=TRUE)
-
-abline (v = mean (amostras1000), 
-        col = "chartreuse4", 
-        lty=2, 
-        lwd=1)
+amostras1000 <- as.data.frame(amostras1000)
+ggplot(data = amostras1000)+ 
+  geom_histogram(aes(x = amostras1000,
+                     y = after_stat(density)),
+                 bins = 20,
+                 col = "white",
+                 fill ="darkolivegreen4") +
+  geom_function(fun=dnorm,
+                args=list(mean=mean(amostras1000$amostras1000),sd=sd(amostras1000$amostras1000)), 
+                col='red',
+                lwd=1,
+                lty=2) +
+  labs(y = "Densidade de Probabilidade",
+       x = "Renda Familiar em SM") +
+  theme_bw()
 ```
 
-Ou seja, extraindo-se 1000 amostras de n = 30 e calculando  as mesmas métricas anteriores, verifica-se que, agora, a variável está com distribuição praticamente normal (Figura \@ref(fig:semskew)).
+Ou seja, extraindo-se 1000 amostras de n = 30 e calculando  as mesmas métricas anteriores, observa-se que, embora a distribuição populacional original seja assimétrica, a distribuição amostral da média se aproxima bastante da distribuição gaussiana (Figura \@ref(fig:semskew)).
 
-## Proporções populacional e amostral  
+## Proporções populacional e amostral  {#sec-popamostra}
 
 O conceito de proporção é o mesmo que o conceito de frequência relativa e o conceito de probabilidade de sucesso em um experimento binomial, discutidos anteriormente, na distribuição binomial.  
 
@@ -284,10 +255,10 @@ p = \frac{X}{N} \quad e \quad \hat{p}= \frac{x}{n}
 $$
 onde,
 
-* *N* = número total de elementos em uma população
-* *n* = número total de elementos em uma amostra
-* *X* = número de elementos na população que possui determinada característica
-* *x* = número de elementos na amostra que possui determinada característica
+* *N* $\to$ número total de elementos em uma população
+* *n* $\to$ número total de elementos em uma amostra
+* *X* $\to$ número de elementos na população que possui determinada característica
+* *x* $\to$ número de elementos na amostra que possui determinada característica
 
 Como no caso da média, a diferença entre a proporção amostral e a proporção populacional correspondente, determina o *erro amostral*, assumindo que a amostra é aleatória e nenhum erro não amostral foi cometido. Ou seja,
 
@@ -295,74 +266,88 @@ $$
 erro \quad amostral = \hat{p} - p
 $$
 
-A proporção de fumantes entre as gestantes do conjunto de dados `dadosMater.xlsx` é:
+A *distribuição amostral de uma proporção* é a distribuição das proporções de todas as amostras possíveis de tamanho n retiradas de uma população. De acordo com o Teorema Central do Limite:
+*	Considerando m o número de vezes que o processo de repetição das amostras de tamanho n, a média das proporções, quando m $m\to $, tende para a verdadeira proporção populacional;
+*	A distribuição amostral das proporções segue aproximadamente uma distribuição normal.  
+
+Assim,
+
+$$E(\hat{p})=\mu_\hat{p}$$
+
+$$Var(\hat{p})=\sigma^2_\hat{p}=\frac{\hat{p}(1-\hat{p})}{n}$$
+Logo,
+
+$$E(\hat{p})=\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$
+
+Dessa forma, a distribuição amostral de $\hat{p}$ será:
+
+$$
+\hat{p} \sim N(\hat{p}, \frac{\hat{p}(1-\hat{p})}{n})
+$$
+Quando não conhecemos a proporção populacional *p*, pode-se usar $\hat{p}$ como estimativa dessa proporção, desde que as seguintes condições sejam satisfeitas: 
+
+*	$n \times p ≥5$
+*	$n \times(1-p) ≥5$
+
+Dessa forma, pode-se calcular probabilidades aproximadas por uma distribuição normal com média $μ = n \times p$ e $σ = \sqrt{(n×p(1-p))}$ (veja também Seção \@ref(sec-mudpbinom)). 
+
+
+
+Considerando a ‘população’ que está sendo usada neste capítulo, o conjunto de dados `dadosMater.xlsx`, será verificado a proporção de mulheres fumantes. Inicialmente, a variável `fumo`, que está como variável numérica, será transformada em fator, pois, na realidade, é categórica:
 
 ```{r}
-# A variável mater$fumo será transformada como fator
 mater$fumo <- factor (mater$fumo, 
                       levels = c (1,2), 
                       label = c ("sim", "não"))
-# Proporção de fumantes:
+```
+
+A proporção de fumantes, frequência relativa (*fr*) é:
+
+```{r}
 fumo <- with(mater, table(fumo))
 fr.fumo <- prop.table(fumo)
 fr.fumo
 ```
 
-Assim, a proporção de gestantes fumantes foi de `r round(fr.fumo[1], 2)`.
-
-Considerando que este resultado fosse desconhecido e que as mulheres da  maternidade do HGCS fosse a população, para verificar a proporção de mulheres fumantes, se extrairá uma amostra de *n* = 100 (Tabela \@ref(tab:tabfumo)).
+A saída retorna que a proporção de fumantes entre as mulheres desse arquivo é `r round(fr.fumo[1], 2)`. Esta será considerada a proporção *p* da ‘população’.
+Agora, imagine que esse resultado fosse desconhecido. Então, para saber a qual a proporção de fumantes dessa ‘população’, seria necessário extrair uma amostra adequada. Foi selecionada uma amostra de n = 100 da ‘população’ alvo:
 
 ```{r}
-amostra.fumo <- mater %>% dplyr::slice_sample(n = 100)
-
-tabagismo <- with(amostra.fumo, table(fumo))
-fr <- prop.table(tabagismo)
-fp <- fr*100
-
-tab.fumo <- cbind(n = tabagismo,
-                  fr = round(fr, 2),
-                  fp = round(fp, 2))
-
-tab.fumo <- as.data.frame(tab.fumo)
+ set.seed(134)
+ amostra.fumo <- mater %>% dplyr::slice_sample(n = 100)
 ```
 
-```{r tabfumo, echo=FALSE, message=FALSE, warning=FALSE}
-knitr::kable(tab.fumo,
-             col.names = c('n', 'Freq. Relativa','Freq. Percentual'),
-             align = "rrr",
-             booktabs = TRUE,
-             caption = 'Proporção de Tabagismo nas gestantes') %>% 
-  kableExtra::kable_styling (full_width = F,
-                latex_options = "hold_position") %>% 
-  kableExtra::kable_classic(html_font = "Cambria") %>% 
-  kableExtra::column_spec(1, width = "2cm") %>% 
-  kableExtra::column_spec(2, width = "1.5cm") %>%
-  kableExtra::column_spec(3, width = "5cm") %>%
-  kableExtra::column_spec(4, width = "5cm") %>%
-  kableExtra::row_spec(0, bold = TRUE)
+Usando a `amostra.fumo`, calcula-se a proporção de fumantes:
+
+```{r}
+ tabagismo <- with(amostra.fumo, table(fumo))
+ fr <- prop.table(tabagismo)
+ fp <- fr*100
+
+ tab.fumo <- cbind(n = tabagismo,
+                   fr = round(fr, 2),
+                   fp = round(fp, 2))
+ tab.fumo
 ```
 
-A proporção de uma amostra é uma variável aleatória: varia de amostra para amostra de uma forma que não pode ser prevista com certeza. Foi visto que esta variável aleatória é escrita como $\hat{p}$. E que tem uma média $\mu_{\hat{p}}$ e um desvio padrão $\sigma_{\hat{p}}$.   
+A proporção de uma amostra é uma variável aleatória: varia de amostra para amostra de uma forma que não pode ser prevista com certeza. O Teorema Central do Limite se aplica em proporções. À medida que novas amostras forem extraídas, o valor da proporção amostral $\hat{p}$ se aproxima da proporção populacional *p*.
+Na ‘população’ *p* = 0,22; na amostra de n = 100, $\hat{p}$ = `r tab.fumo[1,2]`. 
+Para amostras grandes, a proporção amostral tem distribuição aproximadamente normal com as seguinte características mencionadas acima em relação a $\mu_\hat{p}$  e $\sigma_\hat{p}$.   
+Como verificar se uma amostra é grande?  
 
-Suponha que amostras aleatórias de tamanho *n* sejam retiradas de uma população na qual a proporção com uma característica de interesse seja *p*. A média e o desvio padrão da proporção amostral $\hat{p}$ satisfazem
-
-$$
-\mu_{\hat{p}} = p \quad e \quad  \sigma_{\hat{p}}= \sqrt{\frac{pq}{n}}
-$$
-
-O Teorema do Limite Central também se aplica aqui. No entanto, a condição de que a amostra seja grande é um pouco mais complicada do que apenas ter um tamanho de pelo menos 30.  
-
-### Distribuição amostral da proporção amostral  
-
-Para amostras grandes, a proporção amostral é aproximadamente normalmente distribuída, com média $\mu_{\hat{p}} = p$ e desvio padrão $\sigma_{\hat{p}}= \sqrt{\frac{pq}{n}}$.
-
-Uma amostra é grande se o intervalo [$p - 3\sigma_{\hat{p}}$,  $p + 3\sigma_{\hat{p}}$] estiver totalmente dentro do intervalo [0,1].  
-
-Na prática, *p* não é conhecido, portanto, $\sigma_{\hat{p}}$ também não é. Nesse caso, para verificar se a amostra é suficientemente grande, substitui-se o valor de *p* pelo valor conhecido de $\hat{p}$. Isso significa verificar se o intervalo encontra-se totalmente dentro do intervalo [0,1], usando:
+Uma amostra é grande se o intervalo
 
 $$
-\left(\hat{p} - 3 \times\sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}, \quad \hat{p} + 3\times\sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}\right)
+[\hat{p}-3 \times \sigma_\hat{p} , \quad \hat{p}-3 \times \sigma_\hat{p}]
 $$
+estiver totalmente dentro do intervalo [0,1].  
+
+Na prática, *p* não é conhecido, portanto, $\sigma_\hat{p}$  também não é. Nesse caso, para verificar se a amostra é suficientemente grande, substitui-se o valor de *p* pelo valor conhecido de  $\hat{p}$. Isso significa verificar se o intervalo
+
+$$
+\hat{p}-3\times\sqrt{\frac{\hat{p}(1-\hat{p})}{n}},\quad \hat{p}+3\times\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}
+$$
+encontra-se totalmente dentro do intervalo [0,1].  
 
 Transportando os dados da amostra de gestantes, para a fórmula e usando o R para o cálculo, tem-se:
 
@@ -371,11 +356,10 @@ p.chapeu <- tab.fumo[1,2]
 n <- tab.fumo[1,1] + tab.fumo[2,1]
 
 li <- p.chapeu - 3*sqrt((p.chapeu*(1-p.chapeu))/n)
-li
 ls <- p.chapeu + 3*sqrt((p.chapeu*(1-p.chapeu))/n)
-ls
+print(c(li, ls), digits = 3)
 ```
+Como os limites ficam no intervalo [0, 1], chega-se à conclusão de que a amostra de *n* = 100 é aceitável para estimar a proporção populacional.  
 
-Dessa forma, tem-se que a amostra de n = 100 é aceitável para uma população onde *p* = `r round (fr.fumo[1], 2)`
-
+Como exercício, verificar se uma amostra de *n* = 40 é aceitável.
 

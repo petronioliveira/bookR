@@ -18,7 +18,7 @@ pacman::p_load(dplyr,
 
 Será usada a distribuição da variável `altura`, correspondente a altura em metros de 1368 parturientes da Maternidade do HGCS (`dadosMater.xlsx`), já usado anteriormente no Capítulo 7.   
 
-### Exploração dos dados  
+### Exploração dos dados  {#sec-assimetria}
 
 O resumo dos dados pode ser realizado, usando a função `summarise()` do pacote `dplyr`. A moda será calculada usando uma função própria `moda()`^[A função pode ser obtida no [link](https://github.com/petronioliveira/Arquivos/blob/main/moda.R) para se baixada no seu diretório de trabalho.] ,que deve ser ativada com a função `source()`^[Veja a seção sobre criação de funções no Capítulo 4].
 
