@@ -318,7 +318,7 @@ knitr::kable(df1,
   kableExtra::row_spec(0, bold = TRUE)
 ```
 
-#### Construção da tabela de frequência
+#### Construção da tabela de frequência   {#sec-tabfreq}
 
 Para demonstrar como construir uma tabela de frequência, usando o R, será usada uma variável categórica que não existe no conjunto de dados `mater.` Esta variável vai ser criada, categorizando a variável numérica `idadeMae` (idade da parturiente) em três categoria, classicamente, usadas: menores de 20 anos (adolescentes), 20 a 35 anos e maiores de 35 anos. No conjunto mater, a variável `idadeMae` tem como idade mínima 13 anos e idade máxima 46 anos. A nova variável receberá o nome de `categIdade`.
 Para realizar este trabalho de transformação da variável numérica em categórica, será usada a função `cut()` do pacote R base.

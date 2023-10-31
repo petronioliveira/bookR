@@ -197,7 +197,7 @@ knitr::kable(data.frame(g1,assimetria),
 
 Observando o formato da distribuição no histograma e no boxplot, na Figura \@ref(fig:histbxp), e no resultado do coeficiente de assimetria, conclui-se que a variável `altura` tem uma assimetria positiva leve. 
 
-#### Avaliação da assimetria com o gráfico QQ
+#### Avaliação da assimetria com o gráfico QQ   {#sec-qqplot}
 
 Outra ferramenta gráfica que permite avaliar a simetria dos dados é o gráfico QQ (gráfico quantil-quantil). Ele permite observar se a distribuição se ajusta a distribuição normal. O gráfico QQ é um gráfico de dispersão que compara os quantis ^[Sobre os quantis, veja a seção específica no Capítulo 6] da amostra com os quantis teóricos de uma distribuição de referência. Se os pontos do gráfico QQ formarem uma reta, isso indica que os dados têm a mesma distribuição da referência. Se os pontos se afastarem da reta, isso indica que os dados têm uma distribuição diferente da referência.
 Para construir um gráfico QQ, pode-se usar a função `ggqqplot()`do pacote `ggpubr`. Ele apresenta uma linha de referência, acompanhada de uma area sombreada, correspondente ao Intervalo de Confiança de 95% (Veja o Capítulo 10):
