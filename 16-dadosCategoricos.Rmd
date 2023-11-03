@@ -25,7 +25,7 @@ Dois testes de hipótese são proeminentes na pesquisa na área da saúde. Um é
 Se uma variável *X* é normalmente distribuída, então a variável $X^{2}$ tem uma distribuição qui-quadrado [@altman1991chisquared]. A distribuição qui-quadrado com *k* categorias é a distribuição de uma soma dos quadrados de *k* variáveis aleatórias independentes com distribuição normal. O número de categorias determina o número de graus de liberdade. O formato da distribuição qui-quadrado depende desses graus de liberdade.  
 Em geral, ela é assimétrica com apenas valores positivos, iniciando em zero. A assimetria diminui à medida que aumentam os graus de liberdade. Para cada grau de liberdade tem-se curvas de distribuição diferentes.
 
-```{r chi, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Distribuição do qui-quadrado."}
+```{r chi, echo=FALSE, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Distribuição do qui-quadrado."}
 curve(dchisq(x, df = 5), from = 0, to = 60, col = "royalblue", lwd =2, bty = "n")
 curve(dchisq(x, df = 10), from = 0, to = 60, col = "red", lwd =2, add = T)
 curve(dchisq(x, df = 15), from = 0, to = 40, col = "orange", lwd =2, add = T)
