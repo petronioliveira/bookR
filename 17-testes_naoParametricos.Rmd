@@ -1,6 +1,6 @@
 # Métodos não paramétricos  
 
-## Pacotes necessários  
+## Pacotes necessários neste capítulo 
 
 ```{r}
 pacman::p_load (coin,
@@ -36,9 +36,9 @@ A atribuição dos postos de uma variável é realizada da seguinte maneira:
 Por exemplo, suponha uma amostra contendo os escores de Apgar no primeiro minuto de 10 recém-nascidos a termo (Tabela \@ref(tab:apgar1)). Em primeiro lugar, os valores são colocados em ordem crescente e, após, atribui-se postos aos valores. Observe que os postos atribuídos aos valores das posições 3 e 4 são iguais e correspondentes a média de 3 e 4, que é igual a 3,5. O mesmo ocorreu com os outros valores onde houve empate.   A soma dos postos, no exemplo, é igual a 55. Para verificar a correção do cálculo, haja ou não empates, a soma dos postos será sempre $\frac {n\ \times \ (n+1)}{2}$. No exemplo, *n* = 10, logo $\frac {10\ \times \ (10+1)}{2}=55$. 
 
 ```{r apgar1, echo=FALSE, message=FALSE, warning=FALSE}
-apgar1 <-c(4, 5, 7, 8, 8, 9, 10, 10, 10, 11)
-ordem <- c(1, 2, 3, 4 , 5 , 6, 7, 8, 9, 10)
-posto <- c(1, 2, 3, 4.5, 4.5, 6, 8, 8, 8, 10)
+apgar1 <-c(4, 5, 7, 8, 8, 8, 9, 9, 10, 10)
+ordem <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+posto <- c(1, 2, 3, 5, 5, 5, 7.5, 7.5, 9.5, 9.5)
 
 df <- data.frame(apgar1, ordem, posto)
 
@@ -47,13 +47,13 @@ knitr::kable(df,
              align = c('c', 'c', 'c'),
              booktabs = TRUE,
              caption = "Construção dos postos") %>% 
-  kableExtra::kable_styling(full_width = F,
+  kableExtra::kable_styling(full_width = FALSE,
                 latex_options = "hold_position") %>% 
   kableExtra::kable_classic(html_font = "Cambria") %>%
   kableExtra::row_spec(0, bold = TRUE) %>% 
-  kableExtra::column_spec(1, width = "2cm") %>% 
-  kableExtra::column_spec(2, width = "2cm") %>% 
-  kableExtra::column_spec(3, width = "2cm")
+  kableExtra::column_spec(1, width = "3cm") %>% 
+  kableExtra::column_spec(2, width = "3cm") %>% 
+  kableExtra::column_spec(3, width = "3cm")
 ```
 
 ## Teste de Mann-Whitney  
@@ -62,71 +62,49 @@ O *teste de Mann-Whitney* é usado para analisar a diferença na variável depen
 
 É o substituto do teste *t* para amostras independentes quando os pressupostos deste teste são violados. Para a aplicação do teste de Mann-Whitney a variável de interesse deve ser ordinal ou numérica. Este teste é equivalente ao desenvolvido por Frank Wilcoxon (1892 – 1965), assim algumas vezes é denominado de *Wilcoxon Rank Sum Test*. O R usa esta denominação e é importante não confundir com o teste não paramétrico para amostra pareadas, discutido mais adiante.  
 
-### Dados  
+### Dados usados nesta seção
 
-Será usado o banco de dados `dadosCirurgia.xlsx` que pode ser encontrado [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosCirurgia.xlsx). Salve o mesmo no seu diretório de trabalho. Este bancode dados contém 144 recém-nascidos submetidos a diferentes procedimentos cirúrgicos.   
-
-As variáveis disponíveis são: 
-
-*	**id**: identificação do neonato;
-*	**sexo**: sexo do recém-nascido, `fem` e `masc`;
-*	**peso**: peso do neonato em gramas;
-* **tempohosp**: tempo de hospitalização em dias;
-* **infec**: presença de infecção secundária: sim e não;
-* **cirurgia**: tipo de cirurgia: abdominal, cardíaca, outra.
-
+O arquivo `dadosCirurgia.xlsx`, já usado na Seção \@ref(sec-dadosCirurgia), fornecerá os dados para esta seção. Ele contém 144 recém-nascidos que foram submetidos a diferentes procedimentos cirúrgicos. 
 A questão de pesquisa a ser respondida é:   
 
 > <font size=2>Existe diferença no tempo de hospitalização (`tempohosp`) dos recém-nascidos de acordo com a presença ou não de infecção (`infec`)?</font>  
 
-#### Leitura dos dados  
+Essa pergunta foi respondida de outra maneira, na Seção \@ref(sec-tabextensas). Agora, será usado o teste de Mann-Whitney.
+
+#### Leitura, exploração e visualização dos dados  
 
 Os dados serão lidos com a função `read_excel()` do pacote `readxl`:  
 
 ```{r}
-dados <- readxl::read_excel ("Arquivos/dadosCirurgia.xlsx")
-dplyr::glimpse(dados)
+cirurgia <- readxl::read_excel ("Arquivos/dadosCirurgia.xlsx")
+str(cirurgia)
 ```
-
-#### Exploração e visualização dos dados
-
-A função `summary()` cumpre um bom papel para observar o dados:
-
-```{r}
-summary(dados)
-```
-
 A variável `infec` aparece como caractere e será transformada como fator:
 
 ```{r}
-dados$infec <- as.factor(dados$infec)
-dplyr::glimpse(dados)
+cirurgia$infec <- as.factor(cirurgia$infec)
 ```
 
-Os boxplots  (Figura \@ref(fig:bpapgar1)) são uma boa maneira de visualizar os dados:
+Os boxplots  (Figura \@ref(fig:bpapgar1)), construídos com a função `ggboxplot()` do pacote `ggpubr` com as cores da paleta do *New England Journal of Medicine (NEJM)*, são uma boa maneira de visualizar os dados:
 
 ```{r bpapgar1, message=FALSE, warning=FALSE,fig.align='center', out.height="70%", out.width="70%", fig.cap="Impacto da infecção no tempo de hopsitalização."}
-ggplot2::ggplot (dados, 
-                 aes (x=infec, 
-                      y =tempohosp, 
-                      color = infec, 
-                      fill = infec)) + 
-  geom_errorbar(stat = "boxplot", width = 0.1) +
-  geom_boxplot (outlier.colour = "black", 
-                          outlier.size=1.5, 
-                          color = "black") +
-  scale_color_nejm () + 
-  theme_classic () +
-  theme (legend.position = "none") +
-  ylab ("Tempo de hospitalização (dias)") +
-  xlab ("Presença de infecção") +
-  theme (text = element_text (size = 12))
+ggpubr::ggboxplot(cirurgia,
+                  x = "infec",
+                  y = "tempohosp",
+                  bxp.errorbar = TRUE,
+                  bxp.errorbar.width = 0.1,
+                  fill = "infec",
+                  palette = "nejm",
+                  legend = "none",
+                  ggtheme = theme_bw(),
+                  xlab = "Presença de infecção" ,
+                  ylab = "Tempo de hospitalização (dias)")   
 ```
 
-Os boxplots exibem uma série de valores atípicos, indicando que existe uma assimetria em ambos os grupos. A normalidade da variável também pode ser verificada usando o teste de Shapiro-Wilk.
+Os boxplots exibem uma série de valores atípicos, indicando que existe uma assimetria em ambos os grupos. Essa assimetria também pode ser verificada usando o teste de Shapiro-Wilk, que mostrando valores *P* < 0,05, confirma que os dados não seguem a distribuição normal.  Este teste não é pré-requisito para o teste. Foi realizado como uma demonstração.
 
 ```{r}
-dados %>% 
+cirurgia %>% 
   dplyr::group_by(infec) %>% 
   rstatix::shapiro_test(tempohosp)
 ```
@@ -136,7 +114,7 @@ dados %>%
 Como a variável `tempohosp` é assimétrica conforme mostrado acima, onde ambos os valores *P* são menores do que 0,05, será realizado um sumário numérico com a obtenção da mediana e IIQ. Isto será feito através da função `group_by()` e  `summarise()`, incluídas no pacote `dplyr`. 
 
 ```{r}
-resumo <- dados %>% 
+resumo <- cirurgia %>% 
   dplyr::group_by(infec) %>% 
   dplyr::summarise(n = n(),
                    mediana = median (tempohosp, na.rm = TRUE),
@@ -146,20 +124,18 @@ resumo
 
 ```
 
-Os dados mostram que a mediana de tempo de internação dos neonatos infectados é bem maior do que os não infectados. A diferença mediana e os intervalos de confiança desta diferença são:
+Os dados mostram que a mediana de tempo de internação dos neonatos infectados é bem maior do que os não infectados. A diferença mediana e os intervalos de confiança para essa diferença pode ser calculada com a função `ci_quantile_diff()` do pacote `confintr` [@mayer2022confintr].
 
 ```{r}
-infectado <- dplyr::filter(dados, infec == "sim") %>% 
+infectado <- dplyr::filter(cirurgia, infec == "sim") %>% 
   select(tempohosp)
-sem_infec <- dplyr::filter(dados, infec == "não") %>% 
+sem_infec <- dplyr::filter(cirurgia, infec == "não") %>% 
   select(tempohosp)
 
 dif_mediana <- median(infectado$tempohosp)- median(sem_infec$tempohosp)
 dif_mediana
 ci_quantile_diff(infectado, sem_infec)
 ```
-
-Para calcular intervalos de confiança para a diferença das medianas, foi usada a função `ci_quantile_diff()` do pacote `confintr` [@mayer2022confintr].
 
 Dessa forma, a mediana da diferença entre os dois grupos foi de 14 dias (IC95%; 5 - 20).
 
@@ -168,9 +144,9 @@ Dessa forma, a mediana da diferença entre os dois grupos foi de 14 dias (IC95%;
 Da mesma maneira que o teste *t*, as hipóteses estabelecidas comparam dois grupos independentes. Se não houver diferença entre os grupos, ou seja, os grupos são provenientes de uma mesma população, as somas dos postos em cada grupo devem ficar próximas. Desta forma, 
 
 > <font size=2> **$H_{0}$**: As duas populações são iguais.  
-**$H_{A}$**: As duas populações não são iguais. </font>
+**$H_{1}$**: As duas populações não são iguais. </font>
 
-Não foi escrita a hipótese nula como sendo de que as médias (ou as medianas) são iguais, pois o tese não usa as medidas de posição tradicionais e sim os postos.
+Não foi escrita a hipótese nula como sendo de que as médias (ou as medianas) são iguais, pois o teste não usa as medidas de posição tradicionais e sim os postos.
 
 ### Pressupostos do teste de Mann_Whitney
 
@@ -182,7 +158,7 @@ O teste de Mann-Whitney é baseado nos seguintes pressupostos:
 4. A variável a ser comparada nos grupos deve ser ordenável;
 4. O grupo 1 será o grupo de menor tamanho e, se tiverem o mesmo tamanho, o grupo 1 é aquele cuja soma dos postos é a menor.  
 
-### Execução do teste estatístico  
+### Cálculo da estatística de teste  
 
 #### Lógica do teste U de Mann-Whitney  
 
@@ -195,17 +171,17 @@ Para calcular o teste, procede-se da seguinte maneira:
 2. Ordenar de forma crescente todos os valores da variável `tempohosp`, sem levar em consideração a que grupo pertence. Para realizar este procedimento, será usada a função `rank()` do R base com o método para empates igual à média dos valores empatados (`ties.method="average`). Ao executar a função, será criada uma nova variável, denotada `postos`. 
 
 ```{r}
-dados$posto <- rank(dados$tempohosp, ties.method = "average") 
-head(dados)
+cirurgia$postos <- rank(cirurgia$tempohosp, ties.method = "average") 
+head(cirurgia)
 ```
 
 3. Verificar o tamanho (*n*) de cada grupo (presença ou não de infecção) e somar os postos em cada um dos grupos, usando a função `group_by()` junto com a função `summarise()`,  
 
 ```{r}
-resumo <- dados %>% 
+resumo <- cirurgia %>% 
   dplyr::group_by(infec) %>% 
   dplyr::summarise(n = n(),
-                   soma = sum(posto))
+                   soma = sum(postos))
 resumo
 ```
 
@@ -288,25 +264,18 @@ Na prática, não há necessidade de fazer todos esses cálculos, pois o *R* cal
 
 #### Cálculo do U de Mann-Whitney no R  
 
-O cálculo será realizado, usando a função `wilcox.test()` do pacote `stats`, incluído no R base. Este teste necessita alguns argumentos, consulte `?wilcox.test` para maiores detalhes.  
+O teste pode ser realizado com a função `wilcox_test()` ^[O cálculo pode também ser realizado, usando a função `wilcox.test()` do pacote `stats`, incluído no R base.] do pacote `rstatix`: 
 
 ```{r}
-teste1 <- wilcox.test(formula = tempohosp ~ infec, data = dados)
-teste1
+teste <- rstatix::wilcox_test(formula = tempohosp ~ infec, data = cirurgia)
+teste
 ```
 
-O teste também pode ser realizado com a função `wilcox_test()` do pacote `rstatix` que fornece o mesmo resultado.  
+Assim como no cálculo manual, o teste no R, mostra uma diferença estatisticamente significativa (*P* = 0,00083) entre os tempos de hospitalização dos recém-nascidos que realizaram cirurgia no período neonatal que se infectaram ou não (diferença mediana = 14 dias; IC95% : 5,0 – 19,5).
 
-```{r}
-teste2 <- rstatix::wilcox_test(formula = tempohosp ~ infec, data = dados)
-teste2
-```
+### Tamanho do efeito  {#sec-tefMW}
 
-Ambos teste entregam o mesmo resultado, mostrando uma diferença estatisticamente significativa (*P* = 0,00083) entre os tempos de hospitalização dos recém-nascidos que realizaram cirurgia no período neonatal que se infectaram ou não (diferença mediana = 14 dias (4,5 - 20)).
-
-### Tamanho do efeito  
-
-É interessante calcular o tamanho do efeito, a magnitude do efeito. O tamanho do efeito *r* é calculado como a estatística $Z_{U}$ dividida pela raiz quadrada do tamanho da amostra (*n*).
+É interessante calcular o tamanho do efeito, a magnitude do efeito. O tamanho do efeito *r* é calculado como a estatística $Z_{U}$ dividida pela raiz quadrada do tamanho da amostra ($n = n_{1} + n_{2}$).
 
 $$
 r = \frac {Z_{U}}{\sqrt{n}}
@@ -319,10 +288,10 @@ r <- Z_U/sqrt(n1+n2)
 round(r,3)
 ```
 
-O R possui a função `wilcox_effsize()` do pacote `rstatix` e necessita também do pacote `coin` @hothorn2006lego , instalado para calcular a estatística *r*.  A saída exibirá junto a magnitude o efeito, que no caso é pequena (veja Tabela \@ref(tab:wilcoxef)). 
+O R possui a função `wilcox_effsize()` do pacote `rstatix` e necessita também do pacote `coin` @hothorn2006lego , instalado para calcular a estatística *r*.^[Para maiores detalhes consulte a ajuda da função.]  A saída exibirá junto a magnitude o efeito, que no caso é pequena (veja Tabela \@ref(tab:wilcoxef)). 
 
 ```{r}
-wilcox_effsize(dados, tempohosp~infec)
+wilcox_effsize(cirurgia, tempohosp~infec)
 ```
 
 
@@ -352,36 +321,25 @@ O valor $P<0,0001$, bem abaixo do nível de significância estabelecido ($\alpha
 Isto pode ser visualizado no gráfico (Figura \@ref(fig:bpres)):
 
 ```{r bpres, message=FALSE, warning=FALSE,fig.align='center', out.height="70%", out.width="70%", fig.cap="Impacto da infecção no tempo de hopsitalização."}
-bxp <- ggplot2::ggplot (dados, 
-                        aes (x=infec, 
-                             y =tempohosp,
-                             color = infec)) + 
-  geom_errorbar(stat = "boxplot", width = 0.1) +
-  geom_boxplot (outlier.colour = "black", 
-                outlier.size=1.5) +
-  theme_classic () +
-  scale_color_nejm () +
-  theme (legend.position = "none") +
-  ylab ("Tempo de hospitalização (dias)") +
-  xlab ("Presença de infecção") +
-  theme (text = element_text (size = 12))
-
-teste <- dados %>% 
-  rstatix::wilcox_test(tempohosp ~ infec) %>%
-  rstatix::add_significance()
-
-teste <- teste %>% add_xy_position(x = "infec")
-bxp + 
-  ggpubr::stat_pvalue_manual(teste, tip.length = 0) +
+ggpubr::ggboxplot(cirurgia,
+                   x = "infec",
+                   y = "tempohosp",
+                   bxp.errorbar = TRUE,
+                   bxp.errorbar.width = 0.1,
+                   fill = "infec",
+                   palette = "nejm",
+                   legend = "none",
+                   ggtheme = theme_bw(),
+                   xlab = "Presença de infecção" ,
+                   ylab = "Tempo de hospitalização (dias)") +
   labs(subtitle = rstatix::get_test_label(teste, detailed = TRUE))
 ```
-
 
 ## Teste de Wilcoxon  
 
 O *teste de Wilcoxon*, também conhecido como teste dos postos com sinais de Wilcoxon (*Wilcoxon Signed-Rank Test*), é um teste não paramétrico utilizado em situações em que existem dois  conjuntos de dados emparelhados, ou seja, dados provenientes do mesmo participante. O teste não examina os dois grupos individualmente; em vez disso, ele se concentra na diferença existente entre cada par de observações. É um equivalente não paramétrico do teste *t* pareado.  
 
-### Dados  
+### Dados usados nesta seção
 
 Pata verificar se a realização de exercícios aeróbicos modifica a função respiratória de 10 escolares asmáticos, foi medido o Pico de Fluxo Expiratório Máximo (*Peak Flow Meter*) no início e no final do programa, após 120 dias. O Pico de Fluxo Expiratório Máximo (PFE) serve como uma forma simples de avaliar a força e a velocidade de saída do ar de dentro dos pulmões. É medido em L/min. Os resultados do estudo tem apenas três variáveis, `id`, `basal` e `final`. 
 
@@ -390,9 +348,9 @@ id <- c(1:10)
 basal <- c(120, 200, 140, 200, 110, 240, 150, 120, 250, 190)
 final <- c(220, 300, 230, 180, 300, 330, 230, 250, 300, 200)
 
-dados <- data.frame(id, basal, final)
+dados <- tibble(id, basal, final)
 
-dplyr::glimpse (dados)
+head (dados)
 ```
 
 A questão de pesquisa a ser respondida, portanto, é:
@@ -401,19 +359,14 @@ A questão de pesquisa a ser respondida, portanto, é:
 
 #### Exploração e transformação dos dados  
 
-Os dados estão no formato amplo com as variáveis basal e final classificadas como númericas. Será transformado para o formato longo, usando a função `pivot_longer()` do pacote `tidyr`. Este processo é opcional, mas, como foi feito com o teste *t* pareado, será repetido aqui:  
+Os dados estão no formato amplo com as variáveis basal e final classificadas como númericas. Será transformado para o formato longo, usando a função `pivot_longer()` do pacote `tidyr`. Este processo é opcional, mas, como foi feito com o teste *t* pareado, será repetido aqui como treinamento:  
 
 ```{r}
 dadosL <- dados %>% 
   tidyr::pivot_longer(c(basal, final), 
                       names_to = "momento", 
                       values_to = "medidas")
-```
-
-O conjunto de dados dadosL paassa a ter a seguinte estrutura:
-
-```{r}
-dplyr::glimpse(dadosL)
+str(dadosL)
 ```
 
 #### Medidas resumidoras  
@@ -436,38 +389,42 @@ resumo
 
 #### Visualização dos dados  
 
-**Boxplot** (Figura \@ref(fig:aero))
+Pode-se fazer visualização gráfica dos dados usando um boxplot (Figura \@ref(fig:aero) ou um gráfico de linha (Figura \@ref(fig:aero1)).
+
+<u>Boxplot</u>
 
 ```{r aero, message=FALSE, warning=FALSE,fig.align='center', out.height="70%", out.width="70%", fig.cap="Impacto de exercícios aeróbicos na função respiratória de 10 escolares asmáticos."}
-dadosL %>% 
-  ggplot2::ggplot(aes(x = momento, y = medidas, fill = momento)) +
-  geom_errorbar(stat = "boxplot", width = 0.1) + 
-  geom_boxplot (outlier.color = "red",
-                outlier.shape = 1,
-                outlier.size = 1) +
-  scale_fill_manual(values = c("cyan4","cyan3")) +
-  ylab("Volume Forçado em 1 seg (L)") +
-  xlab("Momento") +
-  theme_classic() + 
-  theme(text = element_text(size = 12)) +
-  theme(legend.position = "none")
+ggpubr::ggboxplot(dadosL,
+                  x = "momento",
+                  y = "medidas",
+                  bxp.errorbar = TRUE,
+                  bxp.errorbar.width = 0.1,
+                  fill = "momento",
+                  palette = c("cyan4", "cyan3"),
+                  legend = "none",
+                  ggtheme = theme_bw(),
+                  xlab = "Momento" ,
+                  ylab = "PEF (L/min) ")+
+  theme (text = element_text (size = 13),
+         axis.text.x= element_text(size = 12)) 
 ```
 
-**Gráfico de linha** (Figura \@ref(fig:aero1))
+<u>Gráfico de linha</u> 
 
 ```{r aero1, message=FALSE, warning=FALSE,fig.align='center', out.height="70%", out.width="70%", fig.cap="Impacto de exercícios aeróbicos na função respiratória de 10 escolares asmáticos."}
-resumo %>% 
-  ggplot2::ggplot(aes(x=momento, y=media, group=1)) +
-    geom_point(size = 2) +
-    geom_line(linetype ='dashed') +
-    geom_errorbar(aes(ymin=media - me, 
-                      ymax=media + me), 
-                  width=0.1,
-                  size = 1,
-                  col = c("cyan4","cyan3")) +
-    theme_classic()+
-    labs(x='Momento',
-         y='Volume Forçado em 1 seg (L)')
+ggpubr::ggline(dadosL,
+               x = "momento",
+               y = "medidas",
+               color = "cyan4",
+               linetype = "dashed",
+               size = 0.7,
+               add = "mean_ci",
+               point.size = 2,
+               xlab = "Momento" ,
+               ylab = "PEF (L/min) ",
+               ggtheme = theme_bw()) +
+  theme (text = element_text (size = 13),
+         axis.text.x= element_text(size = 12))
 ```
 
 #### Criação de uma variável que represente a diferença entre os momentos
@@ -475,21 +432,21 @@ resumo %>%
 A diferença entre as média basal e final será atribuída ao nome `D`. Esta ação será realizada, utilizando o banco de dados amplo (`dados`):
 
 ```{r}
-dados$D <- dados$final - dados$basal
+dados$D <- dados$basal - dados$final
 head (dados)
 ```
 
-**Resumo da variável `D`**  
+**Resumo da variável D**  
 
-Ao resumo será atribuído ao nome `sumario` (sem acento):
+Ao resumo será atribuído ao nome `resumo2`:
 
 ```{r}
-sumario <- dados %>% 
+resumo2 <- dados %>% 
   dplyr::summarise(n = n (),
                    mediana = median (D, na.rm = TRUE),
                    p25=quantile(D, probs = 0.25, na.rm = TRUE),
                    p75=quantile(D, probs = 0.75, na.rm = TRUE))
-sumario
+resumo2
 ```
 
 O sinal negativo demonstra que houve um aumento do PFM do momento basal para o final.  
@@ -511,7 +468,7 @@ Note que a $H_{A}$ estabelece que a diferença pode aumentar ou diminuir. Logo, 
 1. A ideia do teste é verificar se as diferenças positivas são maiores ou menores, em grandeza absoluta, que as diferenças negativas. Para isso, foi criada, anteriormente, a variável `D`. Agora, será criada outra variável, iguala a variável `D`, apenas ignorando o sinal, denominada `D_abs`, diferença absoluta entre as variáveis `final` e `basal`.
 
 ```{r}
-dados$D_abs <- abs(dados$final - dados$basal)
+dados$D_abs <- abs(dados$basal - dados$final)
 ```
 
 2. Excluir os casos com diferença igual a 0 (zero). Para isso, uma maneira possível é extrair um subconjunto de dados do conjunto principal (`dados`), criando um conjunto de dados com a função `filter()` do pacote `dplyr`, que receberá o nome de `dados1`. O argumento `D_absbs != 0` significa todas as diferenças absolutas diferentes de 0:    
@@ -520,10 +477,10 @@ dados$D_abs <- abs(dados$final - dados$basal)
 dados1 <- dados %>% dplyr::filter(D_abs != 0)
 ```
 
-Observe que como não há diferenças zeradas. Ou seja, o novo conjunto de dados continua o mesmo. O que pode ser confirmado, executando a função `glimpse()`:
+Observe que como não há diferenças zeradas. Ou seja, o novo conjunto de dados continua o mesmo. O que pode ser confirmado, executando a função `str()`:
 
 ```{r}
-dplyr::glimpse (dados1)
+str (dados1)
 ```
 
 3. Ordenar de forma crescente todos os valores da variável `D_abs` do banco de dados `dados1`, usando a função `arrange()` do pacote `dplyr`:  
@@ -532,10 +489,10 @@ dplyr::glimpse (dados1)
 dados1 <- dados1 %>% dplyr::arrange(dados1$D_abs)
 ```
 
-4. Estabelecer postos para os valores ordenados da variável `D_abs`, do conjunto de dados `dados1`, fazendo a média das ordens quando houver empate. A execução deste comando cria uma nova variável, chamada `posto`:
+4. Estabelecer postos para os valores ordenados da variável `D_abs`, do conjunto de dados `dados1`, fazendo a média das ordens quando houver empate. A execução deste comando cria uma nova variável, chamada `postos`:
 
 ```{r}
-dados1$posto <- rank(dados1$D_abs)
+dados1$postos <- rank(dados1$D_abs)
 ```
 
 5. Estabelecer sinais para os postos, criando dois subconjuntos de dados do conjuntos dados1, um com os escolares com postos positivos (`pos`) e outros com postos negativos(`neg`):  
@@ -548,8 +505,8 @@ pos <- dados1 %>% dplyr::filter(D > 0)
 6. Somar todos os postos (variável `posto`) em cada um dos subconjuntos criados (`neg` e `pos`):
 
 ```{r}
-soma_neg <- sum(neg$posto)
-soma_pos <- sum(pos$posto)
+soma_neg <- sum(neg$postos)
+soma_pos <- sum(pos$postos)
 print (c(soma_neg, soma_pos))
 ```
 
@@ -559,8 +516,6 @@ print (c(soma_neg, soma_pos))
 T <- min (soma_neg : soma_pos)
 T
 ```
-
-No teste `wilcox.test`, T = V.
    
 8.	Para dados com tamanhos grandes (> 20 pares), a significância de *T* pode ser determinada @zar2014wilcoxon, considerando que a distribuição de *T* tem aproximadamente distribuição normal com média igual a
 
@@ -571,8 +526,7 @@ $$
 onde *n* é o tamanho da amostra.
 
 ```{r}
-n <- sumario$n
-n
+n <- length(dados$D)
 mu_T <- (n * (n + 1))/4
 mu_T
 ```
@@ -599,49 +553,38 @@ Z_T <- (abs(T - mu_T)- 0.5)/dp_T
 Z_T
 ```
 
-9.	Concluindo, o valor da estatística de teste *T* é  superior ao $Z_{crítico} = 1,96$, para um $\alpha = 0,05$. Desata forma, não rejeita-se  a $H_{0}$. Há diferença significativa entre o PFE basal e o PFE final, neste grupo de escolares asmáticos.   
+9.	Concluindo, o valor da estatística de teste *T* é  superior ao $Z_{crítico} = 1,96$, para um $\alpha = 0,05$. Dessa forma, a $H_{0}$ é rejeitada. Existe uma diferença significativa entre o PFE basal e o PFE final, neste grupo de escolares asmáticos.   
 
 10. O valor *P* pode ser obtido com a função `pnorm()` e multiplicando o resultado por 2, pois o teste é bilateral.  
 
 ```{r}
 P <- pnorm (Z_T, lower.tail = FALSE) * 2
-round(P, 4)
+P
 ```
-
-O valor $P < 0,05$, logo, rejeita-se a $H_{0}$.  
-
 Como já dito anteriormente, na prática, não há necessidade de fazer todos esses cálculos, pois o R calcula facilmente o teste. Eles são apenas uma demonstração de como o teste funciona. 
 
 #### Cálculo do teste de Wilcoxon no R  
 
-Usando o conjunto de dados no formato longo (`dadosL`), calcula-se o teste, usando a função `wilcox.test()`, do pacote `stats`:
+Usando o conjunto de dados no formato longo (`dadosL`), calcula-se o teste com a função `wilcox_test()` do pacote `rstatix`. É a mesma função utilizada para o teste de U de Mann-Whitney, mudando apenas o argumento `paired=FALSE` para `paired=TRUE`:
 
 ```{r}
-teste1 <- wilcox.test(medidas ~ momento, data = dadosL, paired = TRUE)  
-teste1
-```
-
-O pacote `rstatix` também tem uma função que permite chegar ao mesmo resultado:
-
-```{r}
-teste2 <- dadosL %>% 
+teste1 <- dadosL %>% 
   rstatix::wilcox_test(medidas ~ momento, paired = TRUE) %>% 
   rstatix::add_significance()
-teste2
+teste1
 ```
-
-Os resultados são iguais, apenas são formas diferentes de se executar o teste de Wilcoxon.  
+Observe que o resultado é o mesmo calculado manualmente.
 
 ### Tamanho do efeito  
 
-O tamanho do efeito pode ser calculado da mesma forma que para o teste de Mann-Whitney, usando a mesma equação e os dados obtidos acima, onde `r Z_T` e `r sumario$n` tem-se
+O tamanho do efeito pode ser calculado da mesma forma que para o teste de Mann-Whitney (Seção \@ref(sec-tefMW)), usando a mesma equação e os dados obtidos acima, onde `r Z_T` e *n* = 10 tem-se
   
 $$
 r = \frac {Z_{T}}{\sqrt{n}}
 $$
 
 
-Pode-se usar também a função `wilcox_effsize()` para calcular a estatística *r*.  A Saída exibe junto a magnitude o efeito, que no caso é grande (> 0,5 como mostra a Tabela 2 do teste de Mann-Whitney).  
+Pode-se usar também a função `wilcox_effsize()` para calcular a estatística *r*.  A Saída exibe junto a magnitude o efeito, que no caso é grande (> 0,5 como mostra a Tabela \@ref(tab:wilcoxef) do teste de Mann-Whitney).  
 
 ```{r}
 dadosL %>% 
@@ -657,20 +600,19 @@ Pode-se concluir que existe diferença nas medidas do pico de fluxo expiratório
 Isto pode ser visualizado na Figura \@ref(fig:aero2): 
 
 ```{r  aero2, message=FALSE, warning=FALSE,fig.align='center', out.height="70%", out.width="70%", fig.cap="Impacto de exercícios aeróbicos na função respiratória de 10 escolares asmáticos."}
-bxp <- ggplot2::ggplot (dadosL, 
-                        aes (x=momento, 
-                             y =medidas,
-                             color = momento)) + 
-  geom_errorbar(stat = "boxplot", width = 0.1) +
-  geom_boxplot (outlier.colour = "black", 
-                outlier.size=1.5) +
-  theme_classic () +
-  scale_color_nejm () +
-  theme (legend.position = "none") +
-  ylab ("Dosagem do Cortisol (microgramas/L)") +
-  xlab ("Momento") +
-  theme (text = element_text (size = 12))
-
+bxp <- ggpubr::ggboxplot(dadosL,
+                         x = "momento",
+                         y = "medidas",
+                         bxp.errorbar = TRUE,
+                         bxp.errorbar.width = 0.1,
+                         fill = "momento",
+                         palette = c("cyan4", "cyan3"),
+                         legend = "none",
+                         ggtheme = theme_bw(),
+                         xlab = "Momento" ,
+                         ylab = "PEF (L/min) ") +
+  theme (text = element_text (size = 13),
+         axis.text.x = element_text(size = 11))
 
 teste <- dadosL %>% 
   rstatix::wilcox_test (medidas ~ momento, paired = TRUE) %>%
@@ -692,7 +634,7 @@ Enquanto a ANOVA depende da hipótese de que todas as populações são independ
 
 O teste não usa diretamente medições de quantidade conhecida, utiliza, como outros testes não paramétricos, os postos dos valores analisados. Em função  disso, é também conhecido como *análise de variância de um fator em postos*.  
 
-### Dados
+### Dados usados nesta seção
 
 Um experimento foi realizado para verificar se o álcool ou o café afetam os tempos de reação ao dirigir [@karadimitriou2020kruskal]. O estudo tem três grupos diferentes de participantes: 10 bebendo água (controle), 10 bebendo cerveja contendo duas unidades de álcool e 10 bebendo café. O tempo de reação em uma simulação de direção foi medido para cada participante.  
 
@@ -700,52 +642,42 @@ Os dados encontram-se no arquivo `dadosResposta.xlsx`. Clique [**aqui**](https:/
 
 As variáveis são:
 
-*	**id**: identificação do participante;
-*	**tempo**: tempo de reação na simulação de direção em segundos;
-*	**bebida**: três grupo: água, álcool e café.
+*	*id* $\to$ identificação do participante;
+*	*tempo* $\to$ tempo de reação na simulação de direção em segundos;
+*	*bebida* $\to$ três grupo: água, álcool e café.
 
 O estudo pretende verificar se existe diferença no tempo de reação dos participantes em um teste de direção com a ingesta de água, café e álcool.
 
-#### Leitura dos dados   
+#### Leitura e exploração dos dados
+
+Como o dados estão contidos em um arquivo Excel (*.xlsx*), serão lidos com a função `read_excel()` do pacote `readxl` e a sua estrutura será observada com função `str()`: 
 
 ```{r}
 dados <- read_excel ("Arquivos/dadosResposta.xlsx")
+str(dados)
 ```
 
-#### Exploração e visualização dos dados  
-
-Visão geral das variáveis com a função `summary()`:
-
-```{r}
-summary (dados)
-```
-
-A variável `bebida` encontra-se como caracter e deve ser fator:
+O formato do arquivo é o longo. A variável bebida encontra-se como caracter e deve ser transformada em fator e as categorias na sequência: `agua`, `cafe` e `alcool`. 
 
 ```{r}
 dados$bebida <- factor(dados$bebida, 
                        levels = c("agua", "cafe", "alcool"))
-
-dplyr::glimpse (dados)
 ```
 
 Os dados serão observados visualmente através de boxplots (Figura \@ref(fig:bebida)), usando a função `ggplot()` do pacote `ggplot2`, com cores do `nejm` (*New England Journal of Medicine*) o pacote `ggsci`. 
 
 ```{r bebida, message=FALSE, warning=FALSE,fig.align='center', out.height="70%", out.width="70%", fig.cap="Impacto do tipo de bebida no tempo de reação ao dirigir."}
-ggplot2::ggplot(dados, 
-                aes(x=bebida, 
-                    y =tempo, 
-                    color = bebida, 
-                    fill = bebida)) + 
-  geom_errorbar(stat = "boxplot", width = 0.1) +
-  geom_boxplot(outlier.colour = "black", 
-               outlier.size=1.5, 
-               color = "black") +
-  ggsci::scale_color_nejm() + 
-  theme_classic() +
-  theme(legend.position = "none") +
-  ylab ("Tempo (seg)") +
-  xlab ("Bebida") +
+ggpubr::ggboxplot(dados,
+                   x = "bebida",
+                   y = "tempo",
+                   bxp.errorbar = T,
+                   bxp.errorbar.width = 0.1,
+                   fill = "bebida",
+                   palette = "nejm",
+                   legend = "none",
+                   ggtheme = theme_bw(),
+                   xlab = "Tipo de bebida" ,
+                   ylab = "Tempo de reação (seg)") +
   theme(text = element_text(size = 12))
 ```
 
@@ -757,7 +689,6 @@ dados %>%
   rstatix::identify_outliers(tempo)
 ```
 
-#### Sumarização  e avaliação da normalidade dos dados  
 
 Para avaliar a normalidade será usado o teste de Shapiro-Wilk, com a função `shapiro_test()` e a função `group_by()` do pacote `dplyr`:
 
@@ -786,7 +717,7 @@ resumo
 Se não houver diferença entre os grupos, ou seja, os grupos são provenientes de uma mesma população, as somas dos postos em cada grupo devem ficar próximas. Desta forma,
 
 > <font size=2> **$H_{0}$**: As populações são iguais.  
-**$H_{A}$**: Pelo menos uma das populações tende a exibir valores diferentes do que as outras populações. </font>
+**$H_{1}$**: Pelo menos uma das populações tende a exibir valores diferentes do que as outras populações. </font>
 
 ### Pressupostos do teste  
 
@@ -816,17 +747,17 @@ Uma boa verificação (mas não uma garantia) de que os postos foram atribuídos
 
 ```{r}
 dados$posto <- rank(dados$tempo, ties.method = "average")
-head(dados)
+str(dados)
 ```
 
 2. Somar os postos de cada grupo separadamente:  
 
 ```{r}
-resumo <- dados %>% 
+resumo1 <- dados %>% 
   dplyr::group_by(bebida) %>% 
   dplyr::summarise(n = n(),
                    soma = sum(posto))
-resumo
+resumo1
 ```
 
 3. Cálculo da estatística do teste *H*  
@@ -834,9 +765,9 @@ resumo
 ```{r}
 N <- 30
 n <- 10
-R_agua <- resumo[1,3]
-R_alcool <- resumo[2,3]
-R_cafe <- resumo[3,3]
+R_agua <- resumo1[1,3]
+R_alcool <- resumo1[2,3]
+R_cafe <- resumo1[3,3]
 
 H <- (12/(N*(N+1))) * ((R_agua^2/n) + (R_alcool^2/n) + (R_cafe^2/n)) - (3*(N+1))
 H
@@ -861,20 +792,16 @@ H <- 16.32
 pchisq(H, 2, lower.tail = FALSE)
 
 ```
-Novamente, o R tem funções que fazem facilmente esses cálculos. Eles são colocados aqui apenas para ilustrar o raciocínio de como o teste funciona, para os mais curiosos!  
+
+O R tem funções que fazem facilmente esses cálculos enfadonhos. Eles são colocados aqui apenas para ilustrar o raciocínio de como o teste de Kruskal-Wallis funciona. Sempre existem curiosos lendo o livro!
 
 #### Teste de Kruskal-Wallis no R  
 
-Calcula-se o teste, usando a função `kruskal.test()` do pacote `stats`, incluído no R base. Esta função usa os seguintes argumentos:
-
-* **x**  \to  um vetor numérico de valores de dados;
-* **g**  \to  um vetor ou objeto fator que fornece o grupo para os elementos correspondentes de x. Ignorado com um aviso se x for uma lista;
-* **formula**  \to  fórmula do tipo *resposta ~ grupo*;
-* **data**  \to  conjunto de dados (matriz ou dataframe) contendo as variáveis da fórmula; 
-* **...** \to  outros argumentos.  
+No R, pode-se calcular o teste, usando a função `kruskal_test()` do pacote `rstatix`, cujos argumentos podem ser consultados na ajuda do *RStudio*.
 
 ```{r}
-kruskal.test (tempo ~ bebida, data = dados)
+teste <- rstatix::kruskal_test (data = dados, formula = tempo ~ bebida)
+teste
 ```
 
 ### Tamanho do efeito  
@@ -901,7 +828,7 @@ A partir do resultado do teste de Kruskal-Wallis, sabe-se que há uma diferença
 
 Um teste de Kruskal-Wallis significativo é geralmente seguido pelo teste de Dunn @dunn1964multiple para identificar quais grupos são diferentes.  
 
-Para realizar as múltiplas comparações, no R, pode ser usada a função `dunn_test()` com de ajuste de *P* pelo método de Bonferroni, incluído no pacote `rstatix`:  
+Para realizar as múltiplas comparações, no R, pode ser usada a função `dunn_test()`, incluído no pacote `rstatix`. O ajuste de *P* é feito pelo método de Bonferroni:  
 
 ```{r}
 pwc <- dados %>% 
@@ -918,29 +845,23 @@ Um teste de Kruskal-Wallis foi realizado para comparar os tempos de reação em 
 O teste de comparações de pares, usando o teste de Dunn, foi realizado para os três pares de grupos. Houve evidencia de diferença entre o grupo que consumiu duas unidades de álcool e o grupo que ingeriu água (*P* ajustado (Bonferroni) = 0,00016). Entre os demais pares não houve diferença significativa. O tempo mediano de reação para o grupo que recebeu água foi de 0,84 (0,65 – 0,94) segundos, em comparação com 2,25(1,77 – 2,85) segundos no grupo que bebeu cerveja equivalente a duas unidades de álcool, enquanto para o café foi de 1,45(1,28 – 1,69) segundos. 
 
 ```{r bebida1, message=FALSE, warning=FALSE,fig.align='center', out.height="70%", out.width="70%", fig.cap="Impacto do tipo de bebida no tempo de reação ao dirigir."}
-bxp <- ggplot2::ggplot (dados, 
-                        aes (x=bebida, 
-                             y =tempo, 
-                             color = bebida)) + 
-  geom_errorbar(stat = "boxplot", width = 0.1) +
-  geom_boxplot (outlier.colour = "black", 
-                outlier.size=1.5) + 
-  scale_color_nejm () + 
-  scale_fill_nejm () + 
-  theme_classic () +
-  theme (legend.position = "none") +
-  ylab ("Tempo (seg)") +
-  xlab ("Tipo de Bebida") +
-  theme (text = element_text (size = 13))
+pwc <- pwc %>% rstatix::add_xy_position(x= "bebida")
 
-teste <- rstatix::kruskal_test(data = dados, formula = tempo ~ bebida)  
-
-pwc <- pwc %>% rstatix::add_xy_position()
-
-bxp +
-  ggpubr::stat_pvalue_manual(pwc, hide.ns = FALSE) +
-  labs(subtitle = rstatix::get_test_label(teste, 
-                                 detailed = TRUE),
-       caption = rstatix::get_pwc_label(pwc))
-
+ggpubr::ggboxplot(dados,
+                  x = "bebida",
+                  y = "tempo",
+                  bxp.errorbar = TRUE,
+                  bxp.errorbar.width = 0.1,
+                  fill = "bebida",
+                  palette = "nejm",
+                  legend = "none",
+                  ggtheme = theme_bw())+
+  ggpubr::stat_pvalue_manual (pwc,
+                              label = "p = {scales::pvalue(p.adj)}",
+                              label.size = 3.2,
+                              hide.ns = FALSE) +
+  ggplot2::labs(x = "Tipo de bebida", 
+                y = "Tempo de reação (seg)",
+                subtitle = get_test_label (teste, detailed = TRUE),
+                caption = get_pwc_label(pwc))
 ```

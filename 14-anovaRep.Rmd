@@ -1,8 +1,6 @@
 # ANOVA de medidas repetidas
 
-## ANOVA de medidas repetidas de um fator
-
-### Pacotes necessários
+## Pacotes necessários neste capítulo
 
 Instalar e carregar os seguintes pacotes:
 
@@ -16,70 +14,90 @@ pacman::p_load(dplyr,
                tidyr)
 ```
 
-### Preparação dos dados  
+## ANOVA de medidas repetidas de um fator
 
-O conjunto de dados exemplo contém a pontuação de autoestima de 10 indivíduos em três pontos de tempo durante uma dieta específica para determinar se sua autoestima melhorou. A autoestima foi determinada por uma escala @rosenberg2015society, @dini2001ear, cujos resultados variam de 0 a 30 pontos. Valores entre 15 e 25 caracterizam uma autoestima muito boa; abaixo de 15 é considerada baixa autoestima.  
+### Dados usados nesta seção  
+
+Os dados usados como exemplo contém os escores de autoestima de 10 indivíduos em três pontos de tempo durante uma dieta específica para determinar se esta interfere na sua autoestima. A autoestima foi determinada por uma escala @rosenberg2015society, @dini2001ear, cujos resultados variam de 0 a 30 pontos. Valores entre 15 e 25 caracterizam uma autoestima muito boa; abaixo de 15 é considerada baixa autoestima.  
 
 Os dados podem ser obtidos [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosAutoestima.xlsx). Baixe no seu diretório de trabalho e carregue com a função `read_excel()` do pacote `readxl`:
 
 ```{r}
 dados <- read_excel("Arquivos/dadosAutoestima.xlsx")
+```
+
+#### Exploração e transformação dos dados  
+
+Incialmente, observa-se como os dados foram registrados, usando a função `head()`:
+
+```{r}
 head(dados)
 ```
 
-Os dados se encontram no formato amplo e para realizar a ANOVA de medidas repetidas, o *R* necessita que os dados estejam no formato longo. Para fazer esta transformação será usada a função `gather()` do pacote `tidyr` [@wickham2022tidyr]. Nesta função, no argumento `data`, coloca-se o nome do conjunto de dados; em  `key`, há necessidade de nomear a coluna a ser criada que receberá as colunas do formato amplo que serão reunidas.  No argumento `value`, nomear a coluna que receberá os valores e em `values_to`, especificar o nome da variável no formato longo que conterá os valores. A variável `id` e a nova variável `tempo` devem ser convertida para fatores:
+
+Os dados se encontram no formato amplo e para realizar a ANOVA de medidas repetidas, o *R* necessita que os dados estejam no formato longo. Para fazer esta transformação será usada a função `pivot_longer()`^[Veja a Seção \@ref(sec-pivot) para mais detalhes da função.] do pacote `tidyr` [@wickham2022tidyr]. Nesta função, no argumento `data`, coloca-se o nome do conjunto de dados; em  `cols`, há necessidade de nomear a coluna a ser criada que receberá as colunas do formato amplo que serão reunidas.  No argumento `names_to`, nomear a coluna que receberá os valores e em `values_to`, especificar o nome da variável no formato longo que conterá os valores. A variável `id` e a nova variável `tempo` devem ser convertida para fatores e o novo conjunto de dados será atribuído a um objeto nomeado `dadosL`:
 
 ```{r}
 dadosL <- dados %>%
-  gather(key = "tempo", value = "escore", t1, t2, t3) %>%
-  convert_as_factor(id, tempo)
+  tidyr::pivot_longer(cols = c(t1, t2, t3),
+                       names_to = "tempo",
+                       values_to = "escores") %>% 
+convert_as_factor(id, tempo)
+
 head(dadosL)
 ```
 
-### Sumarização dos dados  
+#### Sumarização dos dados  
 
-Calcular algumas estatísticas resumidas dos escores de autoestima por grupos (`tempo`): média e desvio padrão, usando a funções `group_by()` e `get_summary_stats()` do `rstatix`:
+Calcular algumas estatísticas resumidas dos escores de autoestima por grupos (`tempo`): média e desvio padrão, usando a funções `group_by()` e `summarise()` do `dplyr`:
 
 ```{r}
-dadosL %>%
-  rstatix::group_by(tempo) %>% 
-  rstatix::get_summary_stats(escore, type = "mean_sd")
+ dadosL %>%
+   dplyr::group_by(tempo) %>% 
+   dplyr::summarise(n = n(),
+                    média = mean(escores, na.rm =TRUE),
+                    dp = sd(escores, na.rm = TRUE))
 ```
 
 ### Visualização dos dados
 
-A visualização pode ser obtida com um conjunto de boxplots (Figura \@ref(fig:bxpauto)) com ou um gráfico de linha, acrescido de barras de erro. Estes gráficos permitem visualizar a variação dos escores com o tempo.
+A visualização pode ser obtida com um conjunto de boxplots (Figura \@ref(fig:bxpauto)), acrescido de barras de erro. Estes gráficos permitem visualizar a variação dos escores com o tempo.
 
-```{r bxpauto, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Impacto de uma dieta específica na autoestima."}
+```{r bxpauto, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Boxplots mostrando o impacto de uma dieta nos escores de autoestima."}
 ggpubr::ggboxplot (dadosL,
                    bxp.errorbar = TRUE,
                    bxp.errorbar.width = 0.1, 
                    x = "tempo", 
-                   y = "escore", 
+                   y = "escores", 
                    color = "black",
-                   fill = "tempo",
+                   fill = "lightblue",
                    ylab = "Escore de Autoestima",
                    xlab = "Tempo",
+                   ggtheme = theme_bw(),
                    legend = "none") +
   scale_fill_grey(start=0.95, end=0.6) +
   theme (text = element_text (size = 12))
 ```
 
-O gráfico de linha (Figura \@ref(fig:lineauto)) mostra bem o comportamento dos escores com o tempo:
+Outra maneira de visualizar os dados é através de um gráfico de linha (Figura \@ref(fig:lineauto)) que mostra bem o comportamento dos escores com o tempo:
 
-```{r lineauto, message = FALSE, warning=FALSE, fig.align='center', out.height="80%", out.width="80%", fig.cap="Impacto de uma dieta específica na autoestima."}
+```{r lineauto, message = FALSE, warning=FALSE, fig.align='center', out.height="80%", out.width="80%", fig.cap="Gráfico de linha mostrando o impacto de uma dieta nos escores de autoestima."}
 ggpubr::ggline(dadosL, 
-               x = "tempo",
-               y = "escore",
-               color = "darkblue",
-               size = 0.7,
-               linetype = "dashed",
-               add = c("mean_ci")) +
-  ylab("Escore de Autoestima") +
-  xlab("Tempo")
+                x = "tempo",
+                y = "escores",
+                color = "gray60",
+                add.params = list(color = "red"),
+                size = 1,
+                linetype = "dashed",
+                add = c("mean_ci"),
+                point.size = 2,
+                point.color = "red",
+                ggtheme = theme_bw()) +
+   ylab("Escore de Autoestima") +
+   xlab("Tempo")
 ```
 
-### Avaliação dos pressupostos
+### Avaliação dos pressupostos    {#sec-anova2pres}
 
 A ANOVA de medidas repetidas faz as seguintes suposições sobre os dados:
 
@@ -95,7 +113,7 @@ Não deve haver valores atípicos em nenhuma célula do delineamento Isso pode s
 ```{r}
 dadosL %>%
   dplyr::group_by(tempo) %>%
-  rstatix::identify_outliers(escore)
+  rstatix::identify_outliers(escores)
 ```
 
 A saída confirma a presença de dois valores atípicos, em t1 e em t2. Entretanto, eles não são extremos, não estão afastados acima de 3 intervalos interquatis e , provavelmente, não trarão problemas, apesar da amostra ser pequena. 
@@ -107,23 +125,23 @@ Para testar a hipótese de normalidade dos dados, será utilizado o `teste de Sh
 ```{r}
 dadosL %>% 
   dplyr::group_by (tempo) %>% 
-  rstatix::shapiro_test(escore)
+  rstatix::shapiro_test(escores)
 ```
 
-Os resultados da saída mostram que os escores de autoestima estão normalmente distribuídos em cada momento.  
+A saída exibe valores *P* acima de 0,05, significando que os escores de autoestima estão normalmente distribuídos em cada momento do tempo.
 
-É possível construir um gráfico QQ (Figura \@ref(fig:qqauto)) para cada um dos momentos, usando a função `ggqqplot ()` do pacote `ggpubr`, consulte a vinheta do pacote para maiores detalhes. Foi utilizado também o argumento `faced.by`, que divide em painéis, organizando-os como uma grade, de acordo com o momento ( t1, t2 e t3).   
+A normalidade pode também ser avaliada com um gráfico QQ (Figura \@ref(fig:qqauto)) para cada um dos momentos, usando a função `ggqqplot ()` do pacote `ggpubr`, consulte a vinheta do pacote para maiores detalhes. Foi utilizado também o argumento `faced.by`, que divide em painéis, organizando-os como uma grade, de acordo com o momento ( t1, t2 e t3).   
 
 ```{r qqauto, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Gráfico QQ para verificar a normalidade"}
 ggpubr::ggqqplot(dadosL, 
-                 x = "escore",
+                 x = "escores",
                  facet.by = "tempo",
                  color = "tempo", 
                  palette = get_palette("Dark2", 3),
                  legend = "none")
 ```
 
-Observando o gráfico, como quase todos os pontos caem aproximadamente ao longo da linha de referência, pode-se assumir a normalidade dos escores em todos os momento
+Observando o gráfico, como quase todos os pontos caem aproximadamente ao longo da linha de referência, pode-se assumir a normalidade dos escores em todos os momentos do tempo.
 
 #### Esfericidade  
 
@@ -135,21 +153,19 @@ O principal problema da violação da condição de esfericidade é a ocorrênci
 
 As correções mais frequentemente preconizadas são o $\epsilon$ de *Greenhouse-Geisser (GGe)* e o $\epsilon$ de *Huynh-Feldt (HFe)*. Huynh e Feldt @huynh1976epsilon relataram que quando a correção $\epsilon$ de Greenhouse-Geisser é > 0,75 muitas hipóteses nulas falsas deixam de ser rejeitadas, isto é, o teste é muito conservador, propondo outra correção dos graus de liberdade. É recomendado o uso da correção de Greenhouse-Geisser para o ajuste dos graus de liberdade quando $\epsilon$ < 0,75 ou nada se sabe a respeito da esfericidade [@girden1992epsilon]. Avaliando o poder destes testes, Muller @muller1989sphericity verificou que a correção de Greenhouse-Geisser fornece um controle adicional do erro Tipo I, enquanto o poder é maximizado.
 
-A verificação da esfericidade é realizada junto com a realização do modelo de ANOVA, realizada com a função `anova_test()` do `rstatix.`  
+### Cálculo da estatística do teste
 
-### Cálculo ANOVA de medidas repetidas 
-
-Usa-se a função `anova_test()`, do pacote `rstatix`, para o cálculo da ANOVA de medidas repetidas, criando um modelo que será atribuído ao objeto `mod.anova`:
+Como mencionado, será usada a função `anova_test()`, do pacote `rstatix`, para o cálculo da ANOVA de medidas repetidas, criando um modelo que será atribuído ao objeto `mod.anova`:
 
 ```{r}
 mod.anova <- rstatix::anova_test(data = dadosL, 
-                                 dv = escore, 
+                                 dv = escores, 
                                  wid = id, 
                                  within = tempo)
 mod.anova
 ```
 
-Em primeiro lugar, observar o Teste de Mauchly para a esfericidade. Verifica-se que efeito do tempo tem um valor *P* = 0,092, ou seja, > 0,05 e, portanto, não houve violação da esfericidade e não há necessidade de observar as correções do $\epsilon$ de Greenhouse-Geisser (GGe) ou o $\epsilon$ de Huynh-Feldt (HFe).  
+Em primeiro lugar, observar o Teste de Mauchly para a esfericidade. Verifica-se que o efeito do tempo tem um valor *P* = 0,092, ou seja, > 0,05 e, portanto, não houve violação da esfericidade e não há necessidade de observar as correções do $\epsilon$ de Greenhouse-Geisser (GGe) ou o $\epsilon$ de Huynh-Feldt (HFe).  
 
 Desta forma, pode-se dizer que houve uma modificação significativa no escore de de autoestima, à medida que o tempo passou (F (2,18) = 55,5, *P* < 0.0001, $\eta^2 = 0,83$).
 
@@ -161,9 +177,9 @@ rstatix::get_anova_table(mod.anova)
 
 Onde,
 
-* **F** Indica que se está comparando com uma distribuição *F* (teste *F*); (2, 18) indica os graus de liberdade no numerador (DFn) e no denominador (DFd), respectivamente; 55,5 indica o valor da estatística *F* obtido.
+* **F** indica que se está comparando com uma distribuição *F* (teste *F*); (2, 18) indica os graus de liberdade no numerador (DFn) e no denominador (DFd), respectivamente; 55,5 indica o valor da estatística *F*.
 * **p** especifica o valor *P*.
-* **ges** é o tamanho do efeito generalizado (quantidade de variabilidade devido ao fator dentro dos assuntos), $\eta^2$.
+* **ges** é o tamanho do efeito generalizado (quantidade de variabilidade devido ao fator dentro dos assuntos), eta ao quadrado $\eta^2$.
 
 ### Testes post hoc
 
@@ -172,7 +188,7 @@ Onde,
 ```{r}
 pwc <- dadosL %>%
   pairwise_t_test(
-    escore ~ tempo, paired = TRUE,
+    escores ~ tempo, paired = TRUE,
     p.adjust.method = "bonferroni"
     )
 pwc
@@ -184,7 +200,7 @@ Todas as diferenças pareadas são estatisticamente significativas.
 
 Pode-se relatar de forma simples:
 
-1. O escore de autoestima se modificou de forma significativa de acordo com a passagem do tempo, F(2, 18) = 55,5, p < 0,0001, eta quadrado generalizado = 0,82.
+1. Os escores de autoestima se modificaram de forma significativa de acordo com a passagem do tempo, F(2, 18) = 55,5, p < 0,0001, $\eta^2$ = 0,82.
 
 2. Análises post hoc, com um ajuste de Bonferroni, revelaram que todas as diferenças pareadas, entre os pontos de tempo, foram estatisticamente diferentes (*P* < 0,05).  
 
@@ -193,16 +209,20 @@ Uma opção de apresentação gráfica, é o gráfico de linhas (Figura \@ref(fi
 ```{r lineauto1, message = FALSE, warning=FALSE, fig.align='center', out.height="80%", out.width="80%", fig.cap="Impacto de uma dieta específica na autoestima."}
 gl <- ggpubr::ggline(dadosL,
                      x = "tempo",
-                     y = "escore",
-                     color = "darkblue",
+                     y = "escores",
+                     color = "gray60",
+                     add.params = list(color = "black"),
                      size = 0.7,
                      linetype = "dashed",
-                     add = c("mean_ci"))
+                     add = "mean_ci",
+                     point.size = 1,
+                     point.color = "black")
 
-gl + ggpubr::stat_pvalue_manual(pwc,  
-                                label = "p.adj", 
-                                tip.length = 0.00,
-                                y.position = c(23, 29, 26)) +
+gl + 
+  ggpubr::stat_pvalue_manual(pwc, 
+                             label = "p.adj", 
+                             tip.length = 0.00,
+                             y.position = c(23, 29, 26)) +
   labs (x = "Tempo",
         y = "Escore de autoestima",
         subtitle = get_test_label (mod.anova, detailed = TRUE),
@@ -211,49 +231,43 @@ gl + ggpubr::stat_pvalue_manual(pwc,
 
 ## ANOVA de medidas repetidas de dois fatores
 
-### Preparação dos dados
+### Dados usados nesta seção
 
 O conjunto de dados de `dadosAutoestima2.xlsx` contém as medidas dos escores de autoestima de 12 indivíduos inscritos em 2 ensaios clínicos sucessivos de curto prazo (4 semanas): placebo e dieta especial.    
 
 Os dados podem ser obtidos [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosAutoestima2.xlsx). Baixe no seu diretório de trabalho.
 
 Cada participante participou dos dois ensaios. A ordem das tentativas foi 
-equilibrada e foi permitido tempo suficiente entre os ensaios para permitir que quaisquer efeitos dos ensaios anteriores se dissipassem (*washout*).  
-
-O escore de autoestima foi registrado em três momentos: no início (t1), no meio 
+equilibrada e foi permitido tempo suficiente entre os ensaios para permitir que quaisquer efeitos dos ensaios anteriores se dissipassem (*washout*).O escore de autoestima foi registrado em três momentos: no início (t1), no meio 
 (t2) e no final (t3) dos ensaios.  
 
 A questão é investigar se esse tratamento dietético de curto prazo pode induzir 
 um aumento significativo do escore de autoestima ao longo do tempo. Em outras 
 palavras, se quer saber se há interação significativa entre dieta e tempo no escore de autoestima.
  
-A ANOVA de medidas repetidas bidirecional pode ser realizada para determinar 
+A ANOVA de medidas repetidas pode ser realizada para determinar 
 se existe uma interação significativa entre dieta e tempo no escore de autoestima.
 
-### Leitura dos dados
+#### Leitura dos dados
 
-A leitura dos dados será feita com a função `read_excel()` do pacote `readxl`:
+A leitura dos dados será feita com a função `read_excel()` do pacote `readxl`. Após a leitura, será exibida 3 linhas aleatórias por grupo de tratamento, usando a função `sample_n_by()` do pacote `rstatix`::
 
 ```{r}
 autoestima <- readxl::read_excel("Arquivos/dadosAutoestima2.xlsx")
-head(autoestima)
-```
-
-Após, será exibida  uma linha aleatória por grupo de tratamento, usando a função `sample_n_by()`, do pacote `rstatix`:   
-
-```{r}
 set.seed(123)
-autoestima %>% sample_n_by(tratamento, size = 1)
+autoestima %>% sample_n_by(tratamento, size = 3)
 ```
 
-### Transformação dos dados  
+#### Transformação dos dados  
 
-Os dados autoestima estão no formato amplo e as colunas t1, t2 e t3 devem ser reunidas, em uma única variável denominada `tempo`, transformando o formato amplo em longo. A seguir, converter em fator esta nova variável `tempo` e a variável identificadora `id`:  
+Os dados autoestima estão no formato amplo e as colunas t1, t2 e t3 devem ser reunidas, em uma única variável denominada `tempo`, transformando o formato amplo em longo, usando a função `pivot_longer()` do pacote `tidyr`. A seguir, converter em fator esta nova variável `tempo` e a variável identificadora `id`:  
 
 ```{r}
-autoestimaL <- autoestima %>%
-  gather(key = "tempo", value = "escore", t1, t2, t3) %>%
-  convert_as_factor(id, tratamento, tempo)
+ autoestimaL <- autoestima %>% 
+   tidyr::pivot_longer(cols = c(t1, t2, t3),
+                       names_to = "tempo",
+                       values_to = "escores") %>% 
+   convert_as_factor(id, tratamento, tempo)
 ```
 
 Explorar o novo conjunto de dados no formato longo:
@@ -262,41 +276,42 @@ Explorar o novo conjunto de dados no formato longo:
 autoestimaL %>% sample_n_by(tratamento, tempo, size = 1)
 ```
 
-Neste exemplo, o efeito do “tempo” no escore de autoestima é nossa variável focal, nossa principal preocupação.  
+Nesse exemplo, o efeito do “tempo” no escore de autoestima é nossa variável focal, nossa principal preocupação.  
 
-No entanto, pensa-se que o efeito “tempo” será diferente se o tratamento for realizado ou não. Nesse cenário, a variável “tratmento” é considerada como variável moderadora.  
+No entanto, pensa-se que o efeito “tempo” será diferente se o tratamento for realizado ou não. Nesse cenário, a variável “tratamento” é considerada como variável moderadora.  
 
-### Sumarização dos dados
+#### Sumarização dos dados
 
 Os dados serão por `tratamento` e `tempo` e, em seguida, serão calculadas algumas estatísticas resumidas da variável de `escore`: média e sd (desvio padrão).  
 
 ```{r}
 autoestimaL %>%
   dplyr::group_by(tratamento, tempo) %>%
-  rstatix::get_summary_stats(escore, type = "mean_sd")
+  rstatix::get_summary_stats(escores, type = "mean_sd")
 ```
 
-### Visualização dos dados
+#### Visualização dos dados
 
-Serão criados boxplots (Figura \@ref(fig:bxpauto1)) do escore coloridos pelos grupos de tratamento, com cores da paleta do NEJM, usando o pacote `ggsci` e a função `scale_fill_jco()`: 
+Serão criados boxplots (Figura \@ref(fig:bxpauto1)) do escore coloridos pelos grupos de tratamento, com cores da paleta do NEJM, usando o pacote `ggsci` e a função `scale_fill_nejm()`: 
 
 ```{r  bxpauto1, message = FALSE, warning=FALSE, fig.align='center', out.height="80%", out.width="80%", fig.cap="Impacto de uma dieta específica na autoestima."}
 ggpubr::ggboxplot (autoestimaL,
                    bxp.errorbar = TRUE,
                    bxp.errorbar.width = 0.1, 
                    x = "tempo", 
-                   y = "escore", 
+                   y = "escores", 
                    color = "black",
                    fill = "tratamento",
                    ylab = "Escore de Autoestima",
-                   xlab = "Tempo")+
-  scale_fill_jco() +
+                   xlab = "Tempo",
+                   ggtheme = theme_bw())+
+  scale_fill_nejm() +
   theme (text = element_text (size = 12)) 
 ```
 
 ### Avaliação dos pressupostos  
 
-Os pressupostos são os mesmos da ANOVA de um fator.
+Os pressupostos da ANOVA de medidas repetidas de dois fatores são os mesmos da de um fator (Seção \@ref(sec-anova2pres)).
 
 #### Identificação dos *outliers*
 
@@ -305,10 +320,10 @@ A observação dos boxplots mostra que não existem valores atípicos. Estes *ou
 ```{r}
 autoestimaL %>%
   dplyr::group_by(tratamento, tempo) %>%
-  rstatix::identify_outliers(escore)
+  rstatix::identify_outliers(escores)
 ```
 
-A saída confirma a ausências de valores atípicos.
+A saída mostra a ausência de valores atípicos, com já se havia observado nos boxplots (Figura \@ref(fig:bxpauto1).
 
 #### Avaliação da normalidade
 
@@ -317,16 +332,16 @@ Para testar a hipótese de normalidade dos dados, será utilizado o `teste de Sh
 ```{r}
 autoestimaL %>% 
   dplyr::group_by (tratamento, tempo) %>% 
-  rstatix::shapiro_test(escore)
+  rstatix::shapiro_test(escores)
 ```
 
-Os resultados da Saída mostram que os escores de autoestima estão normalmente distribuídos em cada momento, havendo uma exceção: o grupo placebo, no momento t1.  
+A saída do teste mostra que os escores de autoestima estão normalmente distribuídos em cada momento do tempo, havendo uma exceção: o grupo placebo, no momento t1. Fato que pode ser constatado pela assimetria do boxplot nesse momento do tempo (Figura \@ref(fig:bxpauto1). 
 
 É possível construir um gráfico QQ (Figura \@ref(fig:autoQQ)) para cada um dos momentos, usando a função `ggqqplot ()` do pacote `ggpubr`, consulte a vinheta do pacote para maiores detalhes. Foi utilizado também a função `facet_grid()`, do `ggplot2`, que divide em painéis, organizando-os como uma grade, de acordo com o momento ( t1, t2 e t3).   
 
 ```{r autoQQ, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Gráfico QQ para verificar a normalidade"}
 ggpubr::ggqqplot(data = autoestimaL,
-         x = "escore", 
+         x = "escores", 
          color = "tempo", 
          palette = get_palette("Dark2", 3),
          legend = "none",
@@ -341,62 +356,58 @@ Observando o gráfico, como quase todos os pontos caem aproximadamente ao longo 
 
 A esferecidade será avaliada junto com a construção do modelo.
 
-### Cálculo da ANOVA de medidas de repetidas  
+### Cálculo da estatística do teste  
 
 É realizado da mesma maneira do que a ANOVA de medidas repetidas de uma via com a função `anova_test()` do pacote `rstatix`:
 
 ```{r}
 mod.anova2 <- rstatix::anova_test(data = autoestimaL, 
-                                  dv = escore,
+                                  dv = escores,
                                   wid = id,
                                   within = c(tratamento, tempo))
 mod.anova2
 ```
 
-Para extrair a tabela da ANOVA pode ser usada a função `get_anova_table()` do pacote `rstatix`:
+Para extrair a tabela da ANOVA pode também obtida, usando a função `get_anova_table()`, do pacote `rstatix`, com o `mod.anova2` como argumento:
 
 ```{r}
 rstatix::get_anova_table(mod.anova2)
 ```
 
-Existe uma interação estatisticamente significativa entre o tratamento e o tempo, F(2, 22) = 30,4, p < 0,0001.  
+Como existe uma interação estatisticamente significativa (*F*(2, 22) = 30,4, *P* < 0,0001) entre tratamento e o tempo, deve-se prestar atenção a este fato. Os efeitos principais isolados são secundários. 
 
 ### Teste post hoc  
 
-Uma *interação  significativa entre os dois fatores* indica que o impacto que um fator (tratamento) tem na variável desfecho (escore de autoestima) depende do nível do outro fator (tempo"), e vice-versa. Assim, é possível decompor a interação entre os dois fatores significativa em:
+Uma *interação  significativa entre os dois fatores* indica que o impacto que um fator (tratamento) tem na variável desfecho (*escore de autoestima*) depende do nível do outro fator (*tempo*), e vice-versa. Assim, é possível decompor a interação entre os dois fatores significativos em:
 
-* *Efeito principal simples*: executar o modelo unifatorial da primeira variável 
-(tratamento) em cada nível da segunda variável (tempo),  
-
+* *Efeito principal simples*: executar o modelo unifatorial da primeira variável (tratamento) em cada nível da segunda variável (tempo),  
 * *Comparações simples pareadas*: se o efeito principal simples for significativo, executar várias comparações pareadas para determinar quais grupos são diferentes.
  
 Para uma *interação não significativa entre os dois fatores*, há necessidade de determinar se tem algum *efeito principal* estatisticamente significativo da saída ANOVA.
 
 #### Procedimento para uma interação significativa entre os dois fatores
 
-Inicialmente, será verificado o  
-
 **Efeito do tratamento**
 
 No exemplo, será analisado o efeito do tratamento no escore de auto-estima em cada momento no tempo. Note que como o tratamento tem apenas dois níveis (dieta e placebo), o teste de ANOVA e teste *t* pareado fornecem os mesmos resultados.
 
-*Efeito do tratamento em cada ponto de tempo*
+<u>Efeito do tratamento em cada ponto de tempo</u>
 
 ```{r}
 tratamento <- autoestimaL %>%
   dplyr::group_by(tempo) %>%
-  rstatix::anova_test(dv = escore, wid = id, within = tratamento) %>%
+  rstatix::anova_test(dv = escores, wid = id, within = tratamento) %>%
   rstatix::get_anova_table() %>%
   rstatix::adjust_pvalue(method = "bonferroni")
 tratamento
 ```
 
-*Comparações pareadas entre os grupos de tratamentos*
+<u>Comparações pareadas entre os grupos de tratamentos</u>
 
 ```{r}
 pwc <- autoestimaL %>%
   dplyr::group_by(tempo) %>%
-  pairwise_t_test(escore ~ tratamento, 
+  pairwise_t_test(escores ~ tratamento, 
                   paired = TRUE,
                   p.adjust.method = "bonferroni")
 pwc
@@ -410,23 +421,23 @@ Comparações pareadas mostram que o escore médio de autoestima foi significati
 
 Observe que também é possível realizar a mesma análise para a variável `tempo` em cada nível de tratamento. Esta análise, necessariamente, não precisa ser feita!  
 
-*Efeito do tempo em cada nível de tratamento*
+<u>Efeito do tempo em cada nível de tratamento</u>
 
 ```{r}
 tempo <- autoestimaL %>%
   dplyr::group_by(tratamento) %>%
-  rstatix::anova_test(dv = escore, wid = id, within = tempo) %>%
+  rstatix::anova_test(dv = escores, wid = id, within = tempo) %>%
   rstatix::get_anova_table() %>%
   adjust_pvalue(method = "bonferroni")
 tempo
 ```
 
-*Comparações pareadas entre pontos no tempo*
+<u>Comparações pareadas entre pontos no tempo</u>
 
 ```{r}
 pwc2 <- autoestimaL %>%
   dplyr::group_by(tratamento) %>%
-  pairwise_t_test(escore ~ tempo, paired = TRUE,
+  pairwise_t_test(escores ~ tempo, paired = TRUE,
                   p.adjust.method = "bonferroni")
 pwc2
 ```
@@ -443,7 +454,7 @@ No exemplo, (consulte a tabela ANOVA em `mod.anova2`), houve efeitos principais 
 
 ```{r}
 autoestimaL %>%
-  pairwise_t_test(escore ~ tratamento, 
+  pairwise_t_test(escores ~ tratamento, 
                   paired = TRUE, 
                   p.adjust.method = "bonferroni")
 ```
@@ -452,7 +463,7 @@ autoestimaL %>%
 
 ```{r}
 autoestimaL %>%
-  pairwise_t_test(escore ~ tempo, 
+  pairwise_t_test(escores ~ tempo, 
                   paired = TRUE,
                   p.adjust.method = "bonferroni")
 ```
@@ -461,21 +472,25 @@ autoestimaL %>%
  
 O resultado pode ser relatado da seguinte forma:
 
-Uma ANOVA de medidas repetidas de dois fatores foi realizada para avaliar o 
+1. Uma ANOVA de medidas repetidas de dois fatores foi realizada para avaliar o 
 efeito de diferentes tratamentos dietéticos ao longo do tempo no escore de autoestima.
 
-Houve uma interação estatisticamente significativa entre `tratamento` e `tempo` no escore de autoestima, *F*(2, 22) = 30,4, p < 0,0001. Portanto, o efeito da variável `tratamento` foi analisado em cada ponto de tempo. Os valores de *P* foram ajustados usando o método de correção de testes múltiplos de Bonferroni. O efeito da variável `tratamento` foi significativo em t2 (*P* = 0,036) e t3 (*P* = 0,00051), mas não no ponto de tempo t1 (*P* = 1).
+2. Houve uma interação estatisticamente significativa entre `tratamento` e `tempo` no escore de autoestima, *F*(2, 22) = 30,4, p < 0,0001. Por isso, o efeito da variável `tratamento` foi analisado em cada ponto de tempo. Os valores de *P* foram ajustados usando o método de correção de testes múltiplos de Bonferroni. O efeito da variável `tratamento` foi significativo em t2 (*P* = 0,036) e t3 (*P* = 0,00051), mas não no ponto de tempo t1 (*P* = 1).
 
-Comparações pareadas, usando o teste *t* pareado, mostram que o escore médio de autoestima foi significativamente diferente entre os ensaios `placebo` e `dieta` nos pontos de tempo t2 (*P* = 0,012) e t3 (*P* = 0,00017), mas não em t1 (*P* = 0,55).
+3. Comparações pareadas, usando o teste *t* pareado, mostram que o escore médio de autoestima foi significativamente diferente entre os ensaios `placebo` e `dieta` nos pontos de tempo t2 (*P* = 0,012) e t3 (*P* = 0,00017), mas não em t1 (*P* = 0,55).
 
-#### Visualização: boxplots com valores P (Figura \@ref(fig:bxpauto2))
+#### Visualização dos resultados 
+
+Os resultados podem ser visualizados através de gráficos tipo boxplots (Figura \@ref(fig:bxpauto2)) ou por um gráfico de linha (Figura \@ref(fig:lineauto2)). Os gráficos foram construídos , usando as funções `ggboxplot()` e `ggline()` do pacote `ggpubr`. Os boxplots receberam um preenchimento em tons de cinza, bem interessante em publicações científicas; o gráfico de linha, usando o pacote `ggsci`, recebeu as cores da paleta do periódico *Lancet*.
+
+<u>Boxplots</u>
 
 ```{r  bxpauto2, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Avaliação da autoestima no decorrer do tempo"}
 bxp <- ggpubr::ggboxplot (autoestimaL,
                           bxp.errorbar = TRUE,
                           bxp.errorbar.width = 0.1, 
                           x = "tempo", 
-                          y = "escore", 
+                          y = "escores", 
                           color = "black",
                           fill = "tratamento",
                           ylab = "Escore de Autoestima",
@@ -495,21 +510,20 @@ bxp +
        caption = get_pwc_label(pwc))
 ```
 
-Uma opção de apresentação gráfica, é o gráfico de linhas (Figura \@ref(fig:lineauto2)), usando a função `ggline()` do pacote `ggpubr`, junto com os teste estatísticos:
+<u>Gráfico de linha</u>
 
 ```{r lineauto2, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Avaliação da autoestima no decorrer do tempo"}
 ggl <- ggline(
   autoestimaL,
   x = "tempo",
-  y = "escore",
+  y = "escores",
   color = "tratamento",
   palette = "lancet",
   linetype = "dashed",
   size = 0.7,
   shape = 19,
-  add = c("mean_ci"),
+  add = "mean_ci",
   error.plot = "errorbar",
-  position = position_dodge(width = 0.2),
   ggtheme = theme_pubr()) +
   theme(legend.position="right")
 

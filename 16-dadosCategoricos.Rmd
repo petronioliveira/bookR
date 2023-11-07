@@ -3,17 +3,17 @@
 ## Pacotes necessários
 
 ```{r message=FALSE, warning=FALSE}
-pacman::p_load(DescTools,
-               dplyr,
-               expss,
-               ggplot2, 
-               gmodels,
-               kableExtra,
-               knitr,
-               nhstplot,
-               readxl,
-               rstatix,
-               summarytools)
+pacman::p_load(coin,
+                DescTools,
+                dplyr,
+                expss,
+                ggplot2, 
+                gmodels,
+                kableExtra,
+                nhstplot,
+                readxl,
+                rstatix,
+                summarytools)
 ```
 
 ## Qui-Quadrado  {#sec-qui} 
@@ -82,27 +82,58 @@ knitr::kable(df,
 Usando os dados da Tabela \@ref(tab:tab2x2), o número de acidentes esperados para os homens será:
 
 ```{r}
-esperado <- (20*60)/100
-esperado
+total_c <- 20
+total_l <- 60
+total_geral <- 100
+esperado <- (total_c*total_l)/total_geral
+esperado 
 ```
 
-O número de acidentes esperado para os homens é igual a 12, entretanto ocorreram 16. Houve uma diferença. Esta diferença é calculada para todas as células e será o importante no cálculo do qui-quadrado.
+O número de acidentes esperado para os homens é igual a 12, entretanto ocorreram 16. Houve uma diferença. Esta diferença é calculada para todas as células e será o importante no cálculo do qui-quadrado. Após o cálculo, acrescentando os valores esperados à Tabela \@ref(tab:tab2x2), tem-se a Tabela \@ref(tab:ntab2x2) que será usada no cálculo do qui-quadrado.
+
+
+```{r ntab2x2, echo=FALSE, message=FALSE, warning=FALSE}
+Sexo <-c("Homens", "Mulheres", "Total")
+Acidentes <- c(12, 8, 20)
+Sem_acidentes <- c(48, 32, 80)
+Total <- c(60, 40, 100)
+
+df <- data.frame(Sexo, Acidentes, Sem_acidentes, Total)
+
+knitr::kable(df,
+             col.names = c('Sexo', 'Acidentes','Sem acidentes','Total'),
+             align = c('l', 'c', 'c', 'c', 'c'),
+             booktabs = TRUE,
+             caption = "Acidentes automobilisticos - Valores Esperados") %>% 
+  kableExtra::kable_styling(full_width = F,
+                            latex_options = "hold_position") %>% 
+  kableExtra::kable_classic(html_font = "Cambria") %>%
+  kableExtra::row_spec(0, bold = TRUE)
+```
+
+Substituindo osdados na fórmula do qui-quadrado, tem-se:
+
+
+$$
+\chi^{2}= \left [\frac{\left (16 - 12 \right )^2}{12} \right]+ \left [\frac{\left (44 - 48 \right )^2}{48} \right]+\left [\frac{\left (4 - 8 \right )^2}{8} \right]+\left [\frac{\left (36 - 32 \right )^2}{32} \right] \\
+\chi^{2}=1,333 + 0,333 + 2,0  +0,50 =4,17
+$$
 
 #### Restrições ao qui-quadrado  
 
-1. *Regra Geral* 
+1. <u>Regra Geral</u> 
 
 O teste pode ser usado, se a frequência observada em cada célula for maior ou igual a 5 e a frequência esperada for maior ou igual a 5.  
 
-2. *Tabela 2 $\times$ 2 (gl = 1)*
+2. <u>Tabela 2 $\times$ 2 (gl = 1)</u>
 
 Neste caso, é recomendada a *Correção de Continuidade de Yates*, mesmo quando o *n* for grande.  
 
-3. *Tabela l $\times$ c*
+3. <u>Tabela l $\times$ c</u>
 
 O teste pode ser usado se o número de células com frequência esperada inferior a 5 for menor do que 20% do total das células e nenhuma frequência esperada é igual a zero.  
 
-4. *n pequeno*
+4. <u>n pequeno</u>
 
 Neste caso, é preconizado o *Teste Exato de Fisher*.
 
@@ -124,15 +155,15 @@ gl = 1
 qchisq (1-alpha, gl)
 ```
 
-Este valor é comparado com o $\chi^{2}_{calculado}$ para um nível de significância de 5%. Se ele é maior, rejeita-se se a $H_{0}$; caso contrário, não se rejeita. Para obter o valor *P*, pode-se usar a função `pchisq()`, onde, como argumento, coloca-se o valor do $\chi^{2}_{calculado}$, os graus de liberdade e acrescenta-se `lower.tail = FALSE` para obter a probabilidade da cauda superior, uma vez que a distribuição do quiquadrado é unilateral à direita.
+Este valor é comparado com o $\chi^{2}_{calculado}$ para um nível de significância de 5%. Se ele é maior, rejeita-se se a $H_{0}$; caso contrário, não se rejeita. Para obter o valor *P*, pode-se usar a função `pchisq()`, onde, como argumento, coloca-se o valor do $\chi^{2}_{calculado}$, os graus de liberdade e acrescenta-se `lower.tail = FALSE` para obter a probabilidade da cauda superior, uma vez que a distribuição do quiquadrado é positiva.
 
-Na Tabela \@ref(tab:tab2x2), o valor crítico é igual a 3,84 e o $\chi^{2}_{calculado}$ é igual a 4,17, logo a valor *P* é igual a:
+Na Tabela \@ref(tab:tab2x2), o valor crítico é igual a 3,84 e, no exemplo, o $\chi^{2}_{calculado}$ é igual a 4,17, logo a valor *P* é igual a:
 
 ```{r}
 pchisq (4.17, 1, lower.tail = FALSE)
 ```
 
-Dessa forma, concluimos ,com uma confiança de 95%, que os homens têm uma proporção maior de acidentes comparados às mulheres ($\chi^{2} (1) = 4,17;P=0,041$). Observe na Figura \@ref(fig:chi384) que o $\chi^{2}_{calculado}$ localiza-se a direita da linha vertical, na área vermelha de rejeição da $H_{0}$.
+Dessa forma, conclui-se ,com uma confiança de 95%, que os homens têm uma proporção maior de acidentes comparados às mulheres ($\chi^{2} (1) = 4,17;P=0,041$). Observe na Figura \@ref(fig:chi384) que o $\chi^{2}_{calculado}$ localiza-se a direita da linha vertical, na área vermelha de rejeição da $H_{0}$.
 
 ```{r chi384, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Distribuição do qui-quadrado, gl = 1, alpha = 0,05."}
 plotchisqtest(chisq = 3.84, 
@@ -146,18 +177,23 @@ O gráfico foi criado com a função `plotchisqteste()` do pacote `nhstplot`, pa
 
 ### Qui-quadrado de independência ou associação  
 
-#### Carregar, explorar e preparar os dados  
+#### Dados usados nesta seção
 
-Inicialmente, vamos tornar ativo o banco de dados `dadosMater.xlsx`. Para baixar o banco de dados, clique [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosMater.xlsx). Salve o mesmo no seu diretório de trabalho.  
+O exemplo da Tabela \@ref(tab:tab2x2), usado para mostrar a lógica do qui-quadrado, é um teste de independência ou associação. Ali, foi mostrado que existe uma associação estatisticamente significativa (P < 0,05) entre acidentes automobilísticos e o sexo masculino.
+Como exercício, serão usados outros dados que necessitam mais manipulação como treinamento do qui-quadrado de associação e do próprio R. Estes dados servirão para testar a hipótese de associação entre tabagismo e baixo peso ao nascer (< 2500g).
+
+<u>Leitura e transformação dos dados</u>  
+
+Os dados serão provenientes do banco de dados `dadosMater.xlsx`. bastante usado neste livro ^[Ver Seção \@ref(sec-mater)] .  Como ele já deve estar no seu diretório, fazer a leitura da seguinte maneira:
 
 ```{r}
 dados <- read_excel ("Arquivos/dadosMater.xlsx")
 ```
 
-Adicione a este arquivo uma variável denominada `baixoPeso` usando a função `ifelse ()`:
+Adicione a este arquivo uma variável denominada `baixoPeso`, usando a função `mutate()` do pacvote dplyr a função `ifelse ()`, da base do R:
 
 ```{r}
-dados$baixoPeso <- ifelse(dados$pesoRN < "2500", "1", "2")
+dados <- dados %>% mutate(baixoPeso = ifelse(pesoRN < 2500, "1", "2"))
 ```
 
 Onde `1 = sim` e `2 = não`, ou seja, com peso de nascimento < 2500g ou $\ge$ 2500g.    
@@ -189,7 +225,7 @@ dados$baixoPeso <- factor(dados$baixoPeso,
 str (dados)
 ```
 
-**Tabelas**
+<u>Tabelas</u>
 
 Com os dados, será construída uma tabela com a função `table()`
 
@@ -214,63 +250,65 @@ não.fumantes
 ```
 
 
-**Visualização gráfica**
+<u>Visualização gráfica</u>
 
-Será construído um gráfico de barras empilhadas (Figura \@ref(fig:fumo.bp)):
+Será construído um gráfico de barras empilhadas com o `ggplot()` do pacote `ggplot2` (ver Seção \@ref(sec-ggplot2)):
 
-```{r fumo.bp, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Gráfico de barras empilhadas: tabagismo vs baixo peso ao nascer."}
+```{r fumobp, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Gráfico de barras empilhadas: tabagismo vs baixo peso ao nascer."}
 ggplot(dados) +
   aes (x = fumo, fill = baixoPeso) +
-  geom_bar () +
-  scale_fill_manual(values = c("gray", "salmon")) +
+  geom_bar (color = "black") +
+  scale_fill_manual(values = c("gray", "aliceblue")) +
   labs (title = NULL,  
         x = "Tabagismo",
         y = "Frequência") +
-  annotate("text", x="sim", y=62, label= "24,6%") + 
-  annotate("text", x = "não", y=223, label = "8,2%") +
-  theme_classic () +
+  annotate("text", x="sim", y=62, label= "26,1%") + 
+  annotate("text", x = "não", y=223, label = "9,5%") +
+  theme_bw () +
   theme (text = element_text (size = 12)) +
   labs(fill = "Peso ao nascer < 2500g")
 ```
 
-Observa-se que 24,6% das gestantes fumantes geram bebês com baixo peso, enquanto que entre as não fumantes este percentual cai três vezes, indo para 8,4%. É uma diferença grande! Aqui, quase se tem certeza que ela é significativa, mesmo sem cálculos!
+Observa-se, Figura \@ref(fig:fumobp), que 24,6% das gestantes fumantes geram bebês com baixo peso, enquanto que entre as não fumantes este percentual cai três vezes, indo para 9,5%. É uma diferença grande! Aqui, quase se tem certeza que ela é significativa, mesmo sem cálculos!
 
 #### Hipóteses estatísticas
 
 > <font size=2> **$H_{0}$**: a proporção de baixo peso é igual nos dois grupo (fumantes e não fumantes); não há associação entre as variáveis.  
-**$H_{A}$**: a proporção de baixo peso é diferente nos dois grupo (fumantes e não fumantes); existe associação entre as variáveis.</font>
+**$H_{1}$**: a proporção de baixo peso é diferente nos dois grupo (fumantes e não fumantes); existe associação entre as variáveis.</font>
 
 #### Cálculo do Qui-quadrado de Pearson no R 
 
-Para este exemplo, o $\chi^{2}$ irá verificar se existe uma associação entre as variáveis `fumo` e `baixoPeso`, assumindo um $\alpha = 0,05$ que equivale a um valor crítico de 3,84 com um grau de liberdade, em u,ma tabela $2 \times 2$. A função `chisq.test()` libera o qui-quadrado com a correção de Yates, pois usa o argumento `correct = TRUE` por padrão.  
+Para este exemplo, o $\chi^{2}$ irá verificar se existe uma associação entre as variáveis `fumo` e `baixoPeso`, assumindo um $\alpha = 0,05$ que equivale a um valor crítico de 3,84 com um grau de liberdade, em uma tabela $2 \times 2$. A função `chisq_test()` do pacote `rstatix` libera o qui-quadrado, usando os seguintes argumentos:
 
-Quando não se está trabalhando com uma tabela de $2\times2$ e a regra geral for obedecida e o *n* for grande, pode-se usar o qui-quadrado de Pearson sem correção.  
+*	*x*  $\to$ vetor numérico ou matriz. Tanto x como y podem ser fatores;
+*	*y* $\to$ vetor numérico. Ignorado quando se x é uma matriz;
+*	correct $\to$ TRUE é o padrão. Indica se deve ser aplicada a correção de continuidade ao calcular a estatística de teste para tabelas 2 por 2 ^[Quando não se está trabalhando com uma tabela $2 \times 2$ e a regra geral for obedecida e o n for grande, pode-se usar o qui-quadrado de Pearson sem correção.];
+*	... $\to$ para outros argumentos consulte a ajuda do *RStudio*.
 
-Para executar a função `chisq.test()`, basta colocar como argumento as variáveis `fumo` e `baixoPeso` ou construir antes uma tabela de contingência com a função `table()` e depois colocá-la como argumento. Como tabela `tab` já existe: 
+Para executar a função `chisq_test()`, basta colocar como argumento as variáveis `fumo` e `baixoPeso` ou construir antes uma tabela de contingência com a função `table()` e depois colocá-la como argumento. Como tabela `tab` já existe: 
 
 ```{r}
-teste <- chisq.test(tab)
+teste <- rstatix::chisq_test(tab)
 teste
 ```
 
-A saída do teste exibe tudo que é necessário: o título do teste, as variáveis usadas (as da tabela `tab`) , a estatística de teste, os graus de liberdade e o valor *P* do teste. É possível recuperar a estatística de teste $\chi^{2}$, os valores esperados e o valor *P* com:
+A saída do teste exibe tudo que é necessário. O $\chi^{2}$ = `r round(teste$statistic,1)` com um valor muito maior que o valor crítico de 3,84, mostrando que a diferença é estatisticamente significativa (*P* = `r teste$p`).  Essas e outras estatísticas podem ser obtidas, usando o objeto `teste` seguido do sinal `$`. Por exemplo, para o valor P:
 
 ```{r}
-teste$statistic
-teste$expected
-teste$p.value
+teste$p
 ```
 
-Se um aviso como <span style="color:red">Chi-squared approximation may be incorrect</span> (*Aproximação qui-quadrado pode estar incorreta*) aparecer, significa que as menores frequências esperadas são inferiores a 5. Para evitar esse problema, é possível usar uma das seguintes opções:
+NOTA: Se um aviso como <span style="color:red">Chi-squared approximation may be incorrect</span> (*Aproximação qui-quadrado pode estar incorreta*) aparecer, significa que as menores frequências esperadas são inferiores a 5. Para evitar esse problema, é possível usar uma das seguintes opções:
 
 * reunir alguns níveis (especialmente aqueles com um pequeno número de observações) para aumentar o número de observações nos subgrupos, ou
 * usar o teste exato de Fisher.
 
-Existe uma função no pacote `gmodels` @warnes2022gmodels, muito interessante, onde se encontra a função `CrossTable()` que que imprime, além de uma tabela de frequência com as probabilidade e outros teste, como o teste $\chi^2$, o teste exato de Fisher e o teste de McNemar com e sem correção de continuidade. Consulte a ajuda para melhor estudar esta elegante função! Neste momento, será explorado apenas o qui-quadrado e os valores esperados com três dígitos:  
+<u>Outras maneiras de calcular o qui-quadrado no R</u>
+
+No pacote `gmodels` @warnes2022gmodels, existe uma função muito interessante, a função `CrossTable()` que que imprime, além de uma tabela de frequência com as proporções, exibe vários testes, como o teste $\chi^2$, o teste exato de Fisher e o teste de McNemar com e sem correção de continuidade. Consulte a ajuda para melhor estudar esta elegante função! Neste momento, será explorado apenas o qui-quadrado e os valores esperados com três dígitos:  
 
 ```{r}
-CrossTable (dados$fumo, 
-            dados$baixoPeso,
+CrossTable (tab,
             digits = 3,
             prop.chisq = FALSE,
             prop.t = FALSE,
@@ -280,9 +318,9 @@ CrossTable (dados$fumo,
 
 Observe que a saída mostra em cada célula da tabela, o número de casos, o número esperado, a percentagem por linha (nº de casos/total da linha) e a percentagem por coluna (nº de casos/total da coluna). Por último, exibe o qui-quadrado de Pearson com e sem coreção de continuidade de Yates.  
 
-#### Conclusão
+#### Conclusão e relato dos resultados
 
-Usando a correção de continuidade de Yates, pois é uma tabela $2 \times 2$, vê-se que o valor *P* é menor que o nível de significância de 5% e, consequentemente, rejeita-se a hipótese nula e conclui-se que existe uma associação significativa entre tabagismo na gestação e o baixo peso ao nascimento ($\chi^{2}_{com \ correção \ de \ Yates} (1)=12;P=0,0005$). 
+Usando a correção de continuidade de Yates, pois é uma tabela $2\times2$, vê-se que o valor *P* é menor que o nível de significância de 5% e, consequentemente, rejeita-se a hipótese nula e conclui-se que existe uma associação significativa entre tabagismo na gestação e o baixo peso ao nascimento ($\chi^{2}_{com \ correção \ de \ Yates} (1)$ = 11.2; *P* = 0,00081). 
 
 Além disso, no relato dos resultados pode-se apresentar uma tabela ou em um gráfico.
 
@@ -294,67 +332,66 @@ Para a construção da tabela, pode-se usar a função `ctable()` do pacote `sum
 ctable(dados$fumo, dados$baixoPeso,
        prop = "r", 
        chisq = TRUE, 
-       headings = FALSE)
+       headings = FALSE,
+       OR = TRUE)
 ```
 
-Para a apresentação dos resultados, é interessante calcular os intervalos de confiança para cada uma das proporções e apresentar junto a uma tabela. Para isso, a função `BinomCI()`, vista quando se estudou distribuição binomial, cumpre um papel satisfatório:
+Ou seja, os bebês que se expuseram ao fator de risco (fumo) têm uma chance 3,35 (IC95% : 1,67-6,71) vezes maior de apresentar peso < 2500g ao nascer, nessa amostra.
 
-*Baixo peso entre as fumantes*
+Além desses resultados, a tabela final pode conter (e isto é recomendado!) os intervalos de confiança para cada uma das proporções de fumantes e não fumantes. Para isso a função `BinomCI()` cumpre um papel suficiente (veja Seção 10.7.3.2).
+Então, a proporção de baixo peso entre as fumantes é:
+
 
 ```{r}
-BinomCI(17, 69,
+BinomCI(18, 69,
         conf.level = 0.95,
         method = "clopper-pearson")
 ```
 
-*Baixo peso entre as não fumantes*
+E, entre as não fumantes é:
 
 ```{r}
-BinomCI(19, 231,
+BinomCI(22, 231,
         conf.level = 0.95,
         method = "clopper-pearson")
 ```
 
-Estes dados podem ser colocados em uma tabela, como a Tabela \@ref(tab:tabres):
+Finalmente, esses dados podem ser colocados em uma tabela, como a Tabela \@ref(tab:tabres):
 
 ```{r tabres, echo=FALSE, message=FALSE}
 knitr::kable(data.frame(
   Peso_nascimento = c("Baixo Peso", "IC95%"),
-  Fumantes = c("17/69", "15,1-36,5"),
-  Não_Fumantes = c("19/231", "5,0-12,5"),
-  P = c(0.00052, "")),
-             col.names = c('','Fumantes', 'Não fumantes','Valor P'),
+  Fumantes = c("18/69", "16,3-38,1"),
+  Não_Fumantes = c("22/231", "6,1-14,1"),
+  P = c(0.00081, "")),
+             col.names = c('','Fumantes', 'Não fumantes','Valor P *'),
              align = c('l', 'c', 'c', 'c'),
              booktabs = TRUE,
              caption = "Efeito do tabagismo materno no peso ao nascer") %>% 
-  kableExtra::kable_styling(full_width = T,
+  kableExtra::kable_styling(full_width = FALSE,
                             latex_options = "hold_position") %>% 
   kableExtra::kable_classic(html_font = "Cambria") %>%
-  kableExtra::row_spec(0, bold = TRUE)
+  kableExtra::row_spec(0, bold = TRUE) %>% 
+  kableExtra::column_spec(1:4, width = "3.5cm") %>% 
+  footnote(general = "* Qui-quadrado de Pearson com correção.")
 ```
 
 **Gráfico** 
 
-Uma boa apresentação seria com gráficos de barras empilhadas (Figura \@ref(fig:fumobp1)), acompanhado dos percentuais e do tipo de teste realizado, usando a função `get_test_label()` que necessita do teste calculado com a função `chisq_test()` do pacote `rstatix`, já discutido em outras ocasiões.
-
-```{r}
-teste_r <- rstatix::chisq_test(tab,correct = T)
-teste_r
-```
-
+Uma boa apresentação gráfica complementa o relatório dos resultados. Pode-se fazer isso com gráfico de barras empilhadas (), acompanhado dos percentuais e do tipo de teste realizado, usando a função `get_test_label()` que necessita do teste calculado com a função `chisq_test()` do pacote `rstatix`, apresentado antes. O gráfico assume o aspecto da Figura \@ref(fig:fumobp1):
 
 ```{r fumobp1, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Gráfico de barras empilhadas: tabagismo vs baixo peso ao nascer."}
  ggplot(dados) +
     aes (x = fumo, fill = baixoPeso) +
-    geom_bar () +
-    scale_fill_manual(values = c("gray", "gray30")) +
+    geom_bar (color = "black") +
+    scale_fill_manual(values = c("gray", "gray95")) +
     labs (title = NULL,
-          subtitle = get_test_label (teste_r, detailed = TRUE),
+          subtitle = get_test_label (teste, detailed = TRUE),
           x = "Tabagismo",
           y = "Frequência") +
     annotate("text", x="sim", y=62, label= "24,6% (15,0-36,5)") + 
     annotate("text", x = "não", y=223, label = "8,2% (5,0-12,5)") +
-    theme_classic () +
+    theme_bw () +
     theme (text = element_text (size = 12)) +
     labs(fill = "Peso ao nascer < 2500g")
 ```
@@ -363,7 +400,7 @@ teste_r
 
 O teste de qualidade de ajuste do qui-quadrado (*chi-square goodness of fit*) é usado para comparar a distribuição observada com uma distribuição esperada, em uma situação em que se tem duas ou mais categorias em dados discretos. Em outras palavras, ele compara várias proporções observadas com as probabilidades esperadas [@daniel2013chisquare].  
 
-#### Dados  
+#### Dados usados nesta seção  
 
 Há uma dúvida se o número de pacientes que procura uma determinada Unidade de Pronto Atendimento (UPA) é aproximadamente o mesmo em todos os dias da semana. Esta é uma informação importante sob o ponto de vista administrativo. Para se atingir este objetivo registrou-se o número de pacientes que procurou a UPA por dia da semana. 
 
@@ -380,6 +417,7 @@ O total de atendimentos durante uma semana é igual a:
 soma <- sum(freq_obs)
 soma
 ```
+
 Assim, a frequência esperada diária é igual a soma total dos atendimentos dividido pelo número observações (no caso, dias da semana), representada por `k`: 
 
 ```{r}
@@ -387,8 +425,6 @@ k = 7
 freq_esp <- soma/k
 freq_esp
 ```
-
-onde `k` é o número de células (número de dias na semana).   
 
 Com estes valores , pode-se criar um vetor, `p`, com as proporçõess dos atendimentos diários esperados:
 
@@ -400,11 +436,11 @@ p
 #### Hipóteses estatísticas
 
 > <font size=2> **$H_{0}$**: a distribuição das frequências observadas (O) é igual a distribuição de frequências esperadas (E).  
-**$H_{A}$**: a distribuição das frequências observadas (O) não é  igual a distribuição de frequências esperadas (E) </font>
+**$H_{1}$**: a distribuição das frequências observadas (O) não é  igual a distribuição de frequências esperadas (E) </font>
 
-#### Cálculo do teste estatístico  
+#### Cálculo da estatística do teste   
 
-Vamos assumir um $\alpha = 0,05$. Os graus de liberdade são calculados como o número de células (*k*) menos 1: $gl = (k - 1)$. O $\chi^{2}_{crítico}$ pode ser encontrado usando:
+Assumindo um $\alpha = 0,05$. Os graus de liberdade são calculados como o número de células (*k*) menos 1: $gl = (k - 1)$. O $\chi^{2}_{crítico}$ pode ser encontrado usando:
 
 ```{r}
 alpha = 0.05
@@ -427,38 +463,70 @@ plotchisqtest(chisq = 12.6,
 A estatística do teste pode ser encontrada, usando a função `chisq.test()`:
 
 ```{r}
-chisq.test (x = freq_obs, p = p)
+teste1 <- chisq.test (x = freq_obs, p = p)
+teste1
 ```
 
 #### Conclusão
 
-Observando-se a saída do teste do qui-quadrado, verifica-se que o $\chi^{2}_{calculado}$ < $\chi^{2}_{crítico}$, portanto, não se rejeita a $H_{0}$ e conclui-se que, nesta amostra, com uma confiança de 95%, que a frequência observada de pacientes à UPA é igual a esperada (*P* = 0,062). Lembrando que, neste caso, como se tem um valor *P* limitrofe, existe a possibilidade de se estar aceitando uma $H_{0}$ falsa e cometendo um erro tipo II. Seria recomendado, aumentar o tamanho amostral em uma nova coleta, usando estes dados como um piloto para o cálculo amostral. 
+Observando-se a saída do teste do qui-quadrado, verifica-se que o $\chi^{2}_{calculado}$ < $\chi^{2}_{crítico}$, portanto, não se rejeita a $H_{0}$ e conclui-se que, nesta amostra, com uma confiança de 95%, que a frequência observada de pacientes à UPA é igual a esperada (*P* = `r teste1$p`). Lembrando que, neste caso, como se tem um valor *P* limitrofe, marginal, existe a possibilidade de se estar aceitando uma $H_{0}$ falsa e cometendo um erro tipo II. Seria recomendado, aumentar o tamanho amostral em uma nova coleta, usando estes dados como um piloto para o cálculo amostral. 
 
-### Qui-quadrado de Pearson para tabelas extensas
+### Qui-quadrado de Pearson para tabelas extensas  {#sec-tabextensas}
 
-Utilizados para tabelas quando o número de grupos, *k*, é superior a 2. Por exemplo, verificar se existe uma tendência de maior taxa de infecção nos neonatos que permanecem mais tempo hospitalizados. Será usado o banco de dados `dadosCirurgia.xlsx` que pode ser encontrado [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosCirurgia.xlsx). Salve o mesmo no seu diretório de trabalho. Este bancode dados contém 144 recém-nascidos submetidos a diferentes procedimentos cirúrgicos. A variável tempo de hospitalização (`tempohosp`) é contínua e assimétrica. Então, para que possa ser usada aqui, será categorizada por quartis. A variável `infec` (presença de infecção) é uma variável dicotômica (`sim`, `não`).
+Este teste é utilizado quando o número de grupos, k, é superior a 2. 
 
-#### Carregar o banco de dados
+#### Dados usados nesta seção   {#sec-dadosCirurgia}
+
+Como exemplo, será verificado se existe uma tendência de maior taxa de infecção nos neonatos que permanecem mais tempo hospitalizados. O banco de dados `dadosCirurgia.xlsx` que pode ser encontrado [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosCirurgia.xlsx). Salve o mesmo no seu diretório de trabalho.   
+
+Esse bancode dados contém 144 recém-nascidos submetidos a diferentes procedimentos cirúrgicos. As variávreis disponíveis são:
+
+* *id* $\to$ identificação do neonato;
+* *sexo* $\to$ sexo do recém-nascido, `fem` e `masc`;
+* *peso* $\to$ peso do neonato em gramas;
+* *tempohosp* $\to$ tempo de hospitalização em dias;
+* *infec* $\to$ presença de infecção secundária: sim e não;
+* *cirurgia* $\to$ tipo de cirurgia: abdominal, cardíaca, outra.  
+
+A variável tempo de hospitalização (`tempohosp`) é contínua e assimétrica. Para ser usada aqui, será categorizada por quartis. A variável `infec` (presença de infecção) é uma variável dicotômica (`sim`, `não`).
+
+<u>Leitura e transformação dos dados</u> 
+
+A leitura dos dados é feita com:
 
 ```{r}
 cirurgia <- read_excel ("Arquivos/dadosCirurgia.xlsx")
+str(cirurgia)
 ```
 
-#### Exploração e manipulação do banco de dados
-
-Para ver a estrutura dos dados, será usada a função `glimpse ()` do pacote `dplyr`:
+Característicamente, a variável `tempohosp` (tempo de hospitalização) é, quase sempre,  assimétrica:
 
 ```{r}
-glimpse (cirurgia)
+cirurgia %>% ggplot() +
+    geom_histogram(aes(x = tempohosp,
+                       y = after_stat(density)), 
+                   fill = "tomato",
+                   bins = 20,
+                   col=alpha("gray40",0.5)) +
+  geom_function(fun=dnorm,
+                args=list(mean=mean(cirurgia$tempohosp, na.rm = T),
+                          sd= sd(cirurgia$tempohosp, na.rm = T)), 
+                col='dodgerblue4',
+                lwd=1,
+                lty=2) + 
+  labs(x='Tempo de hospitalização (dias)',    
+       y='Densidade de probabilidade') +
+  theme_bw()
+
 ```
 
-Característicamente, a variável `tempo de hospitalização` é assimétrica e será transformada em categorias:
+A variável `tempohosp` será categorizada em quartis. O resumo da mesma, usando a função `summary()`, fornece orientação para esse procedimento:
 
 ```{r}
 summary (cirurgia$tempohosp)
 ```
 
-O sumário da variável fornece orientação para a categorização, que será realizada, usando a função cut(), consulte a seção \@ref(sec-freq) para detalhes de construção de uma tabela de frequência:
+O sumário da variável fornece orientação para a categorização, que será realizada, usando a função `cut()`, consulte a Seção \@ref(sec-freq) para detalhes de construção de uma tabela de frequência:
 
 ```{r}
 cirurgia$tempo <- cut(cirurgia$tempohosp, 
@@ -480,49 +548,35 @@ cirurgia$infec <- factor(cirurgia$infec, levels = c("sim", "não"))
 table(cirurgia$infec)
 ```
 
-Ou seja, $$56/144 = 0,39 \ ou \ 39\%$$ dos recém-nascidos se infectaram no pós-operatório.  
-
-A variável `tempo` será cruzada com a variável `infec` em uma tabela:
+A nova variável `tempo` será cruzada com a variável `infec` em uma tabela:
 
 ```{r}
 tab2 <- table (cirurgia$tempo, cirurgia$infec)
 addmargins(tab2)
 ```
 
-Colocando os dados da tabela (tab2) em uma tabela mais elegante, tem-se a Tabela \@ref(tab:tabext):
+Ou seja, a proporção de recém-nascidos que se infectaram no pós-operatório foi 56/144 = 0,39 ou 39%.  Se for calculada a proporção para cada um dos quartis do tempo de hospitalização, através da função `ctable()` do pacote `summarytools`, observa-se que a proporção de neonatos infectados no pós-operatório aumenta com o tempo de hospitalização (Tabela \@ref(tab:tabext)):
 
 ```{r tabext, echo=FALSE, message=FALSE}
-tempo <-c("<=21", "22-28", "29-42", ">42", "Total")
-infec <- c(9, 11, 14, 22, 56)
-sem_infec <- c(27, 25, 21, 15, 88)
-Total <- c(36, 36, 35, 37, 144)
-
-df <- data.frame(tempo, infec, sem_infec, Total)
-knitr::kable(df,
-             col.names = c('Tempo de hosp (dias)', 'Infectados','Não infectados','Total'),
-             align = c('l', 'c', 'c', 'c', 'c'),
-             booktabs = TRUE,
-             caption = "Tempo de hospitalização e infecção no pós-peratório") %>% 
-  kableExtra::kable_styling(full_width = F,
-                            latex_options = "hold_position") %>% 
-  kableExtra::kable_classic(html_font = "Cambria") %>%
-  kableExtra::row_spec(0, bold = TRUE)
+ summarytools::ctable(cirurgia$tempo, cirurgia$infec,
+                      prop = "r",
+                      headings = FALSE)
 ```
-
-Observa-se que a proporção de neonatos infectados aumenta com o tempo de hospitalização ($9/36=0,16$ no grupo do menor quartil e $22/37=0,39$ para o grupo do maior quartil).  
 
 #### Hipóteses estatísticas
 
 > <font size=2> **$H_{0}$**: A presença de infecção não altera o tempo de hospitalização.  
-**$H_{A}$**: A presença de infecção altera o tempo de hospitalização. </font>
+**$H_{1}$**: A presença de infecção altera o tempo de hospitalização. </font>
 
 #### Cálculo da estatística do teste
 
-O teste estatístico $\chi^{2}$ será calculado usando a função `chisq.test()`, já usada anteriormente:
+O teste estatístico pode ser calculado, usando o argumento `chisq = TRUE` na função `ctable()`:
 
 ```{r}
-teste1 <- chisq.test(tab2)
-teste1
+summarytools::ctable(cirurgia$tempo, cirurgia$infec,
+                      prop = "r",
+                      chisq = TRUE,
+                      headings = FALSE)
 ```
 
 #### Conclusão
@@ -541,26 +595,28 @@ Este teste indica uma tendência significativa para a presença de infecção à
 
 O teste do qui-quadrado não é um método apropriado de análise se a amostra é pequena. Por exemplo, se n for menor que 20 ou se n estiver entre 20 e 40 e uma das frequências esperadas for menor que 5, o teste do qui-quadrado deve ser evitado. Nesta situação, é recomendado o **teste exato de Fisher**.  
 
-### Dados
+### Dados usados nesta seção
 
 Um estudo estabeleceu como objetivo verificar se a asma não controlada é um fator de risco para a procura da emergência. Foram acompanhados 16 escolares asmáticos durante um ano com relação ao número de visitas à emergência de acordo com o controle da sua asma.
 
-### Entrando com os dados
+#### Entrando com os dados
 
-Vamos criar dois vetores com os dados e após criar um dataframe denominado `dadosControle`:
+Em primeiro lugar, serão criadas duas variáveis:
 
 ```{r}
 emerg <- c (1,1,2,2,2,2,2,1,1,1,1,1,1,1,1,2)
 controle <- c (1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2)
 ```
 
-Onde 1 = sim e 2 = não
+A seguir, usando essas variáveis, será construído um dataframe que será atribuído ao objeto `dadosControle`:
 
 ```{r}
 dadosControle <- data.frame(emerg, controle)
 ```
 
-As variáveis numéricas serão tranformadas em fatores:
+#### Transformação dos dados
+
+Ambas as variáveis são numéricas e serão transformadas em fatores, considerando 1 = sim e 2 = não e considerando essa ordem:
 
 ```{r}
 dadosControle$emerg <- factor (dadosControle$emerg,
@@ -572,30 +628,33 @@ dadosControle$controle <- factor (dadosControle$controle,
                                   levels = c (1,2),
                                   labels = c ('sim', 'não'))
 
-glimpse (dadosControle)
+str(dadosControle)
 ```
+#### Construção da tabela
 
+Para o cálculo da estatística do teste, é necessário uma tabela $2\times2$:
+
+```{r}
+tab3 <- table (dadosControle$controle, dadosControle$emerg)
+addmargins(tab3)
+```
 ### Hipóteses estatísticas
 
 > <font size=2> **$H_0$**: as variáveis são independentes, não há relação entre as duas variáveis categóricas.   
-**$H_A$**: as variáveis são dependentes, existe uma relação entre as duas variáveis categóricas. </font>
+**$H_1$**: as variáveis são dependentes, existe uma relação entre as duas variáveis categóricas. </font>
 
-### Execução do teste estatístico
+### Cálculo da estatística do teste
 
-O teste exato de Fisher é usado quando há pelo menos uma célula na tabela de contingência das frequências esperadas abaixo de 5. Para recuperar as frequências esperadas, use a função `chisq.test ()` junto com `$expected`:
+O teste exato de Fisher é usado quando há pelo menos uma célula na tabela de contingência das frequências esperadas abaixo de 5. Para recuperar as frequências esperadas, use a função `chisq.test ()`, do R base, junto com `$expected`:
 
 ```{r}
 chisq.test (dadosControle$controle, dadosControle$emerg)$expected 
 ```
 
-A Saída mostra a presença de três células com valores abaixo de 5, indicando a necessodade de se usar o teste de Fisher.
-
-Pode-se usar a função `fisher.test()`, colocando como argumento uma tabela de contingência $2\times2$:
+A saída do teste imprime um aviso de que o qui-quadrado pode estar incorreto. Há necessidade, devido a presença de três células com valores abaixo de 5, de se usar o teste de Fisher. este pode ser obtido através da função `fisher_test()`, do pacote `rstatix`, colocando como argumento uma tabela de contingência $2\times2$, como a tab3:
 
 ```{r}
-tab3 <- table (dadosControle$controle, dadosControle$emerg)
-addmargins(tab3)
-fisher.test (tab3)
+rstatix::fisher_test (tab3, detailed = TRUE)
 ```
 
 ### Conclusão
@@ -622,7 +681,7 @@ Os pressupostos para o teste de McNemar são:
 3.	A diferença entre as proporções emparelhadas é o resultado de interesse;
 4.	O teste de McNemar pode não ser confiável se houver contagens baixas nas células "discordantes". Existe recomendação de que a soma dessas células seja $\ge 20$ [@rosner2011mcnemar].  
 
-### Dados  
+### Dados usados nesta seção
 
 Em uma universidade, um professor de bioestatística comparou as atitudes de 200 estudantes de Medicina em relação à confiança que eles depositam na análise estatística antes e depois da conclusão da disciplina. A pergunta feita foi: Confiam na análise estatística utilizada nos periódicos médicos?
 As respostas podem ser resumidas na Tabela \@ref(tab:tabmcnemar): 
@@ -669,7 +728,7 @@ $$
 Assim, a hipótese nula e a hipótese alternativa são:  
 
 > <font size=2> **$H_{0}$**: a proporção de alunos que respondem `sim` no pré-teste e no pós-teste é a mesma.  
-**$H_{A}$**:	a proporção de alunos que respondem `sim` no pré-teste e no pós-teste não é a mesma. </font>
+**$H_{1}$**:	a proporção de alunos que respondem `sim` no pré-teste e no pós-teste não é a mesma. </font>
 
 ### Lógica do teste
 
@@ -712,41 +771,24 @@ Carregar o arquivo `dadosBioestatistica.xlsx`, que pode ser encontrado [**aqui**
 dados <- readxl::read_excel("Arquivos/dadosBioestatistica.xlsx")
 ```
 
-**Tabela de contingência**
+Construir uma tabela de contingência
 
 ```{r}
 dados$preteste <- factor(dados$preteste, levels = c("sim", "não"))
 dados$posteste <- factor(dados$posteste, levels = c("sim", "não"))
-```
-
-
-```{r}
-tb <- table(dados$preteste, dados$posteste, 
+tab4 <- table(dados$preteste, dados$posteste, 
             dnn = c("Pré-teste", "Pós-teste"))
-            
-tb
+tab4
 ```
 
-Usando a função `mcnemar.test()`, do pacote `stats`, pode-se obter a estatística do teste:
+Agora, pode-se calcular o teste de McNemar^[É possível também obter o teste de McNemar de outras formas, como, por exemplo, usando a função `CrossTable()` do pacote `gmodels`.]  com a função `mcnemar_test()` do pacote `rstatix`:
 
 ```{r}
-mcnemar.test (tb, 
-              correct = TRUE)
+rstatix::mcnemar_test (tab4, 
+                       correct = TRUE)
 ```
 
 O resultado do teste de McNemar com correção de continuidade é exatamente igual ao calculado manualmente.    
-
-Pode-se também usar a função `CrossTable()`, do pacote `gmodels`, como feito no cálculo do qui-quadrado de Pearson, que imprime, além de uma tabela de frequência com as probabilidades, o teste de McNemar com e sem correção de continuidade.  
-
-```{r}
-gmodels::CrossTable (dados$preteste, 
-                     dados$posteste,
-                     digits = 2,
-                     prop.chisq = FALSE,
-                     prop.t = FALSE,
-                     mcnemar = TRUE)   
-```
-
 
 ### Conclusão  
 
