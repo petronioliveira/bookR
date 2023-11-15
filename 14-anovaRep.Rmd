@@ -524,6 +524,7 @@ ggl <- ggline(
   shape = 19,
   add = "mean_ci",
   error.plot = "errorbar",
+  position = position_dodge(width = 0.2),
   ggtheme = theme_pubr()) +
   theme(legend.position="right")
 

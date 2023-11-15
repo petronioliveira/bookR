@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-11-07" />
+<meta name="date" content="2023-11-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1256,17 +1256,18 @@ Figura14.7: Avaliação da autoestima no decorrer do tempo
 <span id="cb833-9"><a href="anova-de-medidas-repetidas.html#cb833-9" tabindex="-1"></a>  <span class="at">shape =</span> <span class="dv">19</span>,</span>
 <span id="cb833-10"><a href="anova-de-medidas-repetidas.html#cb833-10" tabindex="-1"></a>  <span class="at">add =</span> <span class="st">&quot;mean_ci&quot;</span>,</span>
 <span id="cb833-11"><a href="anova-de-medidas-repetidas.html#cb833-11" tabindex="-1"></a>  <span class="at">error.plot =</span> <span class="st">&quot;errorbar&quot;</span>,</span>
-<span id="cb833-12"><a href="anova-de-medidas-repetidas.html#cb833-12" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_pubr</span>()) <span class="sc">+</span></span>
-<span id="cb833-13"><a href="anova-de-medidas-repetidas.html#cb833-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;right&quot;</span>)</span>
-<span id="cb833-14"><a href="anova-de-medidas-repetidas.html#cb833-14" tabindex="-1"></a></span>
-<span id="cb833-15"><a href="anova-de-medidas-repetidas.html#cb833-15" tabindex="-1"></a>ggl <span class="sc">+</span> ggpubr<span class="sc">::</span><span class="fu">stat_pvalue_manual</span>(pwc,  </span>
-<span id="cb833-16"><a href="anova-de-medidas-repetidas.html#cb833-16" tabindex="-1"></a>                                 <span class="at">label =</span> <span class="st">&quot;p.adj&quot;</span>, </span>
-<span id="cb833-17"><a href="anova-de-medidas-repetidas.html#cb833-17" tabindex="-1"></a>                                 <span class="at">tip.length =</span> <span class="fl">0.00</span>,</span>
-<span id="cb833-18"><a href="anova-de-medidas-repetidas.html#cb833-18" tabindex="-1"></a>                                 <span class="at">y.position =</span> <span class="fu">c</span>(<span class="fl">28.5</span>, <span class="fl">28.5</span>, <span class="fl">28.5</span>)) <span class="sc">+</span></span>
-<span id="cb833-19"><a href="anova-de-medidas-repetidas.html#cb833-19" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">x =</span> <span class="st">&quot;Tempo&quot;</span>,</span>
-<span id="cb833-20"><a href="anova-de-medidas-repetidas.html#cb833-20" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&quot;Escore de autoestima&quot;</span>,</span>
-<span id="cb833-21"><a href="anova-de-medidas-repetidas.html#cb833-21" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="fu">get_test_label</span> (mod.anova2, <span class="at">detailed =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb833-22"><a href="anova-de-medidas-repetidas.html#cb833-22" tabindex="-1"></a>        <span class="at">caption =</span> <span class="fu">get_pwc_label</span>(pwc))</span></code></pre></div>
+<span id="cb833-12"><a href="anova-de-medidas-repetidas.html#cb833-12" tabindex="-1"></a>  <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.2</span>),</span>
+<span id="cb833-13"><a href="anova-de-medidas-repetidas.html#cb833-13" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_pubr</span>()) <span class="sc">+</span></span>
+<span id="cb833-14"><a href="anova-de-medidas-repetidas.html#cb833-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;right&quot;</span>)</span>
+<span id="cb833-15"><a href="anova-de-medidas-repetidas.html#cb833-15" tabindex="-1"></a></span>
+<span id="cb833-16"><a href="anova-de-medidas-repetidas.html#cb833-16" tabindex="-1"></a>ggl <span class="sc">+</span> ggpubr<span class="sc">::</span><span class="fu">stat_pvalue_manual</span>(pwc,  </span>
+<span id="cb833-17"><a href="anova-de-medidas-repetidas.html#cb833-17" tabindex="-1"></a>                                 <span class="at">label =</span> <span class="st">&quot;p.adj&quot;</span>, </span>
+<span id="cb833-18"><a href="anova-de-medidas-repetidas.html#cb833-18" tabindex="-1"></a>                                 <span class="at">tip.length =</span> <span class="fl">0.00</span>,</span>
+<span id="cb833-19"><a href="anova-de-medidas-repetidas.html#cb833-19" tabindex="-1"></a>                                 <span class="at">y.position =</span> <span class="fu">c</span>(<span class="fl">28.5</span>, <span class="fl">28.5</span>, <span class="fl">28.5</span>)) <span class="sc">+</span></span>
+<span id="cb833-20"><a href="anova-de-medidas-repetidas.html#cb833-20" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">x =</span> <span class="st">&quot;Tempo&quot;</span>,</span>
+<span id="cb833-21"><a href="anova-de-medidas-repetidas.html#cb833-21" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&quot;Escore de autoestima&quot;</span>,</span>
+<span id="cb833-22"><a href="anova-de-medidas-repetidas.html#cb833-22" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="fu">get_test_label</span> (mod.anova2, <span class="at">detailed =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb833-23"><a href="anova-de-medidas-repetidas.html#cb833-23" tabindex="-1"></a>        <span class="at">caption =</span> <span class="fu">get_pwc_label</span>(pwc))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:lineauto2"></span>
 <img src="bookdownproj_files/figure-html/lineauto2-1.png" alt="Avaliação da autoestima no decorrer do tempo" width="70%" height="70%" />
 <p class="caption">

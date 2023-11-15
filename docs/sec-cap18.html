@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-11-07" />
+<meta name="date" content="2023-11-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -688,22 +688,24 @@ div.csl-indent {
 <span id="cb1074-18"><a href="sec-cap18.html#cb1074-18" tabindex="-1"></a>               vcd)</span></code></pre></div>
 <p>O pacote limma também vai ser usado indiretamente neste capítulo e a sua instalação é feita através do BiocManager da seguinte maneira:</p>
 <div class="sourceCode" id="cb1075"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1075-1"><a href="sec-cap18.html#cb1075-1" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&quot;limma&quot;</span>)</span></code></pre></div>
-<pre><code>## Bioconductor version 3.17 (BiocManager 1.30.22), R 4.3.1 (2023-06-16 ucrt)</code></pre>
+<pre><code>## Bioconductor version 3.17 (BiocManager 1.30.22), R 4.3.2 (2023-10-31 ucrt)</code></pre>
 <pre><code>## Warning: package(s) not installed when version(s) same as or greater than current; use
 ##   `force = TRUE` to re-install: &#39;limma&#39;</code></pre>
 <pre><code>## Installation paths not writeable, unable to update packages
-##   path: C:/Program Files/R/R-4.3.1/library
+##   path: C:/Program Files/R/R-4.3.2/library
 ##   packages:
-##     foreign, KernSmooth, lattice, mgcv, nlme, rpart, spatial, survival</code></pre>
-<pre><code>## Old packages: &#39;BiasedUrn&#39;, &#39;bookdown&#39;, &#39;checkmate&#39;, &#39;classInt&#39;, &#39;curl&#39;,
-##   &#39;dbplyr&#39;, &#39;dotCall64&#39;, &#39;dplyr&#39;, &#39;emmeans&#39;, &#39;evaluate&#39;, &#39;fansi&#39;, &#39;flextable&#39;,
-##   &#39;gdata&#39;, &#39;gdtools&#39;, &#39;ggeffects&#39;, &#39;htmlTable&#39;, &#39;htmltools&#39;, &#39;httpuv&#39;, &#39;knitr&#39;,
-##   &#39;lifecycle&#39;, &#39;lme4&#39;, &#39;magick&#39;, &#39;maps&#39;, &#39;markdown&#39;, &#39;Matrix&#39;, &#39;MatrixModels&#39;,
-##   &#39;matrixStats&#39;, &#39;officer&#39;, &#39;openssl&#39;, &#39;parameters&#39;, &#39;performance&#39;, &#39;plotly&#39;,
-##   &#39;plotrix&#39;, &#39;pROC&#39;, &#39;promises&#39;, &#39;purrr&#39;, &#39;ragg&#39;, &#39;rbibutils&#39;, &#39;RcppArmadillo&#39;,
-##   &#39;RcppEigen&#39;, &#39;RCurl&#39;, &#39;rlang&#39;, &#39;rprojroot&#39;, &#39;RSQLite&#39;, &#39;RVAideMemoire&#39;, &#39;sp&#39;,
-##   &#39;spam&#39;, &#39;svglite&#39;, &#39;systemfonts&#39;, &#39;textshaping&#39;, &#39;units&#39;, &#39;utf8&#39;, &#39;uuid&#39;,
-##   &#39;vctrs&#39;, &#39;waldo&#39;, &#39;wesanderson&#39;, &#39;withr&#39;, &#39;wk&#39;, &#39;WRS2&#39;, &#39;xfun&#39;, &#39;XML&#39;</code></pre>
+##     lattice</code></pre>
+<pre><code>## Old packages: &#39;BiasedUrn&#39;, &#39;bookdown&#39;, &#39;checkmate&#39;, &#39;classInt&#39;, &#39;covr&#39;,
+##   &#39;crosstable&#39;, &#39;curl&#39;, &#39;dbplyr&#39;, &#39;dotCall64&#39;, &#39;emmeans&#39;, &#39;evaluate&#39;, &#39;fansi&#39;,
+##   &#39;flextable&#39;, &#39;gdata&#39;, &#39;gdtools&#39;, &#39;ggeffects&#39;, &#39;ggpmisc&#39;, &#39;ggpp&#39;, &#39;htmlTable&#39;,
+##   &#39;htmltools&#39;, &#39;httpuv&#39;, &#39;httr2&#39;, &#39;knitr&#39;, &#39;lessR&#39;, &#39;lifecycle&#39;, &#39;lme4&#39;,
+##   &#39;magick&#39;, &#39;maps&#39;, &#39;markdown&#39;, &#39;Matrix&#39;, &#39;MatrixModels&#39;, &#39;matrixStats&#39;,
+##   &#39;officer&#39;, &#39;openssl&#39;, &#39;parameters&#39;, &#39;performance&#39;, &#39;plotly&#39;, &#39;plotrix&#39;,
+##   &#39;pracma&#39;, &#39;pROC&#39;, &#39;promises&#39;, &#39;purrr&#39;, &#39;ragg&#39;, &#39;rbibutils&#39;, &#39;RcppArmadillo&#39;,
+##   &#39;RcppEigen&#39;, &#39;RCurl&#39;, &#39;Rdpack&#39;, &#39;rlang&#39;, &#39;rprojroot&#39;, &#39;RSQLite&#39;,
+##   &#39;RVAideMemoire&#39;, &#39;sp&#39;, &#39;spam&#39;, &#39;stringi&#39;, &#39;stringr&#39;, &#39;svglite&#39;,
+##   &#39;systemfonts&#39;, &#39;textshaping&#39;, &#39;units&#39;, &#39;utf8&#39;, &#39;uuid&#39;, &#39;vctrs&#39;, &#39;waldo&#39;,
+##   &#39;wesanderson&#39;, &#39;withr&#39;, &#39;wk&#39;, &#39;WRS2&#39;, &#39;xfun&#39;, &#39;XML&#39;</code></pre>
 <div class="sourceCode" id="cb1080"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1080-1"><a href="sec-cap18.html#cb1080-1" tabindex="-1"></a><span class="fu">library</span> (limma)</span></code></pre></div>
 </div>
 <div id="sec-diagbayes" class="section level2 hasAnchor" number="18.2">
