@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-11-15" />
+<meta name="date" content="2023-11-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -668,17 +668,17 @@ div.csl-indent {
 <h1><span class="header-section-number">Capítulo 16</span> Análise de Dados Categóricos<a href="análise-de-dados-categóricos.html#análise-de-dados-categóricos" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="pacotes-necessários-1" class="section level2 hasAnchor" number="16.1">
 <h2><span class="header-section-number">16.1</span> Pacotes necessários<a href="análise-de-dados-categóricos.html#pacotes-necessários-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb885"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb885-1"><a href="análise-de-dados-categóricos.html#cb885-1" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(coin,</span>
-<span id="cb885-2"><a href="análise-de-dados-categóricos.html#cb885-2" tabindex="-1"></a>                DescTools,</span>
-<span id="cb885-3"><a href="análise-de-dados-categóricos.html#cb885-3" tabindex="-1"></a>                dplyr,</span>
-<span id="cb885-4"><a href="análise-de-dados-categóricos.html#cb885-4" tabindex="-1"></a>                expss,</span>
-<span id="cb885-5"><a href="análise-de-dados-categóricos.html#cb885-5" tabindex="-1"></a>                ggplot2, </span>
-<span id="cb885-6"><a href="análise-de-dados-categóricos.html#cb885-6" tabindex="-1"></a>                gmodels,</span>
-<span id="cb885-7"><a href="análise-de-dados-categóricos.html#cb885-7" tabindex="-1"></a>                kableExtra,</span>
-<span id="cb885-8"><a href="análise-de-dados-categóricos.html#cb885-8" tabindex="-1"></a>                nhstplot,</span>
-<span id="cb885-9"><a href="análise-de-dados-categóricos.html#cb885-9" tabindex="-1"></a>                readxl,</span>
-<span id="cb885-10"><a href="análise-de-dados-categóricos.html#cb885-10" tabindex="-1"></a>                rstatix,</span>
-<span id="cb885-11"><a href="análise-de-dados-categóricos.html#cb885-11" tabindex="-1"></a>                summarytools)</span></code></pre></div>
+<div class="sourceCode" id="cb883"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb883-1"><a href="análise-de-dados-categóricos.html#cb883-1" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(coin,</span>
+<span id="cb883-2"><a href="análise-de-dados-categóricos.html#cb883-2" tabindex="-1"></a>                DescTools,</span>
+<span id="cb883-3"><a href="análise-de-dados-categóricos.html#cb883-3" tabindex="-1"></a>                dplyr,</span>
+<span id="cb883-4"><a href="análise-de-dados-categóricos.html#cb883-4" tabindex="-1"></a>                expss,</span>
+<span id="cb883-5"><a href="análise-de-dados-categóricos.html#cb883-5" tabindex="-1"></a>                ggplot2, </span>
+<span id="cb883-6"><a href="análise-de-dados-categóricos.html#cb883-6" tabindex="-1"></a>                gmodels,</span>
+<span id="cb883-7"><a href="análise-de-dados-categóricos.html#cb883-7" tabindex="-1"></a>                kableExtra,</span>
+<span id="cb883-8"><a href="análise-de-dados-categóricos.html#cb883-8" tabindex="-1"></a>                nhstplot,</span>
+<span id="cb883-9"><a href="análise-de-dados-categóricos.html#cb883-9" tabindex="-1"></a>                readxl,</span>
+<span id="cb883-10"><a href="análise-de-dados-categóricos.html#cb883-10" tabindex="-1"></a>                rstatix,</span>
+<span id="cb883-11"><a href="análise-de-dados-categóricos.html#cb883-11" tabindex="-1"></a>                summarytools)</span></code></pre></div>
 </div>
 <div id="sec-qui" class="section level2 hasAnchor" number="16.2">
 <h2><span class="header-section-number">16.2</span> Qui-Quadrado<a href="análise-de-dados-categóricos.html#sec-qui" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -774,11 +774,11 @@ Total
 </tbody>
 </table>
 <p>Usando os dados da Tabela <a href="análise-de-dados-categóricos.html#tab:tab2x2">16.1</a>, o número de acidentes esperados para os homens será:</p>
-<div class="sourceCode" id="cb886"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb886-1"><a href="análise-de-dados-categóricos.html#cb886-1" tabindex="-1"></a>total_c <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb886-2"><a href="análise-de-dados-categóricos.html#cb886-2" tabindex="-1"></a>total_l <span class="ot">&lt;-</span> <span class="dv">60</span></span>
-<span id="cb886-3"><a href="análise-de-dados-categóricos.html#cb886-3" tabindex="-1"></a>total_geral <span class="ot">&lt;-</span> <span class="dv">100</span></span>
-<span id="cb886-4"><a href="análise-de-dados-categóricos.html#cb886-4" tabindex="-1"></a>esperado <span class="ot">&lt;-</span> (total_c<span class="sc">*</span>total_l)<span class="sc">/</span>total_geral</span>
-<span id="cb886-5"><a href="análise-de-dados-categóricos.html#cb886-5" tabindex="-1"></a>esperado </span></code></pre></div>
+<div class="sourceCode" id="cb884"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb884-1"><a href="análise-de-dados-categóricos.html#cb884-1" tabindex="-1"></a>total_c <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb884-2"><a href="análise-de-dados-categóricos.html#cb884-2" tabindex="-1"></a>total_l <span class="ot">&lt;-</span> <span class="dv">60</span></span>
+<span id="cb884-3"><a href="análise-de-dados-categóricos.html#cb884-3" tabindex="-1"></a>total_geral <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb884-4"><a href="análise-de-dados-categóricos.html#cb884-4" tabindex="-1"></a>esperado <span class="ot">&lt;-</span> (total_c<span class="sc">*</span>total_l)<span class="sc">/</span>total_geral</span>
+<span id="cb884-5"><a href="análise-de-dados-categóricos.html#cb884-5" tabindex="-1"></a>esperado </span></code></pre></div>
 <pre><code>## [1] 12</code></pre>
 <p>O número de acidentes esperado para os homens é igual a 12, entretanto ocorreram 16. Houve uma diferença. Esta diferença é calculada para todas as células e será o importante no cálculo do qui-quadrado. Após o cálculo, acrescentando os valores esperados à Tabela <a href="análise-de-dados-categóricos.html#tab:tab2x2">16.1</a>, tem-se a Tabela <a href="análise-de-dados-categóricos.html#tab:ntab2x2">16.2</a> que será usada no cálculo do qui-quadrado.</p>
 <table class="table lightable-classic" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: Cambria; margin-left: auto; margin-right: auto;">
@@ -878,20 +878,20 @@ Total
 gl = (numero \ de \ linhas - 1) \ \times \ (numero \ de \ colunas - 1)
 \]</span></p>
 <p>Em uma tabela de contingência 2 <span class="math inline">\(\times\)</span> 2, como a Tabela <a href="análise-de-dados-categóricos.html#tab:tab2x2">16.1</a>, tem <span class="math inline">\(gl = (2 - 1) \times (2 - 1) = 1\)</span>. Basta agora obter o valor crítico com a função <code>qchisq()</code>:</p>
-<div class="sourceCode" id="cb888"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb888-1"><a href="análise-de-dados-categóricos.html#cb888-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span>  <span class="fl">0.05</span></span>
-<span id="cb888-2"><a href="análise-de-dados-categóricos.html#cb888-2" tabindex="-1"></a>gl <span class="ot">=</span> <span class="dv">1</span></span>
-<span id="cb888-3"><a href="análise-de-dados-categóricos.html#cb888-3" tabindex="-1"></a><span class="fu">qchisq</span> (<span class="dv">1</span><span class="sc">-</span>alpha, gl)</span></code></pre></div>
+<div class="sourceCode" id="cb886"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb886-1"><a href="análise-de-dados-categóricos.html#cb886-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span>  <span class="fl">0.05</span></span>
+<span id="cb886-2"><a href="análise-de-dados-categóricos.html#cb886-2" tabindex="-1"></a>gl <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb886-3"><a href="análise-de-dados-categóricos.html#cb886-3" tabindex="-1"></a><span class="fu">qchisq</span> (<span class="dv">1</span><span class="sc">-</span>alpha, gl)</span></code></pre></div>
 <pre><code>## [1] 3.841459</code></pre>
 <p>Este valor é comparado com o <span class="math inline">\(\chi^{2}_{calculado}\)</span> para um nível de significância de 5%. Se ele é maior, rejeita-se se a <span class="math inline">\(H_{0}\)</span>; caso contrário, não se rejeita. Para obter o valor <em>P</em>, pode-se usar a função <code>pchisq()</code>, onde, como argumento, coloca-se o valor do <span class="math inline">\(\chi^{2}_{calculado}\)</span>, os graus de liberdade e acrescenta-se <code>lower.tail = FALSE</code> para obter a probabilidade da cauda superior, uma vez que a distribuição do quiquadrado é positiva.</p>
 <p>Na Tabela <a href="análise-de-dados-categóricos.html#tab:tab2x2">16.1</a>, o valor crítico é igual a 3,84 e, no exemplo, o <span class="math inline">\(\chi^{2}_{calculado}\)</span> é igual a 4,17, logo a valor <em>P</em> é igual a:</p>
-<div class="sourceCode" id="cb890"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb890-1"><a href="análise-de-dados-categóricos.html#cb890-1" tabindex="-1"></a><span class="fu">pchisq</span> (<span class="fl">4.17</span>, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb888"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb888-1"><a href="análise-de-dados-categóricos.html#cb888-1" tabindex="-1"></a><span class="fu">pchisq</span> (<span class="fl">4.17</span>, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## [1] 0.0411458</code></pre>
 <p>Dessa forma, conclui-se ,com uma confiança de 95%, que os homens têm uma proporção maior de acidentes comparados às mulheres (<span class="math inline">\(\chi^{2} (1) = 4,17;P=0,041\)</span>). Observe na Figura <a href="análise-de-dados-categóricos.html#fig:chi384">16.2</a> que o <span class="math inline">\(\chi^{2}_{calculado}\)</span> localiza-se a direita da linha vertical, na área vermelha de rejeição da <span class="math inline">\(H_{0}\)</span>.</p>
-<div class="sourceCode" id="cb892"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb892-1"><a href="análise-de-dados-categóricos.html#cb892-1" tabindex="-1"></a><span class="fu">plotchisqtest</span>(<span class="at">chisq =</span> <span class="fl">3.84</span>, </span>
-<span id="cb892-2"><a href="análise-de-dados-categóricos.html#cb892-2" tabindex="-1"></a>              <span class="at">df =</span> <span class="dv">1</span>,</span>
-<span id="cb892-3"><a href="análise-de-dados-categóricos.html#cb892-3" tabindex="-1"></a>              <span class="at">colorleft =</span> <span class="st">&quot;aliceblue&quot;</span>,</span>
-<span id="cb892-4"><a href="análise-de-dados-categóricos.html#cb892-4" tabindex="-1"></a>              <span class="at">colorright =</span> <span class="st">&quot;red&quot;</span>,</span>
-<span id="cb892-5"><a href="análise-de-dados-categóricos.html#cb892-5" tabindex="-1"></a>              <span class="at">ylabel =</span> <span class="st">&quot;Densidade de probabilidade sob a hipótese nula&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb890"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb890-1"><a href="análise-de-dados-categóricos.html#cb890-1" tabindex="-1"></a><span class="fu">plotchisqtest</span>(<span class="at">chisq =</span> <span class="fl">3.84</span>, </span>
+<span id="cb890-2"><a href="análise-de-dados-categóricos.html#cb890-2" tabindex="-1"></a>              <span class="at">df =</span> <span class="dv">1</span>,</span>
+<span id="cb890-3"><a href="análise-de-dados-categóricos.html#cb890-3" tabindex="-1"></a>              <span class="at">colorleft =</span> <span class="st">&quot;aliceblue&quot;</span>,</span>
+<span id="cb890-4"><a href="análise-de-dados-categóricos.html#cb890-4" tabindex="-1"></a>              <span class="at">colorright =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb890-5"><a href="análise-de-dados-categóricos.html#cb890-5" tabindex="-1"></a>              <span class="at">ylabel =</span> <span class="st">&quot;Densidade de probabilidade sob a hipótese nula&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:chi384"></span>
 <img src="bookdownproj_files/figure-html/chi384-1.png" alt="Distribuição do qui-quadrado, gl = 1, alpha = 0,05." width="70%" height="70%" />
 <p class="caption">
@@ -909,64 +909,64 @@ Figura16.2: Distribuição do qui-quadrado, gl = 1, alpha = 0,05.
 Como exercício, serão usados outros dados que necessitam mais manipulação como treinamento do qui-quadrado de associação e do próprio R. Estes dados servirão para testar a hipótese de associação entre tabagismo e baixo peso ao nascer (&lt; 2500g).</p>
 <p><u>Leitura e transformação dos dados</u></p>
 <p>Os dados serão provenientes do banco de dados <code>dadosMater.xlsx</code>. bastante usado neste livro <a href="#fn51" class="footnote-ref" id="fnref51"><sup>51</sup></a> . Como ele já deve estar no seu diretório, fazer a leitura da seguinte maneira:</p>
-<div class="sourceCode" id="cb893"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb893-1"><a href="análise-de-dados-categóricos.html#cb893-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_excel</span> (<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb891"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb891-1"><a href="análise-de-dados-categóricos.html#cb891-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_excel</span> (<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>)</span></code></pre></div>
 <p>Adicione a este arquivo uma variável denominada <code>baixoPeso</code>, usando a função <code>mutate()</code> do pacvote dplyr a função <code>ifelse ()</code>, da base do R:</p>
-<div class="sourceCode" id="cb894"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb894-1"><a href="análise-de-dados-categóricos.html#cb894-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">baixoPeso =</span> <span class="fu">ifelse</span>(pesoRN <span class="sc">&lt;</span> <span class="dv">2500</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb892"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb892-1"><a href="análise-de-dados-categóricos.html#cb892-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">baixoPeso =</span> <span class="fu">ifelse</span>(pesoRN <span class="sc">&lt;</span> <span class="dv">2500</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>))</span></code></pre></div>
 <p>Onde <code>1 = sim</code> e <code>2 = não</code>, ou seja, com peso de nascimento &lt; 2500g ou <span class="math inline">\(\ge\)</span> 2500g.</p>
 <p>O próximo passo é selecionar, deste arquivo, apenas esta variável criada e a variável <code>fumo</code>, porque o objetivo da análise será verificar se existe associação entre tabagismo na gestação e baixo peso ao nascer (&lt; 2500g). Para isso, usa-se a função <code>select()</code> do pacote <code>dplyr</code>:</p>
-<div class="sourceCode" id="cb895"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb895-1"><a href="análise-de-dados-categóricos.html#cb895-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> <span class="fu">select</span> (fumo, baixoPeso)</span></code></pre></div>
+<div class="sourceCode" id="cb893"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb893-1"><a href="análise-de-dados-categóricos.html#cb893-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> <span class="fu">select</span> (fumo, baixoPeso)</span></code></pre></div>
 <p>A seguir, será extraída uma amostra deste banco de dados com n = 300, usando a função <code>sample_n()</code> do pacote <code>dplyr</code>. A função <code>set.seed()</code> apenas garante que os dados selecionados aleatoriamente se mantenham os mesmos em outros sorteios (veja seção <a href="introdução-à-teoria-das-probabilidades.html#sec-dnp">7.7.2</a>):</p>
-<div class="sourceCode" id="cb896"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb896-1"><a href="análise-de-dados-categóricos.html#cb896-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb896-2"><a href="análise-de-dados-categóricos.html#cb896-2" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(dados, <span class="dv">300</span>)</span>
-<span id="cb896-3"><a href="análise-de-dados-categóricos.html#cb896-3" tabindex="-1"></a><span class="fu">str</span>(dados)</span></code></pre></div>
+<div class="sourceCode" id="cb894"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb894-1"><a href="análise-de-dados-categóricos.html#cb894-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb894-2"><a href="análise-de-dados-categóricos.html#cb894-2" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(dados, <span class="dv">300</span>)</span>
+<span id="cb894-3"><a href="análise-de-dados-categóricos.html#cb894-3" tabindex="-1"></a><span class="fu">str</span>(dados)</span></code></pre></div>
 <pre><code>## tibble [300 × 2] (S3: tbl_df/tbl/data.frame)
 ##  $ fumo     : num [1:300] 2 2 1 2 2 2 1 2 2 2 ...
 ##  $ baixoPeso: chr [1:300] &quot;2&quot; &quot;2&quot; &quot;1&quot; &quot;2&quot; ...</code></pre>
 <p>Tem-se, agora, um conjunto de dados com duas colunas: <code>fumo</code>, como uma variável numérica e <code>baixoPeso</code>, como caractere. Ambas devem ser transformadas em fator e, onde os rótulos são 1 e 2, passam para “sim” e “não” e mantendo a ordem “sim” e “não”.</p>
-<div class="sourceCode" id="cb898"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb898-1"><a href="análise-de-dados-categóricos.html#cb898-1" tabindex="-1"></a>dados<span class="sc">$</span>fumo <span class="ot">&lt;-</span> <span class="fu">factor</span>(dados<span class="sc">$</span>fumo,</span>
-<span id="cb898-2"><a href="análise-de-dados-categóricos.html#cb898-2" tabindex="-1"></a>                     <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
-<span id="cb898-3"><a href="análise-de-dados-categóricos.html#cb898-3" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;sim&quot;</span>, <span class="st">&quot;não&quot;</span>))</span>
-<span id="cb898-4"><a href="análise-de-dados-categóricos.html#cb898-4" tabindex="-1"></a></span>
-<span id="cb898-5"><a href="análise-de-dados-categóricos.html#cb898-5" tabindex="-1"></a>dados<span class="sc">$</span>baixoPeso <span class="ot">&lt;-</span> <span class="fu">factor</span>(dados<span class="sc">$</span>baixoPeso,</span>
-<span id="cb898-6"><a href="análise-de-dados-categóricos.html#cb898-6" tabindex="-1"></a>                          <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
-<span id="cb898-7"><a href="análise-de-dados-categóricos.html#cb898-7" tabindex="-1"></a>                          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;sim&quot;</span>, <span class="st">&quot;não&quot;</span>))</span>
-<span id="cb898-8"><a href="análise-de-dados-categóricos.html#cb898-8" tabindex="-1"></a><span class="fu">str</span> (dados)</span></code></pre></div>
+<div class="sourceCode" id="cb896"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb896-1"><a href="análise-de-dados-categóricos.html#cb896-1" tabindex="-1"></a>dados<span class="sc">$</span>fumo <span class="ot">&lt;-</span> <span class="fu">factor</span>(dados<span class="sc">$</span>fumo,</span>
+<span id="cb896-2"><a href="análise-de-dados-categóricos.html#cb896-2" tabindex="-1"></a>                     <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb896-3"><a href="análise-de-dados-categóricos.html#cb896-3" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;sim&quot;</span>, <span class="st">&quot;não&quot;</span>))</span>
+<span id="cb896-4"><a href="análise-de-dados-categóricos.html#cb896-4" tabindex="-1"></a></span>
+<span id="cb896-5"><a href="análise-de-dados-categóricos.html#cb896-5" tabindex="-1"></a>dados<span class="sc">$</span>baixoPeso <span class="ot">&lt;-</span> <span class="fu">factor</span>(dados<span class="sc">$</span>baixoPeso,</span>
+<span id="cb896-6"><a href="análise-de-dados-categóricos.html#cb896-6" tabindex="-1"></a>                          <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb896-7"><a href="análise-de-dados-categóricos.html#cb896-7" tabindex="-1"></a>                          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;sim&quot;</span>, <span class="st">&quot;não&quot;</span>))</span>
+<span id="cb896-8"><a href="análise-de-dados-categóricos.html#cb896-8" tabindex="-1"></a><span class="fu">str</span> (dados)</span></code></pre></div>
 <pre><code>## tibble [300 × 2] (S3: tbl_df/tbl/data.frame)
 ##  $ fumo     : Factor w/ 2 levels &quot;sim&quot;,&quot;não&quot;: 2 2 1 2 2 2 1 2 2 2 ...
 ##  $ baixoPeso: Factor w/ 2 levels &quot;sim&quot;,&quot;não&quot;: 2 2 1 2 1 2 2 2 2 2 ...</code></pre>
 <p><u>Tabelas</u></p>
 <p>Com os dados, será construída uma tabela com a função <code>table()</code></p>
-<div class="sourceCode" id="cb900"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb900-1"><a href="análise-de-dados-categóricos.html#cb900-1" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">with</span>(<span class="at">data =</span> dados, <span class="fu">table</span>(fumo, baixoPeso))</span>
-<span id="cb900-2"><a href="análise-de-dados-categóricos.html#cb900-2" tabindex="-1"></a><span class="fu">addmargins</span>(tab)</span></code></pre></div>
+<div class="sourceCode" id="cb898"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb898-1"><a href="análise-de-dados-categóricos.html#cb898-1" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">with</span>(<span class="at">data =</span> dados, <span class="fu">table</span>(fumo, baixoPeso))</span>
+<span id="cb898-2"><a href="análise-de-dados-categóricos.html#cb898-2" tabindex="-1"></a><span class="fu">addmargins</span>(tab)</span></code></pre></div>
 <pre><code>##      baixoPeso
 ## fumo  sim não Sum
 ##   sim  18  51  69
 ##   não  22 209 231
 ##   Sum  40 260 300</code></pre>
 <p>OBSERVAÇÃO: Uma tabela é constituída por linhas e colunas. Para se extrair valores da tabela, usa-se os colchetes, após o nome da tabela. O primeiro valor dentro dos colchetes é referente ao número da linha; o segundo, separado pela virgula, é referente ao número da coluna. Então, <code>tab[1,1]</code> se refere ao valor que está na primeira linha e primeira coluna:</p>
-<div class="sourceCode" id="cb902"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb902-1"><a href="análise-de-dados-categóricos.html#cb902-1" tabindex="-1"></a>tab[<span class="dv">1</span>,<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb900"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb900-1"><a href="análise-de-dados-categóricos.html#cb900-1" tabindex="-1"></a>tab[<span class="dv">1</span>,<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] 18</code></pre>
 <p>A proporção de baixo peso por categoria de tabagismo (nº de casos/total da linha):</p>
-<div class="sourceCode" id="cb904"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb904-1"><a href="análise-de-dados-categóricos.html#cb904-1" tabindex="-1"></a>fumantes <span class="ot">&lt;-</span>  tab[<span class="dv">1</span>,<span class="dv">1</span>]<span class="sc">/</span>(tab[<span class="dv">1</span>,<span class="dv">1</span>]<span class="sc">+</span> tab[<span class="dv">1</span>,<span class="dv">2</span>])</span>
-<span id="cb904-2"><a href="análise-de-dados-categóricos.html#cb904-2" tabindex="-1"></a>fumantes</span></code></pre></div>
+<div class="sourceCode" id="cb902"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb902-1"><a href="análise-de-dados-categóricos.html#cb902-1" tabindex="-1"></a>fumantes <span class="ot">&lt;-</span>  tab[<span class="dv">1</span>,<span class="dv">1</span>]<span class="sc">/</span>(tab[<span class="dv">1</span>,<span class="dv">1</span>]<span class="sc">+</span> tab[<span class="dv">1</span>,<span class="dv">2</span>])</span>
+<span id="cb902-2"><a href="análise-de-dados-categóricos.html#cb902-2" tabindex="-1"></a>fumantes</span></code></pre></div>
 <pre><code>## [1] 0.2608696</code></pre>
-<div class="sourceCode" id="cb906"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb906-1"><a href="análise-de-dados-categóricos.html#cb906-1" tabindex="-1"></a>não.fumantes <span class="ot">&lt;-</span> tab[<span class="dv">2</span>,<span class="dv">1</span>]<span class="sc">/</span>(tab[<span class="dv">2</span>,<span class="dv">1</span>]<span class="sc">+</span> tab[<span class="dv">2</span>,<span class="dv">2</span>])</span>
-<span id="cb906-2"><a href="análise-de-dados-categóricos.html#cb906-2" tabindex="-1"></a>não.fumantes</span></code></pre></div>
+<div class="sourceCode" id="cb904"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb904-1"><a href="análise-de-dados-categóricos.html#cb904-1" tabindex="-1"></a>não.fumantes <span class="ot">&lt;-</span> tab[<span class="dv">2</span>,<span class="dv">1</span>]<span class="sc">/</span>(tab[<span class="dv">2</span>,<span class="dv">1</span>]<span class="sc">+</span> tab[<span class="dv">2</span>,<span class="dv">2</span>])</span>
+<span id="cb904-2"><a href="análise-de-dados-categóricos.html#cb904-2" tabindex="-1"></a>não.fumantes</span></code></pre></div>
 <pre><code>## [1] 0.0952381</code></pre>
 <p><u>Visualização gráfica</u></p>
 <p>Será construído um gráfico de barras empilhadas com o <code>ggplot()</code> do pacote <code>ggplot2</code> (ver Seção <a href="descrevendo-os-dados.html#sec-ggplot2">6.6</a>):</p>
-<div class="sourceCode" id="cb908"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb908-1"><a href="análise-de-dados-categóricos.html#cb908-1" tabindex="-1"></a><span class="fu">ggplot</span>(dados) <span class="sc">+</span></span>
-<span id="cb908-2"><a href="análise-de-dados-categóricos.html#cb908-2" tabindex="-1"></a>  <span class="fu">aes</span> (<span class="at">x =</span> fumo, <span class="at">fill =</span> baixoPeso) <span class="sc">+</span></span>
-<span id="cb908-3"><a href="análise-de-dados-categóricos.html#cb908-3" tabindex="-1"></a>  <span class="fu">geom_bar</span> (<span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb908-4"><a href="análise-de-dados-categóricos.html#cb908-4" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;gray&quot;</span>, <span class="st">&quot;aliceblue&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb908-5"><a href="análise-de-dados-categóricos.html#cb908-5" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">title =</span> <span class="cn">NULL</span>,  </span>
-<span id="cb908-6"><a href="análise-de-dados-categóricos.html#cb908-6" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">&quot;Tabagismo&quot;</span>,</span>
-<span id="cb908-7"><a href="análise-de-dados-categóricos.html#cb908-7" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&quot;Frequência&quot;</span>) <span class="sc">+</span></span>
-<span id="cb908-8"><a href="análise-de-dados-categóricos.html#cb908-8" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span><span class="st">&quot;sim&quot;</span>, <span class="at">y=</span><span class="dv">62</span>, <span class="at">label=</span> <span class="st">&quot;26,1%&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb908-9"><a href="análise-de-dados-categóricos.html#cb908-9" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="st">&quot;não&quot;</span>, <span class="at">y=</span><span class="dv">223</span>, <span class="at">label =</span> <span class="st">&quot;9,5%&quot;</span>) <span class="sc">+</span></span>
-<span id="cb908-10"><a href="análise-de-dados-categóricos.html#cb908-10" tabindex="-1"></a>  <span class="fu">theme_bw</span> () <span class="sc">+</span></span>
-<span id="cb908-11"><a href="análise-de-dados-categóricos.html#cb908-11" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">12</span>)) <span class="sc">+</span></span>
-<span id="cb908-12"><a href="análise-de-dados-categóricos.html#cb908-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Peso ao nascer &lt; 2500g&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb906"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb906-1"><a href="análise-de-dados-categóricos.html#cb906-1" tabindex="-1"></a><span class="fu">ggplot</span>(dados) <span class="sc">+</span></span>
+<span id="cb906-2"><a href="análise-de-dados-categóricos.html#cb906-2" tabindex="-1"></a>  <span class="fu">aes</span> (<span class="at">x =</span> fumo, <span class="at">fill =</span> baixoPeso) <span class="sc">+</span></span>
+<span id="cb906-3"><a href="análise-de-dados-categóricos.html#cb906-3" tabindex="-1"></a>  <span class="fu">geom_bar</span> (<span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb906-4"><a href="análise-de-dados-categóricos.html#cb906-4" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;gray&quot;</span>, <span class="st">&quot;aliceblue&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb906-5"><a href="análise-de-dados-categóricos.html#cb906-5" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">title =</span> <span class="cn">NULL</span>,  </span>
+<span id="cb906-6"><a href="análise-de-dados-categóricos.html#cb906-6" tabindex="-1"></a>        <span class="at">x =</span> <span class="st">&quot;Tabagismo&quot;</span>,</span>
+<span id="cb906-7"><a href="análise-de-dados-categóricos.html#cb906-7" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&quot;Frequência&quot;</span>) <span class="sc">+</span></span>
+<span id="cb906-8"><a href="análise-de-dados-categóricos.html#cb906-8" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span><span class="st">&quot;sim&quot;</span>, <span class="at">y=</span><span class="dv">62</span>, <span class="at">label=</span> <span class="st">&quot;26,1%&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb906-9"><a href="análise-de-dados-categóricos.html#cb906-9" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="st">&quot;não&quot;</span>, <span class="at">y=</span><span class="dv">223</span>, <span class="at">label =</span> <span class="st">&quot;9,5%&quot;</span>) <span class="sc">+</span></span>
+<span id="cb906-10"><a href="análise-de-dados-categóricos.html#cb906-10" tabindex="-1"></a>  <span class="fu">theme_bw</span> () <span class="sc">+</span></span>
+<span id="cb906-11"><a href="análise-de-dados-categóricos.html#cb906-11" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">12</span>)) <span class="sc">+</span></span>
+<span id="cb906-12"><a href="análise-de-dados-categóricos.html#cb906-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Peso ao nascer &lt; 2500g&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fumobp"></span>
 <img src="bookdownproj_files/figure-html/fumobp-1.png" alt="Gráfico de barras empilhadas: tabagismo vs baixo peso ao nascer." width="70%" height="70%" />
 <p class="caption">
@@ -992,14 +992,14 @@ Figura16.3: Gráfico de barras empilhadas: tabagismo vs baixo peso ao nascer.
 <li>… <span class="math inline">\(\to\)</span> para outros argumentos consulte a ajuda do <em>RStudio</em>.</li>
 </ul>
 <p>Para executar a função <code>chisq_test()</code>, basta colocar como argumento as variáveis <code>fumo</code> e <code>baixoPeso</code> ou construir antes uma tabela de contingência com a função <code>table()</code> e depois colocá-la como argumento. Como tabela <code>tab</code> já existe:</p>
-<div class="sourceCode" id="cb909"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb909-1"><a href="análise-de-dados-categóricos.html#cb909-1" tabindex="-1"></a>teste <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">chisq_test</span>(tab)</span>
-<span id="cb909-2"><a href="análise-de-dados-categóricos.html#cb909-2" tabindex="-1"></a>teste</span></code></pre></div>
+<div class="sourceCode" id="cb907"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb907-1"><a href="análise-de-dados-categóricos.html#cb907-1" tabindex="-1"></a>teste <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">chisq_test</span>(tab)</span>
+<span id="cb907-2"><a href="análise-de-dados-categóricos.html#cb907-2" tabindex="-1"></a>teste</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 6
 ##       n statistic        p    df method          p.signif
 ## * &lt;int&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;           &lt;chr&gt;   
 ## 1   300      11.2 0.000809     1 Chi-square test ***</code></pre>
 <p>A saída do teste exibe tudo que é necessário. O <span class="math inline">\(\chi^{2}\)</span> = 11.2 com um valor muito maior que o valor crítico de 3,84, mostrando que a diferença é estatisticamente significativa (<em>P</em> = 8.09^{-4}). Essas e outras estatísticas podem ser obtidas, usando o objeto <code>teste</code> seguido do sinal <code>$</code>. Por exemplo, para o valor P:</p>
-<div class="sourceCode" id="cb911"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb911-1"><a href="análise-de-dados-categóricos.html#cb911-1" tabindex="-1"></a>teste<span class="sc">$</span>p</span></code></pre></div>
+<div class="sourceCode" id="cb909"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb909-1"><a href="análise-de-dados-categóricos.html#cb909-1" tabindex="-1"></a>teste<span class="sc">$</span>p</span></code></pre></div>
 <pre><code>## [1] 0.000809</code></pre>
 <p>NOTA: Se um aviso como <span style="color:red">Chi-squared approximation may be incorrect</span> (<em>Aproximação qui-quadrado pode estar incorreta</em>) aparecer, significa que as menores frequências esperadas são inferiores a 5. Para evitar esse problema, é possível usar uma das seguintes opções:</p>
 <ul>
@@ -1008,12 +1008,12 @@ Figura16.3: Gráfico de barras empilhadas: tabagismo vs baixo peso ao nascer.
 </ul>
 <p><u>Outras maneiras de calcular o qui-quadrado no R</u></p>
 <p>No pacote <code>gmodels</code> <span class="citation">(140)</span>, existe uma função muito interessante, a função <code>CrossTable()</code> que que imprime, além de uma tabela de frequência com as proporções, exibe vários testes, como o teste <span class="math inline">\(\chi^2\)</span>, o teste exato de Fisher e o teste de McNemar com e sem correção de continuidade. Consulte a ajuda para melhor estudar esta elegante função! Neste momento, será explorado apenas o qui-quadrado e os valores esperados com três dígitos:</p>
-<div class="sourceCode" id="cb913"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb913-1"><a href="análise-de-dados-categóricos.html#cb913-1" tabindex="-1"></a><span class="fu">CrossTable</span> (tab,</span>
-<span id="cb913-2"><a href="análise-de-dados-categóricos.html#cb913-2" tabindex="-1"></a>            <span class="at">digits =</span> <span class="dv">3</span>,</span>
-<span id="cb913-3"><a href="análise-de-dados-categóricos.html#cb913-3" tabindex="-1"></a>            <span class="at">prop.chisq =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb913-4"><a href="análise-de-dados-categóricos.html#cb913-4" tabindex="-1"></a>            <span class="at">prop.t =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb913-5"><a href="análise-de-dados-categóricos.html#cb913-5" tabindex="-1"></a>            <span class="at">chisq =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb913-6"><a href="análise-de-dados-categóricos.html#cb913-6" tabindex="-1"></a>            <span class="at">expected =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb911"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb911-1"><a href="análise-de-dados-categóricos.html#cb911-1" tabindex="-1"></a><span class="fu">CrossTable</span> (tab,</span>
+<span id="cb911-2"><a href="análise-de-dados-categóricos.html#cb911-2" tabindex="-1"></a>            <span class="at">digits =</span> <span class="dv">3</span>,</span>
+<span id="cb911-3"><a href="análise-de-dados-categóricos.html#cb911-3" tabindex="-1"></a>            <span class="at">prop.chisq =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb911-4"><a href="análise-de-dados-categóricos.html#cb911-4" tabindex="-1"></a>            <span class="at">prop.t =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb911-5"><a href="análise-de-dados-categóricos.html#cb911-5" tabindex="-1"></a>            <span class="at">chisq =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb911-6"><a href="análise-de-dados-categóricos.html#cb911-6" tabindex="-1"></a>            <span class="at">expected =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
 ##  
 ##    Cell Contents
@@ -1066,11 +1066,11 @@ Figura16.3: Gráfico de barras empilhadas: tabagismo vs baixo peso ao nascer.
 <p>Além disso, no relato dos resultados pode-se apresentar uma tabela ou em um gráfico.</p>
 <p><strong>Tabela</strong></p>
 <p>Para a construção da tabela, pode-se usar a função <code>ctable()</code> do pacote <code>summarytools</code><span class="citation">(141)</span> para obter uma tabela com todos os dados a serem exibidos. O argumento <code>prop = "r"</code> exibe os percentuais das linhas (“c”, nas colunas). Na realidade, são maneiras diferente de se obter o mesmo resultado.</p>
-<div class="sourceCode" id="cb915"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb915-1"><a href="análise-de-dados-categóricos.html#cb915-1" tabindex="-1"></a><span class="fu">ctable</span>(dados<span class="sc">$</span>fumo, dados<span class="sc">$</span>baixoPeso,</span>
-<span id="cb915-2"><a href="análise-de-dados-categóricos.html#cb915-2" tabindex="-1"></a>       <span class="at">prop =</span> <span class="st">&quot;r&quot;</span>, </span>
-<span id="cb915-3"><a href="análise-de-dados-categóricos.html#cb915-3" tabindex="-1"></a>       <span class="at">chisq =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb915-4"><a href="análise-de-dados-categóricos.html#cb915-4" tabindex="-1"></a>       <span class="at">headings =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb915-5"><a href="análise-de-dados-categóricos.html#cb915-5" tabindex="-1"></a>       <span class="at">OR =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb913"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb913-1"><a href="análise-de-dados-categóricos.html#cb913-1" tabindex="-1"></a><span class="fu">ctable</span>(dados<span class="sc">$</span>fumo, dados<span class="sc">$</span>baixoPeso,</span>
+<span id="cb913-2"><a href="análise-de-dados-categóricos.html#cb913-2" tabindex="-1"></a>       <span class="at">prop =</span> <span class="st">&quot;r&quot;</span>, </span>
+<span id="cb913-3"><a href="análise-de-dados-categóricos.html#cb913-3" tabindex="-1"></a>       <span class="at">chisq =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb913-4"><a href="análise-de-dados-categóricos.html#cb913-4" tabindex="-1"></a>       <span class="at">headings =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb913-5"><a href="análise-de-dados-categóricos.html#cb913-5" tabindex="-1"></a>       <span class="at">OR =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## 
 ## ------- ----------- ------------ ------------- --------------
 ##           baixoPeso          sim           não          Total
@@ -1094,15 +1094,15 @@ Figura16.3: Gráfico de barras empilhadas: tabagismo vs baixo peso ao nascer.
 <p>Ou seja, os bebês que se expuseram ao fator de risco (fumo) têm uma chance 3,35 (IC95% : 1,67-6,71) vezes maior de apresentar peso &lt; 2500g ao nascer, nessa amostra.</p>
 <p>Além desses resultados, a tabela final pode conter (e isto é recomendado!) os intervalos de confiança para cada uma das proporções de fumantes e não fumantes. Para isso a função <code>BinomCI()</code> cumpre um papel suficiente (veja Seção 10.7.3.2).
 Então, a proporção de baixo peso entre as fumantes é:</p>
-<div class="sourceCode" id="cb917"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb917-1"><a href="análise-de-dados-categóricos.html#cb917-1" tabindex="-1"></a><span class="fu">BinomCI</span>(<span class="dv">18</span>, <span class="dv">69</span>,</span>
-<span id="cb917-2"><a href="análise-de-dados-categóricos.html#cb917-2" tabindex="-1"></a>        <span class="at">conf.level =</span> <span class="fl">0.95</span>,</span>
-<span id="cb917-3"><a href="análise-de-dados-categóricos.html#cb917-3" tabindex="-1"></a>        <span class="at">method =</span> <span class="st">&quot;clopper-pearson&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb915"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb915-1"><a href="análise-de-dados-categóricos.html#cb915-1" tabindex="-1"></a><span class="fu">BinomCI</span>(<span class="dv">18</span>, <span class="dv">69</span>,</span>
+<span id="cb915-2"><a href="análise-de-dados-categóricos.html#cb915-2" tabindex="-1"></a>        <span class="at">conf.level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb915-3"><a href="análise-de-dados-categóricos.html#cb915-3" tabindex="-1"></a>        <span class="at">method =</span> <span class="st">&quot;clopper-pearson&quot;</span>)</span></code></pre></div>
 <pre><code>##            est    lwr.ci    upr.ci
 ## [1,] 0.2608696 0.1625161 0.3805962</code></pre>
 <p>E, entre as não fumantes é:</p>
-<div class="sourceCode" id="cb919"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb919-1"><a href="análise-de-dados-categóricos.html#cb919-1" tabindex="-1"></a><span class="fu">BinomCI</span>(<span class="dv">22</span>, <span class="dv">231</span>,</span>
-<span id="cb919-2"><a href="análise-de-dados-categóricos.html#cb919-2" tabindex="-1"></a>        <span class="at">conf.level =</span> <span class="fl">0.95</span>,</span>
-<span id="cb919-3"><a href="análise-de-dados-categóricos.html#cb919-3" tabindex="-1"></a>        <span class="at">method =</span> <span class="st">&quot;clopper-pearson&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb917"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb917-1"><a href="análise-de-dados-categóricos.html#cb917-1" tabindex="-1"></a><span class="fu">BinomCI</span>(<span class="dv">22</span>, <span class="dv">231</span>,</span>
+<span id="cb917-2"><a href="análise-de-dados-categóricos.html#cb917-2" tabindex="-1"></a>        <span class="at">conf.level =</span> <span class="fl">0.95</span>,</span>
+<span id="cb917-3"><a href="análise-de-dados-categóricos.html#cb917-3" tabindex="-1"></a>        <span class="at">method =</span> <span class="st">&quot;clopper-pearson&quot;</span>)</span></code></pre></div>
 <pre><code>##            est     lwr.ci    upr.ci
 ## [1,] 0.0952381 0.06065157 0.1406387</code></pre>
 <p>Finalmente, esses dados podem ser colocados em uma tabela, como a Tabela <a href="análise-de-dados-categóricos.html#tab:tabres">16.3</a>:</p>
@@ -1169,19 +1169,19 @@ IC95%
 </table>
 <p><strong>Gráfico</strong></p>
 <p>Uma boa apresentação gráfica complementa o relatório dos resultados. Pode-se fazer isso com gráfico de barras empilhadas (), acompanhado dos percentuais e do tipo de teste realizado, usando a função <code>get_test_label()</code> que necessita do teste calculado com a função <code>chisq_test()</code> do pacote <code>rstatix</code>, apresentado antes. O gráfico assume o aspecto da Figura <a href="análise-de-dados-categóricos.html#fig:fumobp1">16.4</a>:</p>
-<div class="sourceCode" id="cb921"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb921-1"><a href="análise-de-dados-categóricos.html#cb921-1" tabindex="-1"></a> <span class="fu">ggplot</span>(dados) <span class="sc">+</span></span>
-<span id="cb921-2"><a href="análise-de-dados-categóricos.html#cb921-2" tabindex="-1"></a>    <span class="fu">aes</span> (<span class="at">x =</span> fumo, <span class="at">fill =</span> baixoPeso) <span class="sc">+</span></span>
-<span id="cb921-3"><a href="análise-de-dados-categóricos.html#cb921-3" tabindex="-1"></a>    <span class="fu">geom_bar</span> (<span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb921-4"><a href="análise-de-dados-categóricos.html#cb921-4" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;gray&quot;</span>, <span class="st">&quot;gray95&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb921-5"><a href="análise-de-dados-categóricos.html#cb921-5" tabindex="-1"></a>    <span class="fu">labs</span> (<span class="at">title =</span> <span class="cn">NULL</span>,</span>
-<span id="cb921-6"><a href="análise-de-dados-categóricos.html#cb921-6" tabindex="-1"></a>          <span class="at">subtitle =</span> <span class="fu">get_test_label</span> (teste, <span class="at">detailed =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb921-7"><a href="análise-de-dados-categóricos.html#cb921-7" tabindex="-1"></a>          <span class="at">x =</span> <span class="st">&quot;Tabagismo&quot;</span>,</span>
-<span id="cb921-8"><a href="análise-de-dados-categóricos.html#cb921-8" tabindex="-1"></a>          <span class="at">y =</span> <span class="st">&quot;Frequência&quot;</span>) <span class="sc">+</span></span>
-<span id="cb921-9"><a href="análise-de-dados-categóricos.html#cb921-9" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span><span class="st">&quot;sim&quot;</span>, <span class="at">y=</span><span class="dv">62</span>, <span class="at">label=</span> <span class="st">&quot;24,6% (15,0-36,5)&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb921-10"><a href="análise-de-dados-categóricos.html#cb921-10" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="st">&quot;não&quot;</span>, <span class="at">y=</span><span class="dv">223</span>, <span class="at">label =</span> <span class="st">&quot;8,2% (5,0-12,5)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb921-11"><a href="análise-de-dados-categóricos.html#cb921-11" tabindex="-1"></a>    <span class="fu">theme_bw</span> () <span class="sc">+</span></span>
-<span id="cb921-12"><a href="análise-de-dados-categóricos.html#cb921-12" tabindex="-1"></a>    <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">12</span>)) <span class="sc">+</span></span>
-<span id="cb921-13"><a href="análise-de-dados-categóricos.html#cb921-13" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Peso ao nascer &lt; 2500g&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb919"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb919-1"><a href="análise-de-dados-categóricos.html#cb919-1" tabindex="-1"></a> <span class="fu">ggplot</span>(dados) <span class="sc">+</span></span>
+<span id="cb919-2"><a href="análise-de-dados-categóricos.html#cb919-2" tabindex="-1"></a>    <span class="fu">aes</span> (<span class="at">x =</span> fumo, <span class="at">fill =</span> baixoPeso) <span class="sc">+</span></span>
+<span id="cb919-3"><a href="análise-de-dados-categóricos.html#cb919-3" tabindex="-1"></a>    <span class="fu">geom_bar</span> (<span class="at">color =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb919-4"><a href="análise-de-dados-categóricos.html#cb919-4" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;gray&quot;</span>, <span class="st">&quot;gray95&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb919-5"><a href="análise-de-dados-categóricos.html#cb919-5" tabindex="-1"></a>    <span class="fu">labs</span> (<span class="at">title =</span> <span class="cn">NULL</span>,</span>
+<span id="cb919-6"><a href="análise-de-dados-categóricos.html#cb919-6" tabindex="-1"></a>          <span class="at">subtitle =</span> <span class="fu">get_test_label</span> (teste, <span class="at">detailed =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb919-7"><a href="análise-de-dados-categóricos.html#cb919-7" tabindex="-1"></a>          <span class="at">x =</span> <span class="st">&quot;Tabagismo&quot;</span>,</span>
+<span id="cb919-8"><a href="análise-de-dados-categóricos.html#cb919-8" tabindex="-1"></a>          <span class="at">y =</span> <span class="st">&quot;Frequência&quot;</span>) <span class="sc">+</span></span>
+<span id="cb919-9"><a href="análise-de-dados-categóricos.html#cb919-9" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x=</span><span class="st">&quot;sim&quot;</span>, <span class="at">y=</span><span class="dv">62</span>, <span class="at">label=</span> <span class="st">&quot;24,6% (15,0-36,5)&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb919-10"><a href="análise-de-dados-categóricos.html#cb919-10" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="st">&quot;não&quot;</span>, <span class="at">y=</span><span class="dv">223</span>, <span class="at">label =</span> <span class="st">&quot;8,2% (5,0-12,5)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb919-11"><a href="análise-de-dados-categóricos.html#cb919-11" tabindex="-1"></a>    <span class="fu">theme_bw</span> () <span class="sc">+</span></span>
+<span id="cb919-12"><a href="análise-de-dados-categóricos.html#cb919-12" tabindex="-1"></a>    <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">12</span>)) <span class="sc">+</span></span>
+<span id="cb919-13"><a href="análise-de-dados-categóricos.html#cb919-13" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Peso ao nascer &lt; 2500g&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fumobp1"></span>
 <img src="bookdownproj_files/figure-html/fumobp1-1.png" alt="Gráfico de barras empilhadas: tabagismo vs baixo peso ao nascer." width="70%" height="70%" />
 <p class="caption">
@@ -1197,21 +1197,21 @@ Figura16.4: Gráfico de barras empilhadas: tabagismo vs baixo peso ao nascer.
 <h4><span class="header-section-number">16.2.4.1</span> Dados usados nesta seção<a href="análise-de-dados-categóricos.html#dados-usados-nesta-seção-10" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Há uma dúvida se o número de pacientes que procura uma determinada Unidade de Pronto Atendimento (UPA) é aproximadamente o mesmo em todos os dias da semana. Esta é uma informação importante sob o ponto de vista administrativo. Para se atingir este objetivo registrou-se o número de pacientes que procurou a UPA por dia da semana.</p>
 <p>O número de atendimentos nos sete dias (de segunda-feira à domingo) da semana está representada pela <em>frequência observada</em>, <code>freq_obs</code>:</p>
-<div class="sourceCode" id="cb922"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb922-1"><a href="análise-de-dados-categóricos.html#cb922-1" tabindex="-1"></a>freq_obs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">17</span>, <span class="dv">22</span>, <span class="dv">21</span>, <span class="dv">26</span>, <span class="dv">33</span>, <span class="dv">36</span>)</span>
-<span id="cb922-2"><a href="análise-de-dados-categóricos.html#cb922-2" tabindex="-1"></a>freq_obs</span></code></pre></div>
+<div class="sourceCode" id="cb920"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb920-1"><a href="análise-de-dados-categóricos.html#cb920-1" tabindex="-1"></a>freq_obs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">17</span>, <span class="dv">22</span>, <span class="dv">21</span>, <span class="dv">26</span>, <span class="dv">33</span>, <span class="dv">36</span>)</span>
+<span id="cb920-2"><a href="análise-de-dados-categóricos.html#cb920-2" tabindex="-1"></a>freq_obs</span></code></pre></div>
 <pre><code>## [1] 20 17 22 21 26 33 36</code></pre>
 <p>O total de atendimentos durante uma semana é igual a:</p>
-<div class="sourceCode" id="cb924"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb924-1"><a href="análise-de-dados-categóricos.html#cb924-1" tabindex="-1"></a>soma <span class="ot">&lt;-</span> <span class="fu">sum</span>(freq_obs)</span>
-<span id="cb924-2"><a href="análise-de-dados-categóricos.html#cb924-2" tabindex="-1"></a>soma</span></code></pre></div>
+<div class="sourceCode" id="cb922"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb922-1"><a href="análise-de-dados-categóricos.html#cb922-1" tabindex="-1"></a>soma <span class="ot">&lt;-</span> <span class="fu">sum</span>(freq_obs)</span>
+<span id="cb922-2"><a href="análise-de-dados-categóricos.html#cb922-2" tabindex="-1"></a>soma</span></code></pre></div>
 <pre><code>## [1] 175</code></pre>
 <p>Assim, a frequência esperada diária é igual a soma total dos atendimentos dividido pelo número observações (no caso, dias da semana), representada por <code>k</code>:</p>
-<div class="sourceCode" id="cb926"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb926-1"><a href="análise-de-dados-categóricos.html#cb926-1" tabindex="-1"></a>k <span class="ot">=</span> <span class="dv">7</span></span>
-<span id="cb926-2"><a href="análise-de-dados-categóricos.html#cb926-2" tabindex="-1"></a>freq_esp <span class="ot">&lt;-</span> soma<span class="sc">/</span>k</span>
-<span id="cb926-3"><a href="análise-de-dados-categóricos.html#cb926-3" tabindex="-1"></a>freq_esp</span></code></pre></div>
+<div class="sourceCode" id="cb924"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb924-1"><a href="análise-de-dados-categóricos.html#cb924-1" tabindex="-1"></a>k <span class="ot">=</span> <span class="dv">7</span></span>
+<span id="cb924-2"><a href="análise-de-dados-categóricos.html#cb924-2" tabindex="-1"></a>freq_esp <span class="ot">&lt;-</span> soma<span class="sc">/</span>k</span>
+<span id="cb924-3"><a href="análise-de-dados-categóricos.html#cb924-3" tabindex="-1"></a>freq_esp</span></code></pre></div>
 <pre><code>## [1] 25</code></pre>
 <p>Com estes valores , pode-se criar um vetor, <code>p</code>, com as proporçõess dos atendimentos diários esperados:</p>
-<div class="sourceCode" id="cb928"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb928-1"><a href="análise-de-dados-categóricos.html#cb928-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">rep</span>(freq_esp<span class="sc">/</span>soma, <span class="dv">7</span>)</span>
-<span id="cb928-2"><a href="análise-de-dados-categóricos.html#cb928-2" tabindex="-1"></a>p</span></code></pre></div>
+<div class="sourceCode" id="cb926"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb926-1"><a href="análise-de-dados-categóricos.html#cb926-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">rep</span>(freq_esp<span class="sc">/</span>soma, <span class="dv">7</span>)</span>
+<span id="cb926-2"><a href="análise-de-dados-categóricos.html#cb926-2" tabindex="-1"></a>p</span></code></pre></div>
 <pre><code>## [1] 0.1428571 0.1428571 0.1428571 0.1428571 0.1428571 0.1428571 0.1428571</code></pre>
 </div>
 <div id="hipóteses-estatísticas-2" class="section level4 hasAnchor" number="16.2.4.2">
@@ -1224,18 +1224,18 @@ Figura16.4: Gráfico de barras empilhadas: tabagismo vs baixo peso ao nascer.
 <div id="cálculo-da-estatística-do-teste-2" class="section level4 hasAnchor" number="16.2.4.3">
 <h4><span class="header-section-number">16.2.4.3</span> Cálculo da estatística do teste<a href="análise-de-dados-categóricos.html#cálculo-da-estatística-do-teste-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Assumindo um <span class="math inline">\(\alpha = 0,05\)</span>. Os graus de liberdade são calculados como o número de células (<em>k</em>) menos 1: <span class="math inline">\(gl = (k - 1)\)</span>. O <span class="math inline">\(\chi^{2}_{crítico}\)</span> pode ser encontrado usando:</p>
-<div class="sourceCode" id="cb930"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb930-1"><a href="análise-de-dados-categóricos.html#cb930-1" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.05</span></span>
-<span id="cb930-2"><a href="análise-de-dados-categóricos.html#cb930-2" tabindex="-1"></a>k <span class="ot">=</span> <span class="dv">7</span></span>
-<span id="cb930-3"><a href="análise-de-dados-categóricos.html#cb930-3" tabindex="-1"></a>gl <span class="ot">=</span> k <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb930-4"><a href="análise-de-dados-categóricos.html#cb930-4" tabindex="-1"></a><span class="fu">qchisq</span> (<span class="dv">1</span> <span class="sc">-</span> alpha, gl)</span></code></pre></div>
+<div class="sourceCode" id="cb928"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb928-1"><a href="análise-de-dados-categóricos.html#cb928-1" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.05</span></span>
+<span id="cb928-2"><a href="análise-de-dados-categóricos.html#cb928-2" tabindex="-1"></a>k <span class="ot">=</span> <span class="dv">7</span></span>
+<span id="cb928-3"><a href="análise-de-dados-categóricos.html#cb928-3" tabindex="-1"></a>gl <span class="ot">=</span> k <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb928-4"><a href="análise-de-dados-categóricos.html#cb928-4" tabindex="-1"></a><span class="fu">qchisq</span> (<span class="dv">1</span> <span class="sc">-</span> alpha, gl)</span></code></pre></div>
 <pre><code>## [1] 12.59159</code></pre>
 <p>Em outras palavras, se o <span class="math inline">\(\chi^{2}_{calculado}\)</span> &gt; <span class="math inline">\(\chi^{2}_{crítico}\)</span>, rejeita-se a <span class="math inline">\(H_{0}\)</span>. Na Figura <a href="análise-de-dados-categóricos.html#fig:chi126">16.5</a>, o resultado tem que ficar à direita da linha vertical vermelha para que a hipótese nula seja rejeitada. Se cair fora da área de rejeição, à esquerda da linha vertical vermelha, aceita-se a hipóteses nula.</p>
-<div class="sourceCode" id="cb932"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb932-1"><a href="análise-de-dados-categóricos.html#cb932-1" tabindex="-1"></a><span class="fu">plotchisqtest</span>(<span class="at">chisq =</span> <span class="fl">12.6</span>, </span>
-<span id="cb932-2"><a href="análise-de-dados-categóricos.html#cb932-2" tabindex="-1"></a>              <span class="at">df =</span> <span class="dv">6</span>,</span>
-<span id="cb932-3"><a href="análise-de-dados-categóricos.html#cb932-3" tabindex="-1"></a>              <span class="at">colorleft =</span> <span class="st">&quot;aliceblue&quot;</span>,</span>
-<span id="cb932-4"><a href="análise-de-dados-categóricos.html#cb932-4" tabindex="-1"></a>              <span class="at">colorright =</span> <span class="st">&quot;red&quot;</span>,</span>
-<span id="cb932-5"><a href="análise-de-dados-categóricos.html#cb932-5" tabindex="-1"></a>              <span class="at">ylabel =</span> <span class="st">&quot;Densidade de probabilidade&quot;</span>,</span>
-<span id="cb932-6"><a href="análise-de-dados-categóricos.html#cb932-6" tabindex="-1"></a>              <span class="at">colorcut =</span> <span class="st">&quot;red&quot;</span>,)</span></code></pre></div>
+<div class="sourceCode" id="cb930"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb930-1"><a href="análise-de-dados-categóricos.html#cb930-1" tabindex="-1"></a><span class="fu">plotchisqtest</span>(<span class="at">chisq =</span> <span class="fl">12.6</span>, </span>
+<span id="cb930-2"><a href="análise-de-dados-categóricos.html#cb930-2" tabindex="-1"></a>              <span class="at">df =</span> <span class="dv">6</span>,</span>
+<span id="cb930-3"><a href="análise-de-dados-categóricos.html#cb930-3" tabindex="-1"></a>              <span class="at">colorleft =</span> <span class="st">&quot;aliceblue&quot;</span>,</span>
+<span id="cb930-4"><a href="análise-de-dados-categóricos.html#cb930-4" tabindex="-1"></a>              <span class="at">colorright =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb930-5"><a href="análise-de-dados-categóricos.html#cb930-5" tabindex="-1"></a>              <span class="at">ylabel =</span> <span class="st">&quot;Densidade de probabilidade&quot;</span>,</span>
+<span id="cb930-6"><a href="análise-de-dados-categóricos.html#cb930-6" tabindex="-1"></a>              <span class="at">colorcut =</span> <span class="st">&quot;red&quot;</span>,)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:chi126"></span>
 <img src="bookdownproj_files/figure-html/chi126-1.png" alt="Distribuição do qui-quadrado, gl = 6, alpha = 0,05." width="70%" height="70%" />
 <p class="caption">
@@ -1243,8 +1243,8 @@ Figura16.5: Distribuição do qui-quadrado, gl = 6, alpha = 0,05.
 </p>
 </div>
 <p>A estatística do teste pode ser encontrada, usando a função <code>chisq.test()</code>:</p>
-<div class="sourceCode" id="cb933"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb933-1"><a href="análise-de-dados-categóricos.html#cb933-1" tabindex="-1"></a>teste1 <span class="ot">&lt;-</span> <span class="fu">chisq.test</span> (<span class="at">x =</span> freq_obs, <span class="at">p =</span> p)</span>
-<span id="cb933-2"><a href="análise-de-dados-categóricos.html#cb933-2" tabindex="-1"></a>teste1</span></code></pre></div>
+<div class="sourceCode" id="cb931"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb931-1"><a href="análise-de-dados-categóricos.html#cb931-1" tabindex="-1"></a>teste1 <span class="ot">&lt;-</span> <span class="fu">chisq.test</span> (<span class="at">x =</span> freq_obs, <span class="at">p =</span> p)</span>
+<span id="cb931-2"><a href="análise-de-dados-categóricos.html#cb931-2" tabindex="-1"></a>teste1</span></code></pre></div>
 <pre><code>## 
 ##  Chi-squared test for given probabilities
 ## 
@@ -1274,8 +1274,8 @@ Figura16.5: Distribuição do qui-quadrado, gl = 6, alpha = 0,05.
 <p>A variável tempo de hospitalização (<code>tempohosp</code>) é contínua e assimétrica. Para ser usada aqui, será categorizada por quartis. A variável <code>infec</code> (presença de infecção) é uma variável dicotômica (<code>sim</code>, <code>não</code>).</p>
 <p><u>Leitura e transformação dos dados</u></p>
 <p>A leitura dos dados é feita com:</p>
-<div class="sourceCode" id="cb935"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb935-1"><a href="análise-de-dados-categóricos.html#cb935-1" tabindex="-1"></a>cirurgia <span class="ot">&lt;-</span> <span class="fu">read_excel</span> (<span class="st">&quot;Arquivos/dadosCirurgia.xlsx&quot;</span>)</span>
-<span id="cb935-2"><a href="análise-de-dados-categóricos.html#cb935-2" tabindex="-1"></a><span class="fu">str</span>(cirurgia)</span></code></pre></div>
+<div class="sourceCode" id="cb933"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb933-1"><a href="análise-de-dados-categóricos.html#cb933-1" tabindex="-1"></a>cirurgia <span class="ot">&lt;-</span> <span class="fu">read_excel</span> (<span class="st">&quot;Arquivos/dadosCirurgia.xlsx&quot;</span>)</span>
+<span id="cb933-2"><a href="análise-de-dados-categóricos.html#cb933-2" tabindex="-1"></a><span class="fu">str</span>(cirurgia)</span></code></pre></div>
 <pre><code>## tibble [144 × 7] (S3: tbl_df/tbl/data.frame)
 ##  $ id       : num [1:144] 1 2 3 4 5 6 7 8 9 10 ...
 ##  $ sexo     : chr [1:144] &quot;masc&quot; &quot;masc&quot; &quot;masc&quot; &quot;masc&quot; ...
@@ -1285,48 +1285,48 @@ Figura16.5: Distribuição do qui-quadrado, gl = 6, alpha = 0,05.
 ##  $ infec    : chr [1:144] &quot;não&quot; &quot;não&quot; &quot;sim&quot; &quot;sim&quot; ...
 ##  $ cirurgia : chr [1:144] &quot;abdominal&quot; &quot;abdominal&quot; &quot;abdominal&quot; &quot;outra&quot; ...</code></pre>
 <p>Característicamente, a variável <code>tempohosp</code> (tempo de hospitalização) é, quase sempre, assimétrica:</p>
-<div class="sourceCode" id="cb937"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb937-1"><a href="análise-de-dados-categóricos.html#cb937-1" tabindex="-1"></a>cirurgia <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb937-2"><a href="análise-de-dados-categóricos.html#cb937-2" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> tempohosp,</span>
-<span id="cb937-3"><a href="análise-de-dados-categóricos.html#cb937-3" tabindex="-1"></a>                       <span class="at">y =</span> <span class="fu">after_stat</span>(density)), </span>
-<span id="cb937-4"><a href="análise-de-dados-categóricos.html#cb937-4" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">&quot;tomato&quot;</span>,</span>
-<span id="cb937-5"><a href="análise-de-dados-categóricos.html#cb937-5" tabindex="-1"></a>                   <span class="at">bins =</span> <span class="dv">20</span>,</span>
-<span id="cb937-6"><a href="análise-de-dados-categóricos.html#cb937-6" tabindex="-1"></a>                   <span class="at">col=</span><span class="fu">alpha</span>(<span class="st">&quot;gray40&quot;</span>,<span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb937-7"><a href="análise-de-dados-categóricos.html#cb937-7" tabindex="-1"></a>  <span class="fu">geom_function</span>(<span class="at">fun=</span>dnorm,</span>
-<span id="cb937-8"><a href="análise-de-dados-categóricos.html#cb937-8" tabindex="-1"></a>                <span class="at">args=</span><span class="fu">list</span>(<span class="at">mean=</span><span class="fu">mean</span>(cirurgia<span class="sc">$</span>tempohosp, <span class="at">na.rm =</span> T),</span>
-<span id="cb937-9"><a href="análise-de-dados-categóricos.html#cb937-9" tabindex="-1"></a>                          <span class="at">sd=</span> <span class="fu">sd</span>(cirurgia<span class="sc">$</span>tempohosp, <span class="at">na.rm =</span> T)), </span>
-<span id="cb937-10"><a href="análise-de-dados-categóricos.html#cb937-10" tabindex="-1"></a>                <span class="at">col=</span><span class="st">&#39;dodgerblue4&#39;</span>,</span>
-<span id="cb937-11"><a href="análise-de-dados-categóricos.html#cb937-11" tabindex="-1"></a>                <span class="at">lwd=</span><span class="dv">1</span>,</span>
-<span id="cb937-12"><a href="análise-de-dados-categóricos.html#cb937-12" tabindex="-1"></a>                <span class="at">lty=</span><span class="dv">2</span>) <span class="sc">+</span> </span>
-<span id="cb937-13"><a href="análise-de-dados-categóricos.html#cb937-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&#39;Tempo de hospitalização (dias)&#39;</span>,    </span>
-<span id="cb937-14"><a href="análise-de-dados-categóricos.html#cb937-14" tabindex="-1"></a>       <span class="at">y=</span><span class="st">&#39;Densidade de probabilidade&#39;</span>) <span class="sc">+</span></span>
-<span id="cb937-15"><a href="análise-de-dados-categóricos.html#cb937-15" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-396-1.png" width="672" /></p>
+<div class="sourceCode" id="cb935"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb935-1"><a href="análise-de-dados-categóricos.html#cb935-1" tabindex="-1"></a>cirurgia <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb935-2"><a href="análise-de-dados-categóricos.html#cb935-2" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> tempohosp,</span>
+<span id="cb935-3"><a href="análise-de-dados-categóricos.html#cb935-3" tabindex="-1"></a>                       <span class="at">y =</span> <span class="fu">after_stat</span>(density)), </span>
+<span id="cb935-4"><a href="análise-de-dados-categóricos.html#cb935-4" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">&quot;tomato&quot;</span>,</span>
+<span id="cb935-5"><a href="análise-de-dados-categóricos.html#cb935-5" tabindex="-1"></a>                   <span class="at">bins =</span> <span class="dv">20</span>,</span>
+<span id="cb935-6"><a href="análise-de-dados-categóricos.html#cb935-6" tabindex="-1"></a>                   <span class="at">col=</span><span class="fu">alpha</span>(<span class="st">&quot;gray40&quot;</span>,<span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb935-7"><a href="análise-de-dados-categóricos.html#cb935-7" tabindex="-1"></a>  <span class="fu">geom_function</span>(<span class="at">fun=</span>dnorm,</span>
+<span id="cb935-8"><a href="análise-de-dados-categóricos.html#cb935-8" tabindex="-1"></a>                <span class="at">args=</span><span class="fu">list</span>(<span class="at">mean=</span><span class="fu">mean</span>(cirurgia<span class="sc">$</span>tempohosp, <span class="at">na.rm =</span> T),</span>
+<span id="cb935-9"><a href="análise-de-dados-categóricos.html#cb935-9" tabindex="-1"></a>                          <span class="at">sd=</span> <span class="fu">sd</span>(cirurgia<span class="sc">$</span>tempohosp, <span class="at">na.rm =</span> T)), </span>
+<span id="cb935-10"><a href="análise-de-dados-categóricos.html#cb935-10" tabindex="-1"></a>                <span class="at">col=</span><span class="st">&#39;dodgerblue4&#39;</span>,</span>
+<span id="cb935-11"><a href="análise-de-dados-categóricos.html#cb935-11" tabindex="-1"></a>                <span class="at">lwd=</span><span class="dv">1</span>,</span>
+<span id="cb935-12"><a href="análise-de-dados-categóricos.html#cb935-12" tabindex="-1"></a>                <span class="at">lty=</span><span class="dv">2</span>) <span class="sc">+</span> </span>
+<span id="cb935-13"><a href="análise-de-dados-categóricos.html#cb935-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&#39;Tempo de hospitalização (dias)&#39;</span>,    </span>
+<span id="cb935-14"><a href="análise-de-dados-categóricos.html#cb935-14" tabindex="-1"></a>       <span class="at">y=</span><span class="st">&#39;Densidade de probabilidade&#39;</span>) <span class="sc">+</span></span>
+<span id="cb935-15"><a href="análise-de-dados-categóricos.html#cb935-15" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-394-1.png" width="672" /></p>
 <p>A variável <code>tempohosp</code> será categorizada em quartis. O resumo da mesma, usando a função <code>summary()</code>, fornece orientação para esse procedimento:</p>
-<div class="sourceCode" id="cb938"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb938-1"><a href="análise-de-dados-categóricos.html#cb938-1" tabindex="-1"></a><span class="fu">summary</span> (cirurgia<span class="sc">$</span>tempohosp)</span></code></pre></div>
+<div class="sourceCode" id="cb936"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb936-1"><a href="análise-de-dados-categóricos.html#cb936-1" tabindex="-1"></a><span class="fu">summary</span> (cirurgia<span class="sc">$</span>tempohosp)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    1.00   20.75   27.50   37.42   42.00  245.00</code></pre>
 <p>O sumário da variável fornece orientação para a categorização, que será realizada, usando a função <code>cut()</code>, consulte a Seção <a href="descrevendo-os-dados.html#sec-freq">6.4.2</a> para detalhes de construção de uma tabela de frequência:</p>
-<div class="sourceCode" id="cb940"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb940-1"><a href="análise-de-dados-categóricos.html#cb940-1" tabindex="-1"></a>cirurgia<span class="sc">$</span>tempo <span class="ot">&lt;-</span> <span class="fu">cut</span>(cirurgia<span class="sc">$</span>tempohosp, </span>
-<span id="cb940-2"><a href="análise-de-dados-categóricos.html#cb940-2" tabindex="-1"></a>                      <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">20.75</span>, <span class="fl">27.50</span>, <span class="fl">42.00</span>, <span class="dv">245</span>),</span>
-<span id="cb940-3"><a href="análise-de-dados-categóricos.html#cb940-3" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;&lt;= 21&quot;</span>,<span class="st">&quot;22-28&quot;</span>, <span class="st">&quot;29-42&quot;</span>,<span class="st">&quot;&gt;42&quot;</span>),</span>
-<span id="cb940-4"><a href="análise-de-dados-categóricos.html#cb940-4" tabindex="-1"></a>                      <span class="at">right =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb940-5"><a href="análise-de-dados-categóricos.html#cb940-5" tabindex="-1"></a>                      <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb940-6"><a href="análise-de-dados-categóricos.html#cb940-6" tabindex="-1"></a></span>
-<span id="cb940-7"><a href="análise-de-dados-categóricos.html#cb940-7" tabindex="-1"></a>tab1 <span class="ot">&lt;-</span> <span class="fu">table</span> (cirurgia<span class="sc">$</span>tempo)</span>
-<span id="cb940-8"><a href="análise-de-dados-categóricos.html#cb940-8" tabindex="-1"></a>tab1</span></code></pre></div>
+<div class="sourceCode" id="cb938"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb938-1"><a href="análise-de-dados-categóricos.html#cb938-1" tabindex="-1"></a>cirurgia<span class="sc">$</span>tempo <span class="ot">&lt;-</span> <span class="fu">cut</span>(cirurgia<span class="sc">$</span>tempohosp, </span>
+<span id="cb938-2"><a href="análise-de-dados-categóricos.html#cb938-2" tabindex="-1"></a>                      <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">20.75</span>, <span class="fl">27.50</span>, <span class="fl">42.00</span>, <span class="dv">245</span>),</span>
+<span id="cb938-3"><a href="análise-de-dados-categóricos.html#cb938-3" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;&lt;= 21&quot;</span>,<span class="st">&quot;22-28&quot;</span>, <span class="st">&quot;29-42&quot;</span>,<span class="st">&quot;&gt;42&quot;</span>),</span>
+<span id="cb938-4"><a href="análise-de-dados-categóricos.html#cb938-4" tabindex="-1"></a>                      <span class="at">right =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb938-5"><a href="análise-de-dados-categóricos.html#cb938-5" tabindex="-1"></a>                      <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb938-6"><a href="análise-de-dados-categóricos.html#cb938-6" tabindex="-1"></a></span>
+<span id="cb938-7"><a href="análise-de-dados-categóricos.html#cb938-7" tabindex="-1"></a>tab1 <span class="ot">&lt;-</span> <span class="fu">table</span> (cirurgia<span class="sc">$</span>tempo)</span>
+<span id="cb938-8"><a href="análise-de-dados-categóricos.html#cb938-8" tabindex="-1"></a>tab1</span></code></pre></div>
 <pre><code>## 
 ## &lt;= 21 22-28 29-42   &gt;42 
 ##    36    36    35    37</code></pre>
 <p>Por exemplo, 36 recém-nascidos premaneceram 21 dias ou menos no pós-operatório e 37 recém-nascidos ficarm internados mais do que 42 dias.</p>
 <p>Agora, a variável <code>cirurgia$infec</code> será colocada como um fator:</p>
-<div class="sourceCode" id="cb942"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb942-1"><a href="análise-de-dados-categóricos.html#cb942-1" tabindex="-1"></a>cirurgia<span class="sc">$</span>infec <span class="ot">&lt;-</span> <span class="fu">factor</span>(cirurgia<span class="sc">$</span>infec, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;sim&quot;</span>, <span class="st">&quot;não&quot;</span>))</span>
-<span id="cb942-2"><a href="análise-de-dados-categóricos.html#cb942-2" tabindex="-1"></a><span class="fu">table</span>(cirurgia<span class="sc">$</span>infec)</span></code></pre></div>
+<div class="sourceCode" id="cb940"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb940-1"><a href="análise-de-dados-categóricos.html#cb940-1" tabindex="-1"></a>cirurgia<span class="sc">$</span>infec <span class="ot">&lt;-</span> <span class="fu">factor</span>(cirurgia<span class="sc">$</span>infec, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;sim&quot;</span>, <span class="st">&quot;não&quot;</span>))</span>
+<span id="cb940-2"><a href="análise-de-dados-categóricos.html#cb940-2" tabindex="-1"></a><span class="fu">table</span>(cirurgia<span class="sc">$</span>infec)</span></code></pre></div>
 <pre><code>## 
 ## sim não 
 ##  56  88</code></pre>
 <p>A nova variável <code>tempo</code> será cruzada com a variável <code>infec</code> em uma tabela:</p>
-<div class="sourceCode" id="cb944"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb944-1"><a href="análise-de-dados-categóricos.html#cb944-1" tabindex="-1"></a>tab2 <span class="ot">&lt;-</span> <span class="fu">table</span> (cirurgia<span class="sc">$</span>tempo, cirurgia<span class="sc">$</span>infec)</span>
-<span id="cb944-2"><a href="análise-de-dados-categóricos.html#cb944-2" tabindex="-1"></a><span class="fu">addmargins</span>(tab2)</span></code></pre></div>
+<div class="sourceCode" id="cb942"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb942-1"><a href="análise-de-dados-categóricos.html#cb942-1" tabindex="-1"></a>tab2 <span class="ot">&lt;-</span> <span class="fu">table</span> (cirurgia<span class="sc">$</span>tempo, cirurgia<span class="sc">$</span>infec)</span>
+<span id="cb942-2"><a href="análise-de-dados-categóricos.html#cb942-2" tabindex="-1"></a><span class="fu">addmargins</span>(tab2)</span></code></pre></div>
 <pre><code>##        
 ##         sim não Sum
 ##   &lt;= 21   9  27  36
@@ -1356,10 +1356,10 @@ Figura16.5: Distribuição do qui-quadrado, gl = 6, alpha = 0,05.
 <div id="cálculo-da-estatística-do-teste-3" class="section level4 hasAnchor" number="16.2.5.3">
 <h4><span class="header-section-number">16.2.5.3</span> Cálculo da estatística do teste<a href="análise-de-dados-categóricos.html#cálculo-da-estatística-do-teste-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>O teste estatístico pode ser calculado, usando o argumento <code>chisq = TRUE</code> na função <code>ctable()</code>:</p>
-<div class="sourceCode" id="cb947"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb947-1"><a href="análise-de-dados-categóricos.html#cb947-1" tabindex="-1"></a>summarytools<span class="sc">::</span><span class="fu">ctable</span>(cirurgia<span class="sc">$</span>tempo, cirurgia<span class="sc">$</span>infec,</span>
-<span id="cb947-2"><a href="análise-de-dados-categóricos.html#cb947-2" tabindex="-1"></a>                      <span class="at">prop =</span> <span class="st">&quot;r&quot;</span>,</span>
-<span id="cb947-3"><a href="análise-de-dados-categóricos.html#cb947-3" tabindex="-1"></a>                      <span class="at">chisq =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb947-4"><a href="análise-de-dados-categóricos.html#cb947-4" tabindex="-1"></a>                      <span class="at">headings =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb945"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb945-1"><a href="análise-de-dados-categóricos.html#cb945-1" tabindex="-1"></a>summarytools<span class="sc">::</span><span class="fu">ctable</span>(cirurgia<span class="sc">$</span>tempo, cirurgia<span class="sc">$</span>infec,</span>
+<span id="cb945-2"><a href="análise-de-dados-categóricos.html#cb945-2" tabindex="-1"></a>                      <span class="at">prop =</span> <span class="st">&quot;r&quot;</span>,</span>
+<span id="cb945-3"><a href="análise-de-dados-categóricos.html#cb945-3" tabindex="-1"></a>                      <span class="at">chisq =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb945-4"><a href="análise-de-dados-categóricos.html#cb945-4" tabindex="-1"></a>                      <span class="at">headings =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## 
 ## ------- ------- ------------ ------------ --------------
 ##           infec          sim          não          Total
@@ -1381,7 +1381,7 @@ Figura16.5: Distribuição do qui-quadrado, gl = 6, alpha = 0,05.
 <h4><span class="header-section-number">16.2.5.4</span> Conclusão<a href="análise-de-dados-categóricos.html#conclusão-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A partir desses resultados, pode-se inferir que a menor taxa de infecção no grupo do primeiro quartil e é significativamente diferente em relação a taxa de infecção do maior quartil, mas sem indicação para os grupos intermediários.
 É útil fazer o teste de tendência linear (<em>Linear-by-linear Association</em>). Para isso, pode-se usar a função <code>lbl_test ()</code> do pacote <code>coin</code>.</p>
-<div class="sourceCode" id="cb949"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb949-1"><a href="análise-de-dados-categóricos.html#cb949-1" tabindex="-1"></a>coin<span class="sc">::</span><span class="fu">lbl_test</span> (cirurgia<span class="sc">$</span>tempo <span class="sc">~</span> cirurgia<span class="sc">$</span>infec)</span></code></pre></div>
+<div class="sourceCode" id="cb947"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb947-1"><a href="análise-de-dados-categóricos.html#cb947-1" tabindex="-1"></a>coin<span class="sc">::</span><span class="fu">lbl_test</span> (cirurgia<span class="sc">$</span>tempo <span class="sc">~</span> cirurgia<span class="sc">$</span>infec)</span></code></pre></div>
 <pre><code>## 
 ##  Asymptotic Linear-by-Linear Association Test
 ## 
@@ -1401,24 +1401,24 @@ Figura16.5: Distribuição do qui-quadrado, gl = 6, alpha = 0,05.
 <div id="entrando-com-os-dados" class="section level4 hasAnchor" number="16.3.1.1">
 <h4><span class="header-section-number">16.3.1.1</span> Entrando com os dados<a href="análise-de-dados-categóricos.html#entrando-com-os-dados" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Em primeiro lugar, serão criadas duas variáveis:</p>
-<div class="sourceCode" id="cb951"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb951-1"><a href="análise-de-dados-categóricos.html#cb951-1" tabindex="-1"></a>emerg <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>)</span>
-<span id="cb951-2"><a href="análise-de-dados-categóricos.html#cb951-2" tabindex="-1"></a>controle <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb949"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb949-1"><a href="análise-de-dados-categóricos.html#cb949-1" tabindex="-1"></a>emerg <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>)</span>
+<span id="cb949-2"><a href="análise-de-dados-categóricos.html#cb949-2" tabindex="-1"></a>controle <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>)</span></code></pre></div>
 <p>A seguir, usando essas variáveis, será construído um dataframe que será atribuído ao objeto <code>dadosControle</code>:</p>
-<div class="sourceCode" id="cb952"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb952-1"><a href="análise-de-dados-categóricos.html#cb952-1" tabindex="-1"></a>dadosControle <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(emerg, controle)</span></code></pre></div>
+<div class="sourceCode" id="cb950"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb950-1"><a href="análise-de-dados-categóricos.html#cb950-1" tabindex="-1"></a>dadosControle <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(emerg, controle)</span></code></pre></div>
 </div>
 <div id="transformação-dos-dados-1" class="section level4 hasAnchor" number="16.3.1.2">
 <h4><span class="header-section-number">16.3.1.2</span> Transformação dos dados<a href="análise-de-dados-categóricos.html#transformação-dos-dados-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Ambas as variáveis são numéricas e serão transformadas em fatores, considerando 1 = sim e 2 = não e considerando essa ordem:</p>
-<div class="sourceCode" id="cb953"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb953-1"><a href="análise-de-dados-categóricos.html#cb953-1" tabindex="-1"></a>dadosControle<span class="sc">$</span>emerg <span class="ot">&lt;-</span> <span class="fu">factor</span> (dadosControle<span class="sc">$</span>emerg,</span>
-<span id="cb953-2"><a href="análise-de-dados-categóricos.html#cb953-2" tabindex="-1"></a>                               <span class="at">ordered=</span><span class="cn">TRUE</span>,</span>
-<span id="cb953-3"><a href="análise-de-dados-categóricos.html#cb953-3" tabindex="-1"></a>                               <span class="at">levels =</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">2</span>),</span>
-<span id="cb953-4"><a href="análise-de-dados-categóricos.html#cb953-4" tabindex="-1"></a>                               <span class="at">labels =</span> <span class="fu">c</span> (<span class="st">&#39;sim&#39;</span>, <span class="st">&#39;não&#39;</span>))</span>
-<span id="cb953-5"><a href="análise-de-dados-categóricos.html#cb953-5" tabindex="-1"></a>dadosControle<span class="sc">$</span>controle <span class="ot">&lt;-</span> <span class="fu">factor</span> (dadosControle<span class="sc">$</span>controle,</span>
-<span id="cb953-6"><a href="análise-de-dados-categóricos.html#cb953-6" tabindex="-1"></a>                                  <span class="at">ordered=</span><span class="cn">TRUE</span>,</span>
-<span id="cb953-7"><a href="análise-de-dados-categóricos.html#cb953-7" tabindex="-1"></a>                                  <span class="at">levels =</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">2</span>),</span>
-<span id="cb953-8"><a href="análise-de-dados-categóricos.html#cb953-8" tabindex="-1"></a>                                  <span class="at">labels =</span> <span class="fu">c</span> (<span class="st">&#39;sim&#39;</span>, <span class="st">&#39;não&#39;</span>))</span>
-<span id="cb953-9"><a href="análise-de-dados-categóricos.html#cb953-9" tabindex="-1"></a></span>
-<span id="cb953-10"><a href="análise-de-dados-categóricos.html#cb953-10" tabindex="-1"></a><span class="fu">str</span>(dadosControle)</span></code></pre></div>
+<div class="sourceCode" id="cb951"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb951-1"><a href="análise-de-dados-categóricos.html#cb951-1" tabindex="-1"></a>dadosControle<span class="sc">$</span>emerg <span class="ot">&lt;-</span> <span class="fu">factor</span> (dadosControle<span class="sc">$</span>emerg,</span>
+<span id="cb951-2"><a href="análise-de-dados-categóricos.html#cb951-2" tabindex="-1"></a>                               <span class="at">ordered=</span><span class="cn">TRUE</span>,</span>
+<span id="cb951-3"><a href="análise-de-dados-categóricos.html#cb951-3" tabindex="-1"></a>                               <span class="at">levels =</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb951-4"><a href="análise-de-dados-categóricos.html#cb951-4" tabindex="-1"></a>                               <span class="at">labels =</span> <span class="fu">c</span> (<span class="st">&#39;sim&#39;</span>, <span class="st">&#39;não&#39;</span>))</span>
+<span id="cb951-5"><a href="análise-de-dados-categóricos.html#cb951-5" tabindex="-1"></a>dadosControle<span class="sc">$</span>controle <span class="ot">&lt;-</span> <span class="fu">factor</span> (dadosControle<span class="sc">$</span>controle,</span>
+<span id="cb951-6"><a href="análise-de-dados-categóricos.html#cb951-6" tabindex="-1"></a>                                  <span class="at">ordered=</span><span class="cn">TRUE</span>,</span>
+<span id="cb951-7"><a href="análise-de-dados-categóricos.html#cb951-7" tabindex="-1"></a>                                  <span class="at">levels =</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb951-8"><a href="análise-de-dados-categóricos.html#cb951-8" tabindex="-1"></a>                                  <span class="at">labels =</span> <span class="fu">c</span> (<span class="st">&#39;sim&#39;</span>, <span class="st">&#39;não&#39;</span>))</span>
+<span id="cb951-9"><a href="análise-de-dados-categóricos.html#cb951-9" tabindex="-1"></a></span>
+<span id="cb951-10"><a href="análise-de-dados-categóricos.html#cb951-10" tabindex="-1"></a><span class="fu">str</span>(dadosControle)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    16 obs. of  2 variables:
 ##  $ emerg   : Ord.factor w/ 2 levels &quot;sim&quot;&lt;&quot;não&quot;: 1 1 2 2 2 2 2 1 1 1 ...
 ##  $ controle: Ord.factor w/ 2 levels &quot;sim&quot;&lt;&quot;não&quot;: 1 1 1 1 1 1 1 2 2 2 ...</code></pre>
@@ -1426,8 +1426,8 @@ Figura16.5: Distribuição do qui-quadrado, gl = 6, alpha = 0,05.
 <div id="construção-da-tabela" class="section level4 hasAnchor" number="16.3.1.3">
 <h4><span class="header-section-number">16.3.1.3</span> Construção da tabela<a href="análise-de-dados-categóricos.html#construção-da-tabela" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Para o cálculo da estatística do teste, é necessário uma tabela <span class="math inline">\(2\times2\)</span>:</p>
-<div class="sourceCode" id="cb955"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb955-1"><a href="análise-de-dados-categóricos.html#cb955-1" tabindex="-1"></a>tab3 <span class="ot">&lt;-</span> <span class="fu">table</span> (dadosControle<span class="sc">$</span>controle, dadosControle<span class="sc">$</span>emerg)</span>
-<span id="cb955-2"><a href="análise-de-dados-categóricos.html#cb955-2" tabindex="-1"></a><span class="fu">addmargins</span>(tab3)</span></code></pre></div>
+<div class="sourceCode" id="cb953"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb953-1"><a href="análise-de-dados-categóricos.html#cb953-1" tabindex="-1"></a>tab3 <span class="ot">&lt;-</span> <span class="fu">table</span> (dadosControle<span class="sc">$</span>controle, dadosControle<span class="sc">$</span>emerg)</span>
+<span id="cb953-2"><a href="análise-de-dados-categóricos.html#cb953-2" tabindex="-1"></a><span class="fu">addmargins</span>(tab3)</span></code></pre></div>
 <pre><code>##      
 ##       sim não Sum
 ##   sim   2   5   7
@@ -1445,7 +1445,7 @@ Figura16.5: Distribuição do qui-quadrado, gl = 6, alpha = 0,05.
 <div id="cálculo-da-estatística-do-teste-4" class="section level3 hasAnchor" number="16.3.3">
 <h3><span class="header-section-number">16.3.3</span> Cálculo da estatística do teste<a href="análise-de-dados-categóricos.html#cálculo-da-estatística-do-teste-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>O teste exato de Fisher é usado quando há pelo menos uma célula na tabela de contingência das frequências esperadas abaixo de 5. Para recuperar as frequências esperadas, use a função <code>chisq.test ()</code>, do R base, junto com <code>$expected</code>:</p>
-<div class="sourceCode" id="cb957"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb957-1"><a href="análise-de-dados-categóricos.html#cb957-1" tabindex="-1"></a><span class="fu">chisq.test</span> (dadosControle<span class="sc">$</span>controle, dadosControle<span class="sc">$</span>emerg)<span class="sc">$</span>expected </span></code></pre></div>
+<div class="sourceCode" id="cb955"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb955-1"><a href="análise-de-dados-categóricos.html#cb955-1" tabindex="-1"></a><span class="fu">chisq.test</span> (dadosControle<span class="sc">$</span>controle, dadosControle<span class="sc">$</span>emerg)<span class="sc">$</span>expected </span></code></pre></div>
 <pre><code>## Warning in chisq.test(dadosControle$controle, dadosControle$emerg): Aproximação
 ## do qui-quadrado pode estar incorreta</code></pre>
 <pre><code>##                       dadosControle$emerg
@@ -1453,7 +1453,7 @@ Figura16.5: Distribuição do qui-quadrado, gl = 6, alpha = 0,05.
 ##                    sim 4.375 2.625
 ##                    não 5.625 3.375</code></pre>
 <p>A saída do teste imprime um aviso de que o qui-quadrado pode estar incorreto. Há necessidade, devido a presença de três células com valores abaixo de 5, de se usar o teste de Fisher. este pode ser obtido através da função <code>fisher_test()</code>, do pacote <code>rstatix</code>, colocando como argumento uma tabela de contingência <span class="math inline">\(2\times2\)</span>, como a tab3:</p>
-<div class="sourceCode" id="cb960"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb960-1"><a href="análise-de-dados-categóricos.html#cb960-1" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">fisher_test</span> (tab3, <span class="at">detailed =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb958"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb958-1"><a href="análise-de-dados-categóricos.html#cb958-1" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">fisher_test</span> (tab3, <span class="at">detailed =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 8
 ##       n estimate     p conf.low conf.high method            alternative p.signif
 ## * &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;             &lt;chr&gt;       &lt;chr&gt;   
@@ -1575,38 +1575,38 @@ p_{c} + p_{d} = p_{b} + p_{d}
 \]</span></p>
 <p>Sob a hipótese nula, com um número suficientemente grande de discordantes (células <em>b</em> e <em>c</em>), o <span class="math inline">\(\chi^{2}\)</span> tem uma distribuição qui-quadrado com um grau de liberdade. Se o resultado é significativo, isto é, fornece evidências suficientes para rejeitar a hipótese nula, significa que as proporções marginais são significativamente diferentes umas das outras.</p>
 <p>Substituindo os dados da Tabela na Equação, tem-se:</p>
-<div class="sourceCode" id="cb962"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb962-1"><a href="análise-de-dados-categóricos.html#cb962-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb962-2"><a href="análise-de-dados-categóricos.html#cb962-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">8</span></span>
-<span id="cb962-3"><a href="análise-de-dados-categóricos.html#cb962-3" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="dv">22</span></span>
-<span id="cb962-4"><a href="análise-de-dados-categóricos.html#cb962-4" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="dv">150</span></span>
-<span id="cb962-5"><a href="análise-de-dados-categóricos.html#cb962-5" tabindex="-1"></a>chi <span class="ot">&lt;-</span> ((<span class="fu">abs</span>(b <span class="sc">-</span> c) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(b <span class="sc">+</span> c)</span>
-<span id="cb962-6"><a href="análise-de-dados-categóricos.html#cb962-6" tabindex="-1"></a>chi</span></code></pre></div>
+<div class="sourceCode" id="cb960"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb960-1"><a href="análise-de-dados-categóricos.html#cb960-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb960-2"><a href="análise-de-dados-categóricos.html#cb960-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb960-3"><a href="análise-de-dados-categóricos.html#cb960-3" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="dv">22</span></span>
+<span id="cb960-4"><a href="análise-de-dados-categóricos.html#cb960-4" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="dv">150</span></span>
+<span id="cb960-5"><a href="análise-de-dados-categóricos.html#cb960-5" tabindex="-1"></a>chi <span class="ot">&lt;-</span> ((<span class="fu">abs</span>(b <span class="sc">-</span> c) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(b <span class="sc">+</span> c)</span>
+<span id="cb960-6"><a href="análise-de-dados-categóricos.html#cb960-6" tabindex="-1"></a>chi</span></code></pre></div>
 <pre><code>## [1] 5.633333</code></pre>
 <p>Assumindo um <span class="math inline">\(\alpha = 0,05\)</span>, pode-se obter valor crítico para o <span class="math inline">\(\chi^{2}\)</span> para gl = 1, usando a função <code>qchisq()</code>, do pacote <code>stats</code>:</p>
-<div class="sourceCode" id="cb964"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb964-1"><a href="análise-de-dados-categóricos.html#cb964-1" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.05</span></span>
-<span id="cb964-2"><a href="análise-de-dados-categóricos.html#cb964-2" tabindex="-1"></a><span class="fu">qchisq</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb962"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb962-1"><a href="análise-de-dados-categóricos.html#cb962-1" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.05</span></span>
+<span id="cb962-2"><a href="análise-de-dados-categóricos.html#cb962-2" tabindex="-1"></a><span class="fu">qchisq</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 3.841459</code></pre>
 <p>Desta maneira, rejeita-se a <span class="math inline">\(H_{0}\)</span>, pois o <span class="math inline">\(\chi_{calculado}^{2} &gt; \chi_{crítico}^{2}\)</span>. O valor <em>P</em> pode ser conseguido com a função <code>pchisq()</code>:</p>
-<div class="sourceCode" id="cb966"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb966-1"><a href="análise-de-dados-categóricos.html#cb966-1" tabindex="-1"></a><span class="fu">pchisq</span> (<span class="fl">5.633</span>, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb964"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb964-1"><a href="análise-de-dados-categóricos.html#cb964-1" tabindex="-1"></a><span class="fu">pchisq</span> (<span class="fl">5.633</span>, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## [1] 0.01762544</code></pre>
 </div>
 <div id="cálculo-do-teste-de-mcnemar-no-r" class="section level3 hasAnchor" number="16.4.5">
 <h3><span class="header-section-number">16.4.5</span> Cálculo do teste de McNemar no R<a href="análise-de-dados-categóricos.html#cálculo-do-teste-de-mcnemar-no-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Carregar o arquivo <code>dadosBioestatistica.xlsx</code>, que pode ser encontrado <a href="https://github.com/petronioliveira/Arquivos/blob/main/dadosBioestatistica.xlsx"><strong>aqui</strong></a>. Este conjunto de dados contem os dados da tabela acima.</p>
-<div class="sourceCode" id="cb968"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb968-1"><a href="análise-de-dados-categóricos.html#cb968-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosBioestatistica.xlsx&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb966"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb966-1"><a href="análise-de-dados-categóricos.html#cb966-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosBioestatistica.xlsx&quot;</span>)</span></code></pre></div>
 <p>Construir uma tabela de contingência</p>
-<div class="sourceCode" id="cb969"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb969-1"><a href="análise-de-dados-categóricos.html#cb969-1" tabindex="-1"></a>dados<span class="sc">$</span>preteste <span class="ot">&lt;-</span> <span class="fu">factor</span>(dados<span class="sc">$</span>preteste, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;sim&quot;</span>, <span class="st">&quot;não&quot;</span>))</span>
-<span id="cb969-2"><a href="análise-de-dados-categóricos.html#cb969-2" tabindex="-1"></a>dados<span class="sc">$</span>posteste <span class="ot">&lt;-</span> <span class="fu">factor</span>(dados<span class="sc">$</span>posteste, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;sim&quot;</span>, <span class="st">&quot;não&quot;</span>))</span>
-<span id="cb969-3"><a href="análise-de-dados-categóricos.html#cb969-3" tabindex="-1"></a>tab4 <span class="ot">&lt;-</span> <span class="fu">table</span>(dados<span class="sc">$</span>preteste, dados<span class="sc">$</span>posteste, </span>
-<span id="cb969-4"><a href="análise-de-dados-categóricos.html#cb969-4" tabindex="-1"></a>            <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">&quot;Pré-teste&quot;</span>, <span class="st">&quot;Pós-teste&quot;</span>))</span>
-<span id="cb969-5"><a href="análise-de-dados-categóricos.html#cb969-5" tabindex="-1"></a>tab4</span></code></pre></div>
+<div class="sourceCode" id="cb967"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb967-1"><a href="análise-de-dados-categóricos.html#cb967-1" tabindex="-1"></a>dados<span class="sc">$</span>preteste <span class="ot">&lt;-</span> <span class="fu">factor</span>(dados<span class="sc">$</span>preteste, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;sim&quot;</span>, <span class="st">&quot;não&quot;</span>))</span>
+<span id="cb967-2"><a href="análise-de-dados-categóricos.html#cb967-2" tabindex="-1"></a>dados<span class="sc">$</span>posteste <span class="ot">&lt;-</span> <span class="fu">factor</span>(dados<span class="sc">$</span>posteste, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;sim&quot;</span>, <span class="st">&quot;não&quot;</span>))</span>
+<span id="cb967-3"><a href="análise-de-dados-categóricos.html#cb967-3" tabindex="-1"></a>tab4 <span class="ot">&lt;-</span> <span class="fu">table</span>(dados<span class="sc">$</span>preteste, dados<span class="sc">$</span>posteste, </span>
+<span id="cb967-4"><a href="análise-de-dados-categóricos.html#cb967-4" tabindex="-1"></a>            <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">&quot;Pré-teste&quot;</span>, <span class="st">&quot;Pós-teste&quot;</span>))</span>
+<span id="cb967-5"><a href="análise-de-dados-categóricos.html#cb967-5" tabindex="-1"></a>tab4</span></code></pre></div>
 <pre><code>##          Pós-teste
 ## Pré-teste sim não
 ##       sim  20   8
 ##       não  22 150</code></pre>
 <p>Agora, pode-se calcular o teste de McNemar<a href="#fn53" class="footnote-ref" id="fnref53"><sup>53</sup></a> com a função <code>mcnemar_test()</code> do pacote <code>rstatix</code>:</p>
-<div class="sourceCode" id="cb971"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb971-1"><a href="análise-de-dados-categóricos.html#cb971-1" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">mcnemar_test</span> (tab4, </span>
-<span id="cb971-2"><a href="análise-de-dados-categóricos.html#cb971-2" tabindex="-1"></a>                       <span class="at">correct =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb969"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb969-1"><a href="análise-de-dados-categóricos.html#cb969-1" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">mcnemar_test</span> (tab4, </span>
+<span id="cb969-2"><a href="análise-de-dados-categóricos.html#cb969-2" tabindex="-1"></a>                       <span class="at">correct =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 6
 ##       n statistic    df      p p.signif method      
 ## * &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;       

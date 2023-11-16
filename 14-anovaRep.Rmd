@@ -323,7 +323,7 @@ autoestimaL %>%
   rstatix::identify_outliers(escores)
 ```
 
-A saída mostra a ausência de valores atípicos, com já se havia observado nos boxplots (Figura \@ref(fig:bxpauto1).
+A saída mostra a ausência de valores atípicos, com já se havia observado nos boxplots (Figura \@ref(fig:bxpauto1)).
 
 #### Avaliação da normalidade
 
@@ -362,19 +362,23 @@ A esferecidade será avaliada junto com a construção do modelo.
 
 ```{r}
 mod.anova2 <- rstatix::anova_test(data = autoestimaL, 
-                                  dv = escores,
-                                  wid = id,
-                                  within = c(tratamento, tempo))
+                                   dv = escores,
+                                   wid = id,
+                                   within = tempo, 
+                                   between = tratamento,
+                                   type = 3)
 mod.anova2
 ```
 
-Para extrair a tabela da ANOVA pode também obtida, usando a função `get_anova_table()`, do pacote `rstatix`, com o `mod.anova2` como argumento:
+Analisando o teste de Mauchly para a esfericidade, verifica-se que houve violação da esfericidade, tanto para o efeito do `tempo` (*W* = 0,582, *P* = 0,003) como para a interação `tratamento:tempo` (*W* = 0,582, *P* = 0,003). Esses resultados indicam a necessidade de correção para ajustar os graus de liberdade. A correção de Greenhouse-Geisser é utilizada, pois é o recomendado quando *W* < 0,75 (veja Seção 14.2.2.3). O modelo ANOVA, gerado pela função `anova_test()`, entregou a tabela da ANOVA sem correção, o teste de Mauchly e a correção dos graus de liberdade da esfericidade (Greenhouse-Geisser (GGe) e Huynh-Feldt (HFe)).
+A tabela da ANOVA corrigida pode, então, ser obtida, usando a função `get_anova_table ()`, do pacote `rstatix`, com o `mod.anova2`  e  `correction = “GG”` como argumentos:
+
 
 ```{r}
-rstatix::get_anova_table(mod.anova2)
+rstatix::get_anova_table(mod.anova2, correction = "GG")
 ```
 
-Como existe uma interação estatisticamente significativa (*F*(2, 22) = 30,4, *P* < 0,0001) entre tratamento e o tempo, deve-se prestar atenção a este fato. Os efeitos principais isolados são secundários. 
+Como existe uma interação estatisticamente significativa (*F*(1,41, 31,26) = 29,6, *P* < 0,0001) entre `tratamento` e o `tempo`, deve-se prestar atenção a este fato. Os efeitos principais isolados perdem a importância. Para esta análise são necessários testes posteriores.
 
 ### Teste post hoc  
 
@@ -448,34 +452,15 @@ Após a execução do código, verifica-se que o efeito do tempo é significativ
 
 Se a interação não for significativa, é preciso interpretar os efeitos principais para cada uma das duas variáveis: `tratamento`" e `tempo`. Um efeito principal significativo pode ser acompanhado com comparações pareadas
 
-No exemplo, (consulte a tabela ANOVA em `mod.anova2`), houve efeitos principais estatisticamente significativos do `tratamento` (F(1, 11) = 15,5, *P* = 0,002) e `tempo` (F(2, 22) = 27,4, p < 0,0001) no escore de autoestima.
+No exemplo, (consulte a tabela ANOVA em `mod.anova2`), não houve efeitos principal estatisticamente significativo para o tratamento (*F*(1, 22) = 1,43, *P* = 0,244) no escore de autoestima. Entretanto, os escores foram afetados significativamente pelo `tempo` (*F*(1,41, 31,03) = 28,41, *P* < 0,0001).
 
-**Comparações para a variável tratamento**  
-
-```{r}
-autoestimaL %>%
-  pairwise_t_test(escores ~ tratamento, 
-                  paired = TRUE, 
-                  p.adjust.method = "bonferroni")
-```
-
-**Comparações para a variável tempo**  
-
-```{r}
-autoestimaL %>%
-  pairwise_t_test(escores ~ tempo, 
-                  paired = TRUE,
-                  p.adjust.method = "bonferroni")
-```
- 
 ### Relatando os resultados da ANOVA de medidas repetidas de dois fatores
  
 O resultado pode ser relatado da seguinte forma:
 
-1. Uma ANOVA de medidas repetidas de dois fatores foi realizada para avaliar o 
-efeito de diferentes tratamentos dietéticos ao longo do tempo no escore de autoestima.
+1. Uma ANOVA de medidas repetidas de dois fatores foi realizada para avaliar o efeito de diferentes tratamentos dietéticos ao longo do tempo no escore de autoestima.
 
-2. Houve uma interação estatisticamente significativa entre `tratamento` e `tempo` no escore de autoestima, *F*(2, 22) = 30,4, p < 0,0001. Por isso, o efeito da variável `tratamento` foi analisado em cada ponto de tempo. Os valores de *P* foram ajustados usando o método de correção de testes múltiplos de Bonferroni. O efeito da variável `tratamento` foi significativo em t2 (*P* = 0,036) e t3 (*P* = 0,00051), mas não no ponto de tempo t1 (*P* = 1).
+2. Houve uma interação estatisticamente significativa entre `tratamento` e `tempo` no escore de autoestima, *F*(1,41, 31,03) = 29,26, *P* < 0,0001. Por isso, o efeito da variável `tratamento` foi analisado em cada ponto de tempo. Os valores de *P* foram ajustados usando o método de correção de testes múltiplos de Bonferroni. O efeito da variável `tratamento` foi significativo em t2 (*P* = 0,036) e t3 (*P* = 0,00051), mas não no ponto de tempo t1 (*P* = 1).
 
 3. Comparações pareadas, usando o teste *t* pareado, mostram que o escore médio de autoestima foi significativamente diferente entre os ensaios `placebo` e `dieta` nos pontos de tempo t2 (*P* = 0,012) e t3 (*P* = 0,00017), mas não em t1 (*P* = 0,55).
 
