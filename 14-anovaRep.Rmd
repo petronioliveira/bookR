@@ -143,7 +143,7 @@ ggpubr::ggqqplot(dadosL,
 
 Observando o gráfico, como quase todos os pontos caem aproximadamente ao longo da linha de referência, pode-se assumir a normalidade dos escores em todos os momentos do tempo.
 
-#### Esfericidade  
+#### Esfericidade  {#sec-esfero}
 
 A violação da suposição de esfericidade pode distorcer os cálculos de variância resultantes de um teste ANOVA de medidas repetidas mais liberal (ou seja, um aumento na taxa de erro Tipo I). Nesse caso, a ANOVA de medidas repetidas deve ser corrigida apropriadamente dependendo do grau em que a esfericidade foi violada. Na relação entre os escores, há necessidade de pressupor que exista esfericidade ($\epsilon$ - épsilon), também chamada de circularidade, grosseiramente semelhante à homocedasticidade da ANOVA de uma via. A ANOVA de medidas repetidas pressupõe que as variâncias das diferenças entre todas as combinações de condições relacionadas (ou níveis de grupo) são iguais. A melhor maneira de verificá-la é calcular as diferenças entre os pares de escores em todas as combinações dos níveis de tratamento.  
 
@@ -260,7 +260,7 @@ autoestima %>% sample_n_by(tratamento, size = 3)
 
 #### Transformação dos dados  
 
-Os dados autoestima estão no formato amplo e as colunas t1, t2 e t3 devem ser reunidas, em uma única variável denominada `tempo`, transformando o formato amplo em longo, usando a função `pivot_longer()` do pacote `tidyr`. A seguir, converter em fator esta nova variável `tempo` e a variável identificadora `id`:  
+Os dados autoestima estão no formato amplo e as colunas `t1`, `t2` e `t3` devem ser reunidas, em uma única variável denominada `tempo`, transformando o formato amplo em longo, usando a função `pivot_longer()` do pacote `tidyr`. A seguir, converter em fator esta nova variável `tempo` e a variável identificadora `id`:  
 
 ```{r}
  autoestimaL <- autoestima %>% 
@@ -335,9 +335,9 @@ autoestimaL %>%
   rstatix::shapiro_test(escores)
 ```
 
-A saída do teste mostra que os escores de autoestima estão normalmente distribuídos em cada momento do tempo, havendo uma exceção: o grupo placebo, no momento t1. Fato que pode ser constatado pela assimetria do boxplot nesse momento do tempo (Figura \@ref(fig:bxpauto1). 
+A saída do teste mostra que os escores de autoestima estão normalmente distribuídos em cada momento do tempo, havendo uma exceção: o grupo placebo, no momento `t1`. Fato que pode ser constatado pela assimetria do boxplot nesse momento do tempo (Figura \@ref(fig:bxpauto1)). 
 
-É possível construir um gráfico QQ (Figura \@ref(fig:autoQQ)) para cada um dos momentos, usando a função `ggqqplot ()` do pacote `ggpubr`, consulte a vinheta do pacote para maiores detalhes. Foi utilizado também a função `facet_grid()`, do `ggplot2`, que divide em painéis, organizando-os como uma grade, de acordo com o momento ( t1, t2 e t3).   
+É possível construir um gráfico QQ (Figura \@ref(fig:autoQQ)) para cada um dos momentos, usando a função `ggqqplot ()` do pacote `ggpubr`, consulte a vinheta do pacote para maiores detalhes. Foi utilizado também a função `facet_grid()`, do `ggplot2`, que divide em painéis, organizando-os como uma grade, de acordo com o momento ( `t1`, `t2` e `t3`).   
 
 ```{r autoQQ, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Gráfico QQ para verificar a normalidade"}
 ggpubr::ggqqplot(data = autoestimaL,
@@ -370,7 +370,7 @@ mod.anova2 <- rstatix::anova_test(data = autoestimaL,
 mod.anova2
 ```
 
-Analisando o teste de Mauchly para a esfericidade, verifica-se que houve violação da esfericidade, tanto para o efeito do `tempo` (*W* = 0,582, *P* = 0,003) como para a interação `tratamento:tempo` (*W* = 0,582, *P* = 0,003). Esses resultados indicam a necessidade de correção para ajustar os graus de liberdade. A correção de Greenhouse-Geisser é utilizada, pois é o recomendado quando *W* < 0,75 (veja Seção 14.2.2.3). O modelo ANOVA, gerado pela função `anova_test()`, entregou a tabela da ANOVA sem correção, o teste de Mauchly e a correção dos graus de liberdade da esfericidade (Greenhouse-Geisser (GGe) e Huynh-Feldt (HFe)).
+Analisando o teste de Mauchly para a esfericidade, verifica-se que houve violação da esfericidade, tanto para o efeito do `tempo` (*W* = 0,582, *P* = 0,003) como para a interação `tratamento:tempo` (*W* = 0,582, *P* = 0,003). Esses resultados indicam a necessidade de correção para ajustar os graus de liberdade. A correção de Greenhouse-Geisser é utilizada, pois é o recomendado quando *W* < 0,75 (veja Seção \@ref(sec-esfero)). O modelo ANOVA, gerado pela função `anova_test()`, entregou a tabela da ANOVA sem correção, o teste de Mauchly e a correção dos graus de liberdade da esfericidade (Greenhouse-Geisser (GGe) e Huynh-Feldt (HFe)).
 A tabela da ANOVA corrigida pode, então, ser obtida, usando a função `get_anova_table ()`, do pacote `rstatix`, com o `mod.anova2`  e  `correction = “GG”` como argumentos:
 
 
