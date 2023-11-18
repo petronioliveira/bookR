@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-11-16" />
+<meta name="date" content="2023-11-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,6 +52,8 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -325,10 +327,9 @@ div.csl-indent {
 <li class="chapter" data-level="6.6.5" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#resumo-de-dados-usando-o-geom"><i class="fa fa-check"></i><b>6.6.5</b> Resumo de dados usando o geom</a></li>
 <li class="chapter" data-level="6.6.6" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#modificação-do-tema"><i class="fa fa-check"></i><b>6.6.6</b> Modificação do tema</a></li>
 <li class="chapter" data-level="6.6.7" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#reta-de-ajuste-em-um-gráfico-de-dispersão"><i class="fa fa-check"></i><b>6.6.7</b> Reta de ajuste em um gráfico de dispersão</a></li>
-<li class="chapter" data-level="6.6.8" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#filtrando-dados-para-o-gráfico"><i class="fa fa-check"></i><b>6.6.8</b> Filtrando dados para o gráfico</a></li>
-<li class="chapter" data-level="6.6.9" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#trabalhando-com-os-eixos-no-ggplot2"><i class="fa fa-check"></i><b>6.6.9</b> Trabalhando com os eixos no ggplot2</a></li>
-<li class="chapter" data-level="6.6.10" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#modificação-das-cores"><i class="fa fa-check"></i><b>6.6.10</b> Modificação das cores</a></li>
-<li class="chapter" data-level="6.6.11" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#exemplo-final-gráfico-de-barra-de-erro-com-colunas"><i class="fa fa-check"></i><b>6.6.11</b> Exemplo final: Gráfico de barra de erro com colunas</a></li>
+<li class="chapter" data-level="6.6.8" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#trabalhando-com-os-eixos-no-ggplot2"><i class="fa fa-check"></i><b>6.6.8</b> Trabalhando com os eixos no ggplot2</a></li>
+<li class="chapter" data-level="6.6.9" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#modificação-das-cores"><i class="fa fa-check"></i><b>6.6.9</b> Modificação das cores</a></li>
+<li class="chapter" data-level="6.6.10" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#exemplo-final-gráfico-de-barra-de-erro-com-colunas"><i class="fa fa-check"></i><b>6.6.10</b> Exemplo final: Gráfico de barra de erro com colunas</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html"><i class="fa fa-check"></i><b>7</b> Introdução à Teoria das Probabilidades</a>
@@ -668,25 +669,25 @@ div.csl-indent {
 <div id="pacotes-necessários-neste-capítulo-5" class="section level2 hasAnchor" number="14.1">
 <h2><span class="header-section-number">14.1</span> Pacotes necessários neste capítulo<a href="anova-de-medidas-repetidas.html#pacotes-necessários-neste-capítulo-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Instalar e carregar os seguintes pacotes:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="anova-de-medidas-repetidas.html#cb1-1" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr, </span>
-<span id="cb1-2"><a href="anova-de-medidas-repetidas.html#cb1-2" tabindex="-1"></a>               ggplot2, </span>
-<span id="cb1-3"><a href="anova-de-medidas-repetidas.html#cb1-3" tabindex="-1"></a>               ggpubr, </span>
-<span id="cb1-4"><a href="anova-de-medidas-repetidas.html#cb1-4" tabindex="-1"></a>               ggsci,</span>
-<span id="cb1-5"><a href="anova-de-medidas-repetidas.html#cb1-5" tabindex="-1"></a>               readxl, </span>
-<span id="cb1-6"><a href="anova-de-medidas-repetidas.html#cb1-6" tabindex="-1"></a>               rstatix, </span>
-<span id="cb1-7"><a href="anova-de-medidas-repetidas.html#cb1-7" tabindex="-1"></a>               tidyr)</span></code></pre></div>
+<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb781-1"><a href="anova-de-medidas-repetidas.html#cb781-1" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr, </span>
+<span id="cb781-2"><a href="anova-de-medidas-repetidas.html#cb781-2" tabindex="-1"></a>               ggplot2, </span>
+<span id="cb781-3"><a href="anova-de-medidas-repetidas.html#cb781-3" tabindex="-1"></a>               ggpubr, </span>
+<span id="cb781-4"><a href="anova-de-medidas-repetidas.html#cb781-4" tabindex="-1"></a>               ggsci,</span>
+<span id="cb781-5"><a href="anova-de-medidas-repetidas.html#cb781-5" tabindex="-1"></a>               readxl, </span>
+<span id="cb781-6"><a href="anova-de-medidas-repetidas.html#cb781-6" tabindex="-1"></a>               rstatix, </span>
+<span id="cb781-7"><a href="anova-de-medidas-repetidas.html#cb781-7" tabindex="-1"></a>               tidyr)</span></code></pre></div>
 </div>
 <div id="anova-de-medidas-repetidas-de-um-fator" class="section level2 hasAnchor" number="14.2">
 <h2><span class="header-section-number">14.2</span> ANOVA de medidas repetidas de um fator<a href="anova-de-medidas-repetidas.html#anova-de-medidas-repetidas-de-um-fator" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="dados-usados-nesta-seção-6" class="section level3 hasAnchor" number="14.2.1">
 <h3><span class="header-section-number">14.2.1</span> Dados usados nesta seção<a href="anova-de-medidas-repetidas.html#dados-usados-nesta-seção-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Os dados usados como exemplo contém os escores de autoestima de 10 indivíduos em três pontos de tempo durante uma dieta específica para determinar se esta interfere na sua autoestima. A autoestima foi determinada por uma escala <span class="citation">(1)</span>, <span class="citation">(2)</span>, cujos resultados variam de 0 a 30 pontos. Valores entre 15 e 25 caracterizam uma autoestima muito boa; abaixo de 15 é considerada baixa autoestima.</p>
+<p>Os dados usados como exemplo contém os escores de autoestima de 10 indivíduos em três pontos de tempo durante uma dieta específica para determinar se esta interfere na sua autoestima. A autoestima foi determinada por uma escala <span class="citation">(124)</span>, <span class="citation">(125)</span>, cujos resultados variam de 0 a 30 pontos. Valores entre 15 e 25 caracterizam uma autoestima muito boa; abaixo de 15 é considerada baixa autoestima.</p>
 <p>Os dados podem ser obtidos <a href="https://github.com/petronioliveira/Arquivos/blob/main/dadosAutoestima.xlsx"><strong>aqui</strong></a>. Baixe no seu diretório de trabalho e carregue com a função <code>read_excel()</code> do pacote <code>readxl</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="anova-de-medidas-repetidas.html#cb2-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosAutoestima.xlsx&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb782-1"><a href="anova-de-medidas-repetidas.html#cb782-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosAutoestima.xlsx&quot;</span>)</span></code></pre></div>
 <div id="exploração-e-transformação-dos-dados-1" class="section level4 hasAnchor" number="14.2.1.1">
 <h4><span class="header-section-number">14.2.1.1</span> Exploração e transformação dos dados<a href="anova-de-medidas-repetidas.html#exploração-e-transformação-dos-dados-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Incialmente, observa-se como os dados foram registrados, usando a função <code>head()</code>:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="anova-de-medidas-repetidas.html#cb3-1" tabindex="-1"></a><span class="fu">head</span>(dados)</span></code></pre></div>
+<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb783-1"><a href="anova-de-medidas-repetidas.html#cb783-1" tabindex="-1"></a><span class="fu">head</span>(dados)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 4
 ##      id    t1    t2    t3
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -696,14 +697,14 @@ div.csl-indent {
 ## 4     4 10.3   14.1  25.0
 ## 5     5  8.61  11.7  19.4
 ## 6     6  6.14  16.0  20.0</code></pre>
-<p>Os dados se encontram no formato amplo e para realizar a ANOVA de medidas repetidas, o <em>R</em> necessita que os dados estejam no formato longo. Para fazer esta transformação será usada a função <code>pivot_longer()</code><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> do pacote <code>tidyr</code> <span class="citation">(3)</span>. Nesta função, no argumento <code>data</code>, coloca-se o nome do conjunto de dados; em <code>cols</code>, há necessidade de nomear a coluna a ser criada que receberá as colunas do formato amplo que serão reunidas. No argumento <code>names_to</code>, nomear a coluna que receberá os valores e em <code>values_to</code>, especificar o nome da variável no formato longo que conterá os valores. A variável <code>id</code> e a nova variável <code>tempo</code> devem ser convertida para fatores e o novo conjunto de dados será atribuído a um objeto nomeado <code>dadosL</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="anova-de-medidas-repetidas.html#cb5-1" tabindex="-1"></a>dadosL <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
-<span id="cb5-2"><a href="anova-de-medidas-repetidas.html#cb5-2" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(t1, t2, t3),</span>
-<span id="cb5-3"><a href="anova-de-medidas-repetidas.html#cb5-3" tabindex="-1"></a>                       <span class="at">names_to =</span> <span class="st">&quot;tempo&quot;</span>,</span>
-<span id="cb5-4"><a href="anova-de-medidas-repetidas.html#cb5-4" tabindex="-1"></a>                       <span class="at">values_to =</span> <span class="st">&quot;escores&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-5"><a href="anova-de-medidas-repetidas.html#cb5-5" tabindex="-1"></a><span class="fu">convert_as_factor</span>(id, tempo)</span>
-<span id="cb5-6"><a href="anova-de-medidas-repetidas.html#cb5-6" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="anova-de-medidas-repetidas.html#cb5-7" tabindex="-1"></a><span class="fu">head</span>(dadosL)</span></code></pre></div>
+<p>Os dados se encontram no formato amplo e para realizar a ANOVA de medidas repetidas, o <em>R</em> necessita que os dados estejam no formato longo. Para fazer esta transformação será usada a função <code>pivot_longer()</code><a href="#fn49" class="footnote-ref" id="fnref49"><sup>49</sup></a> do pacote <code>tidyr</code> <span class="citation">(62)</span>. Nesta função, no argumento <code>data</code>, coloca-se o nome do conjunto de dados; em <code>cols</code>, há necessidade de nomear a coluna a ser criada que receberá as colunas do formato amplo que serão reunidas. No argumento <code>names_to</code>, nomear a coluna que receberá os valores e em <code>values_to</code>, especificar o nome da variável no formato longo que conterá os valores. A variável <code>id</code> e a nova variável <code>tempo</code> devem ser convertida para fatores e o novo conjunto de dados será atribuído a um objeto nomeado <code>dadosL</code>:</p>
+<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb785-1"><a href="anova-de-medidas-repetidas.html#cb785-1" tabindex="-1"></a>dadosL <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb785-2"><a href="anova-de-medidas-repetidas.html#cb785-2" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(t1, t2, t3),</span>
+<span id="cb785-3"><a href="anova-de-medidas-repetidas.html#cb785-3" tabindex="-1"></a>                       <span class="at">names_to =</span> <span class="st">&quot;tempo&quot;</span>,</span>
+<span id="cb785-4"><a href="anova-de-medidas-repetidas.html#cb785-4" tabindex="-1"></a>                       <span class="at">values_to =</span> <span class="st">&quot;escores&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb785-5"><a href="anova-de-medidas-repetidas.html#cb785-5" tabindex="-1"></a><span class="fu">convert_as_factor</span>(id, tempo)</span>
+<span id="cb785-6"><a href="anova-de-medidas-repetidas.html#cb785-6" tabindex="-1"></a></span>
+<span id="cb785-7"><a href="anova-de-medidas-repetidas.html#cb785-7" tabindex="-1"></a><span class="fu">head</span>(dadosL)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 3
 ##   id    tempo escores
 ##   &lt;fct&gt; &lt;fct&gt;   &lt;dbl&gt;
@@ -717,11 +718,11 @@ div.csl-indent {
 <div id="sumarização-dos-dados" class="section level4 hasAnchor" number="14.2.1.2">
 <h4><span class="header-section-number">14.2.1.2</span> Sumarização dos dados<a href="anova-de-medidas-repetidas.html#sumarização-dos-dados" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Calcular algumas estatísticas resumidas dos escores de autoestima por grupos (<code>tempo</code>): média e desvio padrão, usando a funções <code>group_by()</code> e <code>summarise()</code> do <code>dplyr</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="anova-de-medidas-repetidas.html#cb7-1" tabindex="-1"></a> dadosL <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="anova-de-medidas-repetidas.html#cb7-2" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">group_by</span>(tempo) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-3"><a href="anova-de-medidas-repetidas.html#cb7-3" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb7-4"><a href="anova-de-medidas-repetidas.html#cb7-4" tabindex="-1"></a>                    média <span class="ot">=</span> <span class="fu">mean</span>(escores, <span class="at">na.rm =</span><span class="cn">TRUE</span>),</span>
-<span id="cb7-5"><a href="anova-de-medidas-repetidas.html#cb7-5" tabindex="-1"></a>                    <span class="at">dp =</span> <span class="fu">sd</span>(escores, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb787-1"><a href="anova-de-medidas-repetidas.html#cb787-1" tabindex="-1"></a> dadosL <span class="sc">%&gt;%</span></span>
+<span id="cb787-2"><a href="anova-de-medidas-repetidas.html#cb787-2" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">group_by</span>(tempo) <span class="sc">%&gt;%</span> </span>
+<span id="cb787-3"><a href="anova-de-medidas-repetidas.html#cb787-3" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb787-4"><a href="anova-de-medidas-repetidas.html#cb787-4" tabindex="-1"></a>                    média <span class="ot">=</span> <span class="fu">mean</span>(escores, <span class="at">na.rm =</span><span class="cn">TRUE</span>),</span>
+<span id="cb787-5"><a href="anova-de-medidas-repetidas.html#cb787-5" tabindex="-1"></a>                    <span class="at">dp =</span> <span class="fu">sd</span>(escores, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 4
 ##   tempo     n média    dp
 ##   &lt;fct&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -733,19 +734,19 @@ div.csl-indent {
 <div id="visualização-dos-dados-1" class="section level3 hasAnchor" number="14.2.2">
 <h3><span class="header-section-number">14.2.2</span> Visualização dos dados<a href="anova-de-medidas-repetidas.html#visualização-dos-dados-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A visualização pode ser obtida com um conjunto de boxplots (Figura <a href="anova-de-medidas-repetidas.html#fig:bxpauto">14.1</a>), acrescido de barras de erro. Estes gráficos permitem visualizar a variação dos escores com o tempo.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="anova-de-medidas-repetidas.html#cb9-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span> (dadosL,</span>
-<span id="cb9-2"><a href="anova-de-medidas-repetidas.html#cb9-2" tabindex="-1"></a>                   <span class="at">bxp.errorbar =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb9-3"><a href="anova-de-medidas-repetidas.html#cb9-3" tabindex="-1"></a>                   <span class="at">bxp.errorbar.width =</span> <span class="fl">0.1</span>, </span>
-<span id="cb9-4"><a href="anova-de-medidas-repetidas.html#cb9-4" tabindex="-1"></a>                   <span class="at">x =</span> <span class="st">&quot;tempo&quot;</span>, </span>
-<span id="cb9-5"><a href="anova-de-medidas-repetidas.html#cb9-5" tabindex="-1"></a>                   <span class="at">y =</span> <span class="st">&quot;escores&quot;</span>, </span>
-<span id="cb9-6"><a href="anova-de-medidas-repetidas.html#cb9-6" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,</span>
-<span id="cb9-7"><a href="anova-de-medidas-repetidas.html#cb9-7" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>,</span>
-<span id="cb9-8"><a href="anova-de-medidas-repetidas.html#cb9-8" tabindex="-1"></a>                   <span class="at">ylab =</span> <span class="st">&quot;Escore de Autoestima&quot;</span>,</span>
-<span id="cb9-9"><a href="anova-de-medidas-repetidas.html#cb9-9" tabindex="-1"></a>                   <span class="at">xlab =</span> <span class="st">&quot;Tempo&quot;</span>,</span>
-<span id="cb9-10"><a href="anova-de-medidas-repetidas.html#cb9-10" tabindex="-1"></a>                   <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>(),</span>
-<span id="cb9-11"><a href="anova-de-medidas-repetidas.html#cb9-11" tabindex="-1"></a>                   <span class="at">legend =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
-<span id="cb9-12"><a href="anova-de-medidas-repetidas.html#cb9-12" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>(<span class="at">start=</span><span class="fl">0.95</span>, <span class="at">end=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb9-13"><a href="anova-de-medidas-repetidas.html#cb9-13" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb789-1"><a href="anova-de-medidas-repetidas.html#cb789-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span> (dadosL,</span>
+<span id="cb789-2"><a href="anova-de-medidas-repetidas.html#cb789-2" tabindex="-1"></a>                   <span class="at">bxp.errorbar =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb789-3"><a href="anova-de-medidas-repetidas.html#cb789-3" tabindex="-1"></a>                   <span class="at">bxp.errorbar.width =</span> <span class="fl">0.1</span>, </span>
+<span id="cb789-4"><a href="anova-de-medidas-repetidas.html#cb789-4" tabindex="-1"></a>                   <span class="at">x =</span> <span class="st">&quot;tempo&quot;</span>, </span>
+<span id="cb789-5"><a href="anova-de-medidas-repetidas.html#cb789-5" tabindex="-1"></a>                   <span class="at">y =</span> <span class="st">&quot;escores&quot;</span>, </span>
+<span id="cb789-6"><a href="anova-de-medidas-repetidas.html#cb789-6" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb789-7"><a href="anova-de-medidas-repetidas.html#cb789-7" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>,</span>
+<span id="cb789-8"><a href="anova-de-medidas-repetidas.html#cb789-8" tabindex="-1"></a>                   <span class="at">ylab =</span> <span class="st">&quot;Escore de Autoestima&quot;</span>,</span>
+<span id="cb789-9"><a href="anova-de-medidas-repetidas.html#cb789-9" tabindex="-1"></a>                   <span class="at">xlab =</span> <span class="st">&quot;Tempo&quot;</span>,</span>
+<span id="cb789-10"><a href="anova-de-medidas-repetidas.html#cb789-10" tabindex="-1"></a>                   <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>(),</span>
+<span id="cb789-11"><a href="anova-de-medidas-repetidas.html#cb789-11" tabindex="-1"></a>                   <span class="at">legend =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb789-12"><a href="anova-de-medidas-repetidas.html#cb789-12" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>(<span class="at">start=</span><span class="fl">0.95</span>, <span class="at">end=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb789-13"><a href="anova-de-medidas-repetidas.html#cb789-13" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:bxpauto"></span>
 <img src="bookdownproj_files/figure-html/bxpauto-1.png" alt="Boxplots mostrando o impacto de uma dieta nos escores de autoestima." width="70%" height="70%" />
 <p class="caption">
@@ -753,19 +754,19 @@ Figura14.1: Boxplots mostrando o impacto de uma dieta nos escores de autoestima.
 </p>
 </div>
 <p>Outra maneira de visualizar os dados é através de um gráfico de linha (Figura <a href="anova-de-medidas-repetidas.html#fig:lineauto">14.2</a>) que mostra bem o comportamento dos escores com o tempo:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="anova-de-medidas-repetidas.html#cb10-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggline</span>(dadosL, </span>
-<span id="cb10-2"><a href="anova-de-medidas-repetidas.html#cb10-2" tabindex="-1"></a>                <span class="at">x =</span> <span class="st">&quot;tempo&quot;</span>,</span>
-<span id="cb10-3"><a href="anova-de-medidas-repetidas.html#cb10-3" tabindex="-1"></a>                <span class="at">y =</span> <span class="st">&quot;escores&quot;</span>,</span>
-<span id="cb10-4"><a href="anova-de-medidas-repetidas.html#cb10-4" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">&quot;gray60&quot;</span>,</span>
-<span id="cb10-5"><a href="anova-de-medidas-repetidas.html#cb10-5" tabindex="-1"></a>                <span class="at">add.params =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">&quot;red&quot;</span>),</span>
-<span id="cb10-6"><a href="anova-de-medidas-repetidas.html#cb10-6" tabindex="-1"></a>                <span class="at">size =</span> <span class="dv">1</span>,</span>
-<span id="cb10-7"><a href="anova-de-medidas-repetidas.html#cb10-7" tabindex="-1"></a>                <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>,</span>
-<span id="cb10-8"><a href="anova-de-medidas-repetidas.html#cb10-8" tabindex="-1"></a>                <span class="at">add =</span> <span class="fu">c</span>(<span class="st">&quot;mean_ci&quot;</span>),</span>
-<span id="cb10-9"><a href="anova-de-medidas-repetidas.html#cb10-9" tabindex="-1"></a>                <span class="at">point.size =</span> <span class="dv">2</span>,</span>
-<span id="cb10-10"><a href="anova-de-medidas-repetidas.html#cb10-10" tabindex="-1"></a>                <span class="at">point.color =</span> <span class="st">&quot;red&quot;</span>,</span>
-<span id="cb10-11"><a href="anova-de-medidas-repetidas.html#cb10-11" tabindex="-1"></a>                <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>()) <span class="sc">+</span></span>
-<span id="cb10-12"><a href="anova-de-medidas-repetidas.html#cb10-12" tabindex="-1"></a>   <span class="fu">ylab</span>(<span class="st">&quot;Escore de Autoestima&quot;</span>) <span class="sc">+</span></span>
-<span id="cb10-13"><a href="anova-de-medidas-repetidas.html#cb10-13" tabindex="-1"></a>   <span class="fu">xlab</span>(<span class="st">&quot;Tempo&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb790"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb790-1"><a href="anova-de-medidas-repetidas.html#cb790-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggline</span>(dadosL, </span>
+<span id="cb790-2"><a href="anova-de-medidas-repetidas.html#cb790-2" tabindex="-1"></a>                <span class="at">x =</span> <span class="st">&quot;tempo&quot;</span>,</span>
+<span id="cb790-3"><a href="anova-de-medidas-repetidas.html#cb790-3" tabindex="-1"></a>                <span class="at">y =</span> <span class="st">&quot;escores&quot;</span>,</span>
+<span id="cb790-4"><a href="anova-de-medidas-repetidas.html#cb790-4" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">&quot;gray60&quot;</span>,</span>
+<span id="cb790-5"><a href="anova-de-medidas-repetidas.html#cb790-5" tabindex="-1"></a>                <span class="at">add.params =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">&quot;red&quot;</span>),</span>
+<span id="cb790-6"><a href="anova-de-medidas-repetidas.html#cb790-6" tabindex="-1"></a>                <span class="at">size =</span> <span class="dv">1</span>,</span>
+<span id="cb790-7"><a href="anova-de-medidas-repetidas.html#cb790-7" tabindex="-1"></a>                <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>,</span>
+<span id="cb790-8"><a href="anova-de-medidas-repetidas.html#cb790-8" tabindex="-1"></a>                <span class="at">add =</span> <span class="fu">c</span>(<span class="st">&quot;mean_ci&quot;</span>),</span>
+<span id="cb790-9"><a href="anova-de-medidas-repetidas.html#cb790-9" tabindex="-1"></a>                <span class="at">point.size =</span> <span class="dv">2</span>,</span>
+<span id="cb790-10"><a href="anova-de-medidas-repetidas.html#cb790-10" tabindex="-1"></a>                <span class="at">point.color =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb790-11"><a href="anova-de-medidas-repetidas.html#cb790-11" tabindex="-1"></a>                <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>()) <span class="sc">+</span></span>
+<span id="cb790-12"><a href="anova-de-medidas-repetidas.html#cb790-12" tabindex="-1"></a>   <span class="fu">ylab</span>(<span class="st">&quot;Escore de Autoestima&quot;</span>) <span class="sc">+</span></span>
+<span id="cb790-13"><a href="anova-de-medidas-repetidas.html#cb790-13" tabindex="-1"></a>   <span class="fu">xlab</span>(<span class="st">&quot;Tempo&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:lineauto"></span>
 <img src="bookdownproj_files/figure-html/lineauto-1.png" alt="Gráfico de linha mostrando o impacto de uma dieta nos escores de autoestima." width="80%" height="80%" />
 <p class="caption">
@@ -785,9 +786,9 @@ Figura14.2: Gráfico de linha mostrando o impacto de uma dieta nos escores de au
 <div id="identificação-de-valores-atípicos" class="section level4 hasAnchor" number="14.2.3.1">
 <h4><span class="header-section-number">14.2.3.1</span> Identificação de valores atípicos<a href="anova-de-medidas-repetidas.html#identificação-de-valores-atípicos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Não deve haver valores atípicos em nenhuma célula do delineamento Isso pode ser verificado visualizando os dados nos boxplots, mostrados anteriormente, onde se observa a presença de dois <em>outliers</em>, um no t1 e outro em t2. Além disso, pode-se verificar a presença de valores atípicos, usando a função <code>identify_outliers()</code> do pacote <code>rstatix</code>.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="anova-de-medidas-repetidas.html#cb11-1" tabindex="-1"></a>dadosL <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="anova-de-medidas-repetidas.html#cb11-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(tempo) <span class="sc">%&gt;%</span></span>
-<span id="cb11-3"><a href="anova-de-medidas-repetidas.html#cb11-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">identify_outliers</span>(escores)</span></code></pre></div>
+<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb791-1"><a href="anova-de-medidas-repetidas.html#cb791-1" tabindex="-1"></a>dadosL <span class="sc">%&gt;%</span></span>
+<span id="cb791-2"><a href="anova-de-medidas-repetidas.html#cb791-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(tempo) <span class="sc">%&gt;%</span></span>
+<span id="cb791-3"><a href="anova-de-medidas-repetidas.html#cb791-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">identify_outliers</span>(escores)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 5
 ##   tempo id    escores is.outlier is.extreme
 ##   &lt;fct&gt; &lt;fct&gt;   &lt;dbl&gt; &lt;lgl&gt;      &lt;lgl&gt;     
@@ -798,9 +799,9 @@ Figura14.2: Gráfico de linha mostrando o impacto de uma dieta nos escores de au
 <div id="avaliação-da-normalidade" class="section level4 hasAnchor" number="14.2.3.2">
 <h4><span class="header-section-number">14.2.3.2</span> Avaliação da normalidade<a href="anova-de-medidas-repetidas.html#avaliação-da-normalidade" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Para testar a hipótese de normalidade dos dados, será utilizado o <code>teste de Shapiro-Wilk</code> através da função <code>shapiro_test ()</code>, do pacote <code>rstatix</code> e a função <code>group_by ()</code>, incluída no pacote <code>dplyr</code> ou <code>rstatix</code>, junto com o operador <code>pipe</code> (%&gt;%):</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="anova-de-medidas-repetidas.html#cb13-1" tabindex="-1"></a>dadosL <span class="sc">%&gt;%</span> </span>
-<span id="cb13-2"><a href="anova-de-medidas-repetidas.html#cb13-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span> (tempo) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-3"><a href="anova-de-medidas-repetidas.html#cb13-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">shapiro_test</span>(escores)</span></code></pre></div>
+<div class="sourceCode" id="cb793"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb793-1"><a href="anova-de-medidas-repetidas.html#cb793-1" tabindex="-1"></a>dadosL <span class="sc">%&gt;%</span> </span>
+<span id="cb793-2"><a href="anova-de-medidas-repetidas.html#cb793-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span> (tempo) <span class="sc">%&gt;%</span> </span>
+<span id="cb793-3"><a href="anova-de-medidas-repetidas.html#cb793-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">shapiro_test</span>(escores)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 4
 ##   tempo variable statistic     p
 ##   &lt;fct&gt; &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;
@@ -809,12 +810,12 @@ Figura14.2: Gráfico de linha mostrando o impacto de uma dieta nos escores de au
 ## 3 t3    escores      0.923 0.380</code></pre>
 <p>A saída exibe valores <em>P</em> acima de 0,05, significando que os escores de autoestima estão normalmente distribuídos em cada momento do tempo.</p>
 <p>A normalidade pode também ser avaliada com um gráfico QQ (Figura <a href="anova-de-medidas-repetidas.html#fig:qqauto">14.3</a>) para cada um dos momentos, usando a função <code>ggqqplot ()</code> do pacote <code>ggpubr</code>, consulte a vinheta do pacote para maiores detalhes. Foi utilizado também o argumento <code>faced.by</code>, que divide em painéis, organizando-os como uma grade, de acordo com o momento ( t1, t2 e t3).</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="anova-de-medidas-repetidas.html#cb15-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggqqplot</span>(dadosL, </span>
-<span id="cb15-2"><a href="anova-de-medidas-repetidas.html#cb15-2" tabindex="-1"></a>                 <span class="at">x =</span> <span class="st">&quot;escores&quot;</span>,</span>
-<span id="cb15-3"><a href="anova-de-medidas-repetidas.html#cb15-3" tabindex="-1"></a>                 <span class="at">facet.by =</span> <span class="st">&quot;tempo&quot;</span>,</span>
-<span id="cb15-4"><a href="anova-de-medidas-repetidas.html#cb15-4" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;tempo&quot;</span>, </span>
-<span id="cb15-5"><a href="anova-de-medidas-repetidas.html#cb15-5" tabindex="-1"></a>                 <span class="at">palette =</span> <span class="fu">get_palette</span>(<span class="st">&quot;Dark2&quot;</span>, <span class="dv">3</span>),</span>
-<span id="cb15-6"><a href="anova-de-medidas-repetidas.html#cb15-6" tabindex="-1"></a>                 <span class="at">legend =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb795"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb795-1"><a href="anova-de-medidas-repetidas.html#cb795-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggqqplot</span>(dadosL, </span>
+<span id="cb795-2"><a href="anova-de-medidas-repetidas.html#cb795-2" tabindex="-1"></a>                 <span class="at">x =</span> <span class="st">&quot;escores&quot;</span>,</span>
+<span id="cb795-3"><a href="anova-de-medidas-repetidas.html#cb795-3" tabindex="-1"></a>                 <span class="at">facet.by =</span> <span class="st">&quot;tempo&quot;</span>,</span>
+<span id="cb795-4"><a href="anova-de-medidas-repetidas.html#cb795-4" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;tempo&quot;</span>, </span>
+<span id="cb795-5"><a href="anova-de-medidas-repetidas.html#cb795-5" tabindex="-1"></a>                 <span class="at">palette =</span> <span class="fu">get_palette</span>(<span class="st">&quot;Dark2&quot;</span>, <span class="dv">3</span>),</span>
+<span id="cb795-6"><a href="anova-de-medidas-repetidas.html#cb795-6" tabindex="-1"></a>                 <span class="at">legend =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:qqauto"></span>
 <img src="bookdownproj_files/figure-html/qqauto-1.png" alt="Gráfico QQ para verificar a normalidade" width="70%" height="70%" />
 <p class="caption">
@@ -828,17 +829,17 @@ Figura14.3: Gráfico QQ para verificar a normalidade
 <p>A violação da suposição de esfericidade pode distorcer os cálculos de variância resultantes de um teste ANOVA de medidas repetidas mais liberal (ou seja, um aumento na taxa de erro Tipo I). Nesse caso, a ANOVA de medidas repetidas deve ser corrigida apropriadamente dependendo do grau em que a esfericidade foi violada. Na relação entre os escores, há necessidade de pressupor que exista esfericidade (<span class="math inline">\(\epsilon\)</span> - épsilon), também chamada de circularidade, grosseiramente semelhante à homocedasticidade da ANOVA de uma via. A ANOVA de medidas repetidas pressupõe que as variâncias das diferenças entre todas as combinações de condições relacionadas (ou níveis de grupo) são iguais. A melhor maneira de verificá-la é calcular as diferenças entre os pares de escores em todas as combinações dos níveis de tratamento.</p>
 <p>O <em>teste de esfericidade de Mauchly</em> é usado para avaliar se a suposição de esfericidade é atendida ou não. Isso é relatado automaticamente ao usar a função <code>anova_test ()</code> do pacote <code>rstatix</code>. Se o teste resulta em um valor <em>P</em> menor do que 0,05, pode-se concluir de que há uma diferença significativa entre as variâncias das diferenças.</p>
 <p>O principal problema da violação da condição de esfericidade é a ocorrência de testes <em>F</em> não exatos e liberais, com consequente perda do poder do teste. Existem várias correções que podem ser aplicadas para produzir uma razão <em>F</em> válida, através do ajuste dos graus de liberdade.</p>
-<p>As correções mais frequentemente preconizadas são o <span class="math inline">\(\epsilon\)</span> de <em>Greenhouse-Geisser (GGe)</em> e o <span class="math inline">\(\epsilon\)</span> de <em>Huynh-Feldt (HFe)</em>. Huynh e Feldt <span class="citation">(4)</span> relataram que quando a correção <span class="math inline">\(\epsilon\)</span> de Greenhouse-Geisser é &gt; 0,75 muitas hipóteses nulas falsas deixam de ser rejeitadas, isto é, o teste é muito conservador, propondo outra correção dos graus de liberdade. É recomendado o uso da correção de Greenhouse-Geisser para o ajuste dos graus de liberdade quando <span class="math inline">\(\epsilon\)</span> &lt; 0,75 ou nada se sabe a respeito da esfericidade <span class="citation">(5)</span>. Avaliando o poder destes testes, Muller <span class="citation">(6)</span> verificou que a correção de Greenhouse-Geisser fornece um controle adicional do erro Tipo I, enquanto o poder é maximizado.</p>
+<p>As correções mais frequentemente preconizadas são o <span class="math inline">\(\epsilon\)</span> de <em>Greenhouse-Geisser (GGe)</em> e o <span class="math inline">\(\epsilon\)</span> de <em>Huynh-Feldt (HFe)</em>. Huynh e Feldt <span class="citation">(126)</span> relataram que quando a correção <span class="math inline">\(\epsilon\)</span> de Greenhouse-Geisser é &gt; 0,75 muitas hipóteses nulas falsas deixam de ser rejeitadas, isto é, o teste é muito conservador, propondo outra correção dos graus de liberdade. É recomendado o uso da correção de Greenhouse-Geisser para o ajuste dos graus de liberdade quando <span class="math inline">\(\epsilon\)</span> &lt; 0,75 ou nada se sabe a respeito da esfericidade <span class="citation">(127)</span>. Avaliando o poder destes testes, Muller <span class="citation">(128)</span> verificou que a correção de Greenhouse-Geisser fornece um controle adicional do erro Tipo I, enquanto o poder é maximizado.</p>
 </div>
 </div>
 <div id="cálculo-da-estatística-do-teste" class="section level3 hasAnchor" number="14.2.4">
 <h3><span class="header-section-number">14.2.4</span> Cálculo da estatística do teste<a href="anova-de-medidas-repetidas.html#cálculo-da-estatística-do-teste" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Como mencionado, será usada a função <code>anova_test()</code>, do pacote <code>rstatix</code>, para o cálculo da ANOVA de medidas repetidas, criando um modelo que será atribuído ao objeto <code>mod.anova</code>:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="anova-de-medidas-repetidas.html#cb16-1" tabindex="-1"></a>mod.anova <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">anova_test</span>(<span class="at">data =</span> dadosL, </span>
-<span id="cb16-2"><a href="anova-de-medidas-repetidas.html#cb16-2" tabindex="-1"></a>                                 <span class="at">dv =</span> escores, </span>
-<span id="cb16-3"><a href="anova-de-medidas-repetidas.html#cb16-3" tabindex="-1"></a>                                 <span class="at">wid =</span> id, </span>
-<span id="cb16-4"><a href="anova-de-medidas-repetidas.html#cb16-4" tabindex="-1"></a>                                 <span class="at">within =</span> tempo)</span>
-<span id="cb16-5"><a href="anova-de-medidas-repetidas.html#cb16-5" tabindex="-1"></a>mod.anova</span></code></pre></div>
+<div class="sourceCode" id="cb796"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb796-1"><a href="anova-de-medidas-repetidas.html#cb796-1" tabindex="-1"></a>mod.anova <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">anova_test</span>(<span class="at">data =</span> dadosL, </span>
+<span id="cb796-2"><a href="anova-de-medidas-repetidas.html#cb796-2" tabindex="-1"></a>                                 <span class="at">dv =</span> escores, </span>
+<span id="cb796-3"><a href="anova-de-medidas-repetidas.html#cb796-3" tabindex="-1"></a>                                 <span class="at">wid =</span> id, </span>
+<span id="cb796-4"><a href="anova-de-medidas-repetidas.html#cb796-4" tabindex="-1"></a>                                 <span class="at">within =</span> tempo)</span>
+<span id="cb796-5"><a href="anova-de-medidas-repetidas.html#cb796-5" tabindex="-1"></a>mod.anova</span></code></pre></div>
 <pre><code>## ANOVA Table (type III tests)
 ## 
 ## $ANOVA
@@ -857,7 +858,7 @@ Figura14.3: Gráfico QQ para verificar a normalidade
 <p>Em primeiro lugar, observar o Teste de Mauchly para a esfericidade. Verifica-se que o efeito do tempo tem um valor <em>P</em> = 0,092, ou seja, &gt; 0,05 e, portanto, não houve violação da esfericidade e não há necessidade de observar as correções do <span class="math inline">\(\epsilon\)</span> de Greenhouse-Geisser (GGe) ou o <span class="math inline">\(\epsilon\)</span> de Huynh-Feldt (HFe).</p>
 <p>Desta forma, pode-se dizer que houve uma modificação significativa no escore de de autoestima, à medida que o tempo passou (F (2,18) = 55,5, <em>P</em> &lt; 0.0001, <span class="math inline">\(\eta^2 = 0,83\)</span>).</p>
 <p>Usando a função <code>get_anova_table()</code> do pacote <code>rstatix</code> para extrair a tabela ANOVA, a correção de esfericidade Greenhouse-Geisser é aplicada automaticamente aos fatores que violam a suposição de esfericidade.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="anova-de-medidas-repetidas.html#cb18-1" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">get_anova_table</span>(mod.anova)</span></code></pre></div>
+<div class="sourceCode" id="cb798"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb798-1"><a href="anova-de-medidas-repetidas.html#cb798-1" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">get_anova_table</span>(mod.anova)</span></code></pre></div>
 <pre><code>## ANOVA Table (type III tests)
 ## 
 ##   Effect DFn DFd      F        p p&lt;.05   ges
@@ -872,12 +873,12 @@ Figura14.3: Gráfico QQ para verificar a normalidade
 <div id="testes-post-hoc-2" class="section level3 hasAnchor" number="14.2.5">
 <h3><span class="header-section-number">14.2.5</span> Testes post hoc<a href="anova-de-medidas-repetidas.html#testes-post-hoc-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>É possível fazer comparações por pares. realizando vários testes <em>t</em> pareados entre os níveis do dentro do fator (tempo), usando a função <code>pairwise_t_test()</code>, incluída no <em>R</em> base. Os valores <em>P</em> são ajustados usando o método de correção de testes múltiplos de Bonferroni.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="anova-de-medidas-repetidas.html#cb20-1" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> dadosL <span class="sc">%&gt;%</span></span>
-<span id="cb20-2"><a href="anova-de-medidas-repetidas.html#cb20-2" tabindex="-1"></a>  <span class="fu">pairwise_t_test</span>(</span>
-<span id="cb20-3"><a href="anova-de-medidas-repetidas.html#cb20-3" tabindex="-1"></a>    escores <span class="sc">~</span> tempo, <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb20-4"><a href="anova-de-medidas-repetidas.html#cb20-4" tabindex="-1"></a>    <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span></span>
-<span id="cb20-5"><a href="anova-de-medidas-repetidas.html#cb20-5" tabindex="-1"></a>    )</span>
-<span id="cb20-6"><a href="anova-de-medidas-repetidas.html#cb20-6" tabindex="-1"></a>pwc</span></code></pre></div>
+<div class="sourceCode" id="cb800"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb800-1"><a href="anova-de-medidas-repetidas.html#cb800-1" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> dadosL <span class="sc">%&gt;%</span></span>
+<span id="cb800-2"><a href="anova-de-medidas-repetidas.html#cb800-2" tabindex="-1"></a>  <span class="fu">pairwise_t_test</span>(</span>
+<span id="cb800-3"><a href="anova-de-medidas-repetidas.html#cb800-3" tabindex="-1"></a>    escores <span class="sc">~</span> tempo, <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb800-4"><a href="anova-de-medidas-repetidas.html#cb800-4" tabindex="-1"></a>    <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span></span>
+<span id="cb800-5"><a href="anova-de-medidas-repetidas.html#cb800-5" tabindex="-1"></a>    )</span>
+<span id="cb800-6"><a href="anova-de-medidas-repetidas.html#cb800-6" tabindex="-1"></a>pwc</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 10
 ##   .y.     group1 group2    n1    n2 statistic    df         p p.adj p.adj.signif
 ## * &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;       
@@ -894,26 +895,26 @@ Figura14.3: Gráfico QQ para verificar a normalidade
 <li><p>Análises post hoc, com um ajuste de Bonferroni, revelaram que todas as diferenças pareadas, entre os pontos de tempo, foram estatisticamente diferentes (<em>P</em> &lt; 0,05).</p></li>
 </ol>
 <p>Uma opção de apresentação gráfica, é o gráfico de linhas (Figura <a href="anova-de-medidas-repetidas.html#fig:lineauto1">14.4</a>), usando a função <code>ggline()</code> do pacote <code>ggpubr</code>, junto com os teste estatísticos:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="anova-de-medidas-repetidas.html#cb22-1" tabindex="-1"></a>gl <span class="ot">&lt;-</span> ggpubr<span class="sc">::</span><span class="fu">ggline</span>(dadosL,</span>
-<span id="cb22-2"><a href="anova-de-medidas-repetidas.html#cb22-2" tabindex="-1"></a>                     <span class="at">x =</span> <span class="st">&quot;tempo&quot;</span>,</span>
-<span id="cb22-3"><a href="anova-de-medidas-repetidas.html#cb22-3" tabindex="-1"></a>                     <span class="at">y =</span> <span class="st">&quot;escores&quot;</span>,</span>
-<span id="cb22-4"><a href="anova-de-medidas-repetidas.html#cb22-4" tabindex="-1"></a>                     <span class="at">color =</span> <span class="st">&quot;gray60&quot;</span>,</span>
-<span id="cb22-5"><a href="anova-de-medidas-repetidas.html#cb22-5" tabindex="-1"></a>                     <span class="at">add.params =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>),</span>
-<span id="cb22-6"><a href="anova-de-medidas-repetidas.html#cb22-6" tabindex="-1"></a>                     <span class="at">size =</span> <span class="fl">0.7</span>,</span>
-<span id="cb22-7"><a href="anova-de-medidas-repetidas.html#cb22-7" tabindex="-1"></a>                     <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>,</span>
-<span id="cb22-8"><a href="anova-de-medidas-repetidas.html#cb22-8" tabindex="-1"></a>                     <span class="at">add =</span> <span class="st">&quot;mean_ci&quot;</span>,</span>
-<span id="cb22-9"><a href="anova-de-medidas-repetidas.html#cb22-9" tabindex="-1"></a>                     <span class="at">point.size =</span> <span class="dv">1</span>,</span>
-<span id="cb22-10"><a href="anova-de-medidas-repetidas.html#cb22-10" tabindex="-1"></a>                     <span class="at">point.color =</span> <span class="st">&quot;black&quot;</span>)</span>
-<span id="cb22-11"><a href="anova-de-medidas-repetidas.html#cb22-11" tabindex="-1"></a></span>
-<span id="cb22-12"><a href="anova-de-medidas-repetidas.html#cb22-12" tabindex="-1"></a>gl <span class="sc">+</span> </span>
-<span id="cb22-13"><a href="anova-de-medidas-repetidas.html#cb22-13" tabindex="-1"></a>  ggpubr<span class="sc">::</span><span class="fu">stat_pvalue_manual</span>(pwc, </span>
-<span id="cb22-14"><a href="anova-de-medidas-repetidas.html#cb22-14" tabindex="-1"></a>                             <span class="at">label =</span> <span class="st">&quot;p.adj&quot;</span>, </span>
-<span id="cb22-15"><a href="anova-de-medidas-repetidas.html#cb22-15" tabindex="-1"></a>                             <span class="at">tip.length =</span> <span class="fl">0.00</span>,</span>
-<span id="cb22-16"><a href="anova-de-medidas-repetidas.html#cb22-16" tabindex="-1"></a>                             <span class="at">y.position =</span> <span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">29</span>, <span class="dv">26</span>)) <span class="sc">+</span></span>
-<span id="cb22-17"><a href="anova-de-medidas-repetidas.html#cb22-17" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">x =</span> <span class="st">&quot;Tempo&quot;</span>,</span>
-<span id="cb22-18"><a href="anova-de-medidas-repetidas.html#cb22-18" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&quot;Escore de autoestima&quot;</span>,</span>
-<span id="cb22-19"><a href="anova-de-medidas-repetidas.html#cb22-19" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="fu">get_test_label</span> (mod.anova, <span class="at">detailed =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb22-20"><a href="anova-de-medidas-repetidas.html#cb22-20" tabindex="-1"></a>        <span class="at">caption =</span> <span class="fu">get_pwc_label</span>(pwc))</span></code></pre></div>
+<div class="sourceCode" id="cb802"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb802-1"><a href="anova-de-medidas-repetidas.html#cb802-1" tabindex="-1"></a>gl <span class="ot">&lt;-</span> ggpubr<span class="sc">::</span><span class="fu">ggline</span>(dadosL,</span>
+<span id="cb802-2"><a href="anova-de-medidas-repetidas.html#cb802-2" tabindex="-1"></a>                     <span class="at">x =</span> <span class="st">&quot;tempo&quot;</span>,</span>
+<span id="cb802-3"><a href="anova-de-medidas-repetidas.html#cb802-3" tabindex="-1"></a>                     <span class="at">y =</span> <span class="st">&quot;escores&quot;</span>,</span>
+<span id="cb802-4"><a href="anova-de-medidas-repetidas.html#cb802-4" tabindex="-1"></a>                     <span class="at">color =</span> <span class="st">&quot;gray60&quot;</span>,</span>
+<span id="cb802-5"><a href="anova-de-medidas-repetidas.html#cb802-5" tabindex="-1"></a>                     <span class="at">add.params =</span> <span class="fu">list</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>),</span>
+<span id="cb802-6"><a href="anova-de-medidas-repetidas.html#cb802-6" tabindex="-1"></a>                     <span class="at">size =</span> <span class="fl">0.7</span>,</span>
+<span id="cb802-7"><a href="anova-de-medidas-repetidas.html#cb802-7" tabindex="-1"></a>                     <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>,</span>
+<span id="cb802-8"><a href="anova-de-medidas-repetidas.html#cb802-8" tabindex="-1"></a>                     <span class="at">add =</span> <span class="st">&quot;mean_ci&quot;</span>,</span>
+<span id="cb802-9"><a href="anova-de-medidas-repetidas.html#cb802-9" tabindex="-1"></a>                     <span class="at">point.size =</span> <span class="dv">1</span>,</span>
+<span id="cb802-10"><a href="anova-de-medidas-repetidas.html#cb802-10" tabindex="-1"></a>                     <span class="at">point.color =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb802-11"><a href="anova-de-medidas-repetidas.html#cb802-11" tabindex="-1"></a></span>
+<span id="cb802-12"><a href="anova-de-medidas-repetidas.html#cb802-12" tabindex="-1"></a>gl <span class="sc">+</span> </span>
+<span id="cb802-13"><a href="anova-de-medidas-repetidas.html#cb802-13" tabindex="-1"></a>  ggpubr<span class="sc">::</span><span class="fu">stat_pvalue_manual</span>(pwc, </span>
+<span id="cb802-14"><a href="anova-de-medidas-repetidas.html#cb802-14" tabindex="-1"></a>                             <span class="at">label =</span> <span class="st">&quot;p.adj&quot;</span>, </span>
+<span id="cb802-15"><a href="anova-de-medidas-repetidas.html#cb802-15" tabindex="-1"></a>                             <span class="at">tip.length =</span> <span class="fl">0.00</span>,</span>
+<span id="cb802-16"><a href="anova-de-medidas-repetidas.html#cb802-16" tabindex="-1"></a>                             <span class="at">y.position =</span> <span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">29</span>, <span class="dv">26</span>)) <span class="sc">+</span></span>
+<span id="cb802-17"><a href="anova-de-medidas-repetidas.html#cb802-17" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">x =</span> <span class="st">&quot;Tempo&quot;</span>,</span>
+<span id="cb802-18"><a href="anova-de-medidas-repetidas.html#cb802-18" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&quot;Escore de autoestima&quot;</span>,</span>
+<span id="cb802-19"><a href="anova-de-medidas-repetidas.html#cb802-19" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="fu">get_test_label</span> (mod.anova, <span class="at">detailed =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb802-20"><a href="anova-de-medidas-repetidas.html#cb802-20" tabindex="-1"></a>        <span class="at">caption =</span> <span class="fu">get_pwc_label</span>(pwc))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:lineauto1"></span>
 <img src="bookdownproj_files/figure-html/lineauto1-1.png" alt="Impacto de uma dieta específica na autoestima." width="80%" height="80%" />
 <p class="caption">
@@ -939,9 +940,9 @@ se existe uma interação significativa entre dieta e tempo no escore de autoest
 <div id="leitura-dos-dados-3" class="section level4 hasAnchor" number="14.3.1.1">
 <h4><span class="header-section-number">14.3.1.1</span> Leitura dos dados<a href="anova-de-medidas-repetidas.html#leitura-dos-dados-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A leitura dos dados será feita com a função <code>read_excel()</code> do pacote <code>readxl</code>. Após a leitura, será exibida 3 linhas aleatórias por grupo de tratamento, usando a função <code>sample_n_by()</code> do pacote <code>rstatix</code>::</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="anova-de-medidas-repetidas.html#cb23-1" tabindex="-1"></a>autoestima <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosAutoestima2.xlsx&quot;</span>)</span>
-<span id="cb23-2"><a href="anova-de-medidas-repetidas.html#cb23-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb23-3"><a href="anova-de-medidas-repetidas.html#cb23-3" tabindex="-1"></a>autoestima <span class="sc">%&gt;%</span> <span class="fu">sample_n_by</span>(tratamento, <span class="at">size =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb803"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb803-1"><a href="anova-de-medidas-repetidas.html#cb803-1" tabindex="-1"></a>autoestima <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosAutoestima2.xlsx&quot;</span>)</span>
+<span id="cb803-2"><a href="anova-de-medidas-repetidas.html#cb803-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb803-3"><a href="anova-de-medidas-repetidas.html#cb803-3" tabindex="-1"></a>autoestima <span class="sc">%&gt;%</span> <span class="fu">sample_n_by</span>(tratamento, <span class="at">size =</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 5
 ##      id tratamento    t1    t2    t3
 ##   &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -955,13 +956,13 @@ se existe uma interação significativa entre dieta e tempo no escore de autoest
 <div id="transformação-dos-dados" class="section level4 hasAnchor" number="14.3.1.2">
 <h4><span class="header-section-number">14.3.1.2</span> Transformação dos dados<a href="anova-de-medidas-repetidas.html#transformação-dos-dados" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Os dados autoestima estão no formato amplo e as colunas <code>t1</code>, <code>t2</code> e <code>t3</code> devem ser reunidas, em uma única variável denominada <code>tempo</code>, transformando o formato amplo em longo, usando a função <code>pivot_longer()</code> do pacote <code>tidyr</code>. A seguir, converter em fator esta nova variável <code>tempo</code> e a variável identificadora <code>id</code>:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="anova-de-medidas-repetidas.html#cb25-1" tabindex="-1"></a> autoestimaL <span class="ot">&lt;-</span> autoestima <span class="sc">%&gt;%</span> </span>
-<span id="cb25-2"><a href="anova-de-medidas-repetidas.html#cb25-2" tabindex="-1"></a>   tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(t1, t2, t3),</span>
-<span id="cb25-3"><a href="anova-de-medidas-repetidas.html#cb25-3" tabindex="-1"></a>                       <span class="at">names_to =</span> <span class="st">&quot;tempo&quot;</span>,</span>
-<span id="cb25-4"><a href="anova-de-medidas-repetidas.html#cb25-4" tabindex="-1"></a>                       <span class="at">values_to =</span> <span class="st">&quot;escores&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb25-5"><a href="anova-de-medidas-repetidas.html#cb25-5" tabindex="-1"></a>   <span class="fu">convert_as_factor</span>(id, tratamento, tempo)</span></code></pre></div>
+<div class="sourceCode" id="cb805"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb805-1"><a href="anova-de-medidas-repetidas.html#cb805-1" tabindex="-1"></a> autoestimaL <span class="ot">&lt;-</span> autoestima <span class="sc">%&gt;%</span> </span>
+<span id="cb805-2"><a href="anova-de-medidas-repetidas.html#cb805-2" tabindex="-1"></a>   tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(t1, t2, t3),</span>
+<span id="cb805-3"><a href="anova-de-medidas-repetidas.html#cb805-3" tabindex="-1"></a>                       <span class="at">names_to =</span> <span class="st">&quot;tempo&quot;</span>,</span>
+<span id="cb805-4"><a href="anova-de-medidas-repetidas.html#cb805-4" tabindex="-1"></a>                       <span class="at">values_to =</span> <span class="st">&quot;escores&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb805-5"><a href="anova-de-medidas-repetidas.html#cb805-5" tabindex="-1"></a>   <span class="fu">convert_as_factor</span>(id, tratamento, tempo)</span></code></pre></div>
 <p>Explorar o novo conjunto de dados no formato longo:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="anova-de-medidas-repetidas.html#cb26-1" tabindex="-1"></a>autoestimaL <span class="sc">%&gt;%</span> <span class="fu">sample_n_by</span>(tratamento, tempo, <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb806"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb806-1"><a href="anova-de-medidas-repetidas.html#cb806-1" tabindex="-1"></a>autoestimaL <span class="sc">%&gt;%</span> <span class="fu">sample_n_by</span>(tratamento, tempo, <span class="at">size =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 4
 ##   id    tratamento tempo escores
 ##   &lt;fct&gt; &lt;fct&gt;      &lt;fct&gt;   &lt;dbl&gt;
@@ -977,9 +978,9 @@ se existe uma interação significativa entre dieta e tempo no escore de autoest
 <div id="sumarização-dos-dados-1" class="section level4 hasAnchor" number="14.3.1.3">
 <h4><span class="header-section-number">14.3.1.3</span> Sumarização dos dados<a href="anova-de-medidas-repetidas.html#sumarização-dos-dados-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Os dados serão por <code>tratamento</code> e <code>tempo</code> e, em seguida, serão calculadas algumas estatísticas resumidas da variável de <code>escore</code>: média e sd (desvio padrão).</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="anova-de-medidas-repetidas.html#cb28-1" tabindex="-1"></a>autoestimaL <span class="sc">%&gt;%</span></span>
-<span id="cb28-2"><a href="anova-de-medidas-repetidas.html#cb28-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(tratamento, tempo) <span class="sc">%&gt;%</span></span>
-<span id="cb28-3"><a href="anova-de-medidas-repetidas.html#cb28-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">get_summary_stats</span>(escores, <span class="at">type =</span> <span class="st">&quot;mean_sd&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb808"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb808-1"><a href="anova-de-medidas-repetidas.html#cb808-1" tabindex="-1"></a>autoestimaL <span class="sc">%&gt;%</span></span>
+<span id="cb808-2"><a href="anova-de-medidas-repetidas.html#cb808-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(tratamento, tempo) <span class="sc">%&gt;%</span></span>
+<span id="cb808-3"><a href="anova-de-medidas-repetidas.html#cb808-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">get_summary_stats</span>(escores, <span class="at">type =</span> <span class="st">&quot;mean_sd&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 6
 ##   tratamento tempo variable     n  mean    sd
 ##   &lt;fct&gt;      &lt;fct&gt; &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -993,18 +994,18 @@ se existe uma interação significativa entre dieta e tempo no escore de autoest
 <div id="visualização-dos-dados-2" class="section level4 hasAnchor" number="14.3.1.4">
 <h4><span class="header-section-number">14.3.1.4</span> Visualização dos dados<a href="anova-de-medidas-repetidas.html#visualização-dos-dados-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Serão criados boxplots (Figura <a href="anova-de-medidas-repetidas.html#fig:bxpauto1">14.5</a>) do escore coloridos pelos grupos de tratamento, com cores da paleta do NEJM, usando o pacote <code>ggsci</code> e a função <code>scale_fill_nejm()</code>:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="anova-de-medidas-repetidas.html#cb30-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span> (autoestimaL,</span>
-<span id="cb30-2"><a href="anova-de-medidas-repetidas.html#cb30-2" tabindex="-1"></a>                   <span class="at">bxp.errorbar =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb30-3"><a href="anova-de-medidas-repetidas.html#cb30-3" tabindex="-1"></a>                   <span class="at">bxp.errorbar.width =</span> <span class="fl">0.1</span>, </span>
-<span id="cb30-4"><a href="anova-de-medidas-repetidas.html#cb30-4" tabindex="-1"></a>                   <span class="at">x =</span> <span class="st">&quot;tempo&quot;</span>, </span>
-<span id="cb30-5"><a href="anova-de-medidas-repetidas.html#cb30-5" tabindex="-1"></a>                   <span class="at">y =</span> <span class="st">&quot;escores&quot;</span>, </span>
-<span id="cb30-6"><a href="anova-de-medidas-repetidas.html#cb30-6" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,</span>
-<span id="cb30-7"><a href="anova-de-medidas-repetidas.html#cb30-7" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">&quot;tratamento&quot;</span>,</span>
-<span id="cb30-8"><a href="anova-de-medidas-repetidas.html#cb30-8" tabindex="-1"></a>                   <span class="at">ylab =</span> <span class="st">&quot;Escore de Autoestima&quot;</span>,</span>
-<span id="cb30-9"><a href="anova-de-medidas-repetidas.html#cb30-9" tabindex="-1"></a>                   <span class="at">xlab =</span> <span class="st">&quot;Tempo&quot;</span>,</span>
-<span id="cb30-10"><a href="anova-de-medidas-repetidas.html#cb30-10" tabindex="-1"></a>                   <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>())<span class="sc">+</span></span>
-<span id="cb30-11"><a href="anova-de-medidas-repetidas.html#cb30-11" tabindex="-1"></a>  <span class="fu">scale_fill_nejm</span>() <span class="sc">+</span></span>
-<span id="cb30-12"><a href="anova-de-medidas-repetidas.html#cb30-12" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">12</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb810"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb810-1"><a href="anova-de-medidas-repetidas.html#cb810-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span> (autoestimaL,</span>
+<span id="cb810-2"><a href="anova-de-medidas-repetidas.html#cb810-2" tabindex="-1"></a>                   <span class="at">bxp.errorbar =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb810-3"><a href="anova-de-medidas-repetidas.html#cb810-3" tabindex="-1"></a>                   <span class="at">bxp.errorbar.width =</span> <span class="fl">0.1</span>, </span>
+<span id="cb810-4"><a href="anova-de-medidas-repetidas.html#cb810-4" tabindex="-1"></a>                   <span class="at">x =</span> <span class="st">&quot;tempo&quot;</span>, </span>
+<span id="cb810-5"><a href="anova-de-medidas-repetidas.html#cb810-5" tabindex="-1"></a>                   <span class="at">y =</span> <span class="st">&quot;escores&quot;</span>, </span>
+<span id="cb810-6"><a href="anova-de-medidas-repetidas.html#cb810-6" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb810-7"><a href="anova-de-medidas-repetidas.html#cb810-7" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">&quot;tratamento&quot;</span>,</span>
+<span id="cb810-8"><a href="anova-de-medidas-repetidas.html#cb810-8" tabindex="-1"></a>                   <span class="at">ylab =</span> <span class="st">&quot;Escore de Autoestima&quot;</span>,</span>
+<span id="cb810-9"><a href="anova-de-medidas-repetidas.html#cb810-9" tabindex="-1"></a>                   <span class="at">xlab =</span> <span class="st">&quot;Tempo&quot;</span>,</span>
+<span id="cb810-10"><a href="anova-de-medidas-repetidas.html#cb810-10" tabindex="-1"></a>                   <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>())<span class="sc">+</span></span>
+<span id="cb810-11"><a href="anova-de-medidas-repetidas.html#cb810-11" tabindex="-1"></a>  <span class="fu">scale_fill_nejm</span>() <span class="sc">+</span></span>
+<span id="cb810-12"><a href="anova-de-medidas-repetidas.html#cb810-12" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">12</span>)) </span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:bxpauto1"></span>
 <img src="bookdownproj_files/figure-html/bxpauto1-1.png" alt="Impacto de uma dieta específica na autoestima." width="80%" height="80%" />
 <p class="caption">
@@ -1019,9 +1020,9 @@ Figura14.5: Impacto de uma dieta específica na autoestima.
 <div id="identificação-dos-outliers" class="section level4 hasAnchor" number="14.3.2.1">
 <h4><span class="header-section-number">14.3.2.1</span> Identificação dos <em>outliers</em><a href="anova-de-medidas-repetidas.html#identificação-dos-outliers" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A observação dos boxplots mostra que não existem valores atípicos. Estes <em>outliers</em> serão analisados, usando função <code>identify_outliers()</code> do pacote <code>rstatix</code>.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="anova-de-medidas-repetidas.html#cb31-1" tabindex="-1"></a>autoestimaL <span class="sc">%&gt;%</span></span>
-<span id="cb31-2"><a href="anova-de-medidas-repetidas.html#cb31-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(tratamento, tempo) <span class="sc">%&gt;%</span></span>
-<span id="cb31-3"><a href="anova-de-medidas-repetidas.html#cb31-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">identify_outliers</span>(escores)</span></code></pre></div>
+<div class="sourceCode" id="cb811"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb811-1"><a href="anova-de-medidas-repetidas.html#cb811-1" tabindex="-1"></a>autoestimaL <span class="sc">%&gt;%</span></span>
+<span id="cb811-2"><a href="anova-de-medidas-repetidas.html#cb811-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(tratamento, tempo) <span class="sc">%&gt;%</span></span>
+<span id="cb811-3"><a href="anova-de-medidas-repetidas.html#cb811-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">identify_outliers</span>(escores)</span></code></pre></div>
 <pre><code>## [1] tratamento tempo      id         escores    is.outlier is.extreme
 ## &lt;0 linhas&gt; (ou row.names de comprimento 0)</code></pre>
 <p>A saída mostra a ausência de valores atípicos, com já se havia observado nos boxplots (Figura <a href="anova-de-medidas-repetidas.html#fig:bxpauto1">14.5</a>).</p>
@@ -1029,9 +1030,9 @@ Figura14.5: Impacto de uma dieta específica na autoestima.
 <div id="avaliação-da-normalidade-1" class="section level4 hasAnchor" number="14.3.2.2">
 <h4><span class="header-section-number">14.3.2.2</span> Avaliação da normalidade<a href="anova-de-medidas-repetidas.html#avaliação-da-normalidade-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Para testar a hipótese de normalidade dos dados, será utilizado o <code>teste de Shapiro-Wilk</code> através da função <code>shapiro_test ()</code>, do pacote <code>rstatix</code> e a função <code>group_by ()</code>, incluída no pacote <code>dplyr</code> ou <code>rstatix</code>, junto com o operador <code>pipe</code> (%&gt;%):</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="anova-de-medidas-repetidas.html#cb33-1" tabindex="-1"></a>autoestimaL <span class="sc">%&gt;%</span> </span>
-<span id="cb33-2"><a href="anova-de-medidas-repetidas.html#cb33-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span> (tratamento, tempo) <span class="sc">%&gt;%</span> </span>
-<span id="cb33-3"><a href="anova-de-medidas-repetidas.html#cb33-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">shapiro_test</span>(escores)</span></code></pre></div>
+<div class="sourceCode" id="cb813"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb813-1"><a href="anova-de-medidas-repetidas.html#cb813-1" tabindex="-1"></a>autoestimaL <span class="sc">%&gt;%</span> </span>
+<span id="cb813-2"><a href="anova-de-medidas-repetidas.html#cb813-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span> (tratamento, tempo) <span class="sc">%&gt;%</span> </span>
+<span id="cb813-3"><a href="anova-de-medidas-repetidas.html#cb813-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">shapiro_test</span>(escores)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 5
 ##   tratamento tempo variable statistic      p
 ##   &lt;fct&gt;      &lt;fct&gt; &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;
@@ -1043,14 +1044,14 @@ Figura14.5: Impacto de uma dieta específica na autoestima.
 ## 6 placebo    t3    escores      0.887 0.107</code></pre>
 <p>A saída do teste mostra que os escores de autoestima estão normalmente distribuídos em cada momento do tempo, havendo uma exceção: o grupo placebo, no momento <code>t1</code>. Fato que pode ser constatado pela assimetria do boxplot nesse momento do tempo (Figura <a href="anova-de-medidas-repetidas.html#fig:bxpauto1">14.5</a>).</p>
 <p>É possível construir um gráfico QQ (Figura <a href="anova-de-medidas-repetidas.html#fig:autoQQ">14.6</a>) para cada um dos momentos, usando a função <code>ggqqplot ()</code> do pacote <code>ggpubr</code>, consulte a vinheta do pacote para maiores detalhes. Foi utilizado também a função <code>facet_grid()</code>, do <code>ggplot2</code>, que divide em painéis, organizando-os como uma grade, de acordo com o momento ( <code>t1</code>, <code>t2</code> e <code>t3</code>).</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="anova-de-medidas-repetidas.html#cb35-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggqqplot</span>(<span class="at">data =</span> autoestimaL,</span>
-<span id="cb35-2"><a href="anova-de-medidas-repetidas.html#cb35-2" tabindex="-1"></a>         <span class="at">x =</span> <span class="st">&quot;escores&quot;</span>, </span>
-<span id="cb35-3"><a href="anova-de-medidas-repetidas.html#cb35-3" tabindex="-1"></a>         <span class="at">color =</span> <span class="st">&quot;tempo&quot;</span>, </span>
-<span id="cb35-4"><a href="anova-de-medidas-repetidas.html#cb35-4" tabindex="-1"></a>         <span class="at">palette =</span> <span class="fu">get_palette</span>(<span class="st">&quot;Dark2&quot;</span>, <span class="dv">3</span>),</span>
-<span id="cb35-5"><a href="anova-de-medidas-repetidas.html#cb35-5" tabindex="-1"></a>         <span class="at">legend =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb35-6"><a href="anova-de-medidas-repetidas.html#cb35-6" tabindex="-1"></a>         <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>()</span>
-<span id="cb35-7"><a href="anova-de-medidas-repetidas.html#cb35-7" tabindex="-1"></a>         ) <span class="sc">+</span> </span>
-<span id="cb35-8"><a href="anova-de-medidas-repetidas.html#cb35-8" tabindex="-1"></a>  <span class="fu">facet_grid</span>(tempo<span class="sc">~</span>tratamento)</span></code></pre></div>
+<div class="sourceCode" id="cb815"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb815-1"><a href="anova-de-medidas-repetidas.html#cb815-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggqqplot</span>(<span class="at">data =</span> autoestimaL,</span>
+<span id="cb815-2"><a href="anova-de-medidas-repetidas.html#cb815-2" tabindex="-1"></a>         <span class="at">x =</span> <span class="st">&quot;escores&quot;</span>, </span>
+<span id="cb815-3"><a href="anova-de-medidas-repetidas.html#cb815-3" tabindex="-1"></a>         <span class="at">color =</span> <span class="st">&quot;tempo&quot;</span>, </span>
+<span id="cb815-4"><a href="anova-de-medidas-repetidas.html#cb815-4" tabindex="-1"></a>         <span class="at">palette =</span> <span class="fu">get_palette</span>(<span class="st">&quot;Dark2&quot;</span>, <span class="dv">3</span>),</span>
+<span id="cb815-5"><a href="anova-de-medidas-repetidas.html#cb815-5" tabindex="-1"></a>         <span class="at">legend =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb815-6"><a href="anova-de-medidas-repetidas.html#cb815-6" tabindex="-1"></a>         <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>()</span>
+<span id="cb815-7"><a href="anova-de-medidas-repetidas.html#cb815-7" tabindex="-1"></a>         ) <span class="sc">+</span> </span>
+<span id="cb815-8"><a href="anova-de-medidas-repetidas.html#cb815-8" tabindex="-1"></a>  <span class="fu">facet_grid</span>(tempo<span class="sc">~</span>tratamento)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:autoQQ"></span>
 <img src="bookdownproj_files/figure-html/autoQQ-1.png" alt="Gráfico QQ para verificar a normalidade" width="70%" height="70%" />
 <p class="caption">
@@ -1067,15 +1068,15 @@ Figura14.6: Gráfico QQ para verificar a normalidade
 <div id="cálculo-da-estatística-do-teste-1" class="section level3 hasAnchor" number="14.3.3">
 <h3><span class="header-section-number">14.3.3</span> Cálculo da estatística do teste<a href="anova-de-medidas-repetidas.html#cálculo-da-estatística-do-teste-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>É realizado da mesma maneira do que a ANOVA de medidas repetidas de uma via com a função <code>anova_test()</code> do pacote <code>rstatix</code>:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="anova-de-medidas-repetidas.html#cb36-1" tabindex="-1"></a>mod.anova2 <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">anova_test</span>(<span class="at">data =</span> autoestimaL, </span>
-<span id="cb36-2"><a href="anova-de-medidas-repetidas.html#cb36-2" tabindex="-1"></a>                                   <span class="at">dv =</span> escores,</span>
-<span id="cb36-3"><a href="anova-de-medidas-repetidas.html#cb36-3" tabindex="-1"></a>                                   <span class="at">wid =</span> id,</span>
-<span id="cb36-4"><a href="anova-de-medidas-repetidas.html#cb36-4" tabindex="-1"></a>                                   <span class="at">within =</span> tempo, </span>
-<span id="cb36-5"><a href="anova-de-medidas-repetidas.html#cb36-5" tabindex="-1"></a>                                   <span class="at">between =</span> tratamento,</span>
-<span id="cb36-6"><a href="anova-de-medidas-repetidas.html#cb36-6" tabindex="-1"></a>                                   <span class="at">type =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb816"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb816-1"><a href="anova-de-medidas-repetidas.html#cb816-1" tabindex="-1"></a>mod.anova2 <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">anova_test</span>(<span class="at">data =</span> autoestimaL, </span>
+<span id="cb816-2"><a href="anova-de-medidas-repetidas.html#cb816-2" tabindex="-1"></a>                                   <span class="at">dv =</span> escores,</span>
+<span id="cb816-3"><a href="anova-de-medidas-repetidas.html#cb816-3" tabindex="-1"></a>                                   <span class="at">wid =</span> id,</span>
+<span id="cb816-4"><a href="anova-de-medidas-repetidas.html#cb816-4" tabindex="-1"></a>                                   <span class="at">within =</span> tempo, </span>
+<span id="cb816-5"><a href="anova-de-medidas-repetidas.html#cb816-5" tabindex="-1"></a>                                   <span class="at">between =</span> tratamento,</span>
+<span id="cb816-6"><a href="anova-de-medidas-repetidas.html#cb816-6" tabindex="-1"></a>                                   <span class="at">type =</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## Warning: The &#39;wid&#39; column contains duplicate ids across between-subjects
 ## variables. Automatic unique id will be created</code></pre>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="anova-de-medidas-repetidas.html#cb38-1" tabindex="-1"></a>mod.anova2</span></code></pre></div>
+<div class="sourceCode" id="cb818"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb818-1"><a href="anova-de-medidas-repetidas.html#cb818-1" tabindex="-1"></a>mod.anova2</span></code></pre></div>
 <pre><code>## ANOVA Table (type III tests)
 ## 
 ## $ANOVA
@@ -1098,7 +1099,7 @@ Figura14.6: Gráfico QQ para verificar a normalidade
 ## 2 4.72e-07         *</code></pre>
 <p>Analisando o teste de Mauchly para a esfericidade, verifica-se que houve violação da esfericidade, tanto para o efeito do <code>tempo</code> (<em>W</em> = 0,582, <em>P</em> = 0,003) como para a interação <code>tratamento:tempo</code> (<em>W</em> = 0,582, <em>P</em> = 0,003). Esses resultados indicam a necessidade de correção para ajustar os graus de liberdade. A correção de Greenhouse-Geisser é utilizada, pois é o recomendado quando <em>W</em> &lt; 0,75 (veja Seção <a href="anova-de-medidas-repetidas.html#sec-esfero">14.2.3.3</a>). O modelo ANOVA, gerado pela função <code>anova_test()</code>, entregou a tabela da ANOVA sem correção, o teste de Mauchly e a correção dos graus de liberdade da esfericidade (Greenhouse-Geisser (GGe) e Huynh-Feldt (HFe)).
 A tabela da ANOVA corrigida pode, então, ser obtida, usando a função <code>get_anova_table ()</code>, do pacote <code>rstatix</code>, com o <code>mod.anova2</code> e <code>correction = “GG”</code> como argumentos:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="anova-de-medidas-repetidas.html#cb40-1" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">get_anova_table</span>(mod.anova2, <span class="at">correction =</span> <span class="st">&quot;GG&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb820"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb820-1"><a href="anova-de-medidas-repetidas.html#cb820-1" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">get_anova_table</span>(mod.anova2, <span class="at">correction =</span> <span class="st">&quot;GG&quot;</span>)</span></code></pre></div>
 <pre><code>## ANOVA Table (type III tests)
 ## 
 ##             Effect  DFn   DFd      F        p p&lt;.05   ges
@@ -1121,12 +1122,12 @@ A tabela da ANOVA corrigida pode, então, ser obtida, usando a função <code>ge
 <p><strong>Efeito do tratamento</strong></p>
 <p>No exemplo, será analisado o efeito do tratamento no escore de auto-estima em cada momento no tempo. Note que como o tratamento tem apenas dois níveis (dieta e placebo), o teste de ANOVA e teste <em>t</em> pareado fornecem os mesmos resultados.</p>
 <p><u>Efeito do tratamento em cada ponto de tempo</u></p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="anova-de-medidas-repetidas.html#cb42-1" tabindex="-1"></a>tratamento <span class="ot">&lt;-</span> autoestimaL <span class="sc">%&gt;%</span></span>
-<span id="cb42-2"><a href="anova-de-medidas-repetidas.html#cb42-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(tempo) <span class="sc">%&gt;%</span></span>
-<span id="cb42-3"><a href="anova-de-medidas-repetidas.html#cb42-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">anova_test</span>(<span class="at">dv =</span> escores, <span class="at">wid =</span> id, <span class="at">within =</span> tratamento) <span class="sc">%&gt;%</span></span>
-<span id="cb42-4"><a href="anova-de-medidas-repetidas.html#cb42-4" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">get_anova_table</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb42-5"><a href="anova-de-medidas-repetidas.html#cb42-5" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">adjust_pvalue</span>(<span class="at">method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span>
-<span id="cb42-6"><a href="anova-de-medidas-repetidas.html#cb42-6" tabindex="-1"></a>tratamento</span></code></pre></div>
+<div class="sourceCode" id="cb822"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb822-1"><a href="anova-de-medidas-repetidas.html#cb822-1" tabindex="-1"></a>tratamento <span class="ot">&lt;-</span> autoestimaL <span class="sc">%&gt;%</span></span>
+<span id="cb822-2"><a href="anova-de-medidas-repetidas.html#cb822-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(tempo) <span class="sc">%&gt;%</span></span>
+<span id="cb822-3"><a href="anova-de-medidas-repetidas.html#cb822-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">anova_test</span>(<span class="at">dv =</span> escores, <span class="at">wid =</span> id, <span class="at">within =</span> tratamento) <span class="sc">%&gt;%</span></span>
+<span id="cb822-4"><a href="anova-de-medidas-repetidas.html#cb822-4" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">get_anova_table</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb822-5"><a href="anova-de-medidas-repetidas.html#cb822-5" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">adjust_pvalue</span>(<span class="at">method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span>
+<span id="cb822-6"><a href="anova-de-medidas-repetidas.html#cb822-6" tabindex="-1"></a>tratamento</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 9
 ##   tempo Effect       DFn   DFd      F       p `p&lt;.05`      ges   p.adj
 ##   &lt;fct&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;   &lt;dbl&gt;
@@ -1134,12 +1135,12 @@ A tabela da ANOVA corrigida pode, então, ser obtida, usando a função <code>ge
 ## 2 t2    tratamento     1    11  9.03  0.012   &quot;*&quot;     0.052    0.036  
 ## 3 t3    tratamento     1    11 30.9   0.00017 &quot;*&quot;     0.199    0.00051</code></pre>
 <p><u>Comparações pareadas entre os grupos de tratamentos</u></p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="anova-de-medidas-repetidas.html#cb44-1" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> autoestimaL <span class="sc">%&gt;%</span></span>
-<span id="cb44-2"><a href="anova-de-medidas-repetidas.html#cb44-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(tempo) <span class="sc">%&gt;%</span></span>
-<span id="cb44-3"><a href="anova-de-medidas-repetidas.html#cb44-3" tabindex="-1"></a>  <span class="fu">pairwise_t_test</span>(escores <span class="sc">~</span> tratamento, </span>
-<span id="cb44-4"><a href="anova-de-medidas-repetidas.html#cb44-4" tabindex="-1"></a>                  <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb44-5"><a href="anova-de-medidas-repetidas.html#cb44-5" tabindex="-1"></a>                  <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span>
-<span id="cb44-6"><a href="anova-de-medidas-repetidas.html#cb44-6" tabindex="-1"></a>pwc</span></code></pre></div>
+<div class="sourceCode" id="cb824"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb824-1"><a href="anova-de-medidas-repetidas.html#cb824-1" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> autoestimaL <span class="sc">%&gt;%</span></span>
+<span id="cb824-2"><a href="anova-de-medidas-repetidas.html#cb824-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(tempo) <span class="sc">%&gt;%</span></span>
+<span id="cb824-3"><a href="anova-de-medidas-repetidas.html#cb824-3" tabindex="-1"></a>  <span class="fu">pairwise_t_test</span>(escores <span class="sc">~</span> tratamento, </span>
+<span id="cb824-4"><a href="anova-de-medidas-repetidas.html#cb824-4" tabindex="-1"></a>                  <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb824-5"><a href="anova-de-medidas-repetidas.html#cb824-5" tabindex="-1"></a>                  <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span>
+<span id="cb824-6"><a href="anova-de-medidas-repetidas.html#cb824-6" tabindex="-1"></a>pwc</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 11
 ##   tempo .y.     group1 group2     n1    n2 statistic    df       p   p.adj
 ## * &lt;fct&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;   &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
@@ -1152,23 +1153,23 @@ A tabela da ANOVA corrigida pode, então, ser obtida, usando a função <code>ge
 <p><strong>Efeito do tempo</strong></p>
 <p>Observe que também é possível realizar a mesma análise para a variável <code>tempo</code> em cada nível de tratamento. Esta análise, necessariamente, não precisa ser feita!</p>
 <p><u>Efeito do tempo em cada nível de tratamento</u></p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="anova-de-medidas-repetidas.html#cb46-1" tabindex="-1"></a>tempo <span class="ot">&lt;-</span> autoestimaL <span class="sc">%&gt;%</span></span>
-<span id="cb46-2"><a href="anova-de-medidas-repetidas.html#cb46-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(tratamento) <span class="sc">%&gt;%</span></span>
-<span id="cb46-3"><a href="anova-de-medidas-repetidas.html#cb46-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">anova_test</span>(<span class="at">dv =</span> escores, <span class="at">wid =</span> id, <span class="at">within =</span> tempo) <span class="sc">%&gt;%</span></span>
-<span id="cb46-4"><a href="anova-de-medidas-repetidas.html#cb46-4" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">get_anova_table</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb46-5"><a href="anova-de-medidas-repetidas.html#cb46-5" tabindex="-1"></a>  <span class="fu">adjust_pvalue</span>(<span class="at">method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span>
-<span id="cb46-6"><a href="anova-de-medidas-repetidas.html#cb46-6" tabindex="-1"></a>tempo</span></code></pre></div>
+<div class="sourceCode" id="cb826"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb826-1"><a href="anova-de-medidas-repetidas.html#cb826-1" tabindex="-1"></a>tempo <span class="ot">&lt;-</span> autoestimaL <span class="sc">%&gt;%</span></span>
+<span id="cb826-2"><a href="anova-de-medidas-repetidas.html#cb826-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(tratamento) <span class="sc">%&gt;%</span></span>
+<span id="cb826-3"><a href="anova-de-medidas-repetidas.html#cb826-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">anova_test</span>(<span class="at">dv =</span> escores, <span class="at">wid =</span> id, <span class="at">within =</span> tempo) <span class="sc">%&gt;%</span></span>
+<span id="cb826-4"><a href="anova-de-medidas-repetidas.html#cb826-4" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">get_anova_table</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb826-5"><a href="anova-de-medidas-repetidas.html#cb826-5" tabindex="-1"></a>  <span class="fu">adjust_pvalue</span>(<span class="at">method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span>
+<span id="cb826-6"><a href="anova-de-medidas-repetidas.html#cb826-6" tabindex="-1"></a>tempo</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 9
 ##   tratamento Effect   DFn   DFd      F          p `p&lt;.05`      ges     p.adj
 ##   &lt;fct&gt;      &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;     &lt;dbl&gt;
 ## 1 dieta      tempo      2    22  0.078 0.925      &quot;&quot;      0.000197 1        
 ## 2 placebo    tempo      2    22 39.7   0.00000005 &quot;*&quot;     0.145    0.0000001</code></pre>
 <p><u>Comparações pareadas entre pontos no tempo</u></p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="anova-de-medidas-repetidas.html#cb48-1" tabindex="-1"></a>pwc2 <span class="ot">&lt;-</span> autoestimaL <span class="sc">%&gt;%</span></span>
-<span id="cb48-2"><a href="anova-de-medidas-repetidas.html#cb48-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(tratamento) <span class="sc">%&gt;%</span></span>
-<span id="cb48-3"><a href="anova-de-medidas-repetidas.html#cb48-3" tabindex="-1"></a>  <span class="fu">pairwise_t_test</span>(escores <span class="sc">~</span> tempo, <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb48-4"><a href="anova-de-medidas-repetidas.html#cb48-4" tabindex="-1"></a>                  <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span>
-<span id="cb48-5"><a href="anova-de-medidas-repetidas.html#cb48-5" tabindex="-1"></a>pwc2</span></code></pre></div>
+<div class="sourceCode" id="cb828"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb828-1"><a href="anova-de-medidas-repetidas.html#cb828-1" tabindex="-1"></a>pwc2 <span class="ot">&lt;-</span> autoestimaL <span class="sc">%&gt;%</span></span>
+<span id="cb828-2"><a href="anova-de-medidas-repetidas.html#cb828-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(tratamento) <span class="sc">%&gt;%</span></span>
+<span id="cb828-3"><a href="anova-de-medidas-repetidas.html#cb828-3" tabindex="-1"></a>  <span class="fu">pairwise_t_test</span>(escores <span class="sc">~</span> tempo, <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb828-4"><a href="anova-de-medidas-repetidas.html#cb828-4" tabindex="-1"></a>                  <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>)</span>
+<span id="cb828-5"><a href="anova-de-medidas-repetidas.html#cb828-5" tabindex="-1"></a>pwc2</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 11
 ##   tratamento .y.     group1 group2    n1    n2 statistic    df         p   p.adj
 ## * &lt;fct&gt;      &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
@@ -1199,28 +1200,28 @@ A tabela da ANOVA corrigida pode, então, ser obtida, usando a função <code>ge
 <h4><span class="header-section-number">14.3.5.1</span> Visualização dos resultados<a href="anova-de-medidas-repetidas.html#visualização-dos-resultados" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Os resultados podem ser visualizados através de gráficos tipo boxplots (Figura <a href="anova-de-medidas-repetidas.html#fig:bxpauto2">14.7</a>) ou por um gráfico de linha (Figura <a href="anova-de-medidas-repetidas.html#fig:lineauto2">14.8</a>). Os gráficos foram construídos , usando as funções <code>ggboxplot()</code> e <code>ggline()</code> do pacote <code>ggpubr</code>. Os boxplots receberam um preenchimento em tons de cinza, bem interessante em publicações científicas; o gráfico de linha, usando o pacote <code>ggsci</code>, recebeu as cores da paleta do periódico <em>Lancet</em>.</p>
 <p><u>Boxplots</u></p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="anova-de-medidas-repetidas.html#cb50-1" tabindex="-1"></a>bxp <span class="ot">&lt;-</span> ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span> (autoestimaL,</span>
-<span id="cb50-2"><a href="anova-de-medidas-repetidas.html#cb50-2" tabindex="-1"></a>                          <span class="at">bxp.errorbar =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb50-3"><a href="anova-de-medidas-repetidas.html#cb50-3" tabindex="-1"></a>                          <span class="at">bxp.errorbar.width =</span> <span class="fl">0.1</span>, </span>
-<span id="cb50-4"><a href="anova-de-medidas-repetidas.html#cb50-4" tabindex="-1"></a>                          <span class="at">x =</span> <span class="st">&quot;tempo&quot;</span>, </span>
-<span id="cb50-5"><a href="anova-de-medidas-repetidas.html#cb50-5" tabindex="-1"></a>                          <span class="at">y =</span> <span class="st">&quot;escores&quot;</span>, </span>
-<span id="cb50-6"><a href="anova-de-medidas-repetidas.html#cb50-6" tabindex="-1"></a>                          <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,</span>
-<span id="cb50-7"><a href="anova-de-medidas-repetidas.html#cb50-7" tabindex="-1"></a>                          <span class="at">fill =</span> <span class="st">&quot;tratamento&quot;</span>,</span>
-<span id="cb50-8"><a href="anova-de-medidas-repetidas.html#cb50-8" tabindex="-1"></a>                          <span class="at">ylab =</span> <span class="st">&quot;Escore de Autoestima&quot;</span>,</span>
-<span id="cb50-9"><a href="anova-de-medidas-repetidas.html#cb50-9" tabindex="-1"></a>                          <span class="at">xlab =</span> <span class="st">&quot;Tempo&quot;</span>)<span class="sc">+</span></span>
-<span id="cb50-10"><a href="anova-de-medidas-repetidas.html#cb50-10" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>(<span class="at">start=</span><span class="fl">0.95</span>, <span class="at">end=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb50-11"><a href="anova-de-medidas-repetidas.html#cb50-11" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;right&quot;</span>) <span class="sc">+</span></span>
-<span id="cb50-12"><a href="anova-de-medidas-repetidas.html#cb50-12" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">12</span>)) </span>
-<span id="cb50-13"><a href="anova-de-medidas-repetidas.html#cb50-13" tabindex="-1"></a></span>
-<span id="cb50-14"><a href="anova-de-medidas-repetidas.html#cb50-14" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> pwc <span class="sc">%&gt;%</span> <span class="fu">add_xy_position</span>(<span class="at">x =</span> <span class="st">&quot;tempo&quot;</span>)</span>
-<span id="cb50-15"><a href="anova-de-medidas-repetidas.html#cb50-15" tabindex="-1"></a>bxp <span class="sc">+</span> </span>
-<span id="cb50-16"><a href="anova-de-medidas-repetidas.html#cb50-16" tabindex="-1"></a>  <span class="fu">stat_pvalue_manual</span>(pwc, </span>
-<span id="cb50-17"><a href="anova-de-medidas-repetidas.html#cb50-17" tabindex="-1"></a>                     <span class="at">label =</span> <span class="st">&quot;p.adj&quot;</span>,</span>
-<span id="cb50-18"><a href="anova-de-medidas-repetidas.html#cb50-18" tabindex="-1"></a>                     <span class="at">tip.length =</span> <span class="fl">0.01</span>, </span>
-<span id="cb50-19"><a href="anova-de-medidas-repetidas.html#cb50-19" tabindex="-1"></a>                     <span class="at">hide.ns =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb50-20"><a href="anova-de-medidas-repetidas.html#cb50-20" tabindex="-1"></a>                     <span class="at">y.position =</span> <span class="fu">c</span>(<span class="dv">32</span>, <span class="dv">32</span>, <span class="dv">32</span>)) <span class="sc">+</span></span>
-<span id="cb50-21"><a href="anova-de-medidas-repetidas.html#cb50-21" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="fu">get_test_label</span>(mod.anova2, <span class="at">detailed =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb50-22"><a href="anova-de-medidas-repetidas.html#cb50-22" tabindex="-1"></a>       <span class="at">caption =</span> <span class="fu">get_pwc_label</span>(pwc))</span></code></pre></div>
+<div class="sourceCode" id="cb830"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb830-1"><a href="anova-de-medidas-repetidas.html#cb830-1" tabindex="-1"></a>bxp <span class="ot">&lt;-</span> ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span> (autoestimaL,</span>
+<span id="cb830-2"><a href="anova-de-medidas-repetidas.html#cb830-2" tabindex="-1"></a>                          <span class="at">bxp.errorbar =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb830-3"><a href="anova-de-medidas-repetidas.html#cb830-3" tabindex="-1"></a>                          <span class="at">bxp.errorbar.width =</span> <span class="fl">0.1</span>, </span>
+<span id="cb830-4"><a href="anova-de-medidas-repetidas.html#cb830-4" tabindex="-1"></a>                          <span class="at">x =</span> <span class="st">&quot;tempo&quot;</span>, </span>
+<span id="cb830-5"><a href="anova-de-medidas-repetidas.html#cb830-5" tabindex="-1"></a>                          <span class="at">y =</span> <span class="st">&quot;escores&quot;</span>, </span>
+<span id="cb830-6"><a href="anova-de-medidas-repetidas.html#cb830-6" tabindex="-1"></a>                          <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb830-7"><a href="anova-de-medidas-repetidas.html#cb830-7" tabindex="-1"></a>                          <span class="at">fill =</span> <span class="st">&quot;tratamento&quot;</span>,</span>
+<span id="cb830-8"><a href="anova-de-medidas-repetidas.html#cb830-8" tabindex="-1"></a>                          <span class="at">ylab =</span> <span class="st">&quot;Escore de Autoestima&quot;</span>,</span>
+<span id="cb830-9"><a href="anova-de-medidas-repetidas.html#cb830-9" tabindex="-1"></a>                          <span class="at">xlab =</span> <span class="st">&quot;Tempo&quot;</span>)<span class="sc">+</span></span>
+<span id="cb830-10"><a href="anova-de-medidas-repetidas.html#cb830-10" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>(<span class="at">start=</span><span class="fl">0.95</span>, <span class="at">end=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb830-11"><a href="anova-de-medidas-repetidas.html#cb830-11" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;right&quot;</span>) <span class="sc">+</span></span>
+<span id="cb830-12"><a href="anova-de-medidas-repetidas.html#cb830-12" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">12</span>)) </span>
+<span id="cb830-13"><a href="anova-de-medidas-repetidas.html#cb830-13" tabindex="-1"></a></span>
+<span id="cb830-14"><a href="anova-de-medidas-repetidas.html#cb830-14" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> pwc <span class="sc">%&gt;%</span> <span class="fu">add_xy_position</span>(<span class="at">x =</span> <span class="st">&quot;tempo&quot;</span>)</span>
+<span id="cb830-15"><a href="anova-de-medidas-repetidas.html#cb830-15" tabindex="-1"></a>bxp <span class="sc">+</span> </span>
+<span id="cb830-16"><a href="anova-de-medidas-repetidas.html#cb830-16" tabindex="-1"></a>  <span class="fu">stat_pvalue_manual</span>(pwc, </span>
+<span id="cb830-17"><a href="anova-de-medidas-repetidas.html#cb830-17" tabindex="-1"></a>                     <span class="at">label =</span> <span class="st">&quot;p.adj&quot;</span>,</span>
+<span id="cb830-18"><a href="anova-de-medidas-repetidas.html#cb830-18" tabindex="-1"></a>                     <span class="at">tip.length =</span> <span class="fl">0.01</span>, </span>
+<span id="cb830-19"><a href="anova-de-medidas-repetidas.html#cb830-19" tabindex="-1"></a>                     <span class="at">hide.ns =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb830-20"><a href="anova-de-medidas-repetidas.html#cb830-20" tabindex="-1"></a>                     <span class="at">y.position =</span> <span class="fu">c</span>(<span class="dv">32</span>, <span class="dv">32</span>, <span class="dv">32</span>)) <span class="sc">+</span></span>
+<span id="cb830-21"><a href="anova-de-medidas-repetidas.html#cb830-21" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="fu">get_test_label</span>(mod.anova2, <span class="at">detailed =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb830-22"><a href="anova-de-medidas-repetidas.html#cb830-22" tabindex="-1"></a>       <span class="at">caption =</span> <span class="fu">get_pwc_label</span>(pwc))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:bxpauto2"></span>
 <img src="bookdownproj_files/figure-html/bxpauto2-1.png" alt="Avaliação da autoestima no decorrer do tempo" width="70%" height="70%" />
 <p class="caption">
@@ -1228,29 +1229,29 @@ Figura14.7: Avaliação da autoestima no decorrer do tempo
 </p>
 </div>
 <p><u>Gráfico de linha</u></p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="anova-de-medidas-repetidas.html#cb51-1" tabindex="-1"></a>ggl <span class="ot">&lt;-</span> <span class="fu">ggline</span>(</span>
-<span id="cb51-2"><a href="anova-de-medidas-repetidas.html#cb51-2" tabindex="-1"></a>  autoestimaL,</span>
-<span id="cb51-3"><a href="anova-de-medidas-repetidas.html#cb51-3" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">&quot;tempo&quot;</span>,</span>
-<span id="cb51-4"><a href="anova-de-medidas-repetidas.html#cb51-4" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">&quot;escores&quot;</span>,</span>
-<span id="cb51-5"><a href="anova-de-medidas-repetidas.html#cb51-5" tabindex="-1"></a>  <span class="at">color =</span> <span class="st">&quot;tratamento&quot;</span>,</span>
-<span id="cb51-6"><a href="anova-de-medidas-repetidas.html#cb51-6" tabindex="-1"></a>  <span class="at">palette =</span> <span class="st">&quot;lancet&quot;</span>,</span>
-<span id="cb51-7"><a href="anova-de-medidas-repetidas.html#cb51-7" tabindex="-1"></a>  <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>,</span>
-<span id="cb51-8"><a href="anova-de-medidas-repetidas.html#cb51-8" tabindex="-1"></a>  <span class="at">size =</span> <span class="fl">0.7</span>,</span>
-<span id="cb51-9"><a href="anova-de-medidas-repetidas.html#cb51-9" tabindex="-1"></a>  <span class="at">shape =</span> <span class="dv">19</span>,</span>
-<span id="cb51-10"><a href="anova-de-medidas-repetidas.html#cb51-10" tabindex="-1"></a>  <span class="at">add =</span> <span class="st">&quot;mean_ci&quot;</span>,</span>
-<span id="cb51-11"><a href="anova-de-medidas-repetidas.html#cb51-11" tabindex="-1"></a>  <span class="at">error.plot =</span> <span class="st">&quot;errorbar&quot;</span>,</span>
-<span id="cb51-12"><a href="anova-de-medidas-repetidas.html#cb51-12" tabindex="-1"></a>  <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.2</span>),</span>
-<span id="cb51-13"><a href="anova-de-medidas-repetidas.html#cb51-13" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_pubr</span>()) <span class="sc">+</span></span>
-<span id="cb51-14"><a href="anova-de-medidas-repetidas.html#cb51-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;right&quot;</span>)</span>
-<span id="cb51-15"><a href="anova-de-medidas-repetidas.html#cb51-15" tabindex="-1"></a></span>
-<span id="cb51-16"><a href="anova-de-medidas-repetidas.html#cb51-16" tabindex="-1"></a>ggl <span class="sc">+</span> ggpubr<span class="sc">::</span><span class="fu">stat_pvalue_manual</span>(pwc,  </span>
-<span id="cb51-17"><a href="anova-de-medidas-repetidas.html#cb51-17" tabindex="-1"></a>                                 <span class="at">label =</span> <span class="st">&quot;p.adj&quot;</span>, </span>
-<span id="cb51-18"><a href="anova-de-medidas-repetidas.html#cb51-18" tabindex="-1"></a>                                 <span class="at">tip.length =</span> <span class="fl">0.00</span>,</span>
-<span id="cb51-19"><a href="anova-de-medidas-repetidas.html#cb51-19" tabindex="-1"></a>                                 <span class="at">y.position =</span> <span class="fu">c</span>(<span class="fl">28.5</span>, <span class="fl">28.5</span>, <span class="fl">28.5</span>)) <span class="sc">+</span></span>
-<span id="cb51-20"><a href="anova-de-medidas-repetidas.html#cb51-20" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">x =</span> <span class="st">&quot;Tempo&quot;</span>,</span>
-<span id="cb51-21"><a href="anova-de-medidas-repetidas.html#cb51-21" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&quot;Escore de autoestima&quot;</span>,</span>
-<span id="cb51-22"><a href="anova-de-medidas-repetidas.html#cb51-22" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="fu">get_test_label</span> (mod.anova2, <span class="at">detailed =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb51-23"><a href="anova-de-medidas-repetidas.html#cb51-23" tabindex="-1"></a>        <span class="at">caption =</span> <span class="fu">get_pwc_label</span>(pwc))</span></code></pre></div>
+<div class="sourceCode" id="cb831"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb831-1"><a href="anova-de-medidas-repetidas.html#cb831-1" tabindex="-1"></a>ggl <span class="ot">&lt;-</span> <span class="fu">ggline</span>(</span>
+<span id="cb831-2"><a href="anova-de-medidas-repetidas.html#cb831-2" tabindex="-1"></a>  autoestimaL,</span>
+<span id="cb831-3"><a href="anova-de-medidas-repetidas.html#cb831-3" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">&quot;tempo&quot;</span>,</span>
+<span id="cb831-4"><a href="anova-de-medidas-repetidas.html#cb831-4" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">&quot;escores&quot;</span>,</span>
+<span id="cb831-5"><a href="anova-de-medidas-repetidas.html#cb831-5" tabindex="-1"></a>  <span class="at">color =</span> <span class="st">&quot;tratamento&quot;</span>,</span>
+<span id="cb831-6"><a href="anova-de-medidas-repetidas.html#cb831-6" tabindex="-1"></a>  <span class="at">palette =</span> <span class="st">&quot;lancet&quot;</span>,</span>
+<span id="cb831-7"><a href="anova-de-medidas-repetidas.html#cb831-7" tabindex="-1"></a>  <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>,</span>
+<span id="cb831-8"><a href="anova-de-medidas-repetidas.html#cb831-8" tabindex="-1"></a>  <span class="at">size =</span> <span class="fl">0.7</span>,</span>
+<span id="cb831-9"><a href="anova-de-medidas-repetidas.html#cb831-9" tabindex="-1"></a>  <span class="at">shape =</span> <span class="dv">19</span>,</span>
+<span id="cb831-10"><a href="anova-de-medidas-repetidas.html#cb831-10" tabindex="-1"></a>  <span class="at">add =</span> <span class="st">&quot;mean_ci&quot;</span>,</span>
+<span id="cb831-11"><a href="anova-de-medidas-repetidas.html#cb831-11" tabindex="-1"></a>  <span class="at">error.plot =</span> <span class="st">&quot;errorbar&quot;</span>,</span>
+<span id="cb831-12"><a href="anova-de-medidas-repetidas.html#cb831-12" tabindex="-1"></a>  <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.2</span>),</span>
+<span id="cb831-13"><a href="anova-de-medidas-repetidas.html#cb831-13" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_pubr</span>()) <span class="sc">+</span></span>
+<span id="cb831-14"><a href="anova-de-medidas-repetidas.html#cb831-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;right&quot;</span>)</span>
+<span id="cb831-15"><a href="anova-de-medidas-repetidas.html#cb831-15" tabindex="-1"></a></span>
+<span id="cb831-16"><a href="anova-de-medidas-repetidas.html#cb831-16" tabindex="-1"></a>ggl <span class="sc">+</span> ggpubr<span class="sc">::</span><span class="fu">stat_pvalue_manual</span>(pwc,  </span>
+<span id="cb831-17"><a href="anova-de-medidas-repetidas.html#cb831-17" tabindex="-1"></a>                                 <span class="at">label =</span> <span class="st">&quot;p.adj&quot;</span>, </span>
+<span id="cb831-18"><a href="anova-de-medidas-repetidas.html#cb831-18" tabindex="-1"></a>                                 <span class="at">tip.length =</span> <span class="fl">0.00</span>,</span>
+<span id="cb831-19"><a href="anova-de-medidas-repetidas.html#cb831-19" tabindex="-1"></a>                                 <span class="at">y.position =</span> <span class="fu">c</span>(<span class="fl">28.5</span>, <span class="fl">28.5</span>, <span class="fl">28.5</span>)) <span class="sc">+</span></span>
+<span id="cb831-20"><a href="anova-de-medidas-repetidas.html#cb831-20" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">x =</span> <span class="st">&quot;Tempo&quot;</span>,</span>
+<span id="cb831-21"><a href="anova-de-medidas-repetidas.html#cb831-21" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&quot;Escore de autoestima&quot;</span>,</span>
+<span id="cb831-22"><a href="anova-de-medidas-repetidas.html#cb831-22" tabindex="-1"></a>        <span class="at">subtitle =</span> <span class="fu">get_test_label</span> (mod.anova2, <span class="at">detailed =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb831-23"><a href="anova-de-medidas-repetidas.html#cb831-23" tabindex="-1"></a>        <span class="at">caption =</span> <span class="fu">get_pwc_label</span>(pwc))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:lineauto2"></span>
 <img src="bookdownproj_files/figure-html/lineauto2-1.png" alt="Avaliação da autoestima no decorrer do tempo" width="70%" height="70%" />
 <p class="caption">
@@ -1264,8 +1265,8 @@ Figura14.8: Avaliação da autoestima no decorrer do tempo
 </div>
 <div class="footnotes">
 <hr />
-<ol start="1">
-<li id="fn1"><p>Veja a Seção <a href="sec-testet.html#sec-pivot">12.3.1.1</a> para mais detalhes da função.<a href="anova-de-medidas-repetidas.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<ol start="49">
+<li id="fn49"><p>Veja a Seção <a href="sec-testet.html#sec-pivot">12.3.1.1</a> para mais detalhes da função.<a href="anova-de-medidas-repetidas.html#fnref49" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

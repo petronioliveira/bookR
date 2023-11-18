@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-11-16" />
+<meta name="date" content="2023-11-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -846,11 +846,16 @@ Total
 </tr>
 </tbody>
 </table>
+<p>Para o cálculo do <span class="math inline">\(\chi^2\)</span>, como se está comparando proporções em uma tabela contingência <span class="math inline">\(2\times2\)</span> (ou seja, duas linhas e duas colunas), deve-se aplicar uma correção na fórmula, mostrada acima, para ajustar o viés de continuidade. Esta correção, denominada de <em>correção de Yates</em>, consiste em subtrair 0,5 do valor absoluto da diferença entre a frequência observada e a esperada em cada célula da tabela, antes de elevar ao quadrado e dividir pela frequência esperada.</p>
+<p><span class="math display">\[
+\chi^{2}= \sum \left [\frac{\left |(O_{i} - E_{i}|-0,5 \right )^2}{E_{i}} \right]
+\]</span></p>
 <p>Substituindo osdados na fórmula do qui-quadrado, tem-se:</p>
 <p><span class="math display">\[
-\chi^{2}= \left [\frac{\left (16 - 12 \right )^2}{12} \right]+ \left [\frac{\left (44 - 48 \right )^2}{48} \right]+\left [\frac{\left (4 - 8 \right )^2}{8} \right]+\left [\frac{\left (36 - 32 \right )^2}{32} \right] \\
-\chi^{2}=1,333 + 0,333 + 2,0  +0,50 =4,17
-\]</span></p>
+\chi^{2}= \left [\frac{\left (|16 - 12 \right |)^2}{12} \right]+ \left [\frac{\left (|44 - 48 \right |)^2}{48} \right]+\left [\frac{\left (|4 - 8 \right |)^2}{8} \right]+\left [\frac{\left (|36 - 32 \right|)^2}{32} \right] \\
+\chi^{2}=1,021 + 0,255 + 1,531  +0,383 = 3,19
+\]</span>
+A correção de Yates reduz o valor do qui-quadrado <a href="#fn51" class="footnote-ref" id="fnref51"><sup>51</sup></a> e torna o teste mais conservador, evitando rejeitar a hipóteses nula quando ela é verdadeira. A correção é recomendada em tabelas de contingência <span class="math inline">\(2\times2\)</span> ou quando o tamanho da amostra é pequeno (menor que 40) ou quando há pelo menos uma célula com frequência esperada menor que 5.</p>
 <div id="restrições-ao-qui-quadrado" class="section level4 hasAnchor" number="16.2.2.1">
 <h4><span class="header-section-number">16.2.2.1</span> Restrições ao qui-quadrado<a href="análise-de-dados-categóricos.html#restrições-ao-qui-quadrado" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ol style="list-style-type: decimal">
@@ -860,7 +865,7 @@ Total
 <ol start="2" style="list-style-type: decimal">
 <li><u>Tabela 2 <span class="math inline">\(\times\)</span> 2 (gl = 1)</u></li>
 </ol>
-<p>Neste caso, é recomendada a <em>Correção de Continuidade de Yates</em>, mesmo quando o <em>n</em> for grande.</p>
+<p>Como mostrado no exemplo acima, neste caso, é recomendada a <em>Correção de Continuidade de Yates</em>, mesmo quando o n for grande.</p>
 <ol start="3" style="list-style-type: decimal">
 <li><u>Tabela l <span class="math inline">\(\times\)</span> c</u></li>
 </ol>
@@ -882,11 +887,11 @@ gl = (numero \ de \ linhas - 1) \ \times \ (numero \ de \ colunas - 1)
 <span id="cb886-2"><a href="análise-de-dados-categóricos.html#cb886-2" tabindex="-1"></a>gl <span class="ot">=</span> <span class="dv">1</span></span>
 <span id="cb886-3"><a href="análise-de-dados-categóricos.html#cb886-3" tabindex="-1"></a><span class="fu">qchisq</span> (<span class="dv">1</span><span class="sc">-</span>alpha, gl)</span></code></pre></div>
 <pre><code>## [1] 3.841459</code></pre>
-<p>Este valor é comparado com o <span class="math inline">\(\chi^{2}_{calculado}\)</span> para um nível de significância de 5%. Se ele é maior, rejeita-se se a <span class="math inline">\(H_{0}\)</span>; caso contrário, não se rejeita. Para obter o valor <em>P</em>, pode-se usar a função <code>pchisq()</code>, onde, como argumento, coloca-se o valor do <span class="math inline">\(\chi^{2}_{calculado}\)</span>, os graus de liberdade e acrescenta-se <code>lower.tail = FALSE</code> para obter a probabilidade da cauda superior, uma vez que a distribuição do quiquadrado é positiva.</p>
-<p>Na Tabela <a href="análise-de-dados-categóricos.html#tab:tab2x2">16.1</a>, o valor crítico é igual a 3,84 e, no exemplo, o <span class="math inline">\(\chi^{2}_{calculado}\)</span> é igual a 4,17, logo a valor <em>P</em> é igual a:</p>
-<div class="sourceCode" id="cb888"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb888-1"><a href="análise-de-dados-categóricos.html#cb888-1" tabindex="-1"></a><span class="fu">pchisq</span> (<span class="fl">4.17</span>, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<pre><code>## [1] 0.0411458</code></pre>
-<p>Dessa forma, conclui-se ,com uma confiança de 95%, que os homens têm uma proporção maior de acidentes comparados às mulheres (<span class="math inline">\(\chi^{2} (1) = 4,17;P=0,041\)</span>). Observe na Figura <a href="análise-de-dados-categóricos.html#fig:chi384">16.2</a> que o <span class="math inline">\(\chi^{2}_{calculado}\)</span> localiza-se a direita da linha vertical, na área vermelha de rejeição da <span class="math inline">\(H_{0}\)</span>.</p>
+<p>Este valor é comparado com o <span class="math inline">\(\chi^{2}_{calculado}\)</span> para um nível de significância de 5%. Se ele é maior, rejeita-se se a <span class="math inline">\(H_{0}\)</span>; caso contrário, não se rejeita. Para obter o valor <em>P</em>, pode-se usar a função <code>pchisq()</code>, onde, como argumento, coloca-se o valor do <span class="math inline">\(\chi^{2}_{calculado}\)</span>, os graus de liberdade e acrescenta-se <code>lower.tail = FALSE</code> para obter a probabilidade da cauda superior, uma vez que a distribuição do qui-quadrado é positiva.</p>
+<p>O valor crítico é igual a 3,84 e, no exemplo, o <span class="math inline">\(\chi^{2}_{calculado}\)</span> é igual a 3,19, logo a valor <em>P</em> é igual a:</p>
+<div class="sourceCode" id="cb888"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb888-1"><a href="análise-de-dados-categóricos.html#cb888-1" tabindex="-1"></a><span class="fu">pchisq</span> (<span class="fl">3.19</span>, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1] 0.07409001</code></pre>
+<p>Dessa forma, conclui-se ,com uma confiança de 95%, que os homens têm uma proporção maior de acidentes comparados às mulheres (<span class="math inline">\(\chi^{2} (1) = 3,19;P=0,074\)</span>). Observe na Figura <a href="análise-de-dados-categóricos.html#fig:chi384">16.2</a> que o <span class="math inline">\(\chi^{2}_{calculado}\)</span> localiza-se a esquerda da linha vertical, da área vermelha de rejeição da <span class="math inline">\(H_{0}\)</span>. Atente, que se não fosse feita a correção de Yates, a conclusão seria diferente, pois o <span class="math inline">\(\chi^{2}_{calculado}\)</span> seria igual a 4,17 e estaria um pouco cima do <span class="math inline">\(\chi^{2}_{crítico}\)</span>, na área de rejeição da <span class="math inline">\(H_{0}\)</span>. Com a correção de Yates o valor <em>P</em> é igual a 0,074, sem a correção de continuidade igual a 0,041, isto configura o que se chama de <em>valor P marginal</em> e, nesses casos, deve-se ter muito cuidado na conclusão, pois existe risco de erro tipo II, não rejeitar uma <span class="math inline">\(H_{0}\)</span> quando ela é falsa.</p>
 <div class="sourceCode" id="cb890"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb890-1"><a href="análise-de-dados-categóricos.html#cb890-1" tabindex="-1"></a><span class="fu">plotchisqtest</span>(<span class="at">chisq =</span> <span class="fl">3.84</span>, </span>
 <span id="cb890-2"><a href="análise-de-dados-categóricos.html#cb890-2" tabindex="-1"></a>              <span class="at">df =</span> <span class="dv">1</span>,</span>
 <span id="cb890-3"><a href="análise-de-dados-categóricos.html#cb890-3" tabindex="-1"></a>              <span class="at">colorleft =</span> <span class="st">&quot;aliceblue&quot;</span>,</span>
@@ -908,7 +913,7 @@ Figura16.2: Distribuição do qui-quadrado, gl = 1, alpha = 0,05.
 <p>O exemplo da Tabela <a href="análise-de-dados-categóricos.html#tab:tab2x2">16.1</a>, usado para mostrar a lógica do qui-quadrado, é um teste de independência ou associação. Ali, foi mostrado que existe uma associação estatisticamente significativa (P &lt; 0,05) entre acidentes automobilísticos e o sexo masculino.
 Como exercício, serão usados outros dados que necessitam mais manipulação como treinamento do qui-quadrado de associação e do próprio R. Estes dados servirão para testar a hipótese de associação entre tabagismo e baixo peso ao nascer (&lt; 2500g).</p>
 <p><u>Leitura e transformação dos dados</u></p>
-<p>Os dados serão provenientes do banco de dados <code>dadosMater.xlsx</code>. bastante usado neste livro <a href="#fn51" class="footnote-ref" id="fnref51"><sup>51</sup></a> . Como ele já deve estar no seu diretório, fazer a leitura da seguinte maneira:</p>
+<p>Os dados serão provenientes do banco de dados <code>dadosMater.xlsx</code>. bastante usado neste livro <a href="#fn52" class="footnote-ref" id="fnref52"><sup>52</sup></a> . Como ele já deve estar no seu diretório, fazer a leitura da seguinte maneira:</p>
 <div class="sourceCode" id="cb891"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb891-1"><a href="análise-de-dados-categóricos.html#cb891-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_excel</span> (<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>)</span></code></pre></div>
 <p>Adicione a este arquivo uma variável denominada <code>baixoPeso</code>, usando a função <code>mutate()</code> do pacvote dplyr a função <code>ifelse ()</code>, da base do R:</p>
 <div class="sourceCode" id="cb892"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb892-1"><a href="análise-de-dados-categóricos.html#cb892-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">baixoPeso =</span> <span class="fu">ifelse</span>(pesoRN <span class="sc">&lt;</span> <span class="dv">2500</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>))</span></code></pre></div>
@@ -988,7 +993,7 @@ Figura16.3: Gráfico de barras empilhadas: tabagismo vs baixo peso ao nascer.
 <ul>
 <li><em>x</em> <span class="math inline">\(\to\)</span> vetor numérico ou matriz. Tanto x como y podem ser fatores;</li>
 <li><em>y</em> <span class="math inline">\(\to\)</span> vetor numérico. Ignorado quando se x é uma matriz;</li>
-<li>correct <span class="math inline">\(\to\)</span> TRUE é o padrão. Indica se deve ser aplicada a correção de continuidade ao calcular a estatística de teste para tabelas 2 por 2 <a href="#fn52" class="footnote-ref" id="fnref52"><sup>52</sup></a>;</li>
+<li>correct <span class="math inline">\(\to\)</span> TRUE é o padrão. Indica se deve ser aplicada a correção de continuidade ao calcular a estatística de teste para tabelas 2 por 2 <a href="#fn53" class="footnote-ref" id="fnref53"><sup>53</sup></a>;</li>
 <li>… <span class="math inline">\(\to\)</span> para outros argumentos consulte a ajuda do <em>RStudio</em>.</li>
 </ul>
 <p>Para executar a função <code>chisq_test()</code>, basta colocar como argumento as variáveis <code>fumo</code> e <code>baixoPeso</code> ou construir antes uma tabela de contingência com a função <code>table()</code> e depois colocá-la como argumento. Como tabela <code>tab</code> já existe:</p>
@@ -1604,7 +1609,7 @@ p_{c} + p_{d} = p_{b} + p_{d}
 ## Pré-teste sim não
 ##       sim  20   8
 ##       não  22 150</code></pre>
-<p>Agora, pode-se calcular o teste de McNemar<a href="#fn53" class="footnote-ref" id="fnref53"><sup>53</sup></a> com a função <code>mcnemar_test()</code> do pacote <code>rstatix</code>:</p>
+<p>Agora, pode-se calcular o teste de McNemar<a href="#fn54" class="footnote-ref" id="fnref54"><sup>54</sup></a> com a função <code>mcnemar_test()</code> do pacote <code>rstatix</code>:</p>
 <div class="sourceCode" id="cb969"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb969-1"><a href="análise-de-dados-categóricos.html#cb969-1" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">mcnemar_test</span> (tab4, </span>
 <span id="cb969-2"><a href="análise-de-dados-categóricos.html#cb969-2" tabindex="-1"></a>                       <span class="at">correct =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 6
@@ -1623,9 +1628,10 @@ p_{c} + p_{d} = p_{b} + p_{d}
 <div class="footnotes">
 <hr />
 <ol start="51">
-<li id="fn51"><p>Ver Seção <a href="manipulando-os-dados-no-r-studio.html#sec-mater">5.3</a><a href="análise-de-dados-categóricos.html#fnref51" class="footnote-back">↩︎</a></p></li>
-<li id="fn52"><p>Quando não se está trabalhando com uma tabela <span class="math inline">\(2 \times 2\)</span> e a regra geral for obedecida e o n for grande, pode-se usar o qui-quadrado de Pearson sem correção.<a href="análise-de-dados-categóricos.html#fnref52" class="footnote-back">↩︎</a></p></li>
-<li id="fn53"><p>É possível também obter o teste de McNemar de outras formas, como, por exemplo, usando a função <code>CrossTable()</code> do pacote <code>gmodels</code>.<a href="análise-de-dados-categóricos.html#fnref53" class="footnote-back">↩︎</a></p></li>
+<li id="fn51"><p>Se o cálculo fosse feito com a fórmula geral, o valor do qui-quadrado seria 4,17.<a href="análise-de-dados-categóricos.html#fnref51" class="footnote-back">↩︎</a></p></li>
+<li id="fn52"><p>Ver Seção <a href="manipulando-os-dados-no-r-studio.html#sec-mater">5.3</a><a href="análise-de-dados-categóricos.html#fnref52" class="footnote-back">↩︎</a></p></li>
+<li id="fn53"><p>Quando não se está trabalhando com uma tabela <span class="math inline">\(2 \times 2\)</span> e a regra geral for obedecida e o n for grande, pode-se usar o qui-quadrado de Pearson sem correção.<a href="análise-de-dados-categóricos.html#fnref53" class="footnote-back">↩︎</a></p></li>
+<li id="fn54"><p>É possível também obter o teste de McNemar de outras formas, como, por exemplo, usando a função <code>CrossTable()</code> do pacote <code>gmodels</code>.<a href="análise-de-dados-categóricos.html#fnref54" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

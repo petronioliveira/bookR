@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-11-16" />
+<meta name="date" content="2023-11-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -696,16 +696,16 @@ div.csl-indent {
 ##   packages:
 ##     lattice</code></pre>
 <pre><code>## Old packages: &#39;BiasedUrn&#39;, &#39;bookdown&#39;, &#39;checkmate&#39;, &#39;classInt&#39;, &#39;covr&#39;,
-##   &#39;crosstable&#39;, &#39;curl&#39;, &#39;dbplyr&#39;, &#39;dotCall64&#39;, &#39;emmeans&#39;, &#39;evaluate&#39;, &#39;fansi&#39;,
-##   &#39;flextable&#39;, &#39;gdata&#39;, &#39;gdtools&#39;, &#39;ggeffects&#39;, &#39;ggpmisc&#39;, &#39;ggpp&#39;,
+##   &#39;crosstable&#39;, &#39;curl&#39;, &#39;dbplyr&#39;, &#39;dotCall64&#39;, &#39;dplyr&#39;, &#39;emmeans&#39;, &#39;evaluate&#39;,
+##   &#39;fansi&#39;, &#39;flextable&#39;, &#39;gdata&#39;, &#39;gdtools&#39;, &#39;ggeffects&#39;, &#39;ggpmisc&#39;, &#39;ggpp&#39;,
 ##   &#39;GPArotation&#39;, &#39;htmlTable&#39;, &#39;htmltools&#39;, &#39;httpuv&#39;, &#39;httr2&#39;, &#39;knitr&#39;, &#39;lessR&#39;,
 ##   &#39;lifecycle&#39;, &#39;lme4&#39;, &#39;magick&#39;, &#39;maps&#39;, &#39;markdown&#39;, &#39;Matrix&#39;, &#39;MatrixModels&#39;,
 ##   &#39;matrixStats&#39;, &#39;officer&#39;, &#39;openssl&#39;, &#39;parameters&#39;, &#39;performance&#39;, &#39;plotly&#39;,
-##   &#39;plotrix&#39;, &#39;pracma&#39;, &#39;pROC&#39;, &#39;promises&#39;, &#39;purrr&#39;, &#39;ragg&#39;, &#39;rbibutils&#39;,
-##   &#39;RcppArmadillo&#39;, &#39;RcppEigen&#39;, &#39;RCurl&#39;, &#39;Rdpack&#39;, &#39;rlang&#39;, &#39;rprojroot&#39;,
-##   &#39;RSQLite&#39;, &#39;RVAideMemoire&#39;, &#39;sp&#39;, &#39;spam&#39;, &#39;stringi&#39;, &#39;stringr&#39;, &#39;svglite&#39;,
-##   &#39;systemfonts&#39;, &#39;textshaping&#39;, &#39;units&#39;, &#39;utf8&#39;, &#39;uuid&#39;, &#39;vctrs&#39;, &#39;waldo&#39;,
-##   &#39;wesanderson&#39;, &#39;withr&#39;, &#39;wk&#39;, &#39;WRS2&#39;, &#39;xfun&#39;, &#39;XML&#39;</code></pre>
+##   &#39;plotrix&#39;, &#39;pls&#39;, &#39;pracma&#39;, &#39;pROC&#39;, &#39;promises&#39;, &#39;purrr&#39;, &#39;R.utils&#39;, &#39;ragg&#39;,
+##   &#39;rbibutils&#39;, &#39;RcppArmadillo&#39;, &#39;RcppEigen&#39;, &#39;RCurl&#39;, &#39;Rdpack&#39;, &#39;rlang&#39;,
+##   &#39;rprojroot&#39;, &#39;RSQLite&#39;, &#39;RVAideMemoire&#39;, &#39;shiny&#39;, &#39;sp&#39;, &#39;spam&#39;, &#39;stringi&#39;,
+##   &#39;stringr&#39;, &#39;svglite&#39;, &#39;systemfonts&#39;, &#39;textshaping&#39;, &#39;units&#39;, &#39;utf8&#39;, &#39;uuid&#39;,
+##   &#39;vctrs&#39;, &#39;waldo&#39;, &#39;wesanderson&#39;, &#39;withr&#39;, &#39;wk&#39;, &#39;WRS2&#39;, &#39;xfun&#39;, &#39;XML&#39;</code></pre>
 <div class="sourceCode" id="cb1078"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1078-1"><a href="sec-cap18.html#cb1078-1" tabindex="-1"></a><span class="fu">library</span> (limma)</span></code></pre></div>
 </div>
 <div id="sec-diagbayes" class="section level2 hasAnchor" number="18.2">
@@ -890,7 +890,7 @@ LR(-)=\frac{sensibilidade}{1-especificidade}
 <span id="cb1090-5"><a href="sec-cap18.html#cb1090-5" tabindex="-1"></a>p <span class="ot">&lt;-</span> (a <span class="sc">+</span> b)<span class="sc">/</span>(a <span class="sc">+</span> b <span class="sc">+</span> c <span class="sc">+</span> d)</span>
 <span id="cb1090-6"><a href="sec-cap18.html#cb1090-6" tabindex="-1"></a>p</span></code></pre></div>
 <pre><code>## [1] 0.5897436</code></pre>
-<p>e que o <em>odds</em> da ultrassonografia positiva<a href="#fn56" class="footnote-ref" id="fnref56"><sup>56</sup></a> é</p>
+<p>e que o <em>odds</em> da ultrassonografia positiva<a href="#fn57" class="footnote-ref" id="fnref57"><sup>57</sup></a> é</p>
 <div class="sourceCode" id="cb1092"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1092-1"><a href="sec-cap18.html#cb1092-1" tabindex="-1"></a> odds <span class="ot">&lt;-</span> (a <span class="sc">+</span> b)<span class="sc">/</span>(c <span class="sc">+</span> d) </span>
 <span id="cb1092-2"><a href="sec-cap18.html#cb1092-2" tabindex="-1"></a> odds</span></code></pre></div>
 <pre><code>## [1] 1.4375</code></pre>
@@ -1584,7 +1584,7 @@ RR = \frac{incidência_{exp}}{incidência_{não \ exp}}=\frac{\frac{a}{a + b}}{\
 ## $ chocolate.ice.cream &lt;chr&gt; &quot;N&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;N&quot;, &quot;N&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, &quot;Y&quot;, …
 ## $ fruit.salad         &lt;chr&gt; &quot;N&quot;, &quot;N&quot;, &quot;N&quot;, &quot;N&quot;, &quot;N&quot;, &quot;N&quot;, &quot;N&quot;, &quot;N&quot;, &quot;N&quot;, &quot;N&quot;, …</code></pre>
 <p>Existem 75 observações de 21 variáveis, algumas características dos indivíduos como idade, sexo, etc. Importante para a análise é a variável <code>ill</code> (Y – sim, doente; N – não doente) e a variáveis relacionadas aos alimentos ingeridos durante o jantar na igreja. O sorvete de baunilha foi considerado o principal responsável pelo surto.</p>
-<p>A seguir, as variáveis <code>oswego$vanilla.ice.cream</code> e <code>oswego$ill</code> <a href="#fn57" class="footnote-ref" id="fnref57"><sup>57</sup></a> serão transformadas em fator e os níveis colocados na ordem <code>Y</code>, <code>N</code>, uma vez que o R coloca em ordem alfabética (<code>N</code>, <code>Y</code>) :</p>
+<p>A seguir, as variáveis <code>oswego$vanilla.ice.cream</code> e <code>oswego$ill</code> <a href="#fn58" class="footnote-ref" id="fnref58"><sup>58</sup></a> serão transformadas em fator e os níveis colocados na ordem <code>Y</code>, <code>N</code>, uma vez que o R coloca em ordem alfabética (<code>N</code>, <code>Y</code>) :</p>
 <div class="sourceCode" id="cb1155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1155-1"><a href="sec-cap18.html#cb1155-1" tabindex="-1"></a>oswego<span class="sc">$</span>ill <span class="ot">&lt;-</span> <span class="fu">factor</span> (oswego<span class="sc">$</span>ill,</span>
 <span id="cb1155-2"><a href="sec-cap18.html#cb1155-2" tabindex="-1"></a>                      <span class="at">levels =</span> <span class="fu">c</span> (<span class="st">&quot;Y&quot;</span>, <span class="st">&quot;N&quot;</span>))</span>
 <span id="cb1155-3"><a href="sec-cap18.html#cb1155-3" tabindex="-1"></a>oswego<span class="sc">$</span>vanilla.ice.cream <span class="ot">&lt;-</span> <span class="fu">factor</span> (oswego<span class="sc">$</span>vanilla.ice.cream,</span>
@@ -1630,7 +1630,7 @@ RR = \frac{incidência_{exp}}{incidência_{não \ exp}}=\frac{\frac{a}{a + b}}{\
 <div id="odds-ratio-vs-risco-relativo" class="section level3 hasAnchor" number="18.5.3">
 <h3><span class="header-section-number">18.5.3</span> <em>Odds Ratio</em> vs Risco Relativo<a href="sec-cap18.html#odds-ratio-vs-risco-relativo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A OR não deve ser entendida como uma medida aproximada do RR, exceto para doenças raras (doenças, em geral com prevalência menor do que 10%). Caso contrário, a OR tenderá a superestimar a magnitude da associação e o OR afasta-se da hipótese nula da não associação (OR =1), independentemente de ser um fator de risco ou de proteção.
-A discrepância (d)<a href="#fn58" class="footnote-ref" id="fnref58"><sup>58</sup></a> entre as estimativas do RR e OR pode ser definido como a razão entre o OR e o RR estimados <span class="citation">(178)</span>. Em outras palavras, a discrepância corresponde a uma proporção do RR <span class="citation">(179)</span>.</p>
+A discrepância (d)<a href="#fn59" class="footnote-ref" id="fnref59"><sup>59</sup></a> entre as estimativas do RR e OR pode ser definido como a razão entre o OR e o RR estimados <span class="citation">(178)</span>. Em outras palavras, a discrepância corresponde a uma proporção do RR <span class="citation">(179)</span>.</p>
 <p><span class="math display">\[
 d = \frac {1- p_{não \ exp}}{1- p_{exp}}= \frac{\frac{c}{c + d}}{\frac{a}{a + b}}
 \]</span></p>
@@ -1803,7 +1803,7 @@ RPP = \frac{prevalência \ de \ exposição_{doentes}}{prevalência \ de \ expos
 ##  Wald confidence limits
 ##  CI: confidence interval
 ##  * Outcomes per 100 population units</code></pre>
-<p>A saída exibe várias informações. Foi feita a hipótese de uma maior prevalência entre as mulheres com menos de 20 anos. Por este motivo, elas aparecem como as expostas (<code>Exposed +</code>) e tem uma prevalência de 3,20/100, enquanto as mulheres com mais de 20 anos tiveram uma prevalência de 10,36/100. Isto mostra que a razão de prevalência é igual a 0,31 (IC95%: 0,15-0,65)<a href="#fn59" class="footnote-ref" id="fnref59"><sup>59</sup></a>, ou seja, &lt; 1, sugerindo que ao contrário da hipótese inicial, as adolescentes têm, neste estudo, uma menor prevalência de infecções congênitas.</p>
+<p>A saída exibe várias informações. Foi feita a hipótese de uma maior prevalência entre as mulheres com menos de 20 anos. Por este motivo, elas aparecem como as expostas (<code>Exposed +</code>) e tem uma prevalência de 3,20/100, enquanto as mulheres com mais de 20 anos tiveram uma prevalência de 10,36/100. Isto mostra que a razão de prevalência é igual a 0,31 (IC95%: 0,15-0,65)<a href="#fn60" class="footnote-ref" id="fnref60"><sup>60</sup></a>, ou seja, &lt; 1, sugerindo que ao contrário da hipótese inicial, as adolescentes têm, neste estudo, uma menor prevalência de infecções congênitas.</p>
 </div>
 </div>
 </div>
@@ -1944,7 +1944,7 @@ EP_{RAR} = \sqrt{\frac{p0\left(1 - p0\right)}{n_{1}}+\frac{p1\left(1 - p1\right)
 <span id="cb1169-3"><a href="sec-cap18.html#cb1169-3" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="dv">239</span></span>
 <span id="cb1169-4"><a href="sec-cap18.html#cb1169-4" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="dv">10795</span></span>
 <span id="cb1169-5"><a href="sec-cap18.html#cb1169-5" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">c</span> (a, b, c, d)</span></code></pre></div>
-<p><em>Matriz dos dados</em><a href="#fn60" class="footnote-ref" id="fnref60"><sup>60</sup></a></p>
+<p><em>Matriz dos dados</em><a href="#fn61" class="footnote-ref" id="fnref61"><sup>61</sup></a></p>
 <div class="sourceCode" id="cb1170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1170-1"><a href="sec-cap18.html#cb1170-1" tabindex="-1"></a>mat_iam <span class="ot">&lt;-</span> <span class="fu">matrix</span> (dados, <span class="at">byrow =</span> <span class="cn">TRUE</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span>
 <span id="cb1170-2"><a href="sec-cap18.html#cb1170-2" tabindex="-1"></a>tratamento <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="st">&quot;aspirina&quot;</span>, <span class="st">&quot;placebo&quot;</span>)</span>
 <span id="cb1170-3"><a href="sec-cap18.html#cb1170-3" tabindex="-1"></a>desfecho <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="st">&quot;IAM&quot;</span>, <span class="st">&quot;s/IAM&quot;</span>)</span>
@@ -2029,7 +2029,7 @@ Figura18.13: Physicians’ Health Study, componente aspirina e AVC.
 <span id="cb1197-3"><a href="sec-cap18.html#cb1197-3" tabindex="-1"></a><span class="fu">round</span> (MKmisc<span class="sc">::</span><span class="fu">risks</span> (p0, p1), <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>##       p0       p1       RR       OR      RRI      ARI      NNH 
 ##   0.0089   0.0108   1.2135   1.2158   0.2135   0.0019 526.3158</code></pre>
-<p>Os resultados mostram que o NND<a href="#fn61" class="footnote-ref" id="fnref61"><sup>61</sup></a> é igual a 526. Ou seja, para evitar um IAM há necessidade de tratar 110 pacientes e a cada 526 tratados espera-se um caso de AVC, havendo um benefício bem maior quando comparado ao risco de AVC.</p>
+<p>Os resultados mostram que o NND<a href="#fn62" class="footnote-ref" id="fnref62"><sup>62</sup></a> é igual a 526. Ou seja, para evitar um IAM há necessidade de tratar 110 pacientes e a cada 526 tratados espera-se um caso de AVC, havendo um benefício bem maior quando comparado ao risco de AVC.</p>
 </div>
 </div>
 </div>
@@ -2417,7 +2417,7 @@ Figura18.16: Histogramas das variáveis idade e número de gravidezes.
 </ul>
 <p>Em uma regressão logística, a resposta que está sendo modelada é o <code>log(odds)</code> ou <code>logit</code> de que o desfecho é igual a 1. Os coeficientes de regressão fornecem a mudança no <code>log(odds)</code> no desfecho para a mudança de uma unidade na variável preditora, mantendo todas as outras variáveis preditivas constantes <span class="citation">(196)</span>.</p>
 <p>Nas <em>variáveis contínuas</em>, para cada aumento de uma unidade na concentração da glicose, por exemplo, o <code>log(odds)</code> de ser diabético “1 = pos” (versus ser diabético “0 = neg”) aumenta em 0,039. Da mesma forma, para um aumento de unidade na pressão diastólica, a probabilidade de <code>log(odds)</code> de ser diabético “1 = pos” (versus ser diabético “0 = neg”) diminui em 0,0045, pois o coeficiente é negativo.</p>
-<p>Para <em>variáveis categóricas</em>, o desempenho de cada categoria é avaliado em relação a uma categoria de base. A categoria de base para a variável <code>idadeCateg</code> é 20–30 (primeira categoria que aparece quando se observa os níveis <a href="#fn62" class="footnote-ref" id="fnref62"><sup>62</sup></a>) e para <code>gestaCateg</code> é 0–5. A interpretação de tais variáveis é a seguinte:</p>
+<p>Para <em>variáveis categóricas</em>, o desempenho de cada categoria é avaliado em relação a uma categoria de base. A categoria de base para a variável <code>idadeCateg</code> é 20–30 (primeira categoria que aparece quando se observa os níveis <a href="#fn63" class="footnote-ref" id="fnref63"><sup>63</sup></a>) e para <code>gestaCateg</code> é 0–5. A interpretação de tais variáveis é a seguinte:</p>
 <ul>
 <li>Estar na faixa etária de 31-40 anos, versus faixa etária de 20-30, muda o <code>log(odds)</code> de ser diabético “1 = pos” (versus ser diabético “0 = neg”) em 0,854. - * Estar na faixa de 6–10 gravidezes, versus 0–5 gravidezes, muda o <code>log(odds)</code> de ser diabético “pos” (versus ser diabético “neg”) em -0,24.</li>
 </ul>
@@ -2440,7 +2440,7 @@ Figura18.16: Histogramas das variáveis idade e número de gravidezes.
 </div>
 <div id="criação-do-modelo-passo-a-passo-stepwise" class="section level3 hasAnchor" number="18.8.5">
 <h3><span class="header-section-number">18.8.5</span> Criação do modelo passo a passo (<em>stepwise</em>)<a href="sec-cap18.html#criação-do-modelo-passo-a-passo-stepwise" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Existem vários métodos para seleção de variáveis, aqui será usado o método passo a passo (stepwise). O procedimento de seleção é realizado automaticamente por pacotes estatísticos como o pacote MASS <span class="citation">(197)</span> através da função <code>stepAIC()</code> que utiliza o AIC (Critério de Informação de Akaike <a href="#fn63" class="footnote-ref" id="fnref63"><sup>63</sup></a>) para a seleção <span class="citation">(198)</span>. Esta função usa os seguintes argumentos:</p>
+<p>Existem vários métodos para seleção de variáveis, aqui será usado o método passo a passo (stepwise). O procedimento de seleção é realizado automaticamente por pacotes estatísticos como o pacote MASS <span class="citation">(197)</span> através da função <code>stepAIC()</code> que utiliza o AIC (Critério de Informação de Akaike <a href="#fn64" class="footnote-ref" id="fnref64"><sup>64</sup></a>) para a seleção <span class="citation">(198)</span>. Esta função usa os seguintes argumentos:</p>
 <ul>
 <li><em>object</em> <span class="math inline">\(\longrightarrow\)</span> um objeto que representa um modelo de uma classe apropriada;</li>
 <li><em>direction</em> <span class="math inline">\(\longrightarrow\)</span> o modo de pesquisa passo a passo pode ser “backward” (para trás), “forward” (para frente) ou “both” (ambos), que é o padrão . Se o argumento <code>scope</code> estiver faltando, o padrão para a direção é “backward”;</li>
@@ -2847,15 +2847,15 @@ Figura18.19: Curva ROC do modelo de regressão.
 </div>
 <div class="footnotes">
 <hr />
-<ol start="56">
-<li id="fn56"><p>Existem duas maneiras de descrever uma estimativa de odds: ou como um número isolado, por exemplo, 0,25, subentendendo que expressa uma razão, 0,25: 1,0, ou de forma clara como uma razão 1:4. Ou seja, para cada indivíduo com o fator existem quatro sem o fator. Tradicional e comumente usados no mundo das apostas em corridas de cavalos.<a href="sec-cap18.html#fnref56" class="footnote-back">↩︎</a></p></li>
-<li id="fn57"><p>Foi mantido o nome das variáveis em inglês, pois no banco de dados <code>oswego</code> elas estão nessa língua.<a href="sec-cap18.html#fnref57" class="footnote-back">↩︎</a></p></li>
-<li id="fn58"><p>em inglês, <em>built-in bias</em><a href="sec-cap18.html#fnref58" class="footnote-back">↩︎</a></p></li>
-<li id="fn59"><p>Observem que todo o intervalo de confiança de 95% encontra-se abaixo de 1, indicando que existe significância estatística.<a href="sec-cap18.html#fnref59" class="footnote-back">↩︎</a></p></li>
-<li id="fn60"><p>Aproveite para revisar como construir matriz<a href="sec-cap18.html#fnref60" class="footnote-back">↩︎</a></p></li>
-<li id="fn61"><p>Em inglês, NNH (number needed to harm).<a href="sec-cap18.html#fnref61" class="footnote-back">↩︎</a></p></li>
-<li id="fn62"><p>Se houver uma justificativa, esta referência pode ser modificada, usando a função <code>relevel()</code> do pacote <code>stats</code>. Por exemplo, para mudar a referência da variável <code>idadeCateg</code> para 31-40, deve-se executar: <code>dados$idadeCateg &lt;- relevel (dados$idadeCateg, ref = "31-40")</code>.<a href="sec-cap18.html#fnref62" class="footnote-back">↩︎</a></p></li>
-<li id="fn63"><p><a href="https://www.scribbr.com/statistics/akaike-information-criterion/" class="uri">https://www.scribbr.com/statistics/akaike-information-criterion/</a><a href="sec-cap18.html#fnref63" class="footnote-back">↩︎</a></p></li>
+<ol start="57">
+<li id="fn57"><p>Existem duas maneiras de descrever uma estimativa de odds: ou como um número isolado, por exemplo, 0,25, subentendendo que expressa uma razão, 0,25: 1,0, ou de forma clara como uma razão 1:4. Ou seja, para cada indivíduo com o fator existem quatro sem o fator. Tradicional e comumente usados no mundo das apostas em corridas de cavalos.<a href="sec-cap18.html#fnref57" class="footnote-back">↩︎</a></p></li>
+<li id="fn58"><p>Foi mantido o nome das variáveis em inglês, pois no banco de dados <code>oswego</code> elas estão nessa língua.<a href="sec-cap18.html#fnref58" class="footnote-back">↩︎</a></p></li>
+<li id="fn59"><p>em inglês, <em>built-in bias</em><a href="sec-cap18.html#fnref59" class="footnote-back">↩︎</a></p></li>
+<li id="fn60"><p>Observem que todo o intervalo de confiança de 95% encontra-se abaixo de 1, indicando que existe significância estatística.<a href="sec-cap18.html#fnref60" class="footnote-back">↩︎</a></p></li>
+<li id="fn61"><p>Aproveite para revisar como construir matriz<a href="sec-cap18.html#fnref61" class="footnote-back">↩︎</a></p></li>
+<li id="fn62"><p>Em inglês, NNH (number needed to harm).<a href="sec-cap18.html#fnref62" class="footnote-back">↩︎</a></p></li>
+<li id="fn63"><p>Se houver uma justificativa, esta referência pode ser modificada, usando a função <code>relevel()</code> do pacote <code>stats</code>. Por exemplo, para mudar a referência da variável <code>idadeCateg</code> para 31-40, deve-se executar: <code>dados$idadeCateg &lt;- relevel (dados$idadeCateg, ref = "31-40")</code>.<a href="sec-cap18.html#fnref63" class="footnote-back">↩︎</a></p></li>
+<li id="fn64"><p><a href="https://www.scribbr.com/statistics/akaike-information-criterion/" class="uri">https://www.scribbr.com/statistics/akaike-information-criterion/</a><a href="sec-cap18.html#fnref64" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

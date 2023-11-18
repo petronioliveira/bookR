@@ -111,13 +111,20 @@ knitr::kable(df,
   kableExtra::row_spec(0, bold = TRUE)
 ```
 
+Para o cálculo do $\chi^2$, como se está comparando proporções em uma tabela contingência $2\times2$ (ou seja, duas linhas e duas colunas), deve-se aplicar uma correção na fórmula, mostrada acima, para ajustar o viés de continuidade. Esta correção, denominada de *correção de Yates*, consiste em subtrair 0,5 do valor absoluto da diferença entre a frequência observada e a esperada em cada célula da tabela, antes de elevar ao quadrado e dividir pela frequência esperada.
+
+$$
+\chi^{2}= \sum \left [\frac{\left |(O_{i} - E_{i}|-0,5 \right )^2}{E_{i}} \right]
+$$
+
 Substituindo osdados na fórmula do qui-quadrado, tem-se:
 
 
 $$
-\chi^{2}= \left [\frac{\left (16 - 12 \right )^2}{12} \right]+ \left [\frac{\left (44 - 48 \right )^2}{48} \right]+\left [\frac{\left (4 - 8 \right )^2}{8} \right]+\left [\frac{\left (36 - 32 \right )^2}{32} \right] \\
-\chi^{2}=1,333 + 0,333 + 2,0  +0,50 =4,17
+\chi^{2}= \left [\frac{\left (|16 - 12 \right |)^2}{12} \right]+ \left [\frac{\left (|44 - 48 \right |)^2}{48} \right]+\left [\frac{\left (|4 - 8 \right |)^2}{8} \right]+\left [\frac{\left (|36 - 32 \right|)^2}{32} \right] \\
+\chi^{2}=1,021 + 0,255 + 1,531  +0,383 = 3,19
 $$
+A correção de Yates reduz o valor do qui-quadrado ^[Se o cálculo fosse feito com a fórmula geral, o valor do qui-quadrado seria 4,17.] e torna o teste mais conservador, evitando rejeitar a hipóteses nula quando ela é verdadeira.  A correção é recomendada em tabelas de contingência $2\times2$ ou quando o tamanho da amostra é pequeno (menor que 40) ou quando há pelo menos uma célula com frequência esperada menor que 5.
 
 #### Restrições ao qui-quadrado  
 
@@ -127,7 +134,7 @@ O teste pode ser usado, se a frequência observada em cada célula for maior ou 
 
 2. <u>Tabela 2 $\times$ 2 (gl = 1)</u>
 
-Neste caso, é recomendada a *Correção de Continuidade de Yates*, mesmo quando o *n* for grande.  
+Como mostrado no exemplo acima, neste caso, é recomendada a *Correção de Continuidade de Yates*, mesmo quando o n for grande.  
 
 3. <u>Tabela l $\times$ c</u>
 
@@ -155,15 +162,15 @@ gl = 1
 qchisq (1-alpha, gl)
 ```
 
-Este valor é comparado com o $\chi^{2}_{calculado}$ para um nível de significância de 5%. Se ele é maior, rejeita-se se a $H_{0}$; caso contrário, não se rejeita. Para obter o valor *P*, pode-se usar a função `pchisq()`, onde, como argumento, coloca-se o valor do $\chi^{2}_{calculado}$, os graus de liberdade e acrescenta-se `lower.tail = FALSE` para obter a probabilidade da cauda superior, uma vez que a distribuição do quiquadrado é positiva.
+Este valor é comparado com o $\chi^{2}_{calculado}$ para um nível de significância de 5%. Se ele é maior, rejeita-se se a $H_{0}$; caso contrário, não se rejeita. Para obter o valor *P*, pode-se usar a função `pchisq()`, onde, como argumento, coloca-se o valor do $\chi^{2}_{calculado}$, os graus de liberdade e acrescenta-se `lower.tail = FALSE` para obter a probabilidade da cauda superior, uma vez que a distribuição do qui-quadrado é positiva.
 
-Na Tabela \@ref(tab:tab2x2), o valor crítico é igual a 3,84 e, no exemplo, o $\chi^{2}_{calculado}$ é igual a 4,17, logo a valor *P* é igual a:
+O valor crítico é igual a 3,84 e, no exemplo, o $\chi^{2}_{calculado}$ é igual a 3,19, logo a valor *P* é igual a:
 
 ```{r}
-pchisq (4.17, 1, lower.tail = FALSE)
+pchisq (3.19, 1, lower.tail = FALSE)
 ```
 
-Dessa forma, conclui-se ,com uma confiança de 95%, que os homens têm uma proporção maior de acidentes comparados às mulheres ($\chi^{2} (1) = 4,17;P=0,041$). Observe na Figura \@ref(fig:chi384) que o $\chi^{2}_{calculado}$ localiza-se a direita da linha vertical, na área vermelha de rejeição da $H_{0}$.
+Dessa forma, conclui-se ,com uma confiança de 95%, que os homens têm uma proporção maior de acidentes comparados às mulheres ($\chi^{2} (1) = 3,19;P=0,074$). Observe na Figura \@ref(fig:chi384) que o $\chi^{2}_{calculado}$ localiza-se a esquerda da linha vertical, da área vermelha de rejeição da $H_{0}$. Atente, que se não fosse feita a correção de Yates, a conclusão seria diferente, pois o $\chi^{2}_{calculado}$ seria igual a 4,17 e estaria um pouco cima do $\chi^{2}_{crítico}$, na área de rejeição da $H_{0}$. Com a correção de Yates o valor *P* é igual a 0,074, sem a correção de continuidade igual a 0,041, isto configura o que se chama de *valor P marginal* e, nesses casos, deve-se ter muito cuidado na conclusão, pois existe risco de erro tipo II, não rejeitar uma $H_{0}$ quando ela é falsa.
 
 ```{r chi384, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Distribuição do qui-quadrado, gl = 1, alpha = 0,05."}
 plotchisqtest(chisq = 3.84, 

@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-11-16" />
+<meta name="date" content="2023-11-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1030,7 +1030,7 @@ Z_{U}= \frac{(T -0,5) - \mu_{U}}{\sigma_{U}}
 </div>
 <div id="cálculo-do-u-de-mann-whitney-no-r" class="section level4 hasAnchor" number="17.4.4.2">
 <h4><span class="header-section-number">17.4.4.2</span> Cálculo do U de Mann-Whitney no R<a href="métodos-não-paramétricos.html#cálculo-do-u-de-mann-whitney-no-r" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>O teste pode ser realizado com a função <code>wilcox_test()</code> <a href="#fn54" class="footnote-ref" id="fnref54"><sup>54</sup></a> do pacote <code>rstatix</code>:</p>
+<p>O teste pode ser realizado com a função <code>wilcox_test()</code> <a href="#fn55" class="footnote-ref" id="fnref55"><sup>55</sup></a> do pacote <code>rstatix</code>:</p>
 <div class="sourceCode" id="cb1002"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1002-1"><a href="métodos-não-paramétricos.html#cb1002-1" tabindex="-1"></a>teste <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">wilcox_test</span>(<span class="at">formula =</span> tempohosp <span class="sc">~</span> infec, <span class="at">data =</span> cirurgia)</span>
 <span id="cb1002-2"><a href="métodos-não-paramétricos.html#cb1002-2" tabindex="-1"></a>teste</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 7
@@ -1050,7 +1050,7 @@ r = \frac {Z_{U}}{\sqrt{n}}
 <div class="sourceCode" id="cb1004"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1004-1"><a href="métodos-não-paramétricos.html#cb1004-1" tabindex="-1"></a>r <span class="ot">&lt;-</span> Z_U<span class="sc">/</span><span class="fu">sqrt</span>(n1<span class="sc">+</span>n2)</span>
 <span id="cb1004-2"><a href="métodos-não-paramétricos.html#cb1004-2" tabindex="-1"></a><span class="fu">round</span>(r,<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 0.278</code></pre>
-<p>O R possui a função <code>wilcox_effsize()</code> do pacote <code>rstatix</code> e necessita também do pacote <code>coin</code> <span class="citation">(147)</span> , instalado para calcular a estatística <em>r</em>.<a href="#fn55" class="footnote-ref" id="fnref55"><sup>55</sup></a> A saída exibirá junto a magnitude o efeito, que no caso é pequena (veja Tabela <a href="métodos-não-paramétricos.html#tab:wilcoxef">17.2</a>).</p>
+<p>O R possui a função <code>wilcox_effsize()</code> do pacote <code>rstatix</code> e necessita também do pacote <code>coin</code> <span class="citation">(147)</span> , instalado para calcular a estatística <em>r</em>.<a href="#fn56" class="footnote-ref" id="fnref56"><sup>56</sup></a> A saída exibirá junto a magnitude o efeito, que no caso é pequena (veja Tabela <a href="métodos-não-paramétricos.html#tab:wilcoxef">17.2</a>).</p>
 <div class="sourceCode" id="cb1006"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1006-1"><a href="métodos-não-paramétricos.html#cb1006-1" tabindex="-1"></a><span class="fu">wilcox_effsize</span>(cirurgia, tempohosp<span class="sc">~</span>infec)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 7
 ##   .y.       group1 group2 effsize    n1    n2 magnitude
@@ -1652,9 +1652,9 @@ Figura17.7: Impacto do tipo de bebida no tempo de reação ao dirigir.
 </div>
 <div class="footnotes">
 <hr />
-<ol start="54">
-<li id="fn54"><p>O cálculo pode também ser realizado, usando a função <code>wilcox.test()</code> do pacote <code>stats</code>, incluído no R base.<a href="métodos-não-paramétricos.html#fnref54" class="footnote-back">↩︎</a></p></li>
-<li id="fn55"><p>Para maiores detalhes consulte a ajuda da função.<a href="métodos-não-paramétricos.html#fnref55" class="footnote-back">↩︎</a></p></li>
+<ol start="55">
+<li id="fn55"><p>O cálculo pode também ser realizado, usando a função <code>wilcox.test()</code> do pacote <code>stats</code>, incluído no R base.<a href="métodos-não-paramétricos.html#fnref55" class="footnote-back">↩︎</a></p></li>
+<li id="fn56"><p>Para maiores detalhes consulte a ajuda da função.<a href="métodos-não-paramétricos.html#fnref56" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
