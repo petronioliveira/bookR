@@ -709,7 +709,7 @@ ggpubr::ggline(dados,
                size = 0.7,
                linetype = "dashed",
                position = position_dodge(width = 0.2),
-               add = c("mean_ci"),
+               add = "mean_ci",
                palette = c("red", "dodgerblue4"))
 ```
 

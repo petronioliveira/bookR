@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 18 Estatística em Epidemiologia | bookdownproj.knit</title>
   <meta name="description" content="" />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo 18 Estatística em Epidemiologia | bookdownproj.knit" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2023-11-18" />
+<meta name="date" content="2024-02-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -694,18 +694,29 @@ div.csl-indent {
 <pre><code>## Installation paths not writeable, unable to update packages
 ##   path: C:/Program Files/R/R-4.3.2/library
 ##   packages:
-##     lattice</code></pre>
-<pre><code>## Old packages: &#39;BiasedUrn&#39;, &#39;bookdown&#39;, &#39;checkmate&#39;, &#39;classInt&#39;, &#39;covr&#39;,
-##   &#39;crosstable&#39;, &#39;curl&#39;, &#39;dbplyr&#39;, &#39;dotCall64&#39;, &#39;dplyr&#39;, &#39;emmeans&#39;, &#39;evaluate&#39;,
-##   &#39;fansi&#39;, &#39;flextable&#39;, &#39;gdata&#39;, &#39;gdtools&#39;, &#39;ggeffects&#39;, &#39;ggpmisc&#39;, &#39;ggpp&#39;,
-##   &#39;GPArotation&#39;, &#39;htmlTable&#39;, &#39;htmltools&#39;, &#39;httpuv&#39;, &#39;httr2&#39;, &#39;knitr&#39;, &#39;lessR&#39;,
-##   &#39;lifecycle&#39;, &#39;lme4&#39;, &#39;magick&#39;, &#39;maps&#39;, &#39;markdown&#39;, &#39;Matrix&#39;, &#39;MatrixModels&#39;,
-##   &#39;matrixStats&#39;, &#39;officer&#39;, &#39;openssl&#39;, &#39;parameters&#39;, &#39;performance&#39;, &#39;plotly&#39;,
-##   &#39;plotrix&#39;, &#39;pls&#39;, &#39;pracma&#39;, &#39;pROC&#39;, &#39;promises&#39;, &#39;purrr&#39;, &#39;R.utils&#39;, &#39;ragg&#39;,
-##   &#39;rbibutils&#39;, &#39;RcppArmadillo&#39;, &#39;RcppEigen&#39;, &#39;RCurl&#39;, &#39;Rdpack&#39;, &#39;rlang&#39;,
-##   &#39;rprojroot&#39;, &#39;RSQLite&#39;, &#39;RVAideMemoire&#39;, &#39;shiny&#39;, &#39;sp&#39;, &#39;spam&#39;, &#39;stringi&#39;,
-##   &#39;stringr&#39;, &#39;svglite&#39;, &#39;systemfonts&#39;, &#39;textshaping&#39;, &#39;units&#39;, &#39;utf8&#39;, &#39;uuid&#39;,
-##   &#39;vctrs&#39;, &#39;waldo&#39;, &#39;wesanderson&#39;, &#39;withr&#39;, &#39;wk&#39;, &#39;WRS2&#39;, &#39;xfun&#39;, &#39;XML&#39;</code></pre>
+##     boot, cluster, foreign, lattice, nlme, rpart, survival</code></pre>
+<pre><code>## Old packages: &#39;BayesFactor&#39;, &#39;bayestestR&#39;, &#39;BH&#39;, &#39;bookdown&#39;, &#39;brew&#39;, &#39;brio&#39;,
+##   &#39;callr&#39;, &#39;checkmate&#39;, &#39;circlize&#39;, &#39;cli&#39;, &#39;cobs&#39;, &#39;coda&#39;, &#39;commonmark&#39;,
+##   &#39;cowplot&#39;, &#39;cpp11&#39;, &#39;curl&#39;, &#39;data.table&#39;, &#39;datawizard&#39;, &#39;DBI&#39;, &#39;desc&#39;,
+##   &#39;DescTools&#39;, &#39;devEMF&#39;, &#39;digest&#39;, &#39;distributional&#39;, &#39;DT&#39;, &#39;e1071&#39;, &#39;emmeans&#39;,
+##   &#39;epiR&#39;, &#39;estimability&#39;, &#39;expm&#39;, &#39;fansi&#39;, &#39;filelock&#39;, &#39;float&#39;, &#39;future&#39;,
+##   &#39;gdtools&#39;, &#39;geobr&#39;, &#39;gert&#39;, &#39;GGally&#39;, &#39;ggeffects&#39;, &#39;ggforce&#39;, &#39;ggplot2&#39;,
+##   &#39;ggpp&#39;, &#39;ggrepel&#39;, &#39;ggridges&#39;, &#39;ggthemes&#39;, &#39;glue&#39;, &#39;gmp&#39;, &#39;GPArotation&#39;,
+##   &#39;gplots&#39;, &#39;gt&#39;, &#39;HH&#39;, &#39;htmlwidgets&#39;, &#39;httpuv&#39;, &#39;igraph&#39;, &#39;insight&#39;, &#39;interp&#39;,
+##   &#39;jsonlite&#39;, &#39;kableExtra&#39;, &#39;later&#39;, &#39;listenv&#39;, &#39;maditr&#39;, &#39;magick&#39;, &#39;maps&#39;,
+##   &#39;markdown&#39;, &#39;MASS&#39;, &#39;Matrix&#39;, &#39;matrixStats&#39;, &#39;mgcv&#39;, &#39;modelbased&#39;,
+##   &#39;modeldata&#39;, &#39;mosaic&#39;, &#39;NMF&#39;, &#39;officer&#39;, &#39;opdisDownsampling&#39;, &#39;paletteer&#39;,
+##   &#39;parallelly&#39;, &#39;parameters&#39;, &#39;pastecs&#39;, &#39;patchwork&#39;, &#39;pcaPP&#39;, &#39;performance&#39;,
+##   &#39;pgirmess&#39;, &#39;pkgbuild&#39;, &#39;pkgload&#39;, &#39;plotly&#39;, &#39;prettymapr&#39;, &#39;processx&#39;,
+##   &#39;progress&#39;, &#39;ps&#39;, &#39;psych&#39;, &#39;R.oo&#39;, &#39;ragg&#39;, &#39;Rcmdr&#39;, &#39;rcompanion&#39;, &#39;Rcpp&#39;,
+##   &#39;RcppArmadillo&#39;, &#39;RCurl&#39;, &#39;readr&#39;, &#39;renv&#39;, &#39;report&#39;, &#39;reprex&#39;, &#39;reticulate&#39;,
+##   &#39;rJava&#39;, &#39;rlang&#39;, &#39;Rmpfr&#39;, &#39;robust&#39;, &#39;robustbase&#39;, &#39;roxygen2&#39;, &#39;rpart.plot&#39;,
+##   &#39;rrcov&#39;, &#39;rsconnect&#39;, &#39;RSQLite&#39;, &#39;rvest&#39;, &#39;s2&#39;, &#39;sandwich&#39;, &#39;sass&#39;, &#39;see&#39;,
+##   &#39;sf&#39;, &#39;shape&#39;, &#39;shinyWidgets&#39;, &#39;sigminer&#39;, &#39;sm&#39;, &#39;sp&#39;, &#39;spdep&#39;, &#39;splus2R&#39;,
+##   &#39;stringi&#39;, &#39;svglite&#39;, &#39;TeachingDemos&#39;, &#39;terra&#39;, &#39;testthat&#39;, &#39;tidyr&#39;,
+##   &#39;tidytuesdayR&#39;, &#39;timechange&#39;, &#39;timeDate&#39;, &#39;timeSeries&#39;, &#39;tweenr&#39;, &#39;usethis&#39;,
+##   &#39;uuid&#39;, &#39;V8&#39;, &#39;vcd&#39;, &#39;vctrs&#39;, &#39;vipor&#39;, &#39;viridis&#39;, &#39;vroom&#39;, &#39;withr&#39;,
+##   &#39;writexl&#39;, &#39;xfun&#39;, &#39;XML&#39;, &#39;xml2&#39;, &#39;xts&#39;, &#39;yaml&#39;, &#39;zip&#39;</code></pre>
 <div class="sourceCode" id="cb1078"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1078-1"><a href="sec-cap18.html#cb1078-1" tabindex="-1"></a><span class="fu">library</span> (limma)</span></code></pre></div>
 </div>
 <div id="sec-diagbayes" class="section level2 hasAnchor" number="18.2">
