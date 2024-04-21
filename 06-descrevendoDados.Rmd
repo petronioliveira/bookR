@@ -27,7 +27,7 @@ Habitualmente, costuma-se armazenar os dados em bancos de dados (*dataframes* ou
 ## Medidas resumidoras
 ### Dados usados nesta seção
 
-Para a demonstração prática será usado um conjunto de dados que é uma amostra aleatória de 15 recém-nascidos do banco de dados `dadosMater.xlsx` (ver Seção 5.3), extraída com a função `slice_sample()` do pacote `dplyr`. Cada vez que este comando for reproduzido, retornará uma nova série de 15 valores diferentes do anterior. Para tornar o código reproduzível, retornando o mesmo conjunto de valores, deve-se usar uma “semente” (`seed`), usando a função `set.seed()`, cujo argumento é um número que identificará a série gerada. 
+Para a demonstração prática será usado um conjunto de dados que é uma amostra aleatória de 15 recém-nascidos do banco de dados `dadosMater.xlsx` (ver Seção \@ref(sec-mater)), extraída com a função `slice_sample()` do pacote `dplyr`. Cada vez que este comando for reproduzido, retornará uma nova série de 15 valores diferentes do anterior. Para tornar o código reproduzível, retornando o mesmo conjunto de valores, deve-se usar uma “semente” (`seed`), usando a função `set.seed()`, cujo argumento é um número que identificará a série gerada. 
 Após extrair a amostra, será selecionada as variáveis que serão usadas nesta seção. A amostra será atribuída a um objeto denominado, `dados`:
 
 ```{r}
@@ -610,7 +610,7 @@ pie(x = c(6, 12, 14, 8),
     labels = c("Odeiam", "Não gostam", "Indiferentes", "Amam"))
 ```
 
- As cores que aparecem na Figura \@ref(fig:pie) foram escolhidas pelo R, usando o seu padrão. Entretanto, elas podem ser customizadas, especificando-as pelo nome colocado entre parênteses. Por exemplo, `col = "red"` e se for mais de uma cor usar a função concatenar, `col = c(“gray58“, “yellow4”, “cyan”, “tomato”)`.  As cores também podem se denotadas pelo sistemas  RGB  ou hexadecimal. A sigla RGB representa as cores primária em inglês (Red, Green, Blue). O código hexadecimal da cor branca é #FFFFFFF, da gray58 é  #949494,  da yellow4 é #999900, da cyan é #00FFFFe da tomato é #FF6347 (\@ref(fig:pie2)).
+ As cores que aparecem na Figura \@ref(fig:pie) foram escolhidas pelo R, usando o seu padrão. Entretanto, elas podem ser customizadas, especificando-as pelo nome colocado entre parênteses. Por exemplo, `col = "red"` e se for mais de uma cor usar a função concatenar, `col = c(“gray58“, “yellow4”, “cyan”, “tomato”)`.  As cores também podem se denotadas pelo sistemas  RGB  ou hexadecimal. A sigla RGB representa as cores primária em inglês (Red, Green, Blue). O código hexadecimal da cor branca é #FFFFFFF, da gray58 é  #949494,  da yellow4 é #999900, da cyan é #00FFFFe da tomato é #FF6347 (Figura \@ref(fig:pie2)).
 
 ```{r pie2, out.width="100%", out.height="100%", fig.align="center", fig.cap="Figura anterior com cores personalizadas.", fig.pos="H"}
 
@@ -963,7 +963,7 @@ text (h$mids, h$counts, labels = h$counts, adj= c(0.5, -0.5))
 
 Note que as informações deste gráfico são as mesmas de uma tabela de frequência construída com os mesmos dados. Maneiras diferentes de informar uma distribuição de frequência (veja seção sobre tabelas de frequência).
 
-### Boxplot
+### Boxplot  {#sec-bxp}
 
 O *boxplot* descreve a distribuição de uma variável contínua exibindo o resumo de cinco números: mínimo, 1º quartil (percentil 25), mediana (percentil 50), 3ª quartil (percentil 75) e máximo (Figura \@ref(fig:boxplot)).
 

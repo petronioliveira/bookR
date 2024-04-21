@@ -364,7 +364,7 @@ soma
 
 ## Funções  
 
-A função é uma orientação ao*R*para que ele execute algum procedimento específico, por isso, em geral, têm nomes sugestivos  do que elas realizam. Por exemplo, a função `mean ()` realiza a média aritmética de uma série de números colocados entre parênteses.  O resultado, como regra geral, deve ser colocado em um objeto que será armazenado na memória do computador.   
+A função é uma orientação ao *R* para que ele execute algum procedimento específico, por isso, em geral, têm nomes sugestivos  do que elas realizam. Por exemplo, a função `mean ()` realiza a média aritmética de uma série de números colocados entre parênteses.  O resultado, como regra geral, deve ser colocado em um objeto que será armazenado na memória do computador.   
 
 Esta série de números pode antes ser armazenada por um objeto, nomeado `dados`e, posteriormente, se usa a função `mean()`com este objeto `dados`. O resultado da função `mean`, exibido no *Console*, será recebido por outro objeto `media_dados` que será colocado na memória do computador.
 
@@ -382,7 +382,7 @@ Para se saber quais argumentos necessários para uma determinada função basta 
 help(mean)
 ```
 
-O resultado deste comando aparecerá na aba *Help*, na parte inferior, à direita (Figura \@ref(fig:help):
+O resultado deste comando aparecerá na aba *Help*, na parte inferior, à direita (Figura \@ref(fig:help)):
 
 
 ```{r help, echo = FALSE, out.width = '60%', fig.align = 'center', fig.cap="Ajuda para Média Aritmética.", fig.pos="ht"}
@@ -395,7 +395,7 @@ Os principais argumentos da função `mean()` são:
 * **trim**   $\longrightarrow$ fração das observações (varia de 0 a 0,5) extraída de cada extremidade de x para calcular a média aparada
 * **na.rm**  $\longrightarrow$ valor lógico (TRUE ou FALSE) que indicam se os valores ausentes (NA) devem ser removidos antes que o cálculo continue
 
-Este último argumento é muito importante quando, na sequência de valores existe algum não informado ou inexistente. No R, els são denominados de valores ausentes (*missing values*) e denotados por **NA** (*Not Available*).
+Este último argumento é muito importante quando, na sequência de valores existe algum não informado ou inexistente. No R, eles são denominados de valores ausentes (*missing values*) e denotados por **NA** (*Not Available*).
 
 Por exemplo, em uma coleta de uma série de valores, correspondentes ao peso de 15 recém-nascidos, havendo a "falta" de um dos registros, ao calcular a média com a função `mean()`, ela retornará NA. 
 
@@ -430,10 +430,10 @@ area.circ <- function(r){
 }
 ```
  
+Ou seja, foi usada a função `function()`, com o raio do círculo como argumento. A seguir, entre chaves `{}`, coloca-se a ação que a função realizará, no caso o cálculo da área do círculo. O resultado deste cálculo (`pi*r^2`) é recebido por um objeto denominado `area`.^[Foi usado o nome area sem acentuação, mas poderia ser qualquer nome.] A seguir, usou-se a função `return ()` para retornar o resultado do cálculo realizado.  
 Ao executar essa função, é possível usá-la para calcular a área de um círculo, cujo raio é igual a 5 cm:
 
 ```{r}
-r = 5
 area.circ(5)
 ```
 
@@ -455,6 +455,31 @@ peso <-  67
 altura <-  1.70
 imc(67, 1.70)
 ```
+
+Os exemplos mostrados são muito simples. Quase não haveria necessidade de construir uma função. Entretanto, quando se tem uma ação mais complexa, a função mostra a sua utilidade. Por exemplo, se for necessário realizar a comparação entre duas médias, usando um teste *t* e apresentar o resultado junto com boxplots, a função fica mais complexa. Sempre que for necessário cálculo semelhante, a função automatiza a ação, sem necessidade de repetir os códigos:
+
+```{r}
+plotBpT <- function(df, var.x, var.y){
+  library(ggplot2)
+  library(ggpubr)
+  ggplot(df, aes(x = {{var.x}}, y = {{var.y}}, fill = {{var.x}})) +
+    geom_errorbar(stat = "boxplot", width = 0.1) +
+    geom_boxplot() +
+    theme_classic() +
+    theme(legend.position = "none") +
+    stat_compare_means(method = "t.test", label.x = 0.5)
+}
+```
+
+Neste momento, não serão discutidos os códigos da função. Ela será utilizada como uma função qualquer com os dados do arquivo `dadosPop.xlsx`^[Para maiores detalhes, consulte a o Capítulo \@ref(sec-testet)]. Os argumentos da função são o dataframe (df = dados), a variável x (var.x = pop) e a variável y (var.y = altura). Dessa forma, está se comparando a altura de mulheres de duas populações de duas regiões diferentes :
+
+```{r twopop, warning=FALSE, out.width="70%", fig.cap="Comparação da altura de mulheres em duas populações", out.height="70%", fig.align='center'}
+dados <- readxl::read_excel("Arquivos/dadosPop.xlsx")
+dados$pop <- as.factor(dados$pop)
+plotBpT (df = dados, var.x = pop, var.y = altura)
+```
+
+Observe na Figura \@ref(fig:twopop) onde aparece o resultado do teste t ($P = 2,2 \times 10^-16$) e os boxplots (veja Seção \@ref(sec-bxp)) em posições bem diferentes.  
 
 **Ativação de uma função criada**
 
