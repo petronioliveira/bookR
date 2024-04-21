@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2024-02-26" />
+<meta name="date" content="2024-04-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -315,7 +315,7 @@ div.csl-indent {
 <li class="chapter" data-level="6.5.2" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#gráfico-de-barras"><i class="fa fa-check"></i><b>6.5.2</b> Gráfico de barras</a></li>
 <li class="chapter" data-level="6.5.3" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#gráfico-de-barra-de-erro"><i class="fa fa-check"></i><b>6.5.3</b> Gráfico de barra de erro</a></li>
 <li class="chapter" data-level="6.5.4" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#histograma"><i class="fa fa-check"></i><b>6.5.4</b> Histograma</a></li>
-<li class="chapter" data-level="6.5.5" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#boxplot"><i class="fa fa-check"></i><b>6.5.5</b> Boxplot</a></li>
+<li class="chapter" data-level="6.5.5" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#sec-bxp"><i class="fa fa-check"></i><b>6.5.5</b> Boxplot</a></li>
 <li class="chapter" data-level="6.5.6" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#gráfico-de-dispersão"><i class="fa fa-check"></i><b>6.5.6</b> Gráfico de Dispersão</a></li>
 </ul></li>
 <li class="chapter" data-level="6.6" data-path="descrevendo-os-dados.html"><a href="descrevendo-os-dados.html#sec-ggplot2"><i class="fa fa-check"></i><b>6.6</b> Introdução ao <code>ggplot2</code></a>
@@ -676,10 +676,10 @@ div.csl-indent {
 <p>Quando se usa o <code>read.csv()</code> há necessidade de informar o separador e o decimal, pois senão ele usará o padrão inglês e o arquivo não será lido. Já com <code>read.csv2()</code>, que usa o padrão brasileiro, não há necessidade de informar ao<em>R</em>qual o separador de colunas e nem o separador dos decimais.</p>
 <p>Além disso, é necessário saber em que diretório do computador está o arquivo para informar ao comando. Recomenda-se colocar o arquivo na pasta do diretório de trabalho, pois assim basta apenas colocar o nome do arquivo na função de leitura dos dados. Caso contrário, tem-se que se usar todo o caminho (<em>path</em>).</p>
 <p>Como exemplo, será importado o arquivo <code>dadosNeonatos.csv</code> que se encontra no diretório de trabalho do autor, salvo anteriormente. Para obter o arquivo, clique no <a href="https://github.com/petronioliveira/Arquivos/blob/main/dadosNeonatos.csv"><strong>link</strong></a> e salve em seu diretório de trabalho.</p>
-<p>A estrutura deste arquivo mostra que as colunas estão separadas por ponto-e-virgula e, portanto, a leitura dos dados será feita com a função <code>read.csv2()</code> e, como o arquivo está no diretório de trabalho, não há necessidade de informar o diretório completo. Os dados serão colocados em um objeto de nome <code>neonatos</code> <a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>:</p>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="manipulando-os-dados-no-r-studio.html#cb131-1" tabindex="-1"></a>neonatos <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;./Arquivos/dadosNeonatos.csv&quot;</span>)</span></code></pre></div>
-<p>Use a função <code>str()</code> para visualizar o conjunto de dados:<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="manipulando-os-dados-no-r-studio.html#cb132-1" tabindex="-1"></a><span class="fu">str</span>(neonatos)</span></code></pre></div>
+<p>A estrutura deste arquivo mostra que as colunas estão separadas por ponto-e-virgula e, portanto, a leitura dos dados será feita com a função <code>read.csv2()</code> e, como o arquivo está no diretório de trabalho, não há necessidade de informar o diretório completo. Os dados serão colocados em um objeto de nome <code>neonatos</code> <a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>:</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="manipulando-os-dados-no-r-studio.html#cb133-1" tabindex="-1"></a>neonatos <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;./Arquivos/dadosNeonatos.csv&quot;</span>)</span></code></pre></div>
+<p>Use a função <code>str()</code> para visualizar o conjunto de dados:<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a></p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="manipulando-os-dados-no-r-studio.html#cb134-1" tabindex="-1"></a><span class="fu">str</span>(neonatos)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    15 obs. of  7 variables:
 ##  $ id       : int  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ pesoRN   : int  3340 3345 3750 3650 3220 4070 3380 3970 3060 3180 ...
@@ -690,11 +690,11 @@ div.csl-indent {
 ##  $ utiNeo   : chr  &quot;não&quot; &quot;não&quot; &quot;não&quot; &quot;não&quot; ...</code></pre>
 <p>Recentemente, foi desenvolvido o pacote <code>readr</code>, incluído no conjunto de pacotes <code>tidyverse</code><span class="citation">(61)</span>, para lidar rapidamente com a leitura de grandes arquivos. O pacote fornece substituições para funções como <code>read.csv()</code>. As funções <code>read_csv()</code> e <code>read_csv2()</code> oferecidas pelo <code>readr</code> são análogas às do<em>R</em>base. Entretanto, são muito mais rápidas e fornecem mais recursos, como um método compacto para especificar tipos de coluna. Além disso, produzem <code>tibbles</code> (ver adiante, neste mesmo capítulo) que são mais reproduzíveis, pois as funções básicas do R herdam alguns comportamentos do sistema operacional e das variáveis de ambiente, portanto, o código de importação que funciona no seu computador pode não funcionar no de outra pessoa.
 Para usar a função é necessário instalar e ativar o pacote <code>readr</code>. A função <code>read_csv2()</code> será utilizada para criar um outro objeto de nome <code>recemNascidos</code>, mas o conjunto de dados a ser ativado é o mesmo (<code>dadosNeonatos</code>):</p>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="manipulando-os-dados-no-r-studio.html#cb134-1" tabindex="-1"></a> <span class="fu">library</span>(readr)</span>
-<span id="cb134-2"><a href="manipulando-os-dados-no-r-studio.html#cb134-2" tabindex="-1"></a> recemNascidos <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(<span class="st">&quot;Arquivos/dadosNeonatos.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="manipulando-os-dados-no-r-studio.html#cb136-1" tabindex="-1"></a> <span class="fu">library</span>(readr)</span>
+<span id="cb136-2"><a href="manipulando-os-dados-no-r-studio.html#cb136-2" tabindex="-1"></a> recemNascidos <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(<span class="st">&quot;Arquivos/dadosNeonatos.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## ℹ Using &quot;&#39;,&#39;&quot; as decimal and &quot;&#39;.&#39;&quot; as grouping mark. Use `read_delim()` for more control.</code></pre>
 <pre><code>## Rows: 15 Columns: 7
-## ── Column specification ──────────────────────
+## ── Column specification ────────────────────────────
 ## Delimiter: &quot;;&quot;
 ## chr (3): sexo, tipoParto, utiNeo
 ## dbl (4): id, pesoRN, compRN, idadeMae
@@ -702,8 +702,8 @@ Para usar a função é necessário instalar e ativar o pacote <code>readr</code
 ## ℹ Use `spec()` to retrieve the full column specification for this data.
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <p>Quando você executa <code>read_csv2()</code>, ele imprime uma especificação de coluna que fornece o nome e o tipo de cada coluna.</p>
-<p>Novamente, a função <code>str()</code> mostrará a estrutura do arquivo <a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>:</p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="manipulando-os-dados-no-r-studio.html#cb137-1" tabindex="-1"></a><span class="fu">str</span>(recemNascidos)</span></code></pre></div>
+<p>Novamente, a função <code>str()</code> mostrará a estrutura do arquivo <a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>:</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="manipulando-os-dados-no-r-studio.html#cb139-1" tabindex="-1"></a><span class="fu">str</span>(recemNascidos)</span></code></pre></div>
 <pre><code>## spc_tbl_ [15 × 7] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ id       : num [1:15] 1 2 3 4 5 6 7 8 9 10 ...
 ##  $ pesoRN   : num [1:15] 3340 3345 3750 3650 3220 ...
@@ -735,9 +735,9 @@ Figura5.1: Argumentos da função para importar arquivos xlsx
 </div>
 <p>Será feita a leitura dos mesmos dados, usados na leitura de dados <code>csv</code>, apenas o arquivo agora está no formato <code>.xlsx</code>. Para obter o arquivo, siga os mesmos passos, usados anteriormente. Clique no <a href="https://github.com/petronioliveira/Arquivos/blob/main/dadosNeonatos.xlsx"><strong>link</strong></a> e salve em seu diretório de trabalho.</p>
 <p>Os dados serão atribuídos a um objeto com outro nome (<code>recemNatos</code>):</p>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="manipulando-os-dados-no-r-studio.html#cb139-1" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb139-2"><a href="manipulando-os-dados-no-r-studio.html#cb139-2" tabindex="-1"></a>recemNatos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosNeonatos.xlsx&quot;</span>)</span>
-<span id="cb139-3"><a href="manipulando-os-dados-no-r-studio.html#cb139-3" tabindex="-1"></a><span class="fu">str</span>(recemNatos)</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="manipulando-os-dados-no-r-studio.html#cb141-1" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb141-2"><a href="manipulando-os-dados-no-r-studio.html#cb141-2" tabindex="-1"></a>recemNatos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosNeonatos.xlsx&quot;</span>)</span>
+<span id="cb141-3"><a href="manipulando-os-dados-no-r-studio.html#cb141-3" tabindex="-1"></a><span class="fu">str</span>(recemNatos)</span></code></pre></div>
 <pre><code>## tibble [15 × 7] (S3: tbl_df/tbl/data.frame)
 ##  $ id       : num [1:15] 1 2 3 4 5 6 7 8 9 10 ...
 ##  $ pesoRN   : num [1:15] 3340 3345 3750 3650 3220 ...
@@ -771,7 +771,7 @@ Figura5.2: Importando arquivos do excel com o RStudio.
 <p>O conceito de <em>tidy data</em>, introduzido por Wickman <span class="citation">(63)</span>, se refere à estrutura dos dados organizados de maneira que cada linha é uma observação, cada coluna representa variáveis e cada entrada nas células do dataframe são os valores.</p>
 <p>A transformação de um dataframe tradicional em um tibble, é um procedimento rescomendável, em função da maior flexibilidade destes.</p>
 <p>Como exemplo deste procedimento, será usado o famoso conjunto de dados da flor iris <span class="citation">(64)</span> que fornece as medidas em centímetros das variáveis comprimento e largura da sepala e comprimento e largura da pétala, repectivamente, para 50 flores de cada uma das 3 espécies de íris (<em>Iris setosa</em>, <em>versicolor</em> e <em>virginica</em>). Este conjunto de dados encontra-se no pacote <code>datasets</code> no <em>R</em> base. Para visualizar os dados, será usado a função <code>str()</code>, também do <em>R</em> base, que mostra a estrutura interna de um objeto:</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="manipulando-os-dados-no-r-studio.html#cb141-1" tabindex="-1"></a><span class="fu">str</span>(iris)</span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="manipulando-os-dados-no-r-studio.html#cb143-1" tabindex="-1"></a><span class="fu">str</span>(iris)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    150 obs. of  5 variables:
 ##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
 ##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
@@ -779,8 +779,8 @@ Figura5.2: Importando arquivos do excel com o RStudio.
 ##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
 ##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
 <p>Observa-se que é um conjunto de dados da classe <code>data.frame</code>, contendo 150 observações de 5 variáveis (colunas). Fazendo a coerção para um <code>tibble</code>, tem-se:</p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="manipulando-os-dados-no-r-studio.html#cb143-1" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb143-2"><a href="manipulando-os-dados-no-r-studio.html#cb143-2" tabindex="-1"></a><span class="fu">as_tibble</span>(iris)</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="manipulando-os-dados-no-r-studio.html#cb145-1" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb145-2"><a href="manipulando-os-dados-no-r-studio.html#cb145-2" tabindex="-1"></a><span class="fu">as_tibble</span>(iris)</span></code></pre></div>
 <pre><code>## # A tibble: 150 × 5
 ##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ##           &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;  
@@ -802,11 +802,11 @@ Figura5.2: Importando arquivos do excel com o RStudio.
 <p>O pacote <code>dpylr</code> é comumente usado para limpar e trabalhar com dados <span class="citation">(65)</span>. No nível mais básico, as funções do pacote referem-se a “verbos” de manipulação de dados, como <code>select</code>, <code>filter</code>, <code>mutate</code>, <code>arrange</code>, <code>summarize</code>, entre outros, que permitem encadear várias etapas em algumas linhas de código, como será visto adiante.</p>
 <p>O pacote <code>dplyr</code> é adequado para trabalhar com um único conjunto de dados, bem como para obter resultados complexos em grandes conjuntos de dados. As funções <code>dplyr</code> são processadas mais rápido do que as funções <em>R</em> base.</p>
 <p>Para trabalhar na manipulação dos dados serão usados alguns pacotes, já mencionados anteriormente, <code>readxl</code><span class="citation">(66)</span> e <code>dplyr</code>, e o conjunto de dados <code>dadosMater.xlsx</code>. Para obter estes dados, clique <a href="https://github.com/petronioliveira/Arquivos/blob/main/dadosMater.xlsx"><strong>aqui</strong></a> e faça o download para o seu diretório de trabalho, como orientado anteriormente.</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="manipulando-os-dados-no-r-studio.html#cb145-1" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb145-2"><a href="manipulando-os-dados-no-r-studio.html#cb145-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="manipulando-os-dados-no-r-studio.html#cb146-1" tabindex="-1"></a>mater <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>)</span></code></pre></div>
-<p>A função <code>read_excel()</code> carrega o arquivo e o atribui a um objeto , arbitrariamente, denominado de <code>mater</code><a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a>.</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="manipulando-os-dados-no-r-studio.html#cb147-1" tabindex="-1"></a><span class="fu">as_tibble</span>(mater)</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="manipulando-os-dados-no-r-studio.html#cb147-1" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb147-2"><a href="manipulando-os-dados-no-r-studio.html#cb147-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="manipulando-os-dados-no-r-studio.html#cb148-1" tabindex="-1"></a>mater <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>)</span></code></pre></div>
+<p>A função <code>read_excel()</code> carrega o arquivo e o atribui a um objeto , arbitrariamente, denominado de <code>mater</code><a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a>.</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="manipulando-os-dados-no-r-studio.html#cb149-1" tabindex="-1"></a><span class="fu">as_tibble</span>(mater)</span></code></pre></div>
 <pre><code>## # A tibble: 1,368 × 30
 ##       id idadeMae altura  peso ganhoPeso anosEst   cor eCivil renda  fumo
 ##    &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -827,7 +827,7 @@ Figura5.2: Importando arquivos do excel com o RStudio.
 ## #   utiNeo &lt;dbl&gt;, obito &lt;dbl&gt;, hiv &lt;dbl&gt;, sifilis &lt;dbl&gt;, rubeola &lt;dbl&gt;,
 ## #   toxo &lt;dbl&gt;, infCong &lt;dbl&gt;</code></pre>
 <p>Por padrão, a função retorna as dez primeiras linhas. Além disso, colunas que não couberem na largura da tela serão omitidas. Também são apresentadas a dimensão da tabela e as classes de cada coluna. Observa-se que ele tem 1368 linhas (observações) e 30 colunas (variáveis). Além disso, verifica-se que todas as variáveis estão como numéricas (<code>dbl</code>) e, certamente, algumas, dependendo do objetivo na análise, precisarão ser transformadas.</p>
-<p>O significado de cada uma das variáveis do arquivo <code>dadosMater.xlsx</code> <a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a> é mostrado abaixo.</p>
+<p>O significado de cada uma das variáveis do arquivo <code>dadosMater.xlsx</code> <a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a> é mostrado abaixo.</p>
 <ul>
 <li><strong>id</strong> <span class="math inline">\(\longrightarrow\)</span> identificação do participante<br />
 </li>
@@ -891,9 +891,9 @@ Figura5.2: Importando arquivos do excel com o RStudio.
 <h3><span class="header-section-number">5.3.1</span> Função <code>select()</code><a href="manipulando-os-dados-no-r-studio.html#função-select" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A função <code>select ()</code> é usada para escolher com quais colunas (variáveis) entrarão na análise. Ela recebe os nomes das colunas como argumentos e cria um novo banco de dados usando as colunas selecionadas. A função <code>select ()</code> pode ser combinada com outras funções, como <code>filter ()</code>.</p>
 <p>Por exemplo, um novo banco de dados será criado (<code>mater1</code>), contendo as mesmas 1368 linhas, mas apenas com as variáveis <code>idadeMae</code>, <code>altura</code>, <code>peso</code>, <code>anosEst</code>, <code>renda</code>, <code>ig</code>, <code>fumo</code>, <code>pesoRN</code>, <code>sexo</code>. Consulte a ajuda (<code>?select()</code>) para obter maiores informações em relação aos argumentos da função:</p>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="manipulando-os-dados-no-r-studio.html#cb149-1" tabindex="-1"></a>mater1 <span class="ot">&lt;-</span> <span class="fu">select</span>(mater, idadeMae, altura, peso, anosEst, renda, ig, tipoParto, fumo, pesoRN, sexo)</span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="manipulando-os-dados-no-r-studio.html#cb151-1" tabindex="-1"></a>mater1 <span class="ot">&lt;-</span> <span class="fu">select</span>(mater, idadeMae, altura, peso, anosEst, renda, ig, tipoParto, fumo, pesoRN, sexo)</span></code></pre></div>
 <p>Para visualizar este novo banco de dados, pode-se usar a função <code>str()</code>:</p>
-<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="manipulando-os-dados-no-r-studio.html#cb150-1" tabindex="-1"></a><span class="fu">str</span>(mater1)</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="manipulando-os-dados-no-r-studio.html#cb152-1" tabindex="-1"></a><span class="fu">str</span>(mater1)</span></code></pre></div>
 <pre><code>## tibble [1,368 × 10] (S3: tbl_df/tbl/data.frame)
 ##  $ idadeMae : num [1:1368] 42 29 19 31 34 29 30 34 17 32 ...
 ##  $ altura   : num [1:1368] 1.65 1.66 1.72 1.55 1.6 1.5 1.54 1.63 1.68 1.5 ...
@@ -906,19 +906,19 @@ Figura5.2: Importando arquivos do excel com o RStudio.
 ##  $ pesoRN   : num [1:1368] 1035 2300 1580 1840 2475 ...
 ##  $ sexo     : num [1:1368] 2 2 2 2 2 2 2 2 2 2 ...</code></pre>
 <p>Como mostrado anteriormente, muitas variáveis numéricas do <code>mater</code>, na realidade, são fatores e necessitam de serem modificadas. Entretanto, das selecionadas, para constituir o novo banco de dados, apenas <code>tipoParto</code>, <code>fumo</code> e <code>sexo</code> necessitam serem transformadas para fator:</p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="manipulando-os-dados-no-r-studio.html#cb152-1" tabindex="-1"></a>mater1<span class="sc">$</span>tipoParto <span class="ot">&lt;-</span> <span class="fu">factor</span>(mater1<span class="sc">$</span>tipoParto, </span>
-<span id="cb152-2"><a href="manipulando-os-dados-no-r-studio.html#cb152-2" tabindex="-1"></a>                           <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
-<span id="cb152-3"><a href="manipulando-os-dados-no-r-studio.html#cb152-3" tabindex="-1"></a>                           <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;normal&quot;</span>,<span class="st">&quot;cesareo&quot;</span>))</span>
-<span id="cb152-4"><a href="manipulando-os-dados-no-r-studio.html#cb152-4" tabindex="-1"></a></span>
-<span id="cb152-5"><a href="manipulando-os-dados-no-r-studio.html#cb152-5" tabindex="-1"></a>mater1<span class="sc">$</span>fumo <span class="ot">&lt;-</span> <span class="fu">factor</span> (mater1<span class="sc">$</span>fumo,</span>
-<span id="cb152-6"><a href="manipulando-os-dados-no-r-studio.html#cb152-6" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), </span>
-<span id="cb152-7"><a href="manipulando-os-dados-no-r-studio.html#cb152-7" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&#39;sim&#39;</span>,<span class="st">&#39;não&#39;</span>))</span>
-<span id="cb152-8"><a href="manipulando-os-dados-no-r-studio.html#cb152-8" tabindex="-1"></a></span>
-<span id="cb152-9"><a href="manipulando-os-dados-no-r-studio.html#cb152-9" tabindex="-1"></a>mater1<span class="sc">$</span>sexo <span class="ot">&lt;-</span> <span class="fu">factor</span> (mater1<span class="sc">$</span>sexo, </span>
-<span id="cb152-10"><a href="manipulando-os-dados-no-r-studio.html#cb152-10" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), </span>
-<span id="cb152-11"><a href="manipulando-os-dados-no-r-studio.html#cb152-11" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;masc&quot;</span>,<span class="st">&quot;fem&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="manipulando-os-dados-no-r-studio.html#cb154-1" tabindex="-1"></a>mater1<span class="sc">$</span>tipoParto <span class="ot">&lt;-</span> <span class="fu">factor</span>(mater1<span class="sc">$</span>tipoParto, </span>
+<span id="cb154-2"><a href="manipulando-os-dados-no-r-studio.html#cb154-2" tabindex="-1"></a>                           <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb154-3"><a href="manipulando-os-dados-no-r-studio.html#cb154-3" tabindex="-1"></a>                           <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;normal&quot;</span>,<span class="st">&quot;cesareo&quot;</span>))</span>
+<span id="cb154-4"><a href="manipulando-os-dados-no-r-studio.html#cb154-4" tabindex="-1"></a></span>
+<span id="cb154-5"><a href="manipulando-os-dados-no-r-studio.html#cb154-5" tabindex="-1"></a>mater1<span class="sc">$</span>fumo <span class="ot">&lt;-</span> <span class="fu">factor</span> (mater1<span class="sc">$</span>fumo,</span>
+<span id="cb154-6"><a href="manipulando-os-dados-no-r-studio.html#cb154-6" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), </span>
+<span id="cb154-7"><a href="manipulando-os-dados-no-r-studio.html#cb154-7" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&#39;sim&#39;</span>,<span class="st">&#39;não&#39;</span>))</span>
+<span id="cb154-8"><a href="manipulando-os-dados-no-r-studio.html#cb154-8" tabindex="-1"></a></span>
+<span id="cb154-9"><a href="manipulando-os-dados-no-r-studio.html#cb154-9" tabindex="-1"></a>mater1<span class="sc">$</span>sexo <span class="ot">&lt;-</span> <span class="fu">factor</span> (mater1<span class="sc">$</span>sexo, </span>
+<span id="cb154-10"><a href="manipulando-os-dados-no-r-studio.html#cb154-10" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), </span>
+<span id="cb154-11"><a href="manipulando-os-dados-no-r-studio.html#cb154-11" tabindex="-1"></a>                       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;masc&quot;</span>,<span class="st">&quot;fem&quot;</span>))</span></code></pre></div>
 <p>Usando, de novo, a função <code>str()</code>, é possível observar a transformação:</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="manipulando-os-dados-no-r-studio.html#cb153-1" tabindex="-1"></a><span class="fu">str</span>(mater1)</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="manipulando-os-dados-no-r-studio.html#cb155-1" tabindex="-1"></a><span class="fu">str</span>(mater1)</span></code></pre></div>
 <pre><code>## tibble [1,368 × 10] (S3: tbl_df/tbl/data.frame)
 ##  $ idadeMae : num [1:1368] 42 29 19 31 34 29 30 34 17 32 ...
 ##  $ altura   : num [1:1368] 1.65 1.66 1.72 1.55 1.6 1.5 1.54 1.63 1.68 1.5 ...
@@ -931,8 +931,8 @@ Figura5.2: Importando arquivos do excel com o RStudio.
 ##  $ pesoRN   : num [1:1368] 1035 2300 1580 1840 2475 ...
 ##  $ sexo     : Factor w/ 2 levels &quot;masc&quot;,&quot;fem&quot;: 2 2 2 2 2 2 2 2 2 2 ...</code></pre>
 <p>Se houver necessidade de se excluir alguma variável (coluna), basta colocar o sinal de subtração (-) antes do nome da variável:</p>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="manipulando-os-dados-no-r-studio.html#cb155-1" tabindex="-1"></a>mater2 <span class="ot">&lt;-</span> <span class="fu">select</span>(mater1, <span class="sc">-</span>altura)</span></code></pre></div>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="manipulando-os-dados-no-r-studio.html#cb156-1" tabindex="-1"></a><span class="fu">str</span>(mater2)</span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="manipulando-os-dados-no-r-studio.html#cb157-1" tabindex="-1"></a>mater2 <span class="ot">&lt;-</span> <span class="fu">select</span>(mater1, <span class="sc">-</span>altura)</span></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="manipulando-os-dados-no-r-studio.html#cb158-1" tabindex="-1"></a><span class="fu">str</span>(mater2)</span></code></pre></div>
 <pre><code>## tibble [1,368 × 9] (S3: tbl_df/tbl/data.frame)
 ##  $ idadeMae : num [1:1368] 42 29 19 31 34 29 30 34 17 32 ...
 ##  $ peso     : num [1:1368] 69.9 78 81 74 60 60 75.5 61 57 70 ...
@@ -955,9 +955,9 @@ Por exemplo:</p>
 <li><strong>x &amp; !x</strong> <span class="math inline">\(\longrightarrow\)</span> seleciona <em>x</em> e <em>y</em></li>
 </ul>
 <p>Um recém-nascido é dito a termo quando a duração da gestação é igual a 37 a 42 semanas incompletas. Se quisermos extrair do banco de dados <code>mater1</code> os recém-nascidos a termo, pode-se usar a função <code>filter()</code>:</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="manipulando-os-dados-no-r-studio.html#cb158-1" tabindex="-1"></a>mater3 <span class="ot">&lt;-</span> <span class="fu">filter</span> (mater1, ig<span class="sc">&gt;=</span><span class="dv">37</span> <span class="sc">&amp;</span> ig<span class="sc">&lt;</span><span class="dv">42</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="manipulando-os-dados-no-r-studio.html#cb160-1" tabindex="-1"></a>mater3 <span class="ot">&lt;-</span> <span class="fu">filter</span> (mater1, ig<span class="sc">&gt;=</span><span class="dv">37</span> <span class="sc">&amp;</span> ig<span class="sc">&lt;</span><span class="dv">42</span>)</span></code></pre></div>
 <p>Para exibir o resultado, execute a função <code>str()</code>:</p>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="manipulando-os-dados-no-r-studio.html#cb159-1" tabindex="-1"></a><span class="fu">str</span>(mater3)</span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="manipulando-os-dados-no-r-studio.html#cb161-1" tabindex="-1"></a><span class="fu">str</span>(mater3)</span></code></pre></div>
 <pre><code>## tibble [1,085 × 10] (S3: tbl_df/tbl/data.frame)
 ##  $ idadeMae : num [1:1085] 28 31 27 28 18 28 22 28 25 14 ...
 ##  $ altura   : num [1:1085] 1.5 1.55 1.6 1.58 1.76 1.63 1.54 1.55 1.56 1.51 ...
@@ -971,9 +971,9 @@ Por exemplo:</p>
 ##  $ sexo     : Factor w/ 2 levels &quot;masc&quot;,&quot;fem&quot;: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
 <p>Observe que, agora, o conjunto de dados <code>mater3</code> tem 1085 linhas, número de recém-nascidos a termo do banco de dados original <code>mater</code> (1368). Logo, os recém nascidos a termo correspondem a 79.3% dos nascimentos, nesta maternidade.</p>
 <p><strong>Outro exemplo</strong></p>
-<p>Para selecionar apenas os meninos, nascidos a termo, codificados como <code>"masc"</code>, procede-se da seguinte maneira<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a>:</p>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="manipulando-os-dados-no-r-studio.html#cb161-1" tabindex="-1"></a>meninos <span class="ot">&lt;-</span> <span class="fu">filter</span> (mater3, sexo <span class="sc">==</span> <span class="st">&#39;masc&#39;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="manipulando-os-dados-no-r-studio.html#cb162-1" tabindex="-1"></a><span class="fu">str</span>(meninos)</span></code></pre></div>
+<p>Para selecionar apenas os meninos, nascidos a termo, codificados como <code>"masc"</code>, procede-se da seguinte maneira<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a>:</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="manipulando-os-dados-no-r-studio.html#cb163-1" tabindex="-1"></a>meninos <span class="ot">&lt;-</span> <span class="fu">filter</span> (mater3, sexo <span class="sc">==</span> <span class="st">&#39;masc&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="manipulando-os-dados-no-r-studio.html#cb164-1" tabindex="-1"></a><span class="fu">str</span>(meninos)</span></code></pre></div>
 <pre><code>## tibble [592 × 10] (S3: tbl_df/tbl/data.frame)
 ##  $ idadeMae : num [1:592] 28 31 27 28 18 28 22 28 25 14 ...
 ##  $ altura   : num [1:592] 1.5 1.55 1.6 1.58 1.76 1.63 1.54 1.55 1.56 1.51 ...
@@ -987,8 +987,8 @@ Por exemplo:</p>
 ##  $ sexo     : Factor w/ 2 levels &quot;masc&quot;,&quot;fem&quot;: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
 <p>O banco de dados <code>meninos</code> é constituídos por 592 meninos. Isto representa 43.3% dos nascimentos.</p>
 <p>Uma outra maneira de se fazer o mesmo é usar a função <code>grepl()</code>, dentro da função <code>filter ()</code>. Ela é usada para pesquisar a correspondência de padrões. No código a seguir, pesquisa-se os registros em que a variável <code>sexo</code> contém <code>“fem”</code>, correspondentes às meninas.</p>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="manipulando-os-dados-no-r-studio.html#cb164-1" tabindex="-1"></a>meninas <span class="ot">&lt;-</span> <span class="fu">filter</span> (mater3, <span class="fu">grepl</span>(<span class="st">&quot;fem&quot;</span>, sexo))</span></code></pre></div>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="manipulando-os-dados-no-r-studio.html#cb165-1" tabindex="-1"></a><span class="fu">str</span>(meninas)</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="manipulando-os-dados-no-r-studio.html#cb166-1" tabindex="-1"></a>meninas <span class="ot">&lt;-</span> <span class="fu">filter</span> (mater3, <span class="fu">grepl</span>(<span class="st">&quot;fem&quot;</span>, sexo))</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="manipulando-os-dados-no-r-studio.html#cb167-1" tabindex="-1"></a><span class="fu">str</span>(meninas)</span></code></pre></div>
 <pre><code>## tibble [493 × 10] (S3: tbl_df/tbl/data.frame)
 ##  $ idadeMae : num [1:493] 17 30 27 28 17 21 28 19 24 43 ...
 ##  $ altura   : num [1:493] 1.65 1.6 1.53 1.4 1.55 1.52 1.58 1.55 1.72 1.6 ...
@@ -1008,8 +1008,8 @@ Por exemplo:</p>
 <p><span class="math display">\[IMC = \frac {peso}{altura ^2}\]</span>.</p>
 <p>O peso deve ser expreso em kg e a altura em metros. Para acrescentar este indicador no banco de dados <code>mater1</code> , se fará uso da função <code>mutate()</code>, nomeando a nova variável de imc:</p>
 <p>Será acrescentado a variável <code>imc</code>, no banco de dados <code>mater1</code>, usando a função <code>mutate()</code>, nomenando essa variável de <code>imc</code>:</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="manipulando-os-dados-no-r-studio.html#cb167-1" tabindex="-1"></a>mater1 <span class="ot">&lt;-</span> <span class="fu">mutate</span>(mater1, <span class="at">imc =</span> peso<span class="sc">/</span>altura<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb167-2"><a href="manipulando-os-dados-no-r-studio.html#cb167-2" tabindex="-1"></a><span class="fu">str</span> (mater1)</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="manipulando-os-dados-no-r-studio.html#cb169-1" tabindex="-1"></a>mater1 <span class="ot">&lt;-</span> <span class="fu">mutate</span>(mater1, <span class="at">imc =</span> peso<span class="sc">/</span>altura<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb169-2"><a href="manipulando-os-dados-no-r-studio.html#cb169-2" tabindex="-1"></a><span class="fu">str</span> (mater1)</span></code></pre></div>
 <pre><code>## tibble [1,368 × 11] (S3: tbl_df/tbl/data.frame)
 ##  $ idadeMae : num [1:1368] 42 29 19 31 34 29 30 34 17 32 ...
 ##  $ altura   : num [1:1368] 1.65 1.66 1.72 1.55 1.6 1.5 1.54 1.63 1.68 1.5 ...
@@ -1032,16 +1032,16 @@ Por exemplo:</p>
 <li><strong>replace</strong> <span class="math inline">\(\longrightarrow\)</span> amostra com ou sem reposição?. Padrão = FALSE</li>
 </ul>
 <p>Uma mostra de 20 neonatos do banco de dados meninos, pode ser selecionada, usando a função <code>sample_n</code>:</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="manipulando-os-dados-no-r-studio.html#cb169-1" tabindex="-1"></a>meninos1 <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(meninos, <span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="manipulando-os-dados-no-r-studio.html#cb171-1" tabindex="-1"></a>meninos1 <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(meninos, <span class="dv">20</span>)</span></code></pre></div>
 <p>Assim, selecionou-se uma amostra de 20 meninos do banco de dados de recém-nascidos a termo. Pode-se, fazer um resumo da variável peso do recém-nascido (<code>meninos1$pesoRN</code>) para ver como ela se comporta, usando a função <code>summary()</code>:</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="manipulando-os-dados-no-r-studio.html#cb170-1" tabindex="-1"></a><span class="fu">summary</span>(meninos1<span class="sc">$</span>pesoRN)</span></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="manipulando-os-dados-no-r-studio.html#cb172-1" tabindex="-1"></a><span class="fu">summary</span>(meninos1<span class="sc">$</span>pesoRN)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##    2595    3129    3308    3281    3552    3920</code></pre>
+##    2885    3089    3290    3327    3506    3920</code></pre>
 <p>É importante mencionar que toda vez que esta função for executada ela irá gerar uma amostra diferente. Então, por exemplo, não se deve esperar que a média dos pesos dos recém-nascidos de amostras diferentes sejam iguais.</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="manipulando-os-dados-no-r-studio.html#cb172-1" tabindex="-1"></a>meninos2 <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(meninos, <span class="dv">20</span>)</span>
-<span id="cb172-2"><a href="manipulando-os-dados-no-r-studio.html#cb172-2" tabindex="-1"></a><span class="fu">summary</span>(meninos2<span class="sc">$</span>pesoRN)</span></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="manipulando-os-dados-no-r-studio.html#cb174-1" tabindex="-1"></a>meninos2 <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(meninos, <span class="dv">20</span>)</span>
+<span id="cb174-2"><a href="manipulando-os-dados-no-r-studio.html#cb174-2" tabindex="-1"></a><span class="fu">summary</span>(meninos2<span class="sc">$</span>pesoRN)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##    2455    2791    3010    3015    3164    3815</code></pre>
+##    1980    2782    3345    3116    3562    3695</code></pre>
 <p>No capítulo 9 sobre Distribuições Amostrais, este assunto voltará à cena.</p>
 <p>As funções <code>sample_n()</code> estão com os dias contados, pois foram substituídas por <code>slice_sample()</code> do conjunto de funções que acompanham a função <code>slice()</code></p>
 </div>
@@ -1056,14 +1056,14 @@ Os argumentos básicos da função slice() são</p>
 <li><em>…</em></li>
 </ul>
 <p>Exemplpos:</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="manipulando-os-dados-no-r-studio.html#cb174-1" tabindex="-1"></a><span class="co"># Selecionando a linha 10</span></span>
-<span id="cb174-2"><a href="manipulando-os-dados-no-r-studio.html#cb174-2" tabindex="-1"></a><span class="fu">slice</span>(<span class="at">.data =</span> meninos, <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="manipulando-os-dados-no-r-studio.html#cb176-1" tabindex="-1"></a><span class="co"># Selecionando a linha 10</span></span>
+<span id="cb176-2"><a href="manipulando-os-dados-no-r-studio.html#cb176-2" tabindex="-1"></a><span class="fu">slice</span>(<span class="at">.data =</span> meninos, <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 10
 ##   idadeMae altura  peso anosEst renda    ig tipoParto fumo  pesoRN sexo 
 ##      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;
 ## 1       14   1.51  56.7       6  1.92    39 normal    não     3200 masc</code></pre>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="manipulando-os-dados-no-r-studio.html#cb176-1" tabindex="-1"></a><span class="co"># Selecionando varias linhas, por exemplo, de 1 a 5</span></span>
-<span id="cb176-2"><a href="manipulando-os-dados-no-r-studio.html#cb176-2" tabindex="-1"></a><span class="fu">slice</span>(<span class="at">.data =</span> meninos, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="manipulando-os-dados-no-r-studio.html#cb178-1" tabindex="-1"></a><span class="co"># Selecionando varias linhas, por exemplo, de 1 a 5</span></span>
+<span id="cb178-2"><a href="manipulando-os-dados-no-r-studio.html#cb178-2" tabindex="-1"></a><span class="fu">slice</span>(<span class="at">.data =</span> meninos, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 10
 ##   idadeMae altura  peso anosEst renda    ig tipoParto fumo  pesoRN sexo 
 ##      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;
@@ -1073,16 +1073,16 @@ Os argumentos básicos da função slice() são</p>
 ## 4       28   1.58  47         8  1.69    38 normal    não     2800 masc 
 ## 5       18   1.76  65.5       7  1.93    39 normal    sim     3270 masc</code></pre>
 <p>É possível também selecionar linhas de acordo com determinado grupo. Como grupo, será usada a variável fumo que tem dois níveis (sim e não). Será selecionada uma linha de cada grupo:</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="manipulando-os-dados-no-r-studio.html#cb178-1" tabindex="-1"></a><span class="fu">slice</span>(<span class="at">.data =</span> meninos, <span class="at">.by =</span> fumo, <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="manipulando-os-dados-no-r-studio.html#cb180-1" tabindex="-1"></a><span class="fu">slice</span>(<span class="at">.data =</span> meninos, <span class="at">.by =</span> fumo, <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 10
 ##   idadeMae altura  peso anosEst renda    ig tipoParto fumo  pesoRN sexo 
 ##      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;
 ## 1       28    1.5  48.5       6  3.13    37 normal    não     3285 masc 
 ## 2       27    1.6  60         8  2.41    37 cesareo   sim     3100 masc</code></pre>
 <p>Para separa por grupo , é possível usar a função <code>group_by()</code>, incluída no pacote <code>dplyr</code>. A melhor solução, neste caso, para aplicar diversas funções de manipulação em um dataframe é aplicar o operador pipe: <code>%&gt;%</code>. No final desta seção, será discutido com mais detalhes este operador.</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="manipulando-os-dados-no-r-studio.html#cb180-1" tabindex="-1"></a> meninos <span class="sc">%&gt;%</span> </span>
-<span id="cb180-2"><a href="manipulando-os-dados-no-r-studio.html#cb180-2" tabindex="-1"></a>   <span class="fu">group_by</span>(fumo) <span class="sc">%&gt;%</span> </span>
-<span id="cb180-3"><a href="manipulando-os-dados-no-r-studio.html#cb180-3" tabindex="-1"></a>   <span class="fu">slice</span> (<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="manipulando-os-dados-no-r-studio.html#cb182-1" tabindex="-1"></a> meninos <span class="sc">%&gt;%</span> </span>
+<span id="cb182-2"><a href="manipulando-os-dados-no-r-studio.html#cb182-2" tabindex="-1"></a>   <span class="fu">group_by</span>(fumo) <span class="sc">%&gt;%</span> </span>
+<span id="cb182-3"><a href="manipulando-os-dados-no-r-studio.html#cb182-3" tabindex="-1"></a>   <span class="fu">slice</span> (<span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 10
 ## # Groups:   fumo [2]
 ##   idadeMae altura  peso anosEst renda    ig tipoParto fumo  pesoRN sexo 
@@ -1097,32 +1097,32 @@ Os argumentos básicos da função slice() são</p>
 * <code>slice_sample()</code> seleciona linhas aleatoriamente, substitui a <code>sample_n()</code>;
 * <code>slice_min()</code> e <code>slice_max()</code> selecionam linhas com valores mais altos ou mais baixos de uma variável.</p>
 <p>Por exemplo, para selecionar uma amostra aleatória de 20 meninos do conjunto de dados <code>meninos</code>, pode-se usar a função <code>slice_sample()</code>:</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="manipulando-os-dados-no-r-studio.html#cb182-1" tabindex="-1"></a> meninos3 <span class="ot">&lt;-</span> <span class="fu">slice_sample</span>(<span class="at">.data =</span> meninos, <span class="at">n =</span> <span class="dv">20</span>)</span>
-<span id="cb182-2"><a href="manipulando-os-dados-no-r-studio.html#cb182-2" tabindex="-1"></a> <span class="fu">str</span> (meninos3)</span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="manipulando-os-dados-no-r-studio.html#cb184-1" tabindex="-1"></a> meninos3 <span class="ot">&lt;-</span> <span class="fu">slice_sample</span>(<span class="at">.data =</span> meninos, <span class="at">n =</span> <span class="dv">20</span>)</span>
+<span id="cb184-2"><a href="manipulando-os-dados-no-r-studio.html#cb184-2" tabindex="-1"></a> <span class="fu">str</span> (meninos3)</span></code></pre></div>
 <pre><code>## tibble [20 × 10] (S3: tbl_df/tbl/data.frame)
-##  $ idadeMae : num [1:20] 35 23 37 25 30 27 30 35 29 24 ...
-##  $ altura   : num [1:20] 1.68 1.75 1.64 1.55 1.56 1.55 1.63 1.69 1.5 1.66 ...
-##  $ peso     : num [1:20] 79.5 81 69 65 43 65 77 62 56 76.5 ...
-##  $ anosEst  : num [1:20] 6 6 7 8 11 11 6 8 6 11 ...
-##  $ renda    : num [1:20] 0.96 1.16 2.41 6.02 3.61 1.2 3.61 1.92 2.89 4.1 ...
-##  $ ig       : num [1:20] 39 39 40 39 41 38 38 39 39 40 ...
-##  $ tipoParto: Factor w/ 2 levels &quot;normal&quot;,&quot;cesareo&quot;: 2 1 2 1 1 2 1 2 2 2 ...
-##  $ fumo     : Factor w/ 2 levels &quot;sim&quot;,&quot;não&quot;: 2 1 2 1 2 1 2 2 2 2 ...
-##  $ pesoRN   : num [1:20] 3390 3345 3520 3095 3380 ...
+##  $ idadeMae : num [1:20] 41 27 14 18 24 25 20 25 43 20 ...
+##  $ altura   : num [1:20] 1.58 1.64 1.51 1.52 1.65 1.53 1.56 1.82 1.65 1.6 ...
+##  $ peso     : num [1:20] 103 69 56.7 70 65 70 58.5 81 63 60 ...
+##  $ anosEst  : num [1:20] 4 8 6 6 5 4 4 8 8 8 ...
+##  $ renda    : num [1:20] 1.92 1.93 1.92 0.92 1.92 1.45 1.18 1.93 4.82 2.65 ...
+##  $ ig       : num [1:20] 37 38 39 39 39 39 38 38 40 37 ...
+##  $ tipoParto: Factor w/ 2 levels &quot;normal&quot;,&quot;cesareo&quot;: 2 1 1 1 2 1 1 2 1 1 ...
+##  $ fumo     : Factor w/ 2 levels &quot;sim&quot;,&quot;não&quot;: 2 2 2 2 1 1 1 2 2 2 ...
+##  $ pesoRN   : num [1:20] 3920 2830 3200 3295 2330 ...
 ##  $ sexo     : Factor w/ 2 levels &quot;masc&quot;,&quot;fem&quot;: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
 <p>Como se observa no código, o argumento <code>n</code> da função deve ser nomeado explicitamente (<code>n = 20</code>). É possível também usar o argumento <code>prop</code>, colocando a proporção de linhas que se deseja selecionar. Se o objetivo é selecionar 10% da amostra, coloca-se o argumento como <code>prop = 0.10</code>. Como o dataframe <code>meninos</code> contém 592 casos, serão selecionados 59. Além disso, a função permite selecionar por grupos com o argumento <code>by =</code>.</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="manipulando-os-dados-no-r-studio.html#cb184-1" tabindex="-1"></a>meninos4 <span class="ot">&lt;-</span> <span class="fu">slice_sample</span>(<span class="at">.data =</span> meninos, <span class="at">prop =</span> <span class="fl">0.10</span>)</span>
-<span id="cb184-2"><a href="manipulando-os-dados-no-r-studio.html#cb184-2" tabindex="-1"></a><span class="fu">str</span> (meninos4)</span></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="manipulando-os-dados-no-r-studio.html#cb186-1" tabindex="-1"></a>meninos4 <span class="ot">&lt;-</span> <span class="fu">slice_sample</span>(<span class="at">.data =</span> meninos, <span class="at">prop =</span> <span class="fl">0.10</span>)</span>
+<span id="cb186-2"><a href="manipulando-os-dados-no-r-studio.html#cb186-2" tabindex="-1"></a><span class="fu">str</span> (meninos4)</span></code></pre></div>
 <pre><code>## tibble [59 × 10] (S3: tbl_df/tbl/data.frame)
-##  $ idadeMae : num [1:59] 18 33 27 19 15 31 36 27 35 30 ...
-##  $ altura   : num [1:59] 1.55 1.44 1.6 1.53 1.65 1.6 1.57 1.61 1.6 1.61 ...
-##  $ peso     : num [1:59] 51 47.2 60 53 49 60 57.5 72 60 80 ...
-##  $ anosEst  : num [1:59] 8 2 8 11 5 7 11 5 11 11 ...
-##  $ renda    : num [1:59] 0.92 1.92 2.41 10.69 0.72 ...
-##  $ ig       : num [1:59] 39 39 37 40 39 40 39 41 40 37 ...
-##  $ tipoParto: Factor w/ 2 levels &quot;normal&quot;,&quot;cesareo&quot;: 1 2 2 1 2 2 1 1 2 2 ...
-##  $ fumo     : Factor w/ 2 levels &quot;sim&quot;,&quot;não&quot;: 2 1 1 2 2 2 2 2 2 2 ...
-##  $ pesoRN   : num [1:59] 3380 3415 3100 2590 3015 ...
+##  $ idadeMae : num [1:59] 25 40 17 39 27 29 22 23 25 22 ...
+##  $ altura   : num [1:59] 1.54 1.55 1.62 1.6 1.6 1.63 1.52 1.65 1.65 1.58 ...
+##  $ peso     : num [1:59] 54 53 46 70 70 66 58 52 60 90 ...
+##  $ anosEst  : num [1:59] 3 2 11 13 6 3 6 5 11 7 ...
+##  $ renda    : num [1:59] 1.45 1.16 1.93 2.41 0.72 2.07 1.45 2.89 1.93 2.41 ...
+##  $ ig       : num [1:59] 37 37 39 38 41 40 39 39 40 39 ...
+##  $ tipoParto: Factor w/ 2 levels &quot;normal&quot;,&quot;cesareo&quot;: 2 1 1 2 1 1 1 1 1 1 ...
+##  $ fumo     : Factor w/ 2 levels &quot;sim&quot;,&quot;não&quot;: 2 2 2 2 2 2 1 2 1 1 ...
+##  $ pesoRN   : num [1:59] 2805 2810 3120 3510 3380 ...
 ##  $ sexo     : Factor w/ 2 levels &quot;masc&quot;,&quot;fem&quot;: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
 <p>Para maiores informações em relação a estas funções consulte a ajuda (?slice()).</p>
 </div>
@@ -1131,55 +1131,55 @@ Os argumentos básicos da função slice() são</p>
 <h3><span class="header-section-number">5.3.6</span> Função <code>arrange()</code><a href="manipulando-os-dados-no-r-studio.html#função-arrange" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Ordena as linhas pelos valores de uma coluna de forma ascendente ou descentente.</p>
 <p>Voltando a amostra <code>meninos1</code>, será colocado em ordem crescente a variável <code>pesoRN</code>:</p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="manipulando-os-dados-no-r-studio.html#cb186-1" tabindex="-1"></a><span class="fu">arrange</span>(meninos1, pesoRN)</span></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="manipulando-os-dados-no-r-studio.html#cb188-1" tabindex="-1"></a><span class="fu">arrange</span>(meninos1, pesoRN)</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 10
 ##    idadeMae altura  peso anosEst renda    ig tipoParto fumo  pesoRN sexo 
 ##       &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;
-##  1       21   1.61  52        11  3.01    39 normal    não     2595 masc 
-##  2       24   1.59  75        12  2.89    40 cesareo   não     2710 masc 
-##  3       25   1.53  70         4  1.45    39 normal    sim     2870 masc 
-##  4       24   1.5   53         8  1.45    39 normal    sim     2880 masc 
-##  5       19   1.65  60         8  1.92    39 normal    não     2945 masc 
-##  6       22   1.58  64         8  1.93    40 normal    não     3190 masc 
-##  7       37   1.57  53         5  2.17    40 cesareo   não     3195 masc 
-##  8       35   1.52  40         6  1.3     39 cesareo   não     3240 masc 
-##  9       29   1.54  54.5       9  2.41    39 normal    não     3270 masc 
-## 10       24   1.55  53        11  1.81    40 normal    não     3295 masc 
-## 11       35   1.65  58         4  0.89    39 normal    não     3320 masc 
-## 12       25   1.62  59         7  1.93    40 cesareo   não     3340 masc 
-## 13       39   1.73  72         6  3.13    37 normal    não     3355 masc 
-## 14       18   1.55  51         8  0.92    39 normal    não     3380 masc 
-## 15       18   1.57  62         9  2.41    39 normal    não     3550 masc 
-## 16       35   1.6   61.4      16  6.02    39 normal    sim     3560 masc 
-## 17       26   1.67  60         8  3.37    39 normal    não     3600 masc 
-## 18       36   1.55  92         4  2.41    38 cesareo   não     3640 masc 
-## 19       40   1.58  90         4  1.2     40 cesareo   não     3765 masc 
-## 20       21   1.5   60.5       4  1.93    38 cesareo   não     3920 masc</code></pre>
+##  1       30   1.58  54         8  2.89    38 normal    não     2885 masc 
+##  2       22   1.63  73.8       4  1.92    39 cesareo   não     3010 masc 
+##  3       23   1.47  60         7  0.96    38 normal    não     3015 masc 
+##  4       21   1.61  51         5  1.92    39 normal    sim     3015 masc 
+##  5       19   1.5   49         8  2.41    40 normal    sim     3055 masc 
+##  6       27   1.6   60         8  2.41    37 cesareo   sim     3100 masc 
+##  7       27   1.59  62         8  2.17    40 normal    não     3115 masc 
+##  8       18   1.5   50         3  1.93    39 cesareo   sim     3190 masc 
+##  9       23   1.75  62.5      11  1.92    39 normal    sim     3260 masc 
+## 10       22   1.6   60         5  1.69    38 normal    sim     3270 masc 
+## 11       31   1.55  53         6  1.92    38 cesareo   não     3310 masc 
+## 12       18   1.55  51         8  0.92    39 normal    não     3380 masc 
+## 13       25   1.76  98        11  1.45    39 cesareo   sim     3455 masc 
+## 14       32   1.61  76.4       3  2.41    39 normal    não     3485 masc 
+## 15       18   1.55  60        10  1.93    39 normal    não     3505 masc 
+## 16       41   1.51  99         3  0.72    37 cesareo   sim     3510 masc 
+## 17       18   1.57  62         9  2.41    39 normal    não     3550 masc 
+## 18       23   1.64  52        11  2.17    39 cesareo   sim     3695 masc 
+## 19       22   1.6   70         4  1.15    41 normal    não     3815 masc 
+## 20       24   1.62  63         7  1.2     41 normal    não     3920 masc</code></pre>
 <p>Para a ordem decrescente, colocar a função <code>desc()</code>, dentro da função <code>arrange()</code></p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="manipulando-os-dados-no-r-studio.html#cb188-1" tabindex="-1"></a><span class="fu">arrange</span>(meninos1, <span class="fu">desc</span>(pesoRN))</span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="manipulando-os-dados-no-r-studio.html#cb190-1" tabindex="-1"></a><span class="fu">arrange</span>(meninos1, <span class="fu">desc</span>(pesoRN))</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 10
 ##    idadeMae altura  peso anosEst renda    ig tipoParto fumo  pesoRN sexo 
 ##       &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;
-##  1       21   1.5   60.5       4  1.93    38 cesareo   não     3920 masc 
-##  2       40   1.58  90         4  1.2     40 cesareo   não     3765 masc 
-##  3       36   1.55  92         4  2.41    38 cesareo   não     3640 masc 
-##  4       26   1.67  60         8  3.37    39 normal    não     3600 masc 
-##  5       35   1.6   61.4      16  6.02    39 normal    sim     3560 masc 
-##  6       18   1.57  62         9  2.41    39 normal    não     3550 masc 
-##  7       18   1.55  51         8  0.92    39 normal    não     3380 masc 
-##  8       39   1.73  72         6  3.13    37 normal    não     3355 masc 
-##  9       25   1.62  59         7  1.93    40 cesareo   não     3340 masc 
-## 10       35   1.65  58         4  0.89    39 normal    não     3320 masc 
-## 11       24   1.55  53        11  1.81    40 normal    não     3295 masc 
-## 12       29   1.54  54.5       9  2.41    39 normal    não     3270 masc 
-## 13       35   1.52  40         6  1.3     39 cesareo   não     3240 masc 
-## 14       37   1.57  53         5  2.17    40 cesareo   não     3195 masc 
-## 15       22   1.58  64         8  1.93    40 normal    não     3190 masc 
-## 16       19   1.65  60         8  1.92    39 normal    não     2945 masc 
-## 17       24   1.5   53         8  1.45    39 normal    sim     2880 masc 
-## 18       25   1.53  70         4  1.45    39 normal    sim     2870 masc 
-## 19       24   1.59  75        12  2.89    40 cesareo   não     2710 masc 
-## 20       21   1.61  52        11  3.01    39 normal    não     2595 masc</code></pre>
+##  1       24   1.62  63         7  1.2     41 normal    não     3920 masc 
+##  2       22   1.6   70         4  1.15    41 normal    não     3815 masc 
+##  3       23   1.64  52        11  2.17    39 cesareo   sim     3695 masc 
+##  4       18   1.57  62         9  2.41    39 normal    não     3550 masc 
+##  5       41   1.51  99         3  0.72    37 cesareo   sim     3510 masc 
+##  6       18   1.55  60        10  1.93    39 normal    não     3505 masc 
+##  7       32   1.61  76.4       3  2.41    39 normal    não     3485 masc 
+##  8       25   1.76  98        11  1.45    39 cesareo   sim     3455 masc 
+##  9       18   1.55  51         8  0.92    39 normal    não     3380 masc 
+## 10       31   1.55  53         6  1.92    38 cesareo   não     3310 masc 
+## 11       22   1.6   60         5  1.69    38 normal    sim     3270 masc 
+## 12       23   1.75  62.5      11  1.92    39 normal    sim     3260 masc 
+## 13       18   1.5   50         3  1.93    39 cesareo   sim     3190 masc 
+## 14       27   1.59  62         8  2.17    40 normal    não     3115 masc 
+## 15       27   1.6   60         8  2.41    37 cesareo   sim     3100 masc 
+## 16       19   1.5   49         8  2.41    40 normal    sim     3055 masc 
+## 17       23   1.47  60         7  0.96    38 normal    não     3015 masc 
+## 18       21   1.61  51         5  1.92    39 normal    sim     3015 masc 
+## 19       22   1.63  73.8       4  1.92    39 cesareo   não     3010 masc 
+## 20       30   1.58  54         8  2.89    38 normal    não     2885 masc</code></pre>
 </div>
 <div id="função-count" class="section level3 hasAnchor" number="5.3.7">
 <h3><span class="header-section-number">5.3.7</span> Função <code>count()</code><a href="manipulando-os-dados-no-r-studio.html#função-count" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1192,7 +1192,7 @@ Os argumentos básicos da função slice() são</p>
 </ul>
 <p>Quando o argumento <code>name</code> é omitido, a função retorna <em>n</em> como nome padrão.</p>
 <p>Usando o dataframe <code>mater1</code>, a função <code>count()</code> irá contar o número de parturientes fumantes, variável dicotômica <code>fumo</code>:</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="manipulando-os-dados-no-r-studio.html#cb190-1" tabindex="-1"></a><span class="fu">count</span>(mater1, fumo)</span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="manipulando-os-dados-no-r-studio.html#cb192-1" tabindex="-1"></a><span class="fu">count</span>(mater1, fumo)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 2
 ##   fumo      n
 ##   &lt;fct&gt; &lt;int&gt;
@@ -1204,12 +1204,12 @@ Os argumentos básicos da função slice() são</p>
 <p>O operador pipe <code>%&gt;%</code> pode ser usado para inserir um valor ou um objeto no primeiro argumento de uma função. Ele pode ser acionado digitando <code>%&gt;%</code> ou usando o atalho <code>ctrl+shift+M</code>. Em vez de passar o argumento para a função separadamente, é possível escrever o valor ou objeto e, em seguida, usar o <code>pipe</code> para convertê-lo como o argumento da função na mesma linha. Funciona como se o <code>pipe</code> jogasse o objeto dentro da função seguinte.</p>
 <p>Vários comando foram utilizados, manipulando o banco de dados mater. Alguns orocedimentos, serão mostrados, usando, agora, o operador pipe.</p>
 <p>Em primeiro lugar, serão selecionadas algumas colunas do dataframe <code>mater</code>; adicionada a variável <code>imc</code>; selecionado os recém-nascidos a termo do sexo masculino, que no banco de dados <code>mater</code> está codificado como 1. Tudo em um só comando!</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="manipulando-os-dados-no-r-studio.html#cb192-1" tabindex="-1"></a>meusDados <span class="ot">&lt;-</span> mater <span class="sc">%&gt;%</span> </span>
-<span id="cb192-2"><a href="manipulando-os-dados-no-r-studio.html#cb192-2" tabindex="-1"></a>  <span class="fu">select</span>(idadeMae, altura, peso, anosEst, renda, </span>
-<span id="cb192-3"><a href="manipulando-os-dados-no-r-studio.html#cb192-3" tabindex="-1"></a>         ig, tipoParto, fumo, pesoRN, sexo) <span class="sc">%&gt;%</span> </span>
-<span id="cb192-4"><a href="manipulando-os-dados-no-r-studio.html#cb192-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">imc =</span> peso<span class="sc">/</span>altura<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb192-5"><a href="manipulando-os-dados-no-r-studio.html#cb192-5" tabindex="-1"></a>  <span class="fu">filter</span> (ig<span class="sc">&gt;=</span><span class="dv">37</span> <span class="sc">&amp;</span> ig<span class="sc">&lt;</span><span class="dv">42</span>, sexo <span class="sc">==</span> <span class="dv">1</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="manipulando-os-dados-no-r-studio.html#cb193-1" tabindex="-1"></a><span class="fu">str</span>(meusDados)</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="manipulando-os-dados-no-r-studio.html#cb194-1" tabindex="-1"></a>meusDados <span class="ot">&lt;-</span> mater <span class="sc">%&gt;%</span> </span>
+<span id="cb194-2"><a href="manipulando-os-dados-no-r-studio.html#cb194-2" tabindex="-1"></a>  <span class="fu">select</span>(idadeMae, altura, peso, anosEst, renda, </span>
+<span id="cb194-3"><a href="manipulando-os-dados-no-r-studio.html#cb194-3" tabindex="-1"></a>         ig, tipoParto, fumo, pesoRN, sexo) <span class="sc">%&gt;%</span> </span>
+<span id="cb194-4"><a href="manipulando-os-dados-no-r-studio.html#cb194-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">imc =</span> peso<span class="sc">/</span>altura<span class="sc">^</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb194-5"><a href="manipulando-os-dados-no-r-studio.html#cb194-5" tabindex="-1"></a>  <span class="fu">filter</span> (ig<span class="sc">&gt;=</span><span class="dv">37</span> <span class="sc">&amp;</span> ig<span class="sc">&lt;</span><span class="dv">42</span>, sexo <span class="sc">==</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="manipulando-os-dados-no-r-studio.html#cb195-1" tabindex="-1"></a><span class="fu">str</span>(meusDados)</span></code></pre></div>
 <pre><code>## tibble [592 × 11] (S3: tbl_df/tbl/data.frame)
 ##  $ idadeMae : num [1:592] 28 31 27 28 18 28 22 28 25 14 ...
 ##  $ altura   : num [1:592] 1.5 1.55 1.6 1.58 1.76 1.63 1.54 1.55 1.56 1.51 ...
@@ -1230,40 +1230,40 @@ Os argumentos básicos da função slice() são</p>
 <h2><span class="header-section-number">5.4</span> Manipulação de datas<a href="manipulando-os-dados-no-r-studio.html#manipulação-de-datas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Originalmente, todos os que trabalham com o <em>R</em> queixavam-se de como era frustrante trabalhar com datas. Era um processo que causava grande perda de tempo nas análises. O pacote <code>lubridate</code> foi criado <span class="citation">(67)</span> para simplificar ao máximo a leitura de datas e extração de informações dessas datas.<br />
 Quando o <code>lubridate</code> é carregado aparece uma mensagem, avisando que alguns nomes de funções também estão contidas no pacote base do R.</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="manipulando-os-dados-no-r-studio.html#cb195-1" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="manipulando-os-dados-no-r-studio.html#cb197-1" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;lubridate&#39;</code></pre>
 <pre><code>## The following objects are masked from &#39;package:base&#39;:
 ## 
 ##     date, intersect, setdiff, union</code></pre>
 <p>Para evitar confusões e verificar que as funções corretas estão sendo usadas, usa-se o duplo dois pontos (<code>::</code>) antes do nome da função, precedido do nome do pacote, por exemplo: <code>lubridate::date()</code>.</p>
-<p>Para obter a data atual ou a data-hora, você pode usar as funções <code>today()</code><a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a> ou now()<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a>:</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="manipulando-os-dados-no-r-studio.html#cb198-1" tabindex="-1"></a><span class="fu">today</span>() </span></code></pre></div>
-<pre><code>## [1] &quot;2024-02-26&quot;</code></pre>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="manipulando-os-dados-no-r-studio.html#cb200-1" tabindex="-1"></a><span class="fu">now</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;2024-02-26 14:15:26 -03&quot;</code></pre>
+<p>Para obter a data atual ou a data-hora, você pode usar as funções <code>today()</code><a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a> ou now()<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a>:</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="manipulando-os-dados-no-r-studio.html#cb200-1" tabindex="-1"></a><span class="fu">today</span>() </span></code></pre></div>
+<pre><code>## [1] &quot;2024-04-21&quot;</code></pre>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="manipulando-os-dados-no-r-studio.html#cb202-1" tabindex="-1"></a><span class="fu">now</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;2024-04-21 10:14:01 -03&quot;</code></pre>
 <div id="convertendo-strings-ou-caractere-para-data" class="section level3 hasAnchor" number="5.4.1">
 <h3><span class="header-section-number">5.4.1</span> Convertendo strings ou caractere para data<a href="manipulando-os-dados-no-r-studio.html#convertendo-strings-ou-caractere-para-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Para converter string ou caracteres em datas, basta executar funções específicas adequadas aos dados. Elas determinam automaticamente o formato quando você especifica a ordem do componente. Para usá-los, identifique a ordem em que o ano, o mês e o dia aparecem em suas datas e, em seguida, organize “y”, “m” e “d” na mesma ordem. Isso lhe dá o nome da função <code>lubridate</code> que analisará a data. Por exemplo, suponhamos a data de 25/12/2022:</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="manipulando-os-dados-no-r-studio.html#cb202-1" tabindex="-1"></a>natal <span class="ot">&lt;-</span> <span class="st">&quot;25/12/2022&quot;</span></span>
-<span id="cb202-2"><a href="manipulando-os-dados-no-r-studio.html#cb202-2" tabindex="-1"></a>natal</span></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="manipulando-os-dados-no-r-studio.html#cb204-1" tabindex="-1"></a>natal <span class="ot">&lt;-</span> <span class="st">&quot;25/12/2022&quot;</span></span>
+<span id="cb204-2"><a href="manipulando-os-dados-no-r-studio.html#cb204-2" tabindex="-1"></a>natal</span></code></pre></div>
 <pre><code>## [1] &quot;25/12/2022&quot;</code></pre>
 <p>Aparentemente, o R aceitou a informação como uma data. Entretanto, se for verificada a classe do objeto, tem-se:</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="manipulando-os-dados-no-r-studio.html#cb204-1" tabindex="-1"></a><span class="fu">class</span>(natal)</span></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="manipulando-os-dados-no-r-studio.html#cb206-1" tabindex="-1"></a><span class="fu">class</span>(natal)</span></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <p>Estando como caractere, esta data não poderá ser usada em operações com datas, pois necessitaria estar como uma classe <code>date</code>. Para converte-la em data, usa-se a função <code>dmy()</code>:</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="manipulando-os-dados-no-r-studio.html#cb206-1" tabindex="-1"></a>natal <span class="ot">&lt;-</span> <span class="fu">dmy</span>(natal)</span>
-<span id="cb206-2"><a href="manipulando-os-dados-no-r-studio.html#cb206-2" tabindex="-1"></a>natal</span></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="manipulando-os-dados-no-r-studio.html#cb208-1" tabindex="-1"></a>natal <span class="ot">&lt;-</span> <span class="fu">dmy</span>(natal)</span>
+<span id="cb208-2"><a href="manipulando-os-dados-no-r-studio.html#cb208-2" tabindex="-1"></a>natal</span></code></pre></div>
 <pre><code>## [1] &quot;2022-12-25&quot;</code></pre>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="manipulando-os-dados-no-r-studio.html#cb208-1" tabindex="-1"></a><span class="fu">class</span>(natal)</span></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="manipulando-os-dados-no-r-studio.html#cb210-1" tabindex="-1"></a><span class="fu">class</span>(natal)</span></code></pre></div>
 <pre><code>## [1] &quot;Date&quot;</code></pre>
 <p>Dessa forma, a data, agora está sendo reconhecida pelo R como <code>date</code>. Como se verifica, é sempre importante verificar a classe da data.</p>
 <p>Às vezes, observa-se datas escritas com o mês abreviado, como 25/dez/2022. O procedimento é o mesmo</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="manipulando-os-dados-no-r-studio.html#cb210-1" tabindex="-1"></a>minha.data <span class="ot">&lt;-</span> <span class="st">&quot;25/dez/2022&quot;</span></span>
-<span id="cb210-2"><a href="manipulando-os-dados-no-r-studio.html#cb210-2" tabindex="-1"></a><span class="fu">class</span> (minha.data)</span></code></pre></div>
-<pre><code>## [1] &quot;character&quot;</code></pre>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="manipulando-os-dados-no-r-studio.html#cb212-1" tabindex="-1"></a>minha.data <span class="ot">&lt;-</span> <span class="fu">dmy</span>(minha.data)</span>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="manipulando-os-dados-no-r-studio.html#cb212-1" tabindex="-1"></a>minha.data <span class="ot">&lt;-</span> <span class="st">&quot;25/dez/2022&quot;</span></span>
 <span id="cb212-2"><a href="manipulando-os-dados-no-r-studio.html#cb212-2" tabindex="-1"></a><span class="fu">class</span> (minha.data)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="manipulando-os-dados-no-r-studio.html#cb214-1" tabindex="-1"></a>minha.data <span class="ot">&lt;-</span> <span class="fu">dmy</span>(minha.data)</span>
+<span id="cb214-2"><a href="manipulando-os-dados-no-r-studio.html#cb214-2" tabindex="-1"></a><span class="fu">class</span> (minha.data)</span></code></pre></div>
 <pre><code>## [1] &quot;Date&quot;</code></pre>
 <p>Se além da data, houver necessidade de especificar o horário, basta usar <code>dmy_h()</code>, <code>dmy_hm()</code> e <code>dmy_hms()</code>. Se for usado o padrão americano, pode ser usado <code>ymd()</code>.</p>
 <p>O lubridate traz diversas funções para extrair os componentes de um objeto da classe date.</p>
@@ -1277,80 +1277,80 @@ Quando o <code>lubridate</code> é carregado aparece uma mensagem, avisando que 
 <li><code>year()</code> <span class="math inline">\(\rightarrow\)</span> extrai o ano.</li>
 </ul>
 <p>Por exemplo, usando a data de nascimento (<code>dn</code>) do autor:</p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="manipulando-os-dados-no-r-studio.html#cb214-1" tabindex="-1"></a>dn <span class="ot">&lt;-</span> <span class="fu">dmy</span>(<span class="st">&quot;04/10/1947&quot;</span>)</span>
-<span id="cb214-2"><a href="manipulando-os-dados-no-r-studio.html#cb214-2" tabindex="-1"></a><span class="fu">year</span>(dn)</span></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="manipulando-os-dados-no-r-studio.html#cb216-1" tabindex="-1"></a>dn <span class="ot">&lt;-</span> <span class="fu">dmy</span>(<span class="st">&quot;04/10/1947&quot;</span>)</span>
+<span id="cb216-2"><a href="manipulando-os-dados-no-r-studio.html#cb216-2" tabindex="-1"></a><span class="fu">year</span>(dn)</span></code></pre></div>
 <pre><code>## [1] 1947</code></pre>
 <p>Para acrescentar um horário ao objeto data de nascimento (<code>dn</code>)^[UTC = Coordinated Universal Time}:</p>
-<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="manipulando-os-dados-no-r-studio.html#cb216-1" tabindex="-1"></a><span class="fu">hour</span>(dn) <span class="ot">&lt;-</span> <span class="dv">04</span></span>
-<span id="cb216-2"><a href="manipulando-os-dados-no-r-studio.html#cb216-2" tabindex="-1"></a>dn</span></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="manipulando-os-dados-no-r-studio.html#cb218-1" tabindex="-1"></a><span class="fu">hour</span>(dn) <span class="ot">&lt;-</span> <span class="dv">04</span></span>
+<span id="cb218-2"><a href="manipulando-os-dados-no-r-studio.html#cb218-2" tabindex="-1"></a>dn</span></code></pre></div>
 <pre><code>## [1] &quot;1947-10-04 04:00:00 UTC&quot;</code></pre>
 </div>
 <div id="juntando-componenetes-de-datas" class="section level3 hasAnchor" number="5.4.2">
 <h3><span class="header-section-number">5.4.2</span> Juntando componenetes de datas<a href="manipulando-os-dados-no-r-studio.html#juntando-componenetes-de-datas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Para juntar componentes de datas e horas, pode-se utilizar as funções <code>make_date()</code> e <code>make_datetime()</code>. Em muitos arquivos, os componentes da data estão em colunas diferentes e há necessidade de juntá-los em uma única coluna para compor a data:</p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="manipulando-os-dados-no-r-studio.html#cb218-1" tabindex="-1"></a>minha.data <span class="ot">&lt;-</span> <span class="fu">make_date</span>(<span class="at">year =</span> <span class="dv">1947</span>, <span class="at">month =</span> <span class="dv">10</span>, <span class="at">day =</span> <span class="dv">4</span>)</span>
-<span id="cb218-2"><a href="manipulando-os-dados-no-r-studio.html#cb218-2" tabindex="-1"></a>minha.data</span></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="manipulando-os-dados-no-r-studio.html#cb220-1" tabindex="-1"></a>minha.data <span class="ot">&lt;-</span> <span class="fu">make_date</span>(<span class="at">year =</span> <span class="dv">1947</span>, <span class="at">month =</span> <span class="dv">10</span>, <span class="at">day =</span> <span class="dv">4</span>)</span>
+<span id="cb220-2"><a href="manipulando-os-dados-no-r-studio.html#cb220-2" tabindex="-1"></a>minha.data</span></code></pre></div>
 <pre><code>## [1] &quot;1947-10-04&quot;</code></pre>
 <p>Para juntar ano, mês, dia, hora e minuto:</p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="manipulando-os-dados-no-r-studio.html#cb220-1" tabindex="-1"></a>minha.data <span class="ot">&lt;-</span> <span class="fu">make_datetime</span>(<span class="at">year =</span> <span class="dv">1947</span>, </span>
-<span id="cb220-2"><a href="manipulando-os-dados-no-r-studio.html#cb220-2" tabindex="-1"></a>                            <span class="at">month =</span> <span class="dv">10</span>, </span>
-<span id="cb220-3"><a href="manipulando-os-dados-no-r-studio.html#cb220-3" tabindex="-1"></a>                            <span class="at">day =</span> <span class="dv">04</span>, </span>
-<span id="cb220-4"><a href="manipulando-os-dados-no-r-studio.html#cb220-4" tabindex="-1"></a>                            <span class="at">hour =</span> <span class="dv">04</span> ,</span>
-<span id="cb220-5"><a href="manipulando-os-dados-no-r-studio.html#cb220-5" tabindex="-1"></a>                            <span class="at">min =</span> <span class="dv">30</span>, </span>
-<span id="cb220-6"><a href="manipulando-os-dados-no-r-studio.html#cb220-6" tabindex="-1"></a>                            <span class="at">sec =</span> <span class="dv">15</span>)</span>
-<span id="cb220-7"><a href="manipulando-os-dados-no-r-studio.html#cb220-7" tabindex="-1"></a>minha.data</span></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="manipulando-os-dados-no-r-studio.html#cb222-1" tabindex="-1"></a>minha.data <span class="ot">&lt;-</span> <span class="fu">make_datetime</span>(<span class="at">year =</span> <span class="dv">1947</span>, </span>
+<span id="cb222-2"><a href="manipulando-os-dados-no-r-studio.html#cb222-2" tabindex="-1"></a>                            <span class="at">month =</span> <span class="dv">10</span>, </span>
+<span id="cb222-3"><a href="manipulando-os-dados-no-r-studio.html#cb222-3" tabindex="-1"></a>                            <span class="at">day =</span> <span class="dv">04</span>, </span>
+<span id="cb222-4"><a href="manipulando-os-dados-no-r-studio.html#cb222-4" tabindex="-1"></a>                            <span class="at">hour =</span> <span class="dv">04</span> ,</span>
+<span id="cb222-5"><a href="manipulando-os-dados-no-r-studio.html#cb222-5" tabindex="-1"></a>                            <span class="at">min =</span> <span class="dv">30</span>, </span>
+<span id="cb222-6"><a href="manipulando-os-dados-no-r-studio.html#cb222-6" tabindex="-1"></a>                            <span class="at">sec =</span> <span class="dv">15</span>)</span>
+<span id="cb222-7"><a href="manipulando-os-dados-no-r-studio.html#cb222-7" tabindex="-1"></a>minha.data</span></code></pre></div>
 <pre><code>## [1] &quot;1947-10-04 04:30:15 UTC&quot;</code></pre>
 </div>
 <div id="extraindo-componentes-de-datas" class="section level3 hasAnchor" number="5.4.3">
 <h3><span class="header-section-number">5.4.3</span> Extraindo componentes de datas<a href="manipulando-os-dados-no-r-studio.html#extraindo-componentes-de-datas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Quando temos objetos do tipo POSIXt<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a> podemos extrair componentes ou elementos deles. Para isso são usadas algumas funções específicas do pacote <code>lubridate</code> como mostrado a seguir.</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="manipulando-os-dados-no-r-studio.html#cb222-1" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">now</span>()</span>
-<span id="cb222-2"><a href="manipulando-os-dados-no-r-studio.html#cb222-2" tabindex="-1"></a></span>
-<span id="cb222-3"><a href="manipulando-os-dados-no-r-studio.html#cb222-3" tabindex="-1"></a><span class="fu">year</span>(data)            <span class="co"># Extrai o ano</span></span></code></pre></div>
+<p>Quando temos objetos do tipo POSIXt<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a> podemos extrair componentes ou elementos deles. Para isso são usadas algumas funções específicas do pacote <code>lubridate</code> como mostrado a seguir.</p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="manipulando-os-dados-no-r-studio.html#cb224-1" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">now</span>()</span>
+<span id="cb224-2"><a href="manipulando-os-dados-no-r-studio.html#cb224-2" tabindex="-1"></a></span>
+<span id="cb224-3"><a href="manipulando-os-dados-no-r-studio.html#cb224-3" tabindex="-1"></a><span class="fu">year</span>(data)            <span class="co"># Extrai o ano</span></span></code></pre></div>
 <pre><code>## [1] 2024</code></pre>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="manipulando-os-dados-no-r-studio.html#cb224-1" tabindex="-1"></a><span class="fu">month</span>(data)           <span class="co"># Extrai o mês</span></span></code></pre></div>
-<pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="manipulando-os-dados-no-r-studio.html#cb226-1" tabindex="-1"></a><span class="fu">week</span>(data)                <span class="co"># Extrai a semana</span></span></code></pre></div>
-<pre><code>## [1] 9</code></pre>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="manipulando-os-dados-no-r-studio.html#cb228-1" tabindex="-1"></a><span class="fu">day</span>(data)             <span class="co"># Extrai o dia</span></span></code></pre></div>
-<pre><code>## [1] 26</code></pre>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="manipulando-os-dados-no-r-studio.html#cb230-1" tabindex="-1"></a><span class="fu">minute</span>(data)              <span class="co"># Extrai o minuto</span></span></code></pre></div>
-<pre><code>## [1] 15</code></pre>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="manipulando-os-dados-no-r-studio.html#cb232-1" tabindex="-1"></a><span class="fu">second</span>(data)              <span class="co"># Extrai o segundo</span></span></code></pre></div>
-<pre><code>## [1] 27.17786</code></pre>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="manipulando-os-dados-no-r-studio.html#cb226-1" tabindex="-1"></a><span class="fu">month</span>(data)           <span class="co"># Extrai o mês</span></span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="manipulando-os-dados-no-r-studio.html#cb228-1" tabindex="-1"></a><span class="fu">week</span>(data)                <span class="co"># Extrai a semana</span></span></code></pre></div>
+<pre><code>## [1] 16</code></pre>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="manipulando-os-dados-no-r-studio.html#cb230-1" tabindex="-1"></a><span class="fu">day</span>(data)             <span class="co"># Extrai o dia</span></span></code></pre></div>
+<pre><code>## [1] 21</code></pre>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="manipulando-os-dados-no-r-studio.html#cb232-1" tabindex="-1"></a><span class="fu">minute</span>(data)              <span class="co"># Extrai o minuto</span></span></code></pre></div>
+<pre><code>## [1] 14</code></pre>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="manipulando-os-dados-no-r-studio.html#cb234-1" tabindex="-1"></a><span class="fu">second</span>(data)              <span class="co"># Extrai o segundo</span></span></code></pre></div>
+<pre><code>## [1] 1.462015</code></pre>
 <p>Para verificar o número de dias tem em um determinado mês, usa-se a função <code>days_in_month()</code>:</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="manipulando-os-dados-no-r-studio.html#cb234-1" tabindex="-1"></a> data1 <span class="ot">&lt;-</span> <span class="fu">dmy</span>(<span class="st">&quot;25/02/2000&quot;</span>)</span>
-<span id="cb234-2"><a href="manipulando-os-dados-no-r-studio.html#cb234-2" tabindex="-1"></a> <span class="fu">days_in_month</span>(data1)          </span></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="manipulando-os-dados-no-r-studio.html#cb236-1" tabindex="-1"></a> data1 <span class="ot">&lt;-</span> <span class="fu">dmy</span>(<span class="st">&quot;25/02/2000&quot;</span>)</span>
+<span id="cb236-2"><a href="manipulando-os-dados-no-r-studio.html#cb236-2" tabindex="-1"></a> <span class="fu">days_in_month</span>(data1)          </span></code></pre></div>
 <pre><code>## Feb 
 ##  29</code></pre>
 </div>
 <div id="operações-com-datas" class="section level3 hasAnchor" number="5.4.4">
 <h3><span class="header-section-number">5.4.4</span> Operações com datas<a href="manipulando-os-dados-no-r-studio.html#operações-com-datas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>O pacote <code>lubridate</code> possui funções de duração e de período para manipular as datas. As funções de duração calculam o número de segundos em um determinado num determinado número de dias. As funções de duração não levam em consideração anos bissextos e horário de verão, enquanto as funções de período consideram esses fatores.</p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="manipulando-os-dados-no-r-studio.html#cb236-1" tabindex="-1"></a><span class="fu">ddays</span> (<span class="dv">1</span>)             <span class="co"># Número de segundos em 1 dia</span></span></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="manipulando-os-dados-no-r-studio.html#cb238-1" tabindex="-1"></a><span class="fu">ddays</span> (<span class="dv">1</span>)             <span class="co"># Número de segundos em 1 dia</span></span></code></pre></div>
 <pre><code>## [1] &quot;86400s (~1 days)&quot;</code></pre>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="manipulando-os-dados-no-r-studio.html#cb238-1" tabindex="-1"></a><span class="fu">dhours</span> (<span class="dv">1</span>)           <span class="co"># Número de segundos em 1 hora</span></span></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="manipulando-os-dados-no-r-studio.html#cb240-1" tabindex="-1"></a><span class="fu">dhours</span> (<span class="dv">1</span>)           <span class="co"># Número de segundos em 1 hora</span></span></code></pre></div>
 <pre><code>## [1] &quot;3600s (~1 hours)&quot;</code></pre>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="manipulando-os-dados-no-r-studio.html#cb240-1" tabindex="-1"></a><span class="fu">dminutes</span> (<span class="dv">1</span>)        <span class="co"># Número de segundos em 1 minuto</span></span></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="manipulando-os-dados-no-r-studio.html#cb242-1" tabindex="-1"></a><span class="fu">dminutes</span> (<span class="dv">1</span>)        <span class="co"># Número de segundos em 1 minuto</span></span></code></pre></div>
 <pre><code>## [1] &quot;60s (~1 minutes)&quot;</code></pre>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="manipulando-os-dados-no-r-studio.html#cb242-1" tabindex="-1"></a><span class="fu">days</span> (<span class="dv">5</span>)            <span class="co"># Cria um período de 5 dias</span></span></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="manipulando-os-dados-no-r-studio.html#cb244-1" tabindex="-1"></a><span class="fu">days</span> (<span class="dv">5</span>)            <span class="co"># Cria um período de 5 dias</span></span></code></pre></div>
 <pre><code>## [1] &quot;5d 0H 0M 0S&quot;</code></pre>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="manipulando-os-dados-no-r-studio.html#cb244-1" tabindex="-1"></a><span class="fu">weeks</span> (<span class="dv">5</span>)           <span class="co"># Cria um período de 5 semanas</span></span></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="manipulando-os-dados-no-r-studio.html#cb246-1" tabindex="-1"></a><span class="fu">weeks</span> (<span class="dv">5</span>)           <span class="co"># Cria um período de 5 semanas</span></span></code></pre></div>
 <pre><code>## [1] &quot;35d 0H 0M 0S&quot;</code></pre>
 <p>Suponhamos que se necessita saber em qual dia cairá após acrescentarmos 5 semanas à <code>data1</code> (25/02/2000), criada acima:</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="manipulando-os-dados-no-r-studio.html#cb246-1" tabindex="-1"></a>data1 <span class="sc">+</span> <span class="fu">weeks</span> (<span class="dv">5</span>)           </span></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="manipulando-os-dados-no-r-studio.html#cb248-1" tabindex="-1"></a>data1 <span class="sc">+</span> <span class="fu">weeks</span> (<span class="dv">5</span>)           </span></code></pre></div>
 <pre><code>## [1] &quot;2000-03-31&quot;</code></pre>
 <p>Adicionando 1 ano à <code>data1</code> (25/02/2000) com uma função de duração, tem-se:</p>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="manipulando-os-dados-no-r-studio.html#cb248-1" tabindex="-1"></a>data1 <span class="sc">+</span> <span class="fu">dyears</span> (<span class="dv">1</span>)           </span></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="manipulando-os-dados-no-r-studio.html#cb250-1" tabindex="-1"></a>data1 <span class="sc">+</span> <span class="fu">dyears</span> (<span class="dv">1</span>)           </span></code></pre></div>
 <pre><code>## [1] &quot;2001-02-24 06:00:00 UTC&quot;</code></pre>
 <p>Se for adicionado um ano à mesma data, mas agora com uma função de período, tem-se:</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="manipulando-os-dados-no-r-studio.html#cb250-1" tabindex="-1"></a>data1 <span class="sc">+</span> <span class="fu">years</span> (<span class="dv">1</span>)           </span></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="manipulando-os-dados-no-r-studio.html#cb252-1" tabindex="-1"></a>data1 <span class="sc">+</span> <span class="fu">years</span> (<span class="dv">1</span>)           </span></code></pre></div>
 <pre><code>## [1] &quot;2001-02-25&quot;</code></pre>
 <p>Pode-se definir um intervalo de tempo a partir de uma data inicial e uma data final. A sintaxe para calcular um intervalo é dada por <code>data.inicial %--% data.final</code> .Suponha que uma gestante tenha como data da sua última menstruação em 04/10/2022. O bebê nasceu em 30/06/2023. Qual o intervalo em dias?</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="manipulando-os-dados-no-r-studio.html#cb252-1" tabindex="-1"></a>data.inicial <span class="ot">&lt;-</span> <span class="fu">dmy</span>(<span class="st">&quot;04/10/2022&quot;</span>)</span>
-<span id="cb252-2"><a href="manipulando-os-dados-no-r-studio.html#cb252-2" tabindex="-1"></a>data.final <span class="ot">&lt;-</span> <span class="fu">dmy</span>(<span class="st">&quot;30/06/2023&quot;</span>)</span>
-<span id="cb252-3"><a href="manipulando-os-dados-no-r-studio.html#cb252-3" tabindex="-1"></a>tempo <span class="ot">&lt;-</span> (data.inicial <span class="sc">%--%</span> data.final) <span class="sc">%/%</span> <span class="fu">days</span>(<span class="dv">1</span>)</span>
-<span id="cb252-4"><a href="manipulando-os-dados-no-r-studio.html#cb252-4" tabindex="-1"></a>tempo</span></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="manipulando-os-dados-no-r-studio.html#cb254-1" tabindex="-1"></a>data.inicial <span class="ot">&lt;-</span> <span class="fu">dmy</span>(<span class="st">&quot;04/10/2022&quot;</span>)</span>
+<span id="cb254-2"><a href="manipulando-os-dados-no-r-studio.html#cb254-2" tabindex="-1"></a>data.final <span class="ot">&lt;-</span> <span class="fu">dmy</span>(<span class="st">&quot;30/06/2023&quot;</span>)</span>
+<span id="cb254-3"><a href="manipulando-os-dados-no-r-studio.html#cb254-3" tabindex="-1"></a>tempo <span class="ot">&lt;-</span> (data.inicial <span class="sc">%--%</span> data.final) <span class="sc">%/%</span> <span class="fu">days</span>(<span class="dv">1</span>)</span>
+<span id="cb254-4"><a href="manipulando-os-dados-no-r-studio.html#cb254-4" tabindex="-1"></a>tempo</span></code></pre></div>
 <pre><code>## [1] 269</code></pre>
 <p>Ou seja a gestação durou 269 dias, constituindo-se em um parto a termo, entre 37 (259 dias) e 42 semanas (294 dias).</p>
 <p>Para mais informações sobre o <code>lubridate</code>, consulte a ajuda do pacote ou o capítulo 16 do livro R for Data Science, Hadley Wickman e Garrett Grolemund, 2017 (<a href="https://r4ds.had.co.nz/index.html" class="uri">https://r4ds.had.co.nz/index.html</a>) .</p>
@@ -1360,16 +1360,16 @@ Quando o <code>lubridate</code> é carregado aparece uma mensagem, avisando que 
 </div>
 <div class="footnotes">
 <hr />
-<ol start="8">
-<li id="fn8"><p>A mudança do nome do dataframe de dadosNeonatos para neonatos é desnecessária. Foi realizada apenas por questões didáticas.<a href="manipulando-os-dados-no-r-studio.html#fnref8" class="footnote-back">↩︎</a></p></li>
-<li id="fn9"><p>Observe, na saída, que na variável <code>utiNeo</code> aparece palavras com acentuação (“não”). Às vezes, ao abrir o arquivo com a função <code>read.csv2()</code>, pode acontecer de esta palavra aparecer, por exemplo, como: “n3o”. Louco, não é? Se ocorrer isso, use, após o nome do arquivo e separado por vírgula, o argumento <code>fileEncoding = “latin1”</code>. Dessa forma, o erro será corrigido.<a href="manipulando-os-dados-no-r-studio.html#fnref9" class="footnote-back">↩︎</a></p></li>
-<li id="fn10"><p>Da mesma maneira, como acontece com a função <code>read.csv2()</code>, a função equivalente do <code>readr</code> pode retornar erro na leitura de palavras com acento. Para corrigir isso, usa-se o argumento <code>locale (encoding = "latin1")</code><a href="manipulando-os-dados-no-r-studio.html#fnref10" class="footnote-back">↩︎</a></p></li>
-<li id="fn11"><p>ATENÇÃO: Volta-se a insistir, o comando para carregar o conjunto de dados somente funciona, sem colocar o caminho (<em>path</em>) completo, se tudo está sendo realizado no diretório de trabalho.<a href="manipulando-os-dados-no-r-studio.html#fnref11" class="footnote-back">↩︎</a></p></li>
-<li id="fn12"><p>Conjunto de dados coletados na maternidade-escola do Hospital Geral de Caxias do Sul<a href="manipulando-os-dados-no-r-studio.html#fnref12" class="footnote-back">↩︎</a></p></li>
-<li id="fn13"><p>Lembrar que o sinal de igualdade, no R, é duplo =<a href="manipulando-os-dados-no-r-studio.html#fnref13" class="footnote-back">↩︎</a></p></li>
-<li id="fn14"><p>Equivalente ao <code>Sys.Date()</code>que acessa a data do sistema operacional.<a href="manipulando-os-dados-no-r-studio.html#fnref14" class="footnote-back">↩︎</a></p></li>
-<li id="fn15"><p>Equivalente ao <code>Sys.time()</code> que acessa a data e hora do sistema operacional.<a href="manipulando-os-dados-no-r-studio.html#fnref15" class="footnote-back">↩︎</a></p></li>
-<li id="fn16"><p>POSIXt é uma classe de objetos do R que representa datas e horas. POSIXt significa Portable Operating System Interface for Unix Time, que é um padrão para medir o tempo em segundos desde 1 de janeiro de 1970. Existem duas formas internas de implementar POSIXt: POSIXct e POSIXlt. POSIXct armazena os segundos desde a época UNIX e POSIXlt armazena uma lista de dia, mês, ano, hora, minuto, segundo, etc.<a href="manipulando-os-dados-no-r-studio.html#fnref16" class="footnote-back">↩︎</a></p></li>
+<ol start="10">
+<li id="fn10"><p>A mudança do nome do dataframe de dadosNeonatos para neonatos é desnecessária. Foi realizada apenas por questões didáticas.<a href="manipulando-os-dados-no-r-studio.html#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p>Observe, na saída, que na variável <code>utiNeo</code> aparece palavras com acentuação (“não”). Às vezes, ao abrir o arquivo com a função <code>read.csv2()</code>, pode acontecer de esta palavra aparecer, por exemplo, como: “n3o”. Louco, não é? Se ocorrer isso, use, após o nome do arquivo e separado por vírgula, o argumento <code>fileEncoding = “latin1”</code>. Dessa forma, o erro será corrigido.<a href="manipulando-os-dados-no-r-studio.html#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p>Da mesma maneira, como acontece com a função <code>read.csv2()</code>, a função equivalente do <code>readr</code> pode retornar erro na leitura de palavras com acento. Para corrigir isso, usa-se o argumento <code>locale (encoding = "latin1")</code><a href="manipulando-os-dados-no-r-studio.html#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn13"><p>ATENÇÃO: Volta-se a insistir, o comando para carregar o conjunto de dados somente funciona, sem colocar o caminho (<em>path</em>) completo, se tudo está sendo realizado no diretório de trabalho.<a href="manipulando-os-dados-no-r-studio.html#fnref13" class="footnote-back">↩︎</a></p></li>
+<li id="fn14"><p>Conjunto de dados coletados na maternidade-escola do Hospital Geral de Caxias do Sul<a href="manipulando-os-dados-no-r-studio.html#fnref14" class="footnote-back">↩︎</a></p></li>
+<li id="fn15"><p>Lembrar que o sinal de igualdade, no R, é duplo =<a href="manipulando-os-dados-no-r-studio.html#fnref15" class="footnote-back">↩︎</a></p></li>
+<li id="fn16"><p>Equivalente ao <code>Sys.Date()</code>que acessa a data do sistema operacional.<a href="manipulando-os-dados-no-r-studio.html#fnref16" class="footnote-back">↩︎</a></p></li>
+<li id="fn17"><p>Equivalente ao <code>Sys.time()</code> que acessa a data e hora do sistema operacional.<a href="manipulando-os-dados-no-r-studio.html#fnref17" class="footnote-back">↩︎</a></p></li>
+<li id="fn18"><p>POSIXt é uma classe de objetos do R que representa datas e horas. POSIXt significa Portable Operating System Interface for Unix Time, que é um padrão para medir o tempo em segundos desde 1 de janeiro de 1970. Existem duas formas internas de implementar POSIXt: POSIXct e POSIXlt. POSIXct armazena os segundos desde a época UNIX e POSIXlt armazena uma lista de dia, mês, ano, hora, minuto, segundo, etc.<a href="manipulando-os-dados-no-r-studio.html#fnref18" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
