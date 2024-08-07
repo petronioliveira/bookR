@@ -38,7 +38,7 @@ Deve-se sempre ter em mente que o estabelecimento do diagnóstico é um processo
 
 A abordagem bayesiana denomina de *probabilidade a priori* a probabilidade estabelecida inicialmente, baseada apenas na experiência do médico, em seu conhecimento em relação a doença suspeitada. Diante de uma evidência de doença, pode ser solictado um teste diagnóstico. Quando ele recebe um teste positivo para uma doença, a probabilidade muda, passa a ser uma probabilidade condicional, probabilidade da doença dado que o teste é positivo, denominada *probabilidade a posteriori*.  
 
-Um teste que define corretamente quem é doente e quem não é doente é denominado de *padrão-ouro* ou *padrão de referência*. Algumas vezes, o teste padrão de referência é simples e barato. Outras vezes, é caro, difícil de obter, tecnicamente complexo, arriscado ou pouco prático. Algumas vezes, não há padrão-ouro. Em função dessas limitações, outros testes são usados e, como consequência, podem ocorrer erros. Em outras palavras, no processo diagnóstico podem ocorrer *falsos positivos* e *falsos negativos*.  
+Um teste que define corretamente quem é doente e quem não é doente é denominado de *padrão-ouro* ou *padrão de referência*. Algumas vezes, o teste padrão de referência é simples e barato. Outras vezes, é caro, difícil de obter, tecnicamente complexo, arriscado ou pouco prático. Inclusive, pode não hver padrão-ouro. Em função dessas limitações, outros testes são usados e, como consequência, podem ocorrer erros. Em outras palavras, no processo diagnóstico podem ocorrer *falsos positivos* e *falsos negativos*.  
 Esta incerteza, na utilização de testes diagnósticos, gera a necessidade de o médico conferir a probabilidade de falsos positivos e falsos negativos na elaboração de um diagnóstico ao receber o resultado positivo ou negativo de um exame. Uma maneira simples de mostrar as relações de um teste diagnóstico e o verdadeiro diagnóstico, é mostrada na tabela de contingência $2\times2$ (Figura \@ref(fig:fpfn)).  
 
 ```{r fpfn, echo = FALSE, out.width = '70%', fig.align = 'center', fig.cap="Falsos positivos e falsos negativos", fig.pos="ht"}
@@ -200,7 +200,7 @@ A prevalência pode ser interpretada como a probabilidade antes da realização 
 
 ### Razão de Probabilidade  
 
-A *Razão de Probabilidades* (*likelihood ratio*) é uma forma alternativa de descrever o desempenho de um teste diagnóstico. Alguns autores a denominam de razão de verossimilhança.  
+A *Razão de Probabilidades* (*likelihood ratio*) é uma forma alternativa de descrever o desempenho de um teste diagnóstico. Alguns autores a denominam de razão de verossimilhança ^[Verossimilhança no sentido de a qualidade de algo que parece verdadeiro ou provável, que não contraria a verdade].  
 
 A razão de probabilidades para um resultado de teste é definida como a razão entre a probabilidade de observar aquele resultado em indivíduos com a doença em questão e a probabilidade desse resultado em indivíduos sem a doença [@halkin1998likelihood].  
 
