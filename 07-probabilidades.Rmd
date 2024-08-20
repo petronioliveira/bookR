@@ -38,7 +38,7 @@ A chamada *Lei dos Grandes Números* diz que à medida que múltiplas observaç�
 Neste caso, 10 (50%) desses lançamentos deram cara. Agora, suponha que foram feitos registros do número de caras ($n_1$) dos primeiros lançamentos (*N*) e calculadas as proporções de caras ($n_1⁄N$) todas as vezes. O resultado está na Figura \@ref(fig:propmoeda).
 
 ```{r propmoeda, echo = FALSE, out.height = '80%', out.width = '80%', fig.align = 'center', fig.cap="Proporção em 20 lançamentos de moeda", fig.pos="H"}
- knitr::include_graphics("https://i.imgur.com/GpF0Y7J.png")
+ knitr::include_graphics("https://i.imgur.com/joXyqmz.png")
 ```
 
 Observa-se, nessa sequência, que a proporção de caras flutua muito, variando de 0,17 a 0,75. Se o número de lançamentos for aumentando tem-se a sensação de que a proporção se aproxima da “correta”. Por exemplo, com 100 jogadas, obteve-se 53 caras (0,53); com 150 jogadas, 79 (0,53) e com 200  jogadas, 111 (0,56). Quando N se aproximar do infinito ($N \to\infty$) a proporção de caras convergirá para 0,50. A definição frequentista de probabilidade segue essa definição. Ninguém consegue um número infinito de lançamentos de moedas, mas um computador pode simular milhares de lançamentos. A Figura \@ref(fig:nmoeda) mostra o que acontece com a proporção $n_1⁄N$ à medida que N aumenta em lançamentos de moedas. As simulações foram repetidas 4 vezes somente para ter certeza de que o que aconteceu não foi obra do acaso.
