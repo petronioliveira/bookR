@@ -76,7 +76,7 @@ dados <- read_excel("Arquivos/dadosReg.xlsx")
 str(dados)
 ```
 
-De acordo com uma das exigências da correlação, as variáveis  `idade` e comp pertencem a classe das variáveis numéricas. A variável `sexo` foi lida como um variável numérica e será transformada em fator:
+De acordo com uma das exigências da correlação, as variáveis  `idade` e `comp` pertencem a classe das variáveis numéricas. A variável `sexo` foi lida como um variável numérica e será transformada em fator:
 
 ```{r}
 dados$sexo <- as.factor(dados$sexo)
