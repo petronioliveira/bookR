@@ -84,7 +84,7 @@ dados$sexo <- as.factor(dados$sexo)
 
 #### Medidas resumidoras  
 
-Ass medidas resumidoras serão calculadas, usando a função `get_summary_stats ()` do pacote `rstatix` que necessita dos seguintes argumentos:
+As medidas resumidoras serão calculadas, usando a função `get_summary_stats ()` do pacote `rstatix` que necessita dos seguintes argumentos:
 
 ```{r}
 dados %>%

@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2024-09-09" />
+<meta name="date" content="2024-09-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -747,7 +747,7 @@ Os dados estão no banco de dados<code>dadosReg.xlsx</code>. Para baixar o banco
 </div>
 <div id="medidas-resumidoras-2" class="section level4 hasAnchor" number="15.2.2.2">
 <h4><span class="header-section-number">15.2.2.2</span> Medidas resumidoras<a href="correlação-e-regressão.html#medidas-resumidoras-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Ass medidas resumidoras serão calculadas, usando a função <code>get_summary_stats ()</code> do pacote <code>rstatix</code> que necessita dos seguintes argumentos:</p>
+<p>As medidas resumidoras serão calculadas, usando a função <code>get_summary_stats ()</code> do pacote <code>rstatix</code> que necessita dos seguintes argumentos:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="correlação-e-regressão.html#cb5-1" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a href="correlação-e-regressão.html#cb5-2" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">get_summary_stats</span>(idade,</span>
 <span id="cb5-3"><a href="correlação-e-regressão.html#cb5-3" tabindex="-1"></a>                             comp,</span>
@@ -1144,7 +1144,7 @@ Se a saída da função <code>rstandard()</code> for comparada com o eixo <em>y<
 <p>Os resíduos no modelo devem ser independentes, ou seja, não devem ser correlacionados entre si. Para verificar isso, pode-se executar o <em>teste Durbin-Watson</em> (<code>teste dw</code>), utilizando a função <code>durbinWatsonTest()</code> do pacote ´car`. O teste retorna um valor entre 0 e 4. Um valor maior que 2 indica uma correlação negativa entre resíduos adjacentes, enquanto um valor menor que 2 indica uma correlação positiva. Se o valor for dois, é provável que exista independência. Existe uma sugestão de que valores abaixo de 1 ou mais de 3 são um motivo definitivo de preocupação <span class="citation">(7)</span>. É importante mencionar que o teste tem como pressuposto a normalidade dos dados.</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="correlação-e-regressão.html#cb41-1" tabindex="-1"></a><span class="fu">durbinWatsonTest</span>(mod_reg)</span></code></pre></div>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value
-##    1      -0.1044054      2.204843   0.626
+##    1      -0.1044054      2.204843   0.636
 ##  Alternative hypothesis: rho != 0</code></pre>
 <p>Como na saída do teste o valor <em>P</em> &gt; 0,05 e a estatística DW é igual a 2,2, não se rejeita a hipótese nula de independência (rho = 0).</p>
 </div>
