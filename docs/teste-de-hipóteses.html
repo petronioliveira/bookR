@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 11 Teste de Hipóteses | bookdownproj.knit</title>
   <meta name="description" content="" />
-  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo 11 Teste de Hipóteses | bookdownproj.knit" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2024-04-21" />
+<meta name="date" content="2024-09-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -58,7 +58,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -668,36 +668,56 @@ div.csl-indent {
 <h1><span class="header-section-number">Capítulo 11</span> Teste de Hipóteses<a href="teste-de-hipóteses.html#teste-de-hipóteses" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="pacotes-necessários-neste-capítulo-4" class="section level2 hasAnchor" number="11.1">
 <h2><span class="header-section-number">11.1</span> Pacotes necessários neste capítulo<a href="teste-de-hipóteses.html#pacotes-necessários-neste-capítulo-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="teste-de-hipóteses.html#cb627-1" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr,</span>
-<span id="cb627-2"><a href="teste-de-hipóteses.html#cb627-2" tabindex="-1"></a>               lsr,</span>
-<span id="cb627-3"><a href="teste-de-hipóteses.html#cb627-3" tabindex="-1"></a>               pwr,</span>
-<span id="cb627-4"><a href="teste-de-hipóteses.html#cb627-4" tabindex="-1"></a>               readxl,</span>
-<span id="cb627-5"><a href="teste-de-hipóteses.html#cb627-5" tabindex="-1"></a>               rstatix)</span></code></pre></div>
+<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="teste-de-hipóteses.html#cb639-1" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr,</span>
+<span id="cb639-2"><a href="teste-de-hipóteses.html#cb639-2" tabindex="-1"></a>               lsr,</span>
+<span id="cb639-3"><a href="teste-de-hipóteses.html#cb639-3" tabindex="-1"></a>               pwr,</span>
+<span id="cb639-4"><a href="teste-de-hipóteses.html#cb639-4" tabindex="-1"></a>               readxl,</span>
+<span id="cb639-5"><a href="teste-de-hipóteses.html#cb639-5" tabindex="-1"></a>               rstatix)</span></code></pre></div>
+<pre><code>## Instalando pacote em &#39;C:/Users/petro/AppData/Local/R/win-library/4.4&#39;
+## (como &#39;lib&#39; não foi especificado)</code></pre>
+<pre><code>## Warning: não é possível acessar o índice para o repositório http://www.stats.ox.ac.uk/pub/RWin/bin/windows/contrib/4.4:
+##   não foi possível abrir a URL &#39;http://www.stats.ox.ac.uk/pub/RWin/bin/windows/contrib/4.4/PACKAGES&#39;</code></pre>
+<pre><code>## pacote &#39;lsr&#39; desempacotado com sucesso e somas MD5 verificadas
+## 
+## Os pacotes binários baixados estão em
+##  C:\Users\petro\AppData\Local\Temp\RtmpW4LPxU\downloaded_packages</code></pre>
+<pre><code>## 
+## lsr installed
+## Instalando pacote em &#39;C:/Users/petro/AppData/Local/R/win-library/4.4&#39;
+## (como &#39;lib&#39; não foi especificado)</code></pre>
+<pre><code>## Warning: não é possível acessar o índice para o repositório http://www.stats.ox.ac.uk/pub/RWin/bin/windows/contrib/4.4:
+##   não foi possível abrir a URL &#39;http://www.stats.ox.ac.uk/pub/RWin/bin/windows/contrib/4.4/PACKAGES&#39;</code></pre>
+<pre><code>## pacote &#39;pwr&#39; desempacotado com sucesso e somas MD5 verificadas
+## 
+## Os pacotes binários baixados estão em
+##  C:\Users\petro\AppData\Local\Temp\RtmpW4LPxU\downloaded_packages</code></pre>
+<pre><code>## 
+## pwr installed</code></pre>
 </div>
 <div id="sec-dadosth" class="section level2 hasAnchor" number="11.2">
 <h2><span class="header-section-number">11.2</span> Dados do exemplo<a href="teste-de-hipóteses.html#sec-dadosth" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Considere o exemplo dos recém-nascidos a termo da Maternidade do HGCS, extraído do arquivo <code>dadosMater.xlsx</code> (veja Seção <a href="manipulando-os-dados-no-r-studio.html#sec-mater">5.3</a>).</p>
-<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="teste-de-hipóteses.html#cb628-1" tabindex="-1"></a>rnt <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb628-2"><a href="teste-de-hipóteses.html#cb628-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(ig<span class="sc">&gt;=</span><span class="dv">37</span> <span class="sc">&amp;</span> ig<span class="sc">&lt;</span><span class="dv">42</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb628-3"><a href="teste-de-hipóteses.html#cb628-3" tabindex="-1"></a>  <span class="fu">select</span>(sexo, pesoRN)</span></code></pre></div>
+<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="teste-de-hipóteses.html#cb647-1" tabindex="-1"></a>rnt <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb647-2"><a href="teste-de-hipóteses.html#cb647-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(ig<span class="sc">&gt;=</span><span class="dv">37</span> <span class="sc">&amp;</span> ig<span class="sc">&lt;</span><span class="dv">42</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb647-3"><a href="teste-de-hipóteses.html#cb647-3" tabindex="-1"></a>  <span class="fu">select</span>(sexo, pesoRN)</span></code></pre></div>
 <div id="exploração-e-transformação-dos-dados" class="section level3 hasAnchor" number="11.2.1">
 <h3><span class="header-section-number">11.2.1</span> Exploração e transformação dos dados<a href="teste-de-hipóteses.html#exploração-e-transformação-dos-dados" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Inicialmente, para ter uma visão da estrutura dos dados, usa-se:</p>
-<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="teste-de-hipóteses.html#cb629-1" tabindex="-1"></a><span class="fu">str</span>(rnt)</span></code></pre></div>
+<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="teste-de-hipóteses.html#cb648-1" tabindex="-1"></a><span class="fu">str</span>(rnt)</span></code></pre></div>
 <pre><code>## tibble [1,085 × 2] (S3: tbl_df/tbl/data.frame)
 ##  $ sexo  : num [1:1085] 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ pesoRN: num [1:1085] 3285 3100 3100 2800 3270 ...</code></pre>
 <p>A seguir, transformar a variável <code>sexo</code> em fator:</p>
-<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="teste-de-hipóteses.html#cb631-1" tabindex="-1"></a>rnt<span class="sc">$</span>sexo <span class="ot">&lt;-</span> <span class="fu">factor</span>(rnt<span class="sc">$</span>sexo,</span>
-<span id="cb631-2"><a href="teste-de-hipóteses.html#cb631-2" tabindex="-1"></a>                   <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
-<span id="cb631-3"><a href="teste-de-hipóteses.html#cb631-3" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;masc&quot;</span>, <span class="st">&quot;fem&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="teste-de-hipóteses.html#cb650-1" tabindex="-1"></a>rnt<span class="sc">$</span>sexo <span class="ot">&lt;-</span> <span class="fu">factor</span>(rnt<span class="sc">$</span>sexo,</span>
+<span id="cb650-2"><a href="teste-de-hipóteses.html#cb650-2" tabindex="-1"></a>                   <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb650-3"><a href="teste-de-hipóteses.html#cb650-3" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;masc&quot;</span>, <span class="st">&quot;fem&quot;</span>))</span></code></pre></div>
 <p>Este conjunto de dados fica, portanto, fica restrito a 1085 casos, contendo duas variáveis sexo e pesoRN, necessárias neste capítulo e assim resumidas:</p>
-<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="teste-de-hipóteses.html#cb632-1" tabindex="-1"></a>resumo <span class="ot">&lt;-</span> rnt <span class="sc">%&gt;%</span> </span>
-<span id="cb632-2"><a href="teste-de-hipóteses.html#cb632-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(sexo) <span class="sc">%&gt;%</span> </span>
-<span id="cb632-3"><a href="teste-de-hipóteses.html#cb632-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span> (<span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb632-4"><a href="teste-de-hipóteses.html#cb632-4" tabindex="-1"></a>                    <span class="at">media =</span> <span class="fu">mean</span>(pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb632-5"><a href="teste-de-hipóteses.html#cb632-5" tabindex="-1"></a>                    <span class="at">sigma =</span> <span class="fu">sd</span>(pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb632-6"><a href="teste-de-hipóteses.html#cb632-6" tabindex="-1"></a>resumo</span></code></pre></div>
+<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="teste-de-hipóteses.html#cb651-1" tabindex="-1"></a>resumo <span class="ot">&lt;-</span> rnt <span class="sc">%&gt;%</span> </span>
+<span id="cb651-2"><a href="teste-de-hipóteses.html#cb651-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(sexo) <span class="sc">%&gt;%</span> </span>
+<span id="cb651-3"><a href="teste-de-hipóteses.html#cb651-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span> (<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb651-4"><a href="teste-de-hipóteses.html#cb651-4" tabindex="-1"></a>                    <span class="at">media =</span> <span class="fu">mean</span>(pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb651-5"><a href="teste-de-hipóteses.html#cb651-5" tabindex="-1"></a>                    <span class="at">sigma =</span> <span class="fu">sd</span>(pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb651-6"><a href="teste-de-hipóteses.html#cb651-6" tabindex="-1"></a>resumo</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 4
 ##   sexo      n media sigma
 ##   &lt;fct&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -705,15 +725,15 @@ div.csl-indent {
 ## 2 fem     493 3147.  458.</code></pre>
 <p>Suponha que esses 1085 casos sejam considerados a ‘população-alvo’ e que se faça uma afirmação de que existe uma diferença significativa entre os pesos ao nascer de meninos e meninas.
 Para testar essa afirmação, será extraída uma amostra de 200 casos do conjunto <code>rnt</code>, sem reposição. <a href="#fn38" class="footnote-ref" id="fnref38"><sup>38</sup></a></p>
-<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="teste-de-hipóteses.html#cb634-1" tabindex="-1"></a><span class="fu">set.seed</span> (<span class="dv">123</span>)</span>
-<span id="cb634-2"><a href="teste-de-hipóteses.html#cb634-2" tabindex="-1"></a>dados <span class="ot">&lt;-</span> rnt <span class="sc">%&gt;%</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">200</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="teste-de-hipóteses.html#cb653-1" tabindex="-1"></a><span class="fu">set.seed</span> (<span class="dv">123</span>)</span>
+<span id="cb653-2"><a href="teste-de-hipóteses.html#cb653-2" tabindex="-1"></a>dados <span class="ot">&lt;-</span> rnt <span class="sc">%&gt;%</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">200</span>)</span></code></pre></div>
 <p>Este conjunto de dados contém 200 observações de 2 variáveis, assim resumidas.</p>
-<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb635-1"><a href="teste-de-hipóteses.html#cb635-1" tabindex="-1"></a>resumo.dados <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
-<span id="cb635-2"><a href="teste-de-hipóteses.html#cb635-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(sexo) <span class="sc">%&gt;%</span> </span>
-<span id="cb635-3"><a href="teste-de-hipóteses.html#cb635-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb635-4"><a href="teste-de-hipóteses.html#cb635-4" tabindex="-1"></a>                   <span class="at">media =</span> <span class="fu">mean</span> (pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb635-5"><a href="teste-de-hipóteses.html#cb635-5" tabindex="-1"></a>                   <span class="at">dp =</span> <span class="fu">sd</span> (pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb635-6"><a href="teste-de-hipóteses.html#cb635-6" tabindex="-1"></a>resumo.dados</span></code></pre></div>
+<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="teste-de-hipóteses.html#cb654-1" tabindex="-1"></a>resumo.dados <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb654-2"><a href="teste-de-hipóteses.html#cb654-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(sexo) <span class="sc">%&gt;%</span> </span>
+<span id="cb654-3"><a href="teste-de-hipóteses.html#cb654-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb654-4"><a href="teste-de-hipóteses.html#cb654-4" tabindex="-1"></a>                   <span class="at">media =</span> <span class="fu">mean</span> (pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb654-5"><a href="teste-de-hipóteses.html#cb654-5" tabindex="-1"></a>                   <span class="at">dp =</span> <span class="fu">sd</span> (pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb654-6"><a href="teste-de-hipóteses.html#cb654-6" tabindex="-1"></a>resumo.dados</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 4
 ##   sexo      n media    dp
 ##   &lt;fct&gt; &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -822,16 +842,16 @@ Figura11.2: Tomada de decisão e erros.
 <h3><span class="header-section-number">11.5.3</span> Exemplo (continuação)<a href="teste-de-hipóteses.html#sec-exeth1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Continuando com o exemplo da Seção <a href="teste-de-hipóteses.html#sec-exeth">11.4.1</a>, aceita-se que os pesos dos recém-nascidos de ambas as amostras tenham distribuição normal e que as variâncias são semelhantes. Apesar de o desvio padrão (<span class="math inline">\(\sigma\)</span>) da <code>população-alvo</code>, <em>rnt</em>, ser conhecido, será suposto que ele é desconhecido. Portanto, o teste <em>t</em> de amostras independentes será o teste escolhido como o teste estatístico. A hipótese alternativa é bilateral e o <span class="math inline">\(\alpha\)</span> = 0,05.<br />
 A distribuição <em>t</em> é dependente dos grau de liberdade, que para duas amostras independentes é igual <span class="math inline">\(gl=n_1+n_2-2\)</span>. Para os dados em uso, tem-se:</p>
-<div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb637-1"><a href="teste-de-hipóteses.html#cb637-1" tabindex="-1"></a> n1 <span class="ot">&lt;-</span> resumo.dados<span class="sc">$</span>n[<span class="dv">1</span>]</span>
-<span id="cb637-2"><a href="teste-de-hipóteses.html#cb637-2" tabindex="-1"></a> n2 <span class="ot">&lt;-</span> resumo.dados<span class="sc">$</span>n[<span class="dv">2</span>]</span>
-<span id="cb637-3"><a href="teste-de-hipóteses.html#cb637-3" tabindex="-1"></a> gl <span class="ot">&lt;-</span> n1 <span class="sc">+</span> n2 <span class="sc">-</span> <span class="dv">2</span></span>
-<span id="cb637-4"><a href="teste-de-hipóteses.html#cb637-4" tabindex="-1"></a> gl</span></code></pre></div>
+<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="teste-de-hipóteses.html#cb656-1" tabindex="-1"></a> n1 <span class="ot">&lt;-</span> resumo.dados<span class="sc">$</span>n[<span class="dv">1</span>]</span>
+<span id="cb656-2"><a href="teste-de-hipóteses.html#cb656-2" tabindex="-1"></a> n2 <span class="ot">&lt;-</span> resumo.dados<span class="sc">$</span>n[<span class="dv">2</span>]</span>
+<span id="cb656-3"><a href="teste-de-hipóteses.html#cb656-3" tabindex="-1"></a> gl <span class="ot">&lt;-</span> n1 <span class="sc">+</span> n2 <span class="sc">-</span> <span class="dv">2</span></span>
+<span id="cb656-4"><a href="teste-de-hipóteses.html#cb656-4" tabindex="-1"></a> gl</span></code></pre></div>
 <pre><code>## [1] 198</code></pre>
 <p>Para o nível de significância escolhido, o valor crítico de <em>t</em> para <em>gl</em> = 198 e uma hipótese alternativa bilateral pode ser obtido da seguinte maneira:</p>
-<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="teste-de-hipóteses.html#cb639-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb639-2"><a href="teste-de-hipóteses.html#cb639-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> alpha<span class="sc">/</span><span class="dv">2</span></span>
-<span id="cb639-3"><a href="teste-de-hipóteses.html#cb639-3" tabindex="-1"></a>tc <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">qt</span>(p, gl),<span class="dv">3</span>)</span>
-<span id="cb639-4"><a href="teste-de-hipóteses.html#cb639-4" tabindex="-1"></a>tc</span></code></pre></div>
+<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="teste-de-hipóteses.html#cb658-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb658-2"><a href="teste-de-hipóteses.html#cb658-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> alpha<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb658-3"><a href="teste-de-hipóteses.html#cb658-3" tabindex="-1"></a>tc <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">qt</span>(p, gl),<span class="dv">3</span>)</span>
+<span id="cb658-4"><a href="teste-de-hipóteses.html#cb658-4" tabindex="-1"></a>tc</span></code></pre></div>
 <pre><code>## [1] 1.972</code></pre>
 <p>A partir do cálculo do valor crítico de <em>t</em>, podemos estabelecer a regra de decisão para as hipóteses estatísticas:</p>
 <p><span class="math display">\[
@@ -846,11 +866,11 @@ A distribuição <em>t</em> é dependente dos grau de liberdade, que para duas a
 <li><em>var.equal</em> <span class="math inline">\(\to\)</span> lógico: se <code>TRUE</code>, uma variância combinada é usada; caso contrário, a aproximação de Welch dos graus de liberdade é usada</li>
 <li><em>alternative</em> → <code>two.sided</code> (padrão) ou <code>greater</code> ou <code>less</code>.</li>
 </ul>
-<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="teste-de-hipóteses.html#cb641-1" tabindex="-1"></a>teste <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">t_test</span>(<span class="at">data =</span> dados, </span>
-<span id="cb641-2"><a href="teste-de-hipóteses.html#cb641-2" tabindex="-1"></a>                         <span class="at">formula =</span> pesoRN<span class="sc">~</span>sexo, </span>
-<span id="cb641-3"><a href="teste-de-hipóteses.html#cb641-3" tabindex="-1"></a>                         <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>,</span>
-<span id="cb641-4"><a href="teste-de-hipóteses.html#cb641-4" tabindex="-1"></a>                         <span class="at">detailed =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb641-5"><a href="teste-de-hipóteses.html#cb641-5" tabindex="-1"></a>teste</span></code></pre></div>
+<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="teste-de-hipóteses.html#cb660-1" tabindex="-1"></a>teste <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">t_test</span>(<span class="at">data =</span> dados, </span>
+<span id="cb660-2"><a href="teste-de-hipóteses.html#cb660-2" tabindex="-1"></a>                         <span class="at">formula =</span> pesoRN<span class="sc">~</span>sexo, </span>
+<span id="cb660-3"><a href="teste-de-hipóteses.html#cb660-3" tabindex="-1"></a>                         <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>,</span>
+<span id="cb660-4"><a href="teste-de-hipóteses.html#cb660-4" tabindex="-1"></a>                         <span class="at">detailed =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb660-5"><a href="teste-de-hipóteses.html#cb660-5" tabindex="-1"></a>teste</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 15
 ##   estimate estimate1 estimate2 .y.    group1 group2    n1    n2 statistic      p
 ## *    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;  &lt;dbl&gt;
@@ -897,8 +917,8 @@ A análise de poder é uma ferramenta útil para planejar um estudo e determinar
 <div id="exemplo-continuação-1" class="section level3 hasAnchor" number="11.7.1">
 <h3><span class="header-section-number">11.7.1</span> Exemplo (continuação)<a href="teste-de-hipóteses.html#exemplo-continuação-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>O teste <em>t</em> retornou um resultado significativo, com valor de t = 2.583 &gt; 1.972, com <em>P</em> = 0.0106. Um resultado significativo não informa sobre a magnitude do efeito. Para isso, lançamos mão do teste <em>d</em> de Cohen que pode ser calculado, usando a função <code>cohensD()</code> do pacote <code>lsr</code>:</p>
-<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="teste-de-hipóteses.html#cb643-1" tabindex="-1"></a>d <span class="ot">&lt;-</span> lsr<span class="sc">::</span><span class="fu">cohensD</span> (<span class="at">data =</span> dados, <span class="at">formula =</span> pesoRN <span class="sc">~</span> sexo)</span>
-<span id="cb643-2"><a href="teste-de-hipóteses.html#cb643-2" tabindex="-1"></a>d</span></code></pre></div>
+<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="teste-de-hipóteses.html#cb662-1" tabindex="-1"></a>d <span class="ot">&lt;-</span> lsr<span class="sc">::</span><span class="fu">cohensD</span> (<span class="at">data =</span> dados, <span class="at">formula =</span> pesoRN <span class="sc">~</span> sexo)</span>
+<span id="cb662-2"><a href="teste-de-hipóteses.html#cb662-2" tabindex="-1"></a>d</span></code></pre></div>
 <pre><code>## [1] 0.3721228</code></pre>
 <p>Na Seção <a href="sec-testet.html#sec-cohen">12.2.6.1</a>, se entrará em maiores detalhes, por enquanto, será assumido que a magnitude do efeito é pequena.</p>
 <p>De posse do valor do <em>d</em> de Cohen, é possível calcular, através da função <code>pwr.t.test()</code> do pacote <code>pwr</code>, o poder do teste estatístico. Os argumentos dessa função são:</p>
@@ -911,13 +931,13 @@ A análise de poder é uma ferramenta útil para planejar um estudo e determinar
 <li><em>alternative</em> <span class="math inline">\(\to\)</span>hipótese alternativa, deve ser “one-sided” ou “two-sided (padrão).</li>
 </ul>
 <p>O parâmetro que se quer calcular deve ser passado como <code>NULL</code>. Assim, o poder do teste estatístico do exemplo é:</p>
-<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="teste-de-hipóteses.html#cb645-1" tabindex="-1"></a>poder <span class="ot">&lt;-</span> pwr<span class="sc">::</span><span class="fu">pwr.t.test</span>(<span class="at">n =</span> <span class="dv">150</span>,</span>
-<span id="cb645-2"><a href="teste-de-hipóteses.html#cb645-2" tabindex="-1"></a>                         <span class="at">d =</span> d,</span>
-<span id="cb645-3"><a href="teste-de-hipóteses.html#cb645-3" tabindex="-1"></a>                         <span class="at">sig.level =</span> <span class="fl">0.05</span>, </span>
-<span id="cb645-4"><a href="teste-de-hipóteses.html#cb645-4" tabindex="-1"></a>                         <span class="at">power =</span> <span class="cn">NULL</span>,</span>
-<span id="cb645-5"><a href="teste-de-hipóteses.html#cb645-5" tabindex="-1"></a>                         <span class="at">type =</span> <span class="st">&quot;two.sample&quot;</span>,</span>
-<span id="cb645-6"><a href="teste-de-hipóteses.html#cb645-6" tabindex="-1"></a>                         <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span>
-<span id="cb645-7"><a href="teste-de-hipóteses.html#cb645-7" tabindex="-1"></a>poder</span></code></pre></div>
+<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb664-1"><a href="teste-de-hipóteses.html#cb664-1" tabindex="-1"></a>poder <span class="ot">&lt;-</span> pwr<span class="sc">::</span><span class="fu">pwr.t.test</span>(<span class="at">n =</span> <span class="dv">150</span>,</span>
+<span id="cb664-2"><a href="teste-de-hipóteses.html#cb664-2" tabindex="-1"></a>                         <span class="at">d =</span> d,</span>
+<span id="cb664-3"><a href="teste-de-hipóteses.html#cb664-3" tabindex="-1"></a>                         <span class="at">sig.level =</span> <span class="fl">0.05</span>, </span>
+<span id="cb664-4"><a href="teste-de-hipóteses.html#cb664-4" tabindex="-1"></a>                         <span class="at">power =</span> <span class="cn">NULL</span>,</span>
+<span id="cb664-5"><a href="teste-de-hipóteses.html#cb664-5" tabindex="-1"></a>                         <span class="at">type =</span> <span class="st">&quot;two.sample&quot;</span>,</span>
+<span id="cb664-6"><a href="teste-de-hipóteses.html#cb664-6" tabindex="-1"></a>                         <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span>
+<span id="cb664-7"><a href="teste-de-hipóteses.html#cb664-7" tabindex="-1"></a>poder</span></code></pre></div>
 <pre><code>## 
 ##      Two-sample t test power calculation 
 ## 

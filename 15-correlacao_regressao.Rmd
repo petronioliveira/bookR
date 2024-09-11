@@ -228,7 +228,7 @@ O coeficiente refere a existência de correlação linear, mas não especifica s
 O importante é a magnitude do *r*, entretanto, o coeficiente *r* e o valor *P* devem ser interpretados em conjunto. Se o valor *P* > 0,05, mesmo que *r* seja diferente de zero, a correlação não deveria ser interpretada. 
 
 ```{r coefr, echo=FALSE, message=FALSE, warning=FALSE}
-inter <-c("desprezível", "fraca", "moderada", "forte", "muito forte", "perfeita")
+inter <-c("desprezável", "fraca", "moderada", "forte", "muito forte", "perfeita")
 coef <- c("0,0 < 0,3", "0,3 < 0,5", "0,5 < 0,7", "0,7 < 0,9", "0,9 < 1,0", "1,0")
 
 df <- data.frame(coef, inter)
