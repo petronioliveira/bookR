@@ -703,7 +703,7 @@ div.csl-indent {
 <span id="cb578-2"><a href="sec-estimacao.html#cb578-2" tabindex="-1"></a> sigma <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">sd</span>(rnt<span class="sc">$</span>pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
 <span id="cb578-3"><a href="sec-estimacao.html#cb578-3" tabindex="-1"></a> <span class="fu">print</span>(<span class="at">x =</span> <span class="fu">c</span>(mu, sigma))</span></code></pre></div>
 <pre><code>## [1] 3216  462</code></pre>
-<p>A seguir, será extraída, dessa população, uma amostra de <em>n</em> = 30 <a href="#fn36" class="footnote-ref" id="fnref36"><sup>36</sup></a> e calculado os mesmas medidas resumidoras, que se constituirão nas estimativas da <code>amostra</code> :</p>
+<p>A seguir, será extraída, dessa população, uma amostra de <em>n</em> = 30 <a href="#fn37" class="footnote-ref" id="fnref37"><sup>37</sup></a> e calculado os mesmas medidas resumidoras, que se constituirão nas estimativas da <code>amostra</code> :</p>
 <div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb580-1"><a href="sec-estimacao.html#cb580-1" tabindex="-1"></a><span class="fu">set.seed</span> (<span class="dv">1234</span>)</span>
 <span id="cb580-2"><a href="sec-estimacao.html#cb580-2" tabindex="-1"></a>amostra <span class="ot">&lt;-</span> rnt <span class="sc">%&gt;%</span> <span class="fu">select</span>(pesoRN) <span class="sc">%&gt;%</span> </span>
 <span id="cb580-3"><a href="sec-estimacao.html#cb580-3" tabindex="-1"></a><span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">30</span>)</span>
@@ -847,7 +847,7 @@ Com essa função fica fácil alterar o nível de confiança, por exemplo, para 
 <div id="interpretação-do-intervalo-de-confiança" class="section level3 hasAnchor" number="10.5.3">
 <h3><span class="header-section-number">10.5.3</span> Interpretação do intervalo de confiança<a href="sec-estimacao.html#interpretação-do-intervalo-de-confiança" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Se fossem extraídas todas as possíveis amostras de tamanho 30 da população de recém-nascidos a termo e construído para cada uma delas um intervalo de confiança de 95% em torno de cada média amostral, espera-se que 95% desses intervalos incluirão a média populacional e 5% não incluirão.</p>
-<p>O IC95% informa sobre a <em>precisão</em> com que a média amostral estima a média populacional desconhecida <a href="#fn37" class="footnote-ref" id="fnref37"><sup>37</sup></a>.</p>
+<p>O IC95% informa sobre a <em>precisão</em> com que a média amostral estima a média populacional desconhecida <a href="#fn38" class="footnote-ref" id="fnref38"><sup>38</sup></a>.</p>
 <p>Na Figura <a href="sec-estimacao.html#fig:vinte">10.2</a>, são mostradas 20 amostras diferentes de tamanho <em>n</em> = 30, retiradas da mesma população de recém-nascidos a termo da Maternidade do HGCS. Junto aparecem os intervalos de confiança de 95% construídos em torno dessas amostras. Observa-se que apenas uma amostra (em vermelho) não inclui a média populacional (linha tracejada vertical em azul). Pode-se afirmar com 95% de confiança que se forem extraídas muitas amostras do mesmo tamanho de uma população e construído intervalos de confiança de 95% em torno das médias dessas amostras, 95% desses intervalos de confiança incluirão a média populacional.</p>
 <div class="figure"><span style="display:block;" id="fig:vinte"></span>
 <img src="bookdownproj_files/figure-html/vinte-1.png" alt="Intervalos de confiança de 95% que mostra 20 replicações simuladas de amostras de n = 30 do peso do recém-nascido. Apenas um intervalo (em vermelho) não inclui a média populacional (linha vertical azul)." width="672" />
@@ -1195,9 +1195,9 @@ t
 </div>
 <div class="footnotes">
 <hr />
-<ol start="36">
-<li id="fn36"><p>É importante lembrar que toda vez que for extraída uma nova amostra de tamanho <em>n</em> = 30, o resultado será um conjunto de números diferentes e, em consequência, a média será diferente. Por isso, se for importante repetir o mesmo resultado, deve-se usar a função <code>set.seed()</code>. Consulte a Seção <a href="introdução-à-teoria-das-probabilidades.html#sec-rnorm">7.7.2.4</a><a href="sec-estimacao.html#fnref36" class="footnote-back">↩︎</a></p></li>
-<li id="fn37"><p>Anteriormente, mostrou-se a media populacional por uma questão didática. A regra é não se conhecer a média populacional, razão da importância do intervalo de confiança<a href="sec-estimacao.html#fnref37" class="footnote-back">↩︎</a></p></li>
+<ol start="37">
+<li id="fn37"><p>É importante lembrar que toda vez que for extraída uma nova amostra de tamanho <em>n</em> = 30, o resultado será um conjunto de números diferentes e, em consequência, a média será diferente. Por isso, se for importante repetir o mesmo resultado, deve-se usar a função <code>set.seed()</code>. Consulte a Seção <a href="introdução-à-teoria-das-probabilidades.html#sec-rnorm">7.7.2.4</a><a href="sec-estimacao.html#fnref37" class="footnote-back">↩︎</a></p></li>
+<li id="fn38"><p>Anteriormente, mostrou-se a media populacional por uma questão didática. A regra é não se conhecer a média populacional, razão da importância do intervalo de confiança<a href="sec-estimacao.html#fnref38" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

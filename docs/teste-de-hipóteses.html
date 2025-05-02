@@ -704,7 +704,7 @@ div.csl-indent {
 ## 1 masc    592 3274.  458.
 ## 2 fem     493 3147.  458.</code></pre>
 <p>Suponha que esses 1085 casos sejam considerados a ‘população-alvo’ e que se faça uma afirmação de que existe uma diferença significativa entre os pesos ao nascer de meninos e meninas.
-Para testar essa afirmação, será extraída uma amostra de 200 casos do conjunto <code>rnt</code>, sem reposição. <a href="#fn38" class="footnote-ref" id="fnref38"><sup>38</sup></a></p>
+Para testar essa afirmação, será extraída uma amostra de 200 casos do conjunto <code>rnt</code>, sem reposição. <a href="#fn39" class="footnote-ref" id="fnref39"><sup>39</sup></a></p>
 <div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="teste-de-hipóteses.html#cb634-1" tabindex="-1"></a><span class="fu">set.seed</span> (<span class="dv">123</span>)</span>
 <span id="cb634-2"><a href="teste-de-hipóteses.html#cb634-2" tabindex="-1"></a>dados <span class="ot">&lt;-</span> rnt <span class="sc">%&gt;%</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">200</span>)</span></code></pre></div>
 <p>Este conjunto de dados contém 200 observações de 2 variáveis, assim resumidas.</p>
@@ -733,7 +733,7 @@ Uma hipótese estatística é uma afirmação relacionada aos parâmetros de uma
 <h2><span class="header-section-number">11.4</span> Hipótese nula e alternativa<a href="teste-de-hipóteses.html#hipótese-nula-e-alternativa" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Em função da hipótese de pesquisa, mencionada anteriormente, foram gerados os dados do exemplo. A hipótese de pesquisa corresponde ao que se quer acreditar, “o tabagismo na gestação interfere no peso dos neonatos”. Para refutar ou não essa afirmação constrói-se um teste de hipótese para verificar se ela é compatível ou não com os dados disponíveis <span class="citation">(99)</span>.</p>
 <p>No teste de hipóteses (TH), existem dois tipos de hipóteses, definidas como:</p>
-<p><strong>Hipótese nula</strong>(<span class="math inline">\(H_{0}\)</span>): hipótese que afirma a não existência de diferença entre os grupos e, portanto, a diferença observada é atribuível ao acaso. É a hipótese a ser testada, aquela que se busca afastar, demonstrando que é, provavelmente <a href="#fn39" class="footnote-ref" id="fnref39"><sup>39</sup></a>, falsa, não válida. É denotada como:</p>
+<p><strong>Hipótese nula</strong>(<span class="math inline">\(H_{0}\)</span>): hipótese que afirma a não existência de diferença entre os grupos e, portanto, a diferença observada é atribuível ao acaso. É a hipótese a ser testada, aquela que se busca afastar, demonstrando que é, provavelmente <a href="#fn40" class="footnote-ref" id="fnref40"><sup>40</sup></a>, falsa, não válida. É denotada como:</p>
 <p><span class="math display">\[
 H_{0}: \mu_{1}= \mu_{2} \quad ou \quad \mu_{1} - \mu_{2}=0
 \]</span>
@@ -857,7 +857,7 @@ A distribuição <em>t</em> é dependente dos grau de liberdade, que para duas a
 ## 1     164.     3333.     3169. pesoRN masc   fem      109    91      2.58 0.0106
 ## # ℹ 5 more variables: df &lt;dbl&gt;, conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;, method &lt;chr&gt;,
 ## #   alternative &lt;chr&gt;</code></pre>
-<p>A saída do teste mostra uma estatística de teste <a href="#fn40" class="footnote-ref" id="fnref40"><sup>40</sup></a> igual a 2.583. Esta é maior do que o <em>t_crítico</em> = 1.972, consequentemente, rejeita-se a hipótese nula e conclui-se, com uma confiança de 95%, que existe uma diferença estatisticamente significativa no peso dos recém-nascidos entre os sexos. Esta diferença é em média igual a 164 g (IC95%: 39, 289), <span class="math inline">\(peso_{meninos} &gt; peso_{meninas}\)</span>.</p>
+<p>A saída do teste mostra uma estatística de teste <a href="#fn41" class="footnote-ref" id="fnref41"><sup>41</sup></a> igual a 2.583. Esta é maior do que o <em>t_crítico</em> = 1.972, consequentemente, rejeita-se a hipótese nula e conclui-se, com uma confiança de 95%, que existe uma diferença estatisticamente significativa no peso dos recém-nascidos entre os sexos. Esta diferença é em média igual a 164 g (IC95%: 39, 289), <span class="math inline">\(peso_{meninos} &gt; peso_{meninas}\)</span>.</p>
 </div>
 </div>
 <div id="valor-p-do-teste" class="section level2 hasAnchor" number="11.6">
@@ -936,10 +936,10 @@ A análise de poder é uma ferramenta útil para planejar um estudo e determinar
 </div>
 <div class="footnotes">
 <hr />
-<ol start="38">
-<li id="fn38"><p>Conhecer os parâmetros da população, é muito raro. Aqui isto aconteceu, artificialmente, para fins didáticos.<a href="teste-de-hipóteses.html#fnref38" class="footnote-back">↩︎</a></p></li>
-<li id="fn39"><p>Ter em mente que nunca se pode saber com total certeza se existe um efeito na população.<a href="teste-de-hipóteses.html#fnref39" class="footnote-back">↩︎</a></p></li>
-<li id="fn40"><p>Para ver todas as estatísticas do teste, basta escrever teste$ e apertar a tecla TAB do teclado e surgirá um menu para escolha.<a href="teste-de-hipóteses.html#fnref40" class="footnote-back">↩︎</a></p></li>
+<ol start="39">
+<li id="fn39"><p>Conhecer os parâmetros da população, é muito raro. Aqui isto aconteceu, artificialmente, para fins didáticos.<a href="teste-de-hipóteses.html#fnref39" class="footnote-back">↩︎</a></p></li>
+<li id="fn40"><p>Ter em mente que nunca se pode saber com total certeza se existe um efeito na população.<a href="teste-de-hipóteses.html#fnref40" class="footnote-back">↩︎</a></p></li>
+<li id="fn41"><p>Para ver todas as estatísticas do teste, basta escrever teste$ e apertar a tecla TAB do teclado e surgirá um menu para escolha.<a href="teste-de-hipóteses.html#fnref41" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

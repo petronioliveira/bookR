@@ -6,17 +6,20 @@ As pesquisas manuseiam dados referentes às variáveis que estão sendo estudada
 
 A Tabela \@ref(tab:var) mostra um conjunto de variáveis e suas medidas (dados) de um grupo de pacientes internados em uma determinada UTI. O termo medida deve ser entendido num sentido amplo, pois não é possível "medir" o sexo (observação) ou o estado geral (critérios) de alguém, ao contrário do peso e da pressão arterial que podem ser mensurados com instrumentos.
 
-```{r echo=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 tabela <- read.csv('Arquivos/tabela.csv', sep = ";",  fileEncoding = "latin1")
 ```
 
+
 ```{r var, echo=FALSE, message=FALSE, warning=FALSE}
 library(dplyr)
+
 knitr::kable(tabela,
+             "html",
              col.names = c('Id', 'Nome','Idade', 'Sexo', 'PAS', 'PAD', 'Estado Geral'),
-             align = "llcccccc",
-             caption = 'Variáveis e dados.') %>% 
-  kableExtra::kable_classic(full_width = T, html_font = "Cambria") %>% 
+             align = "llrlrrl",
+             caption = "Variáveis e dados") %>% 
+  kableExtra::kable_classic(full_width = F, html_font = "Cambria") %>% 
   kableExtra::row_spec(0, bold = TRUE)
 ```
 
