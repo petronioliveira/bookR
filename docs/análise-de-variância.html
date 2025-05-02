@@ -694,14 +694,14 @@ div.csl-indent {
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:logica"></span>
 <img src="bookdownproj_files/figure-html/logica-1.png" alt="Três distribuições diferentes" width="70%" height="70%" />
 <p class="caption">
-Figura13.1: Três distribuições diferentes
+Figura 13.1: Três distribuições diferentes
 </p>
 </div>
 <p>Agora, observe o Figura <a href="análise-de-variância.html#fig:logicb">13.2</a>, onde a distribuição da variável <em>X</em> é mostrada, mantendo as mesmas médias, mas com variâncias maiores. Isto torna claro que se o objetivo é distinguir observações provenientes desses grupos não basta avaliar suas médias, há necessidade de comparar a variação entre os grupos com a variação dentro de cada grupo <span class="citation">(112)</span>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:logicb"></span>
 <img src="bookdownproj_files/figure-html/logicb-1.png" alt="Distribuições com mesmas médias da figura anterior, mas variâncias maiores" width="70%" height="70%" />
 <p class="caption">
-Figura13.2: Distribuições com mesmas médias da figura anterior, mas variâncias maiores
+Figura 13.2: Distribuições com mesmas médias da figura anterior, mas variâncias maiores
 </p>
 </div>
 <p>Se a variação entre os grupos for grande quando comparada à variação dentro de cada grupo, aumenta a probabilidade de reconhecer a proveniência das observações (Figura <a href="análise-de-variância.html#fig:logica">13.1</a>). Entretanto, se a variação entre os grupos for pequena comparada à variação dentro do grupo, torna difícil a distinção de observações provenientes dos grupos (Figura <a href="análise-de-variância.html#fig:logicb">13.2</a>).</p>
@@ -720,7 +720,7 @@ F = \frac{variância \quad ENTRE \quad os \quad grupos}{variância \quad DENTRO 
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:distf"></span>
 <img src="bookdownproj_files/figure-html/distf-1.png" alt="Distribuições F." width="90%" height="90%" />
 <p class="caption">
-Figura13.3: Distribuições F.
+Figura 13.3: Distribuições F.
 </p>
 </div>
 <div id="funções-do-r-para-trabalhar-com-a-distribuição-f" class="section level4 hasAnchor" number="13.2.2.1">
@@ -753,7 +753,7 @@ Figura13.3: Distribuições F.
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:distf1020"></span>
 <img src="bookdownproj_files/figure-html/distf1020-1.png" alt="Área da curva da distribuição F (10,20) abaixo de x = 0,97 é igual a 50%" width="70%" height="70%" />
 <p class="caption">
-Figura13.4: Área da curva da distribuição F (10,20) abaixo de x = 0,97 é igual a 50%
+Figura 13.4: Área da curva da distribuição F (10,20) abaixo de x = 0,97 é igual a 50%
 </p>
 </div>
 <p>Para gerar 100.000 valores aleatórios da distribuição F com <em>gl1</em>=10 e <em>gl2</em>=20,será usada a função <code>rf()</code>. Em seguida, plota-se um histograma (Figura <a href="análise-de-variância.html#fig:distfcurve">13.5</a>) com curva da distribuição <em>F</em> sobreposta (linha vermelha) e compara-se com a função de densidade de probabilidade da distribuição <em>F</em> (curva verde da Figura <a href="análise-de-variância.html#fig:distf">13.3</a>).</p>
@@ -777,7 +777,7 @@ Figura13.4: Área da curva da distribuição F (10,20) abaixo de x = 0,97 é igu
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:distfcurve"></span>
 <img src="bookdownproj_files/figure-html/distfcurve-1.png" alt="Histograma com curva sobreposta de uma distribuição F (10,20)" width="70%" height="70%" />
 <p class="caption">
-Figura13.5: Histograma com curva sobreposta de uma distribuição F (10,20)
+Figura 13.5: Histograma com curva sobreposta de uma distribuição F (10,20)
 </p>
 </div>
 </div>
@@ -791,7 +791,7 @@ Figura13.5: Histograma com curva sobreposta de uma distribuição F (10,20)
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:bpanova"></span>
 <img src="bookdownproj_files/figure-html/bpanova-1.png" alt="Impacto do tabagismo materno no peso ao nascer" width="70%" height="70%" />
 <p class="caption">
-Figura13.6: Impacto do tabagismo materno no peso ao nascer
+Figura 13.6: Impacto do tabagismo materno no peso ao nascer
 </p>
 </div>
 <div id="dados-do-exemplo" class="section level3 hasAnchor" number="13.3.1">
@@ -851,7 +851,7 @@ Figura13.6: Impacto do tabagismo materno no peso ao nascer
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:bxpfumo"></span>
 <img src="bookdownproj_files/figure-html/bxpfumo-1.png" alt="Boxplots do impacto do tabagismo materno no peso ao nascer" width="70%" height="70%" />
 <p class="caption">
-Figura13.7: Boxplots do impacto do tabagismo materno no peso ao nascer
+Figura 13.7: Boxplots do impacto do tabagismo materno no peso ao nascer
 </p>
 </div>
 <p>Observa-se que há uma tendência de o peso ao nascer diminuir à medida que quantidade de cigarros fumados aumenta. Entretanto, esta diferença pode ser pelo acaso.</p>
@@ -890,7 +890,7 @@ Figura13.7: Boxplots do impacto do tabagismo materno no peso ao nascer
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fc3196"></span>
 <img src="bookdownproj_files/figure-html/fc3196-1.png" alt="Curva da Distribuição F 3,196 = 2,65" width="70%" height="80%" />
 <p class="caption">
-Figura13.8: Curva da Distribuição F 3,196 = 2,65
+Figura 13.8: Curva da Distribuição F 3,196 = 2,65
 </p>
 </div>
 </div>
@@ -944,7 +944,7 @@ F = \frac {s_{E}^2}{s_{D}^2} = \frac {\frac {SQ_{E}}{gl_{E}}}{\frac {SQ_{D}}{gl_
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:qqfumo"></span>
 <img src="bookdownproj_files/figure-html/qqfumo-1.png" alt="Gráficos Q-Q" width="90%" height="90%" />
 <p class="caption">
-Figura13.9: Gráficos Q-Q
+Figura 13.9: Gráficos Q-Q
 </p>
 </div>
 <p>O resultado do teste de Shapiro-Wilk entregou todos os resultados com valor <em>P</em> acima de 0.05 e os gráficos Q-Q, não são perfeitos, mas pode-se assumir que os dados para cada grupo caem aproximadamente em uma linha reta.</p>
@@ -1014,7 +1014,7 @@ Figura13.9: Gráficos Q-Q
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:tukeyhsd"></span>
 <img src="bookdownproj_files/figure-html/tukeyhsd-1.png" alt="Gráficos do Teste de Tukey" width="70%" height="70%" />
 <p class="caption">
-Figura13.10: Gráficos do Teste de Tukey
+Figura 13.10: Gráficos do Teste de Tukey
 </p>
 </div>
 <div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb736-1"><a href="análise-de-variância.html#cb736-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">4.1</span>, <span class="fl">4.1</span>, <span class="fl">2.1</span>)) <span class="co"># Retorna as margens ao padrão</span></span></code></pre></div>
@@ -1043,7 +1043,7 @@ Figura13.10: Gráficos do Teste de Tukey
 <p>Apesar de ser controverso, pode-se seguir a orientação da Tabela <a href="análise-de-variância.html#tab:effectsize">13.1</a>, para a interpretação <span class="citation">(117)</span>:</p>
 <table class="table lightable-classic" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: Cambria; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:effectsize">Tabela13.1: </span><span id="tab:effectsize">Tabela13.2: </span>Interpretação do tamanho do efeito
+<span id="tab:effectsize">Tabela 13.1: </span><span id="tab:effectsize">Tabela 13.2: </span>Interpretação do tamanho do efeito
 </caption>
 <thead>
 <tr>
@@ -1116,7 +1116,7 @@ grande
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:view"></span>
 <img src="bookdownproj_files/figure-html/view-1.png" alt="Efeito do tabagismo na gestação sobre o peso do recém-nascido.([*]: P entre 0,01 e 0,05; [**]: P entre 0,001 e 0,01; [****]: P &lt; 0,0001)." width="80%" height="80%" />
 <p class="caption">
-Figura13.11: Efeito do tabagismo na gestação sobre o peso do recém-nascido.([*]: P entre 0,01 e 0,05; [**]: P entre 0,001 e 0,01; [****]: P &lt; 0,0001).
+Figura 13.11: Efeito do tabagismo na gestação sobre o peso do recém-nascido.([*]: P entre 0,01 e 0,05; [**]: P entre 0,001 e 0,01; [****]: P &lt; 0,0001).
 </p>
 </div>
 </div>
@@ -1194,7 +1194,7 @@ Quando se tem dois ou mais fatores, além de observar o efeito desses fatores so
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:alcool"></span>
 <img src="bookdownproj_files/figure-html/alcool-1.png" alt="Efeito do álcool na memória de acordo com o sexo." width="85%" height="85%" />
 <p class="caption">
-Figura13.12: Efeito do álcool na memória de acordo com o sexo.
+Figura 13.12: Efeito do álcool na memória de acordo com o sexo.
 </p>
 </div>
 <p>Além dos boxplot, é interessante desenhar um gráfico de linhas (Figura <a href="análise-de-variância.html#fig:alcool2">13.13</a>) que plota a média (ou outro resumo) da variável escore (resposta) para combinações bidirecionais de fatores, ilustrando assim possíveis interações. Aqui, pode-se usar a função <code>ggline()</code>, também pertencente ao interessante pacote <code>ggpubr</code>.</p>
@@ -1210,7 +1210,7 @@ Figura13.12: Efeito do álcool na memória de acordo com o sexo.
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:alcool2"></span>
 <img src="bookdownproj_files/figure-html/alcool2-1.png" alt="Efeito do álcool na memória de acordo com o sexo." width="85%" height="85%" />
 <p class="caption">
-Figura13.13: Efeito do álcool na memória de acordo com o sexo.
+Figura 13.13: Efeito do álcool na memória de acordo com o sexo.
 </p>
 </div>
 <p>O gráfico sugere um possível efeito do álcool sobre a memória, bem como uma interação entre os sexos.</p>
@@ -1349,7 +1349,7 @@ Este gráfico (Figura <a href="análise-de-variância.html#fig:normresiduos">13.
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:normresiduos"></span>
 <img src="bookdownproj_files/figure-html/normresiduos-1.png" alt="Normalidade dos resíduos - QQ plot." width="70%" height="70%" />
 <p class="caption">
-Figura13.14: Normalidade dos resíduos - QQ plot.
+Figura 13.14: Normalidade dos resíduos - QQ plot.
 </p>
 </div>
 <p>O gráfico QQ de normalidade, mostra que os resíduos seguem aproximadamente uma linha reta, permitindo assumir a normalidade dos mesmos.</p>
@@ -1392,7 +1392,7 @@ Figura13.14: Normalidade dos resíduos - QQ plot.
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:residuals"></span>
 <img src="bookdownproj_files/figure-html/residuals-1.png" alt="Resíduos versus ajuste" width="70%" height="70%" />
 <p class="caption">
-Figura13.15: Resíduos versus ajuste
+Figura 13.15: Resíduos versus ajuste
 </p>
 </div>
 <p>Não há correlações óbvias entre resíduos e valores ajustados (a média de cada grupo) no gráfico abaixo,onde a linha vermelha tracejada (Figura <a href="análise-de-variância.html#fig:residuals">13.15</a>) segue praticamente uma linha horizontal em torno de 0, o que é bom. Como resultado, pode-se, assim como no teste de Levene, assumir que as variâncias são homogêneas.</p>
@@ -1509,7 +1509,7 @@ Há vários testes post-hoc, sendo os mais comuns o Tukey HSD, que testa todos o
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:anova2tukey"></span>
 <img src="bookdownproj_files/figure-html/anova2tukey-1.png" alt="Resíduos versus ajuste" width="70%" height="70%" />
 <p class="caption">
-Figura13.16: Resíduos versus ajuste
+Figura 13.16: Resíduos versus ajuste
 </p>
 </div>
 <div class="sourceCode" id="cb780"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb780-1"><a href="análise-de-variância.html#cb780-1" tabindex="-1"></a><span class="co"># Retorna as margens ao padrão</span></span>
@@ -1531,7 +1531,7 @@ Em outras palavras, os termos de interação dizem como o efeito dos álcool mud
 </ol>
 <table class="table lightable-classic" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: Cambria; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:result">Tabela13.3: </span><span id="tab:result">Tabela13.4: </span>Efeito do Álcool sobre a Memória - Escore médio (desvio padrão)
+<span id="tab:result">Tabela 13.3: </span><span id="tab:result">Tabela 13.4: </span>Efeito do Álcool sobre a Memória - Escore médio (desvio padrão)
 </caption>
 <thead>
 <tr>
@@ -1645,7 +1645,7 @@ Valor P
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:result1"></span>
 <img src="bookdownproj_files/figure-html/result1-1.png" alt="Efeito do álcool na memória de acordo com o sexo." width="80%" height="80%" />
 <p class="caption">
-Figura13.17: Efeito do álcool na memória de acordo com o sexo.
+Figura 13.17: Efeito do álcool na memória de acordo com o sexo.
 </p>
 </div>
 <p>Uma opção, é apresentar os resultados como um gráfico de linhas (Figura <a href="análise-de-variância.html#fig:result2">13.18</a>), já mostrado anteriormente , usando a função <code>ggline()</code> do pacote <code>ggpubr</code>:</p>
@@ -1688,7 +1688,7 @@ Figura13.17: Efeito do álcool na memória de acordo com o sexo.
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:result2"></span>
 <img src="bookdownproj_files/figure-html/result2-1.png" alt="Efeito do álcool na memória de acordo com o sexo." width="80%" height="80%" />
 <p class="caption">
-Figura13.18: Efeito do álcool na memória de acordo com o sexo.
+Figura 13.18: Efeito do álcool na memória de acordo com o sexo.
 </p>
 </div>
 
