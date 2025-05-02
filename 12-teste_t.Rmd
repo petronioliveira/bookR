@@ -299,7 +299,7 @@ A saída do teste permite uma conclusão igual ao teste de Levene, pois o valor 
 
 #### Execução do teste *t* de Student  
 
-Os pressupostos do teste não foram violados, portanto ele pode ser realizado com confiança. Será utilizado a função `t_test()` do pacote `rstatix` (@kassambara2022rstatix) para calcular o teste t para amostras independentes. Ele fornece uma estrutura compatível com operador pipe %>% (pipe-friendly) para executar testes t de uma e duas amostras. Para consultar os argumentos, consulte a Seção \@ref(sec-exeth1) ou a ajuda do *RStudio*.
+Os pressupostos do teste não foram violados, portanto ele pode ser realizado com confiança. Será utilizado a função `t_test()` do pacote `rstatix` [@kassambara2022rstatix] para calcular o teste t para amostras independentes. Ele fornece uma estrutura compatível com operador pipe %>% (pipe-friendly) para executar testes t de uma e duas amostras. Para consultar os argumentos, consulte a Seção \@ref(sec-exeth1) ou a ajuda do *RStudio*.
 
 ```{r}
  teste <- dados %>% rstatix::t_test(formula = altura ~ pop,

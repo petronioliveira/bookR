@@ -2,7 +2,7 @@
 
 ## Pacotes necessários neste capítulo
 
-```{r}
+```{r warning=FALSE, message=FALSE}
 pacman::p_load(DescTools, 
                dplyr,
                ggplot2, 
@@ -186,7 +186,7 @@ O cálculo manual é simples, mas enfadonho, nos tempos dos computadores. Em dec
 * *nc* $\rightarrow$ nível de confiança. Padrão: nc = 0.95
 
 ```{r}
-IC_z <- function (x, s, nc = 0.95)
+IC_z <- function (x, s, nc = 0.975)
 {
   `%>%` <- dplyr::`%>%`
    n <- length(x)
@@ -321,7 +321,7 @@ Da mesma maneira que a distribuição normal padrão, a média da distribuição
 Os valores de ${t}_{crítico}$ podem ser obtidos usando a função `qt()` que usa os seguintes argumentos:
 
 * *p* $\to$ probabilidade, igual a $1 - \frac{\alpha}{2}$, considerando-se bicaudal e $1 - \alpha$ quando unicaudal;
-* *d*f $\to$ graus de liberdade;
+* *df* $\to$ graus de liberdade;
 * *lower.tail* $\to$ lógico; se TRUE, informa a probabilidade da cauda inferior. O padrão é TRUE.  
 
 Assim, o valor do ${t}_{crítico}$ para $gl=10$ é:  
@@ -334,7 +334,7 @@ t <- qt(p = p, df = 10, lower.tail = TRUE)
 round(t, digits = 2)
 ```
 
-A área compreendida entre $\pm `r round(t, digits = 2)`$ é igual a 95% (Figura \@ref(fig:bilateral)):
+A área compreendida entre $\pm$ `r round(t, digits = 2)`$ é igual a 95% (Figura \@ref(fig:bilateral)):
 
 $$
 p(-2,23\le t\le 2,23)=0,95
