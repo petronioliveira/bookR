@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2025-05-02" />
+<meta name="date" content="2025-05-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -855,7 +855,7 @@ Total
 \chi^{2}= \left [\frac{\left (|16 - 12 \right |)^2}{12} \right]+ \left [\frac{\left (|44 - 48 \right |)^2}{48} \right]+\left [\frac{\left (|4 - 8 \right |)^2}{8} \right]+\left [\frac{\left (|36 - 32 \right|)^2}{32} \right] \\
 \chi^{2}=1,021 + 0,255 + 1,531  +0,383 = 3,19
 \]</span>
-A correção de Yates reduz o valor do qui-quadrado <a href="#fn54" class="footnote-ref" id="fnref54"><sup>54</sup></a> e torna o teste mais conservador, evitando rejeitar a hipóteses nula quando ela é verdadeira. A correção é recomendada em tabelas de contingência <span class="math inline">\(2\times2\)</span> ou quando o tamanho da amostra é pequeno (menor que 40) ou quando há pelo menos uma célula com frequência esperada menor que 5.</p>
+A correção de Yates reduz o valor do qui-quadrado <a href="#fn55" class="footnote-ref" id="fnref55"><sup>55</sup></a> e torna o teste mais conservador, evitando rejeitar a hipóteses nula quando ela é verdadeira. A correção é recomendada em tabelas de contingência <span class="math inline">\(2\times2\)</span> ou quando o tamanho da amostra é pequeno (menor que 40) ou quando há pelo menos uma célula com frequência esperada menor que 5.</p>
 <div id="restrições-ao-qui-quadrado" class="section level4 hasAnchor" number="16.2.2.1">
 <h4><span class="header-section-number">16.2.2.1</span> Restrições ao qui-quadrado<a href="análise-de-dados-categóricos.html#restrições-ao-qui-quadrado" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ol style="list-style-type: decimal">
@@ -913,7 +913,7 @@ Figura 16.2: Distribuição do qui-quadrado, gl = 1, alpha = 0,05.
 <p>O exemplo da Tabela <a href="análise-de-dados-categóricos.html#tab:tab2x2">16.1</a>, usado para mostrar a lógica do qui-quadrado, é um teste de independência ou associação. Ali, foi mostrado que existe uma associação estatisticamente significativa (P &lt; 0,05) entre acidentes automobilísticos e o sexo masculino.
 Como exercício, serão usados outros dados que necessitam mais manipulação como treinamento do qui-quadrado de associação e do próprio R. Estes dados servirão para testar a hipótese de associação entre tabagismo e baixo peso ao nascer (&lt; 2500g).</p>
 <p><u>Leitura e transformação dos dados</u></p>
-<p>Os dados serão provenientes do banco de dados <code>dadosMater.xlsx</code>. bastante usado neste livro <a href="#fn55" class="footnote-ref" id="fnref55"><sup>55</sup></a> . Como ele já deve estar no seu diretório, fazer a leitura da seguinte maneira:</p>
+<p>Os dados serão provenientes do banco de dados <code>dadosMater.xlsx</code>. bastante usado neste livro <a href="#fn56" class="footnote-ref" id="fnref56"><sup>56</sup></a> . Como ele já deve estar no seu diretório, fazer a leitura da seguinte maneira:</p>
 <div class="sourceCode" id="cb893"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb893-1"><a href="análise-de-dados-categóricos.html#cb893-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_excel</span> (<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>)</span></code></pre></div>
 <p>Adicione a este arquivo uma variável denominada <code>baixoPeso</code>, usando a função <code>mutate()</code> do pacvote dplyr a função <code>ifelse ()</code>, da base do R:</p>
 <div class="sourceCode" id="cb894"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb894-1"><a href="análise-de-dados-categóricos.html#cb894-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">baixoPeso =</span> <span class="fu">ifelse</span>(pesoRN <span class="sc">&lt;</span> <span class="dv">2500</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>))</span></code></pre></div>
@@ -993,7 +993,7 @@ Figura 16.3: Gráfico de barras empilhadas: tabagismo vs baixo peso ao nascer.
 <ul>
 <li><em>x</em> <span class="math inline">\(\to\)</span> vetor numérico ou matriz. Tanto x como y podem ser fatores;</li>
 <li><em>y</em> <span class="math inline">\(\to\)</span> vetor numérico. Ignorado quando se x é uma matriz;</li>
-<li>correct <span class="math inline">\(\to\)</span> TRUE é o padrão. Indica se deve ser aplicada a correção de continuidade ao calcular a estatística de teste para tabelas 2 por 2 <a href="#fn56" class="footnote-ref" id="fnref56"><sup>56</sup></a>;</li>
+<li>correct <span class="math inline">\(\to\)</span> TRUE é o padrão. Indica se deve ser aplicada a correção de continuidade ao calcular a estatística de teste para tabelas 2 por 2 <a href="#fn57" class="footnote-ref" id="fnref57"><sup>57</sup></a>;</li>
 <li>… <span class="math inline">\(\to\)</span> para outros argumentos consulte a ajuda do <em>RStudio</em>.</li>
 </ul>
 <p>Para executar a função <code>chisq_test()</code>, basta colocar como argumento as variáveis <code>fumo</code> e <code>baixoPeso</code> ou construir antes uma tabela de contingência com a função <code>table()</code> e depois colocá-la como argumento. Como tabela <code>tab</code> já existe:</p>
@@ -1609,7 +1609,7 @@ p_{c} + p_{d} = p_{b} + p_{d}
 ## Pré-teste sim não
 ##       sim  20   8
 ##       não  22 150</code></pre>
-<p>Agora, pode-se calcular o teste de McNemar<a href="#fn57" class="footnote-ref" id="fnref57"><sup>57</sup></a> com a função <code>mcnemar_test()</code> do pacote <code>rstatix</code>:</p>
+<p>Agora, pode-se calcular o teste de McNemar<a href="#fn58" class="footnote-ref" id="fnref58"><sup>58</sup></a> com a função <code>mcnemar_test()</code> do pacote <code>rstatix</code>:</p>
 <div class="sourceCode" id="cb971"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb971-1"><a href="análise-de-dados-categóricos.html#cb971-1" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">mcnemar_test</span> (tab4, </span>
 <span id="cb971-2"><a href="análise-de-dados-categóricos.html#cb971-2" tabindex="-1"></a>                       <span class="at">correct =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 6
@@ -1627,11 +1627,11 @@ p_{c} + p_{d} = p_{b} + p_{d}
 </div>
 <div class="footnotes">
 <hr />
-<ol start="54">
-<li id="fn54"><p>Se o cálculo fosse feito com a fórmula geral, o valor do qui-quadrado seria 4,17.<a href="análise-de-dados-categóricos.html#fnref54" class="footnote-back">↩︎</a></p></li>
-<li id="fn55"><p>Ver Seção <a href="manipulando-os-dados-no-r-studio.html#sec-mater">5.3</a><a href="análise-de-dados-categóricos.html#fnref55" class="footnote-back">↩︎</a></p></li>
-<li id="fn56"><p>Quando não se está trabalhando com uma tabela <span class="math inline">\(2 \times 2\)</span> e a regra geral for obedecida e o n for grande, pode-se usar o qui-quadrado de Pearson sem correção.<a href="análise-de-dados-categóricos.html#fnref56" class="footnote-back">↩︎</a></p></li>
-<li id="fn57"><p>É possível também obter o teste de McNemar de outras formas, como, por exemplo, usando a função <code>CrossTable()</code> do pacote <code>gmodels</code>.<a href="análise-de-dados-categóricos.html#fnref57" class="footnote-back">↩︎</a></p></li>
+<ol start="55">
+<li id="fn55"><p>Se o cálculo fosse feito com a fórmula geral, o valor do qui-quadrado seria 4,17.<a href="análise-de-dados-categóricos.html#fnref55" class="footnote-back">↩︎</a></p></li>
+<li id="fn56"><p>Ver Seção <a href="manipulando-os-dados-no-r-studio.html#sec-mater">5.3</a><a href="análise-de-dados-categóricos.html#fnref56" class="footnote-back">↩︎</a></p></li>
+<li id="fn57"><p>Quando não se está trabalhando com uma tabela <span class="math inline">\(2 \times 2\)</span> e a regra geral for obedecida e o n for grande, pode-se usar o qui-quadrado de Pearson sem correção.<a href="análise-de-dados-categóricos.html#fnref57" class="footnote-back">↩︎</a></p></li>
+<li id="fn58"><p>É possível também obter o teste de McNemar de outras formas, como, por exemplo, usando a função <code>CrossTable()</code> do pacote <code>gmodels</code>.<a href="análise-de-dados-categóricos.html#fnref58" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

@@ -88,7 +88,7 @@ Os *scripts* do *R* são apenas arquivos de texto com a extensão (.R). Quando s
 
 Ao digitar o código em um *script*, o *R* não executa o código enquanto se digita. Para que o *R* realmente avalie o código digitado, há necessidade de primeiro enviar o código para o *Console*, clicando no botão *Run* ou usando a tecla de atalho *Crtl+Enter*. Cada linha é marcada no início por um número em sequência.  
 
-Além da digitação de comandos, o *R Script* permite fazer comentários onde tudo que for escrito após o símbolo $\#$ não é considerado, é apenas uma explicação, um esclarecimento. Os comentários são literais, escritos diretamente para explicar o comando executado. São repetidos na saída do  *Console*  sem não aparecer nos resultados.  
+Além da digitação de comandos, o *R Script* permite fazer comentários onde tudo que for escrito, após o símbolo $\#$, não é considerado, é apenas uma explicação, um esclarecimento. Os comentários são literais, escritos diretamente para explicar o comando executado. São repetidos na saída do  *Console*  sem aparecer nos resultados.  
 
 **Ambiente, História, Conexão e Tutorial**  
 
@@ -118,7 +118,7 @@ No lado direito, abaixo, existem outras abas muito úteis (Figura \@ref(fig:inic
 
 4) **Ajuda (Help)** - menu de ajuda para as funções *R*. Você pode digitar o nome de uma função na janela de pesquisa (por exemplo, `histogram` ou usar o `?hist`), no *Console* ou no *R Script*, para procurar ajuda sobre uma função (Figura \@ref(fig:ajuda)). A Ajuda no *R Studio* pode também ser acessada no menu *Help* da barra de ferramentas onde existem várias opções. Para complementar, alguns livros são muito uteis, como o *R Cookbook* @chang2021cookbook ou *Using *R* for introductory statistics* @verzani2004using. No entanto, na maioria das vezes a forma mais prática de conseguir ajuda com uma dúvida específica é a busca em fóruns na internet, como o *Stack Overflow*: <https://stackoverflow.com/>.  
 
-5) **Apresentação (Presentation) ** – é visualizador de apresentações. Nas últimas versões do Rstudio, é possível com o Quarto, editar um código em R Markdown para construir uma apresentação. Não faz parte do objetivo deste livro desenvolver este assunto. É possível encontrar um tutorial em <https://quarto.org/docs/get-started/hello/rstudio.html>. 
+5) **Apresentação (Presentation)** – é visualizador de apresentações. Nas últimas versões do Rstudio, é possível com o Quarto, editar um código em R Markdown para construir uma apresentação. Não faz parte do objetivo deste livro desenvolver este assunto. É possível encontrar um tutorial em <https://quarto.org/docs/get-started/hello/rstudio.html>. 
 
 ```{r ajuda, echo = FALSE, out.width = '90%', fig.align = 'center', fig.cap="Ajuda do RStudio", fig.pos="ht"}
  knitr::include_graphics("https://i.imgur.com/XlGJgCt.png")
@@ -126,21 +126,20 @@ No lado direito, abaixo, existem outras abas muito úteis (Figura \@ref(fig:inic
 
 ## Pacotes  
 
-Para que o *R* cumpra a sua função de dialogar com o usuário para realizar análises estatística e construir gráficos, ele necessita ter instalado pacotes.  
-
-Quando se instala o *R* básico, ele vem com vários pacotes que permitem uma grande quantidade de análises. Entretanto, à medida que se utiliza o *R*, torna-se necessário instalar novos pacotes criados pela comunidade do *R*. Esses novos pacotes contêm novas funções e novos comandos que aumentarão a funcionalidade do *R*.  
-
-Um pacote é uma coleção de funções, dados e documentação que expande os recursos do *R* base. O uso dos pacotes é a chave para o uso bem-sucedido do *R*. Eles são instalados à medida que o trabalho com o *R* exigir.  
+Para que o *R* desempenhe sua função de interagir com o usuário, realizar análises estatísticas e gerar gráficos, a instalação de pacotes é essencial.  
+Ao instalar o *R* básico, ele já vem acompanhado de diversos pacotes que possibilitam uma ampla gama de análises. No entanto, à medida que o uso do *R* se intensifica, torna-se necessário instalar novos pacotes desenvolvidos pela comunidade, que oferecem funcionalidades adicionais por meio de novas funções e comandos.  
+Um pacote é um conjunto de funções, dados e documentação que expande os recursos do *R* base. O uso de pacotes é fundamental para aproveitar todo o potencial da ferramenta, sendo instalados conforme as demandas do trabalho realizado no R.
+  
 
 ### Repositório de pacotes  
 
-Quando se identifica a necessidade de um novo pacote, é fundamental saber onde ele se encontra. O principal repositório de pacotes é o CRAN (*Comprehensible *R* Archive Network*), já comentado anteriormente. Para acessar este repositório, use o [**link**](https://cran.r-project.org/mirrors.html) e escolha um espelho (*0-Cloud* ou o mais próximo geograficamente). Depois que o pacote for instalado, ele será mantido em sua biblioteca (*library*) *R* associada à sua versão principal atual do *R*. Haverá necessidade de atualizar e reinstalar os pacotes sempre que atualizar uma versão principal do *R*. 
+Quando se identifica a necessidade de um novo pacote, é fundamental saber onde ele se encontra. O principal repositório de pacotes é o CRAN (*Comprehensible R Archive Network*), já comentado anteriormente. Para acessar este repositório, use o [**link**](https://cran.r-project.org/mirrors.html) e escolha um espelho (*0-Cloud* ou o mais próximo geograficamente). Depois que o pacote for instalado, ele será mantido em sua biblioteca (*library*) *R* associada à sua versão principal atual do *R*. Haverá necessidade de atualizar e reinstalar os pacotes sempre que atualizar uma versão principal do *R*. 
 
 Estando na página do CRAN, no menu, à esquerda, clique em *Packages* . Isto o colocará na página dos *Contributed Packages*, onde a maioria dos pacotes podem ser encontrados em *Table of available packages, sorted by name* . Também é possível clicar em CRAN *Task Views* , onde estão os pacotes separados por tópicos.  
 
 ### Instalação de um  pacote novo
 
-Instalar um pacote significa simplesmente baixar o código do pacote em um computador pessoal. Existem duas maneiras principais de instalar novos pacotes. O método mais comum é baixá-los do CRAN, usando a função `install.packages ()`. Dentro dos parênteses, como argumento, coloca-se entre aspas (duplas ou simples) o nome do pacote. Como visto, deve-se, de preferência, digitar o comando no *R Script*. Por exemplo, será instalado o pacote `ggplot2` que contém múltiplas funções gráficas como abaixo: 
+Instalar um pacote significa simplesmente baixar o código do pacote em um computador pessoal. Existem duas maneiras principais de instalar novos pacotes. O método mais comum é baixá-los do CRAN, usando a função `install.packages()`. Dentro dos parênteses, como argumento, coloca-se entre aspas (duplas ou simples) o nome do pacote. Como visto, deve-se, de preferência, digitar o comando no *R Script*. Por exemplo, será instalado o pacote `ggplot2` que contém múltiplas funções gráficas como abaixo: 
 
 ```{r eval=FALSE}
 install.packages("ggplot2")
@@ -149,7 +148,7 @@ library(ggplot2)
 
 Para carregar o pacote, isto é, para fazer com que suas funções se tornem ativas para uso na na sessão, deve-se usar a função `library()`, como mostrado no comando acima. Se o *RStudio* for fechado e reaberto, o o pacote deverá ser novamente ativado. Observe que a função `library()` não requer que o nome do pacote seja digitado entre aspas. Isto acontece porque antes de o pacote ser instalado o *R* não o reconhece , portanto, há necessidade de indicar o nome (caracteres), para que o *R* procure na internet, por exemplo, o que ele deve baixar. Já, depois de instalado, o pacote é um objeto conhecido pelo R, logo as aspas não são mais necessárias.  
 
-Uma outra maneira de instalar pacotes no R, é usar o botão **Install**, localizado na aba *Packages*, no painel inferior, à direita. Clicando em **Install**, abre-se a caixa de diálogo da Figura \@ref(fig:install). Digitar em *Packages* o nome do pacote (`ggplot2`) e o *RStudio* completará com opções para achar o pacote. Clicar em `ggplot2` e verifique se *Install dependencies* foi selecionado. A seguir clicar em *Install* e aguardar aparecer no *Console* a mensagem que o pacote foi instalado com sucesso.   
+Uma outra maneira de instalar pacotes no *R*, é usar o botão **Install**, localizado na aba *Packages*, no painel inferior, à direita. Clicando em **Install**, abre-se a caixa de diálogo da Figura \@ref(fig:install). Digitar em *Packages* o nome do pacote (`ggplot2`) e o *RStudio* completará com opções para achar o pacote. Clicar em `ggplot2` e verifique se *Install dependencies* foi selecionado. A seguir clicar em *Install* e aguardar aparecer no *Console* a mensagem que o pacote foi instalado com sucesso.   
 
 ```{r install, echo = FALSE, out.width = '70%', fig.align = 'center', fig.cap="Instalação do pacote 'ggplot2' usando a caixa de diálogo 'Install Packages'", fig.pos="ht"}
  knitr::include_graphics("https://i.imgur.com/HBlM3FL.png")
@@ -231,7 +230,7 @@ Para saber qual é o diretório de trabalho que está sendo usado pelo *R* pode-
 
 Uma funcionalidade importante do *RStudio* é a possibilidade de se criar projetos. Um projeto nada mais é do que uma pasta no seu computador. Nessa pasta, estarão todos os arquivos que serão usados ou criados na sua análise.
 
-A principal razão de se utilizar projetos é simplesmente *organização*. Com eles, fica muito mais fácil importar conjunto de dados para dentro do R, criar análises reprodutíveis e compartilhar o trabalho realizado.
+A principal razão de se utilizar projetos é simplesmente *organização*. Com eles, fica muito mais fácil importar conjunto de dados para dentro do *R*, criar análises reprodutíveis e compartilhar o trabalho realizado.
 
 Ao se começar uma nova análise, é interessante criar um Novo Projeto. Para isso, clicar *File* > *New Project* ou clicar no menu que está na parte superior, à direita, *Project (none)* > *New Project...*. Abrirá a janela da Figura \@ref(fig:projeto). 
 
@@ -241,7 +240,7 @@ Ao se começar uma nova análise, é interessante criar um Novo Projeto. Para is
 
 Clique em *New Directory* para criar um novo diretório. Por exemplo, para as aulas de Bioestatística, pode-se criar um diretório com o nome de *bioestatistica* (evite usar acentos, maiúsculas ou caracteres especiais) ou qualquer outro nome.
 
-Quaisquer documentos Excel ou arquivos de texto associados podem ser salvos nesta nova pasta e facilmente acessados R, indo ao menu *Project (none)* > *Open Project...*. A partir daí, é possível realizar análises de dados ou produzir visualizações com seus dados importados.  
+Quaisquer documentos Excel ou arquivos de texto associados podem ser salvos nesta nova pasta e facilmente acessados, indo ao menu *Project (none)* > *Open Project...*. A partir daí, é possível realizar análises de dados ou produzir visualizações com seus dados importados.  
 
 Quando um projeto estiver aberto no *RStudio*, o seu nome aparecerá no canto superior direito da tela. Na aba *Files*, aparecerão todos os arquivos contidos no projeto. Quando se clica no nome do projeto, abre um menu que torna muito fácil a navegação pelos projetos existentes. Basta clicar em qualquer um deles para trocar de projeto, isto é, deixar de trabalhar em uma análise e começar a trabalhar em outra.
 
@@ -267,7 +266,7 @@ No *R*, você pode usar operadores aritméticos para realizar operações matem�
  10 %/% 3      # Divisão inteiro
 ```
 
-Observe que o R repete a operação e coloca em baixo o resultado precedido por [1]. O resultado da operação de exponenciação é exibido como notação científica, onde $e+05$ significa $10^5$.
+Observe que o *R* repete a operação e coloca em baixo o resultado precedido por [1]. O resultado da operação de exponenciação é exibido como notação científica, onde $e+05$ significa $10^5$.
 
 **Operadores de atribuição**
 
@@ -298,7 +297,7 @@ São usados para comparar dois valores.
 3 <= 4
 ```
 
-Observe que, na linguagem R, o sinal de igualdade é escrito com duplo $=$.  
+ATENÇÃO, na linguagem *R*, o sinal de igualdade é escrito com duplo $=$.  
 
 **Operadores lógicos**
 
@@ -343,11 +342,11 @@ abs (3 - 6)
 
 ## Objetos  {#sec-objetos}
 
-O *R* permite salvar valores dentro de um *objeto*. Os objetos são criados utilizando o *operador de atribuição* (<-). Para digitar este operador, basta teclar o sinal *menor que* (<), seguido de *hífen* (-) , sem espaços. Existe um atalho que é pressionar  (`Alt`) $+$ (-). O símbolo $=$ pode ser usado no lugar de <-, mas não é recomendado.
+O *R* permite salvar valores dentro de um *objeto*. Os objetos são criados utilizando o *operador de atribuição* (<-). Para digitar este operador, basta teclar o sinal *menor que* (<), seguido de *hífen* (-) , sem espaços. Existe um atalho que é pressionar  (`Alt`) $+$ (-). O símbolo $=$ pode ser usado no lugar de <-.
 
 **Objeto** é um pequeno espaço na memória do computador onde o *R* armazenará um valor ou o resultado de um comando, utilizando um nome arbitrariamente definido. Tudo criado pelo *R* pode se constituir em um objeto, por exemplo: uma variável, uma operação aritmética, um gráfico, uma matriz ou um modelo estatístico. Através de um objeto torna-se simples acessar os dados armazenados na memória. Ao criar um objeto, se faz uma declaração. Isto significa que se está afirmando que uma determinada operação aritmética irá, agora, tornar-se um objeto que irá armazenar um determinado valor. As declarações são feitas uma em cada linha do *R Script*.  
 
-Os objetos devem receber um nome e é obrigatório que ele comece por uma letra (ou um ponto) e não é permitido o uso do hífen. Pode-se usar o ponto e *underlines* para separar palavras. Deve ser evitado o uso de nomes que sejam de objetos do sistema, ou outros objetos já criados, funções ou constantes. Por exemplo, não deve ser utilizado: `c`, `q`, `r`, `s`, `t`, `C`, `D`, `F`, `I`, `T`, `diff`, `exp`, `log`, `mean`, `pi`, `range`, `rank`, `var`, `NA`, `NaN`, `NULL`, `FALSE`, `TRUE`, `break`, `else`, `if`, `break`, `function`, `in`, `while` que devem ser reservados, pois têm significados especiais.  
+Os objetos devem receber um nome e é obrigatório que ele comece por uma letra (ou um ponto) e não é permitido o uso do hífen. Pode-se usar o ponto ou *underlines* para separar palavras. Deve ser evitado o uso de nomes que sejam de objetos do sistema, ou outros objetos já criados, funções ou constantes. Por exemplo, não deve ser utilizado: `c`, `q`, `r`, `s`, `t`, `C`, `D`, `F`, `I`, `T`, `diff`, `exp`, `log`, `mean`, `pi`, `range`, `rank`, `var`, `NA`, `NaN`, `NULL`, `FALSE`, `TRUE`, `break`, `else`, `if`, `break`, `function`, `in`, `while` que devem ser reservados, pois têm significados especiais.  
 
 Quando se usa um objeto com o nome `pi`, ele assumirá outro valor diferente de 3,141593. Preservando este nome, toda vez que usarmos a palavra `pi`, o *R* assume o valor pré-estabelecido. Além disso, o *R* faz a diferença entre letras maiúsculas e minúsculas. Ou seja, `soma` é um objeto diferente de `Soma` e ambos são diferentes de `SOMA`.  
 
@@ -362,9 +361,9 @@ soma
 
 ## Funções  
 
-A função é uma orientação ao *R* para que ele execute algum procedimento específico, por isso, em geral, têm nomes sugestivos  do que elas realizam. Por exemplo, a função `mean ()` realiza a média aritmética de uma série de números colocados entre parênteses.  O resultado, como regra geral, deve ser colocado em um objeto que será armazenado na memória do computador.   
+A função é uma orientação ao *R* para que ele execute uma ação que é algum procedimento específico. Em decorrência, em geral, uma função ttem um nome sugestivo da ação que ela realiza. Por exemplo, a função `mean ()` realiza a média aritmética de uma série de números. O resultado, como regra geral, deve ser colocado em um objeto que será armazenado na memória do computador.   
 
-Esta série de números pode antes ser armazenada por um objeto, nomeado `dados`e, posteriormente, se usa a função `mean()`com este objeto `dados`. O resultado da função `mean`, exibido no *Console*, será recebido por outro objeto `media_dados` que será colocado na memória do computador.
+Esta série de números, concatenados na função `c()`, é armazenada por um objeto, nomeado `dados`e, posteriormente, se usa a função `mean()`com este objeto `dados`. O resultado da função `mean`, exibido no *Console*, será recebido por outro objeto `media_dados` e colocado na memória do computador.
 
 ```{r}
 dados <- c(3, 5, 7, 9, 6, 7)
@@ -393,7 +392,7 @@ Os principais argumentos da função `mean()` são:
 * **trim**   $\longrightarrow$ fração das observações (varia de 0 a 0,5) extraída de cada extremidade de x para calcular a média aparada
 * **na.rm**  $\longrightarrow$ valor lógico (TRUE ou FALSE) que indicam se os valores ausentes (NA) devem ser removidos antes que o cálculo continue
 
-Este último argumento é muito importante quando, na sequência de valores existe algum não informado ou inexistente. No R, eles são denominados de valores ausentes (*missing values*) e denotados por **NA** (*Not Available*).
+Este último argumento é muito importante quando, na sequência de valores existe algum não informado ou inexistente. No *R*, eles são denominados de valores ausentes (*missing values*) e denotados por **NA** (*Not Available*).
 
 Por exemplo, em uma coleta de uma série de valores, correspondentes ao peso de 15 recém-nascidos, havendo a "falta" de um dos registros, ao calcular a média com a função `mean()`, ela retornará NA. 
 
@@ -411,7 +410,7 @@ mean (pesoRN, na.rm = TRUE)
 
 ### Criando funções  {#sec-funcpropria}
 
-No R, é possível criar funções pessoais que podem simplificar um código e, eventualmente, diminuir o tempo de execução das análises. 
+No *R*, é possível criar funções pessoais que podem simplificar um código e, eventualmente, diminuir o tempo de execução das análises. 
 
 **Fórmula geral**
 
@@ -428,7 +427,7 @@ area.circ <- function(r){
 }
 ```
  
-Ou seja, foi usada a função `function()`, com o raio do círculo como argumento. A seguir, entre chaves `{}`, coloca-se a ação que a função realizará, no caso o cálculo da área do círculo. O resultado deste cálculo (`pi*r^2`) é recebido por um objeto denominado `area`.^[Foi usado o nome area sem acentuação, mas poderia ser qualquer nome.] A seguir, usou-se a função `return ()` para retornar o resultado do cálculo realizado.  
+Ou seja, foi usada a função `function()`, com o raio do círculo como argumento. A seguir, entre chaves `{}`, coloca-se a ação que a função realizará, no caso o cálculo da área do círculo. O resultado deste cálculo (`pi*r^2`) é recebido por um objeto denominado `area`.^[Foi usado o nome `area` sem acentuação, mas poderia ser qualquer nome.] A seguir, usou-se a função `return ()` para retornar o resultado do cálculo realizado.  
 Ao executar essa função, é possível usá-la para calcular a área de um círculo, cujo raio é igual a 5 cm:
 
 ```{r}
@@ -477,7 +476,7 @@ dados$pop <- as.factor(dados$pop)
 plotBpT (df = dados, var.x = pop, var.y = altura)
 ```
 
-Observe na Figura \@ref(fig:twopop) onde aparece o resultado do teste t ($P = 2,2 \times 10^-16$) e os boxplots (veja Seção \@ref(sec-bxp)) em posições bem diferentes.  
+Observe na Figura \@ref(fig:twopop) onde aparece o resultado do teste t ($P = 2,2 \times 10^-16$) e os boxplots em posições bem diferentes (veja Seção \@ref(sec-bxp)).  
 
 **Ativação de uma função criada**
 
@@ -489,11 +488,11 @@ source('C:/Users/petro/Dropbox/Estatistica/Bioestatistica_usando_R/Funcoes/imc.R
 
 ## Classes
 
-São os atributos de um objeto e o seu conhecimento é de suma importância. A partir do conhecimento do tipo de classe que as funções sabem o que extamente fazer com um objeto. Por exemplo, não é possivel somar duas letras e se for feita a tentativa de somar "a" e "b", O*R*retorna um erro: <span style="color:red"> Error in "a" + "b": non-numeric argument to binary operator </span>.  
+São os atributos de um objeto e o seu conhecimento é de suma importância. É a partir do conhecimento do tipo de classe que as funções sabem o que extamente fazer com um objeto. Por exemplo, não é possivel somar duas letras e se for feita a tentativa de somar "a" e "b", o *R*retorna um erro: <span style="color:red"> Error in "a" + "b": non-numeric argument to binary operator </span>.  
 
-No R, os textos são escritos entre aspas simples ou duplas. As aspas servem para diferenciar nomes (objetos, funções, pacotes) de textos (letras e palavras). Os textos são muito comuns em variáveis categóricas e são popularmente chamados de *strings* ou *character*. Alé desta classe, o *R* tem outras classes básicas que são a *numeric* e a *logical*. Um objeto de qualquer uma dessas classes é chamado de *objeto atômico*. Esse nome se deve ao fato de essas classes não se misturarem [@cursor2015livro].   
+No *R*, os textos são escritos entre aspas simples ou duplas. As aspas servem para diferenciar nomes (objetos, funções, pacotes) de textos (letras e palavras). Os textos são muito comuns em variáveis categóricas e são popularmente chamados de *strings* ou *character*. Além desta classe, o *R* tem outras classes básicas que são a *numeric* e a *logical*. Um objeto de qualquer uma dessas classes é chamado de *objeto atômico*. Esse nome se deve ao fato de essas classes não se misturarem [@cursor2015livro].   
 
-Para saber qual o tipo de classe que um objeto pertence, basta usar a função `class ()`.
+Para saber qual o tipo de classe que um objeto pertence, basta usar a função `class()`.
 
 ```{r}
 idade <- c(3, 5, 7, 9, 6, 7)
@@ -505,8 +504,7 @@ class(nome)
 
 ## Vetores {#sec-vetores}
 
-Um **vetor** é uma variável com um ou mais valores do mesmo tipo. Por exemplo, o número de filhos em 10 famílias foi
-4, 5, 3, 2, 2, 1, 2, 1, 3 e 2. O vetor nomeado de `n.filhos` é um objeto numérico de comprimento = 10. A maneira mais fácil de criar um vetor em *R* é concatenar (ligar) os 10 valores, usando a função concatenar `c()` assim:
+Um **vetor** é uma variável com um ou mais valores do mesmo tipo. Por exemplo, o número de filhos em 10 famílias foi 4, 5, 3, 2, 2, 1, 2, 1, 3 e 2. O vetor nomeado de `n.filhos` é um objeto numérico de comprimento = 10. A maneira mais fácil de criar um vetor em *R* é concatenar (ligar) os 10 valores, usando a função concatenar `c()`, vista acima:
 
 ```{r}
 n.filhos <- c(4, 5, 3, 2, 2, 1, 2, 1, 3, 2)
@@ -541,7 +539,7 @@ vetor <- c(12, 15, 4, 6, "A", "D")
 vetor
 ```
 
-Observe que, agora, todos os elementos do vetor passaram a ser textos e, porisso, estão entre aspas.  
+Veja que, agora, todos os elementos do vetor passaram a ser textos e, porisso, estão entre aspas.  
 
 ### Tipos de vetores  
 
@@ -580,10 +578,8 @@ is.double(altura)
 
 ## Dataframes  {#sec-dataframes}
 
-**Dataframes** são objetos de dados genéricos de R, usados para armazenar os dados tabulares, onde os dados são organizados de maneira lógica em um formato de linha-e-coluna semelhante ao de uma planilha do Excel. O data frame é uma estrutura bidimensional. Estas dimensões podem ser encontradas com a função `dim()`.
-Os Data frames podem ser formados com objetos criados previamente, desde que tenham o mesmo comprimento [@zuur2009beginner].  
-
-Abaixo serão criadas algumas variáveis, todas relacionadas ao nascimento de 15 bebês:
+**Dataframes** são objetos de dados genéricos do *R* em formato tabular, onde os dados são organizados de maneira lógica em linha-e-coluna semelhante ao de uma planilha do Excel. O dataframe é uma estrutura bidimensional. Estas dimensões podem ser encontradas com a função `dim()`.
+Os dataframes podem ser formados com objetos criados previamente, desde que tenham o mesmo comprimento [@zuur2009beginner]. Abaixo serão criadas algumas variáveis, todas relacionadas ao nascimento de 15 bebês:
 
 ```{r}
 id <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
@@ -595,7 +591,7 @@ tipoParto <- c (1,1,2,1,2,2,1,2,1,1,1,2,1,1,1)
 idadeMae <- c (40,19,26,19,32,24,27,20,21,19,23,36,21,23,23) 
 ```
 
-Tem-se um grupo de variáveis isoladas. Seria útil reuni-las em um só objeto, usando a função `data.frame()`. Este novo objeto receberá o nome de `dadosNeonatos`.
+Tem-se um grupo de variáveis isoladas. Seria útil reuni-las em um só objeto. Pode-se fazer isso, usando a função `data.frame()`. Este novo objeto receberá o nome de `dadosNeonatos`.
 
 ```{r}
 dadosNeonatos <- data.frame (id,
@@ -612,36 +608,34 @@ Ao ser executado o comando retornará um novo objeto da classe `data.frame`:
 class (dadosNeonatos)
 ```
 
-Havendo necessidade de acrescentar outra variável no banco de dados `dadosNeonatos`, por exemplo, os dados da ida ou não dos recém-nascidos para a UTI. Para isso, será atribuido a um vetor, contendo a situação dos 15 recém-nascidos, o nome de utiNeo e para relacioná-lo a uma coluna do dataframe dadosNeonatos, será usado o símbolo $, como mostrado abaixo ^[A variável criada, `utiNeo`, possui dois níveis: 1 = sim; 2 = não, referente se o bebê foi ou não para a UTI.]: 
+Havendo necessidade de acrescentar outra variável no dataframe `dadosNeonatos`, por exemplo, os dados da ida ou não dos recém-nascidos para a UTI. Para isso, será atribuido a um vetor, contendo a situação dos 15 recém-nascidos, o nome de `utiNeo` e para relacioná-lo a uma coluna do dataframe `dadosNeonatos`, será usado o símbolo `$`, como mostrado abaixo ^[A variável criada, `utiNeo`, possui dois níveis: 1 = sim; 2 = não, referente se o bebê foi ou não para a UTI.]: 
 
 ```{r}
 dadosNeonatos$utiNeo <- c (2,2,2,2,1,2,1,2,2,2,2,1,2,2,2)
 ```
 
-Para observar o novo banco de dados, pode-se usar a função `str()` do *R* base. Digitar no *R Script*: 
+Para observar a modificação realizada, pode-se usar a função `str()` do *R* base ^[a função mostra a estrutura do dataframe], digitando no *R Script*: 
 
 ```{r}
 str (dadosNeonatos)
 ```
 
-Observando a saida da função, verifica-se que o dataframe contém 15 linhas e 6 colunas e que todas as variáveis estão como variáveis *numéricas* , mas as variáveis `sexo`, `tipoParto` são variáveis *categóricas*, bem como a variável `utiNeo`, acrescentada depois. Há necessidade de fazer uma transformação dessas variáveis.  
+Na saida da função, verifica-se que o dataframe contém 15 linhas e 6 colunas e que todas as variáveis estão como variáveis *numéricas* , mas as variáveis `sexo`, `tipoParto` são variáveis *categóricas*, bem como a variável `utiNeo`, acrescentada depois. Há necessidade de fazer uma transformação dessas variáveis.  
 
 ## Fatores  {#sec-fatores}
 
-Os fatores, no R, são usados para trabalhar com variáveis categóricas. São variáveis usadas para categorizar e armazenar os dados, tendo um número limitado de valores diferentes.   
-
-Um fator armazena os dados como um vetor de valores inteiros. O fator em *R* também é conhecido como uma variável categórica que armazena valores de dados de *string* e inteiros como níveis. O fator é usado principalmente em modelagem estatística e análise exploratória de dados com *R* [@wickham2017factors].
+Os fatores são usados para trabalhar com variáveis categóricas. São variáveis usadas para categorizar e armazenar os dados, tendo um número limitado de valores diferentes. Um fator armazena os dados como um vetor de valores inteiros. O fator em *R* também é conhecido como uma variável categórica que armazena valores de dados de *string* e inteiros como níveis. O fator é usado principalmente em modelagem estatística e análise exploratória de dados com *R* [@wickham2017factors].
 
 ### Criando fatores 
 
-No data frame dadosNeonatos, criado anteriormente, contém três variáveis (`sexo`, `tipoParto` e `utiNeo`) que estão como variáveis numéricas. É possível, desta forma, realizar operações aritméticas com elas. Isto, obviamente, seria um absurdo. Assim, é necessário transformá-las em fatores. Para isso, é usada a função `factor()`, nativa do *R*. Os principais argumentos desta função são:
+No data frame `dadosNeonatos`, criado anteriormente, contém três variáveis (`sexo`, `tipoParto` e `utiNeo`) que estão como variáveis numéricas. É possível, desta forma, realizar operações aritméticas com elas. Isto, obviamente, seria um absurdo. Assim, é necessário transformá-las em fatores. Para isso, pode ser usada a função `factor()`, nativa do *R*. Os principais argumentos desta função são:
 
 * **x**         $\longrightarrow$ vetor numérico
 * **levels**    $\longrightarrow$ vetor opcional dos valores que *x* pode assumir
 * **labels**    $\longrightarrow$ vetor de caracteres dos rótulos para os níveis, na mesma ordem
 * **ordered**   $\longrightarrow$ vetor lógico (TRUE ou FALSE). Se TRUE, os níveis dos fatores são assumidos como ordenados
 
-No exemplo, as variáveis não têm uma ordem lógica, então, o argumento `ordered` não será usado. 
+No exemplo, as variáveis não têm uma ordem lógica, então, o argumento `ordered` não é necessário. 
 
 ```{r}
 dadosNeonatos$utiNeo <- factor (dadosNeonatos$utiNeo,
@@ -655,7 +649,7 @@ dadosNeonatos$sexo <- factor (dadosNeonatos$sexo,
                                labels = c("M","F")) 
 ```
 
-Após a transformação, executa-se novamente a função `str()` para ver como ficou o dataframe:
+Após a transformação, executa-se novamente a função `str()` para ver como ficou a estrutura do dataframe:
 
 ```{r}
 str(dadosNeonatos)
@@ -673,17 +667,17 @@ Ou seja, aproximadamente `r round(10/15, 1)*100`% dos partos desta amostra são 
 
 ### Salvando o dataframe criado
 
-O data frame, criado e modificado anteriormente, pode ser salvo para uso posterior no diretório de trabalho.   
+O dataframe, criado e modificado anteriormente, pode ser salvo para uso posterior no diretório de trabalho.   
 
-Para isso existe a função `save ()`, fornecendo como argumentos o data frame a ser salvo e o nome do arquivo (`file =`) entre aspas. Por convenção, esta função salva com a extensão `.RData` que deve ser digitada, pois o *R* não a adiciona automaticamente.  
+A função `save()` realiza esta ação, usando como argumentos o dataframe a ser salvo e o nome do arquivo (`file =`) entre aspas. Por convenção, esta função salva com a extensão `.RData` que deve ser digitada, pois o *R* não a adiciona automaticamente.  
 
 ```{r eval=FALSE}
 save(dadosNeonatos, file = "dadosNeonatos.RData")
 ```
 
-Este comando colocará o arquivo no diretório de trabalho em uso. Portanto, se o objetivo é salvar em outro local, deve ser informado ao *R* qual o novo diretório.  
+Este comando colocará o arquivo no diretório de trabalho em uso. Portanto, se o objetivo é salvar em outro local, deve ser informado qual o novo diretório.  
 
-Para carregar o objeto salvo anteriormente com o comando `save ()`, usa-se a função `load ()`. Se o arquivo a ser lido não estiver no diretório de trabalho da sessão, há necessidade de especificar o caminho até o arquivo:
+Para carregar o objeto salvo anteriormente com o comando `save()`, usa-se a função `load()`. Se o arquivo a ser lido não estiver no diretório de trabalho da sessão, há necessidade de especificar o caminho até o arquivo:
 
 ```{r eval=FALSE}
 load("dadosNeonatos.RData")
@@ -706,3 +700,4 @@ Para salvar com a extensão `.csv`, usar a função `write.csv()` ou `write.csv2
 ```{r eval=FALSE}
 write.csv2 (dadosNeonatos, "dadosNeonatos.csv")
 ```
+

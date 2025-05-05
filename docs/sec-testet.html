@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2025-05-02" />
+<meta name="date" content="2025-05-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -823,7 +823,7 @@ EP_d = \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}
 </ol>
 <p>Violar o pressuposto de número 3 tem importância se os tamanhos dos grupos forem diferentes. Se os grupos tiverem o mesmo tamanho e a amostra for grande, este pressuposto torna-se menos importante, não importando muito se esta hipótese foi violada <span class="citation">(103)</span>. O pressuposto tem mais importância em grupos pequenos e desiguais. Existe um teste, denominado <em>teste t de Welch</em> que corrige essa violação. É possível portanto, esquecer esse pressuposto e fazer o teste de Welch sempre.</p>
 <p><strong>Avaliação da normalidade</strong></p>
-<p>Uma boa parte dos procedimentos estatísticos são testes paramétricos <a href="#fn42" class="footnote-ref" id="fnref42"><sup>42</sup></a> com base na distribuição normal. Ou seja, se assume que a distribuição dos dados segue o modelo da distribuição normal. Se essa suposição não for atendida, a lógica por trás do teste de hipóteses pode ser violada.</p>
+<p>Uma boa parte dos procedimentos estatísticos são testes paramétricos <a href="#fn43" class="footnote-ref" id="fnref43"><sup>43</sup></a> com base na distribuição normal. Ou seja, se assume que a distribuição dos dados segue o modelo da distribuição normal. Se essa suposição não for atendida, a lógica por trás do teste de hipóteses pode ser violada.</p>
 <p>Pode-se verificar a normalidade de maneira visual, observando o comportamento dos dados através de gráficos como o <em>histograma</em> (Figura <a href="sec-testet.html#fig:histpop">12.2</a>) e o <em>gráfico Q-Q</em> (Figura <a href="sec-testet.html#fig:qqpop">12.3</a>). É útil também sobrepor uma distribuição normal no histograma, para fins de comparação com a distribuição normal. Além disso, nos histogramas, pode-se observar como as duas populações se sobrepõem.</p>
 <div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="sec-testet.html#cb659-1" tabindex="-1"></a>mu1 <span class="ot">&lt;-</span> resumo<span class="sc">$</span>media[<span class="dv">1</span>]</span>
 <span id="cb659-2"><a href="sec-testet.html#cb659-2" tabindex="-1"></a>dp1 <span class="ot">&lt;-</span> resumo<span class="sc">$</span>dp[<span class="dv">1</span>]</span>
@@ -864,7 +864,7 @@ Figura 12.2: Histogramas da altura das mulheres
 </p>
 </div>
 <p>O <em>gráfico QQ</em> (ou gráfico quantil-quantil) desenha a correlação entre uma determinada amostra e a distribuição normal. Uma linha de referência de 45 graus também é plotada. Um gráfico Q-Q é um gráfico de dispersão criado plotando dois conjuntos de quantis um contra o outro. Se ambos os conjuntos de quantis vierem da mesma distribuição, observa-se os pontos formando uma linha aproximadamente reta.</p>
-<p>Se os valores caírem na diagonal do gráfico, a variável é normalmente distribuída. Os desvios da diagonal mostram desvios da normalidade. Para desenhar um gráfico Q-Q pode ser usado a função <code>ggqqplot ()</code><a href="#fn43" class="footnote-ref" id="fnref43"><sup>43</sup></a> do pacote <code>ggpubr</code> que produz um gráfico QQ normal com uma linha de referência, acompanhada de area sombreada, correspondente ao IC95%.</p>
+<p>Se os valores caírem na diagonal do gráfico, a variável é normalmente distribuída. Os desvios da diagonal mostram desvios da normalidade. Para desenhar um gráfico Q-Q pode ser usado a função <code>ggqqplot ()</code><a href="#fn44" class="footnote-ref" id="fnref44"><sup>44</sup></a> do pacote <code>ggpubr</code> que produz um gráfico QQ normal com uma linha de referência, acompanhada de area sombreada, correspondente ao IC95%.</p>
 <div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="sec-testet.html#cb660-1" tabindex="-1"></a><span class="fu">ggqqplot</span>(dados, <span class="at">x =</span> <span class="st">&quot;altura&quot;</span>, <span class="at">color =</span> <span class="st">&quot;pop&quot;</span>) <span class="sc">+</span></span>
 <span id="cb660-2"><a href="sec-testet.html#cb660-2" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Altura (m)&quot;</span>,</span>
 <span id="cb660-3"><a href="sec-testet.html#cb660-3" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Quantis teóricos&quot;</span>)</span></code></pre></div>
@@ -953,7 +953,7 @@ Figura 12.4: Gráfico mostrando a dispersão dos dados
 ## 1    0.212      1.60      1.39 altura 1      2         30    30      12.1
 ## # ℹ 6 more variables: p &lt;dbl&gt;, df &lt;dbl&gt;, conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;,
 ## #   method &lt;chr&gt;, alternative &lt;chr&gt;</code></pre>
-<p>A saída, retorna a estimativa da diferença média (0.212), as estimativas das médias dos grupos (arredondadas), a estatística do teste (12.0557002) o valor P (1.95^{-17}), graus de liberdade (58)<a href="#fn44" class="footnote-ref" id="fnref44"><sup>44</sup></a> e outras métricas.</p>
+<p>A saída, retorna a estimativa da diferença média (0.212), as estimativas das médias dos grupos (arredondadas), a estatística do teste (12.0557002) o valor P (1.95^{-17}), graus de liberdade (58)<a href="#fn45" class="footnote-ref" id="fnref45"><sup>45</sup></a> e outras métricas.</p>
 <p>Também é possível ver os resultados do teste <em>t</em> , usando o objeto <code>teste</code> que os recebeu. Por exemplo, os limites inferior (<code>conf.low</code>) e superior (<code>conf.high</code>) do intervalo de confiança de 95% da estimativa da diferença entre as médias.</p>
 <div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb670-1"><a href="sec-testet.html#cb670-1" tabindex="-1"></a>IC95 <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">c</span>(teste<span class="sc">$</span>conf.low, teste<span class="sc">$</span>conf.high),<span class="dv">3</span>)</span>
 <span id="cb670-2"><a href="sec-testet.html#cb670-2" tabindex="-1"></a>IC95</span></code></pre></div>
@@ -1139,7 +1139,7 @@ grande
 <ol style="list-style-type: decimal">
 <li><em>Tabela</em></li>
 </ol>
-<p>É possível exibir os dados, tanto o banco de dados <code>dados</code> como o <code>dadosL</code>, de uma maneira mais elegante, usando a função <code>kable()</code> do pacote <code>knitr</code> <a href="#fn45" class="footnote-ref" id="fnref45"><sup>45</sup></a> e a função <code>kable_styling()</code> do pacote <code>kableExtra</code>. A função <code>kable ()</code> usa a função <code>head()</code> embutida. Ao executar os códigos, se não for especificado, é mostrado apenas 6 linhas. Será mostrado o formato amplo e todas as suas 15 linhas:</p>
+<p>É possível exibir os dados, tanto o banco de dados <code>dados</code> como o <code>dadosL</code>, de uma maneira mais elegante, usando a função <code>kable()</code> do pacote <code>knitr</code> <a href="#fn46" class="footnote-ref" id="fnref46"><sup>46</sup></a> e a função <code>kable_styling()</code> do pacote <code>kableExtra</code>. A função <code>kable ()</code> usa a função <code>head()</code> embutida. Ao executar os códigos, se não for especificado, é mostrado apenas 6 linhas. Será mostrado o formato amplo e todas as suas 15 linhas:</p>
 <div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb683-1"><a href="sec-testet.html#cb683-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(dados, <span class="dv">15</span>), </span>
 <span id="cb683-2"><a href="sec-testet.html#cb683-2" tabindex="-1"></a>             <span class="at">booktabs =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb683-3"><a href="sec-testet.html#cb683-3" tabindex="-1"></a>             <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Id&quot;</span>, <span class="st">&quot;Basal&quot;</span>, <span class="st">&quot;Final&quot;</span>),</span>
@@ -1581,11 +1581,11 @@ Figura 12.10: Gráfico de linha comparando um grupo de escolares asmáticos ante
 </div>
 <div class="footnotes">
 <hr />
-<ol start="42">
-<li id="fn42"><p>Teste paramétricos são testes estatísticos que se baseiam nos padrões da distribuição populacional da variável em estudo, por exemplo, a distribuição normal é descrita por dois parâmetros – média e desvio padrão – que são suficientes para se conhecer as probabilidades. Os testes que não requerem a especificação da forma de distribuição da população, ou seja, têm distribuição livre, são denominados de não paramétricos.<a href="sec-testet.html#fnref42" class="footnote-back">↩︎</a></p></li>
-<li id="fn43"><p>Veja também a Seção <a href="assimetria-e-curtose.html#sec-qqplot">8.3.1.2</a>.<a href="sec-testet.html#fnref43" class="footnote-back">↩︎</a></p></li>
-<li id="fn44"><p>Se as variâncias forem diferentes (<code>var.equal = FALSE</code>), o teste calcula os graus de liberdade pela fórmula de Welch, bem mais complicada.<a href="sec-testet.html#fnref44" class="footnote-back">↩︎</a></p></li>
-<li id="fn45"><p>Veja também a Seção <a href="descrevendo-os-dados.html#sec-tabfreq">6.4.2.2</a><a href="sec-testet.html#fnref45" class="footnote-back">↩︎</a></p></li>
+<ol start="43">
+<li id="fn43"><p>Teste paramétricos são testes estatísticos que se baseiam nos padrões da distribuição populacional da variável em estudo, por exemplo, a distribuição normal é descrita por dois parâmetros – média e desvio padrão – que são suficientes para se conhecer as probabilidades. Os testes que não requerem a especificação da forma de distribuição da população, ou seja, têm distribuição livre, são denominados de não paramétricos.<a href="sec-testet.html#fnref43" class="footnote-back">↩︎</a></p></li>
+<li id="fn44"><p>Veja também a Seção <a href="assimetria-e-curtose.html#sec-qqplot">8.3.1.2</a>.<a href="sec-testet.html#fnref44" class="footnote-back">↩︎</a></p></li>
+<li id="fn45"><p>Se as variâncias forem diferentes (<code>var.equal = FALSE</code>), o teste calcula os graus de liberdade pela fórmula de Welch, bem mais complicada.<a href="sec-testet.html#fnref45" class="footnote-back">↩︎</a></p></li>
+<li id="fn46"><p>Veja também a Seção <a href="descrevendo-os-dados.html#sec-tabfreq">6.4.2.2</a><a href="sec-testet.html#fnref46" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

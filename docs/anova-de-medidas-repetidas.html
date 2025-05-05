@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2025-05-02" />
+<meta name="date" content="2025-05-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -697,7 +697,7 @@ div.csl-indent {
 ## 4     4 10.3   14.1  25.0
 ## 5     5  8.61  11.7  19.4
 ## 6     6  6.14  16.0  20.0</code></pre>
-<p>Os dados se encontram no formato amplo e para realizar a ANOVA de medidas repetidas, o <em>R</em> necessita que os dados estejam no formato longo. Para fazer esta transformação será usada a função <code>pivot_longer()</code><a href="#fn52" class="footnote-ref" id="fnref52"><sup>52</sup></a> do pacote <code>tidyr</code> <span class="citation">(62)</span>. Nesta função, no argumento <code>data</code>, coloca-se o nome do conjunto de dados; em <code>cols</code>, há necessidade de nomear a coluna a ser criada que receberá as colunas do formato amplo que serão reunidas. No argumento <code>names_to</code>, nomear a coluna que receberá os valores e em <code>values_to</code>, especificar o nome da variável no formato longo que conterá os valores. A variável <code>id</code> e a nova variável <code>tempo</code> devem ser convertida para fatores e o novo conjunto de dados será atribuído a um objeto nomeado <code>dadosL</code>:</p>
+<p>Os dados se encontram no formato amplo e para realizar a ANOVA de medidas repetidas, o <em>R</em> necessita que os dados estejam no formato longo. Para fazer esta transformação será usada a função <code>pivot_longer()</code><a href="#fn53" class="footnote-ref" id="fnref53"><sup>53</sup></a> do pacote <code>tidyr</code> <span class="citation">(62)</span>. Nesta função, no argumento <code>data</code>, coloca-se o nome do conjunto de dados; em <code>cols</code>, há necessidade de nomear a coluna a ser criada que receberá as colunas do formato amplo que serão reunidas. No argumento <code>names_to</code>, nomear a coluna que receberá os valores e em <code>values_to</code>, especificar o nome da variável no formato longo que conterá os valores. A variável <code>id</code> e a nova variável <code>tempo</code> devem ser convertida para fatores e o novo conjunto de dados será atribuído a um objeto nomeado <code>dadosL</code>:</p>
 <div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb787-1"><a href="anova-de-medidas-repetidas.html#cb787-1" tabindex="-1"></a>dadosL <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
 <span id="cb787-2"><a href="anova-de-medidas-repetidas.html#cb787-2" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(t1, t2, t3),</span>
 <span id="cb787-3"><a href="anova-de-medidas-repetidas.html#cb787-3" tabindex="-1"></a>                       <span class="at">names_to =</span> <span class="st">&quot;tempo&quot;</span>,</span>
@@ -1265,8 +1265,8 @@ Figura 14.8: Avaliação da autoestima no decorrer do tempo
 </div>
 <div class="footnotes">
 <hr />
-<ol start="52">
-<li id="fn52"><p>Veja a Seção <a href="sec-testet.html#sec-pivot">12.3.1.1</a> para mais detalhes da função.<a href="anova-de-medidas-repetidas.html#fnref52" class="footnote-back">↩︎</a></p></li>
+<ol start="53">
+<li id="fn53"><p>Veja a Seção <a href="sec-testet.html#sec-pivot">12.3.1.1</a> para mais detalhes da função.<a href="anova-de-medidas-repetidas.html#fnref53" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
