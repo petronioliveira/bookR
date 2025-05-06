@@ -7,7 +7,8 @@ Nos relatórios ou artigos científicos, a comunicação dos resultados é feita
 Para trabalhar neste capítulo, serão necessários os seguintes pacotes. 
 
 ```{r}
-pacman::p_load(dplyr, 
+pacman::p_load(dplyr,
+               DescTools,
                ggplot2, 
                ggpubr, 
                ggsci, 
@@ -57,13 +58,13 @@ Nesta seção, serão verificadas as medidas de resumo dos dados de duas maneira
 ### Medidas de tendência central
 #### Média
 
-A média ( $\overline{x}$ ) é a mais usada medida de tendência central para representar um valor típico ou central dentro de um conjunto de números. O conceito mais comum é a **média aritmética**, que se calcula somando todos os valores do conjunto e dividindo pelo número total de elementos. A média é mais adequada para medidas numéricas simétricas.
+A média ( $\overline{x}$ ) é a mais usada medida de tendência central para representar um valor típico dentro de um conjunto de números. O conceito mais comum é a **média aritmética**, que se calcula somando todos os valores do conjunto e dividindo pelo número total de elementos. A média é mais adequada para medidas numéricas simétricas, pois ela é sensível aos valores extremos (*outliers*).
 
 $$
 \overline{x}= \frac{\sum(x_1 + x_2 + x_3 + ... + x_n)}{n}
 $$
 
-O *R* base possui uma função para o cálculo da média, `mean()`, apresentada  na Seção \@ref(sec-funcoes), onde foi mostrado os seus argumentos. Se a variável analisada contiver algum valor ausente (`missing`), deve-se usar o argumento `na.rm = TRUE`, para removê-los, pois, caso contrário, a função retorna um resultado como NA (*Not Available*). Para evitar transtornos, recomenta-se usar sempre o argumento. 
+O *R* base possui uma função para o cálculo da média, `mean()`, apresentada  na Seção \@ref(sec-funcoes), onde foi mostrado os seus argumentos. Se a variável analisada contiver algum valor ausente (*missing*), deve-se usar o argumento `na.rm = TRUE`, para removê-los, pois, caso contrário, a função retorna um resultado como NA (*Not Available*). Para evitar transtornos, recomenta-se usar sempre o argumento. 
 
 ```{r}
 mean (dados$pesoRN, na.rm = TRUE)
@@ -85,36 +86,82 @@ round(media, 1)
 
 #### Mediana
 
-A mediana (Md) representa o valor central em uma série ordenada de valores. Assim, metade dos valores será igual ou menor que o valor mediano e a outra metade igual ou maior do que ele.  
-No R, usa-se a função `median()` para calcular o valor da mediana. Vanos utilizar a variável `dados$apgar1`. Como o Apgar é um escore, a medida resumidora mais adequada é a mediana. 
+A mediana (Md) representa o valor central em uma série ordenada de valores. Assim, metade dos valores será igual ou menor que o valor mediano e a outra metade igual ou maior do que ele. Para encontrar a média: 
+
+* Ordene o conjunto de dados, por exemplo, a variável `dados$pesoRN`:
+  
+```{r}
+valores_ordenados <- sort(dados$pesoRN)
+print(valores_ordenados)
+```
+
+* Se o número de valores no conjunto de dados for ímpar, a mediana é o valor do meio. No exemplo, temos 15 valores, onde o valor do meio é o 7º valor e, portanto, a mediana é igual a `r valores_ordenados [7]`g.
+
+* Se o número de valores no conjunto de dados for par, a mediana é a média dos dois valores do meio. Apenas como exemplo, para  se obter um número par de valores, será eliminado o 15º valor da variável `dados$pesoRN`:
 
 ```{r}
-median (dados$apgar1, na.rm = TRUE)
+valores_ordenados_pares <- valores_ordenados [-15]
+print(valores_ordenados_pares)
+```
+
+Assim, a mediana será igual a média do 7º e 8º e igual a `r (valores_ordenados_pares[7] + valores_ordenados_pares[8])/2`g.
+
+É bem fácil de se calcular a mediana quando o número de observações é pequeno. Entretanto, quando se tem um número grande de valores seria extremamente tedioso esse calculo. O *R* facilita esse trabalho, fornecendo a função `median()`. 
+
+Agora, será usada a variável `apgar1` do arquivo `dadosMater.xlsx`. Como o Apgar é um escore, a medida resumidora mais adequada, realmente, é a mediana.  
+
+```{r}
+mater <- readxl::read_excel("Arquivos/dadosMater.xlsx") %>% 
+  filter(ig>= 37 & ig<42) %>% 
+  select(idadeMae, anosEst, pesoRN, apgar1)
+median (mater$apgar1, na.rm = TRUE)
 ```
 
 #### Moda
 
-Moda (Mo) é o valor que ocorre com maior frequência em um conjunto de dados. Tem o menor nível de sofisticação. É usada primariamente para dados nominais porque há simplesmente contagem dos valores. Ao contrário das outras medidas de tendência central, a moda não informa nada sobre a ordem das variáveis ou variação dentro das variáveis.  
-O R não tem uma função embutida padrão para calcular a moda. Portanto, há necessidade de ser criada uma função de usuário para calcular a moda.  
+Moda (Mo) é o valor que ocorre com maior frequência em um conjunto de dados. O *R* não possui uma função nativa e direta para calcular a moda como tem para a média (`mean()`) e a mediana (`median()`). Isso acontece porque a moda pode não ser única em um conjunto de dados (podem existir múltiplos valores com a mesma frequência máxima) ou pode nem existir (se todos os valores ocorrerem apenas uma vez).Tem o menor nível de sofisticação. No entanto, pode-se facilmente criar uma função própria para calcular a moda ou usar pacotes que oferecem essa funcionalidade, como o `DescTools` que oferece uma função chamada `Mode()`. Aqui estão algumas maneiras de calcular a moda em R: 
+
+**Função personalizada**
 
 ```{r}
-moda <- function(x) {
-  z <- table(as.vector(x))
-  names(z)[z == max(z)]}
+moda <- function(v) {
+  freq_tab <- table(v)
+  max_freq <- max(freq_tab)
+  moda <- names(freq_tab[freq_tab == max_freq])
+  return(moda)
+}
 ```
 
-UEsta função `moda()` deve ser salva em seu diretório, na pasta das suas funções próprias. Quando necessário ela pode ser acessada como foi visto na seção sobre criação de funções.  Será calculada a moda da variável dados$apgar1.
+Esta função `moda()`é constituída por:
+
+* **table(v)**: Cria uma tabela de frequência dos valores v.
+* **max(freq_tab)**: Encontra a frequência máxima.
+* **freq_table[freq_table == max_freq]**: Seleciona as entradas da tabela de frequência que são iguais à frequência máxima.
+* **names(...)**: Obtém os nomes (os valores originais) dessas entradas, que são as modas.
+
+Usando a função criada, a moda da variável `dados$apgar1` é igual a:
 
 ```{r}
 moda (dados$apgar1) 
 ```
 
+A função `moda()` pode ser salva em seu diretório de trabalho, na pasta das suas funções próprias. Quando necessário ela pode ser acessada, como foi visto na Seção \@ref(sec-funcpropria). 
+
+**Função `Mode()` do pacote `DescTools`**
+
+```{r}
+moda <- Mode(dados$apgar1)
+print(moda)
+```
+
+A saída mostra que a média é igual a 8 e que frequência deste valor entre os 15 valores é 7.
+
 #### Quantil
 
 Uma medida de localização bastante utilizada são os **quantis** que são pontos estabelecidos em intervalos regulares que dividem a amostra em subconjuntos iguais. Se estes subconjuntos são em número de 100, são denominados de **percentis**; se são em número de 10, são os **decis** e em número de 4, são os **quartis**. 
-A função apropriada no R para obter o quantil é `quantile()`.   
+A função nativa no *R* para obter o quantil é `quantile()`.   
 
-Para determinar os três quartis do peso dos recém-nascidos (`mater15$pexoRN`), usa-se:
+Para determinar os três quartis do peso dos recém-nascidos (`dados$pexoRN`), usa-se:
 
 ```{r}
 quantile (dados$pesoRN, c (0.25, 0.50, 0.75))
@@ -126,12 +173,12 @@ Observe que o percentil 50º é igual a mediana. O percentil 75º é o ponto do 
 
 As médias aparadas são estimadores robustos da tendência central. Para calcular uma média aparada, é removida uma quantidade predeterminada de observações em cada lado de uma distribuição e realizada a média das observações restantes. Um exemplo de média aparada é a própria mediana.   
 
-A base R tem como calcular a média aparada acrescentando o argumento `trim =`, proporção a ser aparada. Se for aparado 20%, usa-se `trim = 0.2`. isto significa que serão removidos 20% dos dados dos dois extremos. No caso da amostra de 15 recém-nascidos, serão removidos três valores mais baixos e três valores mais altos, passando a mostra a ter 9 valores, e a média aparada será a média destes 9 valores.   
+A base *R* tem como calcular a média aparada acrescentando o argumento `trim =`, proporção a ser aparada. Se for aparado 20%, usa-se `trim = 0.2`. isto significa que serão removidos 20% dos dados dos dois extremos. No caso da amostra de 15 recém-nascidos, serão removidos três valores mais baixos e três valores mais altos, passando a mostra a ter 9 valores, e a média aparada será a média destes 9 valores.   
 
 O comando para obter a média aparada é:
 
 ```{r}
-mean (dados$pesoRN, na.rm = TRUE, trim = 0.20)
+round(mean (dados$pesoRN, na.rm = TRUE, trim = 0.20), 1)
 ```
 
 ### Medidas de Dispersão
@@ -190,7 +237,7 @@ $$
 s^2= \frac{\sum(x_i - \overline{x})^2}{n-1}
 $$
 
-No R existem as funções `sd()` e `var()`, também incluídas no R base, que facilmente calculam essas medidas de dispersão.   
+No *R* existem embutidas as funções `sd()` e `var()`que facilmente calculam essas medidas de dispersão.   
 
 Usando a variável `dados$pesoRN`, tem-se:
 
