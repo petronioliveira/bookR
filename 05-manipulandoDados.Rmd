@@ -573,7 +573,7 @@ Se for adicionado um ano à mesma data, mas agora com uma função de período, 
 ```{r}
 data1 + years (1)           
 ```
-Pode-se definir um intervalo de tempo a partir de uma data inicial e uma data final. Suponha que uma gestante tenha como data da sua última menstruação em 04/10/2022 e o bebê tenha nascido em 30/06/2023. Qual a idade gestacional em dias? A sintaxe para calcular um intervalo é dada pela subtração das duas dtas:
+Pode-se definir um intervalo de tempo a partir de uma data inicial e uma data final. Suponha que uma gestante tenha como data da sua última menstruação em 04/10/2022 e o bebê tenha nascido em 30/06/2023. Qual a idade gestacional em dias? A sintaxe para calcular um intervalo é dada pela subtração das duas datas:
 
 ```{r}
 data.inicial <- dmy("04/10/2022")

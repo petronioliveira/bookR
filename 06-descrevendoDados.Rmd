@@ -24,11 +24,16 @@ pacman::p_load(dplyr,
 
 Habitualmente, costuma-se armazenar os dados em bancos de dados (*dataframes* ou *tibbles*). Entretanto, eles estão registrados de forma aleatória e não classificada. Ao se visualizar um dataframe, é difícil responder perguntas em relação a qualquer variável, principalmente, em grandes banco de dados. Eles se constituem uma lista, um rol de valores colocados na ordem em que foram obtidos. Parecem um jogo de quebra cabeça antes de serem organizados e resumidos! São denominados de *dados brutos* ou, também, de dados não agrupados. 
 
+```{r babel, echo = FALSE, out.width = '70%', fig.align = 'center', fig.cap="Quebra-cabeça da Torre de Babel (pintura de Pieter Bruegel, 1563)", fig.pos="H"}
+ knitr::include_graphics("https://imgur.com/MrhPiiG.png") 
+```
+
 ## Medidas resumidoras
+
 ### Dados usados nesta seção
 
 Para a demonstração prática será usado um conjunto de dados que é uma amostra aleatória de 15 recém-nascidos do banco de dados `dadosMater.xlsx` (ver Seção \@ref(sec-mater)), extraída com a função `slice_sample()` do pacote `dplyr`. Cada vez que este comando for reproduzido, retornará uma nova série de 15 valores diferentes do anterior. Para tornar o código reproduzível, retornando o mesmo conjunto de valores, deve-se usar uma “semente” (`seed`), usando a função `set.seed()`, cujo argumento é um número que identificará a série gerada. 
-Após extrair a amostra, será selecionada as variáveis que serão usadas nesta seção. A amostra será atribuída a um objeto denominado, `dados`:
+Após extrair a amostra, serão selecionadas as variáveis usadas nesta seção. A amostra será atribuída a um objeto denominado, `dados`:
 
 ```{r}
 set.seed(1234) 
@@ -39,28 +44,43 @@ dados <- readxl::read_excel("Arquivos/dadosMater.xlsx") %>%
 str(dados) 
 ```
 
-Após a manipulação dos dados, tem-se um tibble de 15 linhas e quatro colunas.
+Após a manipulação dos dados, tem-se um *tibble* de 15 linhas e quatro colunas.
 
 ### Introdução
 
 Sempre que se está diante de um novo conjunto de dados para analisar, uma das primeiras tarefas é encontrar maneiras de resumir os dados de forma compacta e fácil de entender. Este processo se constitui na **estatística descritiva** que compreende métodos de tabulação, gráficos e resumo dos dados.
-Nesta seção, serão estudas as medidas de resumo dos dados. As maneiras mais usadas para resumir o conjunto de dados são:
-*	Primeiro, um valor em torno do qual os dados têm uma tendência para se reunir ou se agrupar, denominado de medida sumária de localização ou medida de tendência central.
-*	Em segundo lugar, um valor que mede o grau em que os dados se dispersam, denominado de medida de dispersão ou variabilidade
+Nesta seção, serão verificadas as medidas de resumo dos dados de duas maneiras:  
+
+*	Primeiro, um valor em torno do qual os dados têm uma tendência para se reunir ou se agrupar, denominado de **medida sumária de localização** ou **medida de tendência central**.
+*	Em segundo lugar, um valor que mede o grau em que os dados se dispersam, denominado de **medida de dispersão** ou **variabilidade**
 
 ### Medidas de tendência central
 #### Média
 
-A média ( $\overline{x}$ ) é a mais usada medida de tendência central. Ela é calculada pela razão entre a soma de todas as observações de um conjunto de dados e o total de observações. A média é mais adequada para medidas numéricas simétricas.
+A média ( $\overline{x}$ ) é a mais usada medida de tendência central para representar um valor típico ou central dentro de um conjunto de números. O conceito mais comum é a **média aritmética**, que se calcula somando todos os valores do conjunto e dividindo pelo número total de elementos. A média é mais adequada para medidas numéricas simétricas.
 
 $$
 \overline{x}= \frac{\sum(x_1 + x_2 + x_3 + ... + x_n)}{n}
 $$
 
-O R base possui uma função para o cálculo da média – `mean()`. Ela já foi apresentada no Capítulo 4, seção sobre funções, onde foi mostrado os seus argumentos. Se a variável analisada contiver algum valor ausente (`missing`), deve-se usar o argumento `na.rm = TRUE`, para removê-los, pois, caso contrário, a função retorna um resultado como NA (*Not Available*). Para evitar transtornos, recomenta-se usar sempre o argumento.
+O *R* base possui uma função para o cálculo da média – `mean()`, apresentada  a Seção \@ref(sec-funcoes), onde foi mostrado os seus argumentos. Se a variável analisada contiver algum valor ausente (`missing`), deve-se usar o argumento `na.rm = TRUE`, para removê-los, pois, caso contrário, a função retorna um resultado como NA (*Not Available*). Para evitar transtornos, recomenta-se usar sempre o argumento. 
 
 ```{r}
 mean (dados$pesoRN, na.rm = TRUE)
+```
+  
+Para reduzir o número de dígitos decimais, na saída do resultado, pode-se colocar a função `mean()`, dentro da função `round()`^[Usa-se esta sintaxe: `round(x, digits = 0)`, onde `x` é o numero que se quer arredondar e `digits` é número de casas decimais. O padrão é `0`, ou seja, arredonda para o inteiro mais próximo.], atribuindo o resultado da função a um objeto, por exemplo `media`. 
+
+```{r}
+media <- round(mean (dados$pesoRN, na.rm = TRUE), 1)
+print(media)
+```
+
+Ou,usar a função `round()` separadamente: 
+
+```{r}
+media <- mean (dados$pesoRN, na.rm = TRUE)
+round(media, 1)
 ```
 
 #### Mediana
