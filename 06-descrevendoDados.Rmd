@@ -22,7 +22,7 @@ pacman::p_load(dplyr,
 
 ## Dados brutos  
 
-Habitualmente, costuma-se armazenar os dados em bancos de dados (*dataframes* ou *tibbles*). Entretanto, eles estão registrados de forma aleatória e não classificada. Ao se visualizar um dataframe, é difícil responder perguntas em relação a qualquer variável, principalmente, em grandes banco de dados. Eles se constituem uma lista, um rol de valores colocados na ordem em que foram obtidos. Parecem um jogo de quebra cabeça antes de serem organizados e resumidos! São denominados de *dados brutos* ou, também, de dados não agrupados. 
+Habitualmente, costuma-se armazenar os dados em bancos de dados (*dataframes* ou *tibbles*). Entretanto, eles estão registrados de forma aleatória e não classificada. Ao se visualizar um dataframe, é difícil responder perguntas em relação a qualquer variável, principalmente, em grandes banco de dados. Eles se constituem uma lista, um rol de valores colocados na ordem em que foram obtidos. Parecem um jogo de quebra cabeça antes de serem organizados e resumidos (Figura \@ref(fig:babel))! São denominados de *dados brutos* ou, também, de dados não agrupados. 
 
 ```{r babel, echo = FALSE, out.width = '70%', fig.align = 'center', fig.cap="Quebra-cabeça da Torre de Babel (pintura de Pieter Bruegel, 1563)", fig.pos="H"}
  knitr::include_graphics("https://imgur.com/MrhPiiG.png") 
@@ -63,7 +63,7 @@ $$
 \overline{x}= \frac{\sum(x_1 + x_2 + x_3 + ... + x_n)}{n}
 $$
 
-O *R* base possui uma função para o cálculo da média – `mean()`, apresentada  a Seção \@ref(sec-funcoes), onde foi mostrado os seus argumentos. Se a variável analisada contiver algum valor ausente (`missing`), deve-se usar o argumento `na.rm = TRUE`, para removê-los, pois, caso contrário, a função retorna um resultado como NA (*Not Available*). Para evitar transtornos, recomenta-se usar sempre o argumento. 
+O *R* base possui uma função para o cálculo da média, `mean()`, apresentada  na Seção \@ref(sec-funcoes), onde foi mostrado os seus argumentos. Se a variável analisada contiver algum valor ausente (`missing`), deve-se usar o argumento `na.rm = TRUE`, para removê-los, pois, caso contrário, a função retorna um resultado como NA (*Not Available*). Para evitar transtornos, recomenta-se usar sempre o argumento. 
 
 ```{r}
 mean (dados$pesoRN, na.rm = TRUE)
