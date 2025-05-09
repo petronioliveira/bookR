@@ -13,6 +13,7 @@ pacman::p_load(BiocManager,
                ggplot2,
                gmodels,
                kableExtra,
+               limma,
                MASS,
                MKmisc,
                mlbench,
@@ -21,13 +22,6 @@ pacman::p_load(BiocManager,
                survival,
                survminer,
                vcd)
-```
-
-O pacote limma também vai ser usado indiretamente neste capítulo e a sua instalação é feita através do BiocManager da seguinte maneira:
-
-```{r}
-BiocManager::install("limma")
-library (limma)
 ```
 
 ## Raciocínio bayesiano no diagnóstico médico  {#sec-diagbayes}
