@@ -705,7 +705,7 @@ Figura 7.3: Proporção à medida que N aumenta em lançamentos de moedas
 <p>Embora nenhuma das simulações tenha realmente terminado com um valor exato de 0,5, elas se aproximaram, oscilando muito pouco em torno desse valor.</p>
 <div id="sec-aplicafreq" class="section level3 hasAnchor" number="7.4.1">
 <h3><span class="header-section-number">7.4.1</span> Aplicando a visão frequentista no dia a dia<a href="introdução-à-teoria-das-probabilidades.html#sec-aplicafreq" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>A definição frequentista também pode ser aplicada no cotidiano. Utilizando a altura de mulheres, uma medida numérica contínua, embutida no conjunto de dados <code>dadosMater.xlsx</code> (veja Seção <a href="manipulando-os-dados-no-r-studio.html#sec-mater">5.3</a>, encontra-se o registro da altura de 1368 mulheres. Essas alturas serão selecionadas e colocadas em um objeto, denominado <code>dados</code>.</p>
+<p>A definição frequentista também pode ser aplicada no cotidiano. Utilizando a altura de 1368 mulheres, uma medida numérica contínua, embutida no conjunto de dados <code>dadosMater.xlsx</code> (veja Seção <a href="manipulando-os-dados-no-r-studio.html#sec-mater">5.3</a>). Essas alturas serão selecionadas e colocadas em um objeto, denominado <code>dados</code>.</p>
 <div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="introdução-à-teoria-das-probabilidades.html#cb428-1" tabindex="-1"></a> dados <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb428-2"><a href="introdução-à-teoria-das-probabilidades.html#cb428-2" tabindex="-1"></a>  <span class="fu">select</span>(altura)</span></code></pre></div>
 <p>Usando a função <code>summary()</code>, será feito um resumo da variável altura:</p>
@@ -718,12 +718,12 @@ Figura 7.3: Proporção à medida que N aumenta em lançamentos de moedas
 <span id="cb431-2"><a href="introdução-à-teoria-das-probabilidades.html#cb431-2" tabindex="-1"></a>Z</span></code></pre></div>
 <pre><code>## [1] 0.03103551</code></pre>
 <p>Observe que a medida de 1,60 m está muito próxima da média e isto é um indicativo de que essa variável tem uma distribuição praticamente simétrica.
-Sabendo a distância, em números de desvios padrão, que 1,60 m está da média, qual a probabilidade de encontrar, na maternidade do HGCS ^{Hospital Geral de Caxias do Sul, Hospital de Ensino da Universidade de Caxias do Sul, RS}, uma parturiente que tenha exatamente esta altura?<br />
+Sabendo a distância, em números de desvios padrão, que 1,60 m está da média, qual a probabilidade de encontrar, na maternidade do HGCS <a href="#fn36" class="footnote-ref" id="fnref36"><sup>36</sup></a>, uma parturiente que tenha exatamente esta altura?<br />
 Para responder a essa pergunta, será usada a função <code>pnorm()</code> (veja adiante na Seção <a href="introdução-à-teoria-das-probabilidades.html#sec-dnp">7.7.2</a>) que utiliza o escore <em>Z</em>, a média e o desvio padrão para encontrar essa proporção que, multiplicada por 100, fornece a percentagem.</p>
 <div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="introdução-à-teoria-das-probabilidades.html#cb433-1" tabindex="-1"></a> p <span class="ot">&lt;-</span> <span class="fu">pnorm</span> (Z, <span class="fu">mean</span>(dados<span class="sc">$</span>altura),<span class="fu">sd</span>(dados <span class="sc">$</span>altura))</span>
 <span id="cb433-2"><a href="introdução-à-teoria-das-probabilidades.html#cb433-2" tabindex="-1"></a> p</span></code></pre></div>
 <pre><code>## [1] 7.387473e-127</code></pre>
-<p>O <em>R</em> por padrão retorna números grandes como notação científica. O resultado dessa operação é um número tão grande que para escrevê-lo sem este tipo de notação, seriam necessários 127 dígitos decimais. O resultado não caberia em apenas uma linha. Ficaria assim, suprimindo a notação científica <a href="#fn36" class="footnote-ref" id="fnref36"><sup>36</sup></a>:</p>
+<p>O <em>R</em> por padrão retorna números grandes como notação científica. O resultado dessa operação é um número tão grande que para escrevê-lo sem este tipo de notação, seriam necessários 127 dígitos decimais. O resultado não caberia em apenas uma linha. Ficaria assim, suprimindo a notação científica <a href="#fn37" class="footnote-ref" id="fnref37"><sup>37</sup></a>:</p>
 <div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="introdução-à-teoria-das-probabilidades.html#cb435-1" tabindex="-1"></a> <span class="fu">options</span>(<span class="at">scipen =</span><span class="dv">999</span>)</span>
 <span id="cb435-2"><a href="introdução-à-teoria-das-probabilidades.html#cb435-2" tabindex="-1"></a> p</span></code></pre></div>
 <pre><code>## [1] 0.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000007387473</code></pre>
@@ -861,7 +861,7 @@ Com esta função, é possível responder a pergunta feita anteriormente em rela
 <div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="introdução-à-teoria-das-probabilidades.html#cb444-1" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">1.725</span>, <span class="at">mean =</span> resumo<span class="sc">$</span>media, <span class="at">sd =</span> resumo<span class="sc">$</span>dp, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## [1] 0.02618654</code></pre>
 <p>Observa-se que, nesta amostra, apenas 2.6% das mulheres têm acima de 1,725m, razão de ser considerada uma mulher alta. Ou seja, é pouco provável encontrar mulheres acima dessa altura, nesta amostra.</p>
-<p>Para representar graficamente essa pequena probabilidade, será construída uma curva com essa pequena área sombreada, colorida em vermelho. Para isso, será feito uso de uma função própria, denominada <code>normal_area()</code>. Ela pode ser obtida <a href="https://github.com/petronioliveira/Arquivos/blob/main/normal_area.R">aqui</a> para ser baixada em seu diretório de trabalho para uso posterior <a href="#fn37" class="footnote-ref" id="fnref37"><sup>37</sup></a>.</p>
+<p>Para representar graficamente essa pequena probabilidade, será construída uma curva com essa pequena área sombreada, colorida em vermelho. Para isso, será feito uso de uma função própria, denominada <code>normal_area()</code>. Ela pode ser obtida <a href="https://github.com/petronioliveira/Arquivos/blob/main/normal_area.R">aqui</a> para ser baixada em seu diretório de trabalho para uso posterior <a href="#fn38" class="footnote-ref" id="fnref38"><sup>38</sup></a>.</p>
 <p>A Figura <a href="introdução-à-teoria-das-probabilidades.html#fig:prob1725">7.6</a> representa com clareza esta pequena probabilidade. Foi usada a função <code>text()</code> para escrever o valor da probabilidade.</p>
 <div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="introdução-à-teoria-das-probabilidades.html#cb446-1" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;Arquivos/normal_area.R&quot;</span>)</span>
 <span id="cb446-2"><a href="introdução-à-teoria-das-probabilidades.html#cb446-2" tabindex="-1"></a><span class="fu">normal_area</span>(<span class="at">media =</span> <span class="dv">0</span>, <span class="at">dp =</span> <span class="dv">1</span>, <span class="at">linf =</span> <span class="fl">1.94</span>, <span class="at">lsup =</span> <span class="dv">3</span>, <span class="at">cor =</span> <span class="st">&quot;tomato&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span> )</span>
@@ -1207,7 +1207,7 @@ Figura 7.14: Probabilidade de uma mulher com 150 cmm pertencer a uma população
 <li>Os ensaios são independentes</li>
 </ul>
 <p>A distribuição binomial é na verdade uma família de distribuições, cujos membros são definidos pelos valores de <em>n</em> e <em>p</em> (parâmetros da distribuição binomial).</p>
-<p>A probabilidade de sucesso <a href="#fn38" class="footnote-ref" id="fnref38"><sup>38</sup></a>, em uma distribuição binomial, é dada pela fórmula:</p>
+<p>A probabilidade de sucesso <a href="#fn39" class="footnote-ref" id="fnref39"><sup>39</sup></a>, em uma distribuição binomial, é dada pela fórmula:</p>
 <p><span class="math display">\[
 P(X = x)= C \times p^x \times (1 - p)^{n-x}
 \]</span></p>
@@ -1283,7 +1283,7 @@ Figura 7.15: Distribuição binomial, mostrando a P (x &lt; 4) com n = 5 e p = 0
 </li>
 <li><strong>prob</strong> <span class="math inline">\(\rightarrow\)</span> probabilidade de sucesso em cada ensaio</li>
 </ul>
-<p>Para fazer uma simulação de 1000 amostras, aleatoriamente, de tamanho 5 e com probabilidade de nascer menino igual a 0,50, usa-se <a href="#fn39" class="footnote-ref" id="fnref39"><sup>39</sup></a>:</p>
+<p>Para fazer uma simulação de 1000 amostras, aleatoriamente, de tamanho 5 e com probabilidade de nascer menino igual a 0,50, usa-se <a href="#fn40" class="footnote-ref" id="fnref40"><sup>40</sup></a>:</p>
 <div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="introdução-à-teoria-das-probabilidades.html#cb498-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">23</span>)</span>
 <span id="cb498-2"><a href="introdução-à-teoria-das-probabilidades.html#cb498-2" tabindex="-1"></a>menino <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="at">n =</span> <span class="dv">1000</span>, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">prob =</span> <span class="fl">0.5</span>)</span></code></pre></div>
 <p>Cada amostra de n = 5 exibe o número de meninos nascidos. Pode-se fazer a média que representa o valor esperado do número de sucessos (nascimento de menino, no exemplo) em um conjunto de ensaios independentes:</p>
@@ -1377,10 +1377,11 @@ onde <span class="math inline">\(\lambda\)</span> (lambda) representa o número 
 <div class="footnotes">
 <hr />
 <ol start="36">
-<li id="fn36"><p>Para remover a notação científica, usar a função options (scipen = 999) e, para desfazer essa ação, trocar o 999 por 0.<a href="introdução-à-teoria-das-probabilidades.html#fnref36" class="footnote-back">↩︎</a></p></li>
-<li id="fn37"><p>Veja na Seção <a href="ambiente-do-r.html#sec-funcpropria">4.8.1</a><a href="introdução-à-teoria-das-probabilidades.html#fnref37" class="footnote-back">↩︎</a></p></li>
-<li id="fn38"><p><em>Sucesso</em>, aqui, não está no sentido de vitória, êxito, triunfo, glória e sim com a conotação de obter o desfecho esperado. Por exemplo, se uma moeda é lançada e se espera obter cara, sucesso significa um resultado igual a cara.<a href="introdução-à-teoria-das-probabilidades.html#fnref38" class="footnote-back">↩︎</a></p></li>
-<li id="fn39"><p>Deve ser especificado uma “semente” (seed) antes de executar a função, senão será obtido um conjunto diferente de observações aleatórias a cada execução. Teste para verificar<a href="introdução-à-teoria-das-probabilidades.html#fnref39" class="footnote-back">↩︎</a></p></li>
+<li id="fn36"><p>Hospital Geral de Caxias do Sul, Hospital de Ensino da Universidade de Caxias do Sul, RS<a href="introdução-à-teoria-das-probabilidades.html#fnref36" class="footnote-back">↩︎</a></p></li>
+<li id="fn37"><p>Para remover a notação científica, usar a função options (scipen = 999) e, para desfazer essa ação, trocar o 999 por 0.<a href="introdução-à-teoria-das-probabilidades.html#fnref37" class="footnote-back">↩︎</a></p></li>
+<li id="fn38"><p>Veja na Seção <a href="ambiente-do-r.html#sec-funcpropria">4.8.1</a><a href="introdução-à-teoria-das-probabilidades.html#fnref38" class="footnote-back">↩︎</a></p></li>
+<li id="fn39"><p><em>Sucesso</em>, aqui, não está no sentido de vitória, êxito, triunfo, glória e sim com a conotação de obter o desfecho esperado. Por exemplo, se uma moeda é lançada e se espera obter cara, sucesso significa um resultado igual a cara.<a href="introdução-à-teoria-das-probabilidades.html#fnref39" class="footnote-back">↩︎</a></p></li>
+<li id="fn40"><p>Deve ser especificado uma “semente” (seed) antes de executar a função, senão será obtido um conjunto diferente de observações aleatórias a cada execução. Teste para verificar<a href="introdução-à-teoria-das-probabilidades.html#fnref40" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

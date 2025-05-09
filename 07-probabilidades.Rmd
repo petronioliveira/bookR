@@ -50,7 +50,7 @@ Embora nenhuma das simulações tenha realmente terminado com um valor exato de 
 
 ### Aplicando a visão frequentista no dia a dia    {#sec-aplicafreq}
 
-A definição frequentista também pode ser aplicada no cotidiano. Utilizando a altura de mulheres, uma medida numérica contínua, embutida no conjunto de dados `dadosMater.xlsx` (veja Seção \@ref(sec-mater), encontra-se o registro da altura de 1368 mulheres. Essas alturas serão selecionadas e colocadas em um objeto, denominado `dados`.
+A definição frequentista também pode ser aplicada no cotidiano. Utilizando a altura de 1368 mulheres, uma medida numérica contínua, embutida no conjunto de dados `dadosMater.xlsx` (veja Seção \@ref(sec-mater)). Essas alturas serão selecionadas e colocadas em um objeto, denominado `dados`.
 
 ```{r}
  dados <- read_excel("Arquivos/dadosMater.xlsx") %>% 
@@ -73,7 +73,7 @@ Z
 ```
 
 Observe que a medida de 1,60 m está muito próxima da média e isto é um indicativo de que essa variável tem uma distribuição praticamente simétrica. 
-Sabendo a distância, em números de desvios padrão, que 1,60 m está da média, qual a probabilidade de encontrar, na maternidade do HGCS ^{Hospital Geral de Caxias do Sul, Hospital de Ensino da Universidade de Caxias do Sul, RS}, uma parturiente que tenha exatamente  esta altura?  
+Sabendo a distância, em números de desvios padrão, que 1,60 m está da média, qual a probabilidade de encontrar, na maternidade do HGCS ^[Hospital Geral de Caxias do Sul, Hospital de Ensino da Universidade de Caxias do Sul, RS], uma parturiente que tenha exatamente  esta altura?  
 Para responder a essa pergunta, será usada a função `pnorm()` (veja adiante na Seção \@ref(sec-dnp)) que utiliza o escore *Z*, a média e o desvio padrão para encontrar essa proporção que, multiplicada por 100, fornece a percentagem.
 
 ```{r}

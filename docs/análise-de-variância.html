@@ -679,11 +679,11 @@ div.csl-indent {
 <div id="por-que-realizar-uma-anova" class="section level2 hasAnchor" number="13.2">
 <h2><span class="header-section-number">13.2</span> Por que realizar uma ANOVA?<a href="análise-de-variância.html#por-que-realizar-uma-anova" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Inicialmente, para analisar os grupos, se ficaria tentado a fazer comparações por pares usando um teste <em>t</em> de amostras independentes. Com existem quatro grupos, é possível compará-los realizando seis testes, grupo 1 versus grupo 2, grupo 1 versus grupo 3, grupo 1 versus grupo 4, grupo 2 versus grupo 3, grupo 2 versus grupo 4 e grupo 3 versus grupo 4. Se os dados têm <em>k</em> grupos são necessários <span class="math inline">\(\frac {k!}{2!(k-2)!}\)</span> testes.</p>
-<p>A probabilidade de um erro do tipo I não ocorrer para cada teste <em>t</em> é de 0,95 (isto é, 1 – 0,05), supondo um <span class="math inline">\(\alpha\)</span> = 0,05. Os três testes são independentes; portanto, a probabilidade de um erro do tipo I não ocorrer nos seis testes é de <span class="math inline">\((0,95)^6 = 0,735\)</span>. Dessa maneira, a probabilidade de ocorrer pelo menos um erro do tipo I nos seis testes <em>t</em> de duas amostras é de 1 – 0,735 ou 0,265 (26,5%), o que é mais alto do que o nível de significância definido de 0,05 <span class="citation">(110)</span>.</p>
+<p>A probabilidade de um erro do tipo I não ocorrer para cada teste <em>t</em> é de 0,95 (isto é, 1 – 0,05), supondo um <span class="math inline">\(\alpha\)</span> = 0,05. Os três testes são independentes; portanto, a probabilidade de um erro do tipo I não ocorrer nos seis testes é de <span class="math inline">\((0,95)^6 = 0,735\)</span>. Dessa maneira, a probabilidade de ocorrer pelo menos um erro do tipo I nos seis testes <em>t</em> de duas amostras é de 1 – 0,735 ou 0,265 (26,5%), o que é mais alto do que o nível de significância definido de 0,05 <span class="citation">(111)</span>.</p>
 <p>Logo, uma ANOVA de um fator é usada para verificar as diferenças entre vários grupos dentro de um fator, reduzindo assim o número de comparações em pares e a probabilidade de ocorrer um erro tipo I.</p>
 <div id="lógica-do-modelo-da-anova" class="section level3 hasAnchor" number="13.2.1">
 <h3><span class="header-section-number">13.2.1</span> Lógica do Modelo da ANOVA<a href="análise-de-variância.html#lógica-do-modelo-da-anova" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>O procedimento de ANOVA é utilizado para testar a hipótese nula de que as médias de três <a href="#fn53" class="footnote-ref" id="fnref53"><sup>53</sup></a> ou mais populações são as mesmas contra hipótese alternativa de que nem todas as médias são iguais.</p>
+<p>O procedimento de ANOVA é utilizado para testar a hipótese nula de que as médias de três <a href="#fn51" class="footnote-ref" id="fnref51"><sup>51</sup></a> ou mais populações são as mesmas contra hipótese alternativa de que nem todas as médias são iguais.</p>
 <p>Na Seção <a href="sec-testet.html#sec-homovar">12.2.4.2</a>, foram comparadas duas variâncias, usando um teste, denominado de <em>teste F</em>. Este teste, é uma razão entre duas variâncias e recebeu este nome em homenagem a Sir Ronald Aylmer <em>Fisher</em>. A variância é uma medida de dispersão que mensura como os dados estão espalhados em torno da média. Quanto maior o seu valor, maior a dispersão.</p>
 <p>Considere a Figura <a href="análise-de-variância.html#fig:logica">13.1</a>, onde está representada a distribuição de uma variável <em>X</em> em três grupos independentes. Pode-se, claramente, distinguir observações provenientes dessas distribuições, pois a sobreposição delas é pequena. Cada uma dela se dispersa pouco em torno da média.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:logica"></span>
@@ -692,7 +692,7 @@ div.csl-indent {
 Figura 13.1: Três distribuições diferentes
 </p>
 </div>
-<p>Agora, observe o Figura <a href="análise-de-variância.html#fig:logicb">13.2</a>, onde a distribuição da variável <em>X</em> é mostrada, mantendo as mesmas médias, mas com variâncias maiores. Isto torna claro que se o objetivo é distinguir observações provenientes desses grupos não basta avaliar suas médias, há necessidade de comparar a variação entre os grupos com a variação dentro de cada grupo <span class="citation">(111)</span>.</p>
+<p>Agora, observe o Figura <a href="análise-de-variância.html#fig:logicb">13.2</a>, onde a distribuição da variável <em>X</em> é mostrada, mantendo as mesmas médias, mas com variâncias maiores. Isto torna claro que se o objetivo é distinguir observações provenientes desses grupos não basta avaliar suas médias, há necessidade de comparar a variação entre os grupos com a variação dentro de cada grupo <span class="citation">(112)</span>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:logicb"></span>
 <img src="bookdownproj_files/figure-html/logicb-1.png" alt="Distribuições com mesmas médias da figura anterior, mas variâncias maiores" width="70%" height="70%" />
 <p class="caption">
@@ -722,7 +722,7 @@ Figura 13.3: Distribuições F.
 <h4><span class="header-section-number">13.2.2.1</span> Funções do R para trabalhar com a distribuição <em>F</em><a href="análise-de-variância.html#funções-do-r-para-trabalhar-com-a-distribuição-f" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>No R, existem quatro funções principais para trabalhar com a distribuição <em>F</em>:</p>
 <ul>
-<li><code>df(x, gl1,gl2)</code> calcula a densidade de probabilidade da distribuição <em>F</em> no ponto <em>x</em>; <em>df1</em> e <em>df2</em> são os graus de liberdade do numerador e denominador, respectivamente <a href="#fn54" class="footnote-ref" id="fnref54"><sup>54</sup></a> ;</li>
+<li><code>df(x, gl1,gl2)</code> calcula a densidade de probabilidade da distribuição <em>F</em> no ponto <em>x</em>; <em>df1</em> e <em>df2</em> são os graus de liberdade do numerador e denominador, respectivamente <a href="#fn52" class="footnote-ref" id="fnref52"><sup>52</sup></a> ;</li>
 <li><code>pf(x, gl1, gl2)</code> calcula a função de probabilidade acumulada da distribuição <em>F</em> no ponto <em>x</em>;</li>
 <li><code>qf(p, gl1, gl2)</code> calcula o quantil da distribuição F correspondente a uma probabilidade p;</li>
 <li><code>rf(n, gl1, gl2)</code> gera n valores aleatórios da distribuição F com os parâmetros gl1 e gl2.</li>
@@ -744,7 +744,7 @@ Figura 13.3: Distribuições F.
 <span id="cb722-2"><a href="análise-de-variância.html#cb722-2" tabindex="-1"></a> x <span class="ot">&lt;-</span> <span class="fu">qf</span>(p, <span class="dv">10</span>, <span class="dv">20</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb722-3"><a href="análise-de-variância.html#cb722-3" tabindex="-1"></a> <span class="fu">round</span>(x,<span class="dv">3</span>) </span></code></pre></div>
 <pre><code>## [1] 0.966</code></pre>
-<p>Para representar, graficamente, esse resultado, foi construido o gráfico da Figura <a href="análise-de-variância.html#fig:distf1020">13.4</a> com a <code>shadeDist()</code> do pacote <code>fastGraph</code> (<span class="citation">(112)</span>) , verifica-se que a área sob a curva abaixo de 0,97 é igual a 50%. Consulte a ajuda do <em>RStudio</em> para maiores detalhes dos argumentos da função.</p>
+<p>Para representar, graficamente, esse resultado, foi construido o gráfico da Figura <a href="análise-de-variância.html#fig:distf1020">13.4</a> com a <code>shadeDist()</code> do pacote <code>fastGraph</code> (<span class="citation">(113)</span>) , verifica-se que a área sob a curva abaixo de 0,97 é igual a 50%. Consulte a ajuda do <em>RStudio</em> para maiores detalhes dos argumentos da função.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:distf1020"></span>
 <img src="bookdownproj_files/figure-html/distf1020-1.png" alt="Área da curva da distribuição F (10,20) abaixo de x = 0,97 é igual a 50%" width="70%" height="70%" />
 <p class="caption">
@@ -842,7 +842,7 @@ Figura 13.6: Impacto do tabagismo materno no peso ao nascer
 </div>
 <div id="visualização-gráfica-dos-dados" class="section level4 hasAnchor" number="13.3.1.3">
 <h4><span class="header-section-number">13.3.1.3</span> Visualização gráfica dos dados<a href="análise-de-variância.html#visualização-gráfica-dos-dados" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Os boxplots (Figura <a href="análise-de-variância.html#fig:bxpfumo">13.7</a>) são uma maneira interessante de visualizar os dados, principalmente com o pacote <code>ggplot2</code><a href="#fn55" class="footnote-ref" id="fnref55"><sup>55</sup></a> :</p>
+<p>Os boxplots (Figura <a href="análise-de-variância.html#fig:bxpfumo">13.7</a>) são uma maneira interessante de visualizar os dados, principalmente com o pacote <code>ggplot2</code><a href="#fn53" class="footnote-ref" id="fnref53"><sup>53</sup></a> :</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:bxpfumo"></span>
 <img src="bookdownproj_files/figure-html/bxpfumo-1.png" alt="Boxplots do impacto do tabagismo materno no peso ao nascer" width="70%" height="70%" />
 <p class="caption">
@@ -913,7 +913,7 @@ F = \frac {s_{E}^2}{s_{D}^2} = \frac {\frac {SQ_{E}}{gl_{E}}}{\frac {SQ_{D}}{gl_
 <li>As populações das quais as amostras são retiradas são normalmente distribuídas;</li>
 <li>As populações das quais as amostras são retiradas têm a mesma variância (homocedasticidade);</li>
 <li>Amostras aleatórias e independentes;</li>
-<li>Todos os grupos devem ter tamanho amostral adequado. Grupos com menos de 10 participantes são problemáticos por reduzirem a precisão da média. Na prática, deve-se evitar menos de 30 participantes. A relação entre os grupos não deve ser maior do que 1:4 <span class="citation">(113)</span>;</li>
+<li>Todos os grupos devem ter tamanho amostral adequado. Grupos com menos de 10 participantes são problemáticos por reduzirem a precisão da média. Na prática, deve-se evitar menos de 30 participantes. A relação entre os grupos não deve ser maior do que 1:4 <span class="citation">(114)</span>;</li>
 <li>Não devem existir valores atípicos (<em>outliers</em>);</li>
 <li>A mensuração dos dados deve ser em nível intervalar ou de razão.</li>
 </ol>
@@ -963,7 +963,7 @@ Figura 13.9: Gráficos Q-Q
 <p>Como mostrado nos boxplots, existe um valor atípico, ou seja, está abaixo de 1,5 IIQ. Entretanto, ele não é extremo (&gt; 3 IIQ).</p>
 <p>Da mesma maneira que no teste <em>t</em>, os pressupostos têm mais importância em grupos pequenos e desiguais. Para o exemplo em análise, os pressupostos foram verificados e pode-se assumir que os grupos são independentes e as médias têm distribuição normal e existe homocedasticidade, além disso, os grupos têm o mesmo tamanho (n = 50). Portanto, a análise pode ser continuada.</p>
 <p><strong>O que fazer se os pressupostos são violados?</strong></p>
-<p>Se a homogeneidade da variância é o problema, um teste possível de ser implementado no R é o <em>F de Welch</em>, aplicando a função<code>welch.test()</code>, incluída no pacote <code>onewaytests</code> <span class="citation">(114)</span>. Existem também testes não paramétricos, como o <em>Teste de Kruskal-Wallis</em>, que será visto mais adiante (Seção <a href="métodos-não-paramétricos.html#sec-kuskalwallis">17.6</a>.</p>
+<p>Se a homogeneidade da variância é o problema, um teste possível de ser implementado no R é o <em>F de Welch</em>, aplicando a função<code>welch.test()</code>, incluída no pacote <code>onewaytests</code> <span class="citation">(115)</span>. Existem também testes não paramétricos, como o <em>Teste de Kruskal-Wallis</em>, que será visto mais adiante (Seção <a href="métodos-não-paramétricos.html#sec-kuskalwallis">17.6</a>.</p>
 </div>
 <div id="execução-do-teste-estatístico-1" class="section level4 hasAnchor" number="13.3.4.2">
 <h4><span class="header-section-number">13.3.4.2</span> Execução do teste estatístico<a href="análise-de-variância.html#execução-do-teste-estatístico-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1017,7 +1017,7 @@ Figura 13.10: Gráficos do Teste de Tukey
 <div id="tamanho-do-efeito-2" class="section level3 hasAnchor" number="13.3.6">
 <h3><span class="header-section-number">13.3.6</span> Tamanho do efeito<a href="análise-de-variância.html#tamanho-do-efeito-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Uma das medidas de tamanho de efeito mais comumente relatadas para a ANOVA é o <strong>eta ao quadrado</strong> (<span class="math inline">\(\eta^2\)</span>), que é um índice da força da associação entre um fator e uma variável dependente. Eta ao quadrado é a proporção da variação total atribuível ao fator. É calculado como a razão da variância do fator para a variância total e os valores variam de 0 a 1.</p>
-<p>Esta medida pode ser obtida com o pacote <code>effectsize</code> <span class="citation">(115)</span>, usando a função <code>eta_squared()</code>com um objeto da classe tipo <code>modelo.aov</code>.</p>
+<p>Esta medida pode ser obtida com o pacote <code>effectsize</code> <span class="citation">(116)</span>, usando a função <code>eta_squared()</code>com um objeto da classe tipo <code>modelo.aov</code>.</p>
 <div class="sourceCode" id="cb749"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb749-1"><a href="análise-de-variância.html#cb749-1" tabindex="-1"></a>effectsize<span class="sc">::</span><span class="fu">eta_squared</span> (modelo.aov, <span class="at">partial =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## # Effect Size for ANOVA (Type I)
 ## 
@@ -1035,7 +1035,7 @@ Figura 13.10: Gráficos do Teste de Tukey
 ## fumo      |   0.10 | [0.04, 1.00]
 ## 
 ## - One-sided CIs: upper bound fixed at [1.00].</code></pre>
-<p>Apesar de ser controverso, pode-se seguir a orientação da Tabela <a href="análise-de-variância.html#tab:effectsize">13.1</a>, para a interpretação <span class="citation">(116)</span>:</p>
+<p>Apesar de ser controverso, pode-se seguir a orientação da Tabela <a href="análise-de-variância.html#tab:effectsize">13.1</a>, para a interpretação <span class="citation">(117)</span>:</p>
 <table class="table lightable-classic" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: Cambria; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:effectsize">Tabela 13.1: </span><span id="tab:effectsize">Tabela 13.2: </span>Interpretação do tamanho do efeito
@@ -1124,7 +1124,7 @@ Quando se tem dois ou mais fatores, além de observar o efeito desses fatores so
 <div id="dados-usados-nesta-seção-4" class="section level3 hasAnchor" number="13.4.1">
 <h3><span class="header-section-number">13.4.1</span> Dados usados nesta seção<a href="análise-de-variância.html#dados-usados-nesta-seção-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>O conjunto de dados <code>dadosMemoria.xlsx</code> que contém informações de um teste de memória realizado em homens e mulheres, após o consumo de álcool, categorizado em três grupos (nenhum, 3 latas e 6 latas de cerveja tipo <em>pilsen</em> com 4,5% de álcool). O grupo sem consumo de álcool (cerveja sem álcool) serve como controle. Após o consumo de álcool, foi avaliada a memória para a realização de uma tarefa cognitiva.</p>
-<p>Neste exemplo, modificado de Andy Field <span class="citation">(117)</span>, o efeito do álcool sobre a memória do indivíduo é a variável focal, a principal preocupação. Acredita-se que o efeito de álcool depende de outro fator, sexo, que são chamados de variáveis moderadoras.</p>
+<p>Neste exemplo, modificado de Andy Field <span class="citation">(118)</span>, o efeito do álcool sobre a memória do indivíduo é a variável focal, a principal preocupação. Acredita-se que o efeito de álcool depende de outro fator, sexo, que são chamados de variáveis moderadoras.</p>
 <p>Para baixar o banco de dados, clique <a href="https://github.com/petronioliveira/Arquivos/blob/main/dadosMemoria.xlsx"><strong>aqui</strong></a>. Salve o mesmo no seu diretório de trabalho.</p>
 <div id="leitura-dos-dados-2" class="section level4 hasAnchor" number="13.4.1.1">
 <h4><span class="header-section-number">13.4.1.1</span> Leitura dos dados<a href="análise-de-variância.html#leitura-dos-dados-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1172,7 +1172,7 @@ Quando se tem dois ou mais fatores, além de observar o efeito desses fatores so
 </div>
 <div id="visualização-gráfica-dos-dados-1" class="section level4 hasAnchor" number="13.4.1.3">
 <h4><span class="header-section-number">13.4.1.3</span> Visualização gráfica dos dados<a href="análise-de-variância.html#visualização-gráfica-dos-dados-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Para visualizar os dados, será construido um gráfico com boxplots (Figura <a href="análise-de-variância.html#fig:alcool">13.12</a>), usando o pacote <code>ggpubr</code><span class="citation">(118)</span>, com a função <code>ggboxplot()</code>, que fornece algumas funções fáceis de usar para criar e personalizar gráficos prontos para publicação baseados em ‘ggplot2’. O boxplot irá plotar os dados agrupados pelas combinações dos níveis dos dois fatores.</p>
+<p>Para visualizar os dados, será construido um gráfico com boxplots (Figura <a href="análise-de-variância.html#fig:alcool">13.12</a>), usando o pacote <code>ggpubr</code><span class="citation">(119)</span>, com a função <code>ggboxplot()</code>, que fornece algumas funções fáceis de usar para criar e personalizar gráficos prontos para publicação baseados em ‘ggplot2’. O boxplot irá plotar os dados agrupados pelas combinações dos níveis dos dois fatores.</p>
 <div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb759-1"><a href="análise-de-variância.html#cb759-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span> (dados,</span>
 <span id="cb759-2"><a href="análise-de-variância.html#cb759-2" tabindex="-1"></a>                   <span class="at">bxp.errorbar =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb759-3"><a href="análise-de-variância.html#cb759-3" tabindex="-1"></a>                   <span class="at">bxp.errorbar.width =</span> <span class="fl">0.2</span>,</span>
@@ -1260,7 +1260,7 @@ Se esta premissa for violada, você pode incluir uma variável de bloqueio e/ou 
 <p>Existe uma discussão se os pressupostos devem ser avaliados nos dados brutos ou apenas nos resíduos. Aqui serão realizadas as duas abordagens que frequentemente resultam no mesmo resultado.</p>
 <div id="normalidade" class="section level4 hasAnchor" number="13.4.4.1">
 <h4><span class="header-section-number">13.4.4.1</span> Normalidade<a href="análise-de-variância.html#normalidade" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>A variável dependente (<code>escore</code>) deve apresentar distribuição aproximadamente normal dentro de cada grupo. Os grupos aqui serão formados pela combinação das duas variáveis independentes (<code>sexo</code> e <code>alcool</code>). A normalidade será avaliada pelo <code>teste de Shapiro-Wilk</code>, com a função <code>shapiro_test()</code> do pacote <code>rstatix</code> <span class="citation">(107)</span>, separando os grupos com a função <code>group_by()</code> do pacote <code>dplyr</code>, encadeadas com o operador <code>pipe</code> (<code>%&gt;%</code>):</p>
+<p>A variável dependente (<code>escore</code>) deve apresentar distribuição aproximadamente normal dentro de cada grupo. Os grupos aqui serão formados pela combinação das duas variáveis independentes (<code>sexo</code> e <code>alcool</code>). A normalidade será avaliada pelo <code>teste de Shapiro-Wilk</code>, com a função <code>shapiro_test()</code> do pacote <code>rstatix</code> <span class="citation">(108)</span>, separando os grupos com a função <code>group_by()</code> do pacote <code>dplyr</code>, encadeadas com o operador <code>pipe</code> (<code>%&gt;%</code>):</p>
 <div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb761-1"><a href="análise-de-variância.html#cb761-1" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> </span>
 <span id="cb761-2"><a href="análise-de-variância.html#cb761-2" tabindex="-1"></a>     dplyr<span class="sc">::</span><span class="fu">group_by</span> (sexo, alcool) <span class="sc">%&gt;%</span> </span>
 <span id="cb761-3"><a href="análise-de-variância.html#cb761-3" tabindex="-1"></a>     rstatix<span class="sc">::</span><span class="fu">shapiro_test</span> (escore)</span></code></pre></div>
@@ -1291,7 +1291,7 @@ Agora, para confirmar esse achado, será usado a função <code>identify_outlier
 </div>
 <div id="verificação-da-homogeneidade-das-variâncias" class="section level4 hasAnchor" number="13.4.4.3">
 <h4><span class="header-section-number">13.4.4.3</span> Verificação da homogeneidade das variâncias<a href="análise-de-variância.html#verificação-da-homogeneidade-das-variâncias" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Para verificar a homocedasticidade, como os dados têm distribuição normal, é possível usar o teste de Levene, o <code>leveneTest()</code> do pacote <code>car</code> <span class="citation">(106)</span>.</p>
+<p>Para verificar a homocedasticidade, como os dados têm distribuição normal, é possível usar o teste de Levene, o <code>leveneTest()</code> do pacote <code>car</code> <span class="citation">(107)</span>.</p>
 <div class="sourceCode" id="cb765"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb765-1"><a href="análise-de-variância.html#cb765-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">leveneTest</span> (escore <span class="sc">~</span> sexo<span class="sc">*</span>alcool, </span>
 <span id="cb765-2"><a href="análise-de-variância.html#cb765-2" tabindex="-1"></a>                 <span class="at">data =</span> dados, </span>
 <span id="cb765-3"><a href="análise-de-variância.html#cb765-3" tabindex="-1"></a>                 <span class="at">center =</span> mean)</span></code></pre></div>
@@ -1382,7 +1382,7 @@ Figura 13.14: Normalidade dos resíduos - QQ plot.
 ##       Df F value Pr(&gt;F)
 ## group  5  1.5268 0.2021
 ##       42</code></pre>
-<p>Uma outra maneira de avaliar a homogeneidade da variância, é construir um gráfico diagnóstico<a href="#fn56" class="footnote-ref" id="fnref56"><sup>56</sup></a> (Figura <a href="análise-de-variância.html#fig:residuals">13.15</a>) do modelo com a função <code>plot()</code>, tipo 1, resíduos versus ajustes (<em>Residuals vs Fitted</em>).</p>
+<p>Uma outra maneira de avaliar a homogeneidade da variância, é construir um gráfico diagnóstico<a href="#fn54" class="footnote-ref" id="fnref54"><sup>54</sup></a> (Figura <a href="análise-de-variância.html#fig:residuals">13.15</a>) do modelo com a função <code>plot()</code>, tipo 1, resíduos versus ajustes (<em>Residuals vs Fitted</em>).</p>
 <div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb781-1"><a href="análise-de-variância.html#cb781-1" tabindex="-1"></a><span class="fu">plot</span>(mod.int.lm, <span class="dv">1</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:residuals"></span>
 <img src="bookdownproj_files/figure-html/residuals-1.png" alt="Resíduos versus ajuste" width="70%" height="70%" />
@@ -1428,7 +1428,7 @@ Figura 13.15: Resíduos versus ajuste
 <p>Se, ao contrário, a interação não for significativa (ou seja, se o valor P &gt; 0,05), esse efeito de interação do modelo seria removido. Abaixo, segue o código de uma ANOVA de dois fatores sem interação, chamada de <strong>modelo aditivo</strong>:</p>
 <div class="sourceCode" id="cb784"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb784-1"><a href="análise-de-variância.html#cb784-1" tabindex="-1"></a> mod.aov2 <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="at">formula =</span> escore <span class="sc">~</span> alcool <span class="sc">*</span> sexo, </span>
 <span id="cb784-2"><a href="análise-de-variância.html#cb784-2" tabindex="-1"></a>                 <span class="at">data =</span> dados)</span></code></pre></div>
-<p>Na Seção <a href="análise-de-variância.html#sec-preresiduos">13.4.5</a>, foi construído um modelo para analisar os resíduos. Este modelo está baseado na semelhança dos modelos de regressão linear (veja Seção <a href="correlação-e-regressão.html#sec-rls">15.3</a>) com o modelo da ANOVA. Observa-se que o código é bem semelhante, usando a fórmula <code>variável dependente ~ variável independentes</code>, o sinal <code>+</code> é usado para incluir variáveis independentes sem interação e o sinal <code>*</code> quando há interação. Ou seja, a ANOVA, como todas as ANOVAs, é na verdade um modelo linear. Observe que o código a seguir, usando a função <code>lm()</code> e após <code>Anova()</code> do pacote <code>car</code>, também funciona e retorna os mesmos resultados <a href="#fn57" class="footnote-ref" id="fnref57"><sup>57</sup></a> :</p>
+<p>Na Seção <a href="análise-de-variância.html#sec-preresiduos">13.4.5</a>, foi construído um modelo para analisar os resíduos. Este modelo está baseado na semelhança dos modelos de regressão linear (veja Seção <a href="correlação-e-regressão.html#sec-rls">15.3</a>) com o modelo da ANOVA. Observa-se que o código é bem semelhante, usando a fórmula <code>variável dependente ~ variável independentes</code>, o sinal <code>+</code> é usado para incluir variáveis independentes sem interação e o sinal <code>*</code> quando há interação. Ou seja, a ANOVA, como todas as ANOVAs, é na verdade um modelo linear. Observe que o código a seguir, usando a função <code>lm()</code> e após <code>Anova()</code> do pacote <code>car</code>, também funciona e retorna os mesmos resultados <a href="#fn55" class="footnote-ref" id="fnref55"><sup>55</sup></a> :</p>
 <div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb785-1"><a href="análise-de-variância.html#cb785-1" tabindex="-1"></a> mod.int.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> escore <span class="sc">~</span> sexo <span class="sc">*</span> alcool,</span>
 <span id="cb785-2"><a href="análise-de-variância.html#cb785-2" tabindex="-1"></a>                   <span class="at">data =</span> dados)</span>
 <span id="cb785-3"><a href="análise-de-variância.html#cb785-3" tabindex="-1"></a> <span class="fu">Anova</span>(mod.int.lm)</span></code></pre></div>
@@ -1456,12 +1456,12 @@ Figura 13.15: Resíduos versus ajuste
 <li>a ANOVA do tipo II, quando não há interação significativa, que pode ser feita no R com <code>Anova(mod, type = “II”)</code> ou <code>Anova(mod, type = 2)</code>, em que <code>mod</code> é o nome do seu modelo salvo, e</li>
 <li>a ANOVA do tipo III, quando há uma interação significativa, que pode ser feita no R com <code>Anova(mod, type = “III”)</code> ou <code>Anova(mod, type = 3)</code>.</li>
 </ul>
-<p>Fundamentalmente, a diferença entre um método e outro é como o R calcula a soma dos quadrados ao calcular a ANOVA. Quando os dados são balanceados, os três tipos dão o mesmo resultado <a href="#fn58" class="footnote-ref" id="fnref58"><sup>58</sup></a>.</p>
+<p>Fundamentalmente, a diferença entre um método e outro é como o R calcula a soma dos quadrados ao calcular a ANOVA. Quando os dados são balanceados, os três tipos dão o mesmo resultado <a href="#fn56" class="footnote-ref" id="fnref56"><sup>56</sup></a>.</p>
 </div>
 <div id="testes-post-hoc-1" class="section level3 hasAnchor" number="13.4.7">
 <h3><span class="header-section-number">13.4.7</span> Testes <em>post hoc</em><a href="análise-de-variância.html#testes-post-hoc-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Neste estágio, chegou-se ao ponto em que se constatou que o efeito principal do sexo não é significativo e que o efeito principal do álcool é significativo. Além disso, mais importante, existe uma interação entre o álcool e o sexo, o efeito do álcool depende do sexo.</p>
-<p>Não é possível saber exatamente qual categoria da variável <code>alcool</code> é diferente da outra em termos de escore de memória. Para saber isso, há que comparar cada categoria duas a duas graças aos testes <code>post-hoc</code>, também conhecidos como comparações entre pares <span class="citation">(120)</span> <span class="citation">(121)</span> <span class="citation">(122)</span>.
+<p>Não é possível saber exatamente qual categoria da variável <code>alcool</code> é diferente da outra em termos de escore de memória. Para saber isso, há que comparar cada categoria duas a duas graças aos testes <code>post-hoc</code>, também conhecidos como comparações entre pares <span class="citation">(121)</span> <span class="citation">(122)</span> <span class="citation">(123)</span>.
 Há vários testes post-hoc, sendo os mais comuns o Tukey HSD, que testa todos os pares possíveis de grupos. Será utilizada a função <code>TukeyHSD()</code>, usando como argumento o modelo com interação, <code>mod.aov</code>:</p>
 <div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb789-1"><a href="análise-de-variância.html#cb789-1" tabindex="-1"></a><span class="fu">TukeyHSD</span>(mod.aov)</span></code></pre></div>
 <pre><code>##   Tukey multiple comparisons of means
@@ -1692,13 +1692,13 @@ Figura 13.18: Efeito do álcool na memória de acordo com o sexo.
 </div>
 <div class="footnotes">
 <hr />
-<ol start="53">
-<li id="fn53"><p>Pode ser usada também para comparar a média de duas populações e o resultado será o mesmo de um teste <em>t</em> para amostras independentes.<a href="análise-de-variância.html#fnref53" class="footnote-back">↩︎</a></p></li>
-<li id="fn54"><p>No texto, <em>df1</em> e <em>df2</em> (em inglês, <em>df</em> = <em>degree of freedom</em>) foram traduzidos para o português como <em>gl1</em> e <em>gl2</em> (<em>gl</em> = graus de liberdade).<a href="análise-de-variância.html#fnref54" class="footnote-back">↩︎</a></p></li>
-<li id="fn55"><p>Volte à Seção <a href="descrevendo-os-dados.html#sec-ggplot2">6.6</a> para mais informações sobre o como fazer gráficos no <code>ggplot2.</code><a href="análise-de-variância.html#fnref55" class="footnote-back">↩︎</a></p></li>
-<li id="fn56"><p>Outros gráficos diagnósticos podem ser obtidos para analisar resíduos em um modelo de regressão <span class="citation">(119)</span><a href="análise-de-variância.html#fnref56" class="footnote-back">↩︎</a></p></li>
-<li id="fn57"><p>A função <code>Anova()</code> do pacote <code>car</code>, usada para testar efeitos principais e de interação em modelos lineares gerais, não deve ser confundida com a função <code>anova()</code>, da base do R, porque esta fornece resultados sequenciais que dependem da ordem em que as variáveis aparecem no modelo.<a href="análise-de-variância.html#fnref57" class="footnote-back">↩︎</a></p></li>
-<li id="fn58"><p>Para os interessados, pode-se obter maiores informações sobre os diferentes tipos de ANOVA em <a href="https://www.r-bloggers.com/2011/03/anova-%E2%80%93-type-iiiiii-ss-explained/" class="uri">https://www.r-bloggers.com/2011/03/anova-%E2%80%93-type-iiiiii-ss-explained/</a><a href="análise-de-variância.html#fnref58" class="footnote-back">↩︎</a></p></li>
+<ol start="51">
+<li id="fn51"><p>Pode ser usada também para comparar a média de duas populações e o resultado será o mesmo de um teste <em>t</em> para amostras independentes.<a href="análise-de-variância.html#fnref51" class="footnote-back">↩︎</a></p></li>
+<li id="fn52"><p>No texto, <em>df1</em> e <em>df2</em> (em inglês, <em>df</em> = <em>degree of freedom</em>) foram traduzidos para o português como <em>gl1</em> e <em>gl2</em> (<em>gl</em> = graus de liberdade).<a href="análise-de-variância.html#fnref52" class="footnote-back">↩︎</a></p></li>
+<li id="fn53"><p>Volte à Seção <a href="descrevendo-os-dados.html#sec-ggplot2">6.6</a> para mais informações sobre o como fazer gráficos no <code>ggplot2.</code><a href="análise-de-variância.html#fnref53" class="footnote-back">↩︎</a></p></li>
+<li id="fn54"><p>Outros gráficos diagnósticos podem ser obtidos para analisar resíduos em um modelo de regressão <span class="citation">(120)</span><a href="análise-de-variância.html#fnref54" class="footnote-back">↩︎</a></p></li>
+<li id="fn55"><p>A função <code>Anova()</code> do pacote <code>car</code>, usada para testar efeitos principais e de interação em modelos lineares gerais, não deve ser confundida com a função <code>anova()</code>, da base do R, porque esta fornece resultados sequenciais que dependem da ordem em que as variáveis aparecem no modelo.<a href="análise-de-variância.html#fnref55" class="footnote-back">↩︎</a></p></li>
+<li id="fn56"><p>Para os interessados, pode-se obter maiores informações sobre os diferentes tipos de ANOVA em <a href="https://www.r-bloggers.com/2011/03/anova-%E2%80%93-type-iiiiii-ss-explained/" class="uri">https://www.r-bloggers.com/2011/03/anova-%E2%80%93-type-iiiiii-ss-explained/</a><a href="análise-de-variância.html#fnref56" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

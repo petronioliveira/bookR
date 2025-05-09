@@ -663,36 +663,35 @@ div.csl-indent {
 <h1><span class="header-section-number">Capítulo 8</span> Assimetria e Curtose<a href="assimetria-e-curtose.html#assimetria-e-curtose" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="pacotes-necessários-neste-capítulo-2" class="section level2 hasAnchor" number="8.1">
 <h2><span class="header-section-number">8.1</span> Pacotes necessários neste capítulo<a href="assimetria-e-curtose.html#pacotes-necessários-neste-capítulo-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="assimetria-e-curtose.html#cb507-1" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr, </span>
-<span id="cb507-2"><a href="assimetria-e-curtose.html#cb507-2" tabindex="-1"></a>               e1071, </span>
-<span id="cb507-3"><a href="assimetria-e-curtose.html#cb507-3" tabindex="-1"></a>               ggplot2, </span>
-<span id="cb507-4"><a href="assimetria-e-curtose.html#cb507-4" tabindex="-1"></a>               ggpubr, </span>
-<span id="cb507-5"><a href="assimetria-e-curtose.html#cb507-5" tabindex="-1"></a>               grDevices, </span>
-<span id="cb507-6"><a href="assimetria-e-curtose.html#cb507-6" tabindex="-1"></a>               moments, </span>
-<span id="cb507-7"><a href="assimetria-e-curtose.html#cb507-7" tabindex="-1"></a>               readxl, </span>
-<span id="cb507-8"><a href="assimetria-e-curtose.html#cb507-8" tabindex="-1"></a>               rstatix)</span></code></pre></div>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="assimetria-e-curtose.html#cb507-1" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(DescTools,</span>
+<span id="cb507-2"><a href="assimetria-e-curtose.html#cb507-2" tabindex="-1"></a>               dplyr, </span>
+<span id="cb507-3"><a href="assimetria-e-curtose.html#cb507-3" tabindex="-1"></a>               e1071, </span>
+<span id="cb507-4"><a href="assimetria-e-curtose.html#cb507-4" tabindex="-1"></a>               ggplot2, </span>
+<span id="cb507-5"><a href="assimetria-e-curtose.html#cb507-5" tabindex="-1"></a>               ggpubr, </span>
+<span id="cb507-6"><a href="assimetria-e-curtose.html#cb507-6" tabindex="-1"></a>               grDevices, </span>
+<span id="cb507-7"><a href="assimetria-e-curtose.html#cb507-7" tabindex="-1"></a>               moments, </span>
+<span id="cb507-8"><a href="assimetria-e-curtose.html#cb507-8" tabindex="-1"></a>               readxl, </span>
+<span id="cb507-9"><a href="assimetria-e-curtose.html#cb507-9" tabindex="-1"></a>               rstatix)</span></code></pre></div>
 </div>
 <div id="dados-1" class="section level2 hasAnchor" number="8.2">
 <h2><span class="header-section-number">8.2</span> Dados<a href="assimetria-e-curtose.html#dados-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Será usada a distribuição da variável <code>altura</code>, correspondente a altura em metros de 1368 parturientes da Maternidade do HGCS (<code>dadosMater.xlsx</code>), já mostrado anteriormente (Seção <a href="manipulando-os-dados-no-r-studio.html#sec-mater">5.3</a>).</p>
+<p>Será usada a mesma variável <code>altura</code> de 1368 do conjunto de dados<code>dadosMater.xlsx</code>, já mostrado anteriormente (Seção <a href="introdução-à-teoria-das-probabilidades.html#sec-aplicafreq">7.4.1</a>).</p>
 <div id="sec-assimetria" class="section level3 hasAnchor" number="8.2.1">
 <h3><span class="header-section-number">8.2.1</span> Exploração dos dados<a href="assimetria-e-curtose.html#sec-assimetria" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>O resumo dos dados pode ser realizado, usando a função <code>summarise()</code> do pacote <code>dplyr</code>. A moda será calculada usando uma função própria <code>moda()</code><a href="#fn40" class="footnote-ref" id="fnref40"><sup>40</sup></a> ,que deve ser ativada com a função <code>source()</code><a href="#fn41" class="footnote-ref" id="fnref41"><sup>41</sup></a>.</p>
-<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="assimetria-e-curtose.html#cb508-1" tabindex="-1"></a>dadosAltura <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<p>O resumo dos dados pode ser realizado, usando a função <code>summarise()</code> do pacote <code>dplyr</code>. A moda será calculada usando com função <code>Mode()</code> do pacote <code>DescTools</code>.</p>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="assimetria-e-curtose.html#cb508-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb508-2"><a href="assimetria-e-curtose.html#cb508-2" tabindex="-1"></a>  <span class="fu">select</span>(altura)</span>
 <span id="cb508-3"><a href="assimetria-e-curtose.html#cb508-3" tabindex="-1"></a></span>
-<span id="cb508-4"><a href="assimetria-e-curtose.html#cb508-4" tabindex="-1"></a> <span class="fu">source</span>(<span class="st">&quot;Arquivos/moda.R&quot;</span>)</span>
-<span id="cb508-5"><a href="assimetria-e-curtose.html#cb508-5" tabindex="-1"></a></span>
-<span id="cb508-6"><a href="assimetria-e-curtose.html#cb508-6" tabindex="-1"></a> resumo <span class="ot">&lt;-</span> dadosAltura <span class="sc">%&gt;%</span> </span>
-<span id="cb508-7"><a href="assimetria-e-curtose.html#cb508-7" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb508-8"><a href="assimetria-e-curtose.html#cb508-8" tabindex="-1"></a>            <span class="at">media =</span> <span class="fu">mean</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb508-9"><a href="assimetria-e-curtose.html#cb508-9" tabindex="-1"></a>            <span class="at">dp =</span> <span class="fu">sd</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb508-10"><a href="assimetria-e-curtose.html#cb508-10" tabindex="-1"></a>            <span class="at">mediana =</span> <span class="fu">median</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb508-11"><a href="assimetria-e-curtose.html#cb508-11" tabindex="-1"></a>            <span class="at">moda =</span> <span class="fu">moda</span>(altura),</span>
-<span id="cb508-12"><a href="assimetria-e-curtose.html#cb508-12" tabindex="-1"></a>            <span class="at">Q1 =</span> <span class="fu">quantile</span> (altura, <span class="fl">0.25</span>),</span>
-<span id="cb508-13"><a href="assimetria-e-curtose.html#cb508-13" tabindex="-1"></a>            <span class="at">Q3 =</span> <span class="fu">quantile</span> (altura, <span class="fl">0.75</span>),</span>
-<span id="cb508-14"><a href="assimetria-e-curtose.html#cb508-14" tabindex="-1"></a>            <span class="at">CV =</span> dp<span class="sc">/</span>media)</span>
-<span id="cb508-15"><a href="assimetria-e-curtose.html#cb508-15" tabindex="-1"></a> resumo</span></code></pre></div>
+<span id="cb508-4"><a href="assimetria-e-curtose.html#cb508-4" tabindex="-1"></a>resumo <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
+<span id="cb508-5"><a href="assimetria-e-curtose.html#cb508-5" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb508-6"><a href="assimetria-e-curtose.html#cb508-6" tabindex="-1"></a>            <span class="at">media =</span> <span class="fu">mean</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb508-7"><a href="assimetria-e-curtose.html#cb508-7" tabindex="-1"></a>            <span class="at">dp =</span> <span class="fu">sd</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb508-8"><a href="assimetria-e-curtose.html#cb508-8" tabindex="-1"></a>            <span class="at">mediana =</span> <span class="fu">median</span>(altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb508-9"><a href="assimetria-e-curtose.html#cb508-9" tabindex="-1"></a>            <span class="at">moda =</span> <span class="fu">Mode</span>(altura),</span>
+<span id="cb508-10"><a href="assimetria-e-curtose.html#cb508-10" tabindex="-1"></a>            <span class="at">Q1 =</span> <span class="fu">quantile</span> (altura, <span class="fl">0.25</span>),</span>
+<span id="cb508-11"><a href="assimetria-e-curtose.html#cb508-11" tabindex="-1"></a>            <span class="at">Q3 =</span> <span class="fu">quantile</span> (altura, <span class="fl">0.75</span>),</span>
+<span id="cb508-12"><a href="assimetria-e-curtose.html#cb508-12" tabindex="-1"></a>            <span class="at">CV =</span> dp<span class="sc">/</span>media)</span>
+<span id="cb508-13"><a href="assimetria-e-curtose.html#cb508-13" tabindex="-1"></a>resumo</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 8
 ##       n media     dp mediana  moda    Q1    Q3     CV
 ##   &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
@@ -704,7 +703,7 @@ div.csl-indent {
 <span id="cb510-4"><a href="assimetria-e-curtose.html#cb510-4" tabindex="-1"></a></span>
 <span id="cb510-5"><a href="assimetria-e-curtose.html#cb510-5" tabindex="-1"></a><span class="co"># Boxplot</span></span>
 <span id="cb510-6"><a href="assimetria-e-curtose.html#cb510-6" tabindex="-1"></a><span class="fu">par</span> (<span class="at">mar=</span><span class="fu">c</span> (<span class="dv">0</span>, <span class="fl">4.3</span>, <span class="fl">1.1</span>, <span class="dv">2</span>))</span>
-<span id="cb510-7"><a href="assimetria-e-curtose.html#cb510-7" tabindex="-1"></a><span class="fu">boxplot</span> (dadosAltura<span class="sc">$</span>altura, </span>
+<span id="cb510-7"><a href="assimetria-e-curtose.html#cb510-7" tabindex="-1"></a><span class="fu">boxplot</span> (dados<span class="sc">$</span>altura, </span>
 <span id="cb510-8"><a href="assimetria-e-curtose.html#cb510-8" tabindex="-1"></a>         <span class="at">horizontal =</span> <span class="cn">TRUE</span>, </span>
 <span id="cb510-9"><a href="assimetria-e-curtose.html#cb510-9" tabindex="-1"></a>         <span class="at">ylim =</span> <span class="fu">c</span> (<span class="fl">1.4</span>, <span class="fl">1.9</span>), </span>
 <span id="cb510-10"><a href="assimetria-e-curtose.html#cb510-10" tabindex="-1"></a>         <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>, </span>
@@ -713,7 +712,7 @@ div.csl-indent {
 <span id="cb510-13"><a href="assimetria-e-curtose.html#cb510-13" tabindex="-1"></a></span>
 <span id="cb510-14"><a href="assimetria-e-curtose.html#cb510-14" tabindex="-1"></a><span class="co">#Histograma</span></span>
 <span id="cb510-15"><a href="assimetria-e-curtose.html#cb510-15" tabindex="-1"></a><span class="fu">par</span> (<span class="at">mar=</span><span class="fu">c</span> (<span class="dv">4</span>, <span class="fl">4.3</span>, <span class="fl">1.1</span>, <span class="dv">2</span>))</span>
-<span id="cb510-16"><a href="assimetria-e-curtose.html#cb510-16" tabindex="-1"></a><span class="fu">hist</span> (dadosAltura<span class="sc">$</span>altura, </span>
+<span id="cb510-16"><a href="assimetria-e-curtose.html#cb510-16" tabindex="-1"></a><span class="fu">hist</span> (dados<span class="sc">$</span>altura, </span>
 <span id="cb510-17"><a href="assimetria-e-curtose.html#cb510-17" tabindex="-1"></a>      <span class="at">breaks=</span><span class="dv">15</span>,</span>
 <span id="cb510-18"><a href="assimetria-e-curtose.html#cb510-18" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">&quot;lightblue&quot;</span>,</span>
 <span id="cb510-19"><a href="assimetria-e-curtose.html#cb510-19" tabindex="-1"></a>      <span class="at">border =</span> <span class="st">&quot;black&quot;</span>,</span>
@@ -749,11 +748,11 @@ Figura 8.2: Assimetria
 <div id="cálculo-do-coeficiente-de-assimetria" class="section level4 hasAnchor" number="8.3.1.1">
 <h4><span class="header-section-number">8.3.1.1</span> Cálculo do coeficiente de assimetria<a href="assimetria-e-curtose.html#cálculo-do-coeficiente-de-assimetria" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Várias medidas de coeficientes de assimetria amostrais foram propostas.</p>
-<p>O coeficiente de assimetria pode ser calculado no R, usando a função <code>skewness()</code> do pacote <code>e1071</code>. Esta função usa os seguintes argumentos:</p>
+<p>O coeficiente de assimetria pode ser calculado no <em>R</em>, usando a função <code>skewness()</code> do pacote <code>e1071</code> <span class="citation">(91)</span>. Esta função usa os seguintes argumentos:</p>
 <ul>
-<li><em>x</em> <span class="math inline">\(\rightarrow\)</span> vetor numérico que contém os valores</li>
-<li><em>na.rm</em> <span class="math inline">\(\rightarrow\)</span> um valor lógico que indica se os valores NA devem ser eliminados antes que o cálculo prossiga.</li>
-<li><em>type</em> <span class="math inline">\(\rightarrow\)</span> número inteiro entre 1 e 3 selecionando um dos algoritmos para calcular assimetria detalhados abaixo.</li>
+<li><strong>x</strong> <span class="math inline">\(\rightarrow\)</span> vetor numérico que contém os valores</li>
+<li><strong>na.rm</strong> <span class="math inline">\(\rightarrow\)</span> um valor lógico que indica se os valores NA devem ser eliminados antes que o cálculo prossiga.</li>
+<li><strong>type</strong> <span class="math inline">\(\rightarrow\)</span> número inteiro entre 1 e 3 selecionando um dos algoritmos para calcular assimetria detalhados abaixo.</li>
 </ul>
 <p>Os três tipos são os seguintes:</p>
 <ol style="list-style-type: decimal">
@@ -774,19 +773,19 @@ Para <em>r</em> = 2,</p>
 <p><span class="math display">\[
 m_2=\frac{\sum(x_i - \overline{x})^2}{n}
 \]</span>
-Usando o resumo dos <code>dadosAltura</code>:</p>
-<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="assimetria-e-curtose.html#cb512-1" tabindex="-1"></a> m3 <span class="ot">&lt;-</span> (<span class="fu">sum</span>((dadosAltura<span class="sc">$</span>altura <span class="sc">-</span> (<span class="fu">mean</span>(dadosAltura<span class="sc">$</span>altura)))<span class="sc">^</span><span class="dv">3</span>))<span class="sc">/</span>resumo<span class="sc">$</span>n</span>
+Usando o resumo dos <code>dados</code>:</p>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="assimetria-e-curtose.html#cb512-1" tabindex="-1"></a> m3 <span class="ot">&lt;-</span> (<span class="fu">sum</span>((dados<span class="sc">$</span>altura <span class="sc">-</span> (<span class="fu">mean</span>(dados<span class="sc">$</span>altura)))<span class="sc">^</span><span class="dv">3</span>))<span class="sc">/</span>resumo<span class="sc">$</span>n</span>
 <span id="cb512-2"><a href="assimetria-e-curtose.html#cb512-2" tabindex="-1"></a> m3</span></code></pre></div>
 <pre><code>## [1] 5.081924e-05</code></pre>
-<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="assimetria-e-curtose.html#cb514-1" tabindex="-1"></a> m2 <span class="ot">&lt;-</span> (<span class="fu">sum</span>((dadosAltura<span class="sc">$</span>altura <span class="sc">-</span> (<span class="fu">mean</span>(dadosAltura<span class="sc">$</span>altura)))<span class="sc">^</span><span class="dv">2</span>))<span class="sc">/</span>resumo<span class="sc">$</span>n</span>
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="assimetria-e-curtose.html#cb514-1" tabindex="-1"></a> m2 <span class="ot">&lt;-</span> (<span class="fu">sum</span>((dados<span class="sc">$</span>altura <span class="sc">-</span> (<span class="fu">mean</span>(dados<span class="sc">$</span>altura)))<span class="sc">^</span><span class="dv">2</span>))<span class="sc">/</span>resumo<span class="sc">$</span>n</span>
 <span id="cb514-2"><a href="assimetria-e-curtose.html#cb514-2" tabindex="-1"></a> m2</span></code></pre></div>
 <pre><code>## [1] 0.004284321</code></pre>
-<p>Colocando os dados na fórmula do <em>g1</em> no R, chega-se ao resultado:</p>
+<p>Colocando os dados na fórmula do <em>g1</em> no <em>R</em>, chega-se ao resultado:</p>
 <div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="assimetria-e-curtose.html#cb516-1" tabindex="-1"></a> g1 <span class="ot">&lt;-</span> m3<span class="sc">/</span>(m2)<span class="sc">^</span>(<span class="dv">3</span><span class="sc">/</span><span class="dv">2</span>)</span>
 <span id="cb516-2"><a href="assimetria-e-curtose.html#cb516-2" tabindex="-1"></a> g1</span></code></pre></div>
 <pre><code>## [1] 0.1812196</code></pre>
-<p>Usando a função <code>skewness()</code> do pacote <code>e1071</code> <a href="#fn42" class="footnote-ref" id="fnref42"><sup>42</sup></a>, chega-se ao mesmo resultado:</p>
-<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="assimetria-e-curtose.html#cb518-1" tabindex="-1"></a>e1071<span class="sc">::</span><span class="fu">skewness</span>(dadosAltura<span class="sc">$</span>altura, <span class="at">type =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>Usando a função <code>skewness()</code> do pacote <code>e1071</code>, chega-se ao mesmo resultado:</p>
+<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="assimetria-e-curtose.html#cb518-1" tabindex="-1"></a>e1071<span class="sc">::</span><span class="fu">skewness</span>(dados<span class="sc">$</span>altura, <span class="at">type =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 0.1812196</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li><strong>Tipo 2, G1</strong> <span class="math inline">\(\rightarrow\)</span> Usado em vários pacotes estatísticos. É calculado com a seguinte fórmula:</li>
@@ -794,12 +793,12 @@ Usando o resumo dos <code>dadosAltura</code>:</p>
 <p><span class="math display">\[
 G_1=\frac{g_1 \sqrt{n(n-1)}}{n-2}
 \]</span>
-Colocando os dados na fórmula na linguagem do R, tem-se:</p>
+Colocando os dados na fórmula na linguagem do <em>R</em>, tem-se:</p>
 <div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="assimetria-e-curtose.html#cb520-1" tabindex="-1"></a> G1 <span class="ot">&lt;-</span> (g1<span class="sc">*</span><span class="fu">sqrt</span>((resumo<span class="sc">$</span>n<span class="sc">*</span>(resumo<span class="sc">$</span>n<span class="dv">-1</span>))))<span class="sc">/</span>(resumo<span class="sc">$</span>n<span class="dv">-2</span>)</span>
 <span id="cb520-2"><a href="assimetria-e-curtose.html#cb520-2" tabindex="-1"></a> G1</span></code></pre></div>
 <pre><code>## [1] 0.1814186</code></pre>
 <p>Calculando com a função <code>skewness()</code> do pacote <code>e1071</code>:</p>
-<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="assimetria-e-curtose.html#cb522-1" tabindex="-1"></a>e1071<span class="sc">::</span><span class="fu">skewness</span>(dadosAltura<span class="sc">$</span>altura, <span class="at">type =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="assimetria-e-curtose.html#cb522-1" tabindex="-1"></a>e1071<span class="sc">::</span><span class="fu">skewness</span>(dados<span class="sc">$</span>altura, <span class="at">type =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 0.1814186</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li><strong>Tipo 3, b1</strong> <span class="math inline">\(\to\)</span> É o padrão da função <code>skewness()</code> do pacote <code>e1071</code>. Usa-se a seguinte fórmula para o cálculo:</li>
@@ -807,16 +806,17 @@ Colocando os dados na fórmula na linguagem do R, tem-se:</p>
 <p><span class="math display">\[
 b_1= \frac {m_3}{s^3}
 \]</span></p>
-<p>onde <em>s</em> é o desvio padrão da amostra. Na linguagem R, tem-se:</p>
+<p>onde <em>s</em> é o desvio padrão da amostra. Na linguagem <em>R</em>, tem-se:</p>
 <div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="assimetria-e-curtose.html#cb524-1" tabindex="-1"></a> b1 <span class="ot">&lt;-</span> m3<span class="sc">/</span>(resumo<span class="sc">$</span>dp)<span class="sc">^</span><span class="dv">3</span></span>
 <span id="cb524-2"><a href="assimetria-e-curtose.html#cb524-2" tabindex="-1"></a> b1</span></code></pre></div>
 <pre><code>## [1] 0.1810209</code></pre>
-<p>Usando a função <code>skewness()</code> do pavote <code>e1071</code>:</p>
-<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="assimetria-e-curtose.html#cb526-1" tabindex="-1"></a>e1071<span class="sc">::</span><span class="fu">skewness</span>(dadosAltura<span class="sc">$</span>altura, <span class="at">type =</span> <span class="dv">3</span>)</span></code></pre></div>
+<p>Usando a função <code>skewness()</code> do pacote <code>e1071</code>:</p>
+<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="assimetria-e-curtose.html#cb526-1" tabindex="-1"></a>e1071<span class="sc">::</span><span class="fu">skewness</span>(dados<span class="sc">$</span>altura, <span class="at">type =</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 0.1810209</code></pre>
-<p>Para amostras grandes, há muito pouca diferença entre as várias medidas <span class="citation">(91)</span>. Todas as três medidas de assimetria são imparciais sob normalidade.</p>
+<p>Para amostras grandes, há muito pouca diferença entre as várias medidas <span class="citation">(92)</span>. Todas as três medidas de assimetria são imparciais sob normalidade.</p>
 <p><strong>Interpretação do coeficiente de assimetria</strong></p>
-<p>Quando a <span class="math inline">\(assimetria = 0\)</span>, tem-se uma distribuição simétrica e a média, a mediana e a moda coincidem; quando a <span class="math inline">\({assimetria} &lt; {0}\)</span>, <span class="math inline">\({média} &lt; {mediana} &lt; {moda}\)</span>, a distribuição tem <em>assimetria negativa</em> e quando a <span class="math inline">\({assimetria} &gt; {0}\)</span>, <span class="math inline">\({média} &gt; {mediana} &gt; {moda}\)</span>, a distribuição tem <em>assimetria positiva</em>. A Tabela <a href="assimetria-e-curtose.html#tab:assimetria">8.1</a> sugere uma forma de interpretar o coeficiente de assimetria <span class="citation">(92)</span>.</p>
+<p>Quando a <span class="math inline">\(assimetria = 0\)</span>, tem-se uma distribuição simétrica e a média, a mediana e a moda coincidem; quando a <span class="math inline">\({assimetria} &lt; {0}\)</span>, <span class="math inline">\({média} &lt; {mediana} &lt; {moda}\)</span>, a distribuição tem <em>assimetria negativa</em> e quando a <span class="math inline">\({assimetria} &gt; {0}\)</span>, <span class="math inline">\({média} &gt; {mediana} &gt; {moda}\)</span>, a distribuição tem <em>assimetria positiva</em>.</p>
+<p>A Tabela <a href="assimetria-e-curtose.html#tab:assimetria">8.1</a> sugere uma forma de interpretar o coeficiente de assimetria <span class="citation">(93)</span>.</p>
 <table class="table table-striped lightable-classic" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: Cambria; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:assimetria">Tabela 8.1: </span><span id="tab:assimetria">Tabela 8.2: </span>Interpretação do Coeficiente de Assimetria
@@ -866,13 +866,13 @@ grave
 </tr>
 </tbody>
 </table>
-<p>Observando o formato da distribuição no histograma e no boxplot, na Figura <a href="assimetria-e-curtose.html#fig:histbxp">8.1</a>, e no resultado do coeficiente de assimetria, conclui-se que a variável <code>altura</code> tem uma assimetria positiva leve.</p>
+<p>Observando o formato da distribuição no histograma e no boxplot, na Figura <a href="assimetria-e-curtose.html#fig:histbxp">8.1</a>, e no resultado do coeficiente de assimetria, conclui-se que a variável <code>altura</code> tem uma assimetria positiva leve, não preocupante. É possível aceitar essa variável como praticamente simétrica.</p>
 </div>
 <div id="sec-qqplot" class="section level4 hasAnchor" number="8.3.1.2">
 <h4><span class="header-section-number">8.3.1.2</span> Avaliação da assimetria com o gráfico QQ<a href="assimetria-e-curtose.html#sec-qqplot" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Outra ferramenta gráfica que permite avaliar a simetria dos dados é o gráfico QQ (gráfico quantil-quantil). Ele permite observar se a distribuição se ajusta a distribuição normal. O gráfico QQ é um gráfico de dispersão que compara os quantis <a href="#fn43" class="footnote-ref" id="fnref43"><sup>43</sup></a> da amostra com os quantis teóricos de uma distribuição de referência. Se os pontos do gráfico QQ formarem uma reta, isso indica que os dados têm a mesma distribuição da referência. Se os pontos se afastarem da reta, isso indica que os dados têm uma distribuição diferente da referência.
+<p>Outra ferramenta gráfica que permite avaliar a simetria dos dados é o gráfico QQ (gráfico quantil-quantil). Ele permite observar se a distribuição se ajusta a distribuição normal. O gráfico QQ é um gráfico de dispersão que compara os quantis <a href="#fn41" class="footnote-ref" id="fnref41"><sup>41</sup></a> da amostra com os quantis teóricos de uma distribuição de referência. Se os pontos do gráfico QQ formarem uma reta, isso indica que os dados têm a mesma distribuição da referência. Se os pontos se afastarem da reta, isso indica que os dados têm uma distribuição diferente da referência.
 Para construir um gráfico QQ, pode-se usar a função <code>ggqqplot()</code>do pacote <code>ggpubr</code>. Ele apresenta uma linha de referência, acompanhada de uma area sombreada, correspondente ao Intervalo de Confiança de 95% (Veja o Capítulo 10):</p>
-<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="assimetria-e-curtose.html#cb528-1" tabindex="-1"></a><span class="fu">ggqqplot</span>(<span class="at">data =</span> dadosAltura, </span>
+<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="assimetria-e-curtose.html#cb528-1" tabindex="-1"></a><span class="fu">ggqqplot</span>(<span class="at">data =</span> dados, </span>
 <span id="cb528-2"><a href="assimetria-e-curtose.html#cb528-2" tabindex="-1"></a>         <span class="at">x =</span> <span class="st">&quot;altura&quot;</span>,</span>
 <span id="cb528-3"><a href="assimetria-e-curtose.html#cb528-3" tabindex="-1"></a>         <span class="at">conf.int =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb528-4"><a href="assimetria-e-curtose.html#cb528-4" tabindex="-1"></a>         <span class="at">shape =</span> <span class="dv">19</span>,</span>
@@ -891,7 +891,7 @@ Figura 8.3: Gráfico QQ
 <h4><span class="header-section-number">8.3.1.3</span> Pesquisa de valores atípicos<a href="assimetria-e-curtose.html#pesquisa-de-valores-atípicos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Os valores atípicos atraem as caudas da dispersão aumentando a possibilidade de assimetria. No boxplot da Figura <a href="assimetria-e-curtose.html#fig:histbxp">8.1</a>, verifica-se a presença de <em>outliers</em> que devem ser avaliados.</p>
 <p>Para examinar os <code>outliers</code>, as estatísticas do boxplot são úteis, pois mostram a quantidade e os respectivos valores. A função <code>boxplot.stats()</code> do pacote <code>grDevices</code>, entregam as estatísticas dos 5 números (min, P25, mediana, P75 e max), o total de observações, o limite inferior e superior do intervalo de confiança de 95% e os valores atípicos (<em>outliers</em>)::</p>
-<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="assimetria-e-curtose.html#cb529-1" tabindex="-1"></a><span class="fu">boxplot.stats</span>(dadosAltura<span class="sc">$</span>altura)</span></code></pre></div>
+<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="assimetria-e-curtose.html#cb529-1" tabindex="-1"></a><span class="fu">boxplot.stats</span>(dados<span class="sc">$</span>altura)</span></code></pre></div>
 <pre><code>## $stats
 ## [1] 1.42 1.55 1.60 1.65 1.78
 ## 
@@ -904,7 +904,7 @@ Figura 8.3: Gráfico QQ
 ## $out
 ## [1] 1.40 1.82 1.80 1.40 1.40 1.85 1.80</code></pre>
 <p>Outra maneira de identificar os outliers é através da função <code>indentify_outliers()</code> do pacote <code>rstatix</code>:</p>
-<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="assimetria-e-curtose.html#cb531-1" tabindex="-1"></a> dadosAltura <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="assimetria-e-curtose.html#cb531-1" tabindex="-1"></a> dados <span class="sc">%&gt;%</span> </span>
 <span id="cb531-2"><a href="assimetria-e-curtose.html#cb531-2" tabindex="-1"></a>   rstatix<span class="sc">::</span><span class="fu">identify_outliers</span>(altura)</span></code></pre></div>
 <pre><code>## # A tibble: 7 × 3
 ##   altura is.outlier is.extreme
@@ -916,7 +916,7 @@ Figura 8.3: Gráfico QQ
 ## 5   1.4  TRUE       FALSE     
 ## 6   1.85 TRUE       FALSE     
 ## 7   1.8  TRUE       FALSE</code></pre>
-<p>Ambas as funções identificaram 7 valores atípicos (acima ou abaixo 1,5 vezes o intervalo interquartil), mas, como mostra a função identify_outliers, eles exercem pouca influência, pois não são extremos, ou seja, acima de três vezes o intervalo interquartil.</p>
+<p>Ambas as funções identificaram 7 valores atípicos (acima ou abaixo 1,5 vezes o intervalo interquartil), mas, como mostra a função <code>identify_outliers</code>, eles exercem pouca influência, pois não são extremos, ou seja, acima de três vezes o intervalo interquartil.</p>
 </div>
 </div>
 </div>
@@ -924,9 +924,9 @@ Figura 8.3: Gráfico QQ
 <h2><span class="header-section-number">8.4</span> Curtose<a href="assimetria-e-curtose.html#curtose" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>É o grau de achatamento de uma distribuição, em relação a distribuição normal. A curtose indica como o pico e as caudas de uma distribuição diferem da distribuição normal. A assimetria mede essencialmente a simetria da distribuição, enquanto a curtose determina o peso das caudas da distribuição. Portanto, é uma medida dos tamanhos combinados das duas caudas; mede a quantidade de probabilidade nas caudas. A curtose pode ser de três tipos (Figura <a href="assimetria-e-curtose.html#fig:curtose">8.4</a>):</p>
 <ul>
-<li><em>Mesocúrtica</em> <span class="math inline">\(\rightarrow\)</span> quando a distribuição é normal;</li>
-<li><em>Leptocúrtica</em> <span class="math inline">\(\rightarrow\)</span> quando a distribuição é mais pontiaguda e concentrada que a normal, mostrando caudas pesadas em ambos os lados;</li>
-<li><em>Platicúrtica</em> <span class="math inline">\(\rightarrow\)</span> quando a distribuição é mais achatada e dispersa que a normal, com caudas planas.</li>
+<li><strong>Mesocúrtica</strong> <span class="math inline">\(\rightarrow\)</span> quando a distribuição é normal;</li>
+<li><strong>Leptocúrtica</strong> <span class="math inline">\(\rightarrow\)</span> quando a distribuição é mais pontiaguda e concentrada que a normal, mostrando caudas pesadas em ambos os lados;</li>
+<li><strong>Platicúrtica</strong> <span class="math inline">\(\rightarrow\)</span> quando a distribuição é mais achatada e dispersa que a normal, com caudas planas.</li>
 </ul>
 <p>Uma curtose em excesso é uma medida que compara a curtose de uma distribuição com a curtose de uma distribuição normal. A curtose de uma distribuição normal é igual a 3. Portanto, o excesso de curtose é determinado subtraindo 3 da curtose:</p>
 <p><span class="math display">\[
@@ -963,11 +963,11 @@ m_4=\frac{\sum(x_i - \overline{x})^4}{n}
 <p><span class="math display">\[
 m_2=\frac{\sum(x_i - \overline{x})^2}{n}
 \]</span>
-Usando o resumo dos dadosAltura:</p>
-<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="assimetria-e-curtose.html#cb533-1" tabindex="-1"></a> m4 <span class="ot">&lt;-</span> (<span class="fu">sum</span>((dadosAltura<span class="sc">$</span>altura <span class="sc">-</span> (<span class="fu">mean</span>(dadosAltura<span class="sc">$</span>altura)))<span class="sc">^</span><span class="dv">4</span>))<span class="sc">/</span>resumo<span class="sc">$</span>n</span>
+Usando o resumo dos dados:</p>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="assimetria-e-curtose.html#cb533-1" tabindex="-1"></a> m4 <span class="ot">&lt;-</span> (<span class="fu">sum</span>((dados<span class="sc">$</span>altura <span class="sc">-</span> (<span class="fu">mean</span>(dados<span class="sc">$</span>altura)))<span class="sc">^</span><span class="dv">4</span>))<span class="sc">/</span>resumo<span class="sc">$</span>n</span>
 <span id="cb533-2"><a href="assimetria-e-curtose.html#cb533-2" tabindex="-1"></a> m4</span></code></pre></div>
 <pre><code>## [1] 5.734699e-05</code></pre>
-<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb535-1"><a href="assimetria-e-curtose.html#cb535-1" tabindex="-1"></a> m2 <span class="ot">&lt;-</span> (<span class="fu">sum</span>((dadosAltura<span class="sc">$</span>altura <span class="sc">-</span> (<span class="fu">mean</span>(dadosAltura<span class="sc">$</span>altura)))<span class="sc">^</span><span class="dv">2</span>))<span class="sc">/</span>resumo<span class="sc">$</span>n</span>
+<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb535-1"><a href="assimetria-e-curtose.html#cb535-1" tabindex="-1"></a> m2 <span class="ot">&lt;-</span> (<span class="fu">sum</span>((dados<span class="sc">$</span>altura <span class="sc">-</span> (<span class="fu">mean</span>(dados<span class="sc">$</span>altura)))<span class="sc">^</span><span class="dv">2</span>))<span class="sc">/</span>resumo<span class="sc">$</span>n</span>
 <span id="cb535-2"><a href="assimetria-e-curtose.html#cb535-2" tabindex="-1"></a> m2</span></code></pre></div>
 <pre><code>## [1] 0.004284321</code></pre>
 <p>Colocando os dados na fórmula do <em>g2</em> no R, chega-se ao resultado:</p>
@@ -975,7 +975,7 @@ Usando o resumo dos dadosAltura:</p>
 <span id="cb537-2"><a href="assimetria-e-curtose.html#cb537-2" tabindex="-1"></a>g2</span></code></pre></div>
 <pre><code>## [1] 0.1242567</code></pre>
 <p>Usando a função do pacote <code>e1071</code>, chega-se ao mesmo resultado:</p>
-<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb539-1"><a href="assimetria-e-curtose.html#cb539-1" tabindex="-1"></a> e1071<span class="sc">::</span><span class="fu">kurtosis</span>(dadosAltura<span class="sc">$</span>altura, <span class="at">type =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb539-1"><a href="assimetria-e-curtose.html#cb539-1" tabindex="-1"></a> e1071<span class="sc">::</span><span class="fu">kurtosis</span>(dados<span class="sc">$</span>altura, <span class="at">type =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 0.1242567</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li><strong>Tipo 2, G2</strong> <span class="math inline">\(\rightarrow\)</span> Usado em vários pacotes estatísticos. É calculado com a seguinte fórmula:</li>
@@ -983,12 +983,12 @@ Usando o resumo dos dadosAltura:</p>
 <p><span class="math display">\[
 G_2=\left (\left (n + 1 \right )g_2 + 6 \right )\frac{\left (n - 1 \right)}{\left ( \left(n-2 \right)\left (n-3 \right) \right )}
 \]</span>
-Colocando os dados na fórmula na linguagem do R, tem-se:</p>
+Colocando os dados na fórmula na linguagem do <em>R</em>, tem-se:</p>
 <div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="assimetria-e-curtose.html#cb541-1" tabindex="-1"></a> G2 <span class="ot">&lt;-</span> ((resumo<span class="sc">$</span>n<span class="sc">+</span><span class="dv">1</span>)<span class="sc">*</span>g2 <span class="sc">+</span> <span class="dv">6</span>)<span class="sc">*</span>(resumo<span class="sc">$</span>n<span class="dv">-1</span>)<span class="sc">/</span>((resumo<span class="sc">$</span>n<span class="dv">-2</span>)<span class="sc">*</span>(resumo<span class="sc">$</span>n<span class="dv">-3</span>))</span>
 <span id="cb541-2"><a href="assimetria-e-curtose.html#cb541-2" tabindex="-1"></a> G2</span></code></pre></div>
 <pre><code>## [1] 0.1291109</code></pre>
 <p>Com a função <code>kurtosis()</code> do pacote <code>e1071</code>:</p>
-<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="assimetria-e-curtose.html#cb543-1" tabindex="-1"></a> e1071<span class="sc">::</span><span class="fu">kurtosis</span>(dadosAltura<span class="sc">$</span>altura, <span class="at">type =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="assimetria-e-curtose.html#cb543-1" tabindex="-1"></a> e1071<span class="sc">::</span><span class="fu">kurtosis</span>(dados<span class="sc">$</span>altura, <span class="at">type =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 0.1291109</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li><strong>Tipo 3, b2</strong> <span class="math inline">\(\to\)</span> É o padrão da função <code>kurtosis()</code> do pacote <code>e1071.</code> Usa-se a seguinte fórmula para o cálculo:</li>
@@ -997,20 +997,20 @@ Colocando os dados na fórmula na linguagem do R, tem-se:</p>
 b_2=\frac{m_4}{s^4}-3
 \]</span>
 onde <em>s</em> é o desvio padrão da amostra.</p>
-<p>Na linguagem R, tem-se:</p>
+<p>Na linguagem <em>R</em>, tem-se:</p>
 <div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="assimetria-e-curtose.html#cb545-1" tabindex="-1"></a> b2 <span class="ot">&lt;-</span> m4<span class="sc">/</span>(resumo<span class="sc">$</span>dp)<span class="sc">^</span><span class="dv">4</span> <span class="sc">-</span> <span class="dv">3</span></span>
 <span id="cb545-2"><a href="assimetria-e-curtose.html#cb545-2" tabindex="-1"></a> b2</span></code></pre></div>
 <pre><code>## [1] 0.1196907</code></pre>
 <p>Com a função <code>kurtosis()</code>:</p>
-<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb547-1"><a href="assimetria-e-curtose.html#cb547-1" tabindex="-1"></a>e1071<span class="sc">::</span><span class="fu">kurtosis</span>(dadosAltura<span class="sc">$</span>altura, <span class="at">type =</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb547-1"><a href="assimetria-e-curtose.html#cb547-1" tabindex="-1"></a>e1071<span class="sc">::</span><span class="fu">kurtosis</span>(dados<span class="sc">$</span>altura, <span class="at">type =</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 0.1196907</code></pre>
-<p>Novamente, para amostras grandes, há muito pouca diferença entre as várias medidas, principalmente entre G2 e b2 <span class="citation">(91)</span>.</p>
+<p>Novamente, para amostras grandes, há muito pouca diferença entre as várias medidas, principalmente entre G2 e b2 <span class="citation">(92)</span>.</p>
 <p><strong>Interpretação do coeficiente de curtose</strong></p>
 <p>Os coeficientes calculados pela função do pacote <code>e1071</code> retornam um resultado equivalente ao excesso de curtose. A curva normal tem um excesso de curtose próximo a zero e a curva é dita mesocúrtica. Se o coeficiente for positivo, os dados são <em>leptocúrticos</em> e se for negativo, os dados são <em>platicúrticos</em>.
 O resultado do exemplo aponta para uma distribuição <em>leptocúrtica</em>, pois existe um pequeno excesso de curtose (g2 = 0.1242567). Os valores que contribuem para a curtose são aqueles fora da região do pico, ou seja, ou <em>outliers</em>.
 A curva <em>mesocúrtica</em> tem um coeficiente de 3. Portanto, os valores calculados anteriormente referem-se ao excesso de curtose. O resultado da g2 = 0,1242567 pode ser escrito como b2 = 3,1242567. Daí o termo excesso de curtose.</p>
 <p>A função <code>kurtosis()</code> do pacote <code>moments</code> retorna um resultado ao redor de 3, para o coeficiente tipo 1. Para chegar ao mesmo resultado do coeficiente tipo 1 da função do pacote <code>e1071</code>, deve-se subtrair 3 do resultado.</p>
-<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="assimetria-e-curtose.html#cb549-1" tabindex="-1"></a>moments<span class="sc">::</span><span class="fu">kurtosis</span>(dadosAltura<span class="sc">$</span>altura)</span></code></pre></div>
+<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="assimetria-e-curtose.html#cb549-1" tabindex="-1"></a>moments<span class="sc">::</span><span class="fu">kurtosis</span>(dados<span class="sc">$</span>altura)</span></code></pre></div>
 <pre><code>## [1] 3.124257</code></pre>
 </div>
 </div>
@@ -1020,7 +1020,8 @@ A curva <em>mesocúrtica</em> tem um coeficiente de 3. Portanto, os valores calc
 <ol style="list-style-type: decimal">
 <li>Criar um conjunto de dados com distribuição normal com média 0 e desvio padrão 1 e n = 10000 que será atribuído ao um objeto denominado <code>meusDados</code>.</li>
 </ol>
-<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb551-1"><a href="assimetria-e-curtose.html#cb551-1" tabindex="-1"></a>meusDados <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb551-1"><a href="assimetria-e-curtose.html#cb551-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb551-2"><a href="assimetria-e-curtose.html#cb551-2" tabindex="-1"></a>meusDados <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100000</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Construa um histograma (Figura <a href="assimetria-e-curtose.html#fig:histn">8.5</a>) com curva normal sobreposta:</li>
 </ol>
@@ -1051,20 +1052,17 @@ Figura 8.5: Histograma com curva normal
 <li>Observe a skewness e a kurtosis</li>
 </ol>
 <div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="assimetria-e-curtose.html#cb553-1" tabindex="-1"></a>e1071<span class="sc">::</span><span class="fu">skewness</span>(meusDados)</span></code></pre></div>
-<pre><code>## [1] 0.0007815895</code></pre>
+<pre><code>## [1] 0.008609517</code></pre>
 <div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="assimetria-e-curtose.html#cb555-1" tabindex="-1"></a>e1071<span class="sc">::</span><span class="fu">kurtosis</span>(meusDados)</span></code></pre></div>
-<pre><code>## [1] 0.03225656</code></pre>
+<pre><code>## [1] -0.003450388</code></pre>
 <p>Como era de se esperar, usando a <code>rnorm()</code>, a distribuição é um exemplo de distribuição normal, <span class="math inline">\(skewness \approx 0\)</span> e <span class="math inline">\(kurtosis \approx 0\)</span>. Observe que a cada vez que os comandos forem executados, os resultados serão discretamente diferentes. Para evitar isso, deve-se usar <code>set.seed()</code>, veja a seção <a href="introdução-à-teoria-das-probabilidades.html#sec-dnp">7.7.2</a>. Faça o teste!</p>
 
 </div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="40">
-<li id="fn40"><p>A função pode ser obtida no <a href="https://github.com/petronioliveira/Arquivos/blob/main/moda.R">link</a> para se baixada no seu diretório de trabalho.<a href="assimetria-e-curtose.html#fnref40" class="footnote-back">↩︎</a></p></li>
-<li id="fn41"><p>Veja a seção sobre criação de funções no Capítulo 4<a href="assimetria-e-curtose.html#fnref41" class="footnote-back">↩︎</a></p></li>
-<li id="fn42"><p><a href="https://cran.r-project.org/web/packages/e1071/e1071.pdf" class="uri">https://cran.r-project.org/web/packages/e1071/e1071.pdf</a><a href="assimetria-e-curtose.html#fnref42" class="footnote-back">↩︎</a></p></li>
-<li id="fn43"><p>Sobre os quantis, veja a seção específica no Capítulo 6<a href="assimetria-e-curtose.html#fnref43" class="footnote-back">↩︎</a></p></li>
+<ol start="41">
+<li id="fn41"><p>Sobre os quantis, veja a seção específica no Capítulo 6<a href="assimetria-e-curtose.html#fnref41" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
