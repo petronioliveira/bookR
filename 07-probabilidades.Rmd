@@ -6,22 +6,21 @@
 pacman::p_load(dplyr, readxl)
 ```
 
-
 ## Introdução  
 
 A teoria das probabilidades é a base sobre a qual a estatística é desenvolvida. Os jogos de azar deram um grande impulso ao conhecimento da moderna teoria das probabilidades, principalmente, pelo trabalho de Blaise Pascal (1623-1662), em parceria com Pierre de Fermat (1601-1665). Eles foram estimulados por um escritor francês e matemático amador, Antoine Gombaud (1607-1684), conhecido como Chevalier de Méré, que era muito interessado em jogos de azar[@debnath2015short].  
 
-A Teoria das probabilidades permite que seja possível modelar populações, experimentos ou qualquer situação que possa ser considerada aleatória. Estes modelos possibilitam fazer inferência sobre populações a partir da observação de uma amostra dessa população. Ao usar apenas uma parte da população, inevitavelmente, é cometido um erro o *erro amostral*. Este erro amostral pode ser dimensionado pela teoria das probabilidades.  
+A Teoria das probabilidades permite que seja possível modelar populações, experimentos ou qualquer situação que possa ser considerada aleatória. Estes modelos possibilitam fazer inferência sobre populações a partir da observação de uma amostra dessa população. Ao usar apenas uma parte da população, inevitavelmente, é cometido um erro, o *erro amostral*. Este erro amostral pode ser dimensionado pela teoria das probabilidades.  
 
-Existem duas interpretações alternativas de probabilidades: a *frequentista* e a *bayesiana* [@menezes2004probabilidade]. Neste livro, será discutida, basicamente, a definição de probabilidade frequentista. O processo bayesiano de formulação de um modelo probabilístico faz uso do conhecimento subjetivo, estabelecendo uma especificação *a priori*, combinado com a informação objetiva ou empírica. A teoria bayesiana é a estrutura integradora dessas duas fontes de informação, derivando como resultado a distribuição *a posteriori* dos parâmetros de interesse. Na seção \@ref(sec-diagbayes), sobre análise de testes diagnósticos, será abordado alguns aspectos relacionados a teoria bayesiana em medicina.
+Existem duas interpretações alternativas de probabilidades: a *frequentista* e a *bayesiana* [@menezes2004probabilidade]. Neste livro, será discutida, basicamente, a definição de probabilidade frequentista. O processo bayesiano de formulação de um modelo probabilístico faz uso do conhecimento subjetivo, estabelecendo uma especificação *a priori*, combinado com a informação objetiva ou empírica. A teoria bayesiana é a estrutura integradora dessas duas fontes de informação, derivando como resultado a distribuição *a posteriori* dos parâmetros de interesse. Na seção \@ref(sec-diagbayes), sobre análise de testes diagnósticos, será abordado alguns aspectos relacionados à teoria bayesiana em medicina.
 
 ## Processo aleatório
 
-Um processo ou experimento é dito *aleatório* quando em uma situação se sabe quais os resultados que podem acontecer, mas não se sabe qual resultado particular irá acontecer. Por exemplo, quando uma moeda é lançada, se conhece que a probabilidade de o desfecho cara ocorrer é de 50%, mas se desconhece o que irá ocorrer até que a moeda esteja no chão.   
+Um processo ou experimento é dito *aleatório* quando em uma situação se sabe quais os resultados que podem acontecer, mas não se sabe qual resultado particular irá acontecer. Por exemplo, quando uma moeda é lançada, se conhece que a probabilidade de o desfecho `cara` ocorrer é de 50%, mas se desconhece o que irá ocorrer até que a moeda esteja no chão.   
 
 O número de caras que podem surgir em vários lançamentos da moeda é chamado de *variável aleatória*, ou seja, uma variável que pode assumir mais de um valor com determinadas probabilidades [@pagano2000random]. Da mesma forma, um dado lançado pode mostrar seis faces, numeradas de um a seis, com igual probabilidade de 16,7%. Portanto, quando a probabilidade é associada a todos os conjuntos de valores possíveis de uma variável, diz-se que ela é aleatória. O conjunto de todos os possíveis resultados de um experimento aleatório é denominado *espaço amostral*.  
 
-Na área da saúde, trabalha-se com uma infinidade de variáveis aleatórias, por exemplo, o número de filhos de uma mulher, o número de mortos diários em uma epidemia, o número de vacinados em uma campanha, etc. Essas variáveis são a variáveis aleatórias discretas, pois apenas permitem ser quantificadas por processo de contagem. Por outro lado, o peso, a altura de uma mulher são ditos variáveis aleatórias contínuas, pois podem assumir qualquer valor real entre uma medida e outra, dependendo da precisão do aparelho usado.   
+Na área da saúde, trabalha-se com uma infinidade de variáveis aleatórias, por exemplo, o número de filhos de uma mulher, o número de mortos diários em uma epidemia, o número de vacinados em uma campanha, etc. Essas variáveis são variáveis aleatórias discretas, pois apenas permitem ser quantificadas por processo de contagem. Por outro lado, o peso ou a altura de uma mulher são ditos variáveis aleatórias contínuas, pois podem assumir qualquer valor real entre uma medida e outra, dependendo da precisão do aparelho usado.   
 
 Em geral, *variáveis aleatórias* são representadas por letras maiúsculas, como X, Y e Z e sua a probabilidade, por exemplo, pode ser denotada por: $P(X)$.
 
@@ -41,7 +40,7 @@ Neste caso, 10 (50%) desses lançamentos deram cara. Agora, suponha que foram fe
  knitr::include_graphics("https://i.imgur.com/joXyqmz.png")
 ```
 
-Observa-se, nessa sequência, que a proporção de caras flutua muito, variando de 0,17 a 0,75. Se o número de lançamentos for aumentando tem-se a sensação de que a proporção se aproxima da “correta”. Por exemplo, com 100 jogadas, obteve-se 53 caras (0,53); com 150 jogadas, 79 (0,53) e com 200  jogadas, 111 (0,56). Quando N se aproximar do infinito ($N \to\infty$) a proporção de caras convergirá para 0,50. A definição frequentista de probabilidade segue essa definição. Ninguém consegue um número infinito de lançamentos de moedas, mas um computador pode simular milhares de lançamentos. A Figura \@ref(fig:nmoeda) mostra o que acontece com a proporção $n_1⁄N$ à medida que N aumenta em lançamentos de moedas. As simulações foram repetidas 4 vezes somente para ter certeza de que o que aconteceu não foi obra do acaso.
+Observa-se, nessa sequência, que a proporção de caras flutua muito, variando de 0,17 a 0,75. Se o número de lançamentos for aumentando tem-se a sensação de que a proporção se aproxima da “correta”. Por exemplo, com 100 jogadas, obteve-se 53 caras (0,53); com 150 jogadas, 79 (0,53) e com 200  jogadas, 111 (0,56). Quando N se aproximar do infinito ($N \to\infty$) a proporção de caras convergirá para 0,50. A definição frequentista de probabilidade segue essa definição. Ninguém consegue um número infinito de lançamentos de moedas, mas um computador pode simular milhares de lançamentos. A Figura \@ref(fig:nmoeda) mostra o que acontece com a proporção $n_1⁄N$ à medida que *N* aumenta em lançamentos de moedas. As simulações foram repetidas 4 vezes somente para ter certeza de que o que aconteceu não foi obra do acaso.
 
 ```{r nmoeda, echo = FALSE, out.height = '80%', out.width = '80%', fig.align = 'center', fig.cap="Proporção à medida que N aumenta em lançamentos de moedas", fig.pos="H"}
  knitr::include_graphics("https://i.imgur.com/H1eeJNj.png")
@@ -49,39 +48,39 @@ Observa-se, nessa sequência, que a proporção de caras flutua muito, variando 
 
 Embora nenhuma das simulações tenha realmente terminado com um valor exato de 0,5, elas se aproximaram, oscilando muito pouco em torno desse valor.
 
-### Aplicando a visão frequentista no dia a dia
+### Aplicando a visão frequentista no dia a dia    {#sec-aplicafreq}
 
-A definição frequentista também pode ser aplicada no cotidiano. Será utilizada a altura de mulheres, uma medida numérica contínua. No conjunto de dados `dadosMater.xlsx` (veja Capítulo 5), encontra-se o registro da altura de 1368 mulheres. Essas alturas serão selecionadas e colocadas em um objeto, denominado `dadosAltura`.
+A definição frequentista também pode ser aplicada no cotidiano. Utilizando a altura de mulheres, uma medida numérica contínua, embutida no conjunto de dados `dadosMater.xlsx` (veja Seção \@ref(sec-mater), encontra-se o registro da altura de 1368 mulheres. Essas alturas serão selecionadas e colocadas em um objeto, denominado `dados`.
 
 ```{r}
- dadosAltura <- read_excel("Arquivos/dadosMater.xlsx") %>% 
+ dados <- read_excel("Arquivos/dadosMater.xlsx") %>% 
   select(altura)
-
 ```
 
 Usando a função `summary()`, será feito um resumo da variável altura:
 
 ```{r}
-summary(dadosAltura$altura)
+summary(dados$altura)
 ```
-A mediana da altura das gestantes é 1,60 m. Ou seja, metade dessas mulheres têm uma altura acima de 1,60 m. Em um longo conjunto de sorteios, a probabilidade de uma mulher ter altura acima de 1,60 m é 50%. O percentil 75 (3º quartil) é igual a 1,65 m, a probabilidade de estar acima deste valor, portanto, é 25%. É possível encontrar a probabilidade de a altura estar acima, abaixo ou entre quaisquer valores. Quando se faz a mensuração de uma variável contínua, fica-se limitado ao método usado, portanto, quando se diz que uma mulher tem 1,60 m, significa dizer que está entre 159,5 e 160,5 m, dependendo da precisão do instrumento de medição.
-Dessa maneira, o interesse está na probabilidade de a variável aleatória assumir valores entre certos limites. A probabilidade de encontrar um valor exatamente de 1,60 m é quase igual a zero.
-Como se verá adiante, isto pode ser verificado com bastante facilidade, no R, calculando a distância que esta medida (1,60 m) está da média em número de desvios padrão (escore *z*):
+
+A mediana da altura das gestantes é `r summary(dados$altura)[3]` m. Em um longo conjunto de sorteios, a probabilidade de uma mulher ter altura acima devalor é 50%. O percentil 75 (3º quartil) é igual a `r summary(dados$altura)[5]` m, a probabilidade de estar acima deste valor, portanto, é 25%. É possível encontrar a probabilidade de a altura estar acima, abaixo ou entre quaisquer valores. Quando se faz a mensuração de uma variável contínua, fica-se limitado ao método usado. Portanto, quando se diz que uma mulher tem 160 cm, significa dizer que está entre 159,5 e 160,5 cm, dependendo da precisão do instrumento de medição. Dessa maneira, o interesse está na probabilidade de a variável aleatória assumir valores entre certos limites.   
+
+A probabilidade de encontrar um valor exatamente igual à média  (`r round(mean(dados$altura, na.rm = TRUE) * 100,2)`) cm  é quase igual a zero. Como se verá a seguir, isto pode ser verificado, no *R*, com bastante facilidade,calculando a distância que esta medida está da média em número de desvios padrão (escore *Z*):
 
 ```{r}
-z <- (1.60 - mean(dadosAltura$altura))/sd(dadosAltura$altura)
-z
+Z <- (1.60 - mean(dados$altura))/sd(dados$altura)
+Z
 ```
 
 Observe que a medida de 1,60 m está muito próxima da média e isto é um indicativo de que essa variável tem uma distribuição praticamente simétrica. 
-Sabendo a distância, em números de desvios padrão, que 1,60 m está da média, qual a probabilidade de encontrar, na maternidade do HGCS, uma parturiente que tenha exatamente  esta altura?  
-Para responder a essa pergunta, será usada a função `pnorm()` (veja adiante na Seção \@ref(sec-dnp)) que utiliza o escore *z*, a média e o desvio padrão para encontrar essa proporção que, multiplicada por 100, fornece a percentagem.
+Sabendo a distância, em números de desvios padrão, que 1,60 m está da média, qual a probabilidade de encontrar, na maternidade do HGCS ^{Hospital Geral de Caxias do Sul, Hospital de Ensino da Universidade de Caxias do Sul, RS}, uma parturiente que tenha exatamente  esta altura?  
+Para responder a essa pergunta, será usada a função `pnorm()` (veja adiante na Seção \@ref(sec-dnp)) que utiliza o escore *Z*, a média e o desvio padrão para encontrar essa proporção que, multiplicada por 100, fornece a percentagem.
 
 ```{r}
- p <- pnorm (z, mean(dadosAltura$altura),sd(dadosAltura $altura))
+ p <- pnorm (Z, mean(dados$altura),sd(dados $altura))
  p
 ```
-O R por padrão retorna números grandes como notação científica. O resultado dessa operação é um número tão grande que  para escrevê-lo sem este tipo de notação, seriam necessários 127 dígitos decimais. O resultado não caberia em apenas uma linha. Ficaria assim, suprimindo a notação científica ^[Para remover a notação científica, usar a função options (scipen = 999) e, para desfazer essa ação, trocar o 999 por 0.]: 
+O *R* por padrão retorna números grandes como notação científica. O resultado dessa operação é um número tão grande que  para escrevê-lo sem este tipo de notação, seriam necessários 127 dígitos decimais. O resultado não caberia em apenas uma linha. Ficaria assim, suprimindo a notação científica ^[Para remover a notação científica, usar a função options (scipen = 999) e, para desfazer essa ação, trocar o 999 por 0.]: 
 
 ```{r}
  options(scipen =999)
@@ -128,7 +127,7 @@ Com essas propriedades simples e outras mais complexas, é possível construir a
 
 Um conjunto de eventos que são mutuamente excludentes e que inclui todos os eventos que podem acontecer, é chamado de exaustivo. A soma de suas probabilidades é 1. O conjunto dessas probabilidades constitui uma *distribuição de probabilidade*.   
 
-Existem diversos modelos probabilísticos que procuram descrever vários tipos de variáveis aleatórias discretas ou contínuas. Estas distribuições também são chamadas de *modelos probabilísticos estocástico* que são definidas por duas funções matemáticas: a *função de probabilidade* (fp) para variáveis discretas, que atribui a cada valor a sua probabilidade de ocorrência (`P(X=x`)) e *função densidade de probabilidade* (fdp) para variáveis contínuas.   
+Existem diversos modelos probabilísticos que procuram descrever vários tipos de variáveis aleatórias discretas ou contínuas. Estas distribuições também são chamadas de *modelos probabilísticos estocásticos* que são definidas por duas funções matemáticas: a *função de probabilidade* (fp) para variáveis discretas, que atribui a cada valor a sua probabilidade de ocorrência (`P(X=x`)) e *função densidade de probabilidade* (`fdp`) para variáveis contínuas.   
 
 A função de probabilidade é a função que atribui probabilidades a cada um dos possíveis valores da variável aleatória discreta, usando, em geral, as frequências relativas, apresentadas em uma tabela de frequência. O *modelo de Bernoulli* ou *Binomial* e o *modelo de Poisson* são exemplos de modelo probabilístico de variáveis discretas.  
 
@@ -154,9 +153,9 @@ Uma distribuição normal é descrita por meio de dois parâmetros: a média da 
 
 Como é fácil prever, alterar a média desloca a curva de sino para a esquerda ou para a direita, enquanto a alteração do desvio padrão estende ou achata a curva, ou seja, muda a dispersão da distribuição.   
 
-A Figura \@ref(fig:threecurves), mostra a distribuição normal com média 0 e desvio padrão 1, na curva à direita, a distribuição normal com média 1.5 e desvio padrão 1. Sobrepondo-se à curva da esquerda observa-se uma curva mais achatada (verde) que tem média 0 e desvio padrão 1.5. Observa-se, como mencionado, que modificando os parâmetros da curva, altera-se a posição ou o formato da curva.
+A Figura \@ref(fig:threecurves), mostra a distribuição normal com média 0 e desvio padrão 1, na curva à direita, a distribuição normal com média 1.5 e desvio padrão 1. Sobrepondo-se à curva da esquerda observa-se uma curva mais achatada (verde) que tem média 0 e desvio padrão 1.5. Observa-se, como mencionado, que modificando os parâmetros da curva, altera-se a posição ou o formato da mesma.
 
-```{r threecurves, warning=FALSE, out.width="70%", out.height="70%", fig.align="center", fig.cap="Curvas normais com modificação dos parâmetros.", fig.pos="H"}
+```{r threecurves, echo = FALSE, warning=FALSE, out.width="70%", out.height="70%", fig.align="center", fig.cap="Curvas normais com modificação dos parâmetros.", fig.pos="H"}
 curve (dnorm (x, 
               mean=0, 
               sd=1), 
@@ -214,21 +213,21 @@ Para facilitar a comparação entre variáveis, foi criado o conceito de **curva
 Para calcular probabilidades associadas a distribuição normal, costuma-se converter a variável aleatória original *X*, em unidades reduzidas ou padronizadas, denominadas de **escore *Z** ou *escore padrão*. Essa transformação é realizada pela equação que indica o número de desvios padrão envolvidos no afastamento do valor *x* em relação à média da população: 
 
 $$
-z =\frac{x-\mu}{\sigma}
+Z =\frac{x-\mu}{\sigma}
 $$
 onde:  
 
-* *z*         $\longrightarrow$ escore z  
+* *Z*         $\longrightarrow$ escore Z  
 * *x*         $\longrightarrow$ valor qualquer da variável aleatória *X*  
 * *$\mu$*     $\longrightarrow$ média da variável *X*  
 * *$\sigma$*  $\longrightarrow$ desvio padrão da variável *X*
 
-Qualquer distribuição de uma variável aleatória normal pode ser padronizada, usando o escore *z*.  Isto permite que se calcule a probabilidade de se encontrar determinados intervalos de valores [@gonzalez2021normal]. 
+Qualquer distribuição de uma variável aleatória normal pode ser padronizada, usando o escore *Z*.  Isto permite que se calcule a probabilidade de se encontrar determinados intervalos de valores [@gonzalez2021normal]. 
 
-Como exemplo, será usada a altura das mulheres. É, praticamente, impossível saber o valor da média populacional, por isso. costuma-se usar a média aritmética como um estimador da média populacional. Dessa forma, variável altura do objeto dadosAltura poderá utilizada com estimativa da média populacional . Em primeiro lugar, se construirá um tibble de nome `resumo`:
+Como exemplo, se retornará à altura das mulheres. É, praticamente, impossível saber o valor da média populacional, por isso. costuma-se usar a média aritmética como um estimador da média populacional. Dessa forma, a variável `dados$altura` poderá utilizada com estimativa da média populacional. Em primeiro lugar, se construirá um `tibble` de nome `resumo`:
 
 ```{r}
- resumo <- dadosAltura %>% 
+ resumo <- dados %>% 
    dplyr::summarise(n = n(),
                     media = mean(altura, na.rm = TRUE),
                     dp = sd(altura, na.rm = TRUE),
@@ -237,18 +236,16 @@ Como exemplo, será usada a altura das mulheres. É, praticamente, impossível s
  resumo
 ```
 
-Assim, pode-se verificar quantos desvios padrão uma mulher, pertencente a essa amostra, com 1,725m está afastada da média.. Usando o R, pode-se calcular da seguinte maneira:
+Assim, pode-se verificar quantos desvios padrão uma mulher, pertencente a essa amostra, com 1,725m está afastada da média:
 
 ```{r}
-z <- (1.725 - resumo$media)/resumo$dp
-round(z, 2)
+Z <- (1.725 - resumo$media)/resumo$dp
+round(Z, 2)
 ```
 
 Esta mulher está distante praticamente 2 desvios padrão acima da média da sua população. Portanto, ela é considerada alta. Por que? 
 
-Para responder a essa pergunta, há necessidade de calcular a probabilidade de encontrar uma mulher com esta altura, nesta população.  
-
-Para responder a essa pergunta, há necessidade de calcular a probabilidade de encontrar uma mulher com esta altura, nesta amostra. No R, existem as funções `dnorm()`, `pnorm()` e `qnorm()`, que permitem calcular a densidade de probabilidade, a distribuição cumulativa e a função quantílica da distribuição normal para um conjunto de valores. Além dessas, há a função `rnorm()` permite obter observações aleatórias que seguem uma distribuição normal[@jain_2022norm].  
+Para responder a essa pergunta, há necessidade de calcular a probabilidade de encontrar uma mulher com esta altura, nesta população. Primeiro, calcula-se a probabilidade de encontrar uma mulher com esta altura, nesta amostra. No *R*, existem as funções `dnorm()`, `pnorm()` e `qnorm()`, que permitem calcular a densidade de probabilidade, a distribuição cumulativa e a função quantílica da distribuição normal para um conjunto de valores. Além dessas, há a função `rnorm()` que permite obter observações aleatórias que seguem uma distribuição normal[@jain_2022norm].  
 
 #### Função pnorm()  
 
@@ -256,16 +253,16 @@ A função `pnorm()` fornece a *Função de Distribuição Cumulativa* (CDF) da 
   
 **Argumentos**:  
 
-* *q*  $\rightarrow$ vetor de quantis  
-* *mean*  $\rightarrow$ média  
-* *sd*  $\rightarrow$ desvio padrão  
-* *lower.tail*  $\rightarrow$ Se `TRUE`, as probabilidades são $P(X\le x)$, caso contrário $P(X > x)$
+* **q**  $\rightarrow$ vetor de quantis  
+* **mean**  $\rightarrow$ média  
+* **sd**  $\rightarrow$ desvio padrão  
+* **lower.tail**  $\rightarrow$ Se `TRUE`, as probabilidades são $P(X\le x)$, caso contrário $P(X > x)$
 
-Se for usado $mean = 0$ e $sd = 1$, o valor de q = z, caso contrário, toma-se os valores da média, o desvio padrão da população e o valor de *x*.  
-Com esta função, é possível responder a pergunta feita anteriormente em relação a probabilidade de encontrar uma mulher com mais de 1,725m, equivalente a  `r round(z, 2)` desvios padrão acima da média, em uma população com média = `r resumo$media` e desvio padrão = `r resumo$dp`. 
+Se for usado $mean = 0$ e $sd = 1$, o valor de q = Z, caso contrário, toma-se os valores da média, o desvio padrão da população e o valor de *x*.  
+Com esta função, é possível responder a pergunta feita anteriormente em relação a probabilidade de encontrar uma mulher com mais de 1,725m, equivalente a  `r round(Z, 2)` desvios padrão acima da média, em uma população com média = `r resumo$media` e desvio padrão = `r resumo$dp`. 
 
 ```{r}
-p <- pnorm(z, mean = 0, sd = 1, lower.tail = FALSE)
+p <- pnorm(Z, mean = 0, sd = 1, lower.tail = FALSE)
 p
 ```
 
@@ -298,7 +295,7 @@ A função `qnorm()` permite encontrar o quantil *q* para qualquer probabilidade
 * *sd* $\rightarrow$ desvio padrão  
 * *lower.tail* $\rightarrow$ Se `TRUE`, as probabilidades são ($P \le x$), caso contrário $P(X > x)$
 
-No exemplo anterior, a probabilidade de se encontrar mulheres, na maternidade, com mais de 1,725m foi de `r round(pnorm(1.94, mean = 0, sd = 1, lower.tail = FALSE),3)*100`%. Poderia ser calculado com a função `qnorm()` qual o escore *z* correspondente:
+No exemplo anterior, a probabilidade de se encontrar mulheres, na maternidade, com mais de 1,725m foi de `r round(pnorm(1.94, mean = 0, sd = 1, lower.tail = FALSE),3)*100`%. Poderia ser calculado com a função `qnorm()` qual o escore *Z* correspondente:
 
 ```{r}
 qnorm(p, mean = 0, sd = 1, lower.tail = FALSE)
@@ -309,24 +306,24 @@ Essa função retorna o valor da *função de densidade de probabilidade* (pdf) 
 
 **Argumentos**:  
 
-* *x* $\rightarrow$ vetor de quantis  
-* *mean* $\rightarrow$ média  
-* *sd* $\rightarrow$ desvio padrão
+* **x** $\rightarrow$ vetor de quantis  
+* **mean** $\rightarrow$ média  
+* **sd** $\rightarrow$ desvio padrão
 
-Embora *x* represente a variável independente da *pdf* para a distribuição normal, também é útil pensar em *x* como um escore *z*. Por exemplo, a densidade de probabilidade quando *x* = 0 é igual:
+Embora *x* represente a variável independente da *pdf* para a distribuição normal, também é útil pensar em *x* como um escore *Z*. Por exemplo, a densidade de probabilidade quando *x* = 0 é igual:
 
 ```{r}
 dnorm(x = 0, mean = 0, sd = 1)
 ```
 
-Para se construir uma curva de densidade de probabilidades normal ( $X \sim N(μ=0,σ=1)$), basta aplicar a função `dnorm()` a uma sequência contínua de escores *z*. O vetor de escores z é obtido com a função `seq()`, como mostrado a seguir:
+Para se construir uma curva de densidade de probabilidades normal ( $X \sim N(μ=0,σ=1)$), basta aplicar a função `dnorm()` a uma sequência contínua de escores *Z*. O vetor de escores Z é obtido com a função `seq()`, como mostrado a seguir:
 
 ```{r}
 escores_z <- seq(-3,3, by = 0.05)
 escores_z
 ```
 
-Agora, usando a função `dnorm()`, será construído conjunto de valores de densidade de probabilidade correspondentes aos escores *z* obtidos anteriormente:  
+Agora, usando a função `dnorm()`, será construído conjunto de valores de densidade de probabilidade correspondentes aos escores *Z* obtidos anteriormente:  
 
 ```{r}
 valores_d <- dnorm(escores_z, mean = 0, sd = 1)
@@ -341,7 +338,7 @@ plot(valores_d,
      col = "steelblue",                  
      xaxt = "n",                          
      ylab = "Densidade de Probabilidade",
-     xlab = "Escores z")
+     xlab = "Escores Z")
 
 # Rótulos do eixo x
 axis(side = 1, at = which(valores_d == dnorm(0)), labels = c(0))
@@ -352,7 +349,7 @@ axis(side = 1, at=which(valores_d == dnorm(3)), labels=c(-3, 3))
 
 Os argumentos básicos a serem informados da função `axis()` são:  `side=`, `at=` e `labels=`. Esses argumentos determinam qual eixo será preenchido, qual a posição dos valores no eixo e a sequência de valores a ser preenchida, respectivamente. O argumento `side=` recebe valores que vão de 1 a 4: 1 = eixo inferior, 2 = eixo lateral esquerdo, 3 = eixo superior, 4= eixo lateral direito. Ou seja, partindo do eixo inferior (eixo *x*), os valores aumentam até 4 seguindo o sentindo horário para os quatros lados do gráfico. No exemplo, foi modificado o eixo *x*, logo `side = 1`.  O argumento `at =` estabelece os pontos (densidades de probabilidade) do eixo *x* que receberão os rótulos, especificados no argumento `label =`.  
 
-Como se pode ver, `dnorm()` fornece a “altura” do *pdf* da distribuição normal em qualquer escore *z* que se forneça como argumento.  
+Como se pode ver, `dnorm()` fornece a “altura” do *pdf* da distribuição normal em qualquer escore *Z* que se forneça como argumento.  
 
 #### Função rnorm()  {#sec-rnorm}
 
@@ -360,9 +357,9 @@ A função `rnorm()` gera *n* números aleatórios com distribuição normal com
   
 **Argumentos**:  
 
-* *n* $\rightarrow$ número de observações a serem geradas  
-* *mean* $\rightarrow$ média  
-* *sd* $\rightarrow$ desvio padrão
+* **n** $\rightarrow$ número de observações a serem geradas  
+* **mean** $\rightarrow$ média  
+* **sd** $\rightarrow$ desvio padrão
 
 Com esta função é possível, por exemplo, gerar 10 observações de uma distribuição normal:
 
@@ -389,6 +386,7 @@ x
 y <- rnorm(n)
 y
 ```
+
 Comparando os conjuntos com a função `identical()` do R base, observa-se que os conjuntos são diferentes:
 
 ```{r}
@@ -446,7 +444,7 @@ Essa regra pode ser usada para descrever uma população e ajudar a decidir se u
 
 <ins>Exemplo:</ins>   
 
-Será gerado um vetor de 1000 números, gerados com a função `rnorm()` e um histograma com curva normal sobrposta:
+Com a função `rnorm()`, será gerado um vetor de 1000 números e um histograma com curva normal sobreposta:
 
 ```{r histdp, warning=FALSE, out.width="80%", out.height="80%", fig.align="center", fig.cap="Histograma com curva de densidade de probabilidade sobreposta", fig.pos="H"}
 dados <- rnorm(10000, mean = 0, sd = 1)
@@ -460,7 +458,7 @@ hist(dados,
       xlim = c (-3, 3),
       main= NULL, 
       ylab = "Densidade de Probabilidade", 
-      xlab = "Escore z",
+      xlab = "Escore Z",
       col ="dodgerblue4",
       freq = FALSE,            
       border = "white")
@@ -479,7 +477,7 @@ hist(dados,
 ```
 
 
-No histograma (Figura \@ref(fig:histdp)), a probabilidade entre os escores z -1 e 1 (entre as duas linhas tracejadas) é igual a aproximadamente 68%. Pode-se calcular isto facilmente, usando a função `pnorm()`:
+No histograma (Figura \@ref(fig:histdp)), a probabilidade entre os escores Z - 1 e  + 1 (entre as duas linhas tracejadas A e B) é igual a aproximadamente 68%. Pode-se calcular isto facilmente, usando a função `pnorm()`:
 
 <ins>Probabilidade abaixo de z = 1, abaixo do ponto B</ins>
 
@@ -489,7 +487,7 @@ B <- pnorm (1, 0, 1)
 B <- round(B, 3)*100
 B
 ```
-<ins>Probabilidade abaixo de z = -1, abaixo do ponto A</ins>
+<ins>Probabilidade abaixo de Z = -1, abaixo do ponto A</ins>
 
 
 ```{r}
@@ -503,11 +501,10 @@ Logo , a área abaixo da curva entre A e B é igual a:
  prob <- B - A
  prob
 ```
+
 ### Calculando probabilidades em uma distribuição normal
 
-Como visto na Seção 7.4.1, a variável altura das mulheres (`dadosAltura$altura`) tem uma distribuição praticamente simétrica. Usando esses dados ($X\sim N(\mu=1,598,\sigma=0,065)$), pode-se calcular probabilidades, dadas pela área sob a curva, usando o R.  
-
-Por exemplo:  
+Como visto na Seção \@ref(sec-aplicafreq), a variável `dados$altura` tem uma distribuição praticamente simétrica. Usando esses dados ($X\sim N(\mu=1,598,\sigma=0,065)$), pode-se calcular probabilidades, dadas pela área sob a curva.  
 
 **Exemplo 1**: Qual a probabilidade de se encontrar mulheres com altura entre 1,47 e 1,73 m?
 
@@ -660,7 +657,7 @@ Quando um experimento aleatório resulta em um de dois, mutuamente exclusivos, d
 
 A distribuição de frequências que descreve as proporções de um ensaio de Bernoulli, chama-se *Distribuição Binomial*. A probabilidade binomial dá a probabilidade de determinado desfecho ocorrer em determinado número de ensaios independentes. Uma sequência de ensaios de Bernoulli forma um *Processo de Bernoulli*.  
 
-A distribuição binomial é importante para variáveis discretas. Existem poucas condições que precisam ser atendidas antes se considere uma variável aleatória para distribuição binomial: 
+A distribuição binomial é importante para variáveis discretas. Existem poucas condições que precisam ser atendidas para distribuição binomial: 
 
 * Cada ensaio resulta em um de dois desfechos, mutuamente exclusivos, denominados, arbitrariamente, de sucesso e fracasso;
     - A probabilidade de sucesso é fixa, igual a *p*, constante em cada ensaio, e a probabilidade de fracasso é igual a *1 – p*;	
@@ -685,26 +682,24 @@ $$
 
 ou, no R, com a função `choose (n, x)`.
 
-O modelo de distribuição binomial trata de encontrar a probabilidade de sucesso de um evento que tem apenas dois resultados possíveis em uma série de experimentos. Usando dados de uma distribuição binomial, é possível calcular os valores esperados de uma variável aleatória conforme ela passa por tentativas independentes.   
-
-Em outras palavras, é possível prever o número exato de caras ou coroas que se deve esperar ao jogar uma moeda um certo número de vezes.
+O modelo de distribuição binomial trata de encontrar a probabilidade de sucesso de um evento que tem apenas dois resultados possíveis em uma série de experimentos. Usando dados de uma distribuição binomial, é possível calcular os valores esperados de uma variável aleatória conforme ela passa por tentativas independentes. Em outras palavras, é possível prever o número exato de caras ou coroas que se deve esperar ao jogar uma moeda um certo número de vezes.
 
 Também, pode-se usar a probabilidade binomial cumulativa para encontrar a probabilidade de obter um determinado intervalo de resultados. Por exemplo, saber a probabilidade do nascimento de até três meninos em 10 nascimentos consecutivos quando a probabilidade de nascer um menino é 0,50. 
 
-O R tem quatro funções embutidas para gerar distribuição binomial. Ela são descritas a seguir. 
+O *R* tem quatro funções embutidas para gerar distribuição binomial. Ela são descritas a seguir. 
 
 ### Funções da distribuição binomial
 
 #### Função pbinom() 
 
-Esta função retorna o valor da *função de densidade cumulativa* (cdf) da distribuição binomial dada uma certa variável aleatória q, número de tentativas (size) e probabilidade de sucesso em cada tentativa (prob).  
+Esta função retorna o valor da *função de densidade cumulativa* (cdf) da distribuição binomial dada uma certa variável aleatória *q*, número de tentativas (*size*) e probabilidade de sucesso em cada tentativa (*prob*).  
 
 **Argumentos**:  
 
-* *q* $\rightarrow$ vetor de quantis  
-* *size* $\rightarrow$ numero de ensaios  
-* *prob* $\rightarrow$ probabilidade de sucesso em cada ensaio  
-* *lower.tail* $\rightarrow$ Se `TRUE`, as probabilidades são ($P \le x$), caso contrário $P(X > x)$
+* **q** $\rightarrow$ vetor de quantis  
+* **size** $\rightarrow$ numero de ensaios  
+* **prob** $\rightarrow$ probabilidade de sucesso em cada ensaio  
+* **lower.tail** $\rightarrow$ Se `TRUE`, as probabilidades são ($P \le x$), caso contrário $P(X > x)$
 
 Por exemplo, qual é a probabilidade de nascer até três meninos em cinco nascimentos, sabendo que a probabiliade de nascer um menino é igual a 0.50?
 
@@ -713,7 +708,7 @@ pbinom (3, 5, 0.50)
 ```
 
 Isso corresponde a soma das probabilidades de nascer nenhum menino, um menino, dois meninos e três meninos (Figura \@ref(fig:menino3)). Isto é calculado pela equação $P(X = x)$, vista anteriormente.  
-Colocando no R:
+Colocando no *R*:
 
 ```{r}
 n = 5
@@ -754,10 +749,10 @@ Esta função retorna o valor da função de densidade cumulativa inversa (cdf) 
 
 **Argumentos**:  
 
-* *p* $\rightarrow$ probabilidade ou vetor de probabilidades  
-* *size* $\rightarrow$ numero de ensaios  
-* *prob* $\rightarrow$ probabilidade de sucesso em cada ensaio  
-* *lower.tail* $\rightarrow$ Se `TRUE`, as probabilidades são ($P \le x$), caso contrário $P(X > x)$
+* **p** $\rightarrow$ probabilidade ou vetor de probabilidades  
+* **size** $\rightarrow$ numero de ensaios  
+* **prob** $\rightarrow$ probabilidade de sucesso em cada ensaio  
+* **lower.tail** $\rightarrow$ Se `TRUE`, as probabilidades são ($P \le x$), caso contrário $P(X > x)$
 
 Por exemplo, quantos meninos nascerão em 5 partos com `r sum(Fx[1:4])*100`% de probabilidade cumulativa?
 
@@ -773,9 +768,9 @@ A função `rbinom()` permite extrair *n* observações aleatórias de uma distr
 
 **Argumentos**:  
 
-* *n* $\rightarrow$ número de observações aleatórias a ser gerado  
-* *size* $\rightarrow$ numero de ensaios  
-* *prob* $\rightarrow$ probabilidade de sucesso em cada ensaio  
+* **n** $\rightarrow$ número de observações aleatórias a ser gerado  
+* **size** $\rightarrow$ numero de ensaios  
+* **prob** $\rightarrow$ probabilidade de sucesso em cada ensaio  
 
 Para fazer uma simulação de 1000 amostras, aleatoriamente, de tamanho 5 e com probabilidade de nascer menino igual a 0,50, usa-se ^[Deve ser especificado uma "semente" (seed) antes de executar a função, senão será obtido um conjunto diferente de observações aleatórias a cada execução. Teste para verificar]: 
 
@@ -799,16 +794,16 @@ Essa função retorna o valor da função de densidade de probabilidade (*pdf*) 
 
 **Argumentos**:  
 
-* *x* $\rightarrow$ vetor de números  
-* *size* $\rightarrow$ numero de ensaios  
-* *prob* $\rightarrow$ probabilidade de sucesso em cada ensaio  
+* **x** $\rightarrow$ vetor de números  
+* **size** $\rightarrow$ numero de ensaios  
+* **prob** $\rightarrow$ probabilidade de sucesso em cada ensaio  
       
 A função é usada para encontrar a probabilidade de um determinado valor para dados que seguem a distribuição binomial, ou seja, encontra $P(X=x)$, probabilidade de *x* sucessos em tentativas de tamanho (*size*) *n* quando a probabilidade (*p*) de sucesso é *prob*. Obtém o mesmo resultado da fórmula:
 
 $$
 P(X = x)= C \times p^x \times (1 - p)^{n-x}
 $$
-Por exemplo, no nascimento de uma criança, as duas possibilidades, menino ou menina, são mutuamente excludentes e esses são os únicos eventos que podem acontecer. A probabilidade de nascimento de menino, como visto, é 0,50, qual seria a probabilidade de nascerem 4 meninos em 5 partos consecutivos (Figura \@ref(fig:menino5))?
+Por exemplo, no nascimento de uma criança, as duas possibilidades, menino ou menina, são mutuamente excludentes e esses são os únicos eventos que podem acontecer. A probabilidade de nascimento de menino, como visto, é 0,50, qual seria a probabilidade de nascerem 4 meninos em 5 partos consecutivos não gemelares (Figura \@ref(fig:menino5))?
 
 ```{r}
 dbinom(4, size = 5, prob = 0.50)

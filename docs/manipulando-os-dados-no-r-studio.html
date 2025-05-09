@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2025-05-08" />
+<meta name="date" content="2025-05-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -334,7 +334,7 @@ div.csl-indent {
 <li class="chapter" data-level="7.3" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#processo-aleatório"><i class="fa fa-check"></i><b>7.3</b> Processo aleatório</a></li>
 <li class="chapter" data-level="7.4" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#definição-frequentista"><i class="fa fa-check"></i><b>7.4</b> Definição frequentista</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#aplicando-a-visão-frequentista-no-dia-a-dia"><i class="fa fa-check"></i><b>7.4.1</b> Aplicando a visão frequentista no dia a dia</a></li>
+<li class="chapter" data-level="7.4.1" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#sec-aplicafreq"><i class="fa fa-check"></i><b>7.4.1</b> Aplicando a visão frequentista no dia a dia</a></li>
 </ul></li>
 <li class="chapter" data-level="7.5" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#propriedades-das-probabilidades"><i class="fa fa-check"></i><b>7.5</b> Propriedades das probabilidades</a></li>
 <li class="chapter" data-level="7.6" data-path="introdução-à-teoria-das-probabilidades.html"><a href="introdução-à-teoria-das-probabilidades.html#distribuição-de-probabilidades"><i class="fa fa-check"></i><b>7.6</b> Distribuição de Probabilidades</a></li>
@@ -1029,12 +1029,12 @@ Por exemplo:</p>
 <p>Assim, selecionou-se uma amostra de 20 meninos do banco de dados de recém-nascidos a termo. Pode-se, fazer um resumo da variável peso do recém-nascido (<code>meninos1$pesoRN</code>) para ver como ela se comporta, usando a função <code>summary()</code>:</p>
 <div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="manipulando-os-dados-no-r-studio.html#cb172-1" tabindex="-1"></a><span class="fu">summary</span>(meninos1<span class="sc">$</span>pesoRN)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##    2810    3145    3425    3406    3649    4125</code></pre>
+##    1795    3024    3230    3198    3518    4220</code></pre>
 <p>É importante mencionar que toda vez que esta função for executada ela irá gerar uma amostra diferente. Então, por exemplo, não se deve esperar que a média dos pesos dos recém-nascidos de amostras diferentes sejam iguais.</p>
 <div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="manipulando-os-dados-no-r-studio.html#cb174-1" tabindex="-1"></a>meninos2 <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(meninos, <span class="dv">20</span>)</span>
 <span id="cb174-2"><a href="manipulando-os-dados-no-r-studio.html#cb174-2" tabindex="-1"></a><span class="fu">summary</span>(meninos2<span class="sc">$</span>pesoRN)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##    2505    3084    3260    3308    3458    4150</code></pre>
+##    2350    2950    3065    3127    3309    3905</code></pre>
 <p>Na Seção <a href="sec-cap9.html#sec-dam">9.2.2</a> (Distribuições Amostrais), este assunto voltará à cena.</p>
 <p>As funções <code>sample_n()</code> estão com os dias contados, pois foram substituídas por <code>slice_sample()</code> do conjunto de funções que acompanham a função <code>slice()</code></p>
 </div>
@@ -1095,29 +1095,29 @@ Os argumentos básicos da função <code>slice()</code> são</p>
 <div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="manipulando-os-dados-no-r-studio.html#cb184-1" tabindex="-1"></a> meninos3 <span class="ot">&lt;-</span> <span class="fu">slice_sample</span>(<span class="at">.data =</span> meninos, <span class="at">n =</span> <span class="dv">20</span>)</span>
 <span id="cb184-2"><a href="manipulando-os-dados-no-r-studio.html#cb184-2" tabindex="-1"></a> <span class="fu">str</span> (meninos3)</span></code></pre></div>
 <pre><code>## tibble [20 × 10] (S3: tbl_df/tbl/data.frame)
-##  $ idadeMae : num [1:20] 20 14 16 28 23 18 29 26 14 18 ...
-##  $ altura   : num [1:20] 1.65 1.51 1.45 1.61 1.73 1.68 1.62 1.57 1.57 1.7 ...
-##  $ peso     : num [1:20] 40 49 45 60 58 92.8 62 58 51 70 ...
-##  $ anosEst  : num [1:20] 4 6 8 8 10 8 8 4 5 8 ...
-##  $ renda    : num [1:20] 0.96 1.93 0.72 1.69 3.33 1.92 1.93 1.92 1.2 4.82 ...
-##  $ ig       : num [1:20] 39 39 39 40 39 40 39 37 39 40 ...
-##  $ tipoParto: Factor w/ 2 levels &quot;normal&quot;,&quot;cesareo&quot;: 2 2 2 2 1 1 1 2 1 2 ...
-##  $ fumo     : Factor w/ 2 levels &quot;sim&quot;,&quot;não&quot;: 1 2 2 2 2 2 1 2 2 2 ...
-##  $ pesoRN   : num [1:20] 2470 3945 4305 3400 3830 ...
+##  $ idadeMae : num [1:20] 25 32 23 25 25 20 40 19 19 32 ...
+##  $ altura   : num [1:20] 1.55 1.6 1.7 1.62 1.65 1.6 1.55 1.52 1.59 1.7 ...
+##  $ peso     : num [1:20] 53 65 60 80 49 70 53 44 55 70 ...
+##  $ anosEst  : num [1:20] 11 11 7 8 8 7 2 9 8 8 ...
+##  $ renda    : num [1:20] 1.92 2.41 1.92 2.17 2.29 0.6 1.16 1.92 1.92 1.25 ...
+##  $ ig       : num [1:20] 40 40 40 40 39 40 37 40 38 39 ...
+##  $ tipoParto: Factor w/ 2 levels &quot;normal&quot;,&quot;cesareo&quot;: 2 1 2 2 2 1 1 2 2 1 ...
+##  $ fumo     : Factor w/ 2 levels &quot;sim&quot;,&quot;não&quot;: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ pesoRN   : num [1:20] 3720 3310 3110 3600 3585 ...
 ##  $ sexo     : Factor w/ 2 levels &quot;masc&quot;,&quot;fem&quot;: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
 <p>Como se observa no código, o argumento <code>n</code> da função deve ser nomeado explicitamente (<code>n = 20</code>). É possível também usar o argumento <code>prop</code>, colocando a proporção de linhas que se deseja selecionar. Se o objetivo é selecionar 10% da amostra, coloca-se o argumento como <code>prop = 0.10</code>. Como o dataframe <code>meninos</code> contém 592 casos, serão selecionados 59. Além disso, a função permite selecionar por grupos com o argumento <code>by =</code>.</p>
 <div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="manipulando-os-dados-no-r-studio.html#cb186-1" tabindex="-1"></a>meninos4 <span class="ot">&lt;-</span> <span class="fu">slice_sample</span>(<span class="at">.data =</span> meninos, <span class="at">prop =</span> <span class="fl">0.10</span>)</span>
 <span id="cb186-2"><a href="manipulando-os-dados-no-r-studio.html#cb186-2" tabindex="-1"></a><span class="fu">str</span> (meninos4)</span></code></pre></div>
 <pre><code>## tibble [59 × 10] (S3: tbl_df/tbl/data.frame)
-##  $ idadeMae : num [1:59] 20 31 27 27 21 19 22 35 25 23 ...
-##  $ altura   : num [1:59] 1.66 1.55 1.64 1.55 1.63 1.65 1.65 1.68 1.59 1.64 ...
-##  $ peso     : num [1:59] 62 53 70 59 58 60 59.5 79.5 58 52 ...
-##  $ anosEst  : num [1:59] 11 3 11 11 11 8 4 6 6 11 ...
-##  $ renda    : num [1:59] 3.13 1.92 1.92 3.61 1.2 1.92 1.92 0.96 1.2 2.17 ...
-##  $ ig       : num [1:59] 40 40 38 39 39 39 38 39 39 39 ...
-##  $ tipoParto: Factor w/ 2 levels &quot;normal&quot;,&quot;cesareo&quot;: 2 1 2 1 1 1 2 2 1 2 ...
-##  $ fumo     : Factor w/ 2 levels &quot;sim&quot;,&quot;não&quot;: 2 2 2 2 2 2 2 2 2 1 ...
-##  $ pesoRN   : num [1:59] 3090 3135 3115 3200 2970 ...
+##  $ idadeMae : num [1:59] 20 22 35 19 23 21 21 39 25 26 ...
+##  $ altura   : num [1:59] 1.67 1.6 1.52 1.68 1.7 1.64 1.48 1.61 1.76 1.52 ...
+##  $ peso     : num [1:59] 61 60 40 75 60 52 40.8 70 98 54 ...
+##  $ anosEst  : num [1:59] 8 5 6 11 7 9 6 8 11 7 ...
+##  $ renda    : num [1:59] 1.92 1.69 1.3 1.69 1.92 1.93 1.28 1.92 1.45 1.93 ...
+##  $ ig       : num [1:59] 41 38 39 40 40 37 38 37 39 39 ...
+##  $ tipoParto: Factor w/ 2 levels &quot;normal&quot;,&quot;cesareo&quot;: 2 1 2 1 2 1 2 1 2 2 ...
+##  $ fumo     : Factor w/ 2 levels &quot;sim&quot;,&quot;não&quot;: 2 1 2 2 2 2 2 2 1 1 ...
+##  $ pesoRN   : num [1:59] 3785 3270 3240 4080 3110 ...
 ##  $ sexo     : Factor w/ 2 levels &quot;masc&quot;,&quot;fem&quot;: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
 <p>Para maiores informações em relação a estas funções consulte a ajuda (<code>?slice()</code>).</p>
 </div>
@@ -1130,51 +1130,51 @@ Os argumentos básicos da função <code>slice()</code> são</p>
 <pre><code>## # A tibble: 20 × 10
 ##    idadeMae altura  peso anosEst renda    ig tipoParto fumo  pesoRN sexo 
 ##       &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;
-##  1       40   1.55    53       2  1.16    37 normal    não     2810 masc 
-##  2       22   1.62    69       8  2.17    39 normal    sim     2930 masc 
-##  3       26   1.55    53      11  1.93    41 cesareo   não     3000 masc 
-##  4       24   1.66    67      10  1.45    40 normal    não     3030 masc 
-##  5       38   1.7     55       8  2.41    39 cesareo   não     3040 masc 
-##  6       19   1.55    53       5  1.81    40 normal    não     3180 masc 
-##  7       22   1.58    64       8  1.93    40 normal    não     3190 masc 
-##  8       31   1.55    53       6  1.92    38 cesareo   não     3310 masc 
-##  9       27   1.52    80       6  1.69    39 normal    sim     3400 masc 
-## 10       34   1.57    58      11  1.69    40 normal    não     3420 masc 
-## 11       19   1.59    55       8  1.92    38 cesareo   não     3430 masc 
-## 12       32   1.56    66       5  2.41    40 normal    não     3470 masc 
-## 13       35   1.54    68      11  3.61    39 cesareo   não     3480 masc 
-## 14       27   1.55    70       6  1.69    41 cesareo   não     3590 masc 
-## 15       31   1.56    65       8  1.64    40 normal    não     3635 masc 
-## 16       28   1.57    56       8  2.17    38 normal    sim     3690 masc 
-## 17       24   1.68    77       2  1.45    38 cesareo   não     3690 masc 
-## 18       41   1.64    71       3  3.61    40 cesareo   sim     3825 masc 
-## 19       18   1.65    60       7  1.93    40 normal    não     3865 masc 
-## 20       35   1.56    72       6  1.92    38 cesareo   não     4125 masc</code></pre>
+##  1       22   1.49  53         4  0.96    37 cesareo   sim     1795 masc 
+##  2       19   1.65  60        11  1.92    37 cesareo   não     1810 masc 
+##  3       25   1.56  56         8  4.82    41 cesareo   não     2710 masc 
+##  4       19   1.61  55         9  1.45    38 normal    sim     2970 masc 
+##  5       24   1.52  54         8  1.69    40 normal    não     2990 masc 
+##  6       34   1.53  53         4  1.28    40 cesareo   não     3035 masc 
+##  7       21   1.6   49        11  1.27    39 normal    não     3085 masc 
+##  8       26   1.64  52         8  2.89    41 normal    sim     3100 masc 
+##  9       32   1.64  52.5       4  2.41    38 cesareo   não     3175 masc 
+## 10       35   1.58  62         6  2.89    39 normal    não     3180 masc 
+## 11       28   1.54  52        11  2.41    38 normal    não     3280 masc 
+## 12       20   1.6   49         8  2.41    41 normal    não     3290 masc 
+## 13       26   1.65  70         5  1.2     40 normal    não     3430 masc 
+## 14       19   1.59  55         8  1.92    38 cesareo   não     3430 masc 
+## 15       39   1.6   70        13  2.41    38 cesareo   não     3510 masc 
+## 16       30   1.75  64         5  0.72    39 normal    sim     3540 masc 
+## 17       39   1.59  68         5  1.92    41 normal    não     3570 masc 
+## 18       32   1.76  74         9  1.08    37 normal    não     3900 masc 
+## 19       14   1.51  49         6  1.93    39 cesareo   não     3945 masc 
+## 20       31   1.51  65.5       4  1.93    40 cesareo   não     4220 masc</code></pre>
 <p>Para a ordem decrescente, colocar a função <code>desc()</code>, dentro da função <code>arrange()</code></p>
 <div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="manipulando-os-dados-no-r-studio.html#cb190-1" tabindex="-1"></a><span class="fu">arrange</span>(meninos1, <span class="fu">desc</span>(pesoRN))</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 10
 ##    idadeMae altura  peso anosEst renda    ig tipoParto fumo  pesoRN sexo 
 ##       &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;
-##  1       35   1.56    72       6  1.92    38 cesareo   não     4125 masc 
-##  2       18   1.65    60       7  1.93    40 normal    não     3865 masc 
-##  3       41   1.64    71       3  3.61    40 cesareo   sim     3825 masc 
-##  4       28   1.57    56       8  2.17    38 normal    sim     3690 masc 
-##  5       24   1.68    77       2  1.45    38 cesareo   não     3690 masc 
-##  6       31   1.56    65       8  1.64    40 normal    não     3635 masc 
-##  7       27   1.55    70       6  1.69    41 cesareo   não     3590 masc 
-##  8       35   1.54    68      11  3.61    39 cesareo   não     3480 masc 
-##  9       32   1.56    66       5  2.41    40 normal    não     3470 masc 
-## 10       19   1.59    55       8  1.92    38 cesareo   não     3430 masc 
-## 11       34   1.57    58      11  1.69    40 normal    não     3420 masc 
-## 12       27   1.52    80       6  1.69    39 normal    sim     3400 masc 
-## 13       31   1.55    53       6  1.92    38 cesareo   não     3310 masc 
-## 14       22   1.58    64       8  1.93    40 normal    não     3190 masc 
-## 15       19   1.55    53       5  1.81    40 normal    não     3180 masc 
-## 16       38   1.7     55       8  2.41    39 cesareo   não     3040 masc 
-## 17       24   1.66    67      10  1.45    40 normal    não     3030 masc 
-## 18       26   1.55    53      11  1.93    41 cesareo   não     3000 masc 
-## 19       22   1.62    69       8  2.17    39 normal    sim     2930 masc 
-## 20       40   1.55    53       2  1.16    37 normal    não     2810 masc</code></pre>
+##  1       31   1.51  65.5       4  1.93    40 cesareo   não     4220 masc 
+##  2       14   1.51  49         6  1.93    39 cesareo   não     3945 masc 
+##  3       32   1.76  74         9  1.08    37 normal    não     3900 masc 
+##  4       39   1.59  68         5  1.92    41 normal    não     3570 masc 
+##  5       30   1.75  64         5  0.72    39 normal    sim     3540 masc 
+##  6       39   1.6   70        13  2.41    38 cesareo   não     3510 masc 
+##  7       26   1.65  70         5  1.2     40 normal    não     3430 masc 
+##  8       19   1.59  55         8  1.92    38 cesareo   não     3430 masc 
+##  9       20   1.6   49         8  2.41    41 normal    não     3290 masc 
+## 10       28   1.54  52        11  2.41    38 normal    não     3280 masc 
+## 11       35   1.58  62         6  2.89    39 normal    não     3180 masc 
+## 12       32   1.64  52.5       4  2.41    38 cesareo   não     3175 masc 
+## 13       26   1.64  52         8  2.89    41 normal    sim     3100 masc 
+## 14       21   1.6   49        11  1.27    39 normal    não     3085 masc 
+## 15       34   1.53  53         4  1.28    40 cesareo   não     3035 masc 
+## 16       24   1.52  54         8  1.69    40 normal    não     2990 masc 
+## 17       19   1.61  55         9  1.45    38 normal    sim     2970 masc 
+## 18       25   1.56  56         8  4.82    41 cesareo   não     2710 masc 
+## 19       19   1.65  60        11  1.92    37 cesareo   não     1810 masc 
+## 20       22   1.49  53         4  0.96    37 cesareo   sim     1795 masc</code></pre>
 </div>
 <div id="função-count" class="section level3 hasAnchor" number="5.3.7">
 <h3><span class="header-section-number">5.3.7</span> Função <code>count()</code><a href="manipulando-os-dados-no-r-studio.html#função-count" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1234,9 +1234,9 @@ Quando o <code>lubridate</code> é carregado aparece uma mensagem, avisando que 
 <p>Para evitar confusões e verificar que as funções corretas estão sendo usadas, usa-se o duplo dois pontos (<code>::</code>) antes do nome da função, precedido do nome do pacote, por exemplo: <code>lubridate::date()</code>.</p>
 <p>Para obter a data atual ou a data-hora, você pode usar as funções <code>today()</code><a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a> ou <code>now()</code><a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a>:</p>
 <div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="manipulando-os-dados-no-r-studio.html#cb200-1" tabindex="-1"></a><span class="fu">today</span>() </span></code></pre></div>
-<pre><code>## [1] &quot;2025-05-08&quot;</code></pre>
+<pre><code>## [1] &quot;2025-05-09&quot;</code></pre>
 <div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="manipulando-os-dados-no-r-studio.html#cb202-1" tabindex="-1"></a><span class="fu">now</span>()</span></code></pre></div>
-<pre><code>## [1] &quot;2025-05-08 22:37:03 -03&quot;</code></pre>
+<pre><code>## [1] &quot;2025-05-09 13:19:37 -03&quot;</code></pre>
 <div id="convertendo-strings-ou-caractere-para-data" class="section level3 hasAnchor" number="5.4.1">
 <h3><span class="header-section-number">5.4.1</span> Convertendo <em>strings</em> ou caractere para data<a href="manipulando-os-dados-no-r-studio.html#convertendo-strings-ou-caractere-para-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Para converter <em>string</em> ou caracteres em datas, basta executar funções específicas adequadas aos dados. Elas determinam automaticamente o formato quando você especifica a ordem do componente. Para usá-los, identifique a ordem em que o ano, o mês e o dia aparecem em suas datas e, em seguida, organize “y”, “m” e “d” na mesma ordem. Isso lhe dá o nome da função do <code>lubridate</code> que analisará a data. Por exemplo, suponhamos a data de 25/12/2022:</p>
@@ -1308,11 +1308,11 @@ Quando o <code>lubridate</code> é carregado aparece uma mensagem, avisando que 
 <div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="manipulando-os-dados-no-r-studio.html#cb228-1" tabindex="-1"></a><span class="fu">week</span>(data)                <span class="co"># Extrai a semana</span></span></code></pre></div>
 <pre><code>## [1] 19</code></pre>
 <div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="manipulando-os-dados-no-r-studio.html#cb230-1" tabindex="-1"></a><span class="fu">day</span>(data)             <span class="co"># Extrai o dia</span></span></code></pre></div>
-<pre><code>## [1] 8</code></pre>
+<pre><code>## [1] 9</code></pre>
 <div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="manipulando-os-dados-no-r-studio.html#cb232-1" tabindex="-1"></a><span class="fu">minute</span>(data)              <span class="co"># Extrai o minuto</span></span></code></pre></div>
-<pre><code>## [1] 37</code></pre>
+<pre><code>## [1] 19</code></pre>
 <div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="manipulando-os-dados-no-r-studio.html#cb234-1" tabindex="-1"></a><span class="fu">second</span>(data)              <span class="co"># Extrai o segundo</span></span></code></pre></div>
-<pre><code>## [1] 3.577966</code></pre>
+<pre><code>## [1] 37.89503</code></pre>
 <p>Para verificar o número de dias tem em um determinado mês, usa-se a função <code>days_in_month()</code>:</p>
 <div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="manipulando-os-dados-no-r-studio.html#cb236-1" tabindex="-1"></a> data1 <span class="ot">&lt;-</span> <span class="fu">dmy</span>(<span class="st">&quot;25/02/2000&quot;</span>)</span>
 <span id="cb236-2"><a href="manipulando-os-dados-no-r-studio.html#cb236-2" tabindex="-1"></a> <span class="fu">days_in_month</span>(data1)          </span></code></pre></div>
