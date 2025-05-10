@@ -156,7 +156,7 @@ print(moda)
 
 A saída mostra que a média é igual a 8 e que frequência deste valor entre os 15 valores é 7.
 
-#### Quantil
+#### Quantil  {#sec-quantil}
 
 Uma medida de localização bastante utilizada são os **quantis** que são pontos estabelecidos em intervalos regulares que dividem a amostra em subconjuntos iguais. Se estes subconjuntos são em número de 100, são denominados de **percentis**; se são em número de 10, são os **decis** e em número de 4, são os **quartis**. 
 A função nativa no *R* para obter o quantil é `quantile()`.   

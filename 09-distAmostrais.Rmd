@@ -20,17 +20,17 @@ Um parâmetro populacional é sempre uma constante, enquanto uma estatística de
 
 ### Distribuição populacional  
 
-A distribuição populacional é a distribuição de probabilidade derivada das informações sobre todos os elementos de uma população.  
+A distribuição populacional é a distribuição de probabilidade derivada das informações sobre todos os elementos de uma **população**.  
 
 Para fins de raciocínio didático, o conjunto de dados de 1368 observações de puérperas e recém-nascidos da Maternidade-escola do Hospital Geral de Caxias do Sul, RS, será considerado a população. O gráfico da Figura \@ref(fig:histbxp), da Seção \@ref(sec-assimetria), mostra a distribuição da `altura` das puérperas dessa ‘população’. Os parâmetros ($\mu$ e $\sigma$) dessa ‘população’ são:
 
 ```{r}
-dadosAltura <- read_excel("Arquivos/dadosMater.xlsx") %>% 
+dados <- read_excel("Arquivos/dadosMater.xlsx") %>% 
   select(altura)
 
- media = mean(dadosAltura$altura, na.rm =TRUE)
+ media = mean(dados$altura, na.rm =TRUE)
  round(media, 3)
- dp = sd(dadosAltura$altura, na.rm =TRUE)
+ dp = sd(dados$altura, na.rm =TRUE)
  round(dp, 3)
 
 ```
@@ -41,15 +41,15 @@ Conforme mencionado no início deste capítulo, o valor de um parâmetro da popu
 
 No entanto, não se pode dizer o mesmo sobre a média amostral. Amostras diferentes do mesmo tamanho, retiradas da mesma população, produzem valores diferentes da média amostral, $\bar{x}$. O valor da média amostral, para qualquer amostra, dependerá dos elementos incluídos nessa amostra. Em decorrência, a média amostral é uma variável aleatória. Portanto, como outras variáveis aleatórias, a média amostral possui uma distribuição de probabilidade, que é mais comumente chamada de *distribuição amostral da média*.   
 
-Outras estatísticas de amostra, como mediana, moda e desvio padrão, também possuem distribuições amostrais. Em geral, a distribuição de probabilidades de uma amostra é denominada de distribuição amostral.  
+Outras estatísticas de amostra, como mediana, moda e desvio padrão, também possuem distribuições amostrais. Em geral, a distribuição de probabilidades de uma amostra é denominada de **distribuição amostral**.  
 
-Voltando à variável altura das puérperas da Maternidade do HGCS, convencionada a priori como a população de interesse. Isso raramente acontece na vida real. Reunir informação sobre uma população inteira costuma ser muito custoso ou impossível. Por essa razão, a prática é selecionar apenas uma amostra da população e a usar para compreender as suas características.  
+Usar a variável `altura` das puérperas da Maternidade do HGCS como a população de interesse é apenas uma estratégia didática. Raramente, na vida real, é possível obter dados da população inteira. Reunir essa informação costuma ser muito custoso ou impossível. Por essa razão, a prática é selecionar apenas uma amostra da população e a usar para compreender as suas características.  
 
-Usando a função `slice_sample()` do pacote `dplyr`, será extraída uma amostra de n = 30 da população e calculada a média e o desvio padrão: 
+A função `slice_sample()` do pacote `dplyr`extrairá uma amostra ^[Para que a cada nova amostragem retorne o mesmo conjunto de dados, é usado a função `set.seed()`(revise a Seção \@ref(sec-rnorm))] de n = 30 da população e calculada a média e o desvio padrão: 
 
 ```{r warning=FALSE, message=FALSE}
 set.seed(234)
-amostra1 <- dadosAltura %>% 
+amostra1 <- dados %>% 
   dplyr::slice_sample(n = 30)
 
 media1 <- mean(amostra1$altura, na.rm =TRUE)
@@ -57,11 +57,11 @@ dp1 <-  sd(amostra1$altura, na.rm =TRUE)
 print(c(media1, dp1))
 ```
 
-Se este processo for repetido várias vezes, a cada amostra aleatória, serão gerados médias e desvios padrão diferentes.
+Se este processo for repetido várias vezes, a cada amostra aleatória ^[Observe que se modificou o número da "semente"], serão gerados médias e desvios padrão diferentes.
 
 ```{r}
 set.seed(236)
-amostra2 <- dadosAltura %>% 
+amostra2 <- dados %>% 
   dplyr::slice_sample(n = 30)
 
 media2 <- mean(amostra2$altura, na.rm =TRUE)
@@ -69,7 +69,7 @@ dp2 <-  sd(amostra2$altura, na.rm =TRUE)
 print(c(media2, dp2))
 ```
 
-À medida que o número de amostras possíveis forem aumentando, elas constituem uma distribuição cuja média, média das médias, $\bar{x}_{\bar{x}}$, é igual a média populacional, $\mu$. Essa distribuição, no caso da média, recebe o nome de *distribuição amostral das médias*.   
+À medida que o número de amostras possíveis forem aumentando, elas constituem uma distribuição cuja média, média das médias, $\bar{x}_{\bar{x}}$, é igual a média populacional, $\mu$. Essa distribuição, no caso da média, recebe o nome de **distribuição amostral das médias**.   
 
 Agora, para exemplificar este conceito, serão geradas 5000 amostras e calculada a média de cada uma das amostras de n = 30 que constituirão a distribuição, mostrada no gráfico da Figura \@ref(fig:dam).  
 
@@ -77,7 +77,7 @@ Agora, para exemplificar este conceito, serão geradas 5000 amostras e calculada
 # extraindo 5000 amostras
 amostras5000 <- rep (0, 5000)
 for (i in 1:5000) {
-  amostra <- dadosAltura %>% dplyr::slice_sample (n = 30) 
+  amostra <- dados %>% dplyr::slice_sample (n = 30) 
   amostras5000 [i] <- mean(amostra$altura)
 }
 ```
@@ -114,26 +114,25 @@ Se a média, $\bar{x}_{\bar{x}}$, dessas 5000 amostras de n = 30, for comparada 
 
 ## Erros amostrais e não amostrais  
 
-Amostras diferentes selecionadas da mesma população darão resultados diferentes porque contêm elementos diferentes. Isso é evidente nas medias das amostra1 e amostra2, `r round(mean(amostra1$altura, na.rm =TRUE), 3)`m e `r round(mean(amostra2$altura, na.rm =TRUE), 3)`m, respectivamente, comparadas com a média da população igual a `r round(mean(dadosAltura$altura, na.rm =TRUE), 3)`m .
+Amostras diferentes selecionadas da mesma população darão resultados diferentes porque contêm elementos diferentes. Isso é evidente nas medias das amostra1 e amostra2, `r round(mean(amostra1$altura, na.rm =TRUE), 3)`m e `r round(mean(amostra2$altura, na.rm =TRUE), 3)`m, respectivamente, comparadas com a média da população igual a `r round(mean(dados$altura, na.rm =TRUE), 3)`m .
 
 ```{r}
-erro1 <- abs(mean(amostra1$altura, na.rm =TRUE) - mean(dadosAltura$altura, na.rm =TRUE))
-erro2 <- abs(mean(amostra2$altura, na.rm =TRUE) - mean(dadosAltura$altura, na.rm =TRUE))
+erro1 <- abs(mean(amostra1$altura, na.rm =TRUE) - mean(dados$altura, na.rm =TRUE))
+erro2 <- abs(mean(amostra2$altura, na.rm =TRUE) - mean(dados$altura, na.rm =TRUE))
 print(c(erro1, erro2), digits = 2)
 ```
-Se outras amostras forem extraídas, o resultado obtido de qualquer amostra geralmente será diferente do resultado obtido da população correspondente. A diferença entre o valor de uma estatística amostral obtida de uma amostra e o valor do parâmetro populacional correspondente, é chamada de *erro amostral*. Observe que essa diferença representa o erro amostral apenas se a amostra for aleatória e não houver nenhum erro não amostral. Caso contrário, apenas uma parte dessa diferença será devido ao erro amostral.
+Se outras amostras forem extraídas, o resultado obtido de qualquer amostra geralmente será diferente do resultado obtido da população correspondente. A diferença entre o valor de uma estatística amostral obtida de uma amostra e o valor do parâmetro populacional correspondente, é chamada de **erro amostral**. Observe que essa diferença representa o erro amostral apenas se a amostra for aleatória e não houver nenhum erro não amostral. Caso contrário, apenas uma parte dessa diferença será devido ao erro amostral.
 
 $$
  erro \quad amostral = \bar{x}_{i} - \mu  
 $$
-É importante lembrar que o erro amostral ocorre devido ao acaso. Não é possível evitar o erro amostral. É possível limitar o seu valor através da seleção de uma amostra adequada. Os erros que ocorrem por outros motivos, como erros cometidos durante a coleta, registro e tabulação dos dados, são chamados de *erros não amostrais*. Esses erros ocorrem, em geral, por causa de erros humanos e não por acaso.  
+É importante lembrar que o erro amostral ocorre devido ao acaso. Não é possível evitar o erro amostral. É possível limitar o seu valor através da seleção de uma amostra adequada. Os erros que ocorrem por outros motivos, como erros cometidos durante a coleta, registro e tabulação dos dados, são chamados de **erros não amostrais**. Esses erros ocorrem, em geral, por causa de erros humanos e não por acaso.  
 
 ## Média e desvio padrão da média  
 
-A média e o desvio padrão calculados para a distribuição amostral da média são chamados de *média ($\mu_{\bar{x}}$)* e *desvio padrão ($\sigma_{\bar{x}}$) da média*. Na verdade, a média e o desvio padrão da média são, respectivamente, a média e o desvio padrão das médias de todas as amostras do mesmo tamanho selecionadas de uma população. O desvio padrão da média é, comumente, chamado de *erro padrão da média* ($\sigma_{\bar{x}}$).  
+A média e o desvio padrão calculados para a distribuição amostral da média são chamados de *média ($\mu_{\bar{x}}$)* e *desvio padrão ($\sigma_{\bar{x}}$) da média*. Na verdade, a média e o desvio padrão da média são, respectivamente, a média e o desvio padrão das médias de todas as amostras do mesmo tamanho selecionadas de uma população. O desvio padrão da média é, comumente, chamado de **erro padrão da média** ($\sigma_{\bar{x}}$).  
 
 A média amostral, $\bar{x}$, é chamada de *estimador* da média da população, $\mu$. Quando o valor esperado (ou média) de uma estatística amostral é igual ao valor do parâmetro populacional correspondente, essa estatística amostral é considerada um estimador não enviesado, consistente.  
-
 Para a média amostral $\bar{x}$,  $\mu_{\bar{x}} = \mu$. Logo, $\bar{x}$, é um estimador imparcial de $\mu$. Esta é uma propriedade muito importante que um estimador deve possuir. No entanto, o desvio padrão da média, $\sigma_{\bar{x}}$, não é igual ao desvio padrão, $\sigma$, da distribuição populacional (a menos que n = 1). O desvio padrão da média amostral é igual ao desvio padrão da população dividido pela raiz quadrada do tamanho amostral: 
 
 $$
@@ -163,21 +162,21 @@ Na maioria das vezes, a população da qual as amostras são extraídas não é 
 Agora, será tomado como exemplo a variável `renda`, do conjunto de dados `dadosMater.xlsx`, que representa a renda familiar em salários mínimos (*sm*). Como foi feito anteriormente, suponha que essa variável seja a população de estudo. Ela tem as seguintes medidas resumidoras e de assimetria:  
 
 ```{r}
-mater <- readxl::read_excel("Arquivos/dadosMater.xlsx")
-resumo <- mater %>% 
+dados <- readxl::read_excel("Arquivos/dadosMater.xlsx")
+resumo <- dados %>% 
   select (renda) %>% 
-  dplyr::summarise (media.sm = mean (mater$renda, na.rm = TRUE),
-                    dp.sm = sd(mater$renda, na.rm = TRUE),
-                    mediana.sm = median(mater$renda, na.rm = TRUE),
-                    assimetria = e1071::skewness(mater$renda),
-                    curtose = e1071::kurtosis(mater$renda))
+  dplyr::summarise (media.sm = mean (dados$renda, na.rm = TRUE),
+                    dp.sm = sd(dados$renda, na.rm = TRUE),
+                    mediana.sm = median(dados$renda, na.rm = TRUE),
+                    assimetria = e1071::skewness(dados$renda),
+                    curtose = e1071::kurtosis(dados$renda))
 resumo
 ```
 
-O desvio padrão é grande em relação à média, com um coeficiente de variação de `r round(resumo$dp.sm/resumo$media.sm, 3)*100`% e uma mediana < média. Estas métricas junto com os coeficientes de assimetria e curtose apontam para a assimetria positiva da variável `renda familiar`. O gráfico da Figura \@ref(fig:skewpos) confirma esta afirmação:  
+O desvio padrão é grande em relação à média, com um coeficiente de variação de `r round(resumo$dp.sm/resumo$media.sm, 3)*100`% e uma mediana < média. Estas métricas junto com os coeficientes de assimetria e curtose apontam para a assimetria positiva da variável `renda`. O gráfico da Figura \@ref(fig:skewpos) confirma esta afirmação:  
 
 ```{r skewpos, echo=FALSE, warning=FALSE, out.width="70%", out.height="70%", fig.align="center", fig.cap="Distribuição assimétrica positiva", fig.pos="H"}
-ggplot(data = mater)+ 
+ggplot(data = dados)+ 
   geom_histogram(aes(x = renda,
                      y = after_stat(density)),
                  bins = 20,
@@ -193,19 +192,21 @@ ggplot(data = mater)+
   theme_bw()
 ```
 
-Os valores da média e do desvio padrão calculados para a distribuição de probabilidade dessa população fornecem os valores dos parâmetros populacionais  $\mu$ e $\sigma$. Esses valores são $\mu$ =`r round(resumo$media.sm, 2)`*sm* e $\sigma$ =`r round(resumo$dp.sm, 2)`*sm*.  
+Os valores da média e do desvio padrão calculados para a distribuição de probabilidade dessa população fornecem os valores dos parâmetros populacionais  $\mu$ e $\sigma$. Esses valores são $\mu$ =`r round(resumo$media.sm, 2)`*sm* ^[Salários mínimos] e $\sigma$ =`r round(resumo$dp.sm, 2)`*sm*.  
 Se extrairmos múltiplas amostras dessa população, observa-se a modificação do formato da distribuição à medida que aumenta o tamanho amostral, se aproximando progressivamente do modelo normal, com um número grande de amostras.
 
 *Extração de múltiplas amostras(1000)*
+
 ```{r}
 amostras1000 <- rep (0, 1000)
 for (i in 1:1000) {
-  amostra.sm <- sample (mater$renda, 30) 
+  amostra.sm <- sample (dados$renda, 30) 
   amostras1000 [i] <- mean(amostra.sm)
 }
 ```
 
 *Media e desvio padrão das 1000 amostras*
+
 ```{r}
 mu <- round (mean (amostras1000), digits = 3)
 sigma <- round (sd (amostras1000), digits = 3)
@@ -296,7 +297,7 @@ Dessa forma, pode-se calcular probabilidades aproximadas por uma distribuição 
 Considerando a ‘população’ que está sendo usada neste capítulo, o conjunto de dados `dadosMater.xlsx`, será verificado a proporção de mulheres fumantes. Inicialmente, a variável `fumo`, que está como variável numérica, será transformada em fator, pois, na realidade, é categórica:
 
 ```{r}
-mater$fumo <- factor (mater$fumo, 
+dados$fumo <- factor (dados$fumo, 
                       levels = c (1,2), 
                       label = c ("sim", "não"))
 ```
@@ -304,7 +305,7 @@ mater$fumo <- factor (mater$fumo,
 A proporção de fumantes, frequência relativa (*fr*) é:
 
 ```{r}
-fumo <- with(mater, table(fumo))
+fumo <- with(dados, table(fumo))
 fr.fumo <- prop.table(fumo)
 fr.fumo
 ```
@@ -314,7 +315,7 @@ Agora, imagine que esse resultado fosse desconhecido. Então, para saber a qual 
 
 ```{r}
  set.seed(134)
- amostra.fumo <- mater %>% dplyr::slice_sample(n = 100)
+ amostra.fumo <- dados %>% dplyr::slice_sample(n = 100)
 ```
 
 Usando a `amostra.fumo`, calcula-se a proporção de fumantes:
@@ -349,7 +350,7 @@ $$
 $$
 encontra-se totalmente dentro do intervalo [0,1].  
 
-Transportando os dados da amostra de gestantes, para a fórmula e usando o R para o cálculo, tem-se:
+Transportando os dados da amostra de gestantes, para a fórmula e usando o *R* para o cálculo, tem-se:
 
 ```{r}
 p.chapeu <- tab.fumo[1,2]

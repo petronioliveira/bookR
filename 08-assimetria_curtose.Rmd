@@ -17,7 +17,7 @@ pacman::p_load(DescTools,
 
 ## Dados
 
-Será usada a mesma variável `altura` de 1368 do conjunto de dados`dadosMater.xlsx`, já mostrado anteriormente (Seção  \@ref(sec-aplicafreq)).   
+Será usada a mesma variável `altura` de 1368 mulheres do conjunto de dados`dadosMater.xlsx`, já mostrado anteriormente (Seção  \@ref(sec-aplicafreq)).   
 
 ### Exploração dos dados  {#sec-assimetria}
 
@@ -207,8 +207,8 @@ Observando o formato da distribuição no histograma e no boxplot, na Figura \@r
 
 #### Avaliação da assimetria com o gráfico QQ   {#sec-qqplot}
 
-Outra ferramenta gráfica que permite avaliar a simetria dos dados é o gráfico QQ (gráfico quantil-quantil). Ele permite observar se a distribuição se ajusta a distribuição normal. O gráfico QQ é um gráfico de dispersão que compara os quantis ^[Sobre os quantis, veja a seção específica no Capítulo 6] da amostra com os quantis teóricos de uma distribuição de referência. Se os pontos do gráfico QQ formarem uma reta, isso indica que os dados têm a mesma distribuição da referência. Se os pontos se afastarem da reta, isso indica que os dados têm uma distribuição diferente da referência.
-Para construir um gráfico QQ, pode-se usar a função `ggqqplot()`do pacote `ggpubr`. Ele apresenta uma linha de referência, acompanhada de uma area sombreada, correspondente ao Intervalo de Confiança de 95% (Veja o Capítulo 10):
+Outra ferramenta gráfica que permite avaliar a simetria dos dados é o gráfico QQ (gráfico quantil-quantil). Ele permite observar se a distribuição se ajusta a distribuição normal. O gráfico QQ é um gráfico de dispersão que compara os quantis ^[Sobre os quantis, veja na Seção  \@ref(sec-quantil)] da amostra com os quantis teóricos de uma distribuição de referência. Se os pontos do gráfico QQ formarem uma reta, isso indica que os dados têm a mesma distribuição da referência. Se os pontos se afastarem da reta, isso indica que os dados têm uma distribuição diferente da referência.
+Para construir um gráfico QQ, pode-se usar a função `ggqqplot()`do pacote `ggpubr`. Ele apresenta uma linha de referência, acompanhada de uma area sombreada, correspondente ao Intervalo de Confiança de 95% (Veja o Capítulo \@ref(sec-estimacao)):
 
 ```{r chart, warning=FALSE, out.width="70%", out.height="70%", fig.align="center", fig.cap="Gráfico QQ", fig.pos="H"}
 ggqqplot(data = dados, 

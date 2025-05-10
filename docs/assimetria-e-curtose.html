@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2025-05-09" />
+<meta name="date" content="2025-05-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -385,10 +385,7 @@ div.csl-indent {
 <li class="chapter" data-level="10" data-path="sec-estimacao.html"><a href="sec-estimacao.html"><i class="fa fa-check"></i><b>10</b> Estimação</a>
 <ul>
 <li class="chapter" data-level="10.1" data-path="sec-estimacao.html"><a href="sec-estimacao.html#pacotes-necessários-neste-capítulo-3"><i class="fa fa-check"></i><b>10.1</b> Pacotes necessários neste capítulo</a></li>
-<li class="chapter" data-level="10.2" data-path="sec-estimacao.html"><a href="sec-estimacao.html#dados-2"><i class="fa fa-check"></i><b>10.2</b> Dados</a>
-<ul>
-<li class="chapter" data-level="10.2.1" data-path="sec-estimacao.html"><a href="sec-estimacao.html#sec-dadosaltura"><i class="fa fa-check"></i><b>10.2.1</b> Exploração dos dados</a></li>
-</ul></li>
+<li class="chapter" data-level="10.2" data-path="sec-estimacao.html"><a href="sec-estimacao.html#sec-dadoscap10"><i class="fa fa-check"></i><b>10.2</b> Dados</a></li>
 <li class="chapter" data-level="10.3" data-path="sec-estimacao.html"><a href="sec-estimacao.html#introdução-3"><i class="fa fa-check"></i><b>10.3</b> Introdução</a></li>
 <li class="chapter" data-level="10.4" data-path="sec-estimacao.html"><a href="sec-estimacao.html#estimativa-pontual-e-intervalo-de-confiança"><i class="fa fa-check"></i><b>10.4</b> Estimativa Pontual e Intervalo de Confiança</a></li>
 <li class="chapter" data-level="10.5" data-path="sec-estimacao.html"><a href="sec-estimacao.html#estimação-da-média-populacional-sigma-conhecido"><i class="fa fa-check"></i><b>10.5</b> Estimação da média populacional: <span class="math inline">\(\sigma\)</span> conhecido</a>
@@ -675,7 +672,7 @@ div.csl-indent {
 </div>
 <div id="dados-1" class="section level2 hasAnchor" number="8.2">
 <h2><span class="header-section-number">8.2</span> Dados<a href="assimetria-e-curtose.html#dados-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Será usada a mesma variável <code>altura</code> de 1368 do conjunto de dados<code>dadosMater.xlsx</code>, já mostrado anteriormente (Seção <a href="introdução-à-teoria-das-probabilidades.html#sec-aplicafreq">7.4.1</a>).</p>
+<p>Será usada a mesma variável <code>altura</code> de 1368 mulheres do conjunto de dados<code>dadosMater.xlsx</code>, já mostrado anteriormente (Seção <a href="introdução-à-teoria-das-probabilidades.html#sec-aplicafreq">7.4.1</a>).</p>
 <div id="sec-assimetria" class="section level3 hasAnchor" number="8.2.1">
 <h3><span class="header-section-number">8.2.1</span> Exploração dos dados<a href="assimetria-e-curtose.html#sec-assimetria" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>O resumo dos dados pode ser realizado, usando a função <code>summarise()</code> do pacote <code>dplyr</code>. A moda será calculada usando com função <code>Mode()</code> do pacote <code>DescTools</code>.</p>
@@ -871,7 +868,7 @@ grave
 <div id="sec-qqplot" class="section level4 hasAnchor" number="8.3.1.2">
 <h4><span class="header-section-number">8.3.1.2</span> Avaliação da assimetria com o gráfico QQ<a href="assimetria-e-curtose.html#sec-qqplot" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Outra ferramenta gráfica que permite avaliar a simetria dos dados é o gráfico QQ (gráfico quantil-quantil). Ele permite observar se a distribuição se ajusta a distribuição normal. O gráfico QQ é um gráfico de dispersão que compara os quantis <a href="#fn41" class="footnote-ref" id="fnref41"><sup>41</sup></a> da amostra com os quantis teóricos de uma distribuição de referência. Se os pontos do gráfico QQ formarem uma reta, isso indica que os dados têm a mesma distribuição da referência. Se os pontos se afastarem da reta, isso indica que os dados têm uma distribuição diferente da referência.
-Para construir um gráfico QQ, pode-se usar a função <code>ggqqplot()</code>do pacote <code>ggpubr</code>. Ele apresenta uma linha de referência, acompanhada de uma area sombreada, correspondente ao Intervalo de Confiança de 95% (Veja o Capítulo 10):</p>
+Para construir um gráfico QQ, pode-se usar a função <code>ggqqplot()</code>do pacote <code>ggpubr</code>. Ele apresenta uma linha de referência, acompanhada de uma area sombreada, correspondente ao Intervalo de Confiança de 95% (Veja o Capítulo <a href="sec-estimacao.html#sec-estimacao">10</a>):</p>
 <div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="assimetria-e-curtose.html#cb528-1" tabindex="-1"></a><span class="fu">ggqqplot</span>(<span class="at">data =</span> dados, </span>
 <span id="cb528-2"><a href="assimetria-e-curtose.html#cb528-2" tabindex="-1"></a>         <span class="at">x =</span> <span class="st">&quot;altura&quot;</span>,</span>
 <span id="cb528-3"><a href="assimetria-e-curtose.html#cb528-3" tabindex="-1"></a>         <span class="at">conf.int =</span> <span class="cn">TRUE</span>,</span>
@@ -1062,7 +1059,7 @@ Figura 8.5: Histograma com curva normal
 <div class="footnotes">
 <hr />
 <ol start="41">
-<li id="fn41"><p>Sobre os quantis, veja a seção específica no Capítulo 6<a href="assimetria-e-curtose.html#fnref41" class="footnote-back">↩︎</a></p></li>
+<li id="fn41"><p>Sobre os quantis, veja na Seção <a href="descrevendo-os-dados.html#sec-quantil">6.3.3.4</a><a href="assimetria-e-curtose.html#fnref41" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

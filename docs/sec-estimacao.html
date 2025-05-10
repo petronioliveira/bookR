@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2025-05-09" />
+<meta name="date" content="2025-05-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -385,10 +385,7 @@ div.csl-indent {
 <li class="chapter" data-level="10" data-path="sec-estimacao.html"><a href="sec-estimacao.html"><i class="fa fa-check"></i><b>10</b> Estimação</a>
 <ul>
 <li class="chapter" data-level="10.1" data-path="sec-estimacao.html"><a href="sec-estimacao.html#pacotes-necessários-neste-capítulo-3"><i class="fa fa-check"></i><b>10.1</b> Pacotes necessários neste capítulo</a></li>
-<li class="chapter" data-level="10.2" data-path="sec-estimacao.html"><a href="sec-estimacao.html#dados-2"><i class="fa fa-check"></i><b>10.2</b> Dados</a>
-<ul>
-<li class="chapter" data-level="10.2.1" data-path="sec-estimacao.html"><a href="sec-estimacao.html#sec-dadosaltura"><i class="fa fa-check"></i><b>10.2.1</b> Exploração dos dados</a></li>
-</ul></li>
+<li class="chapter" data-level="10.2" data-path="sec-estimacao.html"><a href="sec-estimacao.html#sec-dadoscap10"><i class="fa fa-check"></i><b>10.2</b> Dados</a></li>
 <li class="chapter" data-level="10.3" data-path="sec-estimacao.html"><a href="sec-estimacao.html#introdução-3"><i class="fa fa-check"></i><b>10.3</b> Introdução</a></li>
 <li class="chapter" data-level="10.4" data-path="sec-estimacao.html"><a href="sec-estimacao.html#estimativa-pontual-e-intervalo-de-confiança"><i class="fa fa-check"></i><b>10.4</b> Estimativa Pontual e Intervalo de Confiança</a></li>
 <li class="chapter" data-level="10.5" data-path="sec-estimacao.html"><a href="sec-estimacao.html#estimação-da-média-populacional-sigma-conhecido"><i class="fa fa-check"></i><b>10.5</b> Estimação da média populacional: <span class="math inline">\(\sigma\)</span> conhecido</a>
@@ -672,49 +669,46 @@ div.csl-indent {
 <span id="cb586-7"><a href="sec-estimacao.html#cb586-7" tabindex="-1"></a>               Rmisc, </span>
 <span id="cb586-8"><a href="sec-estimacao.html#cb586-8" tabindex="-1"></a>               tidyr)</span></code></pre></div>
 </div>
-<div id="dados-2" class="section level2 hasAnchor" number="10.2">
-<h2><span class="header-section-number">10.2</span> Dados<a href="sec-estimacao.html#dados-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Serão carregados os dados do arquivo <code>dadosMater.xlsx</code>, já usados em outras seções. Para maiores detalhes deste conjunto de dados, consulte a Seção <a href="manipulando-os-dados-no-r-studio.html#sec-mater">5.3</a>:</p>
-<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="sec-estimacao.html#cb587-1" tabindex="-1"></a>mater <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;./Arquivos/dadosMater.xlsx&quot;</span>)</span></code></pre></div>
-<div id="sec-dadosaltura" class="section level3 hasAnchor" number="10.2.1">
-<h3><span class="header-section-number">10.2.1</span> Exploração dos dados<a href="sec-estimacao.html#sec-dadosaltura" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Será novamente considerado, para fins didáticos, como se fosse uma ‘população’. Dessa população serão filtrados os recém-nascidos a termo (idade gestacional <span class="math inline">\(\ge 37\)</span> sem e &lt;42 sem) que constituirá um novo conjunto que será atribuído ao objeto <code>rnt</code>:</p>
-<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb588-1"><a href="sec-estimacao.html#cb588-1" tabindex="-1"></a>rnt <span class="ot">&lt;-</span> mater <span class="sc">%&gt;%</span> <span class="fu">filter</span>(ig<span class="sc">&gt;=</span><span class="dv">37</span> <span class="sc">&amp;</span> ig<span class="sc">&lt;</span><span class="dv">42</span>)</span></code></pre></div>
-<p>Também será selecionada, a partir da convencionada ‘população’, <code>mater</code>, a variável <code>altura</code> para constituir-se no objeto <code>dadosAltura</code>:</p>
-<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="sec-estimacao.html#cb589-1" tabindex="-1"></a>dadosAltura <span class="ot">&lt;-</span> mater <span class="sc">%&gt;%</span> <span class="fu">select</span>(altura)</span></code></pre></div>
-</div>
+<div id="sec-dadoscap10" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Dados<a href="sec-estimacao.html#sec-dadoscap10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Os dados deste capítulo são os mesmo usados no Capítulo <a href="sec-cap9.html#sec-cap9">9</a>, contidos no arquivo <code>dadosMater.xlsx</code>, considerando apenas os recém-nascidos a termo e a variável <code>altura</code>, <code>pesoRN</code> e <code>fumo</code>:</p>
+<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="sec-estimacao.html#cb587-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb587-2"><a href="sec-estimacao.html#cb587-2" tabindex="-1"></a>  <span class="fu">filter</span>(ig<span class="sc">&gt;=</span><span class="dv">37</span> <span class="sc">&amp;</span> ig<span class="sc">&lt;</span><span class="dv">42</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb587-3"><a href="sec-estimacao.html#cb587-3" tabindex="-1"></a>  <span class="fu">select</span>(altura, pesoRN)</span>
+<span id="cb587-4"><a href="sec-estimacao.html#cb587-4" tabindex="-1"></a><span class="fu">str</span>(dados)</span></code></pre></div>
+<pre><code>## tibble [1,085 × 2] (S3: tbl_df/tbl/data.frame)
+##  $ altura: num [1:1085] 1.5 1.55 1.6 1.58 1.76 1.63 1.54 1.55 1.56 1.51 ...
+##  $ pesoRN: num [1:1085] 3285 3100 3100 2800 3270 ...</code></pre>
 </div>
 <div id="introdução-3" class="section level2 hasAnchor" number="10.3">
 <h2><span class="header-section-number">10.3</span> Introdução<a href="sec-estimacao.html#introdução-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>A estatística inferencial é a parte da estatística que usa os resultados da amostra para tomar decisões e tirar conclusões sobre a população de onde a amostra foi retirada. A estimação e o teste de hipóteses, tomados em conjunto, constituem a <em>inferência estatística</em>.</p>
-<p><em>Estimação</em> é um procedimento pelo qual um valor ou valores numéricos são atribuídos a um parâmetro populacional com base nas informações de uma amostra. Na estatística inferencial, <span class="math inline">\(\mu\)</span> é chamada de média populacional e <em>p</em> é chamada de proporção populacional. Existem muitos outros parâmetros populacionais, como mediana, moda, variância e desvio padrão.</p>
+<p>A estatística inferencial é a parte da estatística que usa os resultados da amostra para tomar decisões e tirar conclusões sobre a população de onde a amostra foi retirada. A estimação e o teste de hipóteses, tomados em conjunto, constituem a <strong>inferência estatística</strong>.</p>
+<p><em>Estimação</em> é um procedimento pelo qual um valor ou valores numéricos são atribuídos a um parâmetro populacional com base nas informações de uma amostra. Na estatística inferencial, <span class="math inline">\(\mu\)</span> é chamada de média populacional e <em>p</em> é chamada de proporção populacional. Existem muitos outros parâmetros populacionais, como mediana, moda, variância e desvio padrão, como observado na Seção <a href="sec-cap9.html#sec-dam">9.2.2</a>.</p>
 <p>Se houvesse possibilidade de realizar um <em>censo</em> (pesquisa incluindo toda a população de interesse), não haveria necessidade dos procedimentos de estimação. Seria equivalente ao que ocorre em uma eleição, basta contar os votos, para declarar os vencedores da eleição. No entanto, em saúde, realizar censo é um procedimento caro, demorado ou virtualmente impossível. Portanto, geralmente é utilizada uma amostra da população e calculada o valor das estatísticas da amostra apropriada. Baseado nessas estatísticas, é atribuído valores ao parâmetro.</p>
 <p>A estatística usada para estimar um parâmetro é chamada de estimador. Assim, a média da amostra, <span class="math inline">\(\bar{x}\)</span>, é um estimador da média da população, <span class="math inline">\(\mu\)</span>; e a proporção da amostra, <span class="math inline">\(\hat{p}\)</span>, é um estimador da proporção da população, <em>p</em>. Estimativa é um valor que a função estimador assume.</p>
 </div>
 <div id="estimativa-pontual-e-intervalo-de-confiança" class="section level2 hasAnchor" number="10.4">
 <h2><span class="header-section-number">10.4</span> Estimativa Pontual e Intervalo de Confiança<a href="sec-estimacao.html#estimativa-pontual-e-intervalo-de-confiança" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>A partir do conjunto de dados <code>rnt</code>, construído na Seção anterior, serão calculados a média e o desvio padrão da variável <code>pesoRN</code> (peso dos recém-nascidos em g) que, para fins didáticos, serão considerados os parâmetros dessa ‘população’:</p>
-<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb590-1"><a href="sec-estimacao.html#cb590-1" tabindex="-1"></a> mu <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">mean</span>(rnt<span class="sc">$</span>pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb590-2"><a href="sec-estimacao.html#cb590-2" tabindex="-1"></a> sigma <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">sd</span>(rnt<span class="sc">$</span>pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb590-3"><a href="sec-estimacao.html#cb590-3" tabindex="-1"></a> <span class="fu">print</span>(<span class="at">x =</span> <span class="fu">c</span>(mu, sigma))</span></code></pre></div>
+<p>A partir do <em>dataframe</em> <code>dados</code>, serão calculados a média e o desvio padrão da variável <code>pesoRN</code> (peso dos recém-nascidos em g) que, para fins didáticos, serão considerados os parâmetros dessa ‘população’:</p>
+<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="sec-estimacao.html#cb589-1" tabindex="-1"></a> mu <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">mean</span>(dados<span class="sc">$</span>pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb589-2"><a href="sec-estimacao.html#cb589-2" tabindex="-1"></a> sigma <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">sd</span>(dados<span class="sc">$</span>pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb589-3"><a href="sec-estimacao.html#cb589-3" tabindex="-1"></a> <span class="fu">print</span>(<span class="at">x =</span> <span class="fu">c</span>(mu, sigma))</span></code></pre></div>
 <pre><code>## [1] 3216  462</code></pre>
-<p>A seguir, será extraída, dessa população, uma amostra de <em>n</em> = 30 <a href="#fn42" class="footnote-ref" id="fnref42"><sup>42</sup></a> e calculado os mesmas medidas resumidoras, que se constituirão nas estimativas da <code>amostra</code> :</p>
-<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb592-1"><a href="sec-estimacao.html#cb592-1" tabindex="-1"></a><span class="fu">set.seed</span> (<span class="dv">1234</span>)</span>
-<span id="cb592-2"><a href="sec-estimacao.html#cb592-2" tabindex="-1"></a>amostra <span class="ot">&lt;-</span> rnt <span class="sc">%&gt;%</span> <span class="fu">select</span>(pesoRN) <span class="sc">%&gt;%</span> </span>
-<span id="cb592-3"><a href="sec-estimacao.html#cb592-3" tabindex="-1"></a><span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">30</span>)</span>
-<span id="cb592-4"><a href="sec-estimacao.html#cb592-4" tabindex="-1"></a></span>
-<span id="cb592-5"><a href="sec-estimacao.html#cb592-5" tabindex="-1"></a><span class="co"># Média amostral</span></span>
-<span id="cb592-6"><a href="sec-estimacao.html#cb592-6" tabindex="-1"></a>x_barra <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">mean</span>(amostra<span class="sc">$</span>pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb592-7"><a href="sec-estimacao.html#cb592-7" tabindex="-1"></a></span>
-<span id="cb592-8"><a href="sec-estimacao.html#cb592-8" tabindex="-1"></a><span class="co"># Desvio padrão amostral  </span></span>
-<span id="cb592-9"><a href="sec-estimacao.html#cb592-9" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">sd</span>(amostra<span class="sc">$</span>pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb592-10"><a href="sec-estimacao.html#cb592-10" tabindex="-1"></a></span>
-<span id="cb592-11"><a href="sec-estimacao.html#cb592-11" tabindex="-1"></a><span class="fu">print</span>(<span class="at">x =</span> <span class="fu">c</span>(x_barra, s))</span></code></pre></div>
+<p>A seguir, será extraída, dessa população, uma amostra de <em>n</em> = 30 <a href="#fn45" class="footnote-ref" id="fnref45"><sup>45</sup></a> e calculado os mesmas medidas resumidoras, que se constituirão nas estimativas da <code>amostra</code>:</p>
+<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb591-1"><a href="sec-estimacao.html#cb591-1" tabindex="-1"></a><span class="fu">set.seed</span> (<span class="dv">1234</span>)</span>
+<span id="cb591-2"><a href="sec-estimacao.html#cb591-2" tabindex="-1"></a>amostra <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">30</span>)</span>
+<span id="cb591-3"><a href="sec-estimacao.html#cb591-3" tabindex="-1"></a></span>
+<span id="cb591-4"><a href="sec-estimacao.html#cb591-4" tabindex="-1"></a><span class="co"># Média amostral</span></span>
+<span id="cb591-5"><a href="sec-estimacao.html#cb591-5" tabindex="-1"></a>x_barra <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">mean</span>(amostra<span class="sc">$</span>pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb591-6"><a href="sec-estimacao.html#cb591-6" tabindex="-1"></a></span>
+<span id="cb591-7"><a href="sec-estimacao.html#cb591-7" tabindex="-1"></a><span class="co"># Desvio padrão amostral  </span></span>
+<span id="cb591-8"><a href="sec-estimacao.html#cb591-8" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">sd</span>(amostra<span class="sc">$</span>pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb591-9"><a href="sec-estimacao.html#cb591-9" tabindex="-1"></a></span>
+<span id="cb591-10"><a href="sec-estimacao.html#cb591-10" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(x_barra, s))</span></code></pre></div>
 <pre><code>## [1] 3222  407</code></pre>
-<p>O valor de 3222g é a média amostral, <span class="math inline">\(\bar{x}\)</span>, usada como um estimativa da <span class="math inline">\(\mu\)</span>, é denominada de <em>estimativa pontual</em>. Como já mencionado anteriormente, espera-se que cada amostra selecionada produza um valor diferente da estatística amostral.</p>
-<p>Assim, o valor atribuído a uma média populacional, <span class="math inline">\(\mu\)</span>, com base em uma estimativa pontual depende de qual das amostras está sendo usada. Consequentemente, a estimativa pontual atribui um valor a <span class="math inline">\(\mu\)</span> que quase sempre difere da mesma.</p>
-<p>Para melhorar a precisão, usa-se uma estimativa de intervalo. Em vez de atribuir um único valor para o parâmetro populacional, é construído um intervalo, acrescentando ou subtraindo um valor, chamado de <em>margem de erro</em>, à estimativa pontual.</p>
-<p>Este procedimento é conhecido como <em>estimação por intervalo</em> e o intervalo construído, estabelecendo um limite inferior e um limite superior em torno da estimativa amostral, é denominado de <em>intervalo de confiança</em>. Desta forma, é possível afirmar que o intervalo de confiança, provavelmente, contém o parâmetro populacional correspondente (Figura <a href="sec-estimacao.html#fig:intconf">10.1</a>).</p>
+<p>O valor de 3222g é a média amostral, <span class="math inline">\(\bar{x}\)</span>, usado como um estimativa da <span class="math inline">\(\mu\)</span>, é denominado de <strong>estimativa pontual</strong>. Como já mencionado anteriormente, espera-se que cada amostra selecionada produza um valor diferente da estatística amostral. Assim, o valor atribuído a uma média populacional, <span class="math inline">\(\mu\)</span>, com base em uma estimativa pontual depende de qual das amostras está sendo usada. Consequentemente, a estimativa pontual atribui um valor a <span class="math inline">\(\mu\)</span> que quase sempre difere da mesma.</p>
+<p>Para melhorar a precisão, usa-se uma estimativa de intervalo. Em vez de atribuir um único valor para o parâmetro populacional, é construído um intervalo, acrescentando ou subtraindo um valor, chamado de <strong>margem de erro</strong>, à estimativa pontual.</p>
+<p>Este procedimento é conhecido como <em>estimação por intervalo</em> e o intervalo construído, estabelecendo um limite inferior e um limite superior em torno da estimativa amostral, é denominado de <strong>intervalo de confiança</strong>. Desta forma, é possível afirmar que o intervalo de confiança, provavelmente, contém o parâmetro populacional correspondente (Figura <a href="sec-estimacao.html#fig:intconf">10.1</a>).</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:intconf"></span>
 <img src="https://i.imgur.com/oAGF5Xs.png" alt="Intervalo de Confiança." width="70%" />
 <p class="caption">
@@ -723,11 +717,11 @@ Figura 10.1: Intervalo de Confiança.
 </div>
 <p>A construção do intervalo de confiança depende da obtenção da margem de erro. Este processo necessita de dois fatores:</p>
 <ul>
-<li>do desvio padrão da distribuição amostral, <span class="math inline">\(\sigma_{\bar{x}}=\frac{\sigma }{\sqrt{n}}\)</span>, que em decorrência do Teorema do Limite Central, pode ser escrito <span class="math inline">\(EP_{\bar{x}}=\frac{s}{\sqrt{n}}\)</span>;</li>
-<li>do nível de confiança atribuído ao intervalo.</li>
+<li>do <em>desvio padrão da distribuição amostral</em>, <span class="math inline">\(\sigma_{\bar{x}}=\frac{\sigma }{\sqrt{n}}\)</span>, que em decorrência do Teorema do Limite Central, pode ser escrito <span class="math inline">\(EP_{\bar{x}}=\frac{s}{\sqrt{n}}\)</span>;</li>
+<li>do <em>nível de confiança</em> (NC) atribuído ao intervalo.</li>
 </ul>
 <p>Primeiro, quanto maior for o desvio padrão de <span class="math inline">\(\bar{x}\)</span>, maior será a margem de erro subtraída e adicionada à estimativa pontual. Consequentemente, o intervalo de confiança se modifica de acordo com a margem de erro. Quanto maior a margem de erro mais amplo o intervalo de confiança.</p>
-<p>Em segundo lugar, a quantidade subtraída e adicionada à estimativa se modifica de acordo o <em>nível de confiança</em>. Para ter uma maior confiança, deve-se aumentar a margem de erro, de acordo com a probabilidade declarada. Quanto maior o nível de confiança (NC), maior a probabilidade. O nível de confiança é mostrado como <span class="math inline">\((1 - \alpha) \times 100\)</span>%, onde <span class="math inline">\(\alpha\)</span> é o <em>nível de significância</em>. Tradicionalmente, o valor de <span class="math inline">\(\alpha\)</span> é igual a 0,05, mas qualquer outro valor pode ser usado.</p>
+<p>Em segundo lugar, a quantidade subtraída e adicionada à estimativa se modifica de acordo o <em>nível de confiança</em>. Para ter uma maior confiança, deve-se aumentar a margem de erro, de acordo com a probabilidade declarada. Quanto maior o nível de confiança, maior a probabilidade. O nível de confiança é mostrado como <span class="math inline">\((1 - \alpha) \times 100\)</span>%, onde <span class="math inline">\(\alpha\)</span> é o <strong>nível de significância</strong>. Tradicionalmente, o valor de <span class="math inline">\(\alpha\)</span> é igual a 0,05, mas qualquer outro valor pode ser usado.</p>
 </div>
 <div id="estimação-da-média-populacional-sigma-conhecido" class="section level2 hasAnchor" number="10.5">
 <h2><span class="header-section-number">10.5</span> Estimação da média populacional: <span class="math inline">\(\sigma\)</span> conhecido<a href="sec-estimacao.html#estimação-da-média-populacional-sigma-conhecido" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -739,7 +733,7 @@ margem \quad de\quad erro\quad(me)= z_{(1-\frac{\alpha}{2})} \times \sigma_{\bar
 <p><span class="math display">\[
 me = z_{(1-\frac{\alpha}{2})} \times \frac{\sigma }{\sqrt{n}}
 \]</span></p>
-<p>Logo, o intervalo de confiança para a média populacional, <span class="math inline">\(\mu\)</span>, para um nível de confiança (1 - <span class="math inline">\(\alpha\)</span>)100%, é igual a:</p>
+<p>Logo, o intervalo de confiança para a média populacional, <span class="math inline">\(\mu\)</span>, para um nível de confiança (1 - <span class="math inline">\(\alpha \times 100\)</span>)%, é igual a:</p>
 <p><span class="math display">\[
 IC_{(1-\alpha)}(\mu) \rightarrow  \bar{x} \pm  me
 \]</span></p>
@@ -747,13 +741,18 @@ IC_{(1-\alpha)}(\mu) \rightarrow  \bar{x} \pm  me
 <p><span class="math display">\[
 IC_{(1-\alpha)}(\mu) \rightarrow  \bar{x} \pm  z_{(0,975)} \times me
 \]</span></p>
-<p>Onde <em>z</em> é o valor crítico para o nível de confiança escolhido, obtido da tabela de distribuição normal padrão, e <em>me</em> é a margem de erro (<span class="math inline">\(z_{0,975} \times erro \quad padrao\)</span>). Um intervalo de confiança de 95% significa que a área total sob a curva normal entre dois pontos em torno da média populacional, <span class="math inline">\(\mu\)</span>, é igual a 95%, ou 0,95. A área das caudas é <span class="math inline">\(\alpha\)</span>, ou seja, cada cauda á igual a <span class="math inline">\(\frac{\alpha}{2}\)</span> (Figura <a href="#fig:twotailed"><strong>??</strong></a>).</p>
-<p><img src="https://i.imgur.com/q6Duexo.png" width="70%" style="display: block; margin: auto;" /></p>
-<p>Para encontrar o valor de <em>z</em> para um nível de confiança de 95%, primeiro encontram-se as áreas à esquerda desses dois pontos, <span class="math inline">\(z_1\)</span> e <span class="math inline">\(z_2\)</span>. Esses dois valores de <em>z</em> serão iguais, mas com sinais opostos. A área total sob a curva é igual a 1. A área entre <span class="math inline">\(z_1\)</span> e <span class="math inline">\(z_2\)</span> é igual a <span class="math inline">\(1 - \alpha = 0,95\)</span>.</p>
-<p>A área a esquerda de <span class="math inline">\(z_1\)</span> é igual a 0,025 e a área a esquerda de <span class="math inline">\(z_2\)</span> é igual a 1 – 0,025 = 0,975. No R, o valor <span class="math inline">\(z_1\)</span> e <span class="math inline">\(z_2\)</span> podem facilmente ser obtidos com a função <code>qnorm()</code>:</p>
-<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb594-1"><a href="sec-estimacao.html#cb594-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="fu">qnorm</span>(<span class="fl">0.025</span>),<span class="fu">qnorm</span>(<span class="fl">0.975</span>)), <span class="dv">3</span>)</span></code></pre></div>
+<p>Onde <em>Z</em> é o valor crítico para o nível de confiança escolhido, obtido da tabela de distribuição normal padrão, e <em>me</em> é a margem de erro (<span class="math inline">\(z_{0,975} \times erro \quad padrao\)</span>). Um intervalo de confiança de 95% significa que a área total sob a curva normal entre dois pontos em torno da média populacional, <span class="math inline">\(\mu\)</span>, é igual a 95%, ou 0,95. A área das caudas é <span class="math inline">\(\alpha\)</span>, ou seja, cada cauda á igual a <span class="math inline">\(\frac{\alpha}{2}\)</span> (Figura <a href="sec-estimacao.html#fig:twotailed">10.2</a>).</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:twotailed"></span>
+<img src="https://i.imgur.com/q6Duexo.png" alt="Intervalo de Confiança de 95%." width="70%" />
+<p class="caption">
+Figura 10.2: Intervalo de Confiança de 95%.
+</p>
+</div>
+<p>Para encontrar o valor de <em>Z</em> para um nível de confiança de 95%, primeiro encontram-se as áreas à esquerda desses dois pontos, <span class="math inline">\(z_1\)</span> e <span class="math inline">\(z_2\)</span>. Esses dois valores de <em>Z</em> serão iguais, mas com sinais opostos. A área total sob a curva é igual a 1. A área entre <span class="math inline">\(z_1\)</span> e <span class="math inline">\(z_2\)</span> é igual a <span class="math inline">\(1 - \alpha = 0,95\)</span>.</p>
+<p>A área a esquerda de <span class="math inline">\(z_1\)</span> é igual a 0,025 e a área a esquerda de <span class="math inline">\(z_2\)</span> é igual a 1 – 0,025 = 0,975. No <em>R</em>, os valores <span class="math inline">\(z_1\)</span> e <span class="math inline">\(z_2\)</span> podem facilmente ser obtidos com a função <code>qnorm()</code>:</p>
+<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb593-1"><a href="sec-estimacao.html#cb593-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="fu">qnorm</span>(<span class="fl">0.025</span>),<span class="fu">qnorm</span>(<span class="fl">0.975</span>)), <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] -1.96  1.96</code></pre>
-<p>Dessa maneira, para uma confiança de 95%, é usado um <span class="math inline">\(z = 1.96\)</span>, onde:</p>
+<p>Dessa maneira, para uma confiança de 95%, é usado um <span class="math inline">\(Z = 1.96\)</span>, onde:</p>
 <p><span class="math display">\[
 p(-1,96 \le z \le 1,96) = 0,95
 \]</span>
@@ -767,48 +766,48 @@ IC_{95\%}(\mu) \rightarrow  \bar{x} \pm  (1.96 \times \frac{\sigma}{\sqrt{n}})
 \]</span></p>
 <div id="cálculo-do-intervalo-de-confiança-com-sigma-conhecido" class="section level3 hasAnchor" number="10.5.1">
 <h3><span class="header-section-number">10.5.1</span> Cálculo do intervalo de confiança com <span class="math inline">\(\sigma\)</span> conhecido<a href="sec-estimacao.html#cálculo-do-intervalo-de-confiança-com-sigma-conhecido" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Usando a média da amostra dos recém-nascidos de <em>n</em> = 30, <span class="math inline">\(\bar{x}\)</span>= 3222 g, e o desvio padrão populacional conhecido, <span class="math inline">\(\sigma\)</span>= 462 g, tem-se que o intervalo de confiança de 95% (IC95%), para o peso dos recém-nascidos a termo na ‘população’ de onde esta amostra é proveniente:</p>
+<p>Usando a média dos pesos dos recém-nascidos da amostra (<em>n</em> = 30), <span class="math inline">\(\bar{x}\)</span>= 3222 g, e o desvio padrão populacional conhecido, <span class="math inline">\(\sigma\)</span>= 462 g, tem-se que o intervalo de confiança de 95% (IC95%), para o peso dos recém-nascidos a termo na ‘população’ de onde esta amostra é proveniente:</p>
 <ins>
 Dados do exemplo para o cálculo
 </ins>
-<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb596-1"><a href="sec-estimacao.html#cb596-1" tabindex="-1"></a> n <span class="ot">&lt;-</span> <span class="dv">30</span></span>
-<span id="cb596-2"><a href="sec-estimacao.html#cb596-2" tabindex="-1"></a> x_barra <span class="ot">&lt;-</span> <span class="dv">3222</span></span>
-<span id="cb596-3"><a href="sec-estimacao.html#cb596-3" tabindex="-1"></a> sigma <span class="ot">&lt;-</span> <span class="dv">462</span></span></code></pre></div>
+<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb595-1"><a href="sec-estimacao.html#cb595-1" tabindex="-1"></a> n <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb595-2"><a href="sec-estimacao.html#cb595-2" tabindex="-1"></a> x_barra <span class="ot">&lt;-</span> <span class="dv">3222</span></span>
+<span id="cb595-3"><a href="sec-estimacao.html#cb595-3" tabindex="-1"></a> sigma <span class="ot">&lt;-</span> <span class="dv">462</span></span></code></pre></div>
 <p>Com 95% de confiança a margem de erro é igual a 1,96 vezes o erro padrão da média:</p>
-<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb597-1"><a href="sec-estimacao.html#cb597-1" tabindex="-1"></a> n <span class="ot">&lt;-</span> <span class="dv">30</span></span>
-<span id="cb597-2"><a href="sec-estimacao.html#cb597-2" tabindex="-1"></a> me <span class="ot">&lt;-</span> <span class="fl">1.96</span> <span class="sc">*</span> sigma<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
-<span id="cb597-3"><a href="sec-estimacao.html#cb597-3" tabindex="-1"></a> <span class="fu">round</span>(me,<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb596-1"><a href="sec-estimacao.html#cb596-1" tabindex="-1"></a> n <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb596-2"><a href="sec-estimacao.html#cb596-2" tabindex="-1"></a> me <span class="ot">&lt;-</span> <span class="fl">1.96</span> <span class="sc">*</span> sigma<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb596-3"><a href="sec-estimacao.html#cb596-3" tabindex="-1"></a> <span class="fu">round</span>(me,<span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 165.32</code></pre>
 <p>Basta, agora, adicionar e subtrair a margem de erro da média:</p>
-<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb599-1"><a href="sec-estimacao.html#cb599-1" tabindex="-1"></a> lim_inf <span class="ot">&lt;-</span> x_barra <span class="sc">-</span> me</span>
-<span id="cb599-2"><a href="sec-estimacao.html#cb599-2" tabindex="-1"></a> lim_sup <span class="ot">&lt;-</span> x_barra <span class="sc">+</span> me</span>
-<span id="cb599-3"><a href="sec-estimacao.html#cb599-3" tabindex="-1"></a> ic95 <span class="ot">&lt;-</span> <span class="fu">c</span>(lim_inf, lim_sup)</span>
-<span id="cb599-4"><a href="sec-estimacao.html#cb599-4" tabindex="-1"></a> <span class="fu">round</span>(ic95, <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb598-1"><a href="sec-estimacao.html#cb598-1" tabindex="-1"></a> lim_inf <span class="ot">&lt;-</span> x_barra <span class="sc">-</span> me</span>
+<span id="cb598-2"><a href="sec-estimacao.html#cb598-2" tabindex="-1"></a> lim_sup <span class="ot">&lt;-</span> x_barra <span class="sc">+</span> me</span>
+<span id="cb598-3"><a href="sec-estimacao.html#cb598-3" tabindex="-1"></a> ic95 <span class="ot">&lt;-</span> <span class="fu">c</span>(lim_inf, lim_sup)</span>
+<span id="cb598-4"><a href="sec-estimacao.html#cb598-4" tabindex="-1"></a> <span class="fu">round</span>(ic95, <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 3056.7 3387.3</code></pre>
-<p>Assim, tem-se uma confiança de 95% de que a verdadeira média, esteja incluída no intervalo. O nome para isso é intervalo de confiança de 95% para a média populacional.</p>
+<p>Assim, tem-se uma confiança de 95% de que a verdadeira média, esteja incluída no intervalo. O nome para isso é <em>intervalo de confiança de 95% para a média populacional</em>.</p>
 </div>
 <div id="função-para-calcular-ic-com-sigma-conhecido" class="section level3 hasAnchor" number="10.5.2">
 <h3><span class="header-section-number">10.5.2</span> Função para calcular IC com <span class="math inline">\(\sigma\)</span> conhecido<a href="sec-estimacao.html#função-para-calcular-ic-com-sigma-conhecido" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>O cálculo manual é simples, mas enfadonho, nos tempos dos computadores. Em decorrência, como o R não tem uma função para encontrar os intervalos de confiança para a média de dados com distribuição normal quando o desvio padrão da população é conhecido, foi criada uma função para cumprir essa ação. Ela necessita dos seguintes argumentos:</p>
+<p>O cálculo manual é simples, mas enfadonho, nos tempos dos computadores. Em decorrência, como o <em>R</em> não tem uma função para encontrar os intervalos de confiança para a média de dados com distribuição normal quando o desvio padrão da população é conhecido, foi criada uma função para cumprir essa ação. Ela necessita dos seguintes argumentos:</p>
 <ul>
-<li><em>x</em> <span class="math inline">\(\rightarrow\)</span> conjunto de números da amostra</li>
-<li><em>s</em> <span class="math inline">\(\rightarrow\)</span> desvio padrão populacional</li>
-<li><em>nc</em> <span class="math inline">\(\rightarrow\)</span> nível de confiança. Padrão: nc = 0.95</li>
+<li><strong>x</strong> <span class="math inline">\(\rightarrow\)</span> conjunto de números da amostra</li>
+<li><strong>s</strong> <span class="math inline">\(\rightarrow\)</span> desvio padrão populacional</li>
+<li><strong>nc</strong> <span class="math inline">\(\rightarrow\)</span> nível de confiança. Padrão: nc = 0.95</li>
 </ul>
-<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="sec-estimacao.html#cb601-1" tabindex="-1"></a>IC_z <span class="ot">&lt;-</span> <span class="cf">function</span> (x, s, <span class="at">nc =</span> <span class="fl">0.975</span>)</span>
-<span id="cb601-2"><a href="sec-estimacao.html#cb601-2" tabindex="-1"></a>{</span>
-<span id="cb601-3"><a href="sec-estimacao.html#cb601-3" tabindex="-1"></a>  <span class="st">`</span><span class="at">%&gt;%</span><span class="st">`</span> <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="st">`</span><span class="at">%&gt;%</span><span class="st">`</span></span>
-<span id="cb601-4"><a href="sec-estimacao.html#cb601-4" tabindex="-1"></a>   n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb601-5"><a href="sec-estimacao.html#cb601-5" tabindex="-1"></a>   me <span class="ot">&lt;-</span> <span class="fu">abs</span>(<span class="fu">qnorm</span>((<span class="dv">1</span><span class="sc">-</span>nc)<span class="sc">/</span><span class="dv">2</span>))<span class="sc">*</span> sigma<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
-<span id="cb601-6"><a href="sec-estimacao.html#cb601-6" tabindex="-1"></a>   df_out <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( <span class="at">tamanho_amostral =</span> n, </span>
-<span id="cb601-7"><a href="sec-estimacao.html#cb601-7" tabindex="-1"></a>                         <span class="at">media_amostral =</span> <span class="fu">mean</span>(x), </span>
-<span id="cb601-8"><a href="sec-estimacao.html#cb601-8" tabindex="-1"></a>                         <span class="at">margem_erro =</span> me,</span>
-<span id="cb601-9"><a href="sec-estimacao.html#cb601-9" tabindex="-1"></a>                         <span class="st">&#39;IC limite inferior&#39;</span><span class="ot">=</span>(<span class="fu">mean</span>(x) <span class="sc">-</span> me),</span>
-<span id="cb601-10"><a href="sec-estimacao.html#cb601-10" tabindex="-1"></a>                         <span class="st">&#39;IC limite superior&#39;</span><span class="ot">=</span>(<span class="fu">mean</span>(x) <span class="sc">+</span> me)) <span class="sc">%&gt;%</span></span>
-<span id="cb601-11"><a href="sec-estimacao.html#cb601-11" tabindex="-1"></a>    tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">&quot;Medidas&quot;</span>, <span class="at">values_to =</span><span class="st">&quot;valores&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span> )</span>
-<span id="cb601-12"><a href="sec-estimacao.html#cb601-12" tabindex="-1"></a>  <span class="fu">return</span>(df_out)</span>
-<span id="cb601-13"><a href="sec-estimacao.html#cb601-13" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb602-1"><a href="sec-estimacao.html#cb602-1" tabindex="-1"></a><span class="fu">IC_z</span>(<span class="at">x =</span> amostra<span class="sc">$</span>pesoRN, <span class="at">s =</span> sigma, <span class="at">nc =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb600-1"><a href="sec-estimacao.html#cb600-1" tabindex="-1"></a>IC_z <span class="ot">&lt;-</span> <span class="cf">function</span> (x, s, <span class="at">nc =</span> <span class="fl">0.975</span>)</span>
+<span id="cb600-2"><a href="sec-estimacao.html#cb600-2" tabindex="-1"></a>{</span>
+<span id="cb600-3"><a href="sec-estimacao.html#cb600-3" tabindex="-1"></a>  <span class="st">`</span><span class="at">%&gt;%</span><span class="st">`</span> <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="st">`</span><span class="at">%&gt;%</span><span class="st">`</span></span>
+<span id="cb600-4"><a href="sec-estimacao.html#cb600-4" tabindex="-1"></a>   n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb600-5"><a href="sec-estimacao.html#cb600-5" tabindex="-1"></a>   me <span class="ot">&lt;-</span> <span class="fu">abs</span>(<span class="fu">qnorm</span>((<span class="dv">1</span><span class="sc">-</span>nc)<span class="sc">/</span><span class="dv">2</span>))<span class="sc">*</span> sigma<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb600-6"><a href="sec-estimacao.html#cb600-6" tabindex="-1"></a>   df_out <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( <span class="at">tamanho_amostral =</span> n, </span>
+<span id="cb600-7"><a href="sec-estimacao.html#cb600-7" tabindex="-1"></a>                         <span class="at">media_amostral =</span> <span class="fu">mean</span>(x), </span>
+<span id="cb600-8"><a href="sec-estimacao.html#cb600-8" tabindex="-1"></a>                         <span class="at">margem_erro =</span> me,</span>
+<span id="cb600-9"><a href="sec-estimacao.html#cb600-9" tabindex="-1"></a>                         <span class="st">&#39;IC limite inferior&#39;</span><span class="ot">=</span>(<span class="fu">mean</span>(x) <span class="sc">-</span> me),</span>
+<span id="cb600-10"><a href="sec-estimacao.html#cb600-10" tabindex="-1"></a>                         <span class="st">&#39;IC limite superior&#39;</span><span class="ot">=</span>(<span class="fu">mean</span>(x) <span class="sc">+</span> me)) <span class="sc">%&gt;%</span></span>
+<span id="cb600-11"><a href="sec-estimacao.html#cb600-11" tabindex="-1"></a>    tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">&quot;Medidas&quot;</span>, <span class="at">values_to =</span><span class="st">&quot;valores&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span> )</span>
+<span id="cb600-12"><a href="sec-estimacao.html#cb600-12" tabindex="-1"></a>  <span class="fu">return</span>(df_out)</span>
+<span id="cb600-13"><a href="sec-estimacao.html#cb600-13" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="sec-estimacao.html#cb601-1" tabindex="-1"></a><span class="fu">IC_z</span>(<span class="at">x =</span> amostra<span class="sc">$</span>pesoRN, <span class="at">s =</span> sigma, <span class="at">nc =</span> <span class="fl">0.95</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 2
 ##   Medidas            valores
 ##   &lt;chr&gt;                &lt;dbl&gt;
@@ -818,16 +817,16 @@ Dados do exemplo para o cálculo
 ## 4 IC.limite.inferior   3056.
 ## 5 IC.limite.superior   3387.</code></pre>
 <p>Essa função pode ser salva no seu diretório e, quando necessária, pode ser ativada com a função <code>source()</code>, como visto na Seção <a href="ambiente-do-r.html#sec-funcpropria">4.8.1</a>.
-Com essa função fica fácil alterar o nível de confiança, por exemplo, para 99%. Isso mudará o <em>z</em> crítico para:</p>
-<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb604-1"><a href="sec-estimacao.html#cb604-1" tabindex="-1"></a> alpha <span class="ot">&lt;-</span> <span class="fl">0.01</span></span>
-<span id="cb604-2"><a href="sec-estimacao.html#cb604-2" tabindex="-1"></a> p <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span>(alpha<span class="sc">/</span><span class="dv">2</span>)</span>
-<span id="cb604-3"><a href="sec-estimacao.html#cb604-3" tabindex="-1"></a> p</span></code></pre></div>
+Com essa função fica fácil alterar o nível de confiança, por exemplo, para 99%. Isso mudará o <em>Z</em> crítico para:</p>
+<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb603-1"><a href="sec-estimacao.html#cb603-1" tabindex="-1"></a> alpha <span class="ot">&lt;-</span> <span class="fl">0.01</span></span>
+<span id="cb603-2"><a href="sec-estimacao.html#cb603-2" tabindex="-1"></a> p <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span>(alpha<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb603-3"><a href="sec-estimacao.html#cb603-3" tabindex="-1"></a> p</span></code></pre></div>
 <pre><code>## [1] 0.995</code></pre>
-<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb606-1"><a href="sec-estimacao.html#cb606-1" tabindex="-1"></a> z_critico <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(p)</span>
-<span id="cb606-2"><a href="sec-estimacao.html#cb606-2" tabindex="-1"></a> <span class="fu">round</span>(z_critico, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb605-1"><a href="sec-estimacao.html#cb605-1" tabindex="-1"></a> z_critico <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(p)</span>
+<span id="cb605-2"><a href="sec-estimacao.html#cb605-2" tabindex="-1"></a> <span class="fu">round</span>(z_critico, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 2.58</code></pre>
 <p>Com a função <code>IC_z()</code>:</p>
-<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb608-1"><a href="sec-estimacao.html#cb608-1" tabindex="-1"></a><span class="fu">IC_z</span>(<span class="at">x =</span> amostra<span class="sc">$</span>pesoRN, <span class="at">s =</span> sigma, <span class="at">nc =</span> <span class="fl">0.995</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="sec-estimacao.html#cb607-1" tabindex="-1"></a><span class="fu">IC_z</span>(<span class="at">x =</span> amostra<span class="sc">$</span>pesoRN, <span class="at">s =</span> sigma, <span class="at">nc =</span> <span class="fl">0.995</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 2
 ##   Medidas            valores
 ##   &lt;chr&gt;                &lt;dbl&gt;
@@ -836,89 +835,93 @@ Com essa função fica fácil alterar o nível de confiança, por exemplo, para 
 ## 3 margem_erro           237.
 ## 4 IC.limite.inferior   2985.
 ## 5 IC.limite.superior   3458.</code></pre>
-<p>Observando o IC95% e o IC99%, verifica-se que a amplitude do intervalo aumentou com o crescimento da confiança de 95% para 99%, porque houve um aumento na margem de erro Figura 10 3.</p>
-<p><img src="https://i.imgur.com/vaPrkze.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Observando o IC95% e o IC99%, verifica-se que a amplitude do intervalo aumentou com o crescimento da confiança de 95% para 99%, porque houve um aumento na margem de erro (Figura <a href="sec-estimacao.html#fig:IC9599">10.3</a>).</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:IC9599"></span>
+<img src="https://i.imgur.com/vaPrkze.png" alt="Comparação do IC95% e IC99%." width="70%" />
+<p class="caption">
+Figura 10.3: Comparação do IC95% e IC99%.
+</p>
+</div>
 </div>
 <div id="interpretação-do-intervalo-de-confiança" class="section level3 hasAnchor" number="10.5.3">
 <h3><span class="header-section-number">10.5.3</span> Interpretação do intervalo de confiança<a href="sec-estimacao.html#interpretação-do-intervalo-de-confiança" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Se fossem extraídas todas as possíveis amostras de tamanho 30 da população de recém-nascidos a termo e construído para cada uma delas um intervalo de confiança de 95% em torno de cada média amostral, espera-se que 95% desses intervalos incluirão a média populacional e 5% não incluirão.</p>
-<p>O IC95% informa sobre a <em>precisão</em> com que a média amostral estima a média populacional desconhecida <a href="#fn43" class="footnote-ref" id="fnref43"><sup>43</sup></a>.</p>
-<p>Na Figura <a href="sec-estimacao.html#fig:vinte">10.2</a>, são mostradas 20 amostras diferentes de tamanho <em>n</em> = 30, retiradas da mesma população de recém-nascidos a termo da Maternidade do HGCS. Junto aparecem os intervalos de confiança de 95% construídos em torno dessas amostras. Observa-se que apenas uma amostra (em vermelho) não inclui a média populacional (linha tracejada vertical em azul). Pode-se afirmar com 95% de confiança que se forem extraídas muitas amostras do mesmo tamanho de uma população e construído intervalos de confiança de 95% em torno das médias dessas amostras, 95% desses intervalos de confiança incluirão a média populacional.</p>
+<p>Se fossem extraídas todas as possíveis amostras de <em>n</em> = 30 da população de recém-nascidos a termo e construído para cada uma delas um intervalo de confiança de 95% em torno de cada média amostral, espera-se que 95% desses intervalos incluirão a média populacional e 5% não incluirão.<br />
+O IC95% informa sobre a <em>precisão</em> com que a média amostral estima a média populacional desconhecida <a href="#fn46" class="footnote-ref" id="fnref46"><sup>46</sup></a>.</p>
+<p>Na Figura <a href="sec-estimacao.html#fig:vinte">10.4</a>, são mostradas 20 amostras diferentes de tamanho <em>n</em> = 30, dessa população. Junto aparecem os intervalos de confiança de 95% construídos em torno dessas amostras. Observa-se que apenas uma amostra (em vermelho) não inclui a média populacional (linha tracejada vertical em azul). Pode-se afirmar com 95% de confiança que se forem extraídas muitas amostras do mesmo tamanho de uma população e construído intervalos de confiança de 95% em torno das médias dessas amostras, 95% desses intervalos de confiança incluirão a média populacional.</p>
 <div class="figure"><span style="display:block;" id="fig:vinte"></span>
 <img src="bookdownproj_files/figure-html/vinte-1.png" alt="Intervalos de confiança de 95% que mostra 20 replicações simuladas de amostras de n = 30 do peso do recém-nascido. Apenas um intervalo (em vermelho) não inclui a média populacional (linha vertical azul)." width="672" />
 <p class="caption">
-Figura 10.2: Intervalos de confiança de 95% que mostra 20 replicações simuladas de amostras de n = 30 do peso do recém-nascido. Apenas um intervalo (em vermelho) não inclui a média populacional (linha vertical azul).
+Figura 10.4: Intervalos de confiança de 95% que mostra 20 replicações simuladas de amostras de n = 30 do peso do recém-nascido. Apenas um intervalo (em vermelho) não inclui a média populacional (linha vertical azul).
 </p>
 </div>
 </div>
 </div>
 <div id="estimação-da-média-populacional-sigma-desconhecido" class="section level2 hasAnchor" number="10.6">
 <h2><span class="header-section-number">10.6</span> Estimação da média populacional: <span class="math inline">\(\sigma\)</span> desconhecido<a href="sec-estimacao.html#estimação-da-média-populacional-sigma-desconhecido" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Com amostras pequenas, usar o modelo normal para construir intervalos de confiança, gera um erro, pois os pressupostos do teorema do limite central não são respeitados.
+<p>Com amostras pequenas, usar o modelo normal para construir intervalos de confiança, pode gerar um erro, pois os pressupostos do teorema do limite central não são respeitados.
 Quando o desvio padrão populacional, <span class="math inline">\(\sigma\)</span>, é desconhecido e o tamanho amostral é pequeno (&lt; 30), a estimação da média populacional é feita usando a <em>distribuição t</em>.</p>
 <div id="distribuição-t" class="section level3 hasAnchor" number="10.6.1">
 <h3><span class="header-section-number">10.6.1</span> Distribuição <em>t</em><a href="sec-estimacao.html#distribuição-t" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A distribuição <em>t</em>, desenvolvida por <em>William Sealy Gosset</em>, em 1908, é semelhante à distribuição normal. Como a curva de distribuição normal, a curva de distribuição <em>t</em> é unimodal, simétrica (em forma de sino) em torno da média e nunca encontra o eixo horizontal. A área total sob uma curva de distribuição <em>t</em> é 1 ou 100%. A curva da distribuição <em>t</em> é mais plana do que a curva de distribuição normal padrão. Em outras palavras, ela é mais achatada e mais espalhada. No entanto, conforme o tamanho da amostra aumenta, a distribuição <em>t</em> aproxima-se da distribuição normal padrão.</p>
 <p>O formato de uma curva de distribuição <em>t</em> particular depende do número de graus de liberdade. O número de graus de liberdade (<em>gl</em>) para uma distribuição <em>t</em> é igual ao tamanho da amostra menos um, ou seja, <span class="math inline">\(gl=n-1\)</span>, veja seção <a href="descrevendo-os-dados.html#sec-variancia">6.3.4.3</a>.</p>
-<p>O número de graus de liberdade é o único parâmetro da distribuição <em>t</em>. Há uma diferente distribuição <em>t</em> para cada número de graus de liberdade, portanto, a distribuição <em>t</em> se constitui em uma família de distribuições (Figura <a href="sec-estimacao.html#fig:familia">10.3</a>).</p>
+<p>O número de graus de liberdade é o único parâmetro da distribuição <em>t</em>. Há uma diferente distribuição <em>t</em> para cada número de graus de liberdade, portanto, a distribuição <em>t</em> se constitui em uma família de distribuições (Figura <a href="sec-estimacao.html#fig:familia">10.5</a>).</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:familia"></span>
-<img src="bookdownproj_files/figure-html/familia-1.png" alt="Curvas de distribuição t conforme o grau de liberdade e a distribuição normal." width="80%" height="80%" />
+<img src="bookdownproj_files/figure-html/familia-1.png" alt="Curvas de distribuição t conforme o grau de liberdade comparadas à distribuição normal." width="80%" height="80%" />
 <p class="caption">
-Figura 10.3: Curvas de distribuição t conforme o grau de liberdade e a distribuição normal.
+Figura 10.5: Curvas de distribuição t conforme o grau de liberdade comparadas à distribuição normal.
 </p>
 </div>
-<p>Da mesma maneira que a distribuição normal padrão, a média da distribuição padrão <em>t</em> é 0. Entretanto, ao contrário da distribuição normal padrão, cujo desvio padrão é 1, o desvio padrão de uma distribuição <em>t</em> é <span class="math inline">\(\sqrt{\frac{gl}{gl-2}}\)</span> , para <em>gl</em> &gt; 2, que sempre é maior do que 1. Assim, o desvio padrão de uma distribuição <em>t</em> é maior do que o desvio padrão da distribuição normal padrão.<br />
+<p>Da mesma maneira que a distribuição normal padrão, a média da distribuição padrão <em>t</em> é 0. Entretanto, ao contrário da distribuição normal padrão, cujo desvio padrão é 1, o desvio padrão de uma distribuição <em>t</em> é <span class="math inline">\(\sqrt{\frac{gl}{gl-2}}\)</span> , para <em>gl</em> &gt; 2, sempre é maior do que 1. Assim, o desvio padrão de uma distribuição <em>t</em> é maior do que o desvio padrão da distribuição normal padrão.<br />
 Os valores de <span class="math inline">\({t}_{crítico}\)</span> podem ser obtidos usando a função <code>qt()</code> que usa os seguintes argumentos:</p>
 <ul>
-<li><em>p</em> <span class="math inline">\(\to\)</span> probabilidade, igual a <span class="math inline">\(1 - \frac{\alpha}{2}\)</span>, considerando-se bicaudal e <span class="math inline">\(1 - \alpha\)</span> quando unicaudal;</li>
-<li><em>df</em> <span class="math inline">\(\to\)</span> graus de liberdade;</li>
-<li><em>lower.tail</em> <span class="math inline">\(\to\)</span> lógico; se TRUE, informa a probabilidade da cauda inferior. O padrão é TRUE.</li>
+<li><strong>p</strong> <span class="math inline">\(\to\)</span> probabilidade, igual a <span class="math inline">\(1 - \frac{\alpha}{2}\)</span>, considerando-se bicaudal e <span class="math inline">\(1 - \alpha\)</span> quando unicaudal;</li>
+<li><strong>df</strong> <span class="math inline">\(\to\)</span> graus de liberdade;</li>
+<li><strong>lower.tail</strong> <span class="math inline">\(\to\)</span> lógico; se TRUE, informa a probabilidade da cauda inferior. O padrão é TRUE.</li>
 </ul>
 <p>Assim, o valor do <span class="math inline">\({t}_{crítico}\)</span> para <span class="math inline">\(gl=10\)</span> é:</p>
-<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb610-1"><a href="sec-estimacao.html#cb610-1" tabindex="-1"></a>alpha  <span class="ot">&lt;-</span>  <span class="fl">0.05</span></span>
-<span id="cb610-2"><a href="sec-estimacao.html#cb610-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> (alpha<span class="sc">/</span><span class="dv">2</span>)</span>
-<span id="cb610-3"><a href="sec-estimacao.html#cb610-3" tabindex="-1"></a>gl <span class="ot">=</span> <span class="dv">10</span></span>
-<span id="cb610-4"><a href="sec-estimacao.html#cb610-4" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="at">p =</span> p, <span class="at">df =</span> <span class="dv">10</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb610-5"><a href="sec-estimacao.html#cb610-5" tabindex="-1"></a><span class="fu">round</span>(t, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="sec-estimacao.html#cb609-1" tabindex="-1"></a>alpha  <span class="ot">&lt;-</span>  <span class="fl">0.05</span></span>
+<span id="cb609-2"><a href="sec-estimacao.html#cb609-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> (alpha<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb609-3"><a href="sec-estimacao.html#cb609-3" tabindex="-1"></a>gl <span class="ot">=</span> <span class="dv">10</span></span>
+<span id="cb609-4"><a href="sec-estimacao.html#cb609-4" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="at">p =</span> p, <span class="at">df =</span> <span class="dv">10</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb609-5"><a href="sec-estimacao.html#cb609-5" tabindex="-1"></a><span class="fu">round</span>(t, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 2.23</code></pre>
-<p>A área compreendida entre <span class="math inline">\(\pm\)</span> 2.23$ é igual a 95% (Figura <a href="sec-estimacao.html#fig:bilateral">10.4</a>):</p>
+<p>A área compreendida entre <span class="math inline">\(\pm\)</span> 2.23$ é igual a 95% (Figura <a href="sec-estimacao.html#fig:bilateral">10.6</a>):</p>
 <p><span class="math display">\[
 p(-2,23\le t\le 2,23)=0,95
 \]</span></p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:bilateral"></span>
 <img src="bookdownproj_files/figure-html/bilateral-1.png" alt="Distribuição t com gl = 10, bilateral." width="70%" height="70%" />
 <p class="caption">
-Figura 10.4: Distribuição t com gl = 10, bilateral.
+Figura 10.6: Distribuição t com gl = 10, bilateral.
 </p>
 </div>
 <p>Quando se considera apenas uma das caudas (unicaudal ou unilateral), o valor do <span class="math inline">\({t}_{crítico}\)</span> para <span class="math inline">\(gl=10\)</span> é</p>
-<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb612-1"><a href="sec-estimacao.html#cb612-1" tabindex="-1"></a>t1 <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="at">p =</span> <span class="fl">0.95</span>, <span class="at">df =</span> <span class="dv">10</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb612-2"><a href="sec-estimacao.html#cb612-2" tabindex="-1"></a><span class="fu">round</span>(t1, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="sec-estimacao.html#cb611-1" tabindex="-1"></a>t1 <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="at">p =</span> <span class="fl">0.95</span>, <span class="at">df =</span> <span class="dv">10</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb611-2"><a href="sec-estimacao.html#cb611-2" tabindex="-1"></a><span class="fu">round</span>(t1, <span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 1.81</code></pre>
-<p>Assim, a área abaixo de 1.81 é igual a 95% (Figura <a href="sec-estimacao.html#fig:unilateral">10.5</a>).</p>
+<p>Assim, a área abaixo de 1.81 é igual a 95% (Figura <a href="sec-estimacao.html#fig:unilateral">10.7</a>).</p>
 <p><span class="math display">\[
 p(t\le 1,81)=0,95
 \]</span></p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unilateral"></span>
 <img src="bookdownproj_files/figure-html/unilateral-1.png" alt="Distribuição t com gl = 10, unilateral." width="70%" height="70%" />
 <p class="caption">
-Figura 10.5: Distribuição t com gl = 10, unilateral.
+Figura 10.7: Distribuição t com gl = 10, unilateral.
 </p>
 </div>
 </div>
 <div id="cálculo-do-intervalo-de-confiança-com-sigma-desconhecido" class="section level3 hasAnchor" number="10.6.2">
 <h3><span class="header-section-number">10.6.2</span> Cálculo do intervalo de confiança com <span class="math inline">\(\sigma\)</span> desconhecido<a href="sec-estimacao.html#cálculo-do-intervalo-de-confiança-com-sigma-desconhecido" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Serão utilizados nesta seção, os dados da altura de mulheres (dadosAltura), obtidos na Seção <a href="sec-estimacao.html#sec-dadosaltura">10.2.1</a>. Estes dados da ‘população’ convencionada contêm informações de 1368 mulheres. Suponha-se que os parâmetros sejam desconhecidos. Para estimar esses parâmetros, selecionou-se uma amostra de n = 30 desse conjunto dados.
+<p>Serão utilizados nesta seção, os dados da altura de mulheres, obtidos na Seção <a href="sec-estimacao.html#sec-dadoscap10">10.2</a>. Suponha-se que os parâmetros sejam desconhecidos. Para estimar esses parâmetros, selecionou-se uma amostra de n = 30 desse conjunto dados.
 Tomando essa amostra, calcula-se a sua média e o seu desvio padrão:</p>
-<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="sec-estimacao.html#cb614-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2345</span>)</span>
-<span id="cb614-2"><a href="sec-estimacao.html#cb614-2" tabindex="-1"></a>amostra1 <span class="ot">&lt;-</span> dadosAltura <span class="sc">%&gt;%</span></span>
-<span id="cb614-3"><a href="sec-estimacao.html#cb614-3" tabindex="-1"></a><span class="fu">select</span> (altura) <span class="sc">%&gt;%</span> </span>
-<span id="cb614-4"><a href="sec-estimacao.html#cb614-4" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">30</span>)</span>
-<span id="cb614-5"><a href="sec-estimacao.html#cb614-5" tabindex="-1"></a></span>
-<span id="cb614-6"><a href="sec-estimacao.html#cb614-6" tabindex="-1"></a>x_barra1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(amostra1<span class="sc">$</span>altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb614-7"><a href="sec-estimacao.html#cb614-7" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">sd</span>(amostra1<span class="sc">$</span>altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb614-8"><a href="sec-estimacao.html#cb614-8" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(<span class="fu">c</span>(x_barra1, s1),<span class="dv">3</span>))</span></code></pre></div>
-<pre><code>## [1] 1.599 0.051</code></pre>
+<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="sec-estimacao.html#cb613-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2345</span>)</span>
+<span id="cb613-2"><a href="sec-estimacao.html#cb613-2" tabindex="-1"></a>amostra1 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb613-3"><a href="sec-estimacao.html#cb613-3" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">30</span>)</span>
+<span id="cb613-4"><a href="sec-estimacao.html#cb613-4" tabindex="-1"></a></span>
+<span id="cb613-5"><a href="sec-estimacao.html#cb613-5" tabindex="-1"></a>x_barra1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(amostra1<span class="sc">$</span>altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb613-6"><a href="sec-estimacao.html#cb613-6" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">sd</span>(amostra1<span class="sc">$</span>altura, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb613-7"><a href="sec-estimacao.html#cb613-7" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(<span class="fu">c</span>(x_barra1, s1),<span class="dv">3</span>))</span></code></pre></div>
+<pre><code>## [1] 1.577 0.062</code></pre>
 <p>A maneira mais intuitiva de estimar a média da população com base na amostra, é, simplesmente, calcular a média e o desvio padrão. Entretanto, para uma maior precisão, é sempre importante calcular o intervalo de confiança.</p>
 <div id="cálculo-manual-do-ic" class="section level4 hasAnchor" number="10.6.2.1">
 <h4><span class="header-section-number">10.6.2.1</span> Cálculo manual do IC<a href="sec-estimacao.html#cálculo-manual-do-ic" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1066,37 +1069,37 @@ t
 </tr>
 </tbody>
 </table>
-<p>A <code>amostra1</code> de <em>n</em> = 30, <span class="math inline">\(\overline x\)</span> = 1.5986667m e <span class="math inline">\(s\)</span> = 0.0511073m. Essas estimativas servirão para o cálculo do intervalo de confiança, usando uma distribuição t bicaudal e um nível de significância <span class="math inline">\(\alpha = 0,05\)</span>.</p>
-<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="sec-estimacao.html#cb616-1" tabindex="-1"></a>n1 <span class="ot">&lt;-</span>  <span class="fu">length</span>(amostra1<span class="sc">$</span>altura)</span>
-<span id="cb616-2"><a href="sec-estimacao.html#cb616-2" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb616-3"><a href="sec-estimacao.html#cb616-3" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> alpha<span class="sc">/</span><span class="dv">2</span></span>
-<span id="cb616-4"><a href="sec-estimacao.html#cb616-4" tabindex="-1"></a><span class="co"># Graus de liberdade  </span></span>
-<span id="cb616-5"><a href="sec-estimacao.html#cb616-5" tabindex="-1"></a>gl <span class="ot">&lt;-</span> n1 <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb616-6"><a href="sec-estimacao.html#cb616-6" tabindex="-1"></a><span class="co"># Valor t crítico  </span></span>
-<span id="cb616-7"><a href="sec-estimacao.html#cb616-7" tabindex="-1"></a>tc <span class="ot">&lt;-</span>  <span class="fu">qt</span>(p, gl, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb616-8"><a href="sec-estimacao.html#cb616-8" tabindex="-1"></a><span class="co"># Erro padrão</span></span>
-<span id="cb616-9"><a href="sec-estimacao.html#cb616-9" tabindex="-1"></a>EP1 <span class="ot">&lt;-</span> <span class="fu">round</span>(s1<span class="sc">/</span><span class="fu">sqrt</span>(n1),<span class="dv">3</span>)</span>
-<span id="cb616-10"><a href="sec-estimacao.html#cb616-10" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(<span class="fu">c</span>(tc, EP1),<span class="dv">3</span>))</span></code></pre></div>
-<pre><code>## [1] 2.045 0.009</code></pre>
+<p>A <code>amostra1</code> de <em>n</em> = 30, <span class="math inline">\(\overline x\)</span> = 1.577m e <span class="math inline">\(s\)</span> = 0.062m. Essas estimativas servirão para o cálculo do intervalo de confiança, usando uma distribuição t bicaudal e um nível de significância <span class="math inline">\(\alpha = 0,05\)</span>.</p>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="sec-estimacao.html#cb615-1" tabindex="-1"></a>n1 <span class="ot">&lt;-</span>  <span class="fu">length</span>(amostra1<span class="sc">$</span>altura)</span>
+<span id="cb615-2"><a href="sec-estimacao.html#cb615-2" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb615-3"><a href="sec-estimacao.html#cb615-3" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> alpha<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb615-4"><a href="sec-estimacao.html#cb615-4" tabindex="-1"></a><span class="co"># Graus de liberdade  </span></span>
+<span id="cb615-5"><a href="sec-estimacao.html#cb615-5" tabindex="-1"></a>gl <span class="ot">&lt;-</span> n1 <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb615-6"><a href="sec-estimacao.html#cb615-6" tabindex="-1"></a><span class="co"># Valor t crítico  </span></span>
+<span id="cb615-7"><a href="sec-estimacao.html#cb615-7" tabindex="-1"></a>tc <span class="ot">&lt;-</span>  <span class="fu">qt</span>(p, gl, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb615-8"><a href="sec-estimacao.html#cb615-8" tabindex="-1"></a><span class="co"># Erro padrão</span></span>
+<span id="cb615-9"><a href="sec-estimacao.html#cb615-9" tabindex="-1"></a>EP1 <span class="ot">&lt;-</span> <span class="fu">round</span>(s1<span class="sc">/</span><span class="fu">sqrt</span>(n1),<span class="dv">3</span>)</span>
+<span id="cb615-10"><a href="sec-estimacao.html#cb615-10" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(<span class="fu">c</span>(tc, EP1),<span class="dv">3</span>))</span></code></pre></div>
+<pre><code>## [1] 2.045 0.011</code></pre>
 <p>Com esses dados, calcula-se o intervalo de confiança de 95%:</p>
-<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="sec-estimacao.html#cb618-1" tabindex="-1"></a>me1 <span class="ot">&lt;-</span> tc<span class="sc">*</span>EP1</span>
-<span id="cb618-2"><a href="sec-estimacao.html#cb618-2" tabindex="-1"></a>lim_inf <span class="ot">&lt;-</span> x_barra1 <span class="sc">-</span> me1</span>
-<span id="cb618-3"><a href="sec-estimacao.html#cb618-3" tabindex="-1"></a>lim_sup <span class="ot">&lt;-</span> x_barra1 <span class="sc">+</span> me1</span>
-<span id="cb618-4"><a href="sec-estimacao.html#cb618-4" tabindex="-1"></a>ic95 <span class="ot">&lt;-</span> <span class="fu">c</span>(lim_inf, lim_sup)</span>
-<span id="cb618-5"><a href="sec-estimacao.html#cb618-5" tabindex="-1"></a><span class="fu">round</span>(ic95, <span class="dv">2</span>)</span></code></pre></div>
-<pre><code>## [1] 1.58 1.62</code></pre>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="sec-estimacao.html#cb617-1" tabindex="-1"></a>me1 <span class="ot">&lt;-</span> tc<span class="sc">*</span>EP1</span>
+<span id="cb617-2"><a href="sec-estimacao.html#cb617-2" tabindex="-1"></a>lim_inf <span class="ot">&lt;-</span> x_barra1 <span class="sc">-</span> me1</span>
+<span id="cb617-3"><a href="sec-estimacao.html#cb617-3" tabindex="-1"></a>lim_sup <span class="ot">&lt;-</span> x_barra1 <span class="sc">+</span> me1</span>
+<span id="cb617-4"><a href="sec-estimacao.html#cb617-4" tabindex="-1"></a>ic95 <span class="ot">&lt;-</span> <span class="fu">c</span>(lim_inf, lim_sup)</span>
+<span id="cb617-5"><a href="sec-estimacao.html#cb617-5" tabindex="-1"></a><span class="fu">round</span>(ic95, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 1.55 1.60</code></pre>
 </div>
 <div id="cálculo-usando-uma-função-do-r" class="section level4 hasAnchor" number="10.6.2.2">
 <h4><span class="header-section-number">10.6.2.2</span> Cálculo usando uma função do R<a href="sec-estimacao.html#cálculo-usando-uma-função-do-r" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>O R possui algumas funções que calculam o intervalo de confiança para variáveis numéricas, baseadas na distribuição <em>t</em>. Entre elas, a função <code>CI()</code>, incluída no pacote <code>Rmisc</code>. Esta função tem dois argumentos:</p>
 <ul>
-<li><em>x</em> ⟶ vetor de dados;</li>
-<li><em>ci</em> ⟶ intervalo de confiança a ser calculado</li>
+<li><strong>x</strong> ⟶ vetor de dados;</li>
+<li><strong>ci</strong> ⟶ intervalo de confiança a ser calculado</li>
 </ul>
-<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="sec-estimacao.html#cb620-1" tabindex="-1"></a>IC95 <span class="ot">&lt;-</span> <span class="fu">CI</span>(amostra1<span class="sc">$</span>altura, <span class="at">ci =</span> <span class="fl">0.95</span>)</span>
-<span id="cb620-2"><a href="sec-estimacao.html#cb620-2" tabindex="-1"></a><span class="fu">round</span>(IC95, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="sec-estimacao.html#cb619-1" tabindex="-1"></a>IC95 <span class="ot">&lt;-</span> <span class="fu">CI</span>(amostra1<span class="sc">$</span>altura, <span class="at">ci =</span> <span class="fl">0.95</span>)</span>
+<span id="cb619-2"><a href="sec-estimacao.html#cb619-2" tabindex="-1"></a><span class="fu">round</span>(IC95, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## upper  mean lower 
-##  1.62  1.60  1.58</code></pre>
+##  1.60  1.58  1.55</code></pre>
 </div>
 </div>
 </div>
@@ -1104,83 +1107,83 @@ t
 <h2><span class="header-section-number">10.7</span> Intervalo de Confiança para uma proporção populacional<a href="sec-estimacao.html#intervalo-de-confiança-para-uma-proporção-populacional" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="dados-para-estimar-a-proporção-populacional" class="section level3 hasAnchor" number="10.7.1">
 <h3><span class="header-section-number">10.7.1</span> Dados para estimar a proporção populacional<a href="sec-estimacao.html#dados-para-estimar-a-proporção-populacional" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Aqui, será utilizada uma amostra aleatória de <em>n</em> = 60 da variável<code>fumo</code> para estimar a proporção de mulheres fumantes no conjunto de dados <code>dadosMater.xlsx</code>.</p>
-<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="sec-estimacao.html#cb622-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2346</span>)</span>
-<span id="cb622-2"><a href="sec-estimacao.html#cb622-2" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb622-3"><a href="sec-estimacao.html#cb622-3" tabindex="-1"></a>  <span class="fu">select</span> (fumo) <span class="sc">%&gt;%</span> </span>
-<span id="cb622-4"><a href="sec-estimacao.html#cb622-4" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">60</span>)</span>
-<span id="cb622-5"><a href="sec-estimacao.html#cb622-5" tabindex="-1"></a></span>
-<span id="cb622-6"><a href="sec-estimacao.html#cb622-6" tabindex="-1"></a><span class="fu">str</span>(dados)</span></code></pre></div>
+<p>Aqui, será utilizada uma amostra aleatória de <em>n</em> = 60 do conjunto de dados <code>dadosMater.xlsx</code> (sem filtro para os recém-nascidos a termo) para estimar a proporção de mulheres fumantes.</p>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="sec-estimacao.html#cb621-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2346</span>)</span>
+<span id="cb621-2"><a href="sec-estimacao.html#cb621-2" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb621-3"><a href="sec-estimacao.html#cb621-3" tabindex="-1"></a>  <span class="fu">select</span> (fumo) <span class="sc">%&gt;%</span> </span>
+<span id="cb621-4"><a href="sec-estimacao.html#cb621-4" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">60</span>)</span>
+<span id="cb621-5"><a href="sec-estimacao.html#cb621-5" tabindex="-1"></a></span>
+<span id="cb621-6"><a href="sec-estimacao.html#cb621-6" tabindex="-1"></a><span class="fu">str</span>(dados)</span></code></pre></div>
 <pre><code>## tibble [60 × 1] (S3: tbl_df/tbl/data.frame)
 ##  $ fumo: num [1:60] 2 2 1 2 2 2 2 2 2 1 ...</code></pre>
 <p>A seleção mostra que temos 60 observações da variável <code>fumo</code> e que a mesma está classificada como numérica (<em>num</em>), 1 e 2. Onde 1 representa as mulheres fumantes. A variável é categórica e deve ser transformada para fator.</p>
-<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="sec-estimacao.html#cb624-1" tabindex="-1"></a>dados<span class="sc">$</span>fumo <span class="ot">&lt;-</span> <span class="fu">factor</span> (dados<span class="sc">$</span>fumo, </span>
-<span id="cb624-2"><a href="sec-estimacao.html#cb624-2" tabindex="-1"></a>                      <span class="at">levels =</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">2</span>), </span>
-<span id="cb624-3"><a href="sec-estimacao.html#cb624-3" tabindex="-1"></a>                      <span class="at">label =</span> <span class="fu">c</span> (<span class="st">&quot;sim&quot;</span>, <span class="st">&quot;não&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="sec-estimacao.html#cb623-1" tabindex="-1"></a>dados<span class="sc">$</span>fumo <span class="ot">&lt;-</span> <span class="fu">factor</span> (dados<span class="sc">$</span>fumo, </span>
+<span id="cb623-2"><a href="sec-estimacao.html#cb623-2" tabindex="-1"></a>                      <span class="at">levels =</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">2</span>), </span>
+<span id="cb623-3"><a href="sec-estimacao.html#cb623-3" tabindex="-1"></a>                      <span class="at">label =</span> <span class="fu">c</span> (<span class="st">&quot;fumante&quot;</span>, <span class="st">&quot;não fumante&quot;</span>))</span></code></pre></div>
 </div>
 <div id="cálculo-da-estimativa-pontual-da-proporção" class="section level3 hasAnchor" number="10.7.2">
 <h3><span class="header-section-number">10.7.2</span> Cálculo da estimativa pontual da proporção<a href="sec-estimacao.html#cálculo-da-estimativa-pontual-da-proporção" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Nessa amostra, a proporção de fumantes é:</p>
-<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="sec-estimacao.html#cb625-1" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">table</span>(dados<span class="sc">$</span>fumo)</span>
-<span id="cb625-2"><a href="sec-estimacao.html#cb625-2" tabindex="-1"></a>tab</span></code></pre></div>
+<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="sec-estimacao.html#cb624-1" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">table</span>(dados<span class="sc">$</span>fumo)</span>
+<span id="cb624-2"><a href="sec-estimacao.html#cb624-2" tabindex="-1"></a>tab</span></code></pre></div>
 <pre><code>## 
-## sim não 
-##  14  46</code></pre>
-<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="sec-estimacao.html#cb627-1" tabindex="-1"></a>tabFumo <span class="ot">&lt;-</span> <span class="fu">round</span> (<span class="fu">prop.table</span> (tab), <span class="dv">3</span>)</span>
-<span id="cb627-2"><a href="sec-estimacao.html#cb627-2" tabindex="-1"></a>tabFumo</span></code></pre></div>
+##     fumante não fumante 
+##          14          46</code></pre>
+<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb626-1"><a href="sec-estimacao.html#cb626-1" tabindex="-1"></a>tabFumo <span class="ot">&lt;-</span> <span class="fu">round</span> (<span class="fu">prop.table</span> (tab), <span class="dv">3</span>)</span>
+<span id="cb626-2"><a href="sec-estimacao.html#cb626-2" tabindex="-1"></a>tabFumo</span></code></pre></div>
 <pre><code>## 
-##   sim   não 
-## 0.233 0.767</code></pre>
+##     fumante não fumante 
+##       0.233       0.767</code></pre>
 </div>
 <div id="cálculo-do-intervalo-de-confiança-para-a-proporção" class="section level3 hasAnchor" number="10.7.3">
 <h3><span class="header-section-number">10.7.3</span> Cálculo do intervalo de confiança para a proporção<a href="sec-estimacao.html#cálculo-do-intervalo-de-confiança-para-a-proporção" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Cálculo manual com aproximação normal</strong></p>
 <p><em>1ª etapa</em>: verificar a premissa de que quando a proporção populacional é desconhecida a proporção pontual (<span class="math inline">\(\hat p\)</span>) e o seu complemento (<span class="math inline">\(\hat q = 1 - \hat p\)</span>) multiplicados, cada um, por <span class="math inline">\(n\)</span>, devem ser maior do que 5.</p>
-<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="sec-estimacao.html#cb629-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(dados<span class="sc">$</span>fumo)</span>
-<span id="cb629-2"><a href="sec-estimacao.html#cb629-2" tabindex="-1"></a>(tabFumo) <span class="sc">*</span> n</span></code></pre></div>
+<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="sec-estimacao.html#cb628-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(dados<span class="sc">$</span>fumo)</span>
+<span id="cb628-2"><a href="sec-estimacao.html#cb628-2" tabindex="-1"></a>(tabFumo) <span class="sc">*</span> n</span></code></pre></div>
 <pre><code>## 
-##   sim   não 
-## 13.98 46.02</code></pre>
+##     fumante não fumante 
+##       13.98       46.02</code></pre>
 <p>Como se observa, ambos os valores são maiores do que 5.</p>
 <p><em>2ª Etapa</em>: O intervalo pode ser estimado pela distribuição normal e é necessário calcular o <em>z_crítico</em>:</p>
-<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="sec-estimacao.html#cb631-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb631-2"><a href="sec-estimacao.html#cb631-2" tabindex="-1"></a>p <span class="ot">&lt;-</span>  <span class="dv">1</span> <span class="sc">-</span> alpha<span class="sc">/</span><span class="dv">2</span></span>
-<span id="cb631-3"><a href="sec-estimacao.html#cb631-3" tabindex="-1"></a>zc <span class="ot">&lt;-</span> <span class="fu">qnorm</span> (p, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
-<span id="cb631-4"><a href="sec-estimacao.html#cb631-4" tabindex="-1"></a><span class="fu">round</span>(zc, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="sec-estimacao.html#cb630-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb630-2"><a href="sec-estimacao.html#cb630-2" tabindex="-1"></a>p <span class="ot">&lt;-</span>  <span class="dv">1</span> <span class="sc">-</span> alpha<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb630-3"><a href="sec-estimacao.html#cb630-3" tabindex="-1"></a>zc <span class="ot">&lt;-</span> <span class="fu">qnorm</span> (p, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb630-4"><a href="sec-estimacao.html#cb630-4" tabindex="-1"></a><span class="fu">round</span>(zc, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 1.96</code></pre>
 <p><em>3ª Etapa</em>: Cálculo do erro padrão da proporção (<span class="math inline">\(\sqrt \frac {\hat p \times \hat q}{n}\)</span>) e da margem de erro (veja também a Seção <a href="sec-cap9.html#sec-popamostra">9.6</a>:</p>
-<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="sec-estimacao.html#cb633-1" tabindex="-1"></a><span class="co"># Extração da proporção amostral do tabFumo</span></span>
-<span id="cb633-2"><a href="sec-estimacao.html#cb633-2" tabindex="-1"></a>prop <span class="ot">&lt;-</span> tabFumo [<span class="dv">1</span>]</span>
-<span id="cb633-3"><a href="sec-estimacao.html#cb633-3" tabindex="-1"></a><span class="co"># Cálculo do EP amostral</span></span>
-<span id="cb633-4"><a href="sec-estimacao.html#cb633-4" tabindex="-1"></a>EP <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((prop <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> prop))<span class="sc">/</span>n)</span>
-<span id="cb633-5"><a href="sec-estimacao.html#cb633-5" tabindex="-1"></a><span class="co"># Cálculo da margem de erro(me)</span></span>
-<span id="cb633-6"><a href="sec-estimacao.html#cb633-6" tabindex="-1"></a>me <span class="ot">&lt;-</span> zc <span class="sc">*</span> EP</span>
-<span id="cb633-7"><a href="sec-estimacao.html#cb633-7" tabindex="-1"></a><span class="co"># dados necessários para o cálculo do IC95%</span></span>
-<span id="cb633-8"><a href="sec-estimacao.html#cb633-8" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(prop, me), <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
-<pre><code>##   sim   sim 
-## 0.233 0.107</code></pre>
+<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="sec-estimacao.html#cb632-1" tabindex="-1"></a><span class="co"># Extração da proporção amostral do tabFumo</span></span>
+<span id="cb632-2"><a href="sec-estimacao.html#cb632-2" tabindex="-1"></a>prop <span class="ot">&lt;-</span> tabFumo [<span class="dv">1</span>]</span>
+<span id="cb632-3"><a href="sec-estimacao.html#cb632-3" tabindex="-1"></a><span class="co"># Cálculo do EP amostral</span></span>
+<span id="cb632-4"><a href="sec-estimacao.html#cb632-4" tabindex="-1"></a>EP <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((prop <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> prop))<span class="sc">/</span>n)</span>
+<span id="cb632-5"><a href="sec-estimacao.html#cb632-5" tabindex="-1"></a><span class="co"># Cálculo da margem de erro(me)</span></span>
+<span id="cb632-6"><a href="sec-estimacao.html#cb632-6" tabindex="-1"></a>me <span class="ot">&lt;-</span> zc <span class="sc">*</span> EP</span>
+<span id="cb632-7"><a href="sec-estimacao.html#cb632-7" tabindex="-1"></a><span class="co"># dados necessários para o cálculo do IC95%</span></span>
+<span id="cb632-8"><a href="sec-estimacao.html#cb632-8" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(prop, me), <span class="at">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## fumante fumante 
+##   0.233   0.107</code></pre>
 <p><em>4ª Etapa</em>: Intervalo de confiança</p>
-<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb635-1"><a href="sec-estimacao.html#cb635-1" tabindex="-1"></a>ic_prop <span class="ot">&lt;-</span> <span class="fu">c</span>((prop <span class="sc">-</span> me), (prop <span class="sc">+</span> me))</span>
-<span id="cb635-2"><a href="sec-estimacao.html#cb635-2" tabindex="-1"></a><span class="fu">round</span>(ic_prop, <span class="dv">3</span>)</span></code></pre></div>
-<pre><code>##   sim   sim 
-## 0.126 0.340</code></pre>
+<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="sec-estimacao.html#cb634-1" tabindex="-1"></a>ic_prop <span class="ot">&lt;-</span> <span class="fu">c</span>((prop <span class="sc">-</span> me), (prop <span class="sc">+</span> me))</span>
+<span id="cb634-2"><a href="sec-estimacao.html#cb634-2" tabindex="-1"></a><span class="fu">round</span>(ic_prop, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## fumante fumante 
+##   0.126   0.340</code></pre>
 <p><strong>Cálculo usando uma função</strong></p>
 <p>O chamado <em>Intervalo de Confiança Exato</em> corrigem as deficiências da aproximação normal. O R tem uma função para este cálculo: <code>BinomCI()</code> do pacote <code>DescTools</code><span class="citation">(96)</span>. É preferível usar o método de Clopper e Pearson que fornece o IC exato.</p>
 <p>Os argumentos da função <code>BinomCI()</code> são:</p>
 <ul>
-<li><em>x</em> <span class="math inline">\(\to\)</span> é o número de desfechos, sucessos;</li>
-<li><em>n</em> <span class="math inline">\(\to\)</span> é o tamanho da amostra, número de ensaios;</li>
-<li><em>p</em> <span class="math inline">\(\to\)</span> probabilidade, hipótese nula; se ignorada o padrão é 0,50;</li>
-<li><em>conf.level</em> <span class="math inline">\(\to\)</span> nível de confiança, o padrão é 0.95;</li>
-<li><em>method</em> <span class="math inline">\(\to\)</span> possui vários métodos para calcular intervalos de confiança para uma proporção binomial como: “clopper-pearson” (exact interval), “wilson”, “wald”, “agresti-coull”, “jeffreys”, “modified wilson”, “modified jeffreys”, “arcsine”, “logit”, “witting”, “pratt”. O método padrão é o de “wilson”. Qualquer outro método, há necessidade de solicitar;</li>
-<li><em>sides</em> <span class="math inline">\(\to\)</span> hipótese alternativa padrão “two.sided” (bilateral), mas pode ser “right” ou “left” (unilateral a direita ou a esquerda, respectivamente).</li>
+<li><strong>x</strong> <span class="math inline">\(\to\)</span> é o número de desfechos, sucessos;</li>
+<li><strong>n</strong> <span class="math inline">\(\to\)</span> é o tamanho da amostra, número de ensaios;</li>
+<li><strong>p</strong> <span class="math inline">\(\to\)</span> probabilidade, hipótese nula; se ignorada o padrão é 0,50;</li>
+<li><strong>conf.level</strong> <span class="math inline">\(\to\)</span> nível de confiança, o padrão é 0.95;</li>
+<li><strong>method</strong> <span class="math inline">\(\to\)</span> possui vários métodos para calcular intervalos de confiança para uma proporção binomial como: “clopper-pearson” (exact interval), “wilson”, “wald”, “agresti-coull”, “jeffreys”, “modified wilson”, “modified jeffreys”, “arcsine”, “logit”, “witting”, “pratt”. O método padrão é o de “wilson”. Qualquer outro método, há necessidade de solicitar;</li>
+<li><strong>sides</strong> <span class="math inline">\(\to\)</span> hipótese alternativa padrão “two.sided” (bilateral), mas pode ser “right” ou “left” (unilateral a direita ou a esquerda, respectivamente).</li>
 </ul>
-<div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb637-1"><a href="sec-estimacao.html#cb637-1" tabindex="-1"></a>x <span class="ot">&lt;-</span>  tab[<span class="dv">1</span>]</span>
-<span id="cb637-2"><a href="sec-estimacao.html#cb637-2" tabindex="-1"></a>IC <span class="ot">&lt;-</span> <span class="fu">BinomCI</span> (x, </span>
-<span id="cb637-3"><a href="sec-estimacao.html#cb637-3" tabindex="-1"></a>               n, </span>
-<span id="cb637-4"><a href="sec-estimacao.html#cb637-4" tabindex="-1"></a>               <span class="at">conf.level =</span> <span class="fl">0.95</span>, </span>
-<span id="cb637-5"><a href="sec-estimacao.html#cb637-5" tabindex="-1"></a>               <span class="at">method =</span> <span class="st">&quot;clopper-pearson&quot;</span>)</span>
-<span id="cb637-6"><a href="sec-estimacao.html#cb637-6" tabindex="-1"></a><span class="fu">round</span>(IC, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="sec-estimacao.html#cb636-1" tabindex="-1"></a>x <span class="ot">&lt;-</span>  tab[<span class="dv">1</span>]</span>
+<span id="cb636-2"><a href="sec-estimacao.html#cb636-2" tabindex="-1"></a>IC <span class="ot">&lt;-</span> <span class="fu">BinomCI</span> (x, </span>
+<span id="cb636-3"><a href="sec-estimacao.html#cb636-3" tabindex="-1"></a>               n, </span>
+<span id="cb636-4"><a href="sec-estimacao.html#cb636-4" tabindex="-1"></a>               <span class="at">conf.level =</span> <span class="fl">0.95</span>, </span>
+<span id="cb636-5"><a href="sec-estimacao.html#cb636-5" tabindex="-1"></a>               <span class="at">method =</span> <span class="st">&quot;clopper-pearson&quot;</span>)</span>
+<span id="cb636-6"><a href="sec-estimacao.html#cb636-6" tabindex="-1"></a><span class="fu">round</span>(IC, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>##        est lwr.ci upr.ci
 ## [1,] 0.233  0.134   0.36</code></pre>
 <p>Observe que existe uma pequena diferença entre os valores da aproximação normal e o exato, com o método de “clopper-pearson”.</p>
@@ -1190,9 +1193,9 @@ t
 </div>
 <div class="footnotes">
 <hr />
-<ol start="42">
-<li id="fn42"><p>É importante lembrar que toda vez que for extraída uma nova amostra de tamanho <em>n</em> = 30, o resultado será um conjunto de números diferentes e, em consequência, a média será diferente. Por isso, se for importante repetir o mesmo resultado, deve-se usar a função <code>set.seed()</code>. Consulte a Seção <a href="introdução-à-teoria-das-probabilidades.html#sec-rnorm">7.7.2.4</a><a href="sec-estimacao.html#fnref42" class="footnote-back">↩︎</a></p></li>
-<li id="fn43"><p>Anteriormente, mostrou-se a media populacional por uma questão didática. A regra é não se conhecer a média populacional, razão da importância do intervalo de confiança<a href="sec-estimacao.html#fnref43" class="footnote-back">↩︎</a></p></li>
+<ol start="45">
+<li id="fn45"><p>Repetindo, é importante lembrar que toda vez que for extraída uma nova amostra, o resultado será um conjunto de números diferentes e, em consequência, a média será diferente. Por isso, se for importante repetir o mesmo resultado, deve-se usar a função <code>set.seed()</code>. Consulte a Seção <a href="introdução-à-teoria-das-probabilidades.html#sec-rnorm">7.7.2.4</a><a href="sec-estimacao.html#fnref45" class="footnote-back">↩︎</a></p></li>
+<li id="fn46"><p>Anteriormente, mostrou-se a media populacional por uma questão didática. A regra é não se conhecer a média populacional, razão da importância do intervalo de confiança<a href="sec-estimacao.html#fnref46" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

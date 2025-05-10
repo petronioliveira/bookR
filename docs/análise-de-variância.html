@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2025-05-09" />
+<meta name="date" content="2025-05-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -385,10 +385,7 @@ div.csl-indent {
 <li class="chapter" data-level="10" data-path="sec-estimacao.html"><a href="sec-estimacao.html"><i class="fa fa-check"></i><b>10</b> Estimação</a>
 <ul>
 <li class="chapter" data-level="10.1" data-path="sec-estimacao.html"><a href="sec-estimacao.html#pacotes-necessários-neste-capítulo-3"><i class="fa fa-check"></i><b>10.1</b> Pacotes necessários neste capítulo</a></li>
-<li class="chapter" data-level="10.2" data-path="sec-estimacao.html"><a href="sec-estimacao.html#dados-2"><i class="fa fa-check"></i><b>10.2</b> Dados</a>
-<ul>
-<li class="chapter" data-level="10.2.1" data-path="sec-estimacao.html"><a href="sec-estimacao.html#sec-dadosaltura"><i class="fa fa-check"></i><b>10.2.1</b> Exploração dos dados</a></li>
-</ul></li>
+<li class="chapter" data-level="10.2" data-path="sec-estimacao.html"><a href="sec-estimacao.html#sec-dadoscap10"><i class="fa fa-check"></i><b>10.2</b> Dados</a></li>
 <li class="chapter" data-level="10.3" data-path="sec-estimacao.html"><a href="sec-estimacao.html#introdução-3"><i class="fa fa-check"></i><b>10.3</b> Introdução</a></li>
 <li class="chapter" data-level="10.4" data-path="sec-estimacao.html"><a href="sec-estimacao.html#estimativa-pontual-e-intervalo-de-confiança"><i class="fa fa-check"></i><b>10.4</b> Estimativa Pontual e Intervalo de Confiança</a></li>
 <li class="chapter" data-level="10.5" data-path="sec-estimacao.html"><a href="sec-estimacao.html#estimação-da-média-populacional-sigma-conhecido"><i class="fa fa-check"></i><b>10.5</b> Estimação da média populacional: <span class="math inline">\(\sigma\)</span> conhecido</a>
@@ -663,18 +660,18 @@ div.csl-indent {
 <h1><span class="header-section-number">Capítulo 13</span> Análise de Variância<a href="análise-de-variância.html#análise-de-variância" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="pacotes-necessários-para-este-capítulo-2" class="section level2 hasAnchor" number="13.1">
 <h2><span class="header-section-number">13.1</span> Pacotes necessários para este capítulo<a href="análise-de-variância.html#pacotes-necessários-para-este-capítulo-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb717"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb717-1"><a href="análise-de-variância.html#cb717-1" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(car,</span>
-<span id="cb717-2"><a href="análise-de-variância.html#cb717-2" tabindex="-1"></a>               dplyr,</span>
-<span id="cb717-3"><a href="análise-de-variância.html#cb717-3" tabindex="-1"></a>               effectsize,</span>
-<span id="cb717-4"><a href="análise-de-variância.html#cb717-4" tabindex="-1"></a>               emmeans,</span>
-<span id="cb717-5"><a href="análise-de-variância.html#cb717-5" tabindex="-1"></a>               fastGraph,</span>
-<span id="cb717-6"><a href="análise-de-variância.html#cb717-6" tabindex="-1"></a>               ggplot2,</span>
-<span id="cb717-7"><a href="análise-de-variância.html#cb717-7" tabindex="-1"></a>               ggpubr,</span>
-<span id="cb717-8"><a href="análise-de-variância.html#cb717-8" tabindex="-1"></a>               ggsci,</span>
-<span id="cb717-9"><a href="análise-de-variância.html#cb717-9" tabindex="-1"></a>               kableExtra,</span>
-<span id="cb717-10"><a href="análise-de-variância.html#cb717-10" tabindex="-1"></a>               knitr,</span>
-<span id="cb717-11"><a href="análise-de-variância.html#cb717-11" tabindex="-1"></a>               readxl,</span>
-<span id="cb717-12"><a href="análise-de-variância.html#cb717-12" tabindex="-1"></a>               rstatix)</span></code></pre></div>
+<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb716-1"><a href="análise-de-variância.html#cb716-1" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(car,</span>
+<span id="cb716-2"><a href="análise-de-variância.html#cb716-2" tabindex="-1"></a>               dplyr,</span>
+<span id="cb716-3"><a href="análise-de-variância.html#cb716-3" tabindex="-1"></a>               effectsize,</span>
+<span id="cb716-4"><a href="análise-de-variância.html#cb716-4" tabindex="-1"></a>               emmeans,</span>
+<span id="cb716-5"><a href="análise-de-variância.html#cb716-5" tabindex="-1"></a>               fastGraph,</span>
+<span id="cb716-6"><a href="análise-de-variância.html#cb716-6" tabindex="-1"></a>               ggplot2,</span>
+<span id="cb716-7"><a href="análise-de-variância.html#cb716-7" tabindex="-1"></a>               ggpubr,</span>
+<span id="cb716-8"><a href="análise-de-variância.html#cb716-8" tabindex="-1"></a>               ggsci,</span>
+<span id="cb716-9"><a href="análise-de-variância.html#cb716-9" tabindex="-1"></a>               kableExtra,</span>
+<span id="cb716-10"><a href="análise-de-variância.html#cb716-10" tabindex="-1"></a>               knitr,</span>
+<span id="cb716-11"><a href="análise-de-variância.html#cb716-11" tabindex="-1"></a>               readxl,</span>
+<span id="cb716-12"><a href="análise-de-variância.html#cb716-12" tabindex="-1"></a>               rstatix)</span></code></pre></div>
 </div>
 <div id="por-que-realizar-uma-anova" class="section level2 hasAnchor" number="13.2">
 <h2><span class="header-section-number">13.2</span> Por que realizar uma ANOVA?<a href="análise-de-variância.html#por-que-realizar-uma-anova" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -683,7 +680,7 @@ div.csl-indent {
 <p>Logo, uma ANOVA de um fator é usada para verificar as diferenças entre vários grupos dentro de um fator, reduzindo assim o número de comparações em pares e a probabilidade de ocorrer um erro tipo I.</p>
 <div id="lógica-do-modelo-da-anova" class="section level3 hasAnchor" number="13.2.1">
 <h3><span class="header-section-number">13.2.1</span> Lógica do Modelo da ANOVA<a href="análise-de-variância.html#lógica-do-modelo-da-anova" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>O procedimento de ANOVA é utilizado para testar a hipótese nula de que as médias de três <a href="#fn51" class="footnote-ref" id="fnref51"><sup>51</sup></a> ou mais populações são as mesmas contra hipótese alternativa de que nem todas as médias são iguais.</p>
+<p>O procedimento de ANOVA é utilizado para testar a hipótese nula de que as médias de três <a href="#fn54" class="footnote-ref" id="fnref54"><sup>54</sup></a> ou mais populações são as mesmas contra hipótese alternativa de que nem todas as médias são iguais.</p>
 <p>Na Seção <a href="sec-testet.html#sec-homovar">12.2.4.2</a>, foram comparadas duas variâncias, usando um teste, denominado de <em>teste F</em>. Este teste, é uma razão entre duas variâncias e recebeu este nome em homenagem a Sir Ronald Aylmer <em>Fisher</em>. A variância é uma medida de dispersão que mensura como os dados estão espalhados em torno da média. Quanto maior o seu valor, maior a dispersão.</p>
 <p>Considere a Figura <a href="análise-de-variância.html#fig:logica">13.1</a>, onde está representada a distribuição de uma variável <em>X</em> em três grupos independentes. Pode-se, claramente, distinguir observações provenientes dessas distribuições, pois a sobreposição delas é pequena. Cada uma dela se dispersa pouco em torno da média.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:logica"></span>
@@ -722,27 +719,27 @@ Figura 13.3: Distribuições F.
 <h4><span class="header-section-number">13.2.2.1</span> Funções do R para trabalhar com a distribuição <em>F</em><a href="análise-de-variância.html#funções-do-r-para-trabalhar-com-a-distribuição-f" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>No R, existem quatro funções principais para trabalhar com a distribuição <em>F</em>:</p>
 <ul>
-<li><code>df(x, gl1,gl2)</code> calcula a densidade de probabilidade da distribuição <em>F</em> no ponto <em>x</em>; <em>df1</em> e <em>df2</em> são os graus de liberdade do numerador e denominador, respectivamente <a href="#fn52" class="footnote-ref" id="fnref52"><sup>52</sup></a> ;</li>
+<li><code>df(x, gl1,gl2)</code> calcula a densidade de probabilidade da distribuição <em>F</em> no ponto <em>x</em>; <em>df1</em> e <em>df2</em> são os graus de liberdade do numerador e denominador, respectivamente <a href="#fn55" class="footnote-ref" id="fnref55"><sup>55</sup></a> ;</li>
 <li><code>pf(x, gl1, gl2)</code> calcula a função de probabilidade acumulada da distribuição <em>F</em> no ponto <em>x</em>;</li>
 <li><code>qf(p, gl1, gl2)</code> calcula o quantil da distribuição F correspondente a uma probabilidade p;</li>
 <li><code>rf(n, gl1, gl2)</code> gera n valores aleatórios da distribuição F com os parâmetros gl1 e gl2.</li>
 </ul>
 <p>Essas funções são úteis para resolver problemas de probabilidade envolvendo a distribuição <em>F</em>. Por exemplo, se o objetivo é saber qual é a probabilidade de uma variável aleatória <em>F</em> com 10 e 20 graus de liberdade no numerador e no denominador, respectivamente, ser menor que 1, pode-se usar a função <code>pf()</code> da seguinte forma:</p>
-<div class="sourceCode" id="cb718"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb718-1"><a href="análise-de-variância.html#cb718-1" tabindex="-1"></a> x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb718-2"><a href="análise-de-variância.html#cb718-2" tabindex="-1"></a> p <span class="ot">&lt;-</span> <span class="fu">pf</span>(x, <span class="dv">10</span>, <span class="dv">20</span>,<span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb718-3"><a href="análise-de-variância.html#cb718-3" tabindex="-1"></a> <span class="fu">round</span>(p, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb717"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb717-1"><a href="análise-de-variância.html#cb717-1" tabindex="-1"></a> x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb717-2"><a href="análise-de-variância.html#cb717-2" tabindex="-1"></a> p <span class="ot">&lt;-</span> <span class="fu">pf</span>(x, <span class="dv">10</span>, <span class="dv">20</span>,<span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb717-3"><a href="análise-de-variância.html#cb717-3" tabindex="-1"></a> <span class="fu">round</span>(p, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 0.524</code></pre>
 <p>Ou seja, ao se observar a curva da Figura <a href="análise-de-variância.html#fig:distf">13.3</a> de cor verde (gl1 = 10 e gl2 = 20), a probabilidade abaixo de x = 1 é igual a 52,4%.</p>
 <p>Para calcular a densidade de probabilidade quando <em>x</em> = 1, pode-se usar a função <code>df()</code>:</p>
-<div class="sourceCode" id="cb720"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb720-1"><a href="análise-de-variância.html#cb720-1" tabindex="-1"></a> x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb720-2"><a href="análise-de-variância.html#cb720-2" tabindex="-1"></a> d <span class="ot">&lt;-</span> <span class="fu">df</span>(x, <span class="dv">10</span>, <span class="dv">20</span>)</span>
-<span id="cb720-3"><a href="análise-de-variância.html#cb720-3" tabindex="-1"></a> <span class="fu">round</span>(d, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb719"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb719-1"><a href="análise-de-variância.html#cb719-1" tabindex="-1"></a> x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb719-2"><a href="análise-de-variância.html#cb719-2" tabindex="-1"></a> d <span class="ot">&lt;-</span> <span class="fu">df</span>(x, <span class="dv">10</span>, <span class="dv">20</span>)</span>
+<span id="cb719-3"><a href="análise-de-variância.html#cb719-3" tabindex="-1"></a> <span class="fu">round</span>(d, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 0.714</code></pre>
 <p>A saída da função <code>df()</code> corresponde à altura da curva da Figura <a href="análise-de-variância.html#fig:distf">13.3</a> de cor verde (<em>gl1</em> = 10 e <em>gl2</em> = 20) quando <em>x</em> é igual a 1.</p>
 <p>Para encontrar o valor da distribuição <em>F</em>(10,20) que corresponde ao percentil 50%, ou seja, o valor que deixa 50% da área da curva à esquerda, usa-se a função <code>qf()</code> com <code>lower.tail=TRUE</code>. Assim:</p>
-<div class="sourceCode" id="cb722"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb722-1"><a href="análise-de-variância.html#cb722-1" tabindex="-1"></a> p <span class="ot">&lt;-</span> <span class="fl">0.50</span></span>
-<span id="cb722-2"><a href="análise-de-variância.html#cb722-2" tabindex="-1"></a> x <span class="ot">&lt;-</span> <span class="fu">qf</span>(p, <span class="dv">10</span>, <span class="dv">20</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb722-3"><a href="análise-de-variância.html#cb722-3" tabindex="-1"></a> <span class="fu">round</span>(x,<span class="dv">3</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb721"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb721-1"><a href="análise-de-variância.html#cb721-1" tabindex="-1"></a> p <span class="ot">&lt;-</span> <span class="fl">0.50</span></span>
+<span id="cb721-2"><a href="análise-de-variância.html#cb721-2" tabindex="-1"></a> x <span class="ot">&lt;-</span> <span class="fu">qf</span>(p, <span class="dv">10</span>, <span class="dv">20</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb721-3"><a href="análise-de-variância.html#cb721-3" tabindex="-1"></a> <span class="fu">round</span>(x,<span class="dv">3</span>) </span></code></pre></div>
 <pre><code>## [1] 0.966</code></pre>
 <p>Para representar, graficamente, esse resultado, foi construido o gráfico da Figura <a href="análise-de-variância.html#fig:distf1020">13.4</a> com a <code>shadeDist()</code> do pacote <code>fastGraph</code> (<span class="citation">(113)</span>) , verifica-se que a área sob a curva abaixo de 0,97 é igual a 50%. Consulte a ajuda do <em>RStudio</em> para maiores detalhes dos argumentos da função.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:distf1020"></span>
@@ -752,23 +749,23 @@ Figura 13.4: Área da curva da distribuição F (10,20) abaixo de x = 0,97 é ig
 </p>
 </div>
 <p>Para gerar 100.000 valores aleatórios da distribuição F com <em>gl1</em>=10 e <em>gl2</em>=20,será usada a função <code>rf()</code>. Em seguida, plota-se um histograma (Figura <a href="análise-de-variância.html#fig:distfcurve">13.5</a>) com curva da distribuição <em>F</em> sobreposta (linha vermelha) e compara-se com a função de densidade de probabilidade da distribuição <em>F</em> (curva verde da Figura <a href="análise-de-variância.html#fig:distf">13.3</a>).</p>
-<div class="sourceCode" id="cb724"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb724-1"><a href="análise-de-variância.html#cb724-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rf</span>(<span class="dv">100000</span>, <span class="at">df1 =</span> <span class="dv">10</span>, <span class="at">df2 =</span> <span class="dv">20</span>)</span>
-<span id="cb724-2"><a href="análise-de-variância.html#cb724-2" tabindex="-1"></a><span class="fu">hist</span>(x, </span>
-<span id="cb724-3"><a href="análise-de-variância.html#cb724-3" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="st">&#39;Scott&#39;</span>, </span>
-<span id="cb724-4"><a href="análise-de-variância.html#cb724-4" tabindex="-1"></a>     <span class="at">freq =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb724-5"><a href="análise-de-variância.html#cb724-5" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>), </span>
-<span id="cb724-6"><a href="análise-de-variância.html#cb724-6" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
-<span id="cb724-7"><a href="análise-de-variância.html#cb724-7" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Densidade&quot;</span>,     </span>
-<span id="cb724-8"><a href="análise-de-variância.html#cb724-8" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&#39;&#39;</span>, </span>
-<span id="cb724-9"><a href="análise-de-variância.html#cb724-9" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&#39;Histograma para uma distribuição F(10,20)&#39;</span>, </span>
-<span id="cb724-10"><a href="análise-de-variância.html#cb724-10" tabindex="-1"></a>     <span class="at">cex.main=</span><span class="fl">0.9</span>)</span>
-<span id="cb724-11"><a href="análise-de-variância.html#cb724-11" tabindex="-1"></a></span>
-<span id="cb724-12"><a href="análise-de-variância.html#cb724-12" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">df</span>(x, <span class="at">df1 =</span> <span class="dv">10</span>, <span class="at">df2 =</span> <span class="dv">20</span>), </span>
-<span id="cb724-13"><a href="análise-de-variância.html#cb724-13" tabindex="-1"></a>      <span class="at">from =</span> <span class="dv">0</span>, </span>
-<span id="cb724-14"><a href="análise-de-variância.html#cb724-14" tabindex="-1"></a>      <span class="at">to =</span> <span class="dv">4</span>, </span>
-<span id="cb724-15"><a href="análise-de-variância.html#cb724-15" tabindex="-1"></a>      <span class="at">n =</span> <span class="dv">5000</span>, </span>
-<span id="cb724-16"><a href="análise-de-variância.html#cb724-16" tabindex="-1"></a>      <span class="at">col=</span> <span class="st">&#39;red&#39;</span>, </span>
-<span id="cb724-17"><a href="análise-de-variância.html#cb724-17" tabindex="-1"></a>      <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">add =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb723-1"><a href="análise-de-variância.html#cb723-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rf</span>(<span class="dv">100000</span>, <span class="at">df1 =</span> <span class="dv">10</span>, <span class="at">df2 =</span> <span class="dv">20</span>)</span>
+<span id="cb723-2"><a href="análise-de-variância.html#cb723-2" tabindex="-1"></a><span class="fu">hist</span>(x, </span>
+<span id="cb723-3"><a href="análise-de-variância.html#cb723-3" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="st">&#39;Scott&#39;</span>, </span>
+<span id="cb723-4"><a href="análise-de-variância.html#cb723-4" tabindex="-1"></a>     <span class="at">freq =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb723-5"><a href="análise-de-variância.html#cb723-5" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">3</span>), </span>
+<span id="cb723-6"><a href="análise-de-variância.html#cb723-6" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb723-7"><a href="análise-de-variância.html#cb723-7" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Densidade&quot;</span>,     </span>
+<span id="cb723-8"><a href="análise-de-variância.html#cb723-8" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&#39;&#39;</span>, </span>
+<span id="cb723-9"><a href="análise-de-variância.html#cb723-9" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&#39;Histograma para uma distribuição F(10,20)&#39;</span>, </span>
+<span id="cb723-10"><a href="análise-de-variância.html#cb723-10" tabindex="-1"></a>     <span class="at">cex.main=</span><span class="fl">0.9</span>)</span>
+<span id="cb723-11"><a href="análise-de-variância.html#cb723-11" tabindex="-1"></a></span>
+<span id="cb723-12"><a href="análise-de-variância.html#cb723-12" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">df</span>(x, <span class="at">df1 =</span> <span class="dv">10</span>, <span class="at">df2 =</span> <span class="dv">20</span>), </span>
+<span id="cb723-13"><a href="análise-de-variância.html#cb723-13" tabindex="-1"></a>      <span class="at">from =</span> <span class="dv">0</span>, </span>
+<span id="cb723-14"><a href="análise-de-variância.html#cb723-14" tabindex="-1"></a>      <span class="at">to =</span> <span class="dv">4</span>, </span>
+<span id="cb723-15"><a href="análise-de-variância.html#cb723-15" tabindex="-1"></a>      <span class="at">n =</span> <span class="dv">5000</span>, </span>
+<span id="cb723-16"><a href="análise-de-variância.html#cb723-16" tabindex="-1"></a>      <span class="at">col=</span> <span class="st">&#39;red&#39;</span>, </span>
+<span id="cb723-17"><a href="análise-de-variância.html#cb723-17" tabindex="-1"></a>      <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">add =</span> T)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:distfcurve"></span>
 <img src="bookdownproj_files/figure-html/distfcurve-1.png" alt="Histograma com curva sobreposta de uma distribuição F (10,20)" width="70%" height="70%" />
 <p class="caption">
@@ -802,9 +799,9 @@ Figura 13.6: Impacto do tabagismo materno no peso ao nascer
 <div id="leitura-dos-dados-1" class="section level4 hasAnchor" number="13.3.1.1">
 <h4><span class="header-section-number">13.3.1.1</span> Leitura dos dados<a href="análise-de-variância.html#leitura-dos-dados-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A leitura será feita com a função <code>read_excel()</code> do pacote <code>readxl</code> e serão atribuídos a um objeto de nome <code>dados</code> e verificada a sua estrutura com a função <code>head()</code>.</p>
-<div class="sourceCode" id="cb725"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb725-1"><a href="análise-de-variância.html#cb725-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosFumo.xlsx&quot;</span>)</span>
-<span id="cb725-2"><a href="análise-de-variância.html#cb725-2" tabindex="-1"></a></span>
-<span id="cb725-3"><a href="análise-de-variância.html#cb725-3" tabindex="-1"></a><span class="fu">str</span> (dados)</span></code></pre></div>
+<div class="sourceCode" id="cb724"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb724-1"><a href="análise-de-variância.html#cb724-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosFumo.xlsx&quot;</span>)</span>
+<span id="cb724-2"><a href="análise-de-variância.html#cb724-2" tabindex="-1"></a></span>
+<span id="cb724-3"><a href="análise-de-variância.html#cb724-3" tabindex="-1"></a><span class="fu">str</span> (dados)</span></code></pre></div>
 <pre><code>## tibble [200 × 3] (S3: tbl_df/tbl/data.frame)
 ##  $ id    : num [1:200] 1 2 3 4 5 6 7 8 9 10 ...
 ##  $ pesoRN: num [1:200] 3458 2723 4125 2905 3608 ...
@@ -813,25 +810,25 @@ Figura 13.6: Impacto do tabagismo materno no peso ao nascer
 <div id="exploração-e-resumo-dos-dados-1" class="section level4 hasAnchor" number="13.3.1.2">
 <h4><span class="header-section-number">13.3.1.2</span> Exploração e resumo dos dados<a href="análise-de-variância.html#exploração-e-resumo-dos-dados-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Como a variável <code>fumo</code> encontra-se como uma variável numérica, será transformada em fator que é a sua verdadeira classe com 4 níveis.</p>
-<div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb727-1"><a href="análise-de-variância.html#cb727-1" tabindex="-1"></a>dados<span class="sc">$</span>fumo <span class="ot">&lt;-</span> <span class="fu">factor</span> (dados<span class="sc">$</span>fumo, </span>
-<span id="cb727-2"><a href="análise-de-variância.html#cb727-2" tabindex="-1"></a>                      <span class="at">ordered =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb727-3"><a href="análise-de-variância.html#cb727-3" tabindex="-1"></a>                      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
-<span id="cb727-4"><a href="análise-de-variância.html#cb727-4" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span> (<span class="st">&quot;não&quot;</span>, </span>
-<span id="cb727-5"><a href="análise-de-variância.html#cb727-5" tabindex="-1"></a>                                  <span class="st">&quot;leve&quot;</span>, </span>
-<span id="cb727-6"><a href="análise-de-variância.html#cb727-6" tabindex="-1"></a>                                  <span class="st">&quot;moderado&quot;</span>,</span>
-<span id="cb727-7"><a href="análise-de-variância.html#cb727-7" tabindex="-1"></a>                                  <span class="st">&quot;pesado&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb726"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb726-1"><a href="análise-de-variância.html#cb726-1" tabindex="-1"></a>dados<span class="sc">$</span>fumo <span class="ot">&lt;-</span> <span class="fu">factor</span> (dados<span class="sc">$</span>fumo, </span>
+<span id="cb726-2"><a href="análise-de-variância.html#cb726-2" tabindex="-1"></a>                      <span class="at">ordered =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb726-3"><a href="análise-de-variância.html#cb726-3" tabindex="-1"></a>                      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb726-4"><a href="análise-de-variância.html#cb726-4" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span> (<span class="st">&quot;não&quot;</span>, </span>
+<span id="cb726-5"><a href="análise-de-variância.html#cb726-5" tabindex="-1"></a>                                  <span class="st">&quot;leve&quot;</span>, </span>
+<span id="cb726-6"><a href="análise-de-variância.html#cb726-6" tabindex="-1"></a>                                  <span class="st">&quot;moderado&quot;</span>,</span>
+<span id="cb726-7"><a href="análise-de-variância.html#cb726-7" tabindex="-1"></a>                                  <span class="st">&quot;pesado&quot;</span>))</span></code></pre></div>
 <p>As medidas resumidoras serão obtidas, usando as funções <code>group_by ()</code> e <code>summarise ()</code> do pacote <code>dplyr</code>.</p>
-<div class="sourceCode" id="cb728"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb728-1"><a href="análise-de-variância.html#cb728-1" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.05</span></span>
-<span id="cb728-2"><a href="análise-de-variância.html#cb728-2" tabindex="-1"></a>resumo <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
-<span id="cb728-3"><a href="análise-de-variância.html#cb728-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(fumo) <span class="sc">%&gt;%</span></span>
-<span id="cb728-4"><a href="análise-de-variância.html#cb728-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb728-5"><a href="análise-de-variância.html#cb728-5" tabindex="-1"></a>                   <span class="at">media =</span> <span class="fu">mean</span>(pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb728-6"><a href="análise-de-variância.html#cb728-6" tabindex="-1"></a>                   <span class="at">dp =</span> <span class="fu">sd</span> (pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb728-7"><a href="análise-de-variância.html#cb728-7" tabindex="-1"></a>                   <span class="at">ep =</span> dp<span class="sc">/</span><span class="fu">sqrt</span>(n),</span>
-<span id="cb728-8"><a href="análise-de-variância.html#cb728-8" tabindex="-1"></a>                   <span class="at">me =</span> <span class="fu">qt</span> ((<span class="dv">1</span><span class="sc">-</span>alpha<span class="sc">/</span><span class="dv">2</span>), n<span class="dv">-1</span>)<span class="sc">*</span>ep,</span>
-<span id="cb728-9"><a href="análise-de-variância.html#cb728-9" tabindex="-1"></a>                   <span class="at">IC_Inf =</span> media <span class="sc">-</span> me,</span>
-<span id="cb728-10"><a href="análise-de-variância.html#cb728-10" tabindex="-1"></a>                   <span class="at">IC_sup =</span> media <span class="sc">+</span> me)</span>
-<span id="cb728-11"><a href="análise-de-variância.html#cb728-11" tabindex="-1"></a>resumo</span></code></pre></div>
+<div class="sourceCode" id="cb727"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb727-1"><a href="análise-de-variância.html#cb727-1" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.05</span></span>
+<span id="cb727-2"><a href="análise-de-variância.html#cb727-2" tabindex="-1"></a>resumo <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb727-3"><a href="análise-de-variância.html#cb727-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(fumo) <span class="sc">%&gt;%</span></span>
+<span id="cb727-4"><a href="análise-de-variância.html#cb727-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb727-5"><a href="análise-de-variância.html#cb727-5" tabindex="-1"></a>                   <span class="at">media =</span> <span class="fu">mean</span>(pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb727-6"><a href="análise-de-variância.html#cb727-6" tabindex="-1"></a>                   <span class="at">dp =</span> <span class="fu">sd</span> (pesoRN, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb727-7"><a href="análise-de-variância.html#cb727-7" tabindex="-1"></a>                   <span class="at">ep =</span> dp<span class="sc">/</span><span class="fu">sqrt</span>(n),</span>
+<span id="cb727-8"><a href="análise-de-variância.html#cb727-8" tabindex="-1"></a>                   <span class="at">me =</span> <span class="fu">qt</span> ((<span class="dv">1</span><span class="sc">-</span>alpha<span class="sc">/</span><span class="dv">2</span>), n<span class="dv">-1</span>)<span class="sc">*</span>ep,</span>
+<span id="cb727-9"><a href="análise-de-variância.html#cb727-9" tabindex="-1"></a>                   <span class="at">IC_Inf =</span> media <span class="sc">-</span> me,</span>
+<span id="cb727-10"><a href="análise-de-variância.html#cb727-10" tabindex="-1"></a>                   <span class="at">IC_sup =</span> media <span class="sc">+</span> me)</span>
+<span id="cb727-11"><a href="análise-de-variância.html#cb727-11" tabindex="-1"></a>resumo</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 8
 ##   fumo         n media    dp    ep    me IC_Inf IC_sup
 ##   &lt;ord&gt;    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
@@ -842,7 +839,7 @@ Figura 13.6: Impacto do tabagismo materno no peso ao nascer
 </div>
 <div id="visualização-gráfica-dos-dados" class="section level4 hasAnchor" number="13.3.1.3">
 <h4><span class="header-section-number">13.3.1.3</span> Visualização gráfica dos dados<a href="análise-de-variância.html#visualização-gráfica-dos-dados" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Os boxplots (Figura <a href="análise-de-variância.html#fig:bxpfumo">13.7</a>) são uma maneira interessante de visualizar os dados, principalmente com o pacote <code>ggplot2</code><a href="#fn53" class="footnote-ref" id="fnref53"><sup>53</sup></a> :</p>
+<p>Os boxplots (Figura <a href="análise-de-variância.html#fig:bxpfumo">13.7</a>) são uma maneira interessante de visualizar os dados, principalmente com o pacote <code>ggplot2</code><a href="#fn56" class="footnote-ref" id="fnref56"><sup>56</sup></a> :</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:bxpfumo"></span>
 <img src="bookdownproj_files/figure-html/bxpfumo-1.png" alt="Boxplots do impacto do tabagismo materno no peso ao nascer" width="70%" height="70%" />
 <p class="caption">
@@ -865,18 +862,18 @@ Figura 13.7: Boxplots do impacto do tabagismo materno no peso ao nascer
 <li>Grau de liberdade do denominador (DENTRO ou residual) é dado por <span class="math inline">\(gl_{D} = n - k\)</span>, onde, <span class="math inline">\(n = \sum n_{i}\)</span>.</li>
 </ul>
 <p>No exemplo, para um <span class="math inline">\(\alpha = 0,05\)</span>, tem-se:</p>
-<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb730-1"><a href="análise-de-variância.html#cb730-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb730-2"><a href="análise-de-variância.html#cb730-2" tabindex="-1"></a>k <span class="ot">&lt;-</span>  <span class="fu">length</span>(resumo<span class="sc">$</span>media)</span>
-<span id="cb730-3"><a href="análise-de-variância.html#cb730-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(dados)</span>
-<span id="cb730-4"><a href="análise-de-variância.html#cb730-4" tabindex="-1"></a>glE <span class="ot">&lt;-</span>  k <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb730-5"><a href="análise-de-variância.html#cb730-5" tabindex="-1"></a>glE</span></code></pre></div>
+<div class="sourceCode" id="cb729"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb729-1"><a href="análise-de-variância.html#cb729-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb729-2"><a href="análise-de-variância.html#cb729-2" tabindex="-1"></a>k <span class="ot">&lt;-</span>  <span class="fu">length</span>(resumo<span class="sc">$</span>media)</span>
+<span id="cb729-3"><a href="análise-de-variância.html#cb729-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(dados)</span>
+<span id="cb729-4"><a href="análise-de-variância.html#cb729-4" tabindex="-1"></a>glE <span class="ot">&lt;-</span>  k <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb729-5"><a href="análise-de-variância.html#cb729-5" tabindex="-1"></a>glE</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb732"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb732-1"><a href="análise-de-variância.html#cb732-1" tabindex="-1"></a>glD <span class="ot">&lt;-</span> n <span class="sc">-</span> k</span>
-<span id="cb732-2"><a href="análise-de-variância.html#cb732-2" tabindex="-1"></a>glD</span></code></pre></div>
+<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb731-1"><a href="análise-de-variância.html#cb731-1" tabindex="-1"></a>glD <span class="ot">&lt;-</span> n <span class="sc">-</span> k</span>
+<span id="cb731-2"><a href="análise-de-variância.html#cb731-2" tabindex="-1"></a>glD</span></code></pre></div>
 <pre><code>## [1] 196</code></pre>
 <p>Com esses dados, usando a a função <code>qf()</code>calcula-se o valor crítico de <em>F</em> (Figura <a href="análise-de-variância.html#fig:fc3196">13.8</a>) que é igual:</p>
-<div class="sourceCode" id="cb734"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb734-1"><a href="análise-de-variância.html#cb734-1" tabindex="-1"></a>Fc <span class="ot">&lt;-</span> <span class="fu">qf</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, glE, glD)</span>
-<span id="cb734-2"><a href="análise-de-variância.html#cb734-2" tabindex="-1"></a><span class="fu">round</span>(Fc, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb733-1"><a href="análise-de-variância.html#cb733-1" tabindex="-1"></a>Fc <span class="ot">&lt;-</span> <span class="fu">qf</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, glE, glD)</span>
+<span id="cb733-2"><a href="análise-de-variância.html#cb733-2" tabindex="-1"></a><span class="fu">round</span>(Fc, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 2.65</code></pre>
 <p>Portanto, se</p>
 <p><span class="math display">\[
@@ -920,9 +917,9 @@ F = \frac {s_{E}^2}{s_{D}^2} = \frac {\frac {SQ_{E}}{gl_{E}}}{\frac {SQ_{D}}{gl_
 <p>Portanto, antes iniciar com o teste de hipótese, verifica-se se as suposições mencionadas para o teste de hipótese ANOVA unidirecional foram atendidas. As amostras são amostras aleatórias e independentes. Isto já é um bom começo!</p>
 <p><strong>Avaliação da normalidade</strong></p>
 <p>Verifica-se a premissa de normalidade, usando o teste de Shapiro-Wilk para os múltiplos grupos e desenhando um gráfico de probabilidade normal (<em>gráficos Q-Q</em>) para cada grupo.</p>
-<div class="sourceCode" id="cb736"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb736-1"><a href="análise-de-variância.html#cb736-1" tabindex="-1"></a> dados <span class="sc">%&gt;%</span> </span>
-<span id="cb736-2"><a href="análise-de-variância.html#cb736-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(fumo) <span class="sc">%&gt;%</span> </span>
-<span id="cb736-3"><a href="análise-de-variância.html#cb736-3" tabindex="-1"></a>  <span class="fu">shapiro_test</span>(pesoRN)</span></code></pre></div>
+<div class="sourceCode" id="cb735"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb735-1"><a href="análise-de-variância.html#cb735-1" tabindex="-1"></a> dados <span class="sc">%&gt;%</span> </span>
+<span id="cb735-2"><a href="análise-de-variância.html#cb735-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(fumo) <span class="sc">%&gt;%</span> </span>
+<span id="cb735-3"><a href="análise-de-variância.html#cb735-3" tabindex="-1"></a>  <span class="fu">shapiro_test</span>(pesoRN)</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 4
 ##   fumo     variable statistic     p
 ##   &lt;ord&gt;    &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;
@@ -931,11 +928,11 @@ F = \frac {s_{E}^2}{s_{D}^2} = \frac {\frac {SQ_{E}}{gl_{E}}}{\frac {SQ_{D}}{gl_
 ## 3 moderado pesoRN       0.985 0.776
 ## 4 pesado   pesoRN       0.971 0.257</code></pre>
 <p>Para o gráfico Q-Q (Figura <a href="análise-de-variância.html#fig:qqfumo">13.9</a>), pode ser usado a função <code>ggqqplot ()</code> do pacote <code>ggpubr</code> que produz um gráfico QQ normal com uma linha de referência, acompanhada de area sombreada, correspondente ao IC95%.</p>
-<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb738-1"><a href="análise-de-variância.html#cb738-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggqqplot</span>(dados, </span>
-<span id="cb738-2"><a href="análise-de-variância.html#cb738-2" tabindex="-1"></a>                 <span class="at">x=</span><span class="st">&quot;pesoRN&quot;</span>, </span>
-<span id="cb738-3"><a href="análise-de-variância.html#cb738-3" tabindex="-1"></a>                 <span class="at">facet.by =</span> <span class="st">&quot;fumo&quot;</span>) <span class="sc">+</span></span>
-<span id="cb738-4"><a href="análise-de-variância.html#cb738-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Peso ao nascer (g) (m)&quot;</span>,</span>
-<span id="cb738-5"><a href="análise-de-variância.html#cb738-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Quantis teóricos&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb737"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb737-1"><a href="análise-de-variância.html#cb737-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggqqplot</span>(dados, </span>
+<span id="cb737-2"><a href="análise-de-variância.html#cb737-2" tabindex="-1"></a>                 <span class="at">x=</span><span class="st">&quot;pesoRN&quot;</span>, </span>
+<span id="cb737-3"><a href="análise-de-variância.html#cb737-3" tabindex="-1"></a>                 <span class="at">facet.by =</span> <span class="st">&quot;fumo&quot;</span>) <span class="sc">+</span></span>
+<span id="cb737-4"><a href="análise-de-variância.html#cb737-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Peso ao nascer (g) (m)&quot;</span>,</span>
+<span id="cb737-5"><a href="análise-de-variância.html#cb737-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Quantis teóricos&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:qqfumo"></span>
 <img src="bookdownproj_files/figure-html/qqfumo-1.png" alt="Gráficos Q-Q" width="90%" height="90%" />
 <p class="caption">
@@ -945,7 +942,7 @@ Figura 13.9: Gráficos Q-Q
 <p>O resultado do teste de Shapiro-Wilk entregou todos os resultados com valor <em>P</em> acima de 0.05 e os gráficos Q-Q, não são perfeitos, mas pode-se assumir que os dados para cada grupo caem aproximadamente em uma linha reta.</p>
 <p><strong>Avaliação da homogeneidade das variâncias</strong></p>
 <p>Em seguida, testa-se a suposição de que as variâncias são iguais, usando o Teste de Levene através da função <code>leveneTest ()</code> do pacote `car.</p>
-<div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb739-1"><a href="análise-de-variância.html#cb739-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">leveneTest</span>(pesoRN<span class="sc">~</span>fumo, <span class="at">center =</span> mean, <span class="at">data =</span> dados)</span></code></pre></div>
+<div class="sourceCode" id="cb738"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb738-1"><a href="análise-de-variância.html#cb738-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">leveneTest</span>(pesoRN<span class="sc">~</span>fumo, <span class="at">center =</span> mean, <span class="at">data =</span> dados)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = mean)
 ##        Df F value Pr(&gt;F)
 ## group   3  0.6306 0.5961
@@ -953,9 +950,9 @@ Figura 13.9: Gráficos Q-Q
 <p>O teste de Levene exibe como resultado um valor <em>P</em> &gt; 0,05, mostrando que não é possível rejeitar a <span class="math inline">\(H_0\)</span> de igualdade das variâncias.</p>
 <p><strong>Verificação da presença de outliers</strong></p>
 <p>Pode-se aqui, além de verificar nos boxplots, usar a função <code>by_group()</code> do pacote <code>dplyr</code> junto com a função <code>identify_outliers()</code> do pacote <code>rstatix</code> :</p>
-<div class="sourceCode" id="cb741"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb741-1"><a href="análise-de-variância.html#cb741-1" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> </span>
-<span id="cb741-2"><a href="análise-de-variância.html#cb741-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(fumo) <span class="sc">%&gt;%</span> </span>
-<span id="cb741-3"><a href="análise-de-variância.html#cb741-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">identify_outliers</span>(pesoRN)</span></code></pre></div>
+<div class="sourceCode" id="cb740"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb740-1"><a href="análise-de-variância.html#cb740-1" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> </span>
+<span id="cb740-2"><a href="análise-de-variância.html#cb740-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(fumo) <span class="sc">%&gt;%</span> </span>
+<span id="cb740-3"><a href="análise-de-variância.html#cb740-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">identify_outliers</span>(pesoRN)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
 ##   fumo      id pesoRN is.outlier is.extreme
 ##   &lt;ord&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;lgl&gt;      &lt;lgl&gt;     
@@ -972,9 +969,9 @@ Figura 13.9: Gráficos Q-Q
 <li><em>effect.size</em> <span class="math inline">\(\to\)</span> tamanho do efeito a ser calculado e mostrado nos resultados da ANOVA. Os valores permitidos podem ser “ges” (eta ao quadrado) ou “pes” (eta parcial ao quadrado) ou ambos. O padrão é “ges”;</li>
 <li><em>contrasts</em> <span class="math inline">\(\to\)</span> uma lista de contrastes a ser usada para alguns dos fatores da fórmula</li>
 </ul>
-<div class="sourceCode" id="cb743"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb743-1"><a href="análise-de-variância.html#cb743-1" tabindex="-1"></a>modelo.aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(pesoRN <span class="sc">~</span> fumo, dados)</span>
-<span id="cb743-2"><a href="análise-de-variância.html#cb743-2" tabindex="-1"></a></span>
-<span id="cb743-3"><a href="análise-de-variância.html#cb743-3" tabindex="-1"></a><span class="fu">summary</span>(modelo.aov)</span></code></pre></div>
+<div class="sourceCode" id="cb742"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb742-1"><a href="análise-de-variância.html#cb742-1" tabindex="-1"></a>modelo.aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(pesoRN <span class="sc">~</span> fumo, dados)</span>
+<span id="cb742-2"><a href="análise-de-variância.html#cb742-2" tabindex="-1"></a></span>
+<span id="cb742-3"><a href="análise-de-variância.html#cb742-3" tabindex="-1"></a><span class="fu">summary</span>(modelo.aov)</span></code></pre></div>
 <pre><code>##              Df   Sum Sq Mean Sq F value   Pr(&gt;F)    
 ## fumo          3  5030606 1676869   8.482 2.52e-05 ***
 ## Residuals   196 38748837  197698                     
@@ -990,8 +987,8 @@ Figura 13.9: Gráficos Q-Q
 <h3><span class="header-section-number">13.3.5</span> Testes <em>post-hoc</em><a href="análise-de-variância.html#testes-post-hoc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Os testes de comparações múltiplas constituem-se em uma análise após a realização da ANOVA. Se houve uma diferença, indicada pela ANOVA, os testes de comparações múltiplas ou também conhecidos como <em>teste post hoc</em>, ajudam a quantificar as diferenças entre os grupos para determinar quais grupos diferem significativamente uns dos outros.</p>
 <p>Aqui será usado o <em>HSD de Tukey</em>, que é conservador. <em>HSD</em> vem da expressão em inglês - <em>Honest Significant Difference</em>. Este teste requer um objeto <code>aov</code> no qual executa seu procedimento, que chamaremos de <code>pwc</code>. O procedimento de Tukey HSD executará uma comparação de pares de todas as combinações possíveis dos grupos e testará esses pares para diferenças significativas entre suas médias, tudo enquanto ajusta o valor <em>P</em> a um limite superior de significância para compensar o fato de que muitos testes estatísticos estão sendo realizados e a probabilidade de um falso positivo aumenta com o aumento do número de testes. A função a ser usada é a <code>tukey_hsd()</code>, do pacote <code>rstatix</code>.</p>
-<div class="sourceCode" id="cb745"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb745-1"><a href="análise-de-variância.html#cb745-1" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">tukey_hsd</span> (modelo.aov)</span>
-<span id="cb745-2"><a href="análise-de-variância.html#cb745-2" tabindex="-1"></a>pwc</span></code></pre></div>
+<div class="sourceCode" id="cb744"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb744-1"><a href="análise-de-variância.html#cb744-1" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">tukey_hsd</span> (modelo.aov)</span>
+<span id="cb744-2"><a href="análise-de-variância.html#cb744-2" tabindex="-1"></a>pwc</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 9
 ##   term  group1   group2   null.value estimate conf.low conf.high      p.adj
 ## * &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
@@ -1004,21 +1001,21 @@ Figura 13.9: Gráficos Q-Q
 ## # ℹ 1 more variable: p.adj.signif &lt;chr&gt;</code></pre>
 <p>Com base nos valores <em>P</em> &lt; 0,05 tem-se três combinações de grupos que diferem: leve-não, moderado-não e pesado-não. Isto mostra que o grupo que difere é o das mães não fumantes.</p>
 <p>Pode-se visualizar isso na Figura <a href="análise-de-variância.html#fig:tukeyhsd">13.10</a> obtida com a função <code>plot()</code>, usando os resultados da função <code>TukeyHSD()</code> disponível no <em>R</em> base. Esta função gera o teste de Tukey com as diferença entre os pares e os intervalos de confiança que permitem a construção do gráfico. A função <code>par()</code>é empregada para adaptar as margens da figura ao tamanho da mesma e depois é usada novamente para retornar ao padrão <code>par(mar=c(5.1, 4.1, 4.1, 2.1))</code>. O argumento <code>mar</code> é um vetor numérico que define os tamanhos das margens na seguinte ordem: inferior, esquerda, superior e direita.</p>
-<div class="sourceCode" id="cb747"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb747-1"><a href="análise-de-variância.html#cb747-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">8</span>,<span class="dv">3</span>,<span class="dv">3</span>)) <span class="co"># Adaptar o tamanho das margens</span></span>
-<span id="cb747-2"><a href="análise-de-variância.html#cb747-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">TukeyHSD</span>(modelo.aov, <span class="at">conf.level =</span> <span class="fl">0.95</span>), <span class="at">las =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb746"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb746-1"><a href="análise-de-variância.html#cb746-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">8</span>,<span class="dv">3</span>,<span class="dv">3</span>)) <span class="co"># Adaptar o tamanho das margens</span></span>
+<span id="cb746-2"><a href="análise-de-variância.html#cb746-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">TukeyHSD</span>(modelo.aov, <span class="at">conf.level =</span> <span class="fl">0.95</span>), <span class="at">las =</span> <span class="dv">1</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:tukeyhsd"></span>
 <img src="bookdownproj_files/figure-html/tukeyhsd-1.png" alt="Gráficos do Teste de Tukey" width="70%" height="70%" />
 <p class="caption">
 Figura 13.10: Gráficos do Teste de Tukey
 </p>
 </div>
-<div class="sourceCode" id="cb748"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb748-1"><a href="análise-de-variância.html#cb748-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">4.1</span>, <span class="fl">4.1</span>, <span class="fl">2.1</span>)) <span class="co"># Retorna as margens ao padrão</span></span></code></pre></div>
+<div class="sourceCode" id="cb747"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb747-1"><a href="análise-de-variância.html#cb747-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">4.1</span>, <span class="fl">4.1</span>, <span class="fl">2.1</span>)) <span class="co"># Retorna as margens ao padrão</span></span></code></pre></div>
 </div>
 <div id="tamanho-do-efeito-2" class="section level3 hasAnchor" number="13.3.6">
 <h3><span class="header-section-number">13.3.6</span> Tamanho do efeito<a href="análise-de-variância.html#tamanho-do-efeito-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Uma das medidas de tamanho de efeito mais comumente relatadas para a ANOVA é o <strong>eta ao quadrado</strong> (<span class="math inline">\(\eta^2\)</span>), que é um índice da força da associação entre um fator e uma variável dependente. Eta ao quadrado é a proporção da variação total atribuível ao fator. É calculado como a razão da variância do fator para a variância total e os valores variam de 0 a 1.</p>
 <p>Esta medida pode ser obtida com o pacote <code>effectsize</code> <span class="citation">(116)</span>, usando a função <code>eta_squared()</code>com um objeto da classe tipo <code>modelo.aov</code>.</p>
-<div class="sourceCode" id="cb749"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb749-1"><a href="análise-de-variância.html#cb749-1" tabindex="-1"></a>effectsize<span class="sc">::</span><span class="fu">eta_squared</span> (modelo.aov, <span class="at">partial =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb748"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb748-1"><a href="análise-de-variância.html#cb748-1" tabindex="-1"></a>effectsize<span class="sc">::</span><span class="fu">eta_squared</span> (modelo.aov, <span class="at">partial =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## # Effect Size for ANOVA (Type I)
 ## 
 ## Parameter | Eta2 |       95% CI
@@ -1027,7 +1024,7 @@ Figura 13.10: Gráficos do Teste de Tukey
 ## 
 ## - One-sided CIs: upper bound fixed at [1.00].</code></pre>
 <p>O <em>eta quadrado</em> é uma estimativa tendenciosa da força da associação, na medida em que superestima os efeitos, especialmente para amostras pequenas. Uma outra medida do tamanho do efeito menos tendenciosa é o <em>ômega ao quadrado</em> (<span class="math inline">\(\omega^2\)</span>). O ômega ao quadrado é uma medida corrigida, menos enviesada e menos inflacionada. Ela pode ser calculada com a função <code>omega_squared()</code>, também do pacote <code>effectsize</code>:</p>
-<div class="sourceCode" id="cb751"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb751-1"><a href="análise-de-variância.html#cb751-1" tabindex="-1"></a>effectsize<span class="sc">::</span><span class="fu">omega_squared</span> (modelo.aov, <span class="at">partial =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb750"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb750-1"><a href="análise-de-variância.html#cb750-1" tabindex="-1"></a>effectsize<span class="sc">::</span><span class="fu">omega_squared</span> (modelo.aov, <span class="at">partial =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## # Effect Size for ANOVA (Type I)
 ## 
 ## Parameter | Omega2 |       95% CI
@@ -1085,29 +1082,29 @@ grande
 <div id="apresentação-dos-resultados" class="section level4 hasAnchor" number="13.3.7.1">
 <h4><span class="header-section-number">13.3.7.1</span> Apresentação dos resultados<a href="análise-de-variância.html#apresentação-dos-resultados" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Serão apresentados boxplots (Figura <a href="análise-de-variância.html#fig:view">13.11</a>), com <code>ggboxplot()</code>, do pacote <code>ggpubr</code>, utilizando, para cores, a <code>pallete = "jama"</code>, do pacote <code>ggsci</code>. Para adicionar teste estatístico, usou-se a função <code>get_test_label()</code> e para o teste <em>post hoc</em>, a função <code>get_pwc_label()</code>, ambas do pacote <code>rstatix</code>.</p>
-<div class="sourceCode" id="cb753"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb753-1"><a href="análise-de-variância.html#cb753-1" tabindex="-1"></a>tab.aov <span class="ot">&lt;-</span> <span class="fu">anova_test</span>(dados, </span>
-<span id="cb753-2"><a href="análise-de-variância.html#cb753-2" tabindex="-1"></a>                       pesoRN <span class="sc">~</span> fumo, </span>
-<span id="cb753-3"><a href="análise-de-variância.html#cb753-3" tabindex="-1"></a>                       <span class="at">type =</span> <span class="dv">2</span>)</span>
-<span id="cb753-4"><a href="análise-de-variância.html#cb753-4" tabindex="-1"></a> </span>
-<span id="cb753-5"><a href="análise-de-variância.html#cb753-5" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> <span class="fu">tukey_hsd</span>(dados,pesoRN<span class="sc">~</span>fumo)</span>
-<span id="cb753-6"><a href="análise-de-variância.html#cb753-6" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> pwc <span class="sc">%&gt;%</span> <span class="fu">add_xy_position</span> (<span class="at">x =</span> <span class="st">&quot;fumo&quot;</span>)</span>
-<span id="cb753-7"><a href="análise-de-variância.html#cb753-7" tabindex="-1"></a>p <span class="ot">&lt;-</span> ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span>fumo, <span class="at">y=</span>pesoRN)) <span class="sc">+</span></span>
-<span id="cb753-8"><a href="análise-de-variância.html#cb753-8" tabindex="-1"></a>  <span class="fu">stat_boxplot</span>(<span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, </span>
-<span id="cb753-9"><a href="análise-de-variância.html#cb753-9" tabindex="-1"></a>               <span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span> </span>
-<span id="cb753-10"><a href="análise-de-variância.html#cb753-10" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">color =</span> fumo), <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb753-11"><a href="análise-de-variância.html#cb753-11" tabindex="-1"></a>  <span class="fu">scale_color_nejm</span>() <span class="sc">+</span></span>
-<span id="cb753-12"><a href="análise-de-variância.html#cb753-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Tabagismo&quot;</span>, </span>
-<span id="cb753-13"><a href="análise-de-variância.html#cb753-13" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Peso ao nascer (g)&quot;</span>,</span>
-<span id="cb753-14"><a href="análise-de-variância.html#cb753-14" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">get_test_label</span> (tab.aov, <span class="at">detailed =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb753-15"><a href="análise-de-variância.html#cb753-15" tabindex="-1"></a>       <span class="at">caption =</span> <span class="fu">get_pwc_label</span>(pwc)) <span class="sc">+</span></span>
-<span id="cb753-16"><a href="análise-de-variância.html#cb753-16" tabindex="-1"></a>  <span class="fu">stat_pvalue_manual</span> (pwc,</span>
-<span id="cb753-17"><a href="análise-de-variância.html#cb753-17" tabindex="-1"></a>                      <span class="at">label =</span> <span class="st">&quot;p.adj.signif&quot;</span>,</span>
-<span id="cb753-18"><a href="análise-de-variância.html#cb753-18" tabindex="-1"></a>                      <span class="at">label.size =</span> <span class="fl">3.5</span>,</span>
-<span id="cb753-19"><a href="análise-de-variância.html#cb753-19" tabindex="-1"></a>                      <span class="at">hide.ns =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
-<span id="cb753-20"><a href="análise-de-variância.html#cb753-20" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">12</span>)) <span class="sc">+</span></span>
-<span id="cb753-21"><a href="análise-de-variância.html#cb753-21" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
-<span id="cb753-22"><a href="análise-de-variância.html#cb753-22" tabindex="-1"></a>p <span class="sc">+</span></span>
-<span id="cb753-23"><a href="análise-de-variância.html#cb753-23" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb752"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb752-1"><a href="análise-de-variância.html#cb752-1" tabindex="-1"></a>tab.aov <span class="ot">&lt;-</span> <span class="fu">anova_test</span>(dados, </span>
+<span id="cb752-2"><a href="análise-de-variância.html#cb752-2" tabindex="-1"></a>                       pesoRN <span class="sc">~</span> fumo, </span>
+<span id="cb752-3"><a href="análise-de-variância.html#cb752-3" tabindex="-1"></a>                       <span class="at">type =</span> <span class="dv">2</span>)</span>
+<span id="cb752-4"><a href="análise-de-variância.html#cb752-4" tabindex="-1"></a> </span>
+<span id="cb752-5"><a href="análise-de-variância.html#cb752-5" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> <span class="fu">tukey_hsd</span>(dados,pesoRN<span class="sc">~</span>fumo)</span>
+<span id="cb752-6"><a href="análise-de-variância.html#cb752-6" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> pwc <span class="sc">%&gt;%</span> <span class="fu">add_xy_position</span> (<span class="at">x =</span> <span class="st">&quot;fumo&quot;</span>)</span>
+<span id="cb752-7"><a href="análise-de-variância.html#cb752-7" tabindex="-1"></a>p <span class="ot">&lt;-</span> ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span>fumo, <span class="at">y=</span>pesoRN)) <span class="sc">+</span></span>
+<span id="cb752-8"><a href="análise-de-variância.html#cb752-8" tabindex="-1"></a>  <span class="fu">stat_boxplot</span>(<span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, </span>
+<span id="cb752-9"><a href="análise-de-variância.html#cb752-9" tabindex="-1"></a>               <span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span> </span>
+<span id="cb752-10"><a href="análise-de-variância.html#cb752-10" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">color =</span> fumo), <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb752-11"><a href="análise-de-variância.html#cb752-11" tabindex="-1"></a>  <span class="fu">scale_color_nejm</span>() <span class="sc">+</span></span>
+<span id="cb752-12"><a href="análise-de-variância.html#cb752-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Tabagismo&quot;</span>, </span>
+<span id="cb752-13"><a href="análise-de-variância.html#cb752-13" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Peso ao nascer (g)&quot;</span>,</span>
+<span id="cb752-14"><a href="análise-de-variância.html#cb752-14" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">get_test_label</span> (tab.aov, <span class="at">detailed =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb752-15"><a href="análise-de-variância.html#cb752-15" tabindex="-1"></a>       <span class="at">caption =</span> <span class="fu">get_pwc_label</span>(pwc)) <span class="sc">+</span></span>
+<span id="cb752-16"><a href="análise-de-variância.html#cb752-16" tabindex="-1"></a>  <span class="fu">stat_pvalue_manual</span> (pwc,</span>
+<span id="cb752-17"><a href="análise-de-variância.html#cb752-17" tabindex="-1"></a>                      <span class="at">label =</span> <span class="st">&quot;p.adj.signif&quot;</span>,</span>
+<span id="cb752-18"><a href="análise-de-variância.html#cb752-18" tabindex="-1"></a>                      <span class="at">label.size =</span> <span class="fl">3.5</span>,</span>
+<span id="cb752-19"><a href="análise-de-variância.html#cb752-19" tabindex="-1"></a>                      <span class="at">hide.ns =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
+<span id="cb752-20"><a href="análise-de-variância.html#cb752-20" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">12</span>)) <span class="sc">+</span></span>
+<span id="cb752-21"><a href="análise-de-variância.html#cb752-21" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb752-22"><a href="análise-de-variância.html#cb752-22" tabindex="-1"></a>p <span class="sc">+</span></span>
+<span id="cb752-23"><a href="análise-de-variância.html#cb752-23" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>) </span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:view"></span>
 <img src="bookdownproj_files/figure-html/view-1.png" alt="Efeito do tabagismo na gestação sobre o peso do recém-nascido.([*]: P entre 0,01 e 0,05; [**]: P entre 0,001 e 0,01; [****]: P &lt; 0,0001)." width="80%" height="80%" />
 <p class="caption">
@@ -1129,9 +1126,9 @@ Quando se tem dois ou mais fatores, além de observar o efeito desses fatores so
 <div id="leitura-dos-dados-2" class="section level4 hasAnchor" number="13.4.1.1">
 <h4><span class="header-section-number">13.4.1.1</span> Leitura dos dados<a href="análise-de-variância.html#leitura-dos-dados-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A leitura será feita com a função <code>read_excel()</code> do pacote <code>readxl</code> e serão atribuídos a um objeto de nome <code>dados</code> e verificada a sua estrutura com a função <code>head()</code>.</p>
-<div class="sourceCode" id="cb754"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb754-1"><a href="análise-de-variância.html#cb754-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMemoria.xlsx&quot;</span>)</span>
-<span id="cb754-2"><a href="análise-de-variância.html#cb754-2" tabindex="-1"></a></span>
-<span id="cb754-3"><a href="análise-de-variância.html#cb754-3" tabindex="-1"></a><span class="fu">str</span>(dados)</span></code></pre></div>
+<div class="sourceCode" id="cb753"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb753-1"><a href="análise-de-variância.html#cb753-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMemoria.xlsx&quot;</span>)</span>
+<span id="cb753-2"><a href="análise-de-variância.html#cb753-2" tabindex="-1"></a></span>
+<span id="cb753-3"><a href="análise-de-variância.html#cb753-3" tabindex="-1"></a><span class="fu">str</span>(dados)</span></code></pre></div>
 <pre><code>## tibble [48 × 4] (S3: tbl_df/tbl/data.frame)
 ##  $ sexo    : chr [1:48] &quot;Feminino&quot; &quot;Feminino&quot; &quot;Feminino&quot; &quot;Feminino&quot; ...
 ##  $ alcool  : chr [1:48] &quot;nenhum&quot; &quot;nenhum&quot; &quot;nenhum&quot; &quot;nenhum&quot; ...
@@ -1141,23 +1138,23 @@ Quando se tem dois ou mais fatores, além de observar o efeito desses fatores so
 <div id="exploração-e-sumarização-dos-dados" class="section level4 hasAnchor" number="13.4.1.2">
 <h4><span class="header-section-number">13.4.1.2</span> Exploração e sumarização dos dados<a href="análise-de-variância.html#exploração-e-sumarização-dos-dados" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Na saída da função <code>str()</code>, verifica-se que as variáveis <code>alcool</code> e <code>sexo</code> estão como <code>&lt;chr&gt;</code>e o ideal é que estejam como fatores. Portanto, vamos colocar as categorias do consumo de álcool como fator e em uma ordem lógica (nenhum consumo, três latas e 6 latas). A variável <code>sexo</code> será apenas colocada como fator porque não tem uma ordem lógica. As demais variáveis, <code>id</code> (identificação) e <code>escore</code>(escore de memória) podem permanecer com <code>dbl</code> (numérica).</p>
-<div class="sourceCode" id="cb756"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb756-1"><a href="análise-de-variância.html#cb756-1" tabindex="-1"></a>dados<span class="sc">$</span>alcool <span class="ot">&lt;-</span> <span class="fu">factor</span>(dados<span class="sc">$</span>alcool,</span>
-<span id="cb756-2"><a href="análise-de-variância.html#cb756-2" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;nenhum&quot;</span>,</span>
-<span id="cb756-3"><a href="análise-de-variância.html#cb756-3" tabindex="-1"></a>                                  <span class="st">&quot;3 latas&quot;</span>,</span>
-<span id="cb756-4"><a href="análise-de-variância.html#cb756-4" tabindex="-1"></a>                                  <span class="st">&quot;6 latas&quot;</span>)) </span>
-<span id="cb756-5"><a href="análise-de-variância.html#cb756-5" tabindex="-1"></a>dados<span class="sc">$</span>sexo <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dados<span class="sc">$</span>sexo)</span></code></pre></div>
+<div class="sourceCode" id="cb755"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb755-1"><a href="análise-de-variância.html#cb755-1" tabindex="-1"></a>dados<span class="sc">$</span>alcool <span class="ot">&lt;-</span> <span class="fu">factor</span>(dados<span class="sc">$</span>alcool,</span>
+<span id="cb755-2"><a href="análise-de-variância.html#cb755-2" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;nenhum&quot;</span>,</span>
+<span id="cb755-3"><a href="análise-de-variância.html#cb755-3" tabindex="-1"></a>                                  <span class="st">&quot;3 latas&quot;</span>,</span>
+<span id="cb755-4"><a href="análise-de-variância.html#cb755-4" tabindex="-1"></a>                                  <span class="st">&quot;6 latas&quot;</span>)) </span>
+<span id="cb755-5"><a href="análise-de-variância.html#cb755-5" tabindex="-1"></a>dados<span class="sc">$</span>sexo <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(dados<span class="sc">$</span>sexo)</span></code></pre></div>
 <p>A sumarização dos dados será feita com as funções <code>group_by()</code> e <code>summarise()</code> do pacote <code>dplyr</code> para a variável <code>escore</code> por grupos, <code>sexo</code> e <code>alcool</code>.</p>
-<div class="sourceCode" id="cb757"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb757-1"><a href="análise-de-variância.html#cb757-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb757-2"><a href="análise-de-variância.html#cb757-2" tabindex="-1"></a>resumo <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
-<span id="cb757-3"><a href="análise-de-variância.html#cb757-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(sexo, alcool) <span class="sc">%&gt;%</span> </span>
-<span id="cb757-4"><a href="análise-de-variância.html#cb757-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb757-5"><a href="análise-de-variância.html#cb757-5" tabindex="-1"></a>            <span class="at">media =</span> <span class="fu">mean</span>(escore, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
-<span id="cb757-6"><a href="análise-de-variância.html#cb757-6" tabindex="-1"></a>            <span class="at">dp =</span> <span class="fu">sd</span>(escore, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
-<span id="cb757-7"><a href="análise-de-variância.html#cb757-7" tabindex="-1"></a>            <span class="at">ep =</span> dp<span class="sc">/</span><span class="fu">sqrt</span>(n),</span>
-<span id="cb757-8"><a href="análise-de-variância.html#cb757-8" tabindex="-1"></a>            <span class="at">me =</span> <span class="fu">qt</span>((<span class="dv">1</span> <span class="sc">-</span> alpha<span class="sc">/</span><span class="dv">2</span>),n<span class="dv">-1</span>)<span class="sc">*</span>ep,</span>
-<span id="cb757-9"><a href="análise-de-variância.html#cb757-9" tabindex="-1"></a>            <span class="at">linf =</span> media <span class="sc">-</span> me,</span>
-<span id="cb757-10"><a href="análise-de-variância.html#cb757-10" tabindex="-1"></a>            <span class="at">lsup =</span> media <span class="sc">+</span> me)</span>
-<span id="cb757-11"><a href="análise-de-variância.html#cb757-11" tabindex="-1"></a>resumo</span></code></pre></div>
+<div class="sourceCode" id="cb756"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb756-1"><a href="análise-de-variância.html#cb756-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb756-2"><a href="análise-de-variância.html#cb756-2" tabindex="-1"></a>resumo <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
+<span id="cb756-3"><a href="análise-de-variância.html#cb756-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(sexo, alcool) <span class="sc">%&gt;%</span> </span>
+<span id="cb756-4"><a href="análise-de-variância.html#cb756-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb756-5"><a href="análise-de-variância.html#cb756-5" tabindex="-1"></a>            <span class="at">media =</span> <span class="fu">mean</span>(escore, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
+<span id="cb756-6"><a href="análise-de-variância.html#cb756-6" tabindex="-1"></a>            <span class="at">dp =</span> <span class="fu">sd</span>(escore, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
+<span id="cb756-7"><a href="análise-de-variância.html#cb756-7" tabindex="-1"></a>            <span class="at">ep =</span> dp<span class="sc">/</span><span class="fu">sqrt</span>(n),</span>
+<span id="cb756-8"><a href="análise-de-variância.html#cb756-8" tabindex="-1"></a>            <span class="at">me =</span> <span class="fu">qt</span>((<span class="dv">1</span> <span class="sc">-</span> alpha<span class="sc">/</span><span class="dv">2</span>),n<span class="dv">-1</span>)<span class="sc">*</span>ep,</span>
+<span id="cb756-9"><a href="análise-de-variância.html#cb756-9" tabindex="-1"></a>            <span class="at">linf =</span> media <span class="sc">-</span> me,</span>
+<span id="cb756-10"><a href="análise-de-variância.html#cb756-10" tabindex="-1"></a>            <span class="at">lsup =</span> media <span class="sc">+</span> me)</span>
+<span id="cb756-11"><a href="análise-de-variância.html#cb756-11" tabindex="-1"></a>resumo</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 9
 ## # Groups:   sexo [2]
 ##   sexo      alcool      n media    dp    ep    me  linf  lsup
@@ -1173,19 +1170,19 @@ Quando se tem dois ou mais fatores, além de observar o efeito desses fatores so
 <div id="visualização-gráfica-dos-dados-1" class="section level4 hasAnchor" number="13.4.1.3">
 <h4><span class="header-section-number">13.4.1.3</span> Visualização gráfica dos dados<a href="análise-de-variância.html#visualização-gráfica-dos-dados-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Para visualizar os dados, será construido um gráfico com boxplots (Figura <a href="análise-de-variância.html#fig:alcool">13.12</a>), usando o pacote <code>ggpubr</code><span class="citation">(119)</span>, com a função <code>ggboxplot()</code>, que fornece algumas funções fáceis de usar para criar e personalizar gráficos prontos para publicação baseados em ‘ggplot2’. O boxplot irá plotar os dados agrupados pelas combinações dos níveis dos dois fatores.</p>
-<div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb759-1"><a href="análise-de-variância.html#cb759-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span> (dados,</span>
-<span id="cb759-2"><a href="análise-de-variância.html#cb759-2" tabindex="-1"></a>                   <span class="at">bxp.errorbar =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb759-3"><a href="análise-de-variância.html#cb759-3" tabindex="-1"></a>                   <span class="at">bxp.errorbar.width =</span> <span class="fl">0.2</span>,</span>
-<span id="cb759-4"><a href="análise-de-variância.html#cb759-4" tabindex="-1"></a>                   <span class="at">x =</span> <span class="st">&quot;alcool&quot;</span>, </span>
-<span id="cb759-5"><a href="análise-de-variância.html#cb759-5" tabindex="-1"></a>                   <span class="at">y =</span> <span class="st">&quot;escore&quot;</span>, </span>
-<span id="cb759-6"><a href="análise-de-variância.html#cb759-6" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,</span>
-<span id="cb759-7"><a href="análise-de-variância.html#cb759-7" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">&quot;sexo&quot;</span>,</span>
-<span id="cb759-8"><a href="análise-de-variância.html#cb759-8" tabindex="-1"></a>                   <span class="at">palette =</span> <span class="st">&quot;bmj&quot;</span>,</span>
-<span id="cb759-9"><a href="análise-de-variância.html#cb759-9" tabindex="-1"></a>                   <span class="at">ylab =</span> <span class="st">&quot;Escore da Memória&quot;</span>,</span>
-<span id="cb759-10"><a href="análise-de-variância.html#cb759-10" tabindex="-1"></a>                   <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>,</span>
-<span id="cb759-11"><a href="análise-de-variância.html#cb759-11" tabindex="-1"></a>                   <span class="at">legend.title =</span> <span class="st">&quot;Sexo&quot;</span>,</span>
-<span id="cb759-12"><a href="análise-de-variância.html#cb759-12" tabindex="-1"></a>                   <span class="at">legend =</span> <span class="st">&quot;top&quot;</span>) <span class="sc">+</span></span>
-<span id="cb759-13"><a href="análise-de-variância.html#cb759-13" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb758"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb758-1"><a href="análise-de-variância.html#cb758-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span> (dados,</span>
+<span id="cb758-2"><a href="análise-de-variância.html#cb758-2" tabindex="-1"></a>                   <span class="at">bxp.errorbar =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb758-3"><a href="análise-de-variância.html#cb758-3" tabindex="-1"></a>                   <span class="at">bxp.errorbar.width =</span> <span class="fl">0.2</span>,</span>
+<span id="cb758-4"><a href="análise-de-variância.html#cb758-4" tabindex="-1"></a>                   <span class="at">x =</span> <span class="st">&quot;alcool&quot;</span>, </span>
+<span id="cb758-5"><a href="análise-de-variância.html#cb758-5" tabindex="-1"></a>                   <span class="at">y =</span> <span class="st">&quot;escore&quot;</span>, </span>
+<span id="cb758-6"><a href="análise-de-variância.html#cb758-6" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">&quot;black&quot;</span>,</span>
+<span id="cb758-7"><a href="análise-de-variância.html#cb758-7" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">&quot;sexo&quot;</span>,</span>
+<span id="cb758-8"><a href="análise-de-variância.html#cb758-8" tabindex="-1"></a>                   <span class="at">palette =</span> <span class="st">&quot;bmj&quot;</span>,</span>
+<span id="cb758-9"><a href="análise-de-variância.html#cb758-9" tabindex="-1"></a>                   <span class="at">ylab =</span> <span class="st">&quot;Escore da Memória&quot;</span>,</span>
+<span id="cb758-10"><a href="análise-de-variância.html#cb758-10" tabindex="-1"></a>                   <span class="at">xlab =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb758-11"><a href="análise-de-variância.html#cb758-11" tabindex="-1"></a>                   <span class="at">legend.title =</span> <span class="st">&quot;Sexo&quot;</span>,</span>
+<span id="cb758-12"><a href="análise-de-variância.html#cb758-12" tabindex="-1"></a>                   <span class="at">legend =</span> <span class="st">&quot;top&quot;</span>) <span class="sc">+</span></span>
+<span id="cb758-13"><a href="análise-de-variância.html#cb758-13" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:alcool"></span>
 <img src="bookdownproj_files/figure-html/alcool-1.png" alt="Efeito do álcool na memória de acordo com o sexo." width="85%" height="85%" />
 <p class="caption">
@@ -1193,15 +1190,15 @@ Figura 13.12: Efeito do álcool na memória de acordo com o sexo.
 </p>
 </div>
 <p>Além dos boxplot, é interessante desenhar um gráfico de linhas (Figura <a href="análise-de-variância.html#fig:alcool2">13.13</a>) que plota a média (ou outro resumo) da variável escore (resposta) para combinações bidirecionais de fatores, ilustrando assim possíveis interações. Aqui, pode-se usar a função <code>ggline()</code>, também pertencente ao interessante pacote <code>ggpubr</code>.</p>
-<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb760-1"><a href="análise-de-variância.html#cb760-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggline</span>(dados, </span>
-<span id="cb760-2"><a href="análise-de-variância.html#cb760-2" tabindex="-1"></a>               <span class="at">x =</span> <span class="st">&quot;alcool&quot;</span>, </span>
-<span id="cb760-3"><a href="análise-de-variância.html#cb760-3" tabindex="-1"></a>               <span class="at">y =</span> <span class="st">&quot;escore&quot;</span>, </span>
-<span id="cb760-4"><a href="análise-de-variância.html#cb760-4" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">&quot;sexo&quot;</span>,</span>
-<span id="cb760-5"><a href="análise-de-variância.html#cb760-5" tabindex="-1"></a>               <span class="at">size =</span> <span class="fl">0.7</span>,</span>
-<span id="cb760-6"><a href="análise-de-variância.html#cb760-6" tabindex="-1"></a>               <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>,</span>
-<span id="cb760-7"><a href="análise-de-variância.html#cb760-7" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.2</span>),</span>
-<span id="cb760-8"><a href="análise-de-variância.html#cb760-8" tabindex="-1"></a>               <span class="at">add =</span> <span class="st">&quot;mean_ci&quot;</span>,</span>
-<span id="cb760-9"><a href="análise-de-variância.html#cb760-9" tabindex="-1"></a>               <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;dodgerblue4&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb759"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb759-1"><a href="análise-de-variância.html#cb759-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggline</span>(dados, </span>
+<span id="cb759-2"><a href="análise-de-variância.html#cb759-2" tabindex="-1"></a>               <span class="at">x =</span> <span class="st">&quot;alcool&quot;</span>, </span>
+<span id="cb759-3"><a href="análise-de-variância.html#cb759-3" tabindex="-1"></a>               <span class="at">y =</span> <span class="st">&quot;escore&quot;</span>, </span>
+<span id="cb759-4"><a href="análise-de-variância.html#cb759-4" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">&quot;sexo&quot;</span>,</span>
+<span id="cb759-5"><a href="análise-de-variância.html#cb759-5" tabindex="-1"></a>               <span class="at">size =</span> <span class="fl">0.7</span>,</span>
+<span id="cb759-6"><a href="análise-de-variância.html#cb759-6" tabindex="-1"></a>               <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>,</span>
+<span id="cb759-7"><a href="análise-de-variância.html#cb759-7" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> <span class="fl">0.2</span>),</span>
+<span id="cb759-8"><a href="análise-de-variância.html#cb759-8" tabindex="-1"></a>               <span class="at">add =</span> <span class="st">&quot;mean_ci&quot;</span>,</span>
+<span id="cb759-9"><a href="análise-de-variância.html#cb759-9" tabindex="-1"></a>               <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;dodgerblue4&quot;</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:alcool2"></span>
 <img src="bookdownproj_files/figure-html/alcool2-1.png" alt="Efeito do álcool na memória de acordo com o sexo." width="85%" height="85%" />
 <p class="caption">
@@ -1261,9 +1258,9 @@ Se esta premissa for violada, você pode incluir uma variável de bloqueio e/ou 
 <div id="normalidade" class="section level4 hasAnchor" number="13.4.4.1">
 <h4><span class="header-section-number">13.4.4.1</span> Normalidade<a href="análise-de-variância.html#normalidade" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A variável dependente (<code>escore</code>) deve apresentar distribuição aproximadamente normal dentro de cada grupo. Os grupos aqui serão formados pela combinação das duas variáveis independentes (<code>sexo</code> e <code>alcool</code>). A normalidade será avaliada pelo <code>teste de Shapiro-Wilk</code>, com a função <code>shapiro_test()</code> do pacote <code>rstatix</code> <span class="citation">(108)</span>, separando os grupos com a função <code>group_by()</code> do pacote <code>dplyr</code>, encadeadas com o operador <code>pipe</code> (<code>%&gt;%</code>):</p>
-<div class="sourceCode" id="cb761"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb761-1"><a href="análise-de-variância.html#cb761-1" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> </span>
-<span id="cb761-2"><a href="análise-de-variância.html#cb761-2" tabindex="-1"></a>     dplyr<span class="sc">::</span><span class="fu">group_by</span> (sexo, alcool) <span class="sc">%&gt;%</span> </span>
-<span id="cb761-3"><a href="análise-de-variância.html#cb761-3" tabindex="-1"></a>     rstatix<span class="sc">::</span><span class="fu">shapiro_test</span> (escore)</span></code></pre></div>
+<div class="sourceCode" id="cb760"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb760-1"><a href="análise-de-variância.html#cb760-1" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> </span>
+<span id="cb760-2"><a href="análise-de-variância.html#cb760-2" tabindex="-1"></a>     dplyr<span class="sc">::</span><span class="fu">group_by</span> (sexo, alcool) <span class="sc">%&gt;%</span> </span>
+<span id="cb760-3"><a href="análise-de-variância.html#cb760-3" tabindex="-1"></a>     rstatix<span class="sc">::</span><span class="fu">shapiro_test</span> (escore)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 5
 ##   sexo      alcool  variable statistic     p
 ##   &lt;fct&gt;     &lt;fct&gt;   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;
@@ -1279,9 +1276,9 @@ Se esta premissa for violada, você pode incluir uma variável de bloqueio e/ou 
 <h4><span class="header-section-number">13.4.4.2</span> Pesquisa de valores atípicos<a href="análise-de-variância.html#pesquisa-de-valores-atípicos-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A forma mais simples de verificar a presença de um valor atípico é observar o boxplot, mostrado anteriormente. Se observa a presença de valores atípicos entre as mulheres que não ingeriram álcool e nas que ingeriram 3 latas de cerveja.
 Agora, para confirmar esse achado, será usado a função <code>identify_outliers ()</code>, do pacote <code>rstatix</code>:</p>
-<div class="sourceCode" id="cb763"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb763-1"><a href="análise-de-variância.html#cb763-1" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> </span>
-<span id="cb763-2"><a href="análise-de-variância.html#cb763-2" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">group_by</span> (sexo, alcool) <span class="sc">%&gt;%</span> </span>
-<span id="cb763-3"><a href="análise-de-variância.html#cb763-3" tabindex="-1"></a>      rstatix<span class="sc">::</span><span class="fu">identify_outliers</span>(escore)</span></code></pre></div>
+<div class="sourceCode" id="cb762"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb762-1"><a href="análise-de-variância.html#cb762-1" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> </span>
+<span id="cb762-2"><a href="análise-de-variância.html#cb762-2" tabindex="-1"></a>      dplyr<span class="sc">::</span><span class="fu">group_by</span> (sexo, alcool) <span class="sc">%&gt;%</span> </span>
+<span id="cb762-3"><a href="análise-de-variância.html#cb762-3" tabindex="-1"></a>      rstatix<span class="sc">::</span><span class="fu">identify_outliers</span>(escore)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 6
 ##   sexo     alcool  escore latencia is.outlier is.extreme
 ##   &lt;fct&gt;    &lt;fct&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;lgl&gt;      &lt;lgl&gt;     
@@ -1292,9 +1289,9 @@ Agora, para confirmar esse achado, será usado a função <code>identify_outlier
 <div id="verificação-da-homogeneidade-das-variâncias" class="section level4 hasAnchor" number="13.4.4.3">
 <h4><span class="header-section-number">13.4.4.3</span> Verificação da homogeneidade das variâncias<a href="análise-de-variância.html#verificação-da-homogeneidade-das-variâncias" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Para verificar a homocedasticidade, como os dados têm distribuição normal, é possível usar o teste de Levene, o <code>leveneTest()</code> do pacote <code>car</code> <span class="citation">(107)</span>.</p>
-<div class="sourceCode" id="cb765"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb765-1"><a href="análise-de-variância.html#cb765-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">leveneTest</span> (escore <span class="sc">~</span> sexo<span class="sc">*</span>alcool, </span>
-<span id="cb765-2"><a href="análise-de-variância.html#cb765-2" tabindex="-1"></a>                 <span class="at">data =</span> dados, </span>
-<span id="cb765-3"><a href="análise-de-variância.html#cb765-3" tabindex="-1"></a>                 <span class="at">center =</span> mean)</span></code></pre></div>
+<div class="sourceCode" id="cb764"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb764-1"><a href="análise-de-variância.html#cb764-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">leveneTest</span> (escore <span class="sc">~</span> sexo<span class="sc">*</span>alcool, </span>
+<span id="cb764-2"><a href="análise-de-variância.html#cb764-2" tabindex="-1"></a>                 <span class="at">data =</span> dados, </span>
+<span id="cb764-3"><a href="análise-de-variância.html#cb764-3" tabindex="-1"></a>                 <span class="at">center =</span> mean)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = mean)
 ##       Df F value Pr(&gt;F)
 ## group  5  1.5268 0.2021
@@ -1306,10 +1303,10 @@ Agora, para confirmar esse achado, será usado a função <code>identify_outlier
 <p>O modelo da ANOVA pode ser considerado como um modelo de regressão. Desta forma, este modelo de regressão vai usar os dados brutos para criar um modelo de previsão para esses dados. Este modelo de regressão não é perfeito, existe uma diferença entre os valores previstos e os valores observados, são os resíduos. Faz sentido, então, preocupar-se com os resíduos quando se analisa fatores tentando explicar uma variável dependente contínua, como na ANOVA, pensando em uma regressão linear simples.</p>
 <p>A ANOVA prevê que todos os valores do grupo sejam iguais a média do grupo. Ou seja, um homem que ingere 3 latas de cerveja tem um valor de seu escore de memória igual ao deste grupo. Por este motivo, fazer a análise dos resíduos é praticamente o mesmo que a análise dos valores brutos.</p>
 <p>Para analisar os resíduos (diferença entre os valores observados e o previsto pelo modelo), em primeiro lugar se constrói o modelo da ANOVA com efeito da interação, usando a função <code>lm()</code> do pacote <code>stats</code>, incluído no R base:</p>
-<div class="sourceCode" id="cb767"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb767-1"><a href="análise-de-variância.html#cb767-1" tabindex="-1"></a>mod.int.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> escore <span class="sc">~</span> alcool <span class="sc">*</span> sexo,</span>
-<span id="cb767-2"><a href="análise-de-variância.html#cb767-2" tabindex="-1"></a>              <span class="at">data =</span> dados)</span></code></pre></div>
+<div class="sourceCode" id="cb766"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb766-1"><a href="análise-de-variância.html#cb766-1" tabindex="-1"></a>mod.int.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> escore <span class="sc">~</span> alcool <span class="sc">*</span> sexo,</span>
+<span id="cb766-2"><a href="análise-de-variância.html#cb766-2" tabindex="-1"></a>              <span class="at">data =</span> dados)</span></code></pre></div>
 <p>Ao se executar o comando, tem-se a impressão que nada ocorreu, entretanto foi criado o <em>modelo da ANOVA</em> com uma série de variáveis, entre elas os resíduos (<code>residuals</code>). Para observar os resíduos, basta digitar:</p>
-<div class="sourceCode" id="cb768"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb768-1"><a href="análise-de-variância.html#cb768-1" tabindex="-1"></a>mod.int.lm<span class="sc">$</span>residuals</span></code></pre></div>
+<div class="sourceCode" id="cb767"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb767-1"><a href="análise-de-variância.html#cb767-1" tabindex="-1"></a>mod.int.lm<span class="sc">$</span>residuals</span></code></pre></div>
 <pre><code>##       1       2       3       4       5       6       7       8       9      10 
 ##   4.375   9.375  -0.625  -0.625  -0.625  -5.625  -0.625  -5.625   7.500   2.500 
 ##      11      12      13      14      15      16      17      18      19      20 
@@ -1321,13 +1318,13 @@ Agora, para confirmar esse achado, será usado a função <code>identify_outlier
 ##      41      42      43      44      45      46      47      48 
 ##  -5.625  -5.625  -5.625  19.375  -0.625 -15.625   9.375   4.375</code></pre>
 <p>Função <code>summary()</code> fornece um resumo estatístico dos resíduos:</p>
-<div class="sourceCode" id="cb770"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb770-1"><a href="análise-de-variância.html#cb770-1" tabindex="-1"></a><span class="fu">summary</span>(mod.int.lm<span class="sc">$</span>residuals)</span></code></pre></div>
+<div class="sourceCode" id="cb769"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb769-1"><a href="análise-de-variância.html#cb769-1" tabindex="-1"></a><span class="fu">summary</span>(mod.int.lm<span class="sc">$</span>residuals)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ## -21.875  -5.625  -0.625   0.000   5.156  19.375</code></pre>
 <div id="avaliação-da-normalidade-dos-resíduos" class="section level4 hasAnchor" number="13.4.5.1">
 <h4><span class="header-section-number">13.4.5.1</span> Avaliação da normalidade dos resíduos<a href="análise-de-variância.html#avaliação-da-normalidade-dos-resíduos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Uma das suposições de uma ANOVA é que os resíduos são normalmente distribuídos. A normalidade dos resíduos, inicialmente, será verificada, usando o teste de Shapiro-Wilk com a função <code>shapiro.test()</code>, também pertencente ao pacote <code>stats</code>.</p>
-<div class="sourceCode" id="cb772"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb772-1"><a href="análise-de-variância.html#cb772-1" tabindex="-1"></a><span class="fu">shapiro_test</span> (mod.int.lm<span class="sc">$</span>residuals)</span></code></pre></div>
+<div class="sourceCode" id="cb771"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb771-1"><a href="análise-de-variância.html#cb771-1" tabindex="-1"></a><span class="fu">shapiro_test</span> (mod.int.lm<span class="sc">$</span>residuals)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 3
 ##   variable             statistic p.value
 ##   &lt;chr&gt;                    &lt;dbl&gt;   &lt;dbl&gt;
@@ -1335,12 +1332,12 @@ Agora, para confirmar esse achado, será usado a função <code>identify_outlier
 <p>O teste entrega um valor <em>P</em> &gt; 0.05, indicando que não é possível rejeitar <span class="math inline">\(H_{0}\)</span> de normalidade dos resíduos.</p>
 <p>Uma outra maneira comum de verificar essa suposição é criando um <em>gráfico Q-Q</em>. Se os resíduos forem normalmente distribuídos, os pontos em um gráfico Q-Q ficarão em uma linha diagonal reta.
 Este gráfico (Figura <a href="análise-de-variância.html#fig:normresiduos">13.14</a>) pode ser contruído com a função <code>ggqqplot()</code> do pacote <code>ggpubr</code>.</p>
-<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb774-1"><a href="análise-de-variância.html#cb774-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggqqplot</span>(mod.int.lm<span class="sc">$</span>residuals,</span>
-<span id="cb774-2"><a href="análise-de-variância.html#cb774-2" tabindex="-1"></a>                 <span class="at">conf.int =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb774-3"><a href="análise-de-variância.html#cb774-3" tabindex="-1"></a>                 <span class="at">shape =</span> <span class="dv">19</span>,</span>
-<span id="cb774-4"><a href="análise-de-variância.html#cb774-4" tabindex="-1"></a>                 <span class="at">xlab =</span> <span class="st">&quot;Quantis teóricos&quot;</span>,</span>
-<span id="cb774-5"><a href="análise-de-variância.html#cb774-5" tabindex="-1"></a>                 <span class="at">ylab =</span> <span class="st">&quot;Resíduos&quot;</span>,</span>
-<span id="cb774-6"><a href="análise-de-variância.html#cb774-6" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;dodgerblue4&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb773"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb773-1"><a href="análise-de-variância.html#cb773-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggqqplot</span>(mod.int.lm<span class="sc">$</span>residuals,</span>
+<span id="cb773-2"><a href="análise-de-variância.html#cb773-2" tabindex="-1"></a>                 <span class="at">conf.int =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb773-3"><a href="análise-de-variância.html#cb773-3" tabindex="-1"></a>                 <span class="at">shape =</span> <span class="dv">19</span>,</span>
+<span id="cb773-4"><a href="análise-de-variância.html#cb773-4" tabindex="-1"></a>                 <span class="at">xlab =</span> <span class="st">&quot;Quantis teóricos&quot;</span>,</span>
+<span id="cb773-5"><a href="análise-de-variância.html#cb773-5" tabindex="-1"></a>                 <span class="at">ylab =</span> <span class="st">&quot;Resíduos&quot;</span>,</span>
+<span id="cb773-6"><a href="análise-de-variância.html#cb773-6" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">&quot;dodgerblue4&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:normresiduos"></span>
 <img src="bookdownproj_files/figure-html/normresiduos-1.png" alt="Normalidade dos resíduos - QQ plot." width="70%" height="70%" />
 <p class="caption">
@@ -1352,8 +1349,8 @@ Figura 13.14: Normalidade dos resíduos - QQ plot.
 <div id="pesquisa-de-valores-atípicos-nos-resíduos" class="section level4 hasAnchor" number="13.4.5.2">
 <h4><span class="header-section-number">13.4.5.2</span> Pesquisa de valores atípicos nos resíduos<a href="análise-de-variância.html#pesquisa-de-valores-atípicos-nos-resíduos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Para a verificação da presença de valores atípicos entre os resíduos, cria-se uma variável que será denominada de <code>residuos</code> (observe o banco de dados com a função <code>str()</code> para ver o acréscimo dessa variável):</p>
-<div class="sourceCode" id="cb775"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb775-1"><a href="análise-de-variância.html#cb775-1" tabindex="-1"></a>dados<span class="sc">$</span>residuos <span class="ot">&lt;-</span> mod.int.lm<span class="sc">$</span>residuals</span>
-<span id="cb775-2"><a href="análise-de-variância.html#cb775-2" tabindex="-1"></a><span class="fu">str</span> (dados)</span></code></pre></div>
+<div class="sourceCode" id="cb774"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb774-1"><a href="análise-de-variância.html#cb774-1" tabindex="-1"></a>dados<span class="sc">$</span>residuos <span class="ot">&lt;-</span> mod.int.lm<span class="sc">$</span>residuals</span>
+<span id="cb774-2"><a href="análise-de-variância.html#cb774-2" tabindex="-1"></a><span class="fu">str</span> (dados)</span></code></pre></div>
 <pre><code>## tibble [48 × 5] (S3: tbl_df/tbl/data.frame)
 ##  $ sexo    : Factor w/ 2 levels &quot;Feminino&quot;,&quot;Masculino&quot;: 1 1 1 1 1 1 1 1 1 1 ...
 ##  $ alcool  : Factor w/ 3 levels &quot;nenhum&quot;,&quot;3 latas&quot;,..: 1 1 1 1 1 1 1 1 2 2 ...
@@ -1362,9 +1359,9 @@ Figura 13.14: Normalidade dos resíduos - QQ plot.
 ##  $ residuos: Named num [1:48] 4.375 9.375 -0.625 -0.625 -0.625 ...
 ##   ..- attr(*, &quot;names&quot;)= chr [1:48] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...</code></pre>
 <p>Para identificar os <em>outliers</em>, usa-se função <code>identify_outliers()</code> do pacote <code>rstatix</code>:</p>
-<div class="sourceCode" id="cb777"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb777-1"><a href="análise-de-variância.html#cb777-1" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> </span>
-<span id="cb777-2"><a href="análise-de-variância.html#cb777-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(sexo, alcool) <span class="sc">%&gt;%</span> </span>
-<span id="cb777-3"><a href="análise-de-variância.html#cb777-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">identify_outliers</span>(residuos)</span></code></pre></div>
+<div class="sourceCode" id="cb776"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb776-1"><a href="análise-de-variância.html#cb776-1" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> </span>
+<span id="cb776-2"><a href="análise-de-variância.html#cb776-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(sexo, alcool) <span class="sc">%&gt;%</span> </span>
+<span id="cb776-3"><a href="análise-de-variância.html#cb776-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">identify_outliers</span>(residuos)</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 7
 ##   sexo     alcool  escore latencia residuos is.outlier is.extreme
 ##   &lt;fct&gt;    &lt;fct&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;lgl&gt;      &lt;lgl&gt;     
@@ -1375,15 +1372,15 @@ Figura 13.14: Normalidade dos resíduos - QQ plot.
 <div id="verificação-da-homogeneidade-da-variância-nos-resíduos" class="section level4 hasAnchor" number="13.4.5.3">
 <h4><span class="header-section-number">13.4.5.3</span> Verificação da homogeneidade da variância nos resíduos<a href="análise-de-variância.html#verificação-da-homogeneidade-da-variância-nos-resíduos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A verificação da homogeneidade da variância entre os resíduos pode ser feita com o <code>teste de Levene</code>, como feito com os dados brutos.</p>
-<div class="sourceCode" id="cb779"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb779-1"><a href="análise-de-variância.html#cb779-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">leveneTest</span> (residuos <span class="sc">~</span> sexo<span class="sc">*</span>alcool, </span>
-<span id="cb779-2"><a href="análise-de-variância.html#cb779-2" tabindex="-1"></a>                 <span class="at">data =</span> dados, </span>
-<span id="cb779-3"><a href="análise-de-variância.html#cb779-3" tabindex="-1"></a>                 <span class="at">center =</span> mean)</span></code></pre></div>
+<div class="sourceCode" id="cb778"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb778-1"><a href="análise-de-variância.html#cb778-1" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">leveneTest</span> (residuos <span class="sc">~</span> sexo<span class="sc">*</span>alcool, </span>
+<span id="cb778-2"><a href="análise-de-variância.html#cb778-2" tabindex="-1"></a>                 <span class="at">data =</span> dados, </span>
+<span id="cb778-3"><a href="análise-de-variância.html#cb778-3" tabindex="-1"></a>                 <span class="at">center =</span> mean)</span></code></pre></div>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = mean)
 ##       Df F value Pr(&gt;F)
 ## group  5  1.5268 0.2021
 ##       42</code></pre>
-<p>Uma outra maneira de avaliar a homogeneidade da variância, é construir um gráfico diagnóstico<a href="#fn54" class="footnote-ref" id="fnref54"><sup>54</sup></a> (Figura <a href="análise-de-variância.html#fig:residuals">13.15</a>) do modelo com a função <code>plot()</code>, tipo 1, resíduos versus ajustes (<em>Residuals vs Fitted</em>).</p>
-<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb781-1"><a href="análise-de-variância.html#cb781-1" tabindex="-1"></a><span class="fu">plot</span>(mod.int.lm, <span class="dv">1</span>)</span></code></pre></div>
+<p>Uma outra maneira de avaliar a homogeneidade da variância, é construir um gráfico diagnóstico<a href="#fn57" class="footnote-ref" id="fnref57"><sup>57</sup></a> (Figura <a href="análise-de-variância.html#fig:residuals">13.15</a>) do modelo com a função <code>plot()</code>, tipo 1, resíduos versus ajustes (<em>Residuals vs Fitted</em>).</p>
+<div class="sourceCode" id="cb780"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb780-1"><a href="análise-de-variância.html#cb780-1" tabindex="-1"></a><span class="fu">plot</span>(mod.int.lm, <span class="dv">1</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:residuals"></span>
 <img src="bookdownproj_files/figure-html/residuals-1.png" alt="Resíduos versus ajuste" width="70%" height="70%" />
 <p class="caption">
@@ -1400,9 +1397,9 @@ Figura 13.15: Resíduos versus ajuste
 <p>A inclusão de um efeito de interação em uma ANOVA de duas vias não é obrigatória. Entretanto, para evitar conclusões errôneas, recomenda-se verificar primeiro se a interação é significativa ou não e, dependendo dos resultados, incluí-la ou não.</p>
 <p>Se a interação não for significativa, é seguro removê-la do modelo final. Por outro lado, se a interação for significativa, ela deverá ser incluída no modelo final que será usado para interpretar os resultados.</p>
 <p>Portanto, deve-se começar com um modelo que inclui os dois efeitos principais (ou seja, sexo e alcool) e a interação:</p>
-<div class="sourceCode" id="cb782"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb782-1"><a href="análise-de-variância.html#cb782-1" tabindex="-1"></a>mod.aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="at">formula =</span> escore <span class="sc">~</span> alcool <span class="sc">*</span> sexo,</span>
-<span id="cb782-2"><a href="análise-de-variância.html#cb782-2" tabindex="-1"></a>                        <span class="at">data =</span> dados)</span>
-<span id="cb782-3"><a href="análise-de-variância.html#cb782-3" tabindex="-1"></a><span class="fu">summary</span> (mod.aov)</span></code></pre></div>
+<div class="sourceCode" id="cb781"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb781-1"><a href="análise-de-variância.html#cb781-1" tabindex="-1"></a>mod.aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="at">formula =</span> escore <span class="sc">~</span> alcool <span class="sc">*</span> sexo,</span>
+<span id="cb781-2"><a href="análise-de-variância.html#cb781-2" tabindex="-1"></a>                        <span class="at">data =</span> dados)</span>
+<span id="cb781-3"><a href="análise-de-variância.html#cb781-3" tabindex="-1"></a><span class="fu">summary</span> (mod.aov)</span></code></pre></div>
 <pre><code>##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 ## alcool       2   3332  1666.1  20.065 7.65e-07 ***
 ## sexo         1    169   168.7   2.032    0.161    
@@ -1426,12 +1423,12 @@ Figura 13.15: Resíduos versus ajuste
 </ul>
 <p>Portanto, com base no efeito de interação significativo, se observa que relação entre os escores de memória e álcool é diferente entre os sexos. Como ela é significativa, deve-se mantê-la no modelo e interpretar os resultados desse modelo.</p>
 <p>Se, ao contrário, a interação não for significativa (ou seja, se o valor P &gt; 0,05), esse efeito de interação do modelo seria removido. Abaixo, segue o código de uma ANOVA de dois fatores sem interação, chamada de <strong>modelo aditivo</strong>:</p>
-<div class="sourceCode" id="cb784"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb784-1"><a href="análise-de-variância.html#cb784-1" tabindex="-1"></a> mod.aov2 <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="at">formula =</span> escore <span class="sc">~</span> alcool <span class="sc">*</span> sexo, </span>
-<span id="cb784-2"><a href="análise-de-variância.html#cb784-2" tabindex="-1"></a>                 <span class="at">data =</span> dados)</span></code></pre></div>
-<p>Na Seção <a href="análise-de-variância.html#sec-preresiduos">13.4.5</a>, foi construído um modelo para analisar os resíduos. Este modelo está baseado na semelhança dos modelos de regressão linear (veja Seção <a href="correlação-e-regressão.html#sec-rls">15.3</a>) com o modelo da ANOVA. Observa-se que o código é bem semelhante, usando a fórmula <code>variável dependente ~ variável independentes</code>, o sinal <code>+</code> é usado para incluir variáveis independentes sem interação e o sinal <code>*</code> quando há interação. Ou seja, a ANOVA, como todas as ANOVAs, é na verdade um modelo linear. Observe que o código a seguir, usando a função <code>lm()</code> e após <code>Anova()</code> do pacote <code>car</code>, também funciona e retorna os mesmos resultados <a href="#fn55" class="footnote-ref" id="fnref55"><sup>55</sup></a> :</p>
-<div class="sourceCode" id="cb785"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb785-1"><a href="análise-de-variância.html#cb785-1" tabindex="-1"></a> mod.int.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> escore <span class="sc">~</span> sexo <span class="sc">*</span> alcool,</span>
-<span id="cb785-2"><a href="análise-de-variância.html#cb785-2" tabindex="-1"></a>                   <span class="at">data =</span> dados)</span>
-<span id="cb785-3"><a href="análise-de-variância.html#cb785-3" tabindex="-1"></a> <span class="fu">Anova</span>(mod.int.lm)</span></code></pre></div>
+<div class="sourceCode" id="cb783"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb783-1"><a href="análise-de-variância.html#cb783-1" tabindex="-1"></a> mod.aov2 <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="at">formula =</span> escore <span class="sc">~</span> alcool <span class="sc">*</span> sexo, </span>
+<span id="cb783-2"><a href="análise-de-variância.html#cb783-2" tabindex="-1"></a>                 <span class="at">data =</span> dados)</span></code></pre></div>
+<p>Na Seção <a href="análise-de-variância.html#sec-preresiduos">13.4.5</a>, foi construído um modelo para analisar os resíduos. Este modelo está baseado na semelhança dos modelos de regressão linear (veja Seção <a href="correlação-e-regressão.html#sec-rls">15.3</a>) com o modelo da ANOVA. Observa-se que o código é bem semelhante, usando a fórmula <code>variável dependente ~ variável independentes</code>, o sinal <code>+</code> é usado para incluir variáveis independentes sem interação e o sinal <code>*</code> quando há interação. Ou seja, a ANOVA, como todas as ANOVAs, é na verdade um modelo linear. Observe que o código a seguir, usando a função <code>lm()</code> e após <code>Anova()</code> do pacote <code>car</code>, também funciona e retorna os mesmos resultados <a href="#fn58" class="footnote-ref" id="fnref58"><sup>58</sup></a> :</p>
+<div class="sourceCode" id="cb784"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb784-1"><a href="análise-de-variância.html#cb784-1" tabindex="-1"></a> mod.int.lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> escore <span class="sc">~</span> sexo <span class="sc">*</span> alcool,</span>
+<span id="cb784-2"><a href="análise-de-variância.html#cb784-2" tabindex="-1"></a>                   <span class="at">data =</span> dados)</span>
+<span id="cb784-3"><a href="análise-de-variância.html#cb784-3" tabindex="-1"></a> <span class="fu">Anova</span>(mod.int.lm)</span></code></pre></div>
 <pre><code>## Anova Table (Type II tests)
 ## 
 ## Response: escore
@@ -1443,8 +1440,8 @@ Figura 13.15: Resíduos versus ajuste
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Observe que a função <code>aov()</code> pressupõe um projeto balanceado, o que significa tamanhos de amostra iguais dentro dos níveis das variáveis de agrupamento independentes. Para verificar se os dados estão balanceados, pode-se usar a seguinte função:</p>
-<div class="sourceCode" id="cb787"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb787-1"><a href="análise-de-variância.html#cb787-1" tabindex="-1"></a> <span class="fu">with</span>(dados,</span>
-<span id="cb787-2"><a href="análise-de-variância.html#cb787-2" tabindex="-1"></a>      <span class="fu">table</span>(sexo, alcool))</span></code></pre></div>
+<div class="sourceCode" id="cb786"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb786-1"><a href="análise-de-variância.html#cb786-1" tabindex="-1"></a> <span class="fu">with</span>(dados,</span>
+<span id="cb786-2"><a href="análise-de-variância.html#cb786-2" tabindex="-1"></a>      <span class="fu">table</span>(sexo, alcool))</span></code></pre></div>
 <pre><code>##            alcool
 ## sexo        nenhum 3 latas 6 latas
 ##   Feminino       8       8       8
@@ -1456,14 +1453,14 @@ Figura 13.15: Resíduos versus ajuste
 <li>a ANOVA do tipo II, quando não há interação significativa, que pode ser feita no R com <code>Anova(mod, type = “II”)</code> ou <code>Anova(mod, type = 2)</code>, em que <code>mod</code> é o nome do seu modelo salvo, e</li>
 <li>a ANOVA do tipo III, quando há uma interação significativa, que pode ser feita no R com <code>Anova(mod, type = “III”)</code> ou <code>Anova(mod, type = 3)</code>.</li>
 </ul>
-<p>Fundamentalmente, a diferença entre um método e outro é como o R calcula a soma dos quadrados ao calcular a ANOVA. Quando os dados são balanceados, os três tipos dão o mesmo resultado <a href="#fn56" class="footnote-ref" id="fnref56"><sup>56</sup></a>.</p>
+<p>Fundamentalmente, a diferença entre um método e outro é como o R calcula a soma dos quadrados ao calcular a ANOVA. Quando os dados são balanceados, os três tipos dão o mesmo resultado <a href="#fn59" class="footnote-ref" id="fnref59"><sup>59</sup></a>.</p>
 </div>
 <div id="testes-post-hoc-1" class="section level3 hasAnchor" number="13.4.7">
 <h3><span class="header-section-number">13.4.7</span> Testes <em>post hoc</em><a href="análise-de-variância.html#testes-post-hoc-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Neste estágio, chegou-se ao ponto em que se constatou que o efeito principal do sexo não é significativo e que o efeito principal do álcool é significativo. Além disso, mais importante, existe uma interação entre o álcool e o sexo, o efeito do álcool depende do sexo.</p>
 <p>Não é possível saber exatamente qual categoria da variável <code>alcool</code> é diferente da outra em termos de escore de memória. Para saber isso, há que comparar cada categoria duas a duas graças aos testes <code>post-hoc</code>, também conhecidos como comparações entre pares <span class="citation">(121)</span> <span class="citation">(122)</span> <span class="citation">(123)</span>.
 Há vários testes post-hoc, sendo os mais comuns o Tukey HSD, que testa todos os pares possíveis de grupos. Será utilizada a função <code>TukeyHSD()</code>, usando como argumento o modelo com interação, <code>mod.aov</code>:</p>
-<div class="sourceCode" id="cb789"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb789-1"><a href="análise-de-variância.html#cb789-1" tabindex="-1"></a><span class="fu">TukeyHSD</span>(mod.aov)</span></code></pre></div>
+<div class="sourceCode" id="cb788"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb788-1"><a href="análise-de-variância.html#cb788-1" tabindex="-1"></a><span class="fu">TukeyHSD</span>(mod.aov)</span></code></pre></div>
 <pre><code>##   Tukey multiple comparisons of means
 ##     95% family-wise confidence level
 ## 
@@ -1497,18 +1494,18 @@ Há vários testes post-hoc, sendo os mais comuns o Tukey HSD, que testa todos o
 ## 6 latas:Masculino-nenhum:Masculino  -31.250 -44.851381 -17.648619 0.0000003
 ## 6 latas:Masculino-3 latas:Masculino -31.250 -44.851381 -17.648619 0.0000003</code></pre>
 <p>Quando se tem muitos grupos para fazer a comparação, fica mais fácil interpretar, usando gráficos (Figura <a href="análise-de-variância.html#fig:anova2tukey">13.16</a>):</p>
-<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb791-1"><a href="análise-de-variância.html#cb791-1" tabindex="-1"></a><span class="co"># Definir as margens do eixo para que os rótulos não sejam cortados</span></span>
-<span id="cb791-2"><a href="análise-de-variância.html#cb791-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="fl">4.1</span>, <span class="fl">13.5</span>, <span class="fl">4.1</span>, <span class="fl">2.1</span>))</span>
-<span id="cb791-3"><a href="análise-de-variância.html#cb791-3" tabindex="-1"></a><span class="co"># Criar intervalo de confiança para cada comparação</span></span>
-<span id="cb791-4"><a href="análise-de-variância.html#cb791-4" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">TukeyHSD</span>(mod.aov, <span class="at">which =</span> <span class="st">&quot;alcool:sexo&quot;</span>), <span class="at">las =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb790"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb790-1"><a href="análise-de-variância.html#cb790-1" tabindex="-1"></a><span class="co"># Definir as margens do eixo para que os rótulos não sejam cortados</span></span>
+<span id="cb790-2"><a href="análise-de-variância.html#cb790-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="fl">4.1</span>, <span class="fl">13.5</span>, <span class="fl">4.1</span>, <span class="fl">2.1</span>))</span>
+<span id="cb790-3"><a href="análise-de-variância.html#cb790-3" tabindex="-1"></a><span class="co"># Criar intervalo de confiança para cada comparação</span></span>
+<span id="cb790-4"><a href="análise-de-variância.html#cb790-4" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">TukeyHSD</span>(mod.aov, <span class="at">which =</span> <span class="st">&quot;alcool:sexo&quot;</span>), <span class="at">las =</span> <span class="dv">1</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:anova2tukey"></span>
 <img src="bookdownproj_files/figure-html/anova2tukey-1.png" alt="Resíduos versus ajuste" width="70%" height="70%" />
 <p class="caption">
 Figura 13.16: Resíduos versus ajuste
 </p>
 </div>
-<div class="sourceCode" id="cb792"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb792-1"><a href="análise-de-variância.html#cb792-1" tabindex="-1"></a><span class="co"># Retorna as margens ao padrão</span></span>
-<span id="cb792-2"><a href="análise-de-variância.html#cb792-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">4.1</span>, <span class="fl">4.1</span>, <span class="fl">2.1</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb791"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb791-1"><a href="análise-de-variância.html#cb791-1" tabindex="-1"></a><span class="co"># Retorna as margens ao padrão</span></span>
+<span id="cb791-2"><a href="análise-de-variância.html#cb791-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">4.1</span>, <span class="fl">4.1</span>, <span class="fl">2.1</span>)) </span></code></pre></div>
 <p>As Saída exibe resultados onde aparece que o consumo de álcool não afetou a memória das mulheres, mas o consumo de 6 latas de cerveja diminuiu o escore de memória dos homens quando comparados com homens que consumiram cerveja sem álcool ou que ingeriram apenas 3 latas de cerveja.
 Em outras palavras, os termos de interação dizem como o efeito dos álcool muda quando quem o ingere é do sexo masculino ou feminino. O efeito do álcool na memória das mulheres é pequeno, ficando praticamente estável nas três condições. Por outro lado, os homens permanecem estáveis no seu escore de memória quando quantidades pequenas de álcool são ingeridas, declina rapidamente quando ingerem 6 latas de cerveja.</p>
 </div>
@@ -1603,40 +1600,40 @@ Valor P
 <li><p>Visualização dos resultados:</p></li>
 </ol>
 <p>Serão apresentados gráficos de barra de erro (Figura <a href="análise-de-variância.html#fig:result1">13.17</a>), com <code>ggbarplot()</code>, do pacote <code>ggpubr</code>, utilizando, para cores tonalidades de cinza. Para adicionar teste estatístico, usou-se a função <code>get_test_label()</code> e para o teste <em>post hoc</em>, a função <code>get_pwc_label()</code>, ambas do pacote <code>rstatix</code>.</p>
-<div class="sourceCode" id="cb793"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb793-1"><a href="análise-de-variância.html#cb793-1" tabindex="-1"></a><span class="co"># Construção de um gráfico de barra de erro</span></span>
-<span id="cb793-2"><a href="análise-de-variância.html#cb793-2" tabindex="-1"></a>be <span class="ot">&lt;-</span> ggpubr<span class="sc">::</span><span class="fu">ggbarplot</span>(dados, </span>
-<span id="cb793-3"><a href="análise-de-variância.html#cb793-3" tabindex="-1"></a>                        <span class="at">x =</span> <span class="st">&quot;alcool&quot;</span>, <span class="at">y =</span> <span class="st">&quot;escore&quot;</span>, </span>
-<span id="cb793-4"><a href="análise-de-variância.html#cb793-4" tabindex="-1"></a>                        <span class="at">add =</span> <span class="st">&quot;mean_ci&quot;</span>,</span>
-<span id="cb793-5"><a href="análise-de-variância.html#cb793-5" tabindex="-1"></a>                        <span class="at">error.plot =</span> <span class="st">&quot;upper_errorbar&quot;</span>,</span>
-<span id="cb793-6"><a href="análise-de-variância.html#cb793-6" tabindex="-1"></a>                        <span class="at">fill =</span> <span class="st">&quot;sexo&quot;</span>, </span>
-<span id="cb793-7"><a href="análise-de-variância.html#cb793-7" tabindex="-1"></a>                        <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;gray60&quot;</span>, <span class="st">&quot;gray40&quot;</span>),</span>
-<span id="cb793-8"><a href="análise-de-variância.html#cb793-8" tabindex="-1"></a>                        <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="fl">0.8</span>)) <span class="sc">+</span></span>
-<span id="cb793-9"><a href="análise-de-variância.html#cb793-9" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.key.size =</span> <span class="fu">unit</span>(<span class="fl">0.3</span>, <span class="st">&#39;cm&#39;</span>)) <span class="sc">+</span></span>
-<span id="cb793-10"><a href="análise-de-variância.html#cb793-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>)</span>
-<span id="cb793-11"><a href="análise-de-variância.html#cb793-11" tabindex="-1"></a></span>
-<span id="cb793-12"><a href="análise-de-variância.html#cb793-12" tabindex="-1"></a><span class="co"># Comparações por pares (pairwise comparisons)</span></span>
-<span id="cb793-13"><a href="análise-de-variância.html#cb793-13" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
-<span id="cb793-14"><a href="análise-de-variância.html#cb793-14" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">group_by</span>(alcool) <span class="sc">%&gt;%</span></span>
-<span id="cb793-15"><a href="análise-de-variância.html#cb793-15" tabindex="-1"></a>   rstatix<span class="sc">::</span><span class="fu">tukey_hsd</span>(<span class="at">formula =</span> escore <span class="sc">~</span> sexo)</span>
-<span id="cb793-16"><a href="análise-de-variância.html#cb793-16" tabindex="-1"></a></span>
-<span id="cb793-17"><a href="análise-de-variância.html#cb793-17" tabindex="-1"></a><span class="co"># Calcular e adicionar as posições x e y.</span></span>
-<span id="cb793-18"><a href="análise-de-variância.html#cb793-18" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> pwc <span class="sc">%&gt;%</span></span>
-<span id="cb793-19"><a href="análise-de-variância.html#cb793-19" tabindex="-1"></a>  <span class="fu">add_xy_position</span>(<span class="at">fun =</span> <span class="st">&quot;mean_ci&quot;</span>, </span>
-<span id="cb793-20"><a href="análise-de-variância.html#cb793-20" tabindex="-1"></a>                  <span class="at">x =</span> <span class="st">&quot;alcool&quot;</span>, </span>
-<span id="cb793-21"><a href="análise-de-variância.html#cb793-21" tabindex="-1"></a>                  <span class="at">dodge =</span> <span class="fl">0.8</span>) </span>
-<span id="cb793-22"><a href="análise-de-variância.html#cb793-22" tabindex="-1"></a></span>
-<span id="cb793-23"><a href="análise-de-variância.html#cb793-23" tabindex="-1"></a><span class="co"># Cálculo do teste estatístico com pacote rstatix</span></span>
-<span id="cb793-24"><a href="análise-de-variância.html#cb793-24" tabindex="-1"></a>anova <span class="ot">&lt;-</span>  <span class="fu">anova_test</span>(mod.aov)</span>
-<span id="cb793-25"><a href="análise-de-variância.html#cb793-25" tabindex="-1"></a></span>
-<span id="cb793-26"><a href="análise-de-variância.html#cb793-26" tabindex="-1"></a><span class="co"># Acrescentar o teste e o valor P ajustado ao gráfico</span></span>
-<span id="cb793-27"><a href="análise-de-variância.html#cb793-27" tabindex="-1"></a>be <span class="sc">+</span> <span class="fu">stat_pvalue_manual</span>(pwc,  </span>
-<span id="cb793-28"><a href="análise-de-variância.html#cb793-28" tabindex="-1"></a>                        <span class="at">label =</span> <span class="st">&quot;p.adj&quot;</span>, </span>
-<span id="cb793-29"><a href="análise-de-variância.html#cb793-29" tabindex="-1"></a>                        <span class="at">tip.length =</span> <span class="fl">0.01</span>,</span>
-<span id="cb793-30"><a href="análise-de-variância.html#cb793-30" tabindex="-1"></a>                        <span class="at">y.position =</span> <span class="dv">85</span>) <span class="sc">+</span></span>
-<span id="cb793-31"><a href="análise-de-variância.html#cb793-31" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">x =</span> <span class="st">&quot;Ingestão de álcool&quot;</span>,</span>
-<span id="cb793-32"><a href="análise-de-variância.html#cb793-32" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&quot;Média escore de memória&quot;</span>,</span>
-<span id="cb793-33"><a href="análise-de-variância.html#cb793-33" tabindex="-1"></a>        <span class="at">subtitle =</span> rstatix<span class="sc">::</span><span class="fu">get_test_label</span> (anova, <span class="at">detailed =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb793-34"><a href="análise-de-variância.html#cb793-34" tabindex="-1"></a>        <span class="at">caption =</span> rstatix<span class="sc">::</span><span class="fu">get_pwc_label</span>(pwc))</span></code></pre></div>
+<div class="sourceCode" id="cb792"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb792-1"><a href="análise-de-variância.html#cb792-1" tabindex="-1"></a><span class="co"># Construção de um gráfico de barra de erro</span></span>
+<span id="cb792-2"><a href="análise-de-variância.html#cb792-2" tabindex="-1"></a>be <span class="ot">&lt;-</span> ggpubr<span class="sc">::</span><span class="fu">ggbarplot</span>(dados, </span>
+<span id="cb792-3"><a href="análise-de-variância.html#cb792-3" tabindex="-1"></a>                        <span class="at">x =</span> <span class="st">&quot;alcool&quot;</span>, <span class="at">y =</span> <span class="st">&quot;escore&quot;</span>, </span>
+<span id="cb792-4"><a href="análise-de-variância.html#cb792-4" tabindex="-1"></a>                        <span class="at">add =</span> <span class="st">&quot;mean_ci&quot;</span>,</span>
+<span id="cb792-5"><a href="análise-de-variância.html#cb792-5" tabindex="-1"></a>                        <span class="at">error.plot =</span> <span class="st">&quot;upper_errorbar&quot;</span>,</span>
+<span id="cb792-6"><a href="análise-de-variância.html#cb792-6" tabindex="-1"></a>                        <span class="at">fill =</span> <span class="st">&quot;sexo&quot;</span>, </span>
+<span id="cb792-7"><a href="análise-de-variância.html#cb792-7" tabindex="-1"></a>                        <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;gray60&quot;</span>, <span class="st">&quot;gray40&quot;</span>),</span>
+<span id="cb792-8"><a href="análise-de-variância.html#cb792-8" tabindex="-1"></a>                        <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="fl">0.8</span>)) <span class="sc">+</span></span>
+<span id="cb792-9"><a href="análise-de-variância.html#cb792-9" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.key.size =</span> <span class="fu">unit</span>(<span class="fl">0.3</span>, <span class="st">&#39;cm&#39;</span>)) <span class="sc">+</span></span>
+<span id="cb792-10"><a href="análise-de-variância.html#cb792-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>)</span>
+<span id="cb792-11"><a href="análise-de-variância.html#cb792-11" tabindex="-1"></a></span>
+<span id="cb792-12"><a href="análise-de-variância.html#cb792-12" tabindex="-1"></a><span class="co"># Comparações por pares (pairwise comparisons)</span></span>
+<span id="cb792-13"><a href="análise-de-variância.html#cb792-13" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb792-14"><a href="análise-de-variância.html#cb792-14" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">group_by</span>(alcool) <span class="sc">%&gt;%</span></span>
+<span id="cb792-15"><a href="análise-de-variância.html#cb792-15" tabindex="-1"></a>   rstatix<span class="sc">::</span><span class="fu">tukey_hsd</span>(<span class="at">formula =</span> escore <span class="sc">~</span> sexo)</span>
+<span id="cb792-16"><a href="análise-de-variância.html#cb792-16" tabindex="-1"></a></span>
+<span id="cb792-17"><a href="análise-de-variância.html#cb792-17" tabindex="-1"></a><span class="co"># Calcular e adicionar as posições x e y.</span></span>
+<span id="cb792-18"><a href="análise-de-variância.html#cb792-18" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> pwc <span class="sc">%&gt;%</span></span>
+<span id="cb792-19"><a href="análise-de-variância.html#cb792-19" tabindex="-1"></a>  <span class="fu">add_xy_position</span>(<span class="at">fun =</span> <span class="st">&quot;mean_ci&quot;</span>, </span>
+<span id="cb792-20"><a href="análise-de-variância.html#cb792-20" tabindex="-1"></a>                  <span class="at">x =</span> <span class="st">&quot;alcool&quot;</span>, </span>
+<span id="cb792-21"><a href="análise-de-variância.html#cb792-21" tabindex="-1"></a>                  <span class="at">dodge =</span> <span class="fl">0.8</span>) </span>
+<span id="cb792-22"><a href="análise-de-variância.html#cb792-22" tabindex="-1"></a></span>
+<span id="cb792-23"><a href="análise-de-variância.html#cb792-23" tabindex="-1"></a><span class="co"># Cálculo do teste estatístico com pacote rstatix</span></span>
+<span id="cb792-24"><a href="análise-de-variância.html#cb792-24" tabindex="-1"></a>anova <span class="ot">&lt;-</span>  <span class="fu">anova_test</span>(mod.aov)</span>
+<span id="cb792-25"><a href="análise-de-variância.html#cb792-25" tabindex="-1"></a></span>
+<span id="cb792-26"><a href="análise-de-variância.html#cb792-26" tabindex="-1"></a><span class="co"># Acrescentar o teste e o valor P ajustado ao gráfico</span></span>
+<span id="cb792-27"><a href="análise-de-variância.html#cb792-27" tabindex="-1"></a>be <span class="sc">+</span> <span class="fu">stat_pvalue_manual</span>(pwc,  </span>
+<span id="cb792-28"><a href="análise-de-variância.html#cb792-28" tabindex="-1"></a>                        <span class="at">label =</span> <span class="st">&quot;p.adj&quot;</span>, </span>
+<span id="cb792-29"><a href="análise-de-variância.html#cb792-29" tabindex="-1"></a>                        <span class="at">tip.length =</span> <span class="fl">0.01</span>,</span>
+<span id="cb792-30"><a href="análise-de-variância.html#cb792-30" tabindex="-1"></a>                        <span class="at">y.position =</span> <span class="dv">85</span>) <span class="sc">+</span></span>
+<span id="cb792-31"><a href="análise-de-variância.html#cb792-31" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">x =</span> <span class="st">&quot;Ingestão de álcool&quot;</span>,</span>
+<span id="cb792-32"><a href="análise-de-variância.html#cb792-32" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&quot;Média escore de memória&quot;</span>,</span>
+<span id="cb792-33"><a href="análise-de-variância.html#cb792-33" tabindex="-1"></a>        <span class="at">subtitle =</span> rstatix<span class="sc">::</span><span class="fu">get_test_label</span> (anova, <span class="at">detailed =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb792-34"><a href="análise-de-variância.html#cb792-34" tabindex="-1"></a>        <span class="at">caption =</span> rstatix<span class="sc">::</span><span class="fu">get_pwc_label</span>(pwc))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:result1"></span>
 <img src="bookdownproj_files/figure-html/result1-1.png" alt="Efeito do álcool na memória de acordo com o sexo." width="80%" height="80%" />
 <p class="caption">
@@ -1644,42 +1641,42 @@ Figura 13.17: Efeito do álcool na memória de acordo com o sexo.
 </p>
 </div>
 <p>Uma opção, é apresentar os resultados como um gráfico de linhas (Figura <a href="análise-de-variância.html#fig:result2">13.18</a>), já mostrado anteriormente , usando a função <code>ggline()</code> do pacote <code>ggpubr</code>:</p>
-<div class="sourceCode" id="cb794"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb794-1"><a href="análise-de-variância.html#cb794-1" tabindex="-1"></a><span class="co"># Construção de um gráfico linha</span></span>
-<span id="cb794-2"><a href="análise-de-variância.html#cb794-2" tabindex="-1"></a>gl <span class="ot">&lt;-</span> ggpubr<span class="sc">::</span><span class="fu">ggline</span>(dados, </span>
-<span id="cb794-3"><a href="análise-de-variância.html#cb794-3" tabindex="-1"></a>                     <span class="at">x =</span> <span class="st">&quot;alcool&quot;</span>, <span class="at">y =</span> <span class="st">&quot;escore&quot;</span>, </span>
-<span id="cb794-4"><a href="análise-de-variância.html#cb794-4" tabindex="-1"></a>                     <span class="at">add =</span> <span class="st">&quot;mean_ci&quot;</span>,</span>
-<span id="cb794-5"><a href="análise-de-variância.html#cb794-5" tabindex="-1"></a>                     <span class="at">color =</span> <span class="st">&quot;sexo&quot;</span>,</span>
-<span id="cb794-6"><a href="análise-de-variância.html#cb794-6" tabindex="-1"></a>                     <span class="at">size =</span> <span class="fl">0.7</span>,</span>
-<span id="cb794-7"><a href="análise-de-variância.html#cb794-7" tabindex="-1"></a>                     <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, </span>
-<span id="cb794-8"><a href="análise-de-variância.html#cb794-8" tabindex="-1"></a>                     <span class="at">palette =</span> <span class="st">&quot;lancet&quot;</span>,</span>
-<span id="cb794-9"><a href="análise-de-variância.html#cb794-9" tabindex="-1"></a>                     <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="fl">0.2</span>)) <span class="sc">+</span></span>
-<span id="cb794-10"><a href="análise-de-variância.html#cb794-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.key.size =</span> <span class="fu">unit</span>(<span class="fl">0.3</span>, <span class="st">&#39;cm&#39;</span>)) <span class="sc">+</span></span>
-<span id="cb794-11"><a href="análise-de-variância.html#cb794-11" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>)</span>
-<span id="cb794-12"><a href="análise-de-variância.html#cb794-12" tabindex="-1"></a></span>
-<span id="cb794-13"><a href="análise-de-variância.html#cb794-13" tabindex="-1"></a><span class="co"># Comparações por pares (pairwise comparisons)</span></span>
-<span id="cb794-14"><a href="análise-de-variância.html#cb794-14" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
-<span id="cb794-15"><a href="análise-de-variância.html#cb794-15" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(alcool) <span class="sc">%&gt;%</span></span>
-<span id="cb794-16"><a href="análise-de-variância.html#cb794-16" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">tukey_hsd</span>(<span class="at">formula =</span> escore <span class="sc">~</span> sexo)</span>
-<span id="cb794-17"><a href="análise-de-variância.html#cb794-17" tabindex="-1"></a></span>
-<span id="cb794-18"><a href="análise-de-variância.html#cb794-18" tabindex="-1"></a><span class="co"># Calcular e adicionar as posições x e y.</span></span>
-<span id="cb794-19"><a href="análise-de-variância.html#cb794-19" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> pwc <span class="sc">%&gt;%</span></span>
-<span id="cb794-20"><a href="análise-de-variância.html#cb794-20" tabindex="-1"></a>  <span class="fu">add_xy_position</span>(<span class="at">fun =</span> <span class="st">&quot;mean_ci&quot;</span>, </span>
-<span id="cb794-21"><a href="análise-de-variância.html#cb794-21" tabindex="-1"></a>                  <span class="at">x =</span> <span class="st">&quot;alcool&quot;</span>, </span>
-<span id="cb794-22"><a href="análise-de-variância.html#cb794-22" tabindex="-1"></a>                  <span class="at">dodge =</span> <span class="fl">0.8</span>)</span>
-<span id="cb794-23"><a href="análise-de-variância.html#cb794-23" tabindex="-1"></a></span>
-<span id="cb794-24"><a href="análise-de-variância.html#cb794-24" tabindex="-1"></a><span class="co"># Cálculo do teste estatístico com pacote rstatix</span></span>
-<span id="cb794-25"><a href="análise-de-variância.html#cb794-25" tabindex="-1"></a>anova <span class="ot">&lt;-</span>  <span class="fu">anova_test</span>(mod.aov)</span>
-<span id="cb794-26"><a href="análise-de-variância.html#cb794-26" tabindex="-1"></a></span>
-<span id="cb794-27"><a href="análise-de-variância.html#cb794-27" tabindex="-1"></a><span class="co"># Acrescentar o teste e o valor P ajustado ao gráfico</span></span>
-<span id="cb794-28"><a href="análise-de-variância.html#cb794-28" tabindex="-1"></a>gl <span class="sc">+</span> <span class="fu">stat_pvalue_manual</span>(pwc,  </span>
-<span id="cb794-29"><a href="análise-de-variância.html#cb794-29" tabindex="-1"></a>                        <span class="at">label =</span> <span class="st">&quot;p.adj&quot;</span>, </span>
-<span id="cb794-30"><a href="análise-de-variância.html#cb794-30" tabindex="-1"></a>                        <span class="at">tip.length =</span> <span class="fl">0.01</span>,</span>
-<span id="cb794-31"><a href="análise-de-variância.html#cb794-31" tabindex="-1"></a>                        <span class="at">y.position =</span> <span class="dv">85</span>) <span class="sc">+</span></span>
-<span id="cb794-32"><a href="análise-de-variância.html#cb794-32" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">x =</span> <span class="st">&quot;Ingestão de álcool&quot;</span>,</span>
-<span id="cb794-33"><a href="análise-de-variância.html#cb794-33" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&quot;Média escore de memória&quot;</span>,</span>
-<span id="cb794-34"><a href="análise-de-variância.html#cb794-34" tabindex="-1"></a>        <span class="at">subtitle =</span> rstatix<span class="sc">::</span><span class="fu">get_test_label</span> (anova, </span>
-<span id="cb794-35"><a href="análise-de-variância.html#cb794-35" tabindex="-1"></a>                                            <span class="at">detailed =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb794-36"><a href="análise-de-variância.html#cb794-36" tabindex="-1"></a>        <span class="at">caption =</span> rstatix<span class="sc">::</span><span class="fu">get_pwc_label</span>(pwc))</span></code></pre></div>
+<div class="sourceCode" id="cb793"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb793-1"><a href="análise-de-variância.html#cb793-1" tabindex="-1"></a><span class="co"># Construção de um gráfico linha</span></span>
+<span id="cb793-2"><a href="análise-de-variância.html#cb793-2" tabindex="-1"></a>gl <span class="ot">&lt;-</span> ggpubr<span class="sc">::</span><span class="fu">ggline</span>(dados, </span>
+<span id="cb793-3"><a href="análise-de-variância.html#cb793-3" tabindex="-1"></a>                     <span class="at">x =</span> <span class="st">&quot;alcool&quot;</span>, <span class="at">y =</span> <span class="st">&quot;escore&quot;</span>, </span>
+<span id="cb793-4"><a href="análise-de-variância.html#cb793-4" tabindex="-1"></a>                     <span class="at">add =</span> <span class="st">&quot;mean_ci&quot;</span>,</span>
+<span id="cb793-5"><a href="análise-de-variância.html#cb793-5" tabindex="-1"></a>                     <span class="at">color =</span> <span class="st">&quot;sexo&quot;</span>,</span>
+<span id="cb793-6"><a href="análise-de-variância.html#cb793-6" tabindex="-1"></a>                     <span class="at">size =</span> <span class="fl">0.7</span>,</span>
+<span id="cb793-7"><a href="análise-de-variância.html#cb793-7" tabindex="-1"></a>                     <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>, </span>
+<span id="cb793-8"><a href="análise-de-variância.html#cb793-8" tabindex="-1"></a>                     <span class="at">palette =</span> <span class="st">&quot;lancet&quot;</span>,</span>
+<span id="cb793-9"><a href="análise-de-variância.html#cb793-9" tabindex="-1"></a>                     <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="fl">0.2</span>)) <span class="sc">+</span></span>
+<span id="cb793-10"><a href="análise-de-variância.html#cb793-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.key.size =</span> <span class="fu">unit</span>(<span class="fl">0.3</span>, <span class="st">&#39;cm&#39;</span>)) <span class="sc">+</span></span>
+<span id="cb793-11"><a href="análise-de-variância.html#cb793-11" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;right&quot;</span>)</span>
+<span id="cb793-12"><a href="análise-de-variância.html#cb793-12" tabindex="-1"></a></span>
+<span id="cb793-13"><a href="análise-de-variância.html#cb793-13" tabindex="-1"></a><span class="co"># Comparações por pares (pairwise comparisons)</span></span>
+<span id="cb793-14"><a href="análise-de-variância.html#cb793-14" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb793-15"><a href="análise-de-variância.html#cb793-15" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(alcool) <span class="sc">%&gt;%</span></span>
+<span id="cb793-16"><a href="análise-de-variância.html#cb793-16" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">tukey_hsd</span>(<span class="at">formula =</span> escore <span class="sc">~</span> sexo)</span>
+<span id="cb793-17"><a href="análise-de-variância.html#cb793-17" tabindex="-1"></a></span>
+<span id="cb793-18"><a href="análise-de-variância.html#cb793-18" tabindex="-1"></a><span class="co"># Calcular e adicionar as posições x e y.</span></span>
+<span id="cb793-19"><a href="análise-de-variância.html#cb793-19" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> pwc <span class="sc">%&gt;%</span></span>
+<span id="cb793-20"><a href="análise-de-variância.html#cb793-20" tabindex="-1"></a>  <span class="fu">add_xy_position</span>(<span class="at">fun =</span> <span class="st">&quot;mean_ci&quot;</span>, </span>
+<span id="cb793-21"><a href="análise-de-variância.html#cb793-21" tabindex="-1"></a>                  <span class="at">x =</span> <span class="st">&quot;alcool&quot;</span>, </span>
+<span id="cb793-22"><a href="análise-de-variância.html#cb793-22" tabindex="-1"></a>                  <span class="at">dodge =</span> <span class="fl">0.8</span>)</span>
+<span id="cb793-23"><a href="análise-de-variância.html#cb793-23" tabindex="-1"></a></span>
+<span id="cb793-24"><a href="análise-de-variância.html#cb793-24" tabindex="-1"></a><span class="co"># Cálculo do teste estatístico com pacote rstatix</span></span>
+<span id="cb793-25"><a href="análise-de-variância.html#cb793-25" tabindex="-1"></a>anova <span class="ot">&lt;-</span>  <span class="fu">anova_test</span>(mod.aov)</span>
+<span id="cb793-26"><a href="análise-de-variância.html#cb793-26" tabindex="-1"></a></span>
+<span id="cb793-27"><a href="análise-de-variância.html#cb793-27" tabindex="-1"></a><span class="co"># Acrescentar o teste e o valor P ajustado ao gráfico</span></span>
+<span id="cb793-28"><a href="análise-de-variância.html#cb793-28" tabindex="-1"></a>gl <span class="sc">+</span> <span class="fu">stat_pvalue_manual</span>(pwc,  </span>
+<span id="cb793-29"><a href="análise-de-variância.html#cb793-29" tabindex="-1"></a>                        <span class="at">label =</span> <span class="st">&quot;p.adj&quot;</span>, </span>
+<span id="cb793-30"><a href="análise-de-variância.html#cb793-30" tabindex="-1"></a>                        <span class="at">tip.length =</span> <span class="fl">0.01</span>,</span>
+<span id="cb793-31"><a href="análise-de-variância.html#cb793-31" tabindex="-1"></a>                        <span class="at">y.position =</span> <span class="dv">85</span>) <span class="sc">+</span></span>
+<span id="cb793-32"><a href="análise-de-variância.html#cb793-32" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">x =</span> <span class="st">&quot;Ingestão de álcool&quot;</span>,</span>
+<span id="cb793-33"><a href="análise-de-variância.html#cb793-33" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">&quot;Média escore de memória&quot;</span>,</span>
+<span id="cb793-34"><a href="análise-de-variância.html#cb793-34" tabindex="-1"></a>        <span class="at">subtitle =</span> rstatix<span class="sc">::</span><span class="fu">get_test_label</span> (anova, </span>
+<span id="cb793-35"><a href="análise-de-variância.html#cb793-35" tabindex="-1"></a>                                            <span class="at">detailed =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb793-36"><a href="análise-de-variância.html#cb793-36" tabindex="-1"></a>        <span class="at">caption =</span> rstatix<span class="sc">::</span><span class="fu">get_pwc_label</span>(pwc))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:result2"></span>
 <img src="bookdownproj_files/figure-html/result2-1.png" alt="Efeito do álcool na memória de acordo com o sexo." width="80%" height="80%" />
 <p class="caption">
@@ -1692,13 +1689,13 @@ Figura 13.18: Efeito do álcool na memória de acordo com o sexo.
 </div>
 <div class="footnotes">
 <hr />
-<ol start="51">
-<li id="fn51"><p>Pode ser usada também para comparar a média de duas populações e o resultado será o mesmo de um teste <em>t</em> para amostras independentes.<a href="análise-de-variância.html#fnref51" class="footnote-back">↩︎</a></p></li>
-<li id="fn52"><p>No texto, <em>df1</em> e <em>df2</em> (em inglês, <em>df</em> = <em>degree of freedom</em>) foram traduzidos para o português como <em>gl1</em> e <em>gl2</em> (<em>gl</em> = graus de liberdade).<a href="análise-de-variância.html#fnref52" class="footnote-back">↩︎</a></p></li>
-<li id="fn53"><p>Volte à Seção <a href="descrevendo-os-dados.html#sec-ggplot2">6.6</a> para mais informações sobre o como fazer gráficos no <code>ggplot2.</code><a href="análise-de-variância.html#fnref53" class="footnote-back">↩︎</a></p></li>
-<li id="fn54"><p>Outros gráficos diagnósticos podem ser obtidos para analisar resíduos em um modelo de regressão <span class="citation">(120)</span><a href="análise-de-variância.html#fnref54" class="footnote-back">↩︎</a></p></li>
-<li id="fn55"><p>A função <code>Anova()</code> do pacote <code>car</code>, usada para testar efeitos principais e de interação em modelos lineares gerais, não deve ser confundida com a função <code>anova()</code>, da base do R, porque esta fornece resultados sequenciais que dependem da ordem em que as variáveis aparecem no modelo.<a href="análise-de-variância.html#fnref55" class="footnote-back">↩︎</a></p></li>
-<li id="fn56"><p>Para os interessados, pode-se obter maiores informações sobre os diferentes tipos de ANOVA em <a href="https://www.r-bloggers.com/2011/03/anova-%E2%80%93-type-iiiiii-ss-explained/" class="uri">https://www.r-bloggers.com/2011/03/anova-%E2%80%93-type-iiiiii-ss-explained/</a><a href="análise-de-variância.html#fnref56" class="footnote-back">↩︎</a></p></li>
+<ol start="54">
+<li id="fn54"><p>Pode ser usada também para comparar a média de duas populações e o resultado será o mesmo de um teste <em>t</em> para amostras independentes.<a href="análise-de-variância.html#fnref54" class="footnote-back">↩︎</a></p></li>
+<li id="fn55"><p>No texto, <em>df1</em> e <em>df2</em> (em inglês, <em>df</em> = <em>degree of freedom</em>) foram traduzidos para o português como <em>gl1</em> e <em>gl2</em> (<em>gl</em> = graus de liberdade).<a href="análise-de-variância.html#fnref55" class="footnote-back">↩︎</a></p></li>
+<li id="fn56"><p>Volte à Seção <a href="descrevendo-os-dados.html#sec-ggplot2">6.6</a> para mais informações sobre o como fazer gráficos no <code>ggplot2.</code><a href="análise-de-variância.html#fnref56" class="footnote-back">↩︎</a></p></li>
+<li id="fn57"><p>Outros gráficos diagnósticos podem ser obtidos para analisar resíduos em um modelo de regressão <span class="citation">(120)</span><a href="análise-de-variância.html#fnref57" class="footnote-back">↩︎</a></p></li>
+<li id="fn58"><p>A função <code>Anova()</code> do pacote <code>car</code>, usada para testar efeitos principais e de interação em modelos lineares gerais, não deve ser confundida com a função <code>anova()</code>, da base do R, porque esta fornece resultados sequenciais que dependem da ordem em que as variáveis aparecem no modelo.<a href="análise-de-variância.html#fnref58" class="footnote-back">↩︎</a></p></li>
+<li id="fn59"><p>Para os interessados, pode-se obter maiores informações sobre os diferentes tipos de ANOVA em <a href="https://www.r-bloggers.com/2011/03/anova-%E2%80%93-type-iiiiii-ss-explained/" class="uri">https://www.r-bloggers.com/2011/03/anova-%E2%80%93-type-iiiiii-ss-explained/</a><a href="análise-de-variância.html#fnref59" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

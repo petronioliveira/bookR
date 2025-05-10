@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2025-05-09" />
+<meta name="date" content="2025-05-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -385,10 +385,7 @@ div.csl-indent {
 <li class="chapter" data-level="10" data-path="sec-estimacao.html"><a href="sec-estimacao.html"><i class="fa fa-check"></i><b>10</b> Estimação</a>
 <ul>
 <li class="chapter" data-level="10.1" data-path="sec-estimacao.html"><a href="sec-estimacao.html#pacotes-necessários-neste-capítulo-3"><i class="fa fa-check"></i><b>10.1</b> Pacotes necessários neste capítulo</a></li>
-<li class="chapter" data-level="10.2" data-path="sec-estimacao.html"><a href="sec-estimacao.html#dados-2"><i class="fa fa-check"></i><b>10.2</b> Dados</a>
-<ul>
-<li class="chapter" data-level="10.2.1" data-path="sec-estimacao.html"><a href="sec-estimacao.html#sec-dadosaltura"><i class="fa fa-check"></i><b>10.2.1</b> Exploração dos dados</a></li>
-</ul></li>
+<li class="chapter" data-level="10.2" data-path="sec-estimacao.html"><a href="sec-estimacao.html#sec-dadoscap10"><i class="fa fa-check"></i><b>10.2</b> Dados</a></li>
 <li class="chapter" data-level="10.3" data-path="sec-estimacao.html"><a href="sec-estimacao.html#introdução-3"><i class="fa fa-check"></i><b>10.3</b> Introdução</a></li>
 <li class="chapter" data-level="10.4" data-path="sec-estimacao.html"><a href="sec-estimacao.html#estimativa-pontual-e-intervalo-de-confiança"><i class="fa fa-check"></i><b>10.4</b> Estimativa Pontual e Intervalo de Confiança</a></li>
 <li class="chapter" data-level="10.5" data-path="sec-estimacao.html"><a href="sec-estimacao.html#estimação-da-média-populacional-sigma-conhecido"><i class="fa fa-check"></i><b>10.5</b> Estimação da média populacional: <span class="math inline">\(\sigma\)</span> conhecido</a>
@@ -790,8 +787,8 @@ Nesta seção, serão verificadas as medidas de resumo dos dados de duas maneira
 ## [1] 7</code></pre>
 <p>A saída mostra que a média é igual a 8 e que frequência deste valor entre os 15 valores é 7.</p>
 </div>
-<div id="quantil" class="section level4 hasAnchor" number="6.3.3.4">
-<h4><span class="header-section-number">6.3.3.4</span> Quantil<a href="descrevendo-os-dados.html#quantil" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="sec-quantil" class="section level4 hasAnchor" number="6.3.3.4">
+<h4><span class="header-section-number">6.3.3.4</span> Quantil<a href="descrevendo-os-dados.html#sec-quantil" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Uma medida de localização bastante utilizada são os <strong>quantis</strong> que são pontos estabelecidos em intervalos regulares que dividem a amostra em subconjuntos iguais. Se estes subconjuntos são em número de 100, são denominados de <strong>percentis</strong>; se são em número de 10, são os <strong>decis</strong> e em número de 4, são os <strong>quartis</strong>.
 A função nativa no <em>R</em> para obter o quantil é <code>quantile()</code>.</p>
 <p>Para determinar os três quartis do peso dos recém-nascidos (<code>dados$pexoRN</code>), usa-se:</p>
