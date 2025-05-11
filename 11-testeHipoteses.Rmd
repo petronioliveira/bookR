@@ -12,12 +12,13 @@ pacman::p_load(dplyr,
 
 ## Dados do exemplo  {#sec-dadosth} 
 
-Considere o exemplo dos recém-nascidos a termo da Maternidade do HGCS, extraído do arquivo `dadosMater.xlsx` (veja Seção \@ref(sec-mater)). 
+Considere o mesmo arquivo `dadosMater.xlsx`, usado várias vezes neste livro e disponível para consulta na Seção \@ref(sec-mater). Após a leitura do arquivo com a função `read_excel()` do pacote `readxl`, serão filtrados os recém-nascidos a termo (37 a 42 semanas de gestação) e selecionadas as varáveis `sexo` e `pesoRN`. Considerando esses dados como uma "população" para fins didáticos, será extraída uma amostra de 200 observações e atribuido o resultado ao objeto `dados`:
 
 ```{r warning=FALSE, message=FALSE}
-rnt <- readxl::read_excel("Arquivos/dadosMater.xlsx") %>% 
+dados <- readxl::read_excel("Arquivos/dadosMater.xlsx") %>% 
   dplyr::filter(ig>=37 & ig<42) %>% 
-  select(sexo, pesoRN)
+  select(sexo, pesoRN) %>%
+  slice_sample(n = 200)
 ```
 
 ### Exploração e transformação dos dados
@@ -25,47 +26,29 @@ rnt <- readxl::read_excel("Arquivos/dadosMater.xlsx") %>%
 Inicialmente, para ter uma visão da estrutura dos dados, usa-se:
 
 ```{r}
-str(rnt)
+str(dados)
 ```
+
 A seguir, transformar a variável `sexo` em fator:
 
 ```{r}
-rnt$sexo <- factor(rnt$sexo,
+dados$sexo <- factor(dados$sexo,
                    levels = c(1, 2),
                    labels = c("masc", "fem"))
 ```
 
-Este conjunto de dados fica, portanto, fica restrito a 1085 casos, contendo duas variáveis sexo e pesoRN, necessárias neste capítulo e assim resumidas:
+Este conjunto de dados fica, portanto, fica restrito a 200 casos, contendo duas variáveis `sexo` e `pesoRN`, necessárias neste capítulo e assim resumidas:
 
 ```{r}
-resumo <- rnt %>% 
+resumo <- dados %>% 
   dplyr::group_by(sexo) %>% 
   dplyr::summarise (n = n(),
                     media = mean(pesoRN, na.rm = TRUE),
-                    sigma = sd(pesoRN, na.rm = TRUE))
+                    dp = sd(pesoRN, na.rm = TRUE))
 resumo
 ```
 
-Suponha que esses 1085 casos sejam considerados a 'população-alvo' e que se  faça uma afirmação de que existe uma diferença significativa entre os pesos ao nascer de meninos e meninas. 
-Para testar essa afirmação, será extraída uma amostra de 200 casos do conjunto `rnt`, sem reposição. ^[Conhecer os parâmetros da população, é muito raro. Aqui isto aconteceu, artificialmente, para fins didáticos.]
-
-```{r message=FALSE}
-set.seed (123)
-dados <- rnt %>% slice_sample(n = 200)
-```
-
-Este conjunto de dados contém 200 observações de 2 variáveis, assim resumidas. 
-
-```{r}
-resumo.dados <- dados %>%
-  dplyr::group_by(sexo) %>% 
-  dplyr::summarise(n = n(),
-                   media = mean (pesoRN, na.rm = TRUE),
-                   dp = sd (pesoRN, na.rm = TRUE))
-resumo.dados
-```
-
-Esta amostra de `r resumo.dados$n[1]` meninos e `r resumo.dados$n[2]` meninas, informa que os meninos têm, em média, `r round(resumo.dados$media[1],0)` g ao nascer e as meninas `r round(resumo.dados$media[2],0)` g. Esta diferença de peso entre os sexos pode ter ocorrido devido ao acaso. Portanto, há necessidade de realizar um teste de hipóteses para tomar uma decisão sobre o parâmetro populacional. Esta diferença é grande o suficiente para rejeitar a hipótese de igualdade entre os pesos e concluir que existe uma diferença real entre eles?
+Esta amostra de `r resumo$n[1]` meninos e `r resumo$n[2]` meninas, informa que os meninos têm, em média, `r round(resumo$media[1],0)` g ao nascer e as meninas `r round(resumo$media[2],0)` g. Esta diferença de peso entre os sexos pode ter ocorrido devido ao acaso. Portanto, há necessidade de realizar um teste de hipóteses para tomar uma decisão sobre o parâmetro populacional. Esta diferença é grande o suficiente para rejeitar a hipótese de igualdade entre os pesos e concluir que existe uma diferença real entre eles?
 
 ## Introdução
 
@@ -73,12 +56,12 @@ No capítulo anterior, foi discutido aspectos relacionados à estimação, que s
 
 Sabe-se que as estimativas amostrais diferem dos valores reais (populacionais) e o objetivo dos testes de hipóteses é estabelecer a probabilidade de essa diferença ser explicada pelo acaso. O teste de hipóteses fornece um sistema referencial para a tomada de decisão sobre a adequação ou não dos dados amostrais serem representativos de uma população. Este sistema referencial é a distribuição de probabilidade do evento observado[@menezes2004hipoteses].    
 
-Inicialmente é importante fazer uma distinção entre *hipótese de pesquisa* e *hipótese estatística*. Uma hipótese de pesquisa é uma afirmação que expressa a relação esperada entre as variáveis de um estudo científico. Ela é baseada em uma pergunta de pesquisa e serve para orientar a coleta e análise dos dados. Uma hipótese de pesquisa pode ser confirmada ou refutada pelos resultados do estudo. Um exemplo de hipótese de pesquisa é: “O tabagismo durante a gestação interfere sobre o peso dos conceptos”. Uma hipótese de pesquisa corresponde àquilo que se quer acreditar sobre o mundo.
+Inicialmente é importante fazer uma distinção entre **hipótese de pesquisa** e **hipótese estatística**. Uma hipótese de pesquisa é uma afirmação que expressa a relação esperada entre as variáveis de um estudo científico. Ela é baseada em uma pergunta de pesquisa e serve para orientar a coleta e análise dos dados. Uma hipótese de pesquisa pode ser confirmada ou refutada pelos resultados do estudo. Um exemplo de hipótese de pesquisa é: “O tabagismo durante a gestação interfere sobre o peso dos conceptos”. Uma hipótese de pesquisa corresponde àquilo que se quer acreditar sobre o mundo.
 Uma hipótese estatística é uma afirmação relacionada aos parâmetros de uma população. Baseia-se em uma hipótese de pesquisa e serve para testar a validade da mesma usando técnicas estatísticas. Uma hipótese estatística pode ser aceita ou rejeitada com um certo nível de confiança. A hipótese estatística deve ter uma relação clara com as hipóteses de pesquisa Por exemplo: “A média de peso dos recém-nascidos de mães fumantes é menor do que o das não fumantes”; “A média de peso dos recém-nascidos masculinos é igual ao peso dos recém-nascidos femininos”, ou ainda, “A média de peso dos recém-nascidos masculinos é diferente do peso dos recém-nascidos femininos”. Todos esses exemplos são legítimos de uma hipótese estatística porque são afirmações sobre um parâmetro populacional e estão significativamente relacionados à hipótese de pesquisa.
 
 ## Hipótese nula e alternativa
 
-Em função da hipótese de pesquisa, mencionada anteriormente, foram gerados os dados do exemplo. A hipótese de pesquisa corresponde ao que se quer acreditar, “o tabagismo na gestação interfere no peso dos neonatos”.  Para refutar ou não essa afirmação constrói-se um teste de hipótese para verificar se ela é compatível ou não com os dados disponíveis [@guyatt1995basic].
+Em função da hipótese de pesquisa, mencionada anteriormente, foram gerados os dados do exemplo. A hipótese de pesquisa corresponde ao que se quer acreditar, “o sexo interfere no peso dos neonatos”.  Para refutar ou não essa afirmação constrói-se um teste de hipótese para verificar se ela é compatível ou não com os dados disponíveis [@guyatt1995basic].
 
 No teste de hipóteses (TH), existem dois tipos de hipóteses, definidas como:  
 
@@ -138,18 +121,19 @@ Usa-se um teste estatístico para testar as hipóteses estabelecidas. Este depen
 
 ### Regra de decisão  
 
-Realizado o teste estaístico, para rejeitar ou não rejeitar a $H_{0}$, partindo do pressuposto de que ela é verdadeira, há necessidade de determinar uma *regra de decisão* que permita uma declaração fundamentada. Essa regra de decisão cria duas regiões, uma *região de rejeição* e uma *região de não rejeição* da $H_{0}$, demarcadas por um *valor crítico*.   
+Realizado o teste estaístico, para rejeitar ou não rejeitar a $H_{0}$, partindo do pressuposto de que ela é verdadeira, há necessidade de determinar uma *regra de decisão* que permita uma declaração fundamentada. Essa regra de decisão cria duas regiões, uma **região de rejeição** e uma **região de não rejeição** da $H_{0}$, demarcadas por um **valor crítico**.   
 
-Este valor de referência é determinado pelo  *nível de significância*, $\alpha$, e deve ser explicitamente mencionado *antes* de se iniciar a pesquisa, pois é baseado nele que se fundamentam as conclusões da mesma. O nível de significância corresponde a probabilidade de rejeitar uma hipótese nula verdadeira.  Quando a hipótese alternativa não tem uma direção definida, a área de rejeição, $\alpha$, é colocada nas duas caudas (Figura \@ref(fig:rejeicao), superior), dividindo a probabilidade ($\frac {\alpha}{2}$); quando houver indicação prévia de um sentido, a área de rejeição ficará a direita (Figura \@ref(fig:rejeicao), inferior) ou a esquerda dependendo da direção escolhida.
+Este valor de referência é determinado pelo  **nível de significância**, $\alpha$, e deve ser explicitamente mencionado *antes* de se iniciar a pesquisa, pois é baseado nele que se fundamentam as conclusões da mesma. O nível de significância corresponde a probabilidade de rejeitar uma hipótese nula verdadeira.  Quando a hipótese alternativa não tem uma direção definida, a área de rejeição, $\alpha$, é colocada nas duas caudas (Figura \@ref(fig:rejeicao), superior), dividindo a probabilidade ($\frac {\alpha}{2}$); quando houver indicação prévia de um sentido, a área de rejeição ficará a direita (Figura \@ref(fig:rejeicao), inferior) ou a esquerda dependendo da direção escolhida.
 
 ```{r rejeicao, echo = FALSE, out.width = '80%', fig.align = 'center', fig.cap="Regiões bicaudais (acima) e monocaudal à direita (abaixo) de rejeição e não rejeição da hipótese", fig.pos="H"}
  knitr::include_graphics("https://i.imgur.com/ttCoLro.png.png")
 ```
 
-Quais valores exatos da estatística de teste deve-se associar à hipótese nula e quais valores exatos devem ser associados à hipótese alternativa?   
-Para encontrar a região de rejeição, deve-se levar em consideração:
-* A estatística do teste deve ser muito grande ou muito pequena para que a hipótese nula seja rejeitada;
-* Distribuição da variável de teste, que depende da distribuição da população em estudo e do tamanho da amostra;
+Quais valores exatos da estatística de teste deve-se associar à hipótese nula e quais valores exatos devem ser associados à hipótese alternativa?
+Para encontrar a região de rejeição, deve-se levar em consideração:  
+
+* A estatística do teste deve ser muito grande ou muito pequena para que a hipótese nula seja rejeitada;  
+* Distribuição da variável de teste, que depende da distribuição da população em estudo e do tamanho da amostra;  
 * Nível se significância adotado, em geral, usa-se um $\alpha$ = 0,05, o que equivale a dizer que a região de rejeição abrange 5% da distribuição.  
 
 É importante entender bem este último ponto. A região de rejeição corresponde aos valores da estatística de teste para os quais se rejeita a hipótese nula e a distribuição amostral em questão descreve a probabilidade de obtermos um determinado valor da estatística de teste se a hipótese nula for efetivamente verdadeira.
@@ -157,7 +141,7 @@ Agora, suponha-se que foi escolhido uma região de rejeição que cobre 10% da d
 
 #### Erros de decisão
 
-Como se observa, ao se tomar uma decisão existe a possibilidade de se cometer *erros*. O primeiro erro é denominado de *erro tipo I* e ocorre quando, baseado na regra de decisão escolhida, uma hipótese nula verdadeira é rejeitada. Nesse caso, tem-se um resultado *falso positivo*. Há uma conclusão de que existe um efeito quando na verdade ele não existe. A probabilidade de cometer esse tipo de erro é $\alpha$, o mesmo usado como nível de significância no estabelecimento da regra de decisão.   
+Como se observa, ao se tomar uma decisão existe a possibilidade de se cometer *erros*. O primeiro erro é denominado de **erro tipo I** e ocorre quando, baseado na regra de decisão escolhida, uma hipótese nula verdadeira é rejeitada. Nesse caso, tem-se um resultado *falso positivo*. Há uma conclusão de que existe um efeito quando na verdade ele não existe. A probabilidade de cometer esse tipo de erro é $\alpha$, o mesmo usado como nível de significância no estabelecimento da regra de decisão.   
 
 $$
 P(rejeitar \quad H_{0}|H_{0} \quad verdadeira) = \alpha
@@ -167,7 +151,7 @@ Qual o valor de $\alpha$ que pode representar forte evidencia contra $H_{0}$, re
 
 O valor de $\alpha$ escolhido, apesar de arbitrário, deve corresponder a importância do que se pretende demonstrar, quanto mais importante, menor deve ser o valor de $\alpha$. Nesses casos, não se quer rejeitar incorretamente $H_{0}$ mais de 5% das vezes. Isso corresponde ao nível de significância mais usado de 0,05 ($\alpha = 0,05$). Em algumas situações também são utilizados 0,01 e 0,10. Como mencionado, o valor de $\alpha$ deve ser escolhido antes de iniciar o estudo.  
 
-Existe uma outra possibilidade de erro, denominado de *erro tipo II*, que ocorre quando a hipótese nula é realmente falsa, mas com base na regra de decisão escolhida, não se rejeita essa hipótese nula. Nesse caso, o resultado é um *falso negativo*; não se conseguiu encontrar um efeito que realmente existe. A probabilidade de cometer esse tipo de erro é chamada de $\beta$. 
+Existe uma outra possibilidade de erro, denominado de **erro tipo II**, que ocorre quando a hipótese nula é realmente falsa, mas com base na regra de decisão escolhida, não se rejeita essa hipótese nula. Nesse caso, o resultado é um *falso negativo*; não se conseguiu encontrar um efeito que realmente existe. A probabilidade de cometer esse tipo de erro é chamada de $\beta$. 
 
 $$
 P(não \quad rejeitar \quad H_{0}|H_{0} \quad falsa) = \beta
@@ -182,12 +166,12 @@ Na (Figura \@ref(fig:erros)) estão resumidas as possíveis consequências na to
 
 ### Exemplo (continuação)  {#sec-exeth1} 
 
-Continuando com o exemplo da Seção \@ref(sec-exeth), aceita-se que os pesos dos recém-nascidos de ambas as amostras tenham distribuição normal e que as variâncias são semelhantes. Apesar de o desvio padrão ($\sigma$) da `população-alvo`, *rnt*, ser conhecido, será suposto que ele é desconhecido. Portanto, o teste *t* de amostras independentes será o teste escolhido como o teste estatístico. A hipótese alternativa é bilateral e o $\alpha$ = 0,05.  
+Continuando com o exemplo da Seção \@ref(sec-exeth), aceita-se que os pesos dos recém-nascidos de ambas as amostras tenham distribuição normal e que as variâncias são semelhantes. Apesar de o desvio padrão ($\sigma$) da `população-alvo` ser conhecido (462 g), será suposto que ele é desconhecido ^[Esta foi uma suposição inicial! Fingiu-se que os dados do arquivo `dadosMater.xlsx` como filtro para os recém-nascidos a termo é a "população"]. Portanto, o teste *t* de amostras independentes será o teste escolhido como o teste estatístico. A hipótese alternativa é bilateral e o $\alpha$ = 0,05.  
 A distribuição *t* é dependente dos grau de liberdade, que para duas amostras independentes é igual $gl=n_1+n_2-2$. Para os dados em uso, tem-se:
 
 ```{r}
- n1 <- resumo.dados$n[1]
- n2 <- resumo.dados$n[2]
+ n1 <- resumo$n[1]
+ n2 <- resumo$n[2]
  gl <- n1 + n2 - 2
  gl
 ```
@@ -208,13 +192,13 @@ $$
 |t_{calculado}| \ge |t_{crítico}| \to rejeita-se \quad H_{0}
 $$
 
-O teste *t* pode ser calculado no R, usando a função `t_teste()` do pacote `rstatix`. Esta função usa, entre outros,  os seguintes argumentos:
+O teste *t* pode ser calculado no *R*, usando a função `t_teste()` do pacote `rstatix`. Esta função usa, entre outros,  os seguintes argumentos:
 
-*	*data* $\to$ dataframe contendo as variáveis da formula;
-*	*formula* $\to$ uma fórmula da forma `x ~ grupo` onde `x` é uma variável numérica que fornece os valores dos dados e grupo é um fator;
-*	*paired* $\to$ lógico; indicando se o teste é pareado. Padrão é `FALSE`;
-*	*var.equal* $\to$ lógico: se `TRUE`, uma variância combinada é usada; caso contrário, a aproximação de Welch dos graus de liberdade é usada
-*	*alternative* → `two.sided` (padrão) ou `greater` ou `less`.
+*	**data** $\to$ dataframe contendo as variáveis da formula;
+*	**formula** $\to$ uma fórmula da forma `x ~ grupo` onde `x` é uma variável numérica que fornece os valores dos dados e grupo é um fator;
+*	**paired** $\to$ lógico; indicando se o teste é pareado. Padrão é `FALSE`;
+*	**var.equal** $\to$ lógico: se `TRUE`, uma variância combinada é usada; caso contrário, a aproximação de Welch dos graus de liberdade é usada
+*	**alternative** → `two.sided` (padrão) ou `greater` ou `less`.
 
 
 ```{r}
@@ -248,11 +232,11 @@ O poder do teste estatístico é a probabilidade de que um teste de hipótese re
 $$
 Poder \quad do \quad teste = P(rejeitar \quad H_{0}|H_{0} \quad falsa)
 $$   
-Na Figura \@ref(fig:power), visualiza-se o poder em verde mais escuro. Em um teste de hipótese, o valor  sempre é estabelecido com antecedência, que geralmente é definido como 0,05, de modo que a taxa de erro do Tipo I é definida antes mesmo de se iniciar o teste. Em seguida, pode-se calcular o valor crítico mínimo necessário para rejeitar $H_0$. É possível traçar uma linha da distribuição da hipótese nula até a distribuição da hipótese alternativa e separar a área sob a curva em duas partes. Se o valor t calculado cair à esquerda da linha tracejada, não se consegue rejeitar $H_0$ quando $H_1$ for verdadeira e é cometido um erro do Tipo II. Se o valor calculado cair à direita, rejeita-se $H_0$ quando $H_1$ é verdadeira e a decisão é correta. Portanto, a área à direita da curva é o poder.
+Na Figura \@ref(fig:power), visualiza-se o poder em verde mais escuro. Em um teste de hipótese, o valor $\alpha$ sempre é estabelecido com antecedência, que geralmente é definido como 0,05, de modo que a taxa de erro do Tipo I é definida antes mesmo de se iniciar o teste. Em seguida, pode-se calcular o valor crítico mínimo necessário para rejeitar $H_0$. É possível traçar uma linha da distribuição da hipótese nula até a distribuição da hipótese alternativa e separar a área sob a curva em duas partes. Se o valor *t* calculado cair à esquerda da linha tracejada, não se consegue rejeitar $H_0$ quando $H_1$ for verdadeira e é cometido um erro do Tipo II. Se o valor calculado cair à direita, rejeita-se $H_0$ quando $H_1$ é verdadeira e a decisão é correta. Portanto, a área à direita da curva é o poder.
  
 
 ```{r power, echo = FALSE, out.width = '80%', fig.align = 'center', fig.cap="Nível de significância, probabilidade de erro tipo II, poder  e nível de confiança em um teste de hipótese e a região de rejeição da hipótese nula (à direita da linha vertical tracejada).", fig.pos="H"}
- knitr::include_graphics("https://i.imgur.com/g0Jm1Aq.png")
+ knitr::include_graphics("https://imgur.com/GsC4d6D.png")
 ```
 
 O poder do teste depende de vários fatores, como:  

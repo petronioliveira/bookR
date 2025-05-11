@@ -3,41 +3,31 @@
 ## Pacotes necessários para este capítulo
 
 ```{r}
-pacman::p_load(car,
-               dplyr,
-               ggplot2,
-               ggpubr,
-               ggsci,
+pacman::p_load(car, 
+               effectsize, 
+               ggpubr, 
+               ggsci, 
                kableExtra,
                knitr,
-               lsr,
-               readxl,
-               rstatix,
-               tidyr)
+               readxl, 
+               rstatix, 
+               tidyverse)
 ```
 
 ## Teste *t* para amostras independentes  
 
-O teste *t* de amostras independentes é usado para comparar duas médias de amostras de grupos não relacionados. Isso significa que há pessoas diferentes fornecendo pontuações para cada grupo. O objetivo desse teste é determinar se as amostras são diferentes uma da outra
+O teste *t* de amostras independentes é usado para comparar duas médias de amostras de grupos não relacionados. Isso significa que há pessoas diferentes fornecendo escores para cada grupo. O objetivo desse teste é determinar se as amostras são diferentes uma da outra
 
 ### Dados usados nesta seção
 
-Suponha-se que em uma determinada ilha hipotética existam duas populações etnicamente diferentes.  Foram coletadas aleatoriamente a altura de 30 mulheres de cada população.  
-
-Os dados, dadosPop.xlsx, contém três variáveis:  
-
-*	*id* $\to$ identificação dos participantes
-*	*altura* $\to$ medida da altura em metros;
-*	*pop* $\to$ variável categórica que identifica os grupos: população 1 e população 2.
-  
-Estes dados podem ser obtidos  [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosPop.xlsx). Faça o download e salve no seu diretório de trabalho.
+Suponha que. em uma determinada Universidade, tenha sido coletadas as notas de Bioestatística de uma turma de 40 alunos. Estes dados estão [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosNotas.xlsx). Salve o mesmo no seu diretório de trabalho para a leitura dos dados.
 
 #### Leitura dos dados
 
 Para a leitura dos dados, será usado a função `read_excel()` incluído no pacote `readxl` que deve ser instalado e carregado. Os dados serão recebidos por um objeto que será denominado de `dados`:
 
 ```{r}
-dados <- readxl::read_excel("Arquivos/dadosPop.xlsx")
+dados <- readxl::read_excel("Arquivos/dadosNotas.xlsx")
 ```
 
 Para visualizar os dados, pode-se usar a função  `glimpse()` do pacote `dplyr`:
@@ -46,54 +36,59 @@ Para visualizar os dados, pode-se usar a função  `glimpse()` do pacote `dplyr`
 dplyr::glimpse(dados)
 ```
 
-Observa-se que existem `r nrow(dados)` mulheres, sendo `r nrow(dados[which(dados$pop=="1"),])` moradoras na região 1 e  `r nrow(dados[which(dados$pop=="2"),])` na região 2. A variável `id` é a variável de identificação das mulheres (variável numérica), `altura` é uma variável numérica que corresponde a medida da altura em metros e `pop` é uma variável categórica, onde 1 são as mulheres da população 1 e 2 as da população 2. No conjunto de dados, esta variável encontra-se como uma variável numérica e deverá ser transformada em fator.
+Observa-se que existem `r nrow(dados)` alunos, sendo `r nrow(dados[which(dados$sexo=="F"),])` mulheres e  `r nrow(dados[which(dados$sexo=="M"),])` homens. A variável `altura` é uma variável numérica que corresponde a a nota centesimal e `sexo` é uma variável categórica, onde `F` são as mulheres e `M` os homens.
 
 #### Exploração e resumo dos dados
 
-Inicialmente, a variável `pop` será transformada em fator:
+Inicialmente, a variável `sexo` será transformada em fator:
 
 ```{r}
-dados$pop <- as.factor(dados$pop)
+dados$sexo <- as.factor(dados$sexo)
 ```
 
-A seguir, calcular a média e o desvio padrão da variável `altura` de acordo com `pop`, usando a função `group_by ()` e `summarise` do pacote `dplyr` 
+A seguir, calcular a média e o desvio padrão da variável `notas` de acordo com `sexo`, usando a função `group_by ()` e `summarise` do pacote `dplyr` 
 
 ```{r}
 resumo <- dados %>% 
-  dplyr::group_by(pop) %>% 
+  dplyr::group_by(sexo) %>% 
   dplyr:: summarise(n = n(),
-                    media = mean(altura, na.rm = TRUE),
-                    dp = sd(altura, na.rm = TRUE),
-                    mediana = median(altura, na.rm = TRUE),
-                    me = 1.96 * dp/sqrt(n))
+                    media = mean(notas, na.rm = TRUE),
+                    dp = sd(notas, na.rm = TRUE),
+                    mediana = median(notas, na.rm = TRUE),
+                    Q1 = quantile(notas,0.25, na.rm = TRUE),    
+                    Q3 = quantile(notas, 0.75, na.rm = TRUE),
+                    me = 1.96 * dp/sqrt(n)) 
 resumo
 ```
 
-Além do resumo numérico, é interessante construir um gráfico do tipo boxplot (Figura \@ref(fig:bxppop)), usando o pacote `ggplot2` (veja Seção \@ref(sec-ggplot2)):
+A saída liberada pela execução do comando informa que a média das notas das mulheres é 68,4, bem acima da notas dos homens, mostrando uma diferença de 8,5. Parece que o desempenho das mulheres em Bioestatística é melhor do que o dos homens!
 
-```{r bxppop, out.width="70%", fig.cap=" Boxplot dos dados", out.height="70%", fig.align='center'}
-ggplot2::ggplot(data = dados, aes(x = pop, 
-                                  y = altura, 
-                                  fill = pop)) + 
+Além do resumo numérico, é interessante construir um gráfico do tipo boxplot (Figura \@ref(fig:bxpnotas)), usando o pacote `ggplot2` (veja Seção \@ref(sec-ggplot2)) para observar a distribuição dos dados:
+
+```{r bxpnotas, out.width="70%", fig.cap=" Boxplot dos dados", out.height="70%", fig.align='center'}
+ggplot2::ggplot(data = dados, aes(x = sexo, 
+                                  y = notas, 
+                                  fill = sexo)) + 
   geom_errorbar(stat = "boxplot", width = 0.1) +
-  geom_boxplot() + 
-  labs (x = "Populações", 
-        y = "Altura (m)") + 
+  geom_boxplot() +
+  geom_jitter(width = 0.05) +
+  labs (x = "Sexo", 
+        y = "Notas") + 
   theme_bw() + 
   theme(legend.position="none")
 ```
 
-Os boxplot sugerem que a altura das mulheres nessas populações são diferentes.
+Os boxplot sugerem que as notas dos alunos diferem, de acordo o sexo.
 
 ### Definição das hipóteses estatísticas
 
-As hipóteses comparam as médias dos dois grupos. Para um teste bicaudal, considerando `pop1` a população  1 e `pop2` a população 2, as hipóteses são escritas como:
+As hipóteses comparam as médias dos dois grupos. Para um teste bicaudal, as hipóteses são escritas como:
 
 $$
-H_{0}: \mu_{pop1} = \mu_{pop2}
+H_{0}: \mu_{F} = \mu_{M}
 $$
 $$
-H_{1}: \mu_{pop1} \neq \mu_{pop2}
+H_{1}: \mu_{F} \neq \mu_{M}
 $$
 
 ### Definição da regra de decisão  
@@ -126,10 +121,10 @@ $$
 
 ### Teste estatístico 
 
-Para determinar se existe uma diferença estatisticamente significativa entre as médias das alturas das duas populações não relacionadas, será usado o teste t duas amostras independentes, também conhecido como teste *t* de Student, baseado na distribuição de mesmo nome.
+Para determinar se existe uma diferença estatisticamente significativa entre as médias das notas de dois grupos independentes, será usado o teste *t* para duas amostras independentes, também conhecido como teste *t* de Student, baseado na distribuição de mesmo nome.
 
 #### Lógica do teste *t*
-O teste *t* compara as médias de duas amostras independentes, usando  o erro padrão como métrica da diferença entre essas médias. Quanto maior o valor de *t* , maior a probabilidade de que as amostras pertençam a populações diferentes, ocorrendo nessas circunstâncias a rejeição da hipótese nula [@pagano2000t_test].  
+O teste *t* compara as médias de duas amostras independentes, usando  o erro padrão como métrica da diferença entre essas médias. Quanto maior o valor de *t* , maior a probabilidade de que as amostras pertençam a grupos diferentes, ocorrendo nessas circunstâncias a rejeição da hipótese nula [@pagano2000t_test].  
 
 Calcula-se o teste *t* com a seguinte equação:  
 
@@ -172,7 +167,7 @@ $$
 EP_d = \sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}
 $$
 
-Esta explicação da lógica e dedução da estatística de teste serve para uma melhor compreensão de como o teste funciona, mas para executar um teste *t* não há necessidade disso, basta saber como encaminhar ao R e como interpretar o resultado fornecido por ele. 
+Esta explicação da lógica e dedução da estatística de teste serve para uma melhor compreensão de como o teste funciona, mas para executar um teste *t* não há necessidade disso, basta saber como encaminhar ao *R* e como interpretar o resultado fornecido por ele. 
 
 #### Pressupostos do teste *t*   {#sec-homovar}
 
@@ -182,46 +177,46 @@ O teste *t* assume que:
 2. Deve haver distribuição normal. Entretanto, quando as amostras são grandes (teorema do limite central), isso não é muito importante;
 3. Exista homocedasticidade, ou seja, as variâncias dos grupos devem ser iguais.
 
-Violar o pressuposto de número 3 tem importância se os tamanhos dos grupos forem diferentes. Se os grupos tiverem o mesmo tamanho e a amostra for grande, este pressuposto torna-se menos importante, não importando muito se esta hipótese foi violada [@zimmerman2004note]. O pressuposto tem mais importância em grupos pequenos e desiguais. Existe um teste, denominado *teste t de Welch* que corrige essa violação. É possível portanto, esquecer esse pressuposto e fazer o teste de Welch sempre.  
+Violar o pressuposto de número 3 tem importância se os tamanhos dos grupos forem diferentes. Se os grupos tiverem o mesmo tamanho e a amostra for grande, este pressuposto torna-se menos importante, não preocupando muito se essa hipótese foi violada [@zimmerman2004note]. O pressuposto tem mais importância em grupos pequenos e desiguais. Existe um teste, denominado *teste t de Welch* que corrige essa violação. É possível portanto, esquecer esse pressuposto e fazer o teste de Welch sempre.  
 
 **Avaliação da normalidade**  
 
 Uma boa parte dos procedimentos estatísticos são testes paramétricos ^[Teste paramétricos são testes estatísticos que se baseiam nos padrões da distribuição populacional da variável em estudo, por exemplo, a distribuição normal é descrita por dois parâmetros – média e desvio padrão – que são suficientes para se conhecer as probabilidades. Os testes que não requerem a especificação da forma de distribuição da população, ou seja, têm distribuição livre, são denominados de não paramétricos.]  com base na distribuição normal. Ou seja, se assume que a distribuição dos dados segue o modelo da distribuição normal. Se essa suposição não for atendida, a lógica por trás do teste de hipóteses pode ser violada.  
 
-Pode-se verificar a normalidade de maneira visual, observando o comportamento dos dados através de gráficos como o *histograma* (Figura \@ref(fig:histpop)) e o *gráfico Q-Q* (Figura \@ref(fig:qqpop)). É útil também sobrepor uma distribuição normal no histograma, para fins de comparação com a distribuição normal. Além disso, nos histogramas, pode-se observar como as duas populações se sobrepõem.
+Pode-se verificar a normalidade de maneira visual, observando o comportamento dos dados através de gráficos como o *histograma* (Figura \@ref(fig:histnotas)) e o *gráfico Q-Q* (Figura \@ref(fig:qqnotas)). É útil também sobrepor uma distribuição normal no histograma, para fins de comparação com a distribuição normal. Além disso, nos histogramas, pode-se observar como as duas populações se sobrepõem.
 
-```{r histpop, echo=TRUE, fig.cap="Histogramas da altura das mulheres", out.width="80%", out.height="80%", fig.align='center'}
+```{r histnotas, echo=TRUE, fig.cap="Histogramas das notas dos alunos de acordo com o sexo", out.width="80%", out.height="80%", fig.align='center'}
 mu1 <- resumo$media[1]
 dp1 <- resumo$dp[1]
 mu2 <- resumo$media[2]
 dp2 <- resumo$dp[2]
 
-pop1 <- dados %>% filter (pop == 1)
+masc <- dados %>% filter (sexo == "M")
 
-pop2 <- dados %>% filter (pop == 2)
+fem <- dados %>% filter (sexo == "F")
 
 ggplot(dados) +                       
-  geom_histogram(aes(x = altura, fill = pop,
+  geom_histogram(aes(x = notas, fill = sexo,
                      y = after_stat(density)), 
                  col= "white", 
                  alpha = 0.5, 
                  bins = 15) +
-  stat_function(data = pop1,
+  stat_function(data = masc,
                 fun = dnorm,
                 color = "red",
                 lty = "dashed",
                 lwd = 1,
                 args = list(mean = mu1,
                             sd = dp1)) +
-  stat_function(data = pop2,
+  stat_function(data = fem,
                 fun = dnorm,
                 color = "darkred",
                 lty = "dashed",
                 lwd = 1,
                 args = list(mean = mu2,
                             sd = dp2)) +
-  labs(x="Altura (m)", y="Densidade") +
-  scale_fill_manual(values = c("pink2", "pink3")) +
+  labs(x="Notas", y="Densidade") +
+  scale_fill_manual(values = c("pink3", "lightblue")) +
   theme_bw()
 ```
 
@@ -229,13 +224,13 @@ O *gráfico QQ* (ou gráfico quantil-quantil) desenha a correlação entre uma d
 
 Se os valores caírem na diagonal do gráfico, a variável é normalmente distribuída. Os desvios da diagonal mostram desvios da normalidade. Para desenhar um gráfico Q-Q pode ser usado a função `ggqqplot ()`^[Veja também a Seção \@ref(sec-qqplot).] do pacote `ggpubr` que produz um gráfico QQ normal com uma linha de referência, acompanhada de area sombreada, correspondente ao IC95%.
  
-```{r qqpop, echo=TRUE, warning=FALSE, fig.align='center', fig.cap="Gráficos Q-Q", out.height="70%", out.width="70%"}
-ggqqplot(dados, x = "altura", color = "pop") +
-  labs(y = "Altura (m)",
+```{r qqnotas, echo=TRUE, warning=FALSE, fig.align='center', fig.cap="Gráficos Q-Q", out.height="70%", out.width="70%"}
+ggqqplot(dados, x = "notas", color = "sexo") +
+  labs(y = "Notas",
        x = "Quantis teóricos")
 ```
 
-Observando os gráficos, verifica-se que a variável `altura` tem uma distribuição visualmente normal aceitável, pois o histograma se ajusta à curva normal e os gráficos Q-Q mostram que os dados seguem aproximadamente a linha  diagonal.  
+Observando os gráficos, verifica-se que a variável `notas` tem uma distribuição visualmente normal aceitável em ambas populações, pois o histograma se ajusta à curva normal e os gráficos Q-Q mostram que os dados seguem aproximadamente a linha  diagonal.  
 
 Outra maneira de analisar a normalidade é verificar se a distribuição como um todo se desvia de uma distribuição normal comparável. Para isso, usam-se *testes estatísticos de normalidade*. Os dois principais são o *teste de Shapiro-Wilk* e o *teste de Kolmogorov-Smirnov (K-S)*.   
 
@@ -245,8 +240,8 @@ O método de Shapiro-Wilk é amplamente recomendado para teste de normalidade [@
 
 ```{r}
 sw <- dados %>% 
-  dplyr::group_by(pop) %>%
-  rstatix::shapiro_test(altura)
+  dplyr::group_by(sexo) %>%
+  rstatix::shapiro_test(notas)
 sw
 ```
 
@@ -254,34 +249,19 @@ A saída mostra que ambos valores *P* do teste, `r round(sw[1,4], 3)` e `r round
 
 **Homogeneidade da Variância**
 
-Na visualização da Figura \@ref(fig:homo) nos dois grupos de mulheres, observa-se que há, entre os limites inferior e superior, uma dispersão das medidas em torno da região central que vai progressivamente diminuindo. Esta dispersão parece ser semelhante nos grupos. Isto sugere que haja *homogeneidade das variâncias*.
+Na visualização da Figura \@ref(fig:bxpnotas) nos dois grupos de alunos, observa-se que há, entre os limites inferior e superior, uma dispersão das notas em torno da região central. Esta dispersão parece ser semelhante nos grupos. Isto sugere que haja *homogeneidade das variâncias*.
 
 Portanto, homogeneidade da variância é o pressuposto de que a dispersão das medidas é aproximadamente igual em diferentes grupos de casos, ou que a dispersão dos valores são aproximadamente iguais em pontos diferentes da variável preditora. 
 
-```{r homo, echo=TRUE, fig.align='center',warning=FALSE,fig.cap="Gráfico mostrando a dispersão dos dados",out.height="70%",out.width="70%"}
-ggplot2::ggplot(dados, aes(x = pop, y = altura)) +
-  geom_errorbar(stat = "boxplot", width = 0.1) +
-  geom_boxplot(outlier.shape = NA) +
-  geom_jitter(aes(color = pop), 
-              position = position_jitter(0.08),
-              size = 2,
-              shape = 20) +
-  labs(x = "População", 
-       y = 'Altura (m)') +
-  theme_bw() +
-  scale_fill_nejm() +
-  theme(legend.position="none") 
-```
+Além do aspecto visual, a homogeneidade da variância  pode ser testada com o *teste de Levene*. Neste teste, a $H_{0}$ é todas as variâncias são iguais. No *R*, a função que calcula o teste é `leveneTest()` do pacote `car` [@fox2018car]. Os argumentos são:
 
-Além do aspecto visual, a homogeneidade da variância  pode ser testada com o *teste de Levene*. Neste teste, a $H_{0}$ é todas as variâncias são iguais. No R, a função que calcula o teste é `leveneTest()` do pacote `car` [@fox2018car]. Os argumentos são:
-
-* *y* $\to$ variável de resposta para o método padrão ou um objeto `lm` ou `fórmula`. Se `y` for um objeto de modelo linear ou uma fórmula, as variáveis do lado direito do modelo devem ser todas fatores e devem ser completamente cruzadas;
-* *group* $\to$ fator que define os grupos;
-* *center* $\to$ O nome de uma função para calcular o centro de cada grupo; `mean` fornece o teste de Levene original; o padrão, `median`, fornece um teste mais robusto;
-* *data* $\to$ conjunto de dados para avaliar a `formula`.
+* **y** $\to$ variável de resposta para o método padrão ou um objeto `lm` ou `fórmula`. Se `y` for um objeto de modelo linear ou uma fórmula, as variáveis do lado direito do modelo devem ser todas fatores e devem ser completamente cruzadas;
+* **group** $\to$ fator que define os grupos;
+* **center** $\to$ O nome de uma função para calcular o centro de cada grupo; `mean` fornece o teste de Levene original; o padrão, `median`, fornece um teste mais robusto;
+* **data** $\to$ conjunto de dados para avaliar a `formula`.
 
 ```{r message=FALSE}
-levene <- car::leveneTest(altura~pop, 
+levene <- car::leveneTest(notas~sexo, 
                           center = mean, 
                           data = dados)
 levene
@@ -289,26 +269,27 @@ levene
 
 A saída do teste de Levene retorna um valor *P* > 0,05, confirma a impressão visual dos boxplots de que os grupos têm homogeneidade das variâncias, portanto a hipótese nula de igualdade das variâncias não pode ser rejeitada.
 
-Um outro teste que compara duas variância poderia ser usado. É o teste F que pode ser calculado com a função `var.test()` do pacote `stats`, incluído no R base. Seus argumentos pode ser consultados na ajuda do R. 
+Um outro teste que compara duas variância poderia ser usado. É o teste F que pode ser calculado com a função `var.test()` do pacote `stats`, incluído no *R* base. Seus argumentos pode ser consultados na ajuda do R. 
 
 ```{r}
-var.test(altura~pop, alternative = "two.sided", data = dados)
+teste.Var <- var.test(notas~sexo, alternative = "two.sided" , data = dados)
+teste.Var
 ```
 
-A saída do teste permite uma conclusão igual ao teste de Levene, pois o valor *P*  = 0,3667 > 0,05.  
+A saída do teste permite uma conclusão igual ao teste de Levene, pois o valor *P*  = `r round(teste.Var$p.value, 4)` > 0,05.  
 
 #### Execução do teste *t* de Student  
 
-Os pressupostos do teste não foram violados, portanto ele pode ser realizado com confiança. Será utilizado a função `t_test()` do pacote `rstatix` [@kassambara2022rstatix] para calcular o teste t para amostras independentes. Ele fornece uma estrutura compatível com operador pipe %>% (pipe-friendly) para executar testes t de uma e duas amostras. Para consultar os argumentos, consulte a Seção \@ref(sec-exeth1) ou a ajuda do *RStudio*.
+Os pressupostos do teste não foram violados, portanto ele pode ser realizado com confiança. Será utilizado a função `t_test()` do pacote `rstatix` [@kassambara2022rstatix] para calcular o teste *t* para amostras independentes. Ele fornece uma estrutura compatível com operador pipe %>% (*pipe-friendly*) para executar testes *t* de uma e duas amostras. Para consultar os argumentos, consulte a Seção \@ref(sec-exeth1) ou a ajuda do *RStudio*.
 
 ```{r}
- teste <- dados %>% rstatix::t_test(formula = altura ~ pop,
+ teste <- dados %>% rstatix::t_test(formula = notas ~ sexo,
                                     detailed = TRUE,
                                     var.equal = TRUE)
  teste
 ```
 
-A saída, retorna a estimativa da diferença média (`r teste$estimate`), as estimativas das médias dos grupos (arredondadas), a estatística do teste (`r teste$statistic`) o valor P (`r teste$p`), graus de liberdade (`r teste$df`)^[Se as variâncias forem diferentes (`var.equal = FALSE`), o teste calcula os graus de liberdade pela fórmula de Welch, bem mais complicada.]  e outras métricas. 
+A saída retorna a estimativa da diferença média (`r teste$estimate`), as estimativas das médias dos grupos (arredondadas), a estatística do teste (`r teste$statistic`) o valor P (`r teste$p`), graus de liberdade (`r teste$df`)^[Se as variâncias forem diferentes (`var.equal = FALSE`), o teste calcula os graus de liberdade pela fórmula de Welch, bem mais complicada.]  e outras métricas. 
 
 Também é possível ver os resultados do teste *t* , usando o objeto `teste` que os recebeu. Por exemplo, os limites inferior (`conf.low`) e superior (`conf.high`) do intervalo de confiança de 95% da estimativa da diferença entre as médias.
 
@@ -320,19 +301,19 @@ IC95
 ### Conclusão
 
 Como $|t_{calculado}|$ = `r round(teste$statistic, 3)` > $|t_{0,05;58}|$ = `r tc`, rejeita-se $H_{0}$. Observa-se que o valor *P* é muito pequeno (`r teste$p`) e, portanto, a diferença observada nas médias dos dois grupos deve ser assumida como significativa.    
-Assim, as duas populações são diferentes e deve-se admitir que as amostras são procedentes de populações com médias de altura diferentes, com probabilidade de erro extremamente pequena. A estimativa da diferença média ($\mu_1 - \mu_2$) é fornecida pelo intervalo de confiança de 95% (`r IC95`). Observe que o valor zero não está contido no intervalo e isto confirma a não significância estatística da diferença.  
+Assim, pode-se admitir as médias das notas são diferentes, com probabilidade de erro extremamente pequena. A estimativa da diferença média ($\mu_1 - \mu_2$) é fornecida pelo intervalo de confiança de 95% (`r IC95`). Observe que o valor zero não está contido no intervalo e isto confirma a não significância estatística da diferença.  
 
-Concluindo, a altura das mulheres da população 1 e a altura das mulheres da população 2 são diferentes, a diferença ($\mu_1 - \mu_2$) encontrada é estatisticamente significativa (*t* = `r round(teste$statistic,3)`, gl = `r teste$df`, *P* = `r teste$p`), com uma confiança de 95%. 
+Concluindo, as notas de Bioestatística das mulheres e as notas dos homens são diferentes, a diferença ($\mu_1 - \mu_2$) encontrada é estatisticamente significativa (*t* = `r round(teste$statistic,3)`, gl = `r teste$df`, *P* = `r teste$p`), com uma confiança de 95%. 
 
 Esta conclusão pode ser visualizada em um gráfico (Figura \@ref(fig:bxpt)) que exibirá a saída do teste *t*:
 
 1) 1.	Construir dois boxplots, usando o `ggplot2` com cores do  New England Journal of Medicine (NEJM), do pacote `ggsci` . Atribuir a um objeto `bp`:
 
 ```{r message=FALSE, warning=FALSE}
-bp <- ggplot(dados, aes(x=pop, y=altura)) +
-    geom_errorbar(stat = "boxplot", width = 0.1) +
-    geom_boxplot(aes(fill = pop),
-                 color = "black") +
+bp <- ggplot(dados, aes(x=sexo, y=notas)) +
+    geom_errorbar(stat = "boxplot", width = 0.1)+
+    geom_boxplot(aes(fill = sexo),
+                 color = "black")+
     scale_color_nejm() +
     theme_bw() +
     theme(legend.position="none")
@@ -342,9 +323,9 @@ bp <- ggplot(dados, aes(x=pop, y=altura)) +
 
 ```{r bxpt, fig.align='center',warning=FALSE, fig.cap="Boxplots comparando os dois grupos", out.height="70%",out.width="70%"}
  bp +
-   labs(x = "População", 
-        y = 'Altura (m)', 
-        title = 'Altura de Mulheres',
+   labs(x = "Sexo", 
+        y = "Notas", 
+        title = "Notas de Bioestatística",
         subtitle = rstatix::get_test_label(stat.test = teste,
                                            correction = "none",
                                            detailed = TRUE,
@@ -376,28 +357,28 @@ $$
 s_o =\sqrt \frac{(n_1 - 1)s_1^2 + (n_2 -1)s_2^2}{n_1 + n_2 - 2}
 $$
 
-Voltando ao exemplo da altura das mulheres em duas populações, o *d* de Cohen é calculado, usando a função `cohensD()` do pacote `lsr` que usa os seguintes argumentos:
+Voltando ao exemplo das notas dos alunos de Bioestatística, o *d* de Cohen é calculado, usando a função `cohensD()` do pacote `lsr` que usa os seguintes argumentos:
 
-* *x* $\to$	um vetor numérico de valores de dados, variável preditora;
-* *y* $\to$	um vetor numérico de valores de dados, variável resposta;
-* *formula* $\to$	Fórmula na forma variável *resposta ~ grupo*;
-* *data* $\to$	dataframe ou matriz;
-* *method* $\to$	Qual versão da estatística d devemos calcular? Os valores possíveis são *pooled*(padrão), *x.sd*, *y.sd*, *corrected*, *raw*, *paired* e *unequal.*;
-* *mu* $\to$  O valor "nulo" contra o qual o tamanho do efeito deve ser medido. Quase sempre é 0 (padrão); raramente especificado.  
+* **x** $\to$	um vetor numérico de valores de dados, variável preditora;
+* **y** $\to$	um vetor numérico de valores de dados, variável resposta;
+* **formula** $\to$	Fórmula na forma variável *resposta ~ grupo*;
+* **data** $\to$	dataframe ou matriz;
+* **method** $\to$	Qual versão da estatística d devemos calcular? Os valores possíveis são *pooled*(padrão), *x.sd*, *y.sd*, *corrected*, *raw*, *paired* e *unequal*.;
+* **mu** $\to$  O valor "nulo" contra o qual o tamanho do efeito deve ser medido. Quase sempre é 0 (padrão); raramente especificado.  
 
 Assim, o *d* de Cohen pode ser obtido da seguinte forma:
 
 ```{r}
-d <- lsr::cohensD (altura ~ pop, data = dados)
+d <- lsr::cohensD (notas ~ sexo, data = dados)
 d
 ```
 
-Bastante simples! Agora, como interpretar este resultado de d = 1,1 (arredondado)? Sua interpretação não é intuitiva, recomenda-se usar a Tabela \@ref(tab:effect)  para interpretar [@cohen1988power].
+Bastante simples! Agora, como interpretar este resultado de d = 1,3 (arredondado)? Sua interpretação não é intuitiva, recomenda-se usar a Tabela \@ref(tab:effect)  para interpretar [@cohen1988power].
 
 ```{r effect, echo=FALSE, warning=FALSE, message=FALSE}
 knitr::kable(data.frame(d = c("< 0,2", "0,2 < 0.5", "0.5 < 0.8", ">= 0,8 "),
                         Interpretação = c("insignificante", "pequeno", "médio", "grande")),
-             booktabs = TRUE,
+             "html",
              caption = "Tamanho do Efeito") %>% 
   kable_styling(full_width = FALSE,
                 latex_options = "hold_position") %>% 
@@ -407,7 +388,7 @@ knitr::kable(data.frame(d = c("< 0,2", "0,2 < 0.5", "0.5 < 0.8", ">= 0,8 "),
   kableExtra::row_spec(0, bold = TRUE)
 ```
 
-Assim, as alturas das mulheres diferem significativamente (*P* < 0,0001) de acordo com a população, sendo que as mulheres da população 1 são bem mais altas do que as da população 2 e a magnitude dessa diferença é grande (d = `r round(d,1)`). 
+Assim, as notas dos alunos diferem significativamente (*P* < 0,0001) de acordo com a sexo, sendo que as mulheres têm notas mais altas do que os homens e a magnitude dessa diferença é grande (d = `r round(d,2)`). 
 
 ## Teste *t* para grupos pareados
 
@@ -435,21 +416,22 @@ O dataframe `dados` encontra-se no formato amplo (*wide*), ou seja, com as colun
 
 A função `pivot_longer()` do pacote `tidyr` fará a transformação do formato amplo para o longo (*long*). Este processo não é obrigatório, mas será realizado para fins de treinamento. O novo banco de dados será atribuído ao objeto dadosL. A função `pivot_longer()` necessita dos seguintes argumentos:
 
-* *dados* $\to$ dataframe a ser pivotado, tranformado;
-* *cols* $\to$ colunas a serem transformadas no formato longo;
-* *names_to* $\to$ Especifica o nome da coluna a ser criada a partir dos dados armazenados nos nomes das colunas de dados;
-* *values_to* $\to$ Especifica o nome da coluna a ser criada a partir dos dados armazenados nos valores das células;
-* *...* $\to$ possui outros argumento. Ver ajuda.
+* **dados** $\to$ dataframe a ser pivotado, tranformado;
+* **cols** $\to$ colunas a serem transformadas no formato longo;
+* **names_to** $\to$ Especifica o nome da coluna a ser criada a partir dos dados armazenados nos nomes das colunas de dados;
+* **values_to** $\to$ Especifica o nome da coluna a ser criada a partir dos dados armazenados nos valores das células;
+* **...** $\to$ possui outros argumento. Ver ajuda.
 
 ```{r}
 dadosL <- dados %>% 
   tidyr::pivot_longer(c(basal, final), 
-                      names_to = "momento", 
+                      names_to = "momento",
                       values_to = "medidas")
 str(dadosL)
 ```
 
 #### Medidas Resumidoras
+
 Para resumir as variáveis, serão usadas as funções `group_by()` e `summarise()` do pacote `dplyr`, aplicadas ao formato longo `dadosL`: 
 
 ```{r}
@@ -473,7 +455,7 @@ resumo
 
 ```{r}
 knitr::kable(head(dados, 15), 
-             booktabs = TRUE,
+             "html",
              col.names = c("Id", "Basal", "Final"),
              caption = "Função pulmonar de 15 escolares asmáticos antes-e-depois \\ do uso de um corticoide inalatório") %>% 
   kableExtra::kable_styling(position = "center",
@@ -523,6 +505,7 @@ dadosL %>%
                shape = 19, size = 2,  color="red") +
   theme_bw() + 
   theme(text = element_text(size = 12)) +
+  scale_y_continuous (expand = expansion(add = c(0,0.05))) +
   theme(legend.position = "none")
 ```
 
@@ -687,6 +670,7 @@ teste_par <- dadosL %>%
 teste_par
 
 ```
+
 Observe que foi usado o conjunto de dados de formato longo (`dadosL`) para usar a fórmula (`x ~ grupo`).
 Da mesma maneira do que o teste *t* para amostras independentes, é possível ver os resultados do teste *t* , usando o objeto `teste_par` que os recebeu.  
 

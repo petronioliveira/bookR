@@ -15,7 +15,7 @@ pacman::p_load(DescTools,
 
 ## Dados  {#sec-dadoscap10}
 
-Os dados deste capítulo são os mesmo usados no Capítulo \@ref(sec-cap9), contidos no arquivo `dadosMater.xlsx`, considerando apenas os recém-nascidos a termo e a variável `altura`,  `pesoRN` e `fumo`:
+Os dados deste capítulo são os mesmo usados no Capítulo \@ref(sec-cap9), contidos no arquivo `dadosMater.xlsx`, considerando apenas os recém-nascidos a termo e a variável `altura` e `pesoRN`:
 
 ```{r}
 dados <- read_excel("Arquivos/dadosMater.xlsx") %>% 

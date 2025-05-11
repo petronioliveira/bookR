@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2025-05-10" />
+<meta name="date" content="2025-05-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -671,7 +671,7 @@ div.csl-indent {
 </div>
 <div id="sec-dadoscap10" class="section level2 hasAnchor" number="10.2">
 <h2><span class="header-section-number">10.2</span> Dados<a href="sec-estimacao.html#sec-dadoscap10" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Os dados deste capítulo são os mesmo usados no Capítulo <a href="sec-cap9.html#sec-cap9">9</a>, contidos no arquivo <code>dadosMater.xlsx</code>, considerando apenas os recém-nascidos a termo e a variável <code>altura</code>, <code>pesoRN</code> e <code>fumo</code>:</p>
+<p>Os dados deste capítulo são os mesmo usados no Capítulo <a href="sec-cap9.html#sec-cap9">9</a>, contidos no arquivo <code>dadosMater.xlsx</code>, considerando apenas os recém-nascidos a termo e a variável <code>altura</code> e <code>pesoRN</code>:</p>
 <div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="sec-estimacao.html#cb587-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb587-2"><a href="sec-estimacao.html#cb587-2" tabindex="-1"></a>  <span class="fu">filter</span>(ig<span class="sc">&gt;=</span><span class="dv">37</span> <span class="sc">&amp;</span> ig<span class="sc">&lt;</span><span class="dv">42</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb587-3"><a href="sec-estimacao.html#cb587-3" tabindex="-1"></a>  <span class="fu">select</span>(altura, pesoRN)</span>
