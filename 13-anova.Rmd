@@ -29,7 +29,7 @@ Logo, uma ANOVA de um fator é usada para verificar as diferenças entre vários
 
 O procedimento de ANOVA é utilizado para testar a hipótese nula de que as médias de três ^[Pode ser usada também para comparar a média de duas populações e o resultado será o mesmo de um teste *t* para amostras independentes.] ou mais populações são as mesmas contra hipótese alternativa de que nem todas as médias são iguais.  
 
-Na Seção \@ref(sec-homovar), foram comparadas duas variâncias, usando um teste, denominado de *teste F*. Este teste, é uma razão entre duas variâncias e recebeu este nome em homenagem a Sir Ronald Aylmer *Fisher*. A variância é uma medida de dispersão que mensura como os dados estão espalhados em torno da média. Quanto maior o seu valor, maior a dispersão. 
+Na Seção \@ref(sec-homovar), foram comparadas duas variâncias, usando um teste, denominado de *teste F*. Este teste, é uma razão entre duas variâncias e recebeu este nome em homenagem a Sir Ronald Aylmer *Fisher* (veja a Seção \@ref(sec-historia). A variância é uma medida de dispersão que mensura como os dados estão espalhados em torno da média (veja Seção \@ref(sec-variancia)). Quanto maior o seu valor, maior a dispersão. 
 
 Considere a Figura \@ref(fig:logica), onde está representada a distribuição de uma variável *X* em três grupos independentes. Pode-se, claramente, distinguir observações provenientes dessas distribuições, pois a sobreposição delas é pequena. Cada uma dela se dispersa pouco em torno da média.
 
@@ -128,7 +128,7 @@ Como saber se o valor de *F* é alto o suficiente? Um único valor *F* é difíc
 
 A razão entre a variabilidade entre os grupos e a variabilidade dentro do grupo segue uma distribuição *F* quando a hipótese nula é verdadeira. Quando se realiza uma ANOVA com um fator obtém-se um valor *F*. No entanto, se forem extraídas várias amostras aleatórias do mesmo tamanho da mesma população e fosse repetida a mesma análise, o resultado seriam muitos valores *F* diferentes, constituindo uma distribuição amostral, denominada de *distribuição F*.   
 
-Dessa forma, como a distribuição *F* assume que a hipótese nula é verdadeira, é possível colocar o resultado de qualquer valor *F*, resultante do teste de ANOVA, e determinar quão consistente ele é com a hipótese nula e calcular a probabilidade. A probabilidade que se quer calcular é a probabilidade de observar uma estatística *F* que é pelo menos tão alta quanto o valor que o estudo obteve. Essa probabilidade permite determinar quão comum ou raro é o valor *F*, sob a suposição de que a hipótese nula é verdadeira. Se a probabilidade for pequena o suficiente, pode-se concluir que dados são inconsistentes com a hipótese nula. Como já foi mostrado em outros momentos, essa probabilidade é o valor *P*.  
+Dessa forma, como a distribuição *F* assume que a hipótese nula é verdadeira, é possível colocar o resultado de qualquer valor *F*, resultante do teste de ANOVA, e determinar quão consistente ele é com a hipótese nula e calcular a probabilidade. A probabilidade que se quer calcular é a probabilidade de observar uma estatística *F* que é pelo menos tão alta quanto o valor que o estudo obteve. Essa probabilidade permite determinar quão comum ou raro é o valor *F*, sob a suposição de que a hipótese nula é verdadeira. Se a probabilidade for pequena o suficiente, pode-se concluir que dados são inconsistentes com a hipótese nula. Como já foi mostrado em outros momentos, essa probabilidade é o valor *P* (Seção \@ref(sec-valorp)).   
 
  O formato de uma curva de distribuição *F* depende do número de graus de liberdade. No entanto, a distribuição *F* tem dois números de graus de liberdade: *graus de liberdade para o numerador* (variância entre) e *graus de liberdade para o denominador* (variância dentro). Esses dois graus de liberdade são os parâmetros da distribuição *F*. Cada combinação de graus de liberdade fornece uma curva de distribuição *F* diferente. As unidades de uma distribuição *F* são denotadas por *F*, que assume apenas valores positivos. Como as distribuições normal, *t* e qui-quadrado (veja \@ref(sec-qui)), a distribuição *F* é uma distribuição contínua. A forma de uma curva de distribuição *F* é inclinada para à direita, mas a assimetria diminui à medida que o número de graus de liberdade aumenta, conforme observado na Figura \@ref(fig:distf). 
  
@@ -188,7 +188,7 @@ legend("topright", title = "Graus de liberdade",
 
 #### Funções do R para trabalhar com a distribuição *F*
 
-No R, existem quatro funções principais para trabalhar com a distribuição *F*:
+No *R*, existem quatro funções principais para trabalhar com a distribuição *F*:
 
 *	`df(x, gl1,gl2)` calcula a densidade de probabilidade da distribuição *F* no ponto *x*; *df1* e *df2* são os graus de liberdade do numerador e denominador, respectivamente ^[No texto, *df1* e *df2* (em inglês, *df* = *degree of freedom*) foram traduzidos para o português como *gl1* e *gl2* (*gl* = graus de liberdade).] ;
 *	`pf(x, gl1, gl2)` calcula a função de probabilidade acumulada da distribuição *F* no ponto *x*;
@@ -212,6 +212,7 @@ Para calcular a densidade de probabilidade quando *x* = 1, pode-se usar a funç�
  d <- df(x, 10, 20)
  round(d, 3)
 ```
+
 A saída da função `df()` corresponde à altura da curva da Figura \@ref(fig:distf) de cor verde (*gl1* = 10 e *gl2* = 20) quando *x* é igual a 1.
 
 Para encontrar o valor da distribuição *F*(10,20) que corresponde ao percentil 50%, ou seja, o valor que deixa 50% da área da curva à esquerda, usa-se a função `qf()` com `lower.tail=TRUE`. Assim:
@@ -221,7 +222,8 @@ Para encontrar o valor da distribuição *F*(10,20) que corresponde ao percentil
  x <- qf(p, 10, 20, lower.tail = TRUE)
  round(x,3) 
 ```
-Para representar, graficamente, esse resultado, foi construido o gráfico da Figura \@ref(fig:distf1020) com a `shadeDist()` do pacote `fastGraph` (@garren1919fastgraph) , verifica-se que a área sob a curva abaixo de 0,97 é igual a 50%. Consulte a ajuda do *RStudio* para maiores detalhes dos argumentos da função.
+
+Para representar, graficamente, esse resultado, foi construido o gráfico da Figura \@ref(fig:distf1020) com a função `shadeDist()` do pacote `fastGraph` (@garren1919fastgraph) , verifica-se que a área sob a curva abaixo de 0,97 é igual a 50%. Consulte a ajuda do *RStudio* para maiores detalhes dos argumentos da função.
 
 ```{r distf1020, echo=FALSE, fig.align='center', warning=FALSE, out.height="70%", out.width="70%", fig.cap="Área da curva da distribuição F (10,20) abaixo de x = 0,97 é igual a 50%"}
 fastGraph::shadeDist (xshade = x,
@@ -259,55 +261,26 @@ curve(df(x, df1 = 10, df2 = 20),
 
 ## ANOVA de um fator
 
-A *análise de variância (ANOVA) de um fator*, também conhecida como ANOVA de uma via, é uma extensão do teste *t* independente para comparar duas médias em uma situação em que há mais de dois grupos. Dito de outra forma, o teste *t* para uso com duas amostras independentes é um caso especial da análise de variância de uma via.  
-
-A ANOVA de um fator compara o efeito de uma variável preditora (variável independente, fator) sobre uma variável contínua (desfecho). Por exemplo, verificar se a intensidade do tabagismo na gestação (não fumantes, fumantes leves, moderados ou pesados) afetam o peso dos recém-nascidos.  
-
-Os boxplots da Figura \@ref(fig:bpanova)parece mostrar que sim.
-
-```{r echo=FALSE}
-dados <- readxl::read_excel("Arquivos/dadosFumo.xlsx")
-
-dados$fumo <- factor (dados$fumo, 
-                      ordered = TRUE,
-                      levels = c(1, 2, 3, 4),
-                      labels = c ("não", 
-                                  "leve", 
-                                  "moderado",
-                                  "pesado"))
-```
-
-
-```{r bpanova, echo=FALSE, fig.align='center', warning=FALSE, out.height="70%", out.width="70%",fig.cap="Impacto do tabagismo materno no peso ao nascer"}
-ggplot2::ggplot(dados, aes(x=fumo, y=pesoRN)) + 
-  stat_boxplot(geom = "errorbar", 
-               width = 0.1) + 
-  geom_boxplot(aes(color = fumo), size = 0.8) +
-  scale_color_nejm() +
-  theme_bw() +
-  labs(x = "Tabagismo", 
-       y = "Peso ao nascer (g)") +
-  theme(legend.position="none")
-```
+A **análise de variância (ANOVA) de um fator**, também conhecida como ANOVA de uma via, é uma extensão do teste *t* independente para comparar duas médias em uma situação em que há mais de dois grupos. Dito de outra forma, o teste *t* para uso com duas amostras independentes é um caso especial da análise de variância de uma via.  
+A ANOVA de um fator compara o efeito de uma variável preditora (variável independente, fator) sobre uma variável contínua (desfecho). Por exemplo, verificar se a intensidade do tabagismo na gestação (não fumantes, fumantes leves, moderados ou pesados) afetam o peso dos recém-nascidos Figura \@ref(fig:bxpfumo).  
 
 ### Dados do exemplo
 
-Para testar a hipótese de que a intensidade do tabagismo materno tem efeito sobre o peso do recém-nascido, foram selecionados aleatoriamente 200 recém-nascidos classificados em quatro grupos de n = 50 cada grupo, conforme a quantidade de cigarros fumados por dia por suas mães.  Estes dados estão no arquivo `dadosFumo.xlsx`.
+Para testar a hipótese de que a intensidade do tabagismo materno tem efeito sobre o peso do recém-nascido, foram selecionados aleatoriamente 200 recém-nascidos classificados em quatro grupos de n = 50 cada grupo, conforme a quantidade de cigarros fumados por dia por suas mães.  
 
 * **Grupo 1**: recém-nascidos de mães não fumantes;
 * **Grupo 2**: recém-nascidos de mães que fumavam até 10 cigarros/dia – categorizado como tabagismo leve; 
 * **Grupo 3**: recém-nascidos de mães que fumavam de 11 a 19 cigarros/dia – categorizado como tabagismo moderado;
-*	**Grupo 4**: recém-nascidos de mães que fumavam $\ge$ 20 cigarros por dia – categorizado como tabagismo pesado.
+*	**Grupo 4**: recém-nascidos de mães que fumavam $\ge$ 20 cigarros por dia – categorizado como tabagismo pesado.  
 
-Para baixar o banco de dados, clique [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosFumo.xlsx). Salve o mesmo no seu diretório de trabalho.
+Estes dados estão no arquivo `dadosFumo.xlsx`. Para baixar o banco de dados, clique [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosFumo.xlsx). Salve o mesmo no seu diretório de trabalho.  
 
 #### Leitura dos dados
 
-A leitura será feita com a função `read_excel()` do pacote `readxl` e serão atribuídos a um objeto de nome `dados` e verificada a sua estrutura com a função `head()`.
+A leitura será feita com a função `read_excel()` do pacote `readxl` e serão atribuídos a um objeto de nome `dados` e verificada a sua estrutura com a função `str()`.
 
 ```{r}
 dados <- readxl::read_excel("Arquivos/dadosFumo.xlsx")
-
 str (dados)
 ```
 
@@ -365,7 +338,7 @@ ggplot2::ggplot(dados, aes(x=fumo, y=pesoRN)) +
            arrow = arrow(length = unit(0.25, "cm"),type = "closed"))+
   labs(x = "Tabagismo", 
        y = "Peso ao nascer (g)",
-       caption = "Ponto vermelho no box = Média de cada grupo") +
+       caption = "Ponto vermelho na caixa = Média de cada grupo") +
   theme(legend.position="none")
 ```
 
@@ -417,13 +390,13 @@ fastGraph::shadeDist (xshade = Fc,
                       lower.tail = FALSE,
                       digits.prob = 3,
                       digits.xtic = 3,
-                      col=c("gray0","steelblue"))
- abline (h = 0, lwd =2, col = "gray0")
- abline (v = Fc, lwd =1, lty = 2, col = "steelblue3")
- text(3.2, 0.1, "5%", cex = 1.2, col = "steelblue3")
- text(3.2, 0.27, "Região de", cex = 1.0, col = "steelblue3")
- text(3.2, 0.2, "Rejeição", cex = 1.0, col = "steelblue3")
- text(0.8, 0.2, "95%", cex = 1.2, col = "steelblue3")
+                      col=c("gray0","red"))
+abline (h = 0, lwd =2, col = "black")
+abline (v = Fc, lwd = 1, lty = 2, col = "red")
+text(3.2, 0.1, "5%", cex = 2, col = "red")
+text(3.2, 0.27, "Região de", cex = 1.5, col = "red")
+text(3.2, 0.2, "Rejeição", cex = 1.5, col = "red")
+text(0.8, 0.2, "95%", cex = 2, col = "steelblue3")
 ```
 
 ### Teste Estatístico
@@ -431,11 +404,10 @@ fastGraph::shadeDist (xshade = Fc,
 A estatística de teste é obtida calculando duas estimativas da variância populacional, $\sigma^2$: a *variância entre os grupos* ($s_{E}^2$) e a *variância dentro dos grupos* ($s_{D}^2$).
 
 A variância entre os grupos também é chamada de *quadrado médio entre os grupos* ($QM_{E}$) e é igual a soma dos quadrados entre ($SQ_{E}$) ou do fator dividida pelos graus de liberdade entre:
+
 $$
 QM_{E} = \frac{SQ_{E}}{gl_{E}}
 $$
-
-
 A variância dentro dos grupos é também denominada de *quadrado médio dentro dos grupos* ou residual ($QM_{D}$) e é igual a soma dos quadrados dentro dividida pelos graus de liberdade dentro:
 
 $$
@@ -513,14 +485,14 @@ Da mesma maneira que no teste *t*, os pressupostos têm mais importância em gru
 
 **O que fazer se os pressupostos são violados?**  
 
-Se a homogeneidade da variância é o problema, um teste possível de ser implementado no R é o *F de Welch*, aplicando a função` welch.test()`, incluída no pacote `onewaytests` [@dag2018onewaytests]. Existem também testes não paramétricos, como o *Teste de Kruskal-Wallis*, que será visto mais adiante (Seção  \@ref(sec-kuskalwallis).  
+Se a homogeneidade da variância é o problema, um teste possível de ser implementado no *R* é o *F de Welch*, aplicando a função` welch.test()`, incluída no pacote `onewaytests` [@dag2018onewaytests]. Existem também testes não paramétricos, como o *Teste de Kruskal-Wallis*, que será visto mais adiante (Seção  \@ref(sec-kuskalwallis).  
 
 #### Execução do teste estatístico  
 
-Para realizar um teste de hipótese ANOVA unidirecional no R, aplica-se a função `aov()` do R base. Esta função espera a chamada notação de fórmula, portanto, os dados são incluídos separando as duas variáveis de interesse separadas por ~ (til) e os dados, no qual as variáveis especificadas na fórmula, são encontradas. Além da fórmula e dos dados, a função `aov()` pode necessitar outros argumentos:
+Para realizar um teste de hipótese ANOVA unidirecional, aplica-se a função `aov()` do *R* base. Esta função espera a chamada notação de fórmula, portanto, os dados são incluídos separando as duas variáveis de interesse separadas por ~ (til) e os dados, no qual as variáveis especificadas na fórmula, são encontradas. Além da fórmula e dos dados, a função `aov()` pode necessitar outros argumentos:
 
-* *effect.size* $\to$ tamanho do efeito a ser calculado e mostrado nos resultados da ANOVA. Os valores permitidos podem ser "ges" (eta ao quadrado) ou "pes" (eta parcial ao quadrado) ou ambos. O padrão é "ges"; 
-* *contrasts*  $\to$ uma lista de contrastes a ser usada para alguns dos fatores da fórmula  
+* **effect.size** $\to$ tamanho do efeito a ser calculado e mostrado nos resultados da ANOVA. Os valores permitidos podem ser "ges" (eta ao quadrado) ou "pes" (eta parcial ao quadrado) ou ambos. O padrão é "ges"; 
+* **contrasts**  $\to$ uma lista de contrastes a ser usada para alguns dos fatores da fórmula  
 
 ```{r}
 modelo.aov <- aov(pesoRN ~ fumo, dados)
@@ -579,7 +551,7 @@ Apesar de ser controverso, pode-se seguir a orientação da Tabela \@ref(tab:eff
 ```{r effectsize, echo=FALSE, warning=FALSE, message=FALSE}
 knitr::kable(data.frame(Resultado = c("0.01", "0,06", "0,14"),
                         Effectsize = c("pequeno","médio","grande")),
-             booktabs = TRUE,
+             "html",
              caption = "Interpretação do tamanho do efeito") %>% 
   kable_styling(full_width = F,
                 latex_options = "hold_position") %>% 
@@ -628,7 +600,7 @@ p +
 
 ## ANOVA de dois fatores  
 
-A *ANOVA de dois fatores* é uma extensão da ANOVA de um fator. Neste tipo de ANOVA, ao invés de observar o efeito de um fator sobre a variável desfecho contínua, é analisado simultaneamente o efeito de duas variáveis de agrupamento. Outros sinônimos para a ANOVA de dois fatores são: *ANOVA fatorial* ou *ANOVA de duas vias*.   
+A **ANOVA de dois fatores** é uma extensão da ANOVA de um fator. Neste tipo de ANOVA, ao invés de observar o efeito de um fator sobre a variável desfecho contínua, é analisado simultaneamente o efeito de duas variáveis de agrupamento. Outros sinônimos para a ANOVA de dois fatores são: *ANOVA fatorial* ou *ANOVA de duas vias*.   
 Quando se tem dois ou mais fatores, além de observar o efeito desses fatores sobre a variável desfecho, há necessidade de verificar se eles não interagem entre si. Portanto, é um objetivo importante da ANOVA fatorial avaliar se há um efeito de *interação* estatisticamente significativo entre os fatores.  
 
 ### Dados usados nesta seção 
@@ -641,7 +613,7 @@ Para baixar o banco de dados, clique [**aqui**](https://github.com/petroniolivei
 
 #### Leitura dos dados
 
-A leitura será feita com a função `read_excel()` do pacote `readxl` e serão atribuídos a um objeto de nome `dados` e verificada a sua estrutura com a função `head()`.  
+A leitura será feita com a função `read_excel()` do pacote `readxl` e serão atribuídos a um objeto de nome `dados` e verificada a sua estrutura com a função `str()`.  
 
 ```{r}
 dados <- readxl::read_excel("Arquivos/dadosMemoria.xlsx")
@@ -651,7 +623,7 @@ str(dados)
 
 #### Exploração e sumarização dos dados  
 
-Na saída da função `str()`, verifica-se que as variáveis `alcool` e `sexo` estão como `<chr>`e o ideal é que estejam como fatores. Portanto, vamos colocar as categorias do consumo de álcool como fator e em uma ordem lógica (nenhum consumo, três latas e 6 latas). A variável `sexo` será apenas colocada como fator porque não tem uma ordem lógica. As demais variáveis, `id` (identificação) e `escore`(escore de memória) podem permanecer com `dbl` (numérica).
+Na saída da função `str()`, verifica-se que as variáveis `alcool` e `sexo` estão como `<chr>`e o ideal é que estejam como fatores. Portanto, serão colocadas as categorias do consumo de álcool como fator e em uma ordem lógica (nenhum consumo, três latas e 6 latas). A variável `sexo` será apenas colocada como fator porque não tem uma ordem lógica. As demais variáveis, `id` (identificação) e `escore`(escore de memória) podem permanecer com `dbl` (numérica).
 
 ```{r }
 dados$alcool <- factor(dados$alcool,
@@ -677,7 +649,20 @@ resumo <- dados %>%
 resumo
 ```
 
-Os dados estão estruturados com um desenho onde as células tem um formato 2 x 3 com  os fatores `sexo` e `alcool` e 8 indivíduos em cada célula. O fator `sexo` tem dois níveis (feminino e masculino) e o fator `alcool` tem três níveis (nenhum, 3 latas e 6 latas). Observe que o desenho é *balanceado*, pois todas as células têm o mesmo número de indivíduos. Esta estrutura é o caso mais simples; desenhos não balanceados são mais complexos.
+Os dados estão estruturados com um desenho onde as células tem um formato 2 x 3 (Tabela \@ref(tab:tab2x3)) com  os fatores `sexo` e `alcool` e 8 indivíduos em cada célula. O fator `sexo` tem dois níveis (feminino e masculino) e o fator `alcool` tem três níveis (nenhum, 3 latas e 6 latas). Observe que o desenho é *balanceado*, pois todas as células têm o mesmo número de indivíduos. Esta estrutura é o caso mais simples; desenhos não balanceados são mais complexos.
+
+```{r tab2x3, echo=FALSE, warning=FALSE, message=FALSE}
+tab <- with(data = dados, table(sexo, alcool))
+kable(tab, 
+      "html",
+      caption = "Distribuição Balanceada do Sexo e Consumo de Álcool") %>%
+  kable_styling(full_width = F,
+                latex_options = "hold_position") %>%
+  kableExtra::kable_classic(html_font = "Cambria") %>% 
+  kableExtra::column_spec(2, width = "1.5in") %>% 
+  kableExtra::column_spec(3, width = "1.5in") %>% 
+  kableExtra::column_spec(4, width = "1.5in")
+```
 
 #### Visualização gráfica dos dados
 
@@ -944,23 +929,14 @@ Na Seção \@ref(sec-preresiduos), foi construído um modelo para analisar os re
  Anova(mod.int.lm)
 ```
 
-Observe que a função `aov()` pressupõe um projeto balanceado, o que significa tamanhos de amostra iguais dentro dos níveis das variáveis de agrupamento independentes. Para verificar se os dados estão balanceados, pode-se usar a seguinte função:
-
-```{r}
- with(dados,
-      table(sexo, alcool))
-```
-
-Os resultados mostram o mesmo número de indivíduos em todas as células, portanto, não importa qual o tipo de ANOVA a ser usado. Os resultados serão iguais.  
-
-Além disso, `aov()` usa as somas de quadrados do tipo I.  
+Observe que a função `aov()` pressupõe um projeto balanceado, o que significa tamanhos de amostra iguais dentro dos níveis das variáveis de agrupamento independentes. Para verificar se os dados estão balanceados, proceda como mostrado na Tabela \@ref(tab:tab2x3). Os resultados mostram o mesmo número de indivíduos em todas as células, portanto, não importa qual o tipo de ANOVA a ser usado. Os resultados serão iguais. Além disso, `aov()` usa as somas de quadrados do tipo I.  
 
 Para delineamentos não balanceados, ou seja, números desiguais de indivíduos em cada subgrupo, os métodos recomendados são:  
 
 *	a ANOVA do tipo II, quando não há interação significativa, que pode ser feita no R com `Anova(mod, type = “II”)` ou `Anova(mod, type = 2)`, em que `mod` é o nome do seu modelo salvo, e
 *	a ANOVA do tipo III, quando há uma interação significativa, que pode ser feita no R com `Anova(mod, type = “III”)` ou `Anova(mod, type = 3)`.
 
-Fundamentalmente, a diferença entre um método e outro é como o R calcula a soma dos quadrados ao calcular a ANOVA. Quando os dados são balanceados, os três tipos dão o mesmo resultado ^[Para os interessados, pode-se obter maiores informações sobre os diferentes tipos de ANOVA em https://www.r-bloggers.com/2011/03/anova-%E2%80%93-type-iiiiii-ss-explained/]. 
+Fundamentalmente, a diferença entre um método e outro é como o *R* calcula a soma dos quadrados ao calcular a ANOVA. Quando os dados são balanceados, os três tipos dão o mesmo resultado ^[Para os interessados, pode-se obter maiores informações sobre os diferentes tipos de ANOVA em https://www.r-bloggers.com/2011/03/anova-%E2%80%93-type-iiiiii-ss-explained/]. 
 
 ### Testes *post hoc*
 
@@ -977,7 +953,7 @@ Quando se tem muitos grupos para fazer a comparação, fica mais fácil interpre
 
 ```{r anova2tukey, fig.align='center', out.height="70%", out.width="70%", fig.cap="Resíduos versus ajuste"}
 # Definir as margens do eixo para que os rótulos não sejam cortados
-par(mar = c(4.1, 13.5, 4.1, 2.1))
+par(mar = c(4.1, 15, 4.1, 2.1))
 # Criar intervalo de confiança para cada comparação
 plot(TukeyHSD(mod.aov, which = "alcool:sexo"), las = 1)
 # Retorna as margens ao padrão
@@ -1004,7 +980,7 @@ knitr::kable(data.frame("Sexo" = c("Feminino", "Masculino", "Valor P"),
                         "Sem_alcool" = c("60,6 (5,0)", "66,9 (10,3)", "0,145"),
                         "Um_litro" = c("62,5 (6,6)", "66,9 (12,5)", "0,396"),
                         "Dois_litros" = c("57,5 (7,1)", "35,6 (10,8)", "0,0003")),
-             booktabs = TRUE,
+             "html",
              caption = "Efeito do Álcool sobre a Memória - Escore médio (desvio padrão)") %>% 
   kableExtra::kable_styling(full_width = FALSE,
                             latex_options = "hold_position") %>% 
@@ -1063,7 +1039,7 @@ be + stat_pvalue_manual(pwc,
         caption = rstatix::get_pwc_label(pwc))
 ```
 
-Uma opção, é apresentar os resultados como um gráfico de linhas (Figura \@ref(fig:result2)), já  mostrado anteriormente , usando a função `ggline()` do pacote `ggpubr`:  
+Uma opção, é apresentar os resultados como um gráfico de linhas (Figura \@ref(fig:result2)), já  mostrado anteriormente , usando a função `ggline()` do pacote `ggpubr`, com as cores do periódico *Lancet*:  
 
 ```{r result2, message = FALSE, warning=FALSE, fig.align='center', out.height="80%", out.width="80%", fig.cap="Efeito do álcool na memória de acordo com o sexo."}
 # Construção de um gráfico linha

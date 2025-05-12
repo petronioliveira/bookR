@@ -211,7 +211,7 @@ teste
 
 A saída do teste mostra uma estatística de teste ^[Para ver todas as estatísticas do teste, basta escrever teste$ e apertar a tecla TAB do teclado e surgirá um menu para escolha.] igual a `r round(teste$statistic,3)`. Esta  é maior do que o *t_crítico* = `r tc`, consequentemente, rejeita-se a hipótese nula e conclui-se, com uma confiança de 95%, que existe uma diferença estatisticamente significativa no peso dos recém-nascidos entre os sexos. Esta diferença é em média igual a `r round(teste$estimate)` g (IC95%: `r c(round(teste$conf.low), round(teste$conf.high))`), $peso_{meninos} > peso_{meninas}$.
 
-## Valor *P* do teste
+## Valor *P* do teste   {#sec-valorp}
 
 Nas seções anteriores, foi discutido um procedimento onde se encontrou o valor de probabilidade tal que uma dada hipótese nula é rejeitada ou não é rejeitada, de acordo com o nível de significância, $\alpha$, fixado, pelo pesquisador, no início da pesquisa.   
 
