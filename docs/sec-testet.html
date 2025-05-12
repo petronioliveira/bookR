@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2025-05-11" />
+<meta name="date" content="2025-05-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1318,15 +1318,16 @@ Final
 <span id="cb691-7"><a href="sec-testet.html#cb691-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Avaliação de um corticoide inalatório&quot;</span>, </span>
 <span id="cb691-8"><a href="sec-testet.html#cb691-8" tabindex="-1"></a>       <span class="at">x=</span><span class="st">&quot;Momento&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Volume Forçado em 1 seg (L)&quot;</span>)<span class="sc">+</span></span>
 <span id="cb691-9"><a href="sec-testet.html#cb691-9" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb691-10"><a href="sec-testet.html#cb691-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
-<span id="cb691-11"><a href="sec-testet.html#cb691-11" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;cyan4&quot;</span>,<span class="st">&quot;cyan3&quot;</span>))</span></code></pre></div>
+<span id="cb691-10"><a href="sec-testet.html#cb691-10" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;cyan4&quot;</span>,<span class="st">&quot;cyan3&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb691-11"><a href="sec-testet.html#cb691-11" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span> (<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">add =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.05</span>))) <span class="sc">+</span>                    </span>
+<span id="cb691-12"><a href="sec-testet.html#cb691-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>) </span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:be"></span>
 <img src="bookdownproj_files/figure-html/be-1.png" alt="Gráfico de barra de erro comparando o grupo antes-e-depois" width="70%" height="70%" />
 <p class="caption">
 Figura 12.5: Gráfico de barra de erro comparando o grupo antes-e-depois
 </p>
 </div>
-<p>Nesse gráfico (Figura <a href="sec-testet.html#fig:be">12.5</a>), a altura da barra representa a média do <em>Volume Forçado em 1 seg</em> (VEF1) nos diferentes momentos (basal e final).O erro corresponde a margem de erro (me) a partir do ponto (média), ou seja, é o intervalo de confiança de 95%. O limite inferior do IC95% foi suprimido.</p>
+<p>Nesse gráfico (Figura <a href="sec-testet.html#fig:be">12.5</a>), a altura da barra representa a média do <em>Volume Forçado em 1 seg</em> (VEF1) nos diferentes momentos (basal e final). O erro corresponde a margem de erro (me) a partir do ponto (média), ou seja, é o intervalo de confiança de 95%. O limite inferior do IC95% foi suprimido.</p>
 <p><strong>Boxplot</strong></p>
 <div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb692-1"><a href="sec-testet.html#cb692-1" tabindex="-1"></a>dadosL <span class="sc">%&gt;%</span> </span>
 <span id="cb692-2"><a href="sec-testet.html#cb692-2" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> momento, <span class="at">y =</span> medidas, <span class="at">fill =</span> momento)) <span class="sc">+</span></span>
@@ -1342,8 +1343,7 @@ Figura 12.5: Gráfico de barra de erro comparando o grupo antes-e-depois
 <span id="cb692-12"><a href="sec-testet.html#cb692-12" tabindex="-1"></a>               <span class="at">shape =</span> <span class="dv">19</span>, <span class="at">size =</span> <span class="dv">2</span>,  <span class="at">color=</span><span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
 <span id="cb692-13"><a href="sec-testet.html#cb692-13" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
 <span id="cb692-14"><a href="sec-testet.html#cb692-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)) <span class="sc">+</span></span>
-<span id="cb692-15"><a href="sec-testet.html#cb692-15" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span> (<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">add =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.05</span>))) <span class="sc">+</span></span>
-<span id="cb692-16"><a href="sec-testet.html#cb692-16" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<span id="cb692-15"><a href="sec-testet.html#cb692-15" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:bp"></span>
 <img src="bookdownproj_files/figure-html/bp-1.png" alt="Boxplots comparando o grupo antes-e-depois" width="70%" height="70%" />
 <p class="caption">

@@ -482,11 +482,12 @@ resumo %>%
   labs(title="Avaliação de um corticoide inalatório", 
        x="Momento", y = "Volume Forçado em 1 seg (L)")+
   theme_classic() +
-  theme(legend.position="none") +
-  scale_fill_manual(values=c("cyan4","cyan3"))
+  scale_fill_manual(values=c("cyan4","cyan3")) +
+  scale_y_continuous (expand = expansion(add = c(0,0.05))) +                    
+  theme(legend.position="none") 
 ```
 
-Nesse gráfico (Figura \@ref(fig:be)), a altura da barra representa a média do *Volume Forçado em 1 seg* (VEF1) nos diferentes momentos (basal e final).O erro corresponde a margem de erro (me) a partir do ponto (média), ou seja, é o intervalo de confiança de 95%. O limite inferior do IC95% foi suprimido.
+Nesse gráfico (Figura \@ref(fig:be)), a altura da barra representa a média do *Volume Forçado em 1 seg* (VEF1) nos diferentes momentos (basal e final). O erro corresponde a margem de erro (me) a partir do ponto (média), ou seja, é o intervalo de confiança de 95%. O limite inferior do IC95% foi suprimido.
 
 **Boxplot**
 
@@ -505,7 +506,6 @@ dadosL %>%
                shape = 19, size = 2,  color="red") +
   theme_bw() + 
   theme(text = element_text(size = 12)) +
-  scale_y_continuous (expand = expansion(add = c(0,0.05))) +
   theme(legend.position = "none")
 ```
 
