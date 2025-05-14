@@ -16,13 +16,13 @@ pacman::p_load (coin,
                 tidyr) 
 ```
 
-## Distribuição livre
+## Distribuição livre  {#sec-distlivre}
 
 A maioria dos testes estatísticos que discutidos são testes paramétricos.  Nestes, o  interesse estava focado em estimar ou testar uma hipótese sobre um ou mais parâmetros populacionais. Além disso, o aspecto central desses procedimentos era o conhecimento da forma funcional da população da qual foram retiradas as amostras que forneceram a base para a inferência. Por exemplo, o teste *t* de Student para amostras independentes e a ANOVA são baseados no pressuposto de que os dados foram amostrados de populações que têm distribuição normal.   
 
 Os **testes não paramétricos** não fazem suposições em relação à distribuição da população. Não têm, portanto, os pressupostos restritivos, comuns nos testes paramétricos. Têm *distribuição livre*. São baseados em uma ideia simples de ordenação por postos, do valor mais baixo ao mais alto. Analisam somente os postos, ignorando os valores. Podem ser usados tanto com variáveis ordinais como quantitativas numéricas.
 
-## Postos
+## Postos   {#sec-postos}
 
 Os métodos estatísticos não paramétricos não lidam diretamente com os valores observados. Em função disso, para poder usar a informação fornecida pelas observações, sem trabalhar diretamente com os valores observados, utiliza-se os postos das observações. Posto (*rank*) de uma observação é a sua posição em relação aos demais valores.  
 

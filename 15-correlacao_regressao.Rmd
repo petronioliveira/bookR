@@ -9,6 +9,7 @@ pacman::p_load(car,
                ggpubr,
                ggsci,
                kableExtra,
+               knitr,
                lmtest,
                readxl,
                rstatix)
@@ -47,7 +48,7 @@ $$
 
 O Coeficiente de Correlação, *r*, apresenta as seguintes características:
 
-*	É um valor numérico que varia de -1 a +1 (Figura \@ref(fig:coefcor):
+*	É um valor numérico que varia de -1 a +1 (Figura \@ref(fig:coefcor)):
 
     - Quando *r* = -1, há uma correlação linear negativa ou inversa perfeita;
     - Quando *r* = +1, há uma correlação linear positiva ou direta perfeita;
@@ -62,7 +63,7 @@ O Coeficiente de Correlação, *r*, apresenta as seguintes características:
 *	A correlação não faz distinção entre variáveis explicativas e variáveis resposta. Apesar de haver uma recomendação para que *x* seja a variável explanatória e *y* a variável desfecho. Não faz diferença qual variável será chamada chama de *x* e qual de *y* no cálculo da correlação.
 *	Como *r* usa os valores padronizados das observações, *r* não muda se as unidades de medida de *x*, *y* ou ambos são modificados. A correlação *r* em si não tem unidade de medida; é apenas um número.
 
-### Dados usados nesta seção
+### Dados usados nesta seção  {#sec-execor}
 
 Está claro que existe uma relação entre a idade de crianças e a sua altura (comprimento). Vamos usar os dados coletados em um ambulatório pediátrico de 40 crianças entre 18 e 36 meses (20 meninos e 20 meninas).   
 Os dados estão no banco de dados`dadosReg.xlsx`. Para baixar o banco de dados, clique [**aqui**](https://github.com/petronioliveira/Arquivos/blob/main/dadosReg.xlsx). Salve o arquivo no seu diretório de trabalho.  
@@ -112,7 +113,7 @@ ggplot2::ggplot(dados,
                             face = "bold"))
 ```
 
-A separação dos pontos por sexo, usando cores diferentes, não muda a análise e foi realizada apenas para treinamento (e curiosidade!).
+A separação dos pontos por sexo, usando cores diferentes, não muda a análise e foi realizada apenas para treinamento (e curiosidade!), pois não há motivo para diferença da correlação entre os sexos.
 
 ### Pressupostos da Correlação    {#sec-corpre}
 
@@ -167,7 +168,7 @@ O impacto de violar o pressuposto da homocedasticidade é uma questão de grau, 
 
 Uma correlação linear pode ser descrita por uma reta. Em uma correlação linear perfeita, a reta passa por todos os pontos. Normalmente, não é possível traçar uma reta que passe por todos os pontos. A melhor reta é aquela que promove o melhor ajuste,ou seja, é aquela cuja distância dos pontos até a reta é a menor possível. Os **resíduos** são a diferença entre o valor observado e o valor previsto pelo melhor ajuste, estabelecido pelo modelo de regressao linear.  
 
-  - *Construção do modelo*: Para ajustar a um modelo linear, usa-se a função `lm()` que deve conter um objeto da classe `formula` como argumento. Demais características da função podem ser obtidas com `?lm` ou direto na ajuda do `RStudio`. O modelo será atribuído a um objeto denominado `mod_reg`.
+  - *Construção do modelo*: Para ajustar a um modelo linear, usa-se a função `lm` que deve conter um objeto da classe `formula` tipo (*x* ~ *y*) como argumento. Demais características da função podem ser obtidas com `?lm` ou direto na ajuda do `RStudio`. O modelo será atribuído a um objeto denominado `mod_reg`.
 
 ```{r}
 mod_reg <- lm(comp ~ idade, dados)
@@ -176,9 +177,9 @@ mod_reg <- lm(comp ~ idade, dados)
   - *Análise gráfica da homoscedasticidade*: Pode ser feita através dos gráficos diagnósticos para a regressão linear, utilizados para verificar se o modelo funciona bem para representar os dados. Uma forma de avaliar é verificar como as variâncias se comportam. Os gráficos diagnósticos são apresentados de quatro maneiras diferentes.^[Maiores detalhes sobre os testes diagnósticos podem ser encontrados em: https://data.library.virginia.edu/diagnostic-plots/]  Neste estágio, serão avaliados o primeiro e o terceiro tipo (Figura \@ref(fig:homo1)). 
 
 ```{r homo1, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Gráficos diagnósticos 1 e 3"}
-par(mfrow=c(1,2))
+par(mfrow=c(1,2))  # muda o layout do painel para 1 linha e 2 colunas
 plot(mod_reg, which=c(1,3))
-par(mfrow=c(1,1))
+par(mfrow=c(1,1))  # retorna o layaout do painel para o padrão de 1 linha e 1 coluna
 ```
  
 No **gráfico 1**, tem-se os resíduos em função dos valores estimados. Pode-se utilizar este gráfico para observar a independência e a homocedasticidade, se os resíduos se distribuem de maneira razoavelmente aleatória e com mesma amplitude em torno do zero.
@@ -207,12 +208,12 @@ Como o *r* usa os valores padronizados das observações, não muda nada se as u
 
 O cálculo pode ser realizado com a função `cor_test()` do pacote `rstatix` que usa os seguintes argumentos:  
 
-* *data* $\to$ dataframe contendo as variáveis;
-* *...* $\to$ Uma ou mais expressões (ou nomes de variáveis) sem aspas separadas por vírgulas. Usado para selecionar uma variável de interesse. Alternativa ao argumento `vars`. Ignorado quando `vars` é especificado; 
-* *vars2* $\to$ •	vetor de caracteres opcional. Se especificado, cada elemento em vars será testado em relação a todos os elementos em vars2. Aceita nomes de variáveis sem aspas: c(var1, var2);
-* *alternative* $\to$  hipótese alternativa “two.sided” (bilateral) ou “greater” ou “less” (unilateral a direita ou a esquerda, respectivamente);
-* *method* $\to$ ⟶  qual coeficiente de correlação deve ser usado para o teste. Um dos termos "pearson", "kendall" ou "spearman" pode ser abreviado;
-* *conf.level* $\to$ nivel de confiança. Padrão 0.95.
+* **data** $\to$ dataframe contendo as variáveis;
+* **...** $\to$ Uma ou mais expressões (ou nomes de variáveis) sem aspas separadas por vírgulas. Usado para selecionar uma variável de interesse. Alternativa ao argumento `vars`. Ignorado quando `vars` é especificado; 
+* **vars2** $\to$ •	vetor de caracteres opcional. Se especificado, cada elemento em vars será testado em relação a todos os elementos em vars2. Aceita nomes de variáveis sem aspas: c(var1, var2);
+* **alternative** $\to$  hipótese alternativa “two.sided” (bilateral) ou “greater” ou “less” (unilateral a direita ou a esquerda, respectivamente);
+* **method** $\to$ ⟶  qual coeficiente de correlação deve ser usado para o teste. Um dos termos "pearson", "kendall" ou "spearman" pode ser abreviado;
+* **conf.level** $\to$ nivel de confiança. Padrão 0.95.
 
 ```{r}
 r <- dados %>% cor_test(idade, 
@@ -236,7 +237,7 @@ df <- data.frame(coef, inter)
 knitr::kable(df,
              col.names = c('Coeficiente de Correlação', 'Interpretação'),
              align = c('l', 'l'),
-             booktabs = TRUE,
+             "html",
              caption = "Interpretação do Coeficiente de Correlação") %>% 
   kableExtra::kable_styling(full_width = FALSE,
                 latex_options = "hold_position") %>% 
@@ -246,11 +247,11 @@ knitr::kable(df,
   kableExtra::row_spec(0, bold = TRUE)
 ```
 
-Talvez a melhor maneira de interpretar a correlação linear é elevar o valor do *r* ao quadrado para obter o *Coeficiente de Determinação* ($R^{2}$). No exemplo usado, tem-se que o $R^{2}$ é igual a $0,96^{2} = 0,922$, então, 92,2% da variação do comprimento da criança (*y*) podem ser explicados pela variação da sua idade (*x*), fato mais ou menos óbvio!.
+Talvez a melhor maneira de interpretar a correlação linear é elevar o valor do *r* ao quadrado para obter o *Coeficiente de Determinação* ($R^{2}$). No exemplo usado, tem-se que o $R^{2}$ é igual a $0,96^{2} = 0,922$, então, 92,2% da variação do comprimento da criança (*y*) podem ser explicados, nesses dados, pela variação da sua idade (*x*), fato mais ou menos óbvio!.
 
 #### Coeficiente de correlação de Spearman ($\rho$)
 
-Se os pressupostos são violados é recomendado o uso de correlação não paramétrica, incluindo testes de correlação baseados em postos de Spearman e Kendall [@de2016comparing].  
+Se os pressupostos são violados é recomendado o uso de correlação não paramétrica (veja a Seção \@ref(sec-distlivre)), incluindo testes de correlação baseados em postos (veja a Seção \@ref(sec-postos)) de Spearman e Kendall [@de2016comparing].  
 Usar a mesma função, usada para a correlação de Pearson, mudando o argumento `method`:
 
 ```{r message=FALSE, warning=FALSE}
@@ -262,7 +263,7 @@ rho
 
 #### Coeficiente de correlação de Kendall ($\tau$)
 
-O coeficiente de correlação de postos de Kendall ou estatística tau de Kendall é usado para estimar uma medida de associação baseada em postos. Pode ser usado com variáveis ordinais ou quando não existe relação linear entre as variáveis. Uma vantagem sobre o coeficiente de Spearman é a possibilidade de ser generalizado para um coeficiente de correlação parcial. Deve ser usada ao invés do coeficiente de Spearman quando temos um conjunto pequeno de dados com um grande número de postos empatados.
+O coeficiente de correlação de postos de Kendall ou estatística tau de Kendall é usado para estimar uma medida de associação baseada em postos. Pode ser usado com variáveis ordinais ou quando não existe relação linear entre as variáveis. Uma vantagem sobre o coeficiente de Spearman é a possibilidade de ser generalizado para um coeficiente de correlação parcial. Deve ser usada ao invés do coeficiente de Spearman quando se tem um conjunto pequeno de dados com um grande número de postos empatados (veja a Seção \@ref(sec-postos)).
 Para o cálculo desse coeficiente, continua-se com a mesma função anterior, mudando o `method = “kendall”`.
 
 ```{r message=FALSE, warning=FALSE}
@@ -301,7 +302,7 @@ A reta do diagrama de dispersão da Figura \@ref(fig:retareg)  é a melhor reta 
 
 ### Resíduos  
 
-No exemplo usado no início desta seção, verificou-se que existe uma correlação linear entre o a idade e o comprimento de crianças, usando uma amostra de 40 crianças entre 18 e 36 meses. A correlação de Pearson foi muito forte (*r* = 0,96, *P* < 0,00001). Esta relação linear pode ser descrita pela reta, mostrada na Figura \@ref(fig:retareg1).   
+No exemplo usado no início (Seção \@ref(sec-execor)) , verificou-se que existe uma correlação linear entre o a idade e o comprimento de crianças, usando uma amostra de 40 crianças entre 18 e 36 meses. A correlação de Pearson foi muito forte (*r* = 0,96, *P* < 0,00001). Esta relação linear pode ser descrita pela reta, mostrada na Figura \@ref(fig:retareg1).   
 
 ```{r retareg1, message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Reta de regressão"}
 ggplot2::ggplot(dados, 
@@ -311,7 +312,7 @@ ggplot2::ggplot(dados,
   geom_smooth(method = "lm", 
               se = FALSE, 
               color = "steelblue") +
-  geom_point() +
+  geom_point(size = 3.5) +
   theme_classic() + 
   xlab("Idade (meses") +
   ylab("Comprimento (cm)") +
@@ -321,7 +322,7 @@ ggplot2::ggplot(dados,
 
 Não é possível traçar uma reta que passe por todos os pontos. Esta reta ideal descreveria uma correlação perfeita, que não é o caso. Pode haver várias retas, a reta calculada pela regressão linear é aquela que promove o melhor ajuste, ou seja, é aquela cuja distância dos pontos até a reta é a menor possível.  
 
-Os resíduos são a diferença entre o valor observado e o valor previsto pelo modelo de regressão linear, construído anteriormente (`mod_reg`). A técnica estatística para achar a melhor reta que ajusta um conjunto de dados é denominada de método dos mínimos quadrados (*Ordinary Least Square*). A melhor reta ajustada é aquela em que a soma dos quadrados da distância de cada ponto (soma dos quadrados residual) em relação à reta é minimizada.
+Os resíduos são a diferença entre o valor observado e o valor previsto pelo modelo de regressão linear, construído anteriormente (`mod_reg`). A técnica estatística para achar a melhor reta que ajusta um conjunto de dados é denominada de **método dos mínimos quadrados** (*Ordinary Least Square*). A melhor reta ajustada é aquela em que a soma dos quadrados da distância de cada ponto (**soma dos quadrados residual**) em relação à reta é minimizada.
 
 Para se obter os resíduos, graficamente, pode ser usar os seguintes comandos que resultam na Figura \@ref(fig:residuos).
 
@@ -342,12 +343,13 @@ ggplot2::ggplot(dados,
               color = "steelblue") +
   geom_segment(aes(xend = idade, 
                    yend = previsto), 
-               linewidth = 0.7,
+               linewidth = 0.8,
                linetype = "dotted") +
   geom_point(aes(y = previsto), 
-             shape = 19, 
+             shape = 19,
+             size = 3,
              colour = "red") +
-  geom_point() +
+  geom_point(size = 3) +
   theme_classic() + 
   xlab("Idade (meses") +
   ylab("Comprimento (cm)") +
@@ -471,13 +473,14 @@ knitr::kable(df,
              col.names = c('Valor r', '1 variável preditora','2 variáveis preditoras',
              '3 variáveis preditoras', '4 variáveis preditoras'),
              align = c('c', 'c', 'c', 'c', 'c'),
-             booktabs = TRUE,
+             "html",
              caption = "Tamanho amostral para regressão") %>% 
   kable_styling(full_width = T,
                 latex_options = "hold_position") %>% 
   kableExtra::kable_classic(html_font = "Cambria") %>%
   kableExtra::row_spec(0, bold = TRUE)
 ```
+
 
 Existem muitas regras práticas, sugerindo o tamanho da amostra. Uma delas, diz que se deve ter 10 a 15 casos por variável preditora no modelo. Entretanto, essas regras podem ser duvidosas e o melhor é calcular o tamanho amostral baseado no tamanho do efeito, usando, por exemplo o site [*StatToDo*](https://www.statstodo.com/SSizMulReg.php)  
 
@@ -494,7 +497,7 @@ summary (mod_reg)
 
 A saída da função `summary()` primeiro apresenta como o modelo foi obtido e, em seguida, resume os resíduos do modelo. Por último, tem-se os `Coeficientes`: 
 
-1. As estimativas (*Estimate*) para os parâmetros do modelo - o valor do intercepto *y* (neste caso, 61,44) e o efeito estimado da idade sobre o comprimento (1,1). Isto significa que para cada unidade de aumento na idade se espera um aumento  de 1,1 cm no comprimento.
+1. As estimativas (*Estimate*) para os parâmetros do modelo - o valor do intercepto *y* (neste caso, 61,44) e o efeito estimado da idade sobre o comprimento (1,1)- significam que para cada unidade de aumento na idade se espera um aumento  de 1,1 cm no comprimento.
 2. O erro padrão dos valores estimados (*Std. Error*).
 3. A estatística de teste (*t value*)
 4. O valor *P* (Pr (>| t |)), também conhecido como a probabilidade de encontrar a estatística *t* fornecida se a hipótese nula de nenhuma correlação for verdadeira.  
@@ -517,7 +520,7 @@ round (confint (mod_reg, level = 0.95), 1)
 Dessa forma, é possível prever que uma criança de 30 meses, de acordo com o modelo, terá o seguinte comprimento:
 
 ```{r}
-comp_30m <- 61.4 + 1.1 *30
+comp_30m <- 61.4 + 1.1 * 30
 comp_30m
 
 ```
@@ -535,8 +538,8 @@ Será obtido um gráfico de dispersão com a reta de regressão e seu intervalo 
 
 ```{r resreg,message = FALSE, warning=FALSE, fig.align='center', out.height="70%", out.width="70%", fig.cap="Resultado da regressão linear"}
 ggplot2:: ggplot (dados, aes (x = idade, y = comp)) +
-  geom_point (size = 2) +
-  geom_smooth (method = "lm", se = TRUE, color = "steelblue") +
+  geom_point (size = 3) +
+  geom_smooth (method = "lm", se = TRUE, color = "tomato") +
   stat_regline_equation (label.y = 100, aes (label = (..eq.label..))) + 
   stat_regline_equation (label.y = 99, aes (label = (..rr.label..))) +       
   theme_classic () +
@@ -546,3 +549,13 @@ ggplot2:: ggplot (dados, aes (x = idade, y = comp)) +
 ```
 
 No gráfico, o intervalo de previsão médio de 95% em torno da reta de regressão é um intervalo de confiança de 95%, ou seja, a área na qual há 95% de certeza de que a reta de regressão verdadeira se encontra [@altman1988statistics]. Esta banda de intervalo é levemente curvada porque os erros na estimativa do intercepto e da inclinação são incluídos em adição ao erro na previsão da variável desfecho. 
+
+Se for observado, o IC95% da reta de regressão obbtida pelo `ggplot2` difere um pouco do IC95% da função `confint()`. Isto ocorre porque:  
+
+* quando se usa `geom_smooth(method = "lm", se = TRUE)`, o intervalo de confiança gerado é baseado na incerteza da **previsão média** da regressão. Ou seja, ele mostra a faixa onde se espera que a média da variável dependente (`comp`) esteja para um determinado valor da variável independente (`idade`) e  
+* quando se usa a função `confint()`, ela retorna o intervalo de confiança dos **coeficientes** do modelo de regressão. Ou seja, ela fornece a incerteza associada aos parâmetros estimados (incluindo o intercepto e os coeficientes das variáveis preditoras).  
+
+A principal diferença, portanto, é que o intervalo de confiança do `ggplot2` reflete a incerteza da linha de regressão ajustada, enquanto `confint()` fornece a incerteza dos parâmetros do modelo.
+
+
+
