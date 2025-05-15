@@ -472,7 +472,7 @@ IC95 <- CI(amostra1$altura, ci = 0.95)
 round(IC95, 2)
 ```
 
-## Intervalo de Confiança para uma proporção populacional
+## Intervalo de Confiança para uma proporção populacional 
 
 ### Dados para estimar a proporção populacional
 
@@ -506,7 +506,7 @@ tabFumo <- round (prop.table (tab), 3)
 tabFumo
 ```
 
-### Cálculo do intervalo de confiança para a proporção
+### Cálculo do intervalo de confiança para a proporção   {#sec-ICproporcao} 
 
 **Cálculo manual com aproximação normal**
 
@@ -548,7 +548,7 @@ ic_prop <- c((prop - me), (prop + me))
 round(ic_prop, 3)
 ```
 
-**Cálculo usando uma função** 
+**Cálculo usando uma função**  
 
 O chamado *Intervalo de Confiança Exato* corrigem as deficiências da aproximação normal. O R tem uma função para este cálculo: `BinomCI()` do pacote `DescTools`[@signorell2022desctools]. É preferível usar o método de Clopper e Pearson que fornece o IC exato.  
 

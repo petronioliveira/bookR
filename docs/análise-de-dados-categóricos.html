@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2025-05-14" />
+<meta name="date" content="2025-05-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -403,7 +403,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="10.7.1" data-path="16-dadosCategoricos.html"><a href="#dados-para-estimar-a-propor%C3%A7%C3%A3o-populacional"><i class="fa fa-check"></i><b>10.7.1</b> Dados para estimar a proporção populacional</a></li>
 <li class="chapter" data-level="10.7.2" data-path="16-dadosCategoricos.html"><a href="#c%C3%A1lculo-da-estimativa-pontual-da-propor%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>10.7.2</b> Cálculo da estimativa pontual da proporção</a></li>
-<li class="chapter" data-level="10.7.3" data-path="16-dadosCategoricos.html"><a href="#c%C3%A1lculo-do-intervalo-de-confian%C3%A7a-para-a-propor%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>10.7.3</b> Cálculo do intervalo de confiança para a proporção</a></li>
+<li class="chapter" data-level="10.7.3" data-path="sec-estimacao.html"><a href="sec-estimacao.html#sec-ICproporcao"><i class="fa fa-check"></i><b>10.7.3</b> Cálculo do intervalo de confiança para a proporção</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="16-dadosCategoricos.html"><a href="#teste-de-hip%C3%B3teses"><i class="fa fa-check"></i><b>11</b> Teste de Hipóteses</a>
@@ -690,7 +690,7 @@ Figura 16.1: Distribuição do qui-quadrado.
 </div>
 <div id="estatística-do-qui-quadrado" class="section level3 hasAnchor" number="16.2.2">
 <h3><span class="header-section-number">16.2.2</span> Estatística do qui-quadrado<a href="#estat%C3%ADstica-do-qui-quadrado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>O cálculo da estatística <span class="math inline">\(\chi^{2}\)</span> é baseado nas frequências existentes nas células da tabela de contingência. Em primeiro lugar, calcula-se as frequências que se espera em cada célula caso a hipótese nula seja verdadeira (<em>frequências esperadas</em>). Em segundo lugar, usando a equação geral, o teste mede o grau de discrepância entre o conjunto de <em>frequências observadas</em> (O) e o conjunto de frequências esperadas (E).</p>
+<p>O cálculo da estatística <span class="math inline">\(\chi^{2}\)</span> é baseado nas frequências existentes nas células da tabela de contingência. Em primeiro lugar, calcula-se as frequências que se espera em cada célula caso a hipótese nula seja verdadeira (<em>frequências esperadas</em>). Em segundo lugar, usando a equação geral, o teste mede o grau de discrepância entre o conjunto de <em>frequências observadas</em> (O) e o conjunto de <em>frequências esperadas</em> (E).</p>
 <p><span class="math display">\[
 \chi^{2}= \sum \left [\frac{\left (O_{i} - E_{i} \right )^2}{E_{i}} \right]
 \]</span></p>
@@ -702,7 +702,7 @@ E = \frac{total\ coluna\ \times total\ linha }{total\ geral}
 Por exemplo, suponha a Tabela <a href="análise-de-dados-categóricos.html#tab:tab2x2">16.1</a>:</p>
 <table class="table lightable-classic" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: Cambria; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:tab2x2">Tabela 16.1: </span><span id="tab:tab2x2">Tabela 16.2: </span>Acidentes automobilísticos
+<span id="tab:tab2x2">Tabela 16.1: </span>Acidentes automobilísticos
 </caption>
 <thead>
 <tr>
@@ -772,10 +772,10 @@ Total
 <span id="cb888-4"><a href="análise-de-dados-categóricos.html#cb888-4" tabindex="-1"></a>esperado <span class="ot">&lt;-</span> (total_c<span class="sc">*</span>total_l)<span class="sc">/</span>total_geral</span>
 <span id="cb888-5"><a href="análise-de-dados-categóricos.html#cb888-5" tabindex="-1"></a>esperado </span></code></pre></div>
 <pre><code>## [1] 12</code></pre>
-<p>O número de acidentes esperado para os homens é igual a 12, entretanto ocorreram 16. Houve uma diferença. Esta diferença é calculada para todas as células e será o importante no cálculo do qui-quadrado. Após o cálculo, acrescentando os valores esperados à Tabela <a href="análise-de-dados-categóricos.html#tab:tab2x2">16.1</a>, tem-se a Tabela <a href="análise-de-dados-categóricos.html#tab:ntab2x2">16.3</a> que será usada no cálculo do qui-quadrado.</p>
+<p>O número de acidentes esperado para os homens é igual a 12, entretanto ocorreram 16. Houve uma diferença. Esta diferença é calculada para todas as células e será o importante no cálculo do qui-quadrado. Após o cálculo, acrescentando os valores esperados à Tabela <a href="análise-de-dados-categóricos.html#tab:tab2x2">16.1</a>, tem-se a Tabela <a href="análise-de-dados-categóricos.html#tab:ntab2x2">16.2</a> que será usada no cálculo do qui-quadrado.</p>
 <table class="table lightable-classic" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: Cambria; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:ntab2x2">Tabela 16.3: </span><span id="tab:ntab2x2">Tabela 16.4: </span>Acidentes automobilisticos - Valores Esperados
+<span id="tab:ntab2x2">Tabela 16.2: </span>Acidentes automobilisticos - Valores Esperados
 </caption>
 <thead>
 <tr>
@@ -844,10 +844,10 @@ Total
 \]</span></p>
 <p>Substituindo osdados na fórmula do qui-quadrado, tem-se:</p>
 <p><span class="math display">\[
-\chi^{2}= \left [\frac{\left (|16 - 12 \right |)^2}{12} \right]+ \left [\frac{\left (|44 - 48 \right |)^2}{48} \right]+\left [\frac{\left (|4 - 8 \right |)^2}{8} \right]+\left [\frac{\left (|36 - 32 \right|)^2}{32} \right] \\
+\chi^{2}= \left [\frac{\left (|16 - 12 \right |-0.5)^2}{12} \right]+ \left [\frac{\left (|44 - 48 \right |-0.5)^2}{48} \right]+\left [\frac{\left (|4 - 8 \right |-0.5)^2}{8} \right]+\left [\frac{\left (|36 - 32 \right|-0.5)^2}{32} \right] \\
 \chi^{2}=1,021 + 0,255 + 1,531  +0,383 = 3,19
 \]</span>
-A correção de Yates reduz o valor do qui-quadrado <a href="#fn62" class="footnote-ref" id="fnref62"><sup>62</sup></a> e torna o teste mais conservador, evitando rejeitar a hipóteses nula quando ela é verdadeira. A correção é recomendada em tabelas de contingência <span class="math inline">\(2\times2\)</span> ou quando o tamanho da amostra é pequeno (menor que 40) ou quando há pelo menos uma célula com frequência esperada menor que 5.</p>
+A correção de Yates reduz o valor do qui-quadrado <a href="#fn62" class="footnote-ref" id="fnref62"><sup>62</sup></a> e torna o teste mais conservador, reduzindo a probabilidade de rejeitar a hipótese nula quando ela é verdadeira. A correção é recomendada em tabelas de contingência <span class="math inline">\(2\times2\)</span> ou quando o tamanho da amostra é pequeno (menor que 40) ou quando há pelo menos uma célula com frequência esperada menor que 5.</p>
 <div id="restrições-ao-qui-quadrado" class="section level4 hasAnchor" number="16.2.2.1">
 <h4><span class="header-section-number">16.2.2.1</span> Restrições ao qui-quadrado<a href="#restri%C3%A7%C3%B5es-ao-qui-quadrado" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ol style="list-style-type: decimal">
@@ -883,7 +883,7 @@ gl = (numero \ de \ linhas - 1) \ \times \ (numero \ de \ colunas - 1)
 <p>O valor crítico é igual a 3,84 e, no exemplo, o <span class="math inline">\(\chi^{2}_{calculado}\)</span> é igual a 3,19, logo a valor <em>P</em> é igual a:</p>
 <div class="sourceCode" id="cb892"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb892-1"><a href="análise-de-dados-categóricos.html#cb892-1" tabindex="-1"></a><span class="fu">pchisq</span> (<span class="fl">3.19</span>, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## [1] 0.07409001</code></pre>
-<p>Dessa forma, conclui-se ,com uma confiança de 95%, que os homens têm uma proporção maior de acidentes comparados às mulheres (<span class="math inline">\(\chi^{2} (1) = 3,19;P=0,074\)</span>). Observe na Figura <a href="análise-de-dados-categóricos.html#fig:chi384">16.2</a> que o <span class="math inline">\(\chi^{2}_{calculado}\)</span> localiza-se a esquerda da linha vertical, da área vermelha de rejeição da <span class="math inline">\(H_{0}\)</span>. Atente, que se não fosse feita a correção de Yates, a conclusão seria diferente, pois o <span class="math inline">\(\chi^{2}_{calculado}\)</span> seria igual a 4,17 e estaria um pouco cima do <span class="math inline">\(\chi^{2}_{crítico}\)</span>, na área de rejeição da <span class="math inline">\(H_{0}\)</span>. Com a correção de Yates o valor <em>P</em> é igual a 0,074, sem a correção de continuidade igual a 0,041, isto configura o que se chama de <em>valor P marginal</em> e, nesses casos, deve-se ter muito cuidado na conclusão, pois existe risco de erro tipo II, não rejeitar uma <span class="math inline">\(H_{0}\)</span> quando ela é falsa.</p>
+<p>Dessa forma, conclui-se ,com uma confiança de 95%, que não se rejeita <span class="math inline">\(H_{0}\)</span>, ou seja, a proporção acidentes nos homens é igual a proporção de acidentes nas mulheres (<span class="math inline">\(\chi^{2} (1) = 3,19;P=0,074\)</span>). Observe na Figura <a href="análise-de-dados-categóricos.html#fig:chi384">16.2</a> que o <span class="math inline">\(\chi^{2}_{calculado}\)</span> localiza-se a esquerda da linha vertical, da área vermelha de rejeição da <span class="math inline">\(H_{0}\)</span>. Atente, que se não fosse feita a correção de Yates, a conclusão seria diferente, pois o <span class="math inline">\(\chi^{2}_{calculado}\)</span> seria igual a 4,17 e estaria um pouco cima do <span class="math inline">\(\chi^{2}_{crítico}\)</span>, na área de rejeição da <span class="math inline">\(H_{0}\)</span>. Com a correção de Yates o valor <em>P</em> é igual a 0,074, sem a correção de continuidade igual a 0,041, isto configura o que se chama de <em>valor P marginal</em> e, nesses casos, deve-se ter muito cuidado na conclusão, pois existe risco de erro tipo II, não rejeitar uma <span class="math inline">\(H_{0}\)</span> quando ela é falsa.</p>
 <div class="sourceCode" id="cb894"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb894-1"><a href="análise-de-dados-categóricos.html#cb894-1" tabindex="-1"></a><span class="fu">plotchisqtest</span>(<span class="at">chisq =</span> <span class="fl">3.84</span>, </span>
 <span id="cb894-2"><a href="análise-de-dados-categóricos.html#cb894-2" tabindex="-1"></a>              <span class="at">df =</span> <span class="dv">1</span>,</span>
 <span id="cb894-3"><a href="análise-de-dados-categóricos.html#cb894-3" tabindex="-1"></a>              <span class="at">colorleft =</span> <span class="st">&quot;aliceblue&quot;</span>,</span>
@@ -902,12 +902,12 @@ Figura 16.2: Distribuição do qui-quadrado, gl = 1, alpha = 0,05.
 <h3><span class="header-section-number">16.2.3</span> Qui-quadrado de independência ou associação<a href="#qui-quadrado-de-independ%C3%AAncia-ou-associa%C3%A7%C3%A3o" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="dados-usados-nesta-seção-7" class="section level4 hasAnchor" number="16.2.3.1">
 <h4><span class="header-section-number">16.2.3.1</span> Dados usados nesta seção<a href="#dados-usados-nesta-se%C3%A7%C3%A3o-7" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>O exemplo da Tabela <a href="análise-de-dados-categóricos.html#tab:tab2x2">16.1</a>, usado para mostrar a lógica do qui-quadrado, é um teste de independência ou associação. Ali, foi mostrado que existe uma associação estatisticamente significativa (P &lt; 0,05) entre acidentes automobilísticos e o sexo masculino.
-Como exercício, serão usados outros dados que necessitam mais manipulação como treinamento do qui-quadrado de associação e do próprio R. Estes dados servirão para testar a hipótese de associação entre tabagismo e baixo peso ao nascer (&lt; 2500g).</p>
+<p>O exemplo da Tabela <a href="análise-de-dados-categóricos.html#tab:tab2x2">16.1</a>, usado para mostrar a lógica do qui-quadrado, é um teste de independência ou associação. Ali, foi mostrado que não existe uma associação estatisticamente significativa (P &gt; 0,05) entre acidentes automobilísticos e o sexo.
+Como exercício, serão usados outros dados que necessitam mais manipulação como treinamento do qui-quadrado de associação e do próprio <em>R</em>. Estes dados servirão para testar a hipótese de associação entre tabagismo e baixo peso ao nascer (&lt; 2500g).</p>
 <p><u>Leitura e transformação dos dados</u></p>
-<p>Os dados serão provenientes do banco de dados <code>dadosMater.xlsx</code>. bastante usado neste livro <a href="#fn63" class="footnote-ref" id="fnref63"><sup>63</sup></a> . Como ele já deve estar no seu diretório, fazer a leitura da seguinte maneira:</p>
+<p>Os dados serão provenientes do banco de dados <code>dadosMater.xlsx</code>. bastante usado neste livro <a href="#fn63" class="footnote-ref" id="fnref63"><sup>63</sup></a> . A partir do diretório, será feita a leitura da seguinte maneira:</p>
 <div class="sourceCode" id="cb895"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb895-1"><a href="análise-de-dados-categóricos.html#cb895-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_excel</span> (<span class="st">&quot;Arquivos/dadosMater.xlsx&quot;</span>)</span></code></pre></div>
-<p>Adicione a este arquivo uma variável denominada <code>baixoPeso</code>, usando a função <code>mutate()</code> do pacvote dplyr a função <code>ifelse ()</code>, da base do R:</p>
+<p>Adicione a este arquivo uma variável denominada <code>baixoPeso</code>, usando a função <code>mutate()</code> do pacote <code>dplyr</code> e a função <code>ifelse ()</code>, da base do R:</p>
 <div class="sourceCode" id="cb896"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb896-1"><a href="análise-de-dados-categóricos.html#cb896-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">baixoPeso =</span> <span class="fu">ifelse</span>(pesoRN <span class="sc">&lt;</span> <span class="dv">2500</span>, <span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>))</span></code></pre></div>
 <p>Onde <code>1 = sim</code> e <code>2 = não</code>, ou seja, com peso de nascimento &lt; 2500g ou <span class="math inline">\(\ge\)</span> 2500g.</p>
 <p>O próximo passo é selecionar, deste arquivo, apenas esta variável criada e a variável <code>fumo</code>, porque o objetivo da análise será verificar se existe associação entre tabagismo na gestação e baixo peso ao nascer (&lt; 2500g). Para isso, usa-se a função <code>select()</code> do pacote <code>dplyr</code>:</p>
@@ -919,6 +919,7 @@ Como exercício, serão usados outros dados que necessitam mais manipulação co
 <pre><code>## tibble [300 × 2] (S3: tbl_df/tbl/data.frame)
 ##  $ fumo     : num [1:300] 2 2 1 2 2 2 1 2 2 2 ...
 ##  $ baixoPeso: chr [1:300] &quot;2&quot; &quot;2&quot; &quot;1&quot; &quot;2&quot; ...</code></pre>
+<p>Todos esses passos poderiam ser feitos em um só comando, precedido pela semente (<code>set.seed(123)</code>), usando o operador pipe %&gt;%:</p>
 <p>Tem-se, agora, um conjunto de dados com duas colunas: <code>fumo</code>, como uma variável numérica e <code>baixoPeso</code>, como caractere. Ambas devem ser transformadas em fator e, onde os rótulos são 1 e 2, passam para “sim” e “não” e mantendo a ordem “sim” e “não”.</p>
 <div class="sourceCode" id="cb900"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb900-1"><a href="análise-de-dados-categóricos.html#cb900-1" tabindex="-1"></a>dados<span class="sc">$</span>fumo <span class="ot">&lt;-</span> <span class="fu">factor</span>(dados<span class="sc">$</span>fumo,</span>
 <span id="cb900-2"><a href="análise-de-dados-categóricos.html#cb900-2" tabindex="-1"></a>                     <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
@@ -932,7 +933,7 @@ Como exercício, serão usados outros dados que necessitam mais manipulação co
 ##  $ fumo     : Factor w/ 2 levels &quot;sim&quot;,&quot;não&quot;: 2 2 1 2 2 2 1 2 2 2 ...
 ##  $ baixoPeso: Factor w/ 2 levels &quot;sim&quot;,&quot;não&quot;: 2 2 1 2 1 2 2 2 2 2 ...</code></pre>
 <p><u>Tabelas</u></p>
-<p>Com os dados, será construída uma tabela com a função <code>table()</code></p>
+<p>Com os dados, será construída uma tabela com a função e, dentro dela, a função <code>table()</code>, seguida da função <code>addmargins()</code>:</p>
 <div class="sourceCode" id="cb902"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb902-1"><a href="análise-de-dados-categóricos.html#cb902-1" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">with</span>(<span class="at">data =</span> dados, <span class="fu">table</span>(fumo, baixoPeso))</span>
 <span id="cb902-2"><a href="análise-de-dados-categóricos.html#cb902-2" tabindex="-1"></a><span class="fu">addmargins</span>(tab)</span></code></pre></div>
 <pre><code>##      baixoPeso
@@ -944,7 +945,7 @@ Como exercício, serão usados outros dados que necessitam mais manipulação co
 <div class="sourceCode" id="cb904"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb904-1"><a href="análise-de-dados-categóricos.html#cb904-1" tabindex="-1"></a>tab[<span class="dv">1</span>,<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] 18</code></pre>
 <p>A proporção de baixo peso por categoria de tabagismo (nº de casos/total da linha):</p>
-<div class="sourceCode" id="cb906"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb906-1"><a href="análise-de-dados-categóricos.html#cb906-1" tabindex="-1"></a>fumantes <span class="ot">&lt;-</span>  tab[<span class="dv">1</span>,<span class="dv">1</span>]<span class="sc">/</span>(tab[<span class="dv">1</span>,<span class="dv">1</span>]<span class="sc">+</span> tab[<span class="dv">1</span>,<span class="dv">2</span>])</span>
+<div class="sourceCode" id="cb906"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb906-1"><a href="análise-de-dados-categóricos.html#cb906-1" tabindex="-1"></a>fumantes <span class="ot">&lt;-</span>  tab[<span class="dv">1</span>,<span class="dv">1</span>]<span class="sc">/</span>(tab[<span class="dv">1</span>,<span class="dv">1</span>] <span class="sc">+</span> tab[<span class="dv">1</span>,<span class="dv">2</span>])</span>
 <span id="cb906-2"><a href="análise-de-dados-categóricos.html#cb906-2" tabindex="-1"></a>fumantes</span></code></pre></div>
 <pre><code>## [1] 0.2608696</code></pre>
 <div class="sourceCode" id="cb908"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb908-1"><a href="análise-de-dados-categóricos.html#cb908-1" tabindex="-1"></a>não.fumantes <span class="ot">&lt;-</span> tab[<span class="dv">2</span>,<span class="dv">1</span>]<span class="sc">/</span>(tab[<span class="dv">2</span>,<span class="dv">1</span>]<span class="sc">+</span> tab[<span class="dv">2</span>,<span class="dv">2</span>])</span>
@@ -983,10 +984,10 @@ Figura 16.3: Gráfico de barras empilhadas: tabagismo vs baixo peso ao nascer.
 <h4><span class="header-section-number">16.2.3.3</span> Cálculo do Qui-quadrado de Pearson no R<a href="#c%C3%A1lculo-do-qui-quadrado-de-pearson-no-r" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Para este exemplo, o <span class="math inline">\(\chi^{2}\)</span> irá verificar se existe uma associação entre as variáveis <code>fumo</code> e <code>baixoPeso</code>, assumindo um <span class="math inline">\(\alpha = 0,05\)</span> que equivale a um valor crítico de 3,84 com um grau de liberdade, em uma tabela <span class="math inline">\(2 \times 2\)</span>. A função <code>chisq_test()</code> do pacote <code>rstatix</code> libera o qui-quadrado, usando os seguintes argumentos:</p>
 <ul>
-<li><em>x</em> <span class="math inline">\(\to\)</span> vetor numérico ou matriz. Tanto x como y podem ser fatores;</li>
-<li><em>y</em> <span class="math inline">\(\to\)</span> vetor numérico. Ignorado quando se x é uma matriz;</li>
+<li><strong>x</strong> <span class="math inline">\(\to\)</span> vetor numérico ou matriz. Tanto x como y podem ser fatores;</li>
+<li><strong>y</strong> <span class="math inline">\(\to\)</span> vetor numérico. Ignorado quando se x é uma matriz;</li>
 <li>correct <span class="math inline">\(\to\)</span> TRUE é o padrão. Indica se deve ser aplicada a correção de continuidade ao calcular a estatística de teste para tabelas 2 por 2 <a href="#fn64" class="footnote-ref" id="fnref64"><sup>64</sup></a>;</li>
-<li>… <span class="math inline">\(\to\)</span> para outros argumentos consulte a ajuda do <em>RStudio</em>.</li>
+<li><strong>…</strong> <span class="math inline">\(\to\)</span> para outros argumentos consulte a ajuda do <em>RStudio</em>.</li>
 </ul>
 <p>Para executar a função <code>chisq_test()</code>, basta colocar como argumento as variáveis <code>fumo</code> e <code>baixoPeso</code> ou construir antes uma tabela de contingência com a função <code>table()</code> e depois colocá-la como argumento. Como tabela <code>tab</code> já existe:</p>
 <div class="sourceCode" id="cb911"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb911-1"><a href="análise-de-dados-categóricos.html#cb911-1" tabindex="-1"></a>teste <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">chisq_test</span>(tab)</span>
@@ -1089,8 +1090,8 @@ Figura 16.3: Gráfico de barras empilhadas: tabagismo vs baixo peso ao nascer.
 ##     3.35        1.67       6.71   
 ## ----------------------------------</code></pre>
 <p>Ou seja, os bebês que se expuseram ao fator de risco (fumo) têm uma chance 3,35 (IC95% : 1,67-6,71) vezes maior de apresentar peso &lt; 2500g ao nascer, nessa amostra.</p>
-<p>Além desses resultados, a tabela final pode conter (e isto é recomendado!) os intervalos de confiança para cada uma das proporções de fumantes e não fumantes. Para isso a função <code>BinomCI()</code> cumpre um papel suficiente (veja Seção 10.7.3.2).
-Então, a proporção de baixo peso entre as fumantes é:</p>
+<p>Além desses resultados, a tabela final pode conter (e isto é recomendado!) os intervalos de confiança para cada uma das proporções de fumantes e não fumantes. Para isso a função <code>BinomCI()</code> cumpre um papel suficiente (veja Seção <a href="sec-estimacao.html#sec-ICproporcao">10.7.3</a>).</p>
+<p>Então, a proporção de baixo peso entre as fumantes é:</p>
 <div class="sourceCode" id="cb919"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb919-1"><a href="análise-de-dados-categóricos.html#cb919-1" tabindex="-1"></a><span class="fu">BinomCI</span>(<span class="dv">18</span>, <span class="dv">69</span>,</span>
 <span id="cb919-2"><a href="análise-de-dados-categóricos.html#cb919-2" tabindex="-1"></a>        <span class="at">conf.level =</span> <span class="fl">0.95</span>,</span>
 <span id="cb919-3"><a href="análise-de-dados-categóricos.html#cb919-3" tabindex="-1"></a>        <span class="at">method =</span> <span class="st">&quot;clopper-pearson&quot;</span>)</span></code></pre></div>
@@ -1102,10 +1103,10 @@ Então, a proporção de baixo peso entre as fumantes é:</p>
 <span id="cb921-3"><a href="análise-de-dados-categóricos.html#cb921-3" tabindex="-1"></a>        <span class="at">method =</span> <span class="st">&quot;clopper-pearson&quot;</span>)</span></code></pre></div>
 <pre><code>##            est     lwr.ci    upr.ci
 ## [1,] 0.0952381 0.06065157 0.1406387</code></pre>
-<p>Finalmente, esses dados podem ser colocados em uma tabela, como a Tabela <a href="análise-de-dados-categóricos.html#tab:tabres">16.5</a>:</p>
+<p>Finalmente, esses dados podem ser colocados em uma tabela, como a Tabela <a href="análise-de-dados-categóricos.html#tab:tabres">16.3</a>:</p>
 <table class="table lightable-classic" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: Cambria; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption>
-<span id="tab:tabres">Tabela 16.5: </span><span id="tab:tabres">Tabela 16.6: </span>Efeito do tabagismo materno no peso ao nascer
+<span id="tab:tabres">Tabela 16.3: </span>Efeito do tabagismo materno no peso ao nascer
 </caption>
 <thead>
 <tr>
@@ -1250,7 +1251,7 @@ Figura 16.5: Distribuição do qui-quadrado, gl = 6, alpha = 0,05.
 </div>
 <div id="conclusão-3" class="section level4 hasAnchor" number="16.2.4.4">
 <h4><span class="header-section-number">16.2.4.4</span> Conclusão<a href="#conclus%C3%A3o-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Observando-se a saída do teste do qui-quadrado, verifica-se que o <span class="math inline">\(\chi^{2}_{calculado}\)</span> &lt; <span class="math inline">\(\chi^{2}_{crítico}\)</span>, portanto, não se rejeita a <span class="math inline">\(H_{0}\)</span> e conclui-se que, nesta amostra, com uma confiança de 95%, que a frequência observada de pacientes à UPA é igual a esperada (<em>P</em> = ). Lembrando que, neste caso, como se tem um valor <em>P</em> limitrofe, marginal, existe a possibilidade de se estar aceitando uma <span class="math inline">\(H_{0}\)</span> falsa e cometendo um erro tipo II. Seria recomendado, aumentar o tamanho amostral em uma nova coleta, usando estes dados como um piloto para o cálculo amostral.</p>
+<p>Observando-se a saída do teste do qui-quadrado, verifica-se que o <span class="math inline">\(\chi^{2}_{calculado}\)</span> &lt; <span class="math inline">\(\chi^{2}_{crítico}\)</span>, portanto, não se rejeita a <span class="math inline">\(H_{0}\)</span> e conclui-se que, nesta amostra, com uma confiança de 95%, que a frequência observada de pacientes à UPA é igual a esperada (<em>P</em> = 0.0619688). Lembrando que, neste caso, como se tem um valor <em>P</em> limitrofe, marginal, existe a possibilidade de se estar aceitando uma <span class="math inline">\(H_{0}\)</span> falsa e cometendo um erro tipo II. Seria recomendado, aumentar o tamanho amostral em uma nova coleta, usando estes dados como um piloto para o cálculo amostral.</p>
 </div>
 </div>
 <div id="sec-tabextensas" class="section level3 hasAnchor" number="16.2.5">
@@ -1259,14 +1260,14 @@ Figura 16.5: Distribuição do qui-quadrado, gl = 6, alpha = 0,05.
 <div id="sec-dadosCirurgia" class="section level4 hasAnchor" number="16.2.5.1">
 <h4><span class="header-section-number">16.2.5.1</span> Dados usados nesta seção<a href="análise-de-dados-categóricos.html#sec-dadosCirurgia" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Como exemplo, será verificado se existe uma tendência de maior taxa de infecção nos neonatos que permanecem mais tempo hospitalizados. O banco de dados <code>dadosCirurgia.xlsx</code> que pode ser encontrado <a href="https://github.com/petronioliveira/Arquivos/blob/main/dadosCirurgia.xlsx"><strong>aqui</strong></a>. Salve o mesmo no seu diretório de trabalho.</p>
-<p>Esse bancode dados contém 144 recém-nascidos submetidos a diferentes procedimentos cirúrgicos. As variávreis disponíveis são:</p>
+<p>Esse banco de dados contém 144 recém-nascidos submetidos a diferentes procedimentos cirúrgicos. As variáveis disponíveis são:</p>
 <ul>
-<li><em>id</em> <span class="math inline">\(\to\)</span> identificação do neonato;</li>
-<li><em>sexo</em> <span class="math inline">\(\to\)</span> sexo do recém-nascido, <code>fem</code> e <code>masc</code>;</li>
-<li><em>peso</em> <span class="math inline">\(\to\)</span> peso do neonato em gramas;</li>
-<li><em>tempohosp</em> <span class="math inline">\(\to\)</span> tempo de hospitalização em dias;</li>
-<li><em>infec</em> <span class="math inline">\(\to\)</span> presença de infecção secundária: sim e não;</li>
-<li><em>cirurgia</em> <span class="math inline">\(\to\)</span> tipo de cirurgia: abdominal, cardíaca, outra.</li>
+<li><strong>id</strong> <span class="math inline">\(\to\)</span> identificação do neonato;</li>
+<li><strong>sexo</strong> <span class="math inline">\(\to\)</span> sexo do recém-nascido, <code>fem</code> e <code>masc</code>;</li>
+<li><strong>peso</strong> <span class="math inline">\(\to\)</span> peso do neonato em gramas;</li>
+<li><strong>tempohosp</strong> <span class="math inline">\(\to\)</span> tempo de hospitalização em dias;</li>
+<li><strong>infec</strong> <span class="math inline">\(\to\)</span> presença de infecção secundária: sim e não;</li>
+<li><strong>cirurgia</strong> <span class="math inline">\(\to\)</span> tipo de cirurgia: abdominal, cardíaca, outra.</li>
 </ul>
 <p>A variável tempo de hospitalização (<code>tempohosp</code>) é contínua e assimétrica. Para ser usada aqui, será categorizada por quartis. A variável <code>infec</code> (presença de infecção) é uma variável dicotômica (<code>sim</code>, <code>não</code>).</p>
 <p><u>Leitura e transformação dos dados</u></p>
@@ -1297,7 +1298,7 @@ Figura 16.5: Distribuição do qui-quadrado, gl = 6, alpha = 0,05.
 <span id="cb939-13"><a href="análise-de-dados-categóricos.html#cb939-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">&#39;Tempo de hospitalização (dias)&#39;</span>,    </span>
 <span id="cb939-14"><a href="análise-de-dados-categóricos.html#cb939-14" tabindex="-1"></a>       <span class="at">y=</span><span class="st">&#39;Densidade de probabilidade&#39;</span>) <span class="sc">+</span></span>
 <span id="cb939-15"><a href="análise-de-dados-categóricos.html#cb939-15" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-392-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-393-1.png" width="672" /></p>
 <p>A variável <code>tempohosp</code> será categorizada em quartis. O resumo da mesma, usando a função <code>summary()</code>, fornece orientação para esse procedimento:</p>
 <div class="sourceCode" id="cb940"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb940-1"><a href="análise-de-dados-categóricos.html#cb940-1" tabindex="-1"></a><span class="fu">summary</span> (cirurgia<span class="sc">$</span>tempohosp)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
@@ -1322,26 +1323,16 @@ Figura 16.5: Distribuição do qui-quadrado, gl = 6, alpha = 0,05.
 ## sim não 
 ##  56  88</code></pre>
 <p>A nova variável <code>tempo</code> será cruzada com a variável <code>infec</code> em uma tabela:</p>
-<div class="sourceCode" id="cb946"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb946-1"><a href="análise-de-dados-categóricos.html#cb946-1" tabindex="-1"></a>tab2 <span class="ot">&lt;-</span> <span class="fu">table</span> (cirurgia<span class="sc">$</span>tempo, cirurgia<span class="sc">$</span>infec)</span>
+<div class="sourceCode" id="cb946"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb946-1"><a href="análise-de-dados-categóricos.html#cb946-1" tabindex="-1"></a>tab2 <span class="ot">&lt;-</span> <span class="fu">with</span>(<span class="at">data =</span> cirurgia, <span class="fu">table</span>(tempo, infec))</span>
 <span id="cb946-2"><a href="análise-de-dados-categóricos.html#cb946-2" tabindex="-1"></a><span class="fu">addmargins</span>(tab2)</span></code></pre></div>
-<pre><code>##        
-##         sim não Sum
+<pre><code>##        infec
+## tempo   sim não Sum
 ##   &lt;= 21   9  27  36
 ##   22-28  11  25  36
 ##   29-42  14  21  35
 ##   &gt;42    22  15  37
 ##   Sum    56  88 144</code></pre>
-<p>Ou seja, a proporção de recém-nascidos que se infectaram no pós-operatório foi 56/144 = 0,39 ou 39%. Se for calculada a proporção para cada um dos quartis do tempo de hospitalização, através da função <code>ctable()</code> do pacote <code>summarytools</code>, observa-se que a proporção de neonatos infectados no pós-operatório aumenta com o tempo de hospitalização (Tabela <a href="#tab:tabext"><strong>??</strong></a>):</p>
-<pre><code>## 
-## ------- ------- ------------ ------------ --------------
-##           infec          sim          não          Total
-##   tempo                                                 
-##   &lt;= 21            9 (25.0%)   27 (75.0%)    36 (100.0%)
-##   22-28           11 (30.6%)   25 (69.4%)    36 (100.0%)
-##   29-42           14 (40.0%)   21 (60.0%)    35 (100.0%)
-##     &gt;42           22 (59.5%)   15 (40.5%)    37 (100.0%)
-##   Total           56 (38.9%)   88 (61.1%)   144 (100.0%)
-## ------- ------- ------------ ------------ --------------</code></pre>
+<p>Ou seja, a proporção de recém-nascidos que se infectaram no pós-operatório foi 56/144 = 0,39 ou 39%. Se for calculada a proporção para cada um dos quartis do tempo de hospitalização, através da função <code>ctable()</code> do pacote <code>summarytools</code>, observa-se que a proporção de neonatos infectados no pós-operatório aumenta com o tempo de hospitalização:</p>
 </div>
 <div id="hipóteses-estatísticas-3" class="section level4 hasAnchor" number="16.2.5.2">
 <h4><span class="header-section-number">16.2.5.2</span> Hipóteses estatísticas<a href="#hip%C3%B3teses-estat%C3%ADsticas-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1353,10 +1344,10 @@ Figura 16.5: Distribuição do qui-quadrado, gl = 6, alpha = 0,05.
 <div id="cálculo-da-estatística-do-teste-3" class="section level4 hasAnchor" number="16.2.5.3">
 <h4><span class="header-section-number">16.2.5.3</span> Cálculo da estatística do teste<a href="#c%C3%A1lculo-da-estat%C3%ADstica-do-teste-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>O teste estatístico pode ser calculado, usando o argumento <code>chisq = TRUE</code> na função <code>ctable()</code>:</p>
-<div class="sourceCode" id="cb949"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb949-1"><a href="análise-de-dados-categóricos.html#cb949-1" tabindex="-1"></a>summarytools<span class="sc">::</span><span class="fu">ctable</span>(cirurgia<span class="sc">$</span>tempo, cirurgia<span class="sc">$</span>infec,</span>
-<span id="cb949-2"><a href="análise-de-dados-categóricos.html#cb949-2" tabindex="-1"></a>                      <span class="at">prop =</span> <span class="st">&quot;r&quot;</span>,</span>
-<span id="cb949-3"><a href="análise-de-dados-categóricos.html#cb949-3" tabindex="-1"></a>                      <span class="at">chisq =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb949-4"><a href="análise-de-dados-categóricos.html#cb949-4" tabindex="-1"></a>                      <span class="at">headings =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb948"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb948-1"><a href="análise-de-dados-categóricos.html#cb948-1" tabindex="-1"></a>summarytools<span class="sc">::</span><span class="fu">ctable</span>(cirurgia<span class="sc">$</span>tempo, cirurgia<span class="sc">$</span>infec,</span>
+<span id="cb948-2"><a href="análise-de-dados-categóricos.html#cb948-2" tabindex="-1"></a>                      <span class="at">prop =</span> <span class="st">&quot;r&quot;</span>,</span>
+<span id="cb948-3"><a href="análise-de-dados-categóricos.html#cb948-3" tabindex="-1"></a>                      <span class="at">chisq =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb948-4"><a href="análise-de-dados-categóricos.html#cb948-4" tabindex="-1"></a>                      <span class="at">headings =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## 
 ## ------- ------- ------------ ------------ --------------
 ##           infec          sim          não          Total
@@ -1378,7 +1369,7 @@ Figura 16.5: Distribuição do qui-quadrado, gl = 6, alpha = 0,05.
 <h4><span class="header-section-number">16.2.5.4</span> Conclusão<a href="#conclus%C3%A3o-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A partir desses resultados, pode-se inferir que a menor taxa de infecção no grupo do primeiro quartil e é significativamente diferente em relação a taxa de infecção do maior quartil, mas sem indicação para os grupos intermediários.
 É útil fazer o teste de tendência linear (<em>Linear-by-linear Association</em>). Para isso, pode-se usar a função <code>lbl_test ()</code> do pacote <code>coin</code>.</p>
-<div class="sourceCode" id="cb951"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb951-1"><a href="análise-de-dados-categóricos.html#cb951-1" tabindex="-1"></a>coin<span class="sc">::</span><span class="fu">lbl_test</span> (cirurgia<span class="sc">$</span>tempo <span class="sc">~</span> cirurgia<span class="sc">$</span>infec)</span></code></pre></div>
+<div class="sourceCode" id="cb950"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb950-1"><a href="análise-de-dados-categóricos.html#cb950-1" tabindex="-1"></a>coin<span class="sc">::</span><span class="fu">lbl_test</span> (cirurgia<span class="sc">$</span>tempo <span class="sc">~</span> cirurgia<span class="sc">$</span>infec)</span></code></pre></div>
 <pre><code>## 
 ##  Asymptotic Linear-by-Linear Association Test
 ## 
@@ -1398,24 +1389,24 @@ Figura 16.5: Distribuição do qui-quadrado, gl = 6, alpha = 0,05.
 <div id="entrando-com-os-dados" class="section level4 hasAnchor" number="16.3.1.1">
 <h4><span class="header-section-number">16.3.1.1</span> Entrando com os dados<a href="análise-de-dados-categóricos.html#entrando-com-os-dados" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Em primeiro lugar, serão criadas duas variáveis:</p>
-<div class="sourceCode" id="cb953"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb953-1"><a href="análise-de-dados-categóricos.html#cb953-1" tabindex="-1"></a>emerg <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>)</span>
-<span id="cb953-2"><a href="análise-de-dados-categóricos.html#cb953-2" tabindex="-1"></a>controle <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb952"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb952-1"><a href="análise-de-dados-categóricos.html#cb952-1" tabindex="-1"></a>emerg <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>)</span>
+<span id="cb952-2"><a href="análise-de-dados-categóricos.html#cb952-2" tabindex="-1"></a>controle <span class="ot">&lt;-</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>)</span></code></pre></div>
 <p>A seguir, usando essas variáveis, será construído um dataframe que será atribuído ao objeto <code>dadosControle</code>:</p>
-<div class="sourceCode" id="cb954"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb954-1"><a href="análise-de-dados-categóricos.html#cb954-1" tabindex="-1"></a>dadosControle <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(emerg, controle)</span></code></pre></div>
+<div class="sourceCode" id="cb953"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb953-1"><a href="análise-de-dados-categóricos.html#cb953-1" tabindex="-1"></a>dadosAsma <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(emerg, controle)</span></code></pre></div>
 </div>
 <div id="transformação-dos-dados-1" class="section level4 hasAnchor" number="16.3.1.2">
 <h4><span class="header-section-number">16.3.1.2</span> Transformação dos dados<a href="#transforma%C3%A7%C3%A3o-dos-dados-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Ambas as variáveis são numéricas e serão transformadas em fatores, considerando 1 = sim e 2 = não e considerando essa ordem:</p>
-<div class="sourceCode" id="cb955"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb955-1"><a href="análise-de-dados-categóricos.html#cb955-1" tabindex="-1"></a>dadosControle<span class="sc">$</span>emerg <span class="ot">&lt;-</span> <span class="fu">factor</span> (dadosControle<span class="sc">$</span>emerg,</span>
-<span id="cb955-2"><a href="análise-de-dados-categóricos.html#cb955-2" tabindex="-1"></a>                               <span class="at">ordered=</span><span class="cn">TRUE</span>,</span>
-<span id="cb955-3"><a href="análise-de-dados-categóricos.html#cb955-3" tabindex="-1"></a>                               <span class="at">levels =</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">2</span>),</span>
-<span id="cb955-4"><a href="análise-de-dados-categóricos.html#cb955-4" tabindex="-1"></a>                               <span class="at">labels =</span> <span class="fu">c</span> (<span class="st">&#39;sim&#39;</span>, <span class="st">&#39;não&#39;</span>))</span>
-<span id="cb955-5"><a href="análise-de-dados-categóricos.html#cb955-5" tabindex="-1"></a>dadosControle<span class="sc">$</span>controle <span class="ot">&lt;-</span> <span class="fu">factor</span> (dadosControle<span class="sc">$</span>controle,</span>
-<span id="cb955-6"><a href="análise-de-dados-categóricos.html#cb955-6" tabindex="-1"></a>                                  <span class="at">ordered=</span><span class="cn">TRUE</span>,</span>
-<span id="cb955-7"><a href="análise-de-dados-categóricos.html#cb955-7" tabindex="-1"></a>                                  <span class="at">levels =</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">2</span>),</span>
-<span id="cb955-8"><a href="análise-de-dados-categóricos.html#cb955-8" tabindex="-1"></a>                                  <span class="at">labels =</span> <span class="fu">c</span> (<span class="st">&#39;sim&#39;</span>, <span class="st">&#39;não&#39;</span>))</span>
-<span id="cb955-9"><a href="análise-de-dados-categóricos.html#cb955-9" tabindex="-1"></a></span>
-<span id="cb955-10"><a href="análise-de-dados-categóricos.html#cb955-10" tabindex="-1"></a><span class="fu">str</span>(dadosControle)</span></code></pre></div>
+<div class="sourceCode" id="cb954"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb954-1"><a href="análise-de-dados-categóricos.html#cb954-1" tabindex="-1"></a>dadosAsma<span class="sc">$</span>emerg <span class="ot">&lt;-</span> <span class="fu">factor</span> (dadosAsma<span class="sc">$</span>emerg,</span>
+<span id="cb954-2"><a href="análise-de-dados-categóricos.html#cb954-2" tabindex="-1"></a>                               <span class="at">ordered=</span><span class="cn">TRUE</span>,</span>
+<span id="cb954-3"><a href="análise-de-dados-categóricos.html#cb954-3" tabindex="-1"></a>                               <span class="at">levels =</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb954-4"><a href="análise-de-dados-categóricos.html#cb954-4" tabindex="-1"></a>                               <span class="at">labels =</span> <span class="fu">c</span> (<span class="st">&#39;sim&#39;</span>, <span class="st">&#39;não&#39;</span>))</span>
+<span id="cb954-5"><a href="análise-de-dados-categóricos.html#cb954-5" tabindex="-1"></a>dadosAsma<span class="sc">$</span>controle <span class="ot">&lt;-</span> <span class="fu">factor</span> (dadosAsma<span class="sc">$</span>controle,</span>
+<span id="cb954-6"><a href="análise-de-dados-categóricos.html#cb954-6" tabindex="-1"></a>                                  <span class="at">ordered=</span><span class="cn">TRUE</span>,</span>
+<span id="cb954-7"><a href="análise-de-dados-categóricos.html#cb954-7" tabindex="-1"></a>                                  <span class="at">levels =</span> <span class="fu">c</span> (<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb954-8"><a href="análise-de-dados-categóricos.html#cb954-8" tabindex="-1"></a>                                  <span class="at">labels =</span> <span class="fu">c</span> (<span class="st">&#39;sim&#39;</span>, <span class="st">&#39;não&#39;</span>))</span>
+<span id="cb954-9"><a href="análise-de-dados-categóricos.html#cb954-9" tabindex="-1"></a></span>
+<span id="cb954-10"><a href="análise-de-dados-categóricos.html#cb954-10" tabindex="-1"></a><span class="fu">str</span>(dadosAsma)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    16 obs. of  2 variables:
 ##  $ emerg   : Ord.factor w/ 2 levels &quot;sim&quot;&lt;&quot;não&quot;: 1 1 2 2 2 2 2 1 1 1 ...
 ##  $ controle: Ord.factor w/ 2 levels &quot;sim&quot;&lt;&quot;não&quot;: 1 1 1 1 1 1 1 2 2 2 ...</code></pre>
@@ -1423,13 +1414,13 @@ Figura 16.5: Distribuição do qui-quadrado, gl = 6, alpha = 0,05.
 <div id="construção-da-tabela" class="section level4 hasAnchor" number="16.3.1.3">
 <h4><span class="header-section-number">16.3.1.3</span> Construção da tabela<a href="#constru%C3%A7%C3%A3o-da-tabela" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Para o cálculo da estatística do teste, é necessário uma tabela <span class="math inline">\(2\times2\)</span>:</p>
-<div class="sourceCode" id="cb957"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb957-1"><a href="análise-de-dados-categóricos.html#cb957-1" tabindex="-1"></a>tab3 <span class="ot">&lt;-</span> <span class="fu">table</span> (dadosControle<span class="sc">$</span>controle, dadosControle<span class="sc">$</span>emerg)</span>
-<span id="cb957-2"><a href="análise-de-dados-categóricos.html#cb957-2" tabindex="-1"></a><span class="fu">addmargins</span>(tab3)</span></code></pre></div>
-<pre><code>##      
-##       sim não Sum
-##   sim   2   5   7
-##   não   8   1   9
-##   Sum  10   6  16</code></pre>
+<div class="sourceCode" id="cb956"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb956-1"><a href="análise-de-dados-categóricos.html#cb956-1" tabindex="-1"></a>tab3 <span class="ot">&lt;-</span> <span class="fu">with</span>(<span class="at">data =</span> dadosAsma, <span class="fu">table</span>(controle, emerg))</span>
+<span id="cb956-2"><a href="análise-de-dados-categóricos.html#cb956-2" tabindex="-1"></a><span class="fu">addmargins</span>(tab3)</span></code></pre></div>
+<pre><code>##         emerg
+## controle sim não Sum
+##      sim   2   5   7
+##      não   8   1   9
+##      Sum  10   6  16</code></pre>
 </div>
 </div>
 <div id="hipóteses-estatísticas-4" class="section level3 hasAnchor" number="16.3.2">
@@ -1441,16 +1432,17 @@ Figura 16.5: Distribuição do qui-quadrado, gl = 6, alpha = 0,05.
 </div>
 <div id="cálculo-da-estatística-do-teste-4" class="section level3 hasAnchor" number="16.3.3">
 <h3><span class="header-section-number">16.3.3</span> Cálculo da estatística do teste<a href="#c%C3%A1lculo-da-estat%C3%ADstica-do-teste-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>O teste exato de Fisher é usado quando há pelo menos uma célula na tabela de contingência das frequências esperadas abaixo de 5. Para recuperar as frequências esperadas, use a função <code>chisq.test ()</code>, do R base, junto com <code>$expected</code>:</p>
-<div class="sourceCode" id="cb959"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb959-1"><a href="análise-de-dados-categóricos.html#cb959-1" tabindex="-1"></a><span class="fu">chisq.test</span> (dadosControle<span class="sc">$</span>controle, dadosControle<span class="sc">$</span>emerg)<span class="sc">$</span>expected </span></code></pre></div>
-<pre><code>## Warning in chisq.test(dadosControle$controle, dadosControle$emerg): Aproximação
-## do qui-quadrado pode estar incorreta</code></pre>
-<pre><code>##                       dadosControle$emerg
-## dadosControle$controle   sim   não
-##                    sim 4.375 2.625
-##                    não 5.625 3.375</code></pre>
+<p>O teste exato de Fisher é usado quando há pelo menos uma célula na tabela de contingência das frequências esperadas abaixo de 5. Para recuperar as frequências esperadas, use a função <code>chisq.test()</code>, do <em>R</em> base, junto com <code>$expected</code>:</p>
+<div class="sourceCode" id="cb958"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb958-1"><a href="análise-de-dados-categóricos.html#cb958-1" tabindex="-1"></a><span class="fu">chisq.test</span> (dadosAsma<span class="sc">$</span>controle, dadosAsma<span class="sc">$</span>emerg)</span></code></pre></div>
+<pre><code>## Warning in chisq.test(dadosAsma$controle, dadosAsma$emerg): Aproximação do
+## qui-quadrado pode estar incorreta</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+## 
+## data:  dadosAsma$controle and dadosAsma$emerg
+## X-squared = 3.8095, df = 1, p-value = 0.05096</code></pre>
 <p>A saída do teste imprime um aviso de que o qui-quadrado pode estar incorreto. Há necessidade, devido a presença de três células com valores abaixo de 5, de se usar o teste de Fisher. este pode ser obtido através da função <code>fisher_test()</code>, do pacote <code>rstatix</code>, colocando como argumento uma tabela de contingência <span class="math inline">\(2\times2\)</span>, como a tab3:</p>
-<div class="sourceCode" id="cb962"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb962-1"><a href="análise-de-dados-categóricos.html#cb962-1" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">fisher_test</span> (tab3, <span class="at">detailed =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb961"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb961-1"><a href="análise-de-dados-categóricos.html#cb961-1" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">fisher_test</span> (tab3, <span class="at">detailed =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 8
 ##       n estimate     p conf.low conf.high method            alternative p.signif
 ## * &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;             &lt;chr&gt;       &lt;chr&gt;   
@@ -1481,10 +1473,10 @@ No contexto, rejeitar a hipótese nula para o teste exato de independência de F
 <div id="dados-usados-nesta-seção-10" class="section level3 hasAnchor" number="16.4.2">
 <h3><span class="header-section-number">16.4.2</span> Dados usados nesta seção<a href="#dados-usados-nesta-se%C3%A7%C3%A3o-10" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Em uma universidade, um professor de bioestatística comparou as atitudes de 200 estudantes de Medicina em relação à confiança que eles depositam na análise estatística antes e depois da conclusão da disciplina. A pergunta feita foi: Confiam na análise estatística utilizada nos periódicos médicos?
-As respostas podem ser resumidas na Tabela <a href="análise-de-dados-categóricos.html#tab:tabmcnemar">16.7</a>:</p>
+As respostas podem ser resumidas na Tabela <a href="análise-de-dados-categóricos.html#tab:tabmcnemar">16.4</a>:</p>
 <table class="table lightable-classic" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: Cambria; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:tabmcnemar">Tabela 16.7: </span><span id="tab:tabmcnemar">Tabela 16.8: </span>Confiança na análise estatística após término da disciplina
+<span id="tab:tabmcnemar">Tabela 16.4: </span>Confiança na análise estatística após término da disciplina
 </caption>
 <thead>
 <tr>
@@ -1550,7 +1542,7 @@ Total
 </div>
 <div id="hipóteses-estatísticas-5" class="section level3 hasAnchor" number="16.4.3">
 <h3><span class="header-section-number">16.4.3</span> Hipóteses estatísticas<a href="#hip%C3%B3teses-estat%C3%ADsticas-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Considerando as caselas a, b, c e da Tabela <a href="análise-de-dados-categóricos.html#tab:tabmcnemar">16.7</a>, a hipótese nula de homogeneidade marginal indica que as duas probabilidades marginais para cada resultado são as mesmas, isto é,</p>
+<p>Considerando as caselas a, b, c e da Tabela <a href="análise-de-dados-categóricos.html#tab:tabmcnemar">16.4</a>, a hipótese nula de homogeneidade marginal indica que as duas probabilidades marginais para cada resultado são as mesmas, isto é,</p>
 <p><span class="math display">\[
 p_{a} + p_{b} = p_{a} + p_{c}
 \]</span>
@@ -1572,38 +1564,38 @@ p_{c} + p_{d} = p_{b} + p_{d}
 \]</span></p>
 <p>Sob a hipótese nula, com um número suficientemente grande de discordantes (células <em>b</em> e <em>c</em>), o <span class="math inline">\(\chi^{2}\)</span> tem uma distribuição qui-quadrado com um grau de liberdade. Se o resultado é significativo, isto é, fornece evidências suficientes para rejeitar a hipótese nula, significa que as proporções marginais são significativamente diferentes umas das outras.</p>
 <p>Substituindo os dados da Tabela na Equação, tem-se:</p>
-<div class="sourceCode" id="cb964"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb964-1"><a href="análise-de-dados-categóricos.html#cb964-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb964-2"><a href="análise-de-dados-categóricos.html#cb964-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">8</span></span>
-<span id="cb964-3"><a href="análise-de-dados-categóricos.html#cb964-3" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="dv">22</span></span>
-<span id="cb964-4"><a href="análise-de-dados-categóricos.html#cb964-4" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="dv">150</span></span>
-<span id="cb964-5"><a href="análise-de-dados-categóricos.html#cb964-5" tabindex="-1"></a>chi <span class="ot">&lt;-</span> ((<span class="fu">abs</span>(b <span class="sc">-</span> c) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(b <span class="sc">+</span> c)</span>
-<span id="cb964-6"><a href="análise-de-dados-categóricos.html#cb964-6" tabindex="-1"></a>chi</span></code></pre></div>
+<div class="sourceCode" id="cb963"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb963-1"><a href="análise-de-dados-categóricos.html#cb963-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb963-2"><a href="análise-de-dados-categóricos.html#cb963-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb963-3"><a href="análise-de-dados-categóricos.html#cb963-3" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="dv">22</span></span>
+<span id="cb963-4"><a href="análise-de-dados-categóricos.html#cb963-4" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="dv">150</span></span>
+<span id="cb963-5"><a href="análise-de-dados-categóricos.html#cb963-5" tabindex="-1"></a>chi <span class="ot">&lt;-</span> ((<span class="fu">abs</span>(b <span class="sc">-</span> c) <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>(b <span class="sc">+</span> c)</span>
+<span id="cb963-6"><a href="análise-de-dados-categóricos.html#cb963-6" tabindex="-1"></a>chi</span></code></pre></div>
 <pre><code>## [1] 5.633333</code></pre>
 <p>Assumindo um <span class="math inline">\(\alpha = 0,05\)</span>, pode-se obter valor crítico para o <span class="math inline">\(\chi^{2}\)</span> para gl = 1, usando a função <code>qchisq()</code>, do pacote <code>stats</code>:</p>
-<div class="sourceCode" id="cb966"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb966-1"><a href="análise-de-dados-categóricos.html#cb966-1" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.05</span></span>
-<span id="cb966-2"><a href="análise-de-dados-categóricos.html#cb966-2" tabindex="-1"></a><span class="fu">qchisq</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb965"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb965-1"><a href="análise-de-dados-categóricos.html#cb965-1" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.05</span></span>
+<span id="cb965-2"><a href="análise-de-dados-categóricos.html#cb965-2" tabindex="-1"></a><span class="fu">qchisq</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>## [1] 3.841459</code></pre>
 <p>Desta maneira, rejeita-se a <span class="math inline">\(H_{0}\)</span>, pois o <span class="math inline">\(\chi_{calculado}^{2} &gt; \chi_{crítico}^{2}\)</span>. O valor <em>P</em> pode ser conseguido com a função <code>pchisq()</code>:</p>
-<div class="sourceCode" id="cb968"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb968-1"><a href="análise-de-dados-categóricos.html#cb968-1" tabindex="-1"></a><span class="fu">pchisq</span> (<span class="fl">5.633</span>, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb967"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb967-1"><a href="análise-de-dados-categóricos.html#cb967-1" tabindex="-1"></a><span class="fu">pchisq</span> (<span class="fl">5.633</span>, <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## [1] 0.01762544</code></pre>
 </div>
 <div id="cálculo-do-teste-de-mcnemar-no-r" class="section level3 hasAnchor" number="16.4.5">
 <h3><span class="header-section-number">16.4.5</span> Cálculo do teste de McNemar no R<a href="#c%C3%A1lculo-do-teste-de-mcnemar-no-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Carregar o arquivo <code>dadosBioestatistica.xlsx</code>, que pode ser encontrado <a href="https://github.com/petronioliveira/Arquivos/blob/main/dadosBioestatistica.xlsx"><strong>aqui</strong></a>. Este conjunto de dados contem os dados da tabela acima.</p>
-<div class="sourceCode" id="cb970"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb970-1"><a href="análise-de-dados-categóricos.html#cb970-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosBioestatistica.xlsx&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb969"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb969-1"><a href="análise-de-dados-categóricos.html#cb969-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;Arquivos/dadosBioestatistica.xlsx&quot;</span>)</span></code></pre></div>
 <p>Construir uma tabela de contingência</p>
-<div class="sourceCode" id="cb971"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb971-1"><a href="análise-de-dados-categóricos.html#cb971-1" tabindex="-1"></a>dados<span class="sc">$</span>preteste <span class="ot">&lt;-</span> <span class="fu">factor</span>(dados<span class="sc">$</span>preteste, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;sim&quot;</span>, <span class="st">&quot;não&quot;</span>))</span>
-<span id="cb971-2"><a href="análise-de-dados-categóricos.html#cb971-2" tabindex="-1"></a>dados<span class="sc">$</span>posteste <span class="ot">&lt;-</span> <span class="fu">factor</span>(dados<span class="sc">$</span>posteste, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;sim&quot;</span>, <span class="st">&quot;não&quot;</span>))</span>
-<span id="cb971-3"><a href="análise-de-dados-categóricos.html#cb971-3" tabindex="-1"></a>tab4 <span class="ot">&lt;-</span> <span class="fu">table</span>(dados<span class="sc">$</span>preteste, dados<span class="sc">$</span>posteste, </span>
-<span id="cb971-4"><a href="análise-de-dados-categóricos.html#cb971-4" tabindex="-1"></a>            <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">&quot;Pré-teste&quot;</span>, <span class="st">&quot;Pós-teste&quot;</span>))</span>
-<span id="cb971-5"><a href="análise-de-dados-categóricos.html#cb971-5" tabindex="-1"></a>tab4</span></code></pre></div>
+<div class="sourceCode" id="cb970"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb970-1"><a href="análise-de-dados-categóricos.html#cb970-1" tabindex="-1"></a>dados<span class="sc">$</span>preteste <span class="ot">&lt;-</span> <span class="fu">factor</span>(dados<span class="sc">$</span>preteste, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;sim&quot;</span>, <span class="st">&quot;não&quot;</span>))</span>
+<span id="cb970-2"><a href="análise-de-dados-categóricos.html#cb970-2" tabindex="-1"></a>dados<span class="sc">$</span>posteste <span class="ot">&lt;-</span> <span class="fu">factor</span>(dados<span class="sc">$</span>posteste, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;sim&quot;</span>, <span class="st">&quot;não&quot;</span>))</span>
+<span id="cb970-3"><a href="análise-de-dados-categóricos.html#cb970-3" tabindex="-1"></a>tab4 <span class="ot">&lt;-</span> <span class="fu">table</span>(dados<span class="sc">$</span>preteste, dados<span class="sc">$</span>posteste, </span>
+<span id="cb970-4"><a href="análise-de-dados-categóricos.html#cb970-4" tabindex="-1"></a>            <span class="at">dnn =</span> <span class="fu">c</span>(<span class="st">&quot;Pré-teste&quot;</span>, <span class="st">&quot;Pós-teste&quot;</span>))</span>
+<span id="cb970-5"><a href="análise-de-dados-categóricos.html#cb970-5" tabindex="-1"></a>tab4</span></code></pre></div>
 <pre><code>##          Pós-teste
 ## Pré-teste sim não
 ##       sim  20   8
 ##       não  22 150</code></pre>
 <p>Agora, pode-se calcular o teste de McNemar<a href="#fn65" class="footnote-ref" id="fnref65"><sup>65</sup></a> com a função <code>mcnemar_test()</code> do pacote <code>rstatix</code>:</p>
-<div class="sourceCode" id="cb973"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb973-1"><a href="análise-de-dados-categóricos.html#cb973-1" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">mcnemar_test</span> (tab4, </span>
-<span id="cb973-2"><a href="análise-de-dados-categóricos.html#cb973-2" tabindex="-1"></a>                       <span class="at">correct =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb972"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb972-1"><a href="análise-de-dados-categóricos.html#cb972-1" tabindex="-1"></a>rstatix<span class="sc">::</span><span class="fu">mcnemar_test</span> (tab4, </span>
+<span id="cb972-2"><a href="análise-de-dados-categóricos.html#cb972-2" tabindex="-1"></a>                       <span class="at">correct =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 6
 ##       n statistic    df      p p.signif method      
 ## * &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;       
@@ -1620,7 +1612,7 @@ p_{c} + p_{d} = p_{b} + p_{d}
 <div class="footnotes">
 <hr />
 <ol start="62">
-<li id="fn62"><p>Se o cálculo fosse feito com a fórmula geral, o valor do qui-quadrado seria 4,17.<a href="análise-de-dados-categóricos.html#fnref62" class="footnote-back">↩︎</a></p></li>
+<li id="fn62"><p>Se o cálculo fosse feito com a fórmula geral, o valor do qui-quadrado seria 4,17. Teste!<a href="análise-de-dados-categóricos.html#fnref62" class="footnote-back">↩︎</a></p></li>
 <li id="fn63"><p>Ver Seção <a href="manipulando-os-dados-no-r-studio.html#sec-mater">5.3</a><a href="análise-de-dados-categóricos.html#fnref63" class="footnote-back">↩︎</a></p></li>
 <li id="fn64"><p>Quando não se está trabalhando com uma tabela <span class="math inline">\(2 \times 2\)</span> e a regra geral for obedecida e o n for grande, pode-se usar o qui-quadrado de Pearson sem correção.<a href="análise-de-dados-categóricos.html#fnref64" class="footnote-back">↩︎</a></p></li>
 <li id="fn65"><p>É possível também obter o teste de McNemar de outras formas, como, por exemplo, usando a função <code>CrossTable()</code> do pacote <code>gmodels</code>.<a href="análise-de-dados-categóricos.html#fnref65" class="footnote-back">↩︎</a></p></li>

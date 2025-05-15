@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2025-05-14" />
+<meta name="date" content="2025-05-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -403,7 +403,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="10.7.1" data-path="06-descrevendoDados.html"><a href="#dados-para-estimar-a-propor%C3%A7%C3%A3o-populacional"><i class="fa fa-check"></i><b>10.7.1</b> Dados para estimar a proporção populacional</a></li>
 <li class="chapter" data-level="10.7.2" data-path="06-descrevendoDados.html"><a href="#c%C3%A1lculo-da-estimativa-pontual-da-propor%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>10.7.2</b> Cálculo da estimativa pontual da proporção</a></li>
-<li class="chapter" data-level="10.7.3" data-path="06-descrevendoDados.html"><a href="#c%C3%A1lculo-do-intervalo-de-confian%C3%A7a-para-a-propor%C3%A7%C3%A3o"><i class="fa fa-check"></i><b>10.7.3</b> Cálculo do intervalo de confiança para a proporção</a></li>
+<li class="chapter" data-level="10.7.3" data-path="sec-estimacao.html"><a href="sec-estimacao.html#sec-ICproporcao"><i class="fa fa-check"></i><b>10.7.3</b> Cálculo do intervalo de confiança para a proporção</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="06-descrevendoDados.html"><a href="#teste-de-hip%C3%B3teses"><i class="fa fa-check"></i><b>11</b> Teste de Hipóteses</a>
@@ -1134,14 +1134,14 @@ Esta função tem vários argumentos:</p>
 ## Total        1368 1.000 100.0</code></pre>
 <p>Esta uma tabela simples que serve para visualizar as informações. Não serve para publicações. Para obter uma tabela simples, mas muito mais profissional (Tabela <a href="descrevendo-os-dados.html#tab:tisch">6.2</a>) pode ser utilizada a função <code>kable()</code> do pacote <code>knitr</code> <span class="citation">(71)</span>. Esta função possui um grande número de argumentos para personalizar a aparência das tabelas<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a>:</p>
 <ul>
-<li><em>x</em> <span class="math inline">\(\rightarrow\)</span> é um objeto do R, tipicamente uma matiz ou dataframe;</li>
-<li><em>format</em> <span class="math inline">\(\rightarrow\)</span> sequência de caracteres. Os valores possíveis são ”latex”, “html”, “pipe”, “simple”;</li>
-<li><em>digits</em> <span class="math inline">\(\rightarrow\)</span> número máximo de dígitos para colunas numéricas, passado para <code>round()</code>;</li>
-<li><em>row.names</em> <span class="math inline">\(\rightarrow\)</span>lógico: se deve incluir nomes de linhas. Por padrão, os nomes de linhas serão incluídos se rownames(x) não for NULL nem idêntico a <code>1:nrow(x)</code>.</li>
-<li><em>col.names</em> <span class="math inline">\(\rightarrow\)</span> vetor de caracteres de nomes de colunas a serem usados na tabela.;</li>
-<li><em>align</em> <span class="math inline">\(\rightarrow\)</span> alinhamento da coluna: um vetor de caracteres que consiste em “l” (esquerda), “c”’ (centro) e/ou “r” (direita). Por padrão ou se <code>align = NULL</code>, as colunas numéricas são alinhadas à direita e as outras colunas são alinhadas à esquerda.;</li>
-<li><em>caption</em> <span class="math inline">\(\rightarrow\)</span> título da tabela;</li>
-<li>… <span class="math inline">\(\rightarrow\)</span> outros argumentos</li>
+<li><strong>x</strong> <span class="math inline">\(\rightarrow\)</span> é um objeto do R, tipicamente uma matiz ou dataframe;</li>
+<li><strong>format</strong> <span class="math inline">\(\rightarrow\)</span> sequência de caracteres. Os valores possíveis são ”latex”, “html”, “pipe”, “simple”;</li>
+<li><strong>digits</strong> <span class="math inline">\(\rightarrow\)</span> número máximo de dígitos para colunas numéricas, passado para <code>round()</code>;</li>
+<li><strong>row.names</strong> <span class="math inline">\(\rightarrow\)</span>lógico: se deve incluir nomes de linhas. Por padrão, os nomes de linhas serão incluídos se rownames(x) não for NULL nem idêntico a <code>1:nrow(x)</code>.</li>
+<li><strong>col.names</strong> <span class="math inline">\(\rightarrow\)</span> vetor de caracteres de nomes de colunas a serem usados na tabela.;</li>
+<li><strong>align</strong> <span class="math inline">\(\rightarrow\)</span> alinhamento da coluna: um vetor de caracteres que consiste em “l” (esquerda), “c”’ (centro) e/ou “r” (direita). Por padrão ou se <code>align = NULL</code>, as colunas numéricas são alinhadas à direita e as outras colunas são alinhadas à esquerda.;</li>
+<li><strong>caption</strong> <span class="math inline">\(\rightarrow\)</span> título da tabela;</li>
+<li><strong>…</strong> <span class="math inline">\(\rightarrow\)</span> outros argumentos</li>
 </ul>
 <p>Um pacote adicional, <code>kableExtra</code> <span class="citation">(72)</span>, permite opções de formatação simples, melhorando o aspecto da tabela, utilizando-se o operador pipe <code>%&gt;%</code>. O pacote <code>kableExtra</code> foi projetado para estender a funcionalidade básica das tabelas produzidas usando <code>knitr::kable()</code>. Podem ser acrescentadas várias das suas funções como <code>kable_styling()</code> ou <code>kable_classic()</code> para especificar estilos à tabela, como extensão da tabela, alinhamento, tipo e tamanho da fonte <a href="#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a>.</p>
 <div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="descrevendo-os-dados.html#cb314-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(tab1,</span>
@@ -1152,8 +1152,8 @@ Esta função tem vários argumentos:</p>
 <span id="cb314-6"><a href="descrevendo-os-dados.html#cb314-6" tabindex="-1"></a>                            <span class="at">html_font =</span> <span class="st">&quot;Cambria&quot;</span>,</span>
 <span id="cb314-7"><a href="descrevendo-os-dados.html#cb314-7" tabindex="-1"></a>                            <span class="at">position =</span> <span class="st">&quot;center&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb314-8"><a href="descrevendo-os-dados.html#cb314-8" tabindex="-1"></a>kableExtra<span class="sc">::</span><span class="fu">row_spec</span>(<span class="dv">0</span>, <span class="at">bold =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb314-9"><a href="descrevendo-os-dados.html#cb314-9" tabindex="-1"></a>   kableExtra<span class="sc">::</span><span class="fu">column_spec</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, </span>
-<span id="cb314-10"><a href="descrevendo-os-dados.html#cb314-10" tabindex="-1"></a>                           <span class="at">width =</span> <span class="st">&quot;2.5cm&quot;</span>)</span></code></pre></div>
+<span id="cb314-9"><a href="descrevendo-os-dados.html#cb314-9" tabindex="-1"></a>kableExtra<span class="sc">::</span><span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">width =</span> <span class="st">&quot;4cm&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb314-10"><a href="descrevendo-os-dados.html#cb314-10" tabindex="-1"></a>kableExtra<span class="sc">::</span><span class="fu">column_spec</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">width =</span> <span class="st">&quot;2.5cm&quot;</span>)</span></code></pre></div>
 <table class=" lightable-classic-2" style="font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:tisch">Tabela 6.2: </span>Distribuição das puérperas por faixa etária, Hospital Geral de Caxias do Sul, RS, 2008.
@@ -1175,7 +1175,7 @@ fp
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;width: 2.5cm; ">
+<td style="text-align:left;width: 4cm; ">
 &lt; 20 anos
 </td>
 <td style="text-align:right;width: 2.5cm; ">
@@ -1189,7 +1189,7 @@ fp
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 2.5cm; ">
+<td style="text-align:left;width: 4cm; ">
 &gt; 35 anos
 </td>
 <td style="text-align:right;width: 2.5cm; ">
@@ -1203,7 +1203,7 @@ fp
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 2.5cm; ">
+<td style="text-align:left;width: 4cm; ">
 20 a 35 anos
 </td>
 <td style="text-align:right;width: 2.5cm; ">
@@ -1217,7 +1217,7 @@ fp
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 2.5cm; ">
+<td style="text-align:left;width: 4cm; ">
 Total
 </td>
 <td style="text-align:right;width: 2.5cm; ">
