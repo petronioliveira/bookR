@@ -221,7 +221,7 @@ str(dados)
 
 Todos esses passos poderiam ser feitos em um só comando, precedido pela semente (`set.seed(123)`), usando o operador pipe %>%:
 
-```{r echo=FALSE}
+```{r echo=TRUE,eval=FALSE}
 set.seed(123)
 dados <- read_excel ("Arquivos/dadosMater.xlsx") %>% 
   mutate(baixoPeso = ifelse(pesoRN < 2500, "1", "2")) %>% 
