@@ -18,7 +18,7 @@ pacman::p_load (coin,
 
 ## Distribuição livre  {#sec-distlivre}
 
-A maioria dos testes estatísticos que discutidos são testes paramétricos.  Nestes, o  interesse estava focado em estimar ou testar uma hipótese sobre um ou mais parâmetros populacionais. Além disso, o aspecto central desses procedimentos era o conhecimento da forma funcional da população da qual foram retiradas as amostras que forneceram a base para a inferência. Por exemplo, o teste *t* de Student para amostras independentes e a ANOVA são baseados no pressuposto de que os dados foram amostrados de populações que têm distribuição normal.   
+A maioria dos testes estatísticos, discutidos neste livro, são testes paramétricos.  Nestes, o  interesse estava focado em estimar ou testar uma hipótese sobre um ou mais parâmetros populacionais e ,por isso, são denominados de paramétricos. Além disso, o aspecto central desses procedimentos era o conhecimento da forma funcional da população da qual foram retiradas as amostras que forneceram a base para a inferência. Por exemplo, o teste *t* de Student para amostras independentes e a ANOVA são baseados no pressuposto de que os dados foram amostrados de populações que têm distribuição normal.   
 
 Os **testes não paramétricos** não fazem suposições em relação à distribuição da população. Não têm, portanto, os pressupostos restritivos, comuns nos testes paramétricos. Têm *distribuição livre*. São baseados em uma ideia simples de ordenação por postos, do valor mais baixo ao mais alto. Analisam somente os postos, ignorando os valores. Podem ser usados tanto com variáveis ordinais como quantitativas numéricas.
 
@@ -33,19 +33,20 @@ A atribuição dos postos de uma variável é realizada da seguinte maneira:
 3. Se todas as observações são distintas, os postos são iguais aos valores associados às observações no passo anterior. 
 4. Para observações iguais (empates), associam-se postos iguais à média das suas posições relativas na amostra.
 
-Por exemplo, suponha uma amostra contendo os escores de Apgar no primeiro minuto de 10 recém-nascidos a termo (Tabela \@ref(tab:apgar1)). Em primeiro lugar, os valores são colocados em ordem crescente e, após, atribui-se postos aos valores. Observe que os postos atribuídos aos valores das posições 3 e 4 são iguais e correspondentes a média de 3 e 4, que é igual a 3,5. O mesmo ocorreu com os outros valores onde houve empate.   A soma dos postos, no exemplo, é igual a 55. Para verificar a correção do cálculo, haja ou não empates, a soma dos postos será sempre $\frac {n\ \times \ (n+1)}{2}$. No exemplo, *n* = 10, logo $\frac {10\ \times \ (10+1)}{2}=55$. 
+Por exemplo, suponha uma amostra contendo os escores de Apgar no primeiro minuto de 10 recém-nascidos a termo (Tabela \@ref(tab:apgar1)). Em primeiro lugar, os valores são colocados em ordem crescente e, após, atribui-se postos aos valores. Observe que os postos atribuídos aos valores das posições 4, 5 e 6 são iguais e correspondentes a média de 4, 5 e 6, que é igual a 5. O mesmo ocorreu com os outros valores onde houve empate.  
+A soma dos postos, no exemplo, é igual a 55. Para verificar a correção do cálculo, haja ou não empates, a soma dos postos será sempre $\frac {n\ \times \ (n+1)}{2}$. No exemplo, *n* = 10, logo $\frac {10\ \times \ (10+1)}{2}=55$. 
 
 ```{r apgar1, echo=FALSE, message=FALSE, warning=FALSE}
 apgar1 <-c(4, 5, 7, 8, 8, 8, 9, 9, 10, 10)
 ordem <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-posto <- c(1, 2, 3, 5, 5, 5, 7.5, 7.5, 9.5, 9.5)
+posto <- c(1, 2, 3, 5, 5, 5, 8, 8, 9.5, 9.5)
 
 df <- data.frame(apgar1, ordem, posto)
 
 knitr::kable(df,
              col.names = c('Apgar 1', 'Ordem','Posto'),
              align = c('c', 'c', 'c'),
-             booktabs = TRUE,
+             "html",
              caption = "Construção dos postos") %>% 
   kableExtra::kable_styling(full_width = FALSE,
                 latex_options = "hold_position") %>% 
@@ -60,7 +61,7 @@ knitr::kable(df,
 
 O *teste de Mann-Whitney* é usado para analisar a diferença na variável dependente (desfecho) para dois grupos independentes. O teste classifica todos os valores dependentes, ou seja, o valor mais baixo obtém o posto um e, em seguida, usa a soma dos postos de cada grupo no cálculo da estatística de teste.   
 
-É o substituto do teste *t* para amostras independentes quando os pressupostos deste teste são violados. Para a aplicação do teste de Mann-Whitney a variável de interesse deve ser ordinal ou numérica. Este teste é equivalente ao desenvolvido por Frank Wilcoxon (1892 – 1965), assim algumas vezes é denominado de *Wilcoxon Rank Sum Test*. O R usa esta denominação e é importante não confundir com o teste não paramétrico para amostra pareadas, discutido mais adiante.  
+É o substituto do teste *t* para amostras independentes quando os pressupostos deste teste são violados. Para a aplicação do teste de Mann-Whitney a variável de interesse deve ser ordinal ou numérica. Este teste é equivalente ao desenvolvido por Frank Wilcoxon (1892 – 1965), assim algumas vezes é denominado de *Wilcoxon Rank Sum Test* ou teste de Wilcoxon-Mann-Whitney. O *R* usa esta denominação e é importante não confundir com o teste não paramétrico para amostra pareadas, discutido mais adiante.  
 
 ### Dados usados nesta seção
 
@@ -79,10 +80,11 @@ Os dados serão lidos com a função `read_excel()` do pacote `readxl`:
 cirurgia <- readxl::read_excel ("Arquivos/dadosCirurgia.xlsx")
 str(cirurgia)
 ```
+
 A variável `infec` aparece como caractere e será transformada como fator:
 
 ```{r}
-cirurgia$infec <- as.factor(cirurgia$infec)
+cirurgia$infec <- factor(cirurgia$infec, levels = c("sim", "não"))
 ```
 
 Os boxplots  (Figura \@ref(fig:bpapgar1)), construídos com a função `ggboxplot()` do pacote `ggpubr` com as cores da paleta do *New England Journal of Medicine (NEJM)*, são uma boa maneira de visualizar os dados:
@@ -201,8 +203,10 @@ T <- grupo_1
 Consequentemente,  
 
 ```{r}
-n1 <- 56
-n2 <- 88
+n1 <- resumo$n[1]
+n1
+n2 <- resumo$n[2]
+n2
 ```
 
 6. Calcular a estística do teste, usando a fórmula preconizada por Altman [@altman1991mannwhitney]:  
@@ -271,7 +275,7 @@ teste <- rstatix::wilcox_test(formula = tempohosp ~ infec, data = cirurgia)
 teste
 ```
 
-Assim como no cálculo manual, o teste no R, mostra uma diferença estatisticamente significativa (*P* = 0,00083) entre os tempos de hospitalização dos recém-nascidos que realizaram cirurgia no período neonatal que se infectaram ou não (diferença mediana = 14 dias; IC95% : 5,0 – 19,5).
+Assim como no cálculo manual, o teste com a função do `rstatix`, mostra uma diferença estatisticamente significativa (*P* = `r teste$p`) entre os tempos de hospitalização dos recém-nascidos que realizaram cirurgia no período neonatal que se infectaram ou não (diferença mediana = 14 dias; IC95% : 5,0 – 19,5).
 
 ### Tamanho do efeito  {#sec-tefMW}
 
@@ -288,7 +292,7 @@ r <- Z_U/sqrt(n1+n2)
 round(r,3)
 ```
 
-O R possui a função `wilcox_effsize()` do pacote `rstatix` e necessita também do pacote `coin` @hothorn2006lego , instalado para calcular a estatística *r*.^[Para maiores detalhes consulte a ajuda da função.]  A saída exibirá junto a magnitude o efeito, que no caso é pequena (veja Tabela \@ref(tab:wilcoxef)). 
+O *R* possui a função `wilcox_effsize()` do pacote `rstatix` e necessita também do pacote `coin` @hothorn2006lego instalado para calcular a estatística *r*.^[Para maiores detalhes consulte a ajuda da função.]  A saída exibirá junto a magnitude o efeito, que no caso é pequena (veja Tabela \@ref(tab:wilcoxef)). 
 
 ```{r}
 wilcox_effsize(cirurgia, tempohosp~infec)
@@ -304,7 +308,7 @@ df <- data.frame(r, magnitude)
 knitr::kable(df,
              col.names = c('Valor r', 'Magnitude'),
              align = c('c', 'c'),
-             booktabs = TRUE,
+             "html",
              caption = "Interpretação do valor r (sem considerar o sinal)") %>% 
   kableExtra::kable_styling(full_width = F,
                             latex_options = "hold_position") %>% 
@@ -628,7 +632,7 @@ bxp +
 
 ## Teste de Kruskal-Wallis  {#sec-kuskalwallis}
 
-Quando os pressupostos subjacentes a ANOVA não são atendidos, é possível usar o teste não paramétrico de Kruskal-Wallis (KW) para testar a hipótese de que os parâmetros de localização são iguais. Pode ser considerado uma extensão do teste de Wilcoxon-Mann-Whitney.  
+Quando os pressupostos subjacentes à ANOVA não são atendidos, é possível usar o teste não paramétrico de Kruskal-Wallis (KW) para testar a hipótese de que os parâmetros de localização são iguais. Pode ser considerado uma extensão do teste de Wilcoxon-Mann-Whitney.  
 
 Enquanto a ANOVA depende da hipótese de que todas as populações são independentes e normalmente distribuídas, o teste de Kruskal-Wallis exige apenas amostras aleatórias independentes provenientes de suas respectivas populações. Entretanto, este teste somente deve ser aplicado se a amostra for pequena e/ou os pressupostos para a ANOVA forem seriamente violados.   
 
@@ -642,9 +646,9 @@ Os dados encontram-se no arquivo `dadosResposta.xlsx`. Clique [**aqui**](https:/
 
 As variáveis são:
 
-*	*id* $\to$ identificação do participante;
-*	*tempo* $\to$ tempo de reação na simulação de direção em segundos;
-*	*bebida* $\to$ três grupo: água, álcool e café.
+*	**id** $\to$ identificação do participante;
+*	**tempo** $\to$ tempo de reação na simulação de direção em segundos;
+*	**bebida** $\to$ três grupo: água, álcool e café.
 
 O estudo pretende verificar se existe diferença no tempo de reação dos participantes em um teste de direção com a ingesta de água, café e álcool.
 
@@ -681,7 +685,7 @@ ggpubr::ggboxplot(dados,
   theme(text = element_text(size = 12))
 ```
 
-Os boxplots exibem dados com medianas visualmente diferentes, bigodes diferentes e grupos com presença de *outliers*. Para verificar o impacto desses achados, pode-se usar a função `identify_outliers()`, do pacote `rstatix` que confirma na sua Saída a presença de *outliers* no grupo agua e cafe, sendo dois extremos.
+Os boxplots exibem dados com medianas visualmente diferentes, bigodes diferentes e grupos com presença de *outliers*. Para verificar o impacto desses achados, pode-se usar a função `identify_outliers()`, do pacote `rstatix` que confirma, na sua Saída, a presença de *outliers* no grupo `agua` e `cafe`, sendo dois extremos.
 
 ```{r}
 dados %>% 
@@ -836,7 +840,7 @@ pwc <- dados %>%
 pwc
 ```
 
-A saída do teste de Dunn, mostra que existe uma diferença estatisticamente significativa apenas entre a água e o álcool.  
+A saída do teste de Dunn, mostra que existe uma diferença estatisticamente significativa apenas entre a água e o álcool, valor *P* ajustado igual a `r round(pwc$p.adj[2],6)`.  
 
 ### Conclusão
 

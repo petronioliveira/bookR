@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2025-05-15" />
+<meta name="date" content="2025-05-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -674,7 +674,7 @@ div.csl-indent {
 </div>
 <div id="sec-distlivre" class="section level2 hasAnchor" number="17.2">
 <h2><span class="header-section-number">17.2</span> Distribuição livre<a href="métodos-não-paramétricos.html#sec-distlivre" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>A maioria dos testes estatísticos que discutidos são testes paramétricos. Nestes, o interesse estava focado em estimar ou testar uma hipótese sobre um ou mais parâmetros populacionais. Além disso, o aspecto central desses procedimentos era o conhecimento da forma funcional da população da qual foram retiradas as amostras que forneceram a base para a inferência. Por exemplo, o teste <em>t</em> de Student para amostras independentes e a ANOVA são baseados no pressuposto de que os dados foram amostrados de populações que têm distribuição normal.</p>
+<p>A maioria dos testes estatísticos, discutidos neste livro, são testes paramétricos. Nestes, o interesse estava focado em estimar ou testar uma hipótese sobre um ou mais parâmetros populacionais e ,por isso, são denominados de paramétricos. Além disso, o aspecto central desses procedimentos era o conhecimento da forma funcional da população da qual foram retiradas as amostras que forneceram a base para a inferência. Por exemplo, o teste <em>t</em> de Student para amostras independentes e a ANOVA são baseados no pressuposto de que os dados foram amostrados de populações que têm distribuição normal.</p>
 <p>Os <strong>testes não paramétricos</strong> não fazem suposições em relação à distribuição da população. Não têm, portanto, os pressupostos restritivos, comuns nos testes paramétricos. Têm <em>distribuição livre</em>. São baseados em uma ideia simples de ordenação por postos, do valor mais baixo ao mais alto. Analisam somente os postos, ignorando os valores. Podem ser usados tanto com variáveis ordinais como quantitativas numéricas.</p>
 </div>
 <div id="sec-postos" class="section level2 hasAnchor" number="17.3">
@@ -687,10 +687,11 @@ div.csl-indent {
 <li>Se todas as observações são distintas, os postos são iguais aos valores associados às observações no passo anterior.</li>
 <li>Para observações iguais (empates), associam-se postos iguais à média das suas posições relativas na amostra.</li>
 </ol>
-<p>Por exemplo, suponha uma amostra contendo os escores de Apgar no primeiro minuto de 10 recém-nascidos a termo (Tabela <a href="métodos-não-paramétricos.html#tab:apgar1">17.1</a>). Em primeiro lugar, os valores são colocados em ordem crescente e, após, atribui-se postos aos valores. Observe que os postos atribuídos aos valores das posições 3 e 4 são iguais e correspondentes a média de 3 e 4, que é igual a 3,5. O mesmo ocorreu com os outros valores onde houve empate. A soma dos postos, no exemplo, é igual a 55. Para verificar a correção do cálculo, haja ou não empates, a soma dos postos será sempre <span class="math inline">\(\frac {n\ \times \ (n+1)}{2}\)</span>. No exemplo, <em>n</em> = 10, logo <span class="math inline">\(\frac {10\ \times \ (10+1)}{2}=55\)</span>.</p>
+<p>Por exemplo, suponha uma amostra contendo os escores de Apgar no primeiro minuto de 10 recém-nascidos a termo (Tabela <a href="métodos-não-paramétricos.html#tab:apgar1">17.1</a>). Em primeiro lugar, os valores são colocados em ordem crescente e, após, atribui-se postos aos valores. Observe que os postos atribuídos aos valores das posições 4, 5 e 6 são iguais e correspondentes a média de 4, 5 e 6, que é igual a 5. O mesmo ocorreu com os outros valores onde houve empate.<br />
+A soma dos postos, no exemplo, é igual a 55. Para verificar a correção do cálculo, haja ou não empates, a soma dos postos será sempre <span class="math inline">\(\frac {n\ \times \ (n+1)}{2}\)</span>. No exemplo, <em>n</em> = 10, logo <span class="math inline">\(\frac {10\ \times \ (10+1)}{2}=55\)</span>.</p>
 <table class="table lightable-classic" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: Cambria; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:apgar1">Tabela 17.1: </span><span id="tab:apgar1">Tabela 17.2: </span>Construção dos postos
+<span id="tab:apgar1">Tabela 17.1: </span>Construção dos postos
 </caption>
 <thead>
 <tr>
@@ -780,7 +781,7 @@ Posto
 7
 </td>
 <td style="text-align:center;width: 3cm; ">
-7.5
+8.0
 </td>
 </tr>
 <tr>
@@ -791,7 +792,7 @@ Posto
 8
 </td>
 <td style="text-align:center;width: 3cm; ">
-7.5
+8.0
 </td>
 </tr>
 <tr>
@@ -822,7 +823,7 @@ Posto
 <div id="teste-de-mann-whitney" class="section level2 hasAnchor" number="17.4">
 <h2><span class="header-section-number">17.4</span> Teste de Mann-Whitney<a href="métodos-não-paramétricos.html#teste-de-mann-whitney" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>O <em>teste de Mann-Whitney</em> é usado para analisar a diferença na variável dependente (desfecho) para dois grupos independentes. O teste classifica todos os valores dependentes, ou seja, o valor mais baixo obtém o posto um e, em seguida, usa a soma dos postos de cada grupo no cálculo da estatística de teste.</p>
-<p>É o substituto do teste <em>t</em> para amostras independentes quando os pressupostos deste teste são violados. Para a aplicação do teste de Mann-Whitney a variável de interesse deve ser ordinal ou numérica. Este teste é equivalente ao desenvolvido por Frank Wilcoxon (1892 – 1965), assim algumas vezes é denominado de <em>Wilcoxon Rank Sum Test</em>. O R usa esta denominação e é importante não confundir com o teste não paramétrico para amostra pareadas, discutido mais adiante.</p>
+<p>É o substituto do teste <em>t</em> para amostras independentes quando os pressupostos deste teste são violados. Para a aplicação do teste de Mann-Whitney a variável de interesse deve ser ordinal ou numérica. Este teste é equivalente ao desenvolvido por Frank Wilcoxon (1892 – 1965), assim algumas vezes é denominado de <em>Wilcoxon Rank Sum Test</em> ou teste de Wilcoxon-Mann-Whitney. O <em>R</em> usa esta denominação e é importante não confundir com o teste não paramétrico para amostra pareadas, discutido mais adiante.</p>
 <div id="dados-usados-nesta-seção-11" class="section level3 hasAnchor" number="17.4.1">
 <h3><span class="header-section-number">17.4.1</span> Dados usados nesta seção<a href="#dados-usados-nesta-se%C3%A7%C3%A3o-11" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>O arquivo <code>dadosCirurgia.xlsx</code>, já usado na Seção <a href="análise-de-dados-categóricos.html#sec-dadosCirurgia">16.2.5.1</a>, fornecerá os dados para esta seção. Ele contém 144 recém-nascidos que foram submetidos a diferentes procedimentos cirúrgicos.
@@ -845,7 +846,7 @@ A questão de pesquisa a ser respondida é:</p>
 ##  $ infec    : chr [1:144] &quot;não&quot; &quot;não&quot; &quot;sim&quot; &quot;sim&quot; ...
 ##  $ cirurgia : chr [1:144] &quot;abdominal&quot; &quot;abdominal&quot; &quot;abdominal&quot; &quot;outra&quot; ...</code></pre>
 <p>A variável <code>infec</code> aparece como caractere e será transformada como fator:</p>
-<div class="sourceCode" id="cb978"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb978-1"><a href="métodos-não-paramétricos.html#cb978-1" tabindex="-1"></a>cirurgia<span class="sc">$</span>infec <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(cirurgia<span class="sc">$</span>infec)</span></code></pre></div>
+<div class="sourceCode" id="cb978"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb978-1"><a href="métodos-não-paramétricos.html#cb978-1" tabindex="-1"></a>cirurgia<span class="sc">$</span>infec <span class="ot">&lt;-</span> <span class="fu">factor</span>(cirurgia<span class="sc">$</span>infec, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;sim&quot;</span>, <span class="st">&quot;não&quot;</span>))</span></code></pre></div>
 <p>Os boxplots (Figura <a href="métodos-não-paramétricos.html#fig:bpapgar1">17.1</a>), construídos com a função <code>ggboxplot()</code> do pacote <code>ggpubr</code> com as cores da paleta do <em>New England Journal of Medicine (NEJM)</em>, são uma boa maneira de visualizar os dados:</p>
 <div class="sourceCode" id="cb979"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb979-1"><a href="métodos-não-paramétricos.html#cb979-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span>(cirurgia,</span>
 <span id="cb979-2"><a href="métodos-não-paramétricos.html#cb979-2" tabindex="-1"></a>                  <span class="at">x =</span> <span class="st">&quot;infec&quot;</span>,</span>
@@ -871,8 +872,8 @@ Figura 17.1: Impacto da infecção no tempo de hopsitalização.
 <pre><code>## # A tibble: 2 × 4
 ##   infec variable  statistic        p
 ##   &lt;fct&gt; &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;
-## 1 não   tempohosp     0.565 9.87e-15
-## 2 sim   tempohosp     0.692 1.47e- 9</code></pre>
+## 1 sim   tempohosp     0.692 1.47e- 9
+## 2 não   tempohosp     0.565 9.87e-15</code></pre>
 </div>
 <div id="sumarização-dos-dados-2" class="section level4 hasAnchor" number="17.4.1.2">
 <h4><span class="header-section-number">17.4.1.2</span> Sumarização dos dados<a href="#sumariza%C3%A7%C3%A3o-dos-dados-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -887,8 +888,8 @@ Figura 17.1: Impacto da infecção no tempo de hopsitalização.
 <pre><code>## # A tibble: 2 × 5
 ##   infec     n mediana   p25   p75
 ##   &lt;fct&gt; &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 não      88      23  18      37
-## 2 sim      56      37  22.8    49</code></pre>
+## 1 sim      56      37  22.8    49
+## 2 não      88      23  18      37</code></pre>
 <p>Os dados mostram que a mediana de tempo de internação dos neonatos infectados é bem maior do que os não infectados. A diferença mediana e os intervalos de confiança para essa diferença pode ser calculada com a função <code>ci_quantile_diff()</code> do pacote <code>confintr</code> <span class="citation">(145)</span>.</p>
 <div class="sourceCode" id="cb984"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb984-1"><a href="métodos-não-paramétricos.html#cb984-1" tabindex="-1"></a>infectado <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(cirurgia, infec <span class="sc">==</span> <span class="st">&quot;sim&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb984-2"><a href="métodos-não-paramétricos.html#cb984-2" tabindex="-1"></a>  <span class="fu">select</span>(tempohosp)</span>
@@ -963,8 +964,8 @@ Figura 17.1: Impacto da infecção no tempo de hopsitalização.
 <pre><code>## # A tibble: 2 × 3
 ##   infec     n  soma
 ##   &lt;fct&gt; &lt;int&gt; &lt;dbl&gt;
-## 1 não      88 5564.
-## 2 sim      56 4876.</code></pre>
+## 1 sim      56 4876.
+## 2 não      88 5564.</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Denominar de <em>grupo_1</em> o grupo com menor soma:</li>
 </ol>
@@ -976,16 +977,20 @@ Figura 17.1: Impacto da infecção no tempo de hopsitalização.
 </ol>
 <div class="sourceCode" id="cb994"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb994-1"><a href="métodos-não-paramétricos.html#cb994-1" tabindex="-1"></a>T <span class="ot">&lt;-</span> grupo_1</span></code></pre></div>
 <p>Consequentemente,</p>
-<div class="sourceCode" id="cb995"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb995-1"><a href="métodos-não-paramétricos.html#cb995-1" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="dv">56</span></span>
-<span id="cb995-2"><a href="métodos-não-paramétricos.html#cb995-2" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="dv">88</span></span></code></pre></div>
+<div class="sourceCode" id="cb995"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb995-1"><a href="métodos-não-paramétricos.html#cb995-1" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> resumo<span class="sc">$</span>n[<span class="dv">1</span>]</span>
+<span id="cb995-2"><a href="métodos-não-paramétricos.html#cb995-2" tabindex="-1"></a>n1</span></code></pre></div>
+<pre><code>## [1] 56</code></pre>
+<div class="sourceCode" id="cb997"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb997-1"><a href="métodos-não-paramétricos.html#cb997-1" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> resumo<span class="sc">$</span>n[<span class="dv">2</span>]</span>
+<span id="cb997-2"><a href="métodos-não-paramétricos.html#cb997-2" tabindex="-1"></a>n2</span></code></pre></div>
+<pre><code>## [1] 88</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>Calcular a estística do teste, usando a fórmula preconizada por Altman <span class="citation">(146)</span>:</li>
 </ol>
 <p><span class="math display">\[
 U =n_{1} \times n_{2} \ +\left [\frac{n_{1} \times \left (n_{1} + 1  \right )}{2}  \right ] - T
 \]</span></p>
-<div class="sourceCode" id="cb996"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb996-1"><a href="métodos-não-paramétricos.html#cb996-1" tabindex="-1"></a>U <span class="ot">&lt;-</span> (n1<span class="sc">*</span>n2 <span class="sc">+</span> ((n1<span class="sc">*</span>(n1 <span class="sc">+</span> <span class="dv">1</span>))<span class="sc">/</span><span class="dv">2</span>)) <span class="sc">-</span> T</span>
-<span id="cb996-2"><a href="métodos-não-paramétricos.html#cb996-2" tabindex="-1"></a>U</span></code></pre></div>
+<div class="sourceCode" id="cb999"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb999-1"><a href="métodos-não-paramétricos.html#cb999-1" tabindex="-1"></a>U <span class="ot">&lt;-</span> (n1<span class="sc">*</span>n2 <span class="sc">+</span> ((n1<span class="sc">*</span>(n1 <span class="sc">+</span> <span class="dv">1</span>))<span class="sc">/</span><span class="dv">2</span>)) <span class="sc">-</span> T</span>
+<span id="cb999-2"><a href="métodos-não-paramétricos.html#cb999-2" tabindex="-1"></a>U</span></code></pre></div>
 <pre><code>## [1] 1648.5</code></pre>
 <p><strong>Obs</strong>.: O U de Mann-Whitney aparece no teste de Wilcoxon como W, eles são iguais</p>
 <ol start="7" style="list-style-type: decimal">
@@ -995,41 +1000,41 @@ U =n_{1} \times n_{2} \ +\left [\frac{n_{1} \times \left (n_{1} + 1  \right )}{2
 \mu_{U} =\left [\frac{n_{S} \times \left (n_{L} + 1  \right )}{2}  \right ]
 \]</span></p>
 <p>onde <span class="math inline">\(n_{S}\)</span> e <span class="math inline">\(n_{L}\)</span>, são, respectivamente, o grupo de menor e maior tamanho. No exemplo, <span class="math inline">\(n_{1}\)</span> e <span class="math inline">\(n_{2}\)</span>.</p>
-<div class="sourceCode" id="cb998"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb998-1"><a href="métodos-não-paramétricos.html#cb998-1" tabindex="-1"></a>m_U <span class="ot">&lt;-</span> (n1<span class="sc">*</span>(n1<span class="sc">+</span>n2<span class="sc">+</span><span class="dv">1</span>))<span class="sc">/</span><span class="dv">2</span></span>
-<span id="cb998-2"><a href="métodos-não-paramétricos.html#cb998-2" tabindex="-1"></a>m_U</span></code></pre></div>
+<div class="sourceCode" id="cb1001"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1001-1"><a href="métodos-não-paramétricos.html#cb1001-1" tabindex="-1"></a>m_U <span class="ot">&lt;-</span> (n1<span class="sc">*</span>(n1<span class="sc">+</span>n2<span class="sc">+</span><span class="dv">1</span>))<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb1001-2"><a href="métodos-não-paramétricos.html#cb1001-2" tabindex="-1"></a>m_U</span></code></pre></div>
 <pre><code>## [1] 4060</code></pre>
 <p>E desvio padrão igual a</p>
 <p><span class="math display">\[
 \sigma_{U}= \sqrt {\frac{n_{L}\times \sigma_{U}}{6}}
 \]</span></p>
-<div class="sourceCode" id="cb1000"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1000-1"><a href="métodos-não-paramétricos.html#cb1000-1" tabindex="-1"></a>dp_U <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((n2<span class="sc">*</span>m_U)<span class="sc">/</span><span class="dv">6</span>)</span>
-<span id="cb1000-2"><a href="métodos-não-paramétricos.html#cb1000-2" tabindex="-1"></a>dp_U</span></code></pre></div>
+<div class="sourceCode" id="cb1003"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1003-1"><a href="métodos-não-paramétricos.html#cb1003-1" tabindex="-1"></a>dp_U <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((n2<span class="sc">*</span>m_U)<span class="sc">/</span><span class="dv">6</span>)</span>
+<span id="cb1003-2"><a href="métodos-não-paramétricos.html#cb1003-2" tabindex="-1"></a>dp_U</span></code></pre></div>
 <pre><code>## [1] 244.0219</code></pre>
 <p>Os resultados fornecem os dados para calcular a estatística <span class="math inline">\(Z_{U}\)</span> com correção de continuidade e, a partir dela, calcular o valor <em>P</em>.</p>
 <p><span class="math display">\[
 Z_{U}= \frac{(T -0,5) - \mu_{U}}{\sigma_{U}}
 \]</span></p>
-<div class="sourceCode" id="cb1002"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1002-1"><a href="métodos-não-paramétricos.html#cb1002-1" tabindex="-1"></a>Z_U <span class="ot">&lt;-</span> ((T <span class="sc">-</span> <span class="fl">0.5</span>) <span class="sc">-</span> m_U)<span class="sc">/</span>dp_U</span>
-<span id="cb1002-2"><a href="métodos-não-paramétricos.html#cb1002-2" tabindex="-1"></a><span class="fu">round</span>(Z_U, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1005"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1005-1"><a href="métodos-não-paramétricos.html#cb1005-1" tabindex="-1"></a>Z_U <span class="ot">&lt;-</span> ((T <span class="sc">-</span> <span class="fl">0.5</span>) <span class="sc">-</span> m_U)<span class="sc">/</span>dp_U</span>
+<span id="cb1005-2"><a href="métodos-não-paramétricos.html#cb1005-2" tabindex="-1"></a><span class="fu">round</span>(Z_U, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 3.34</code></pre>
 <ol start="8" style="list-style-type: decimal">
 <li>Finalmente, calcula-se o valor <em>P</em>, usando a função <code>pnorm()</code>, multiplicada por 2, pois o teste é bicaudal.</li>
 </ol>
-<div class="sourceCode" id="cb1004"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1004-1"><a href="métodos-não-paramétricos.html#cb1004-1" tabindex="-1"></a>P <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(Z_U, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>) <span class="sc">*</span> <span class="dv">2</span></span>
-<span id="cb1004-2"><a href="métodos-não-paramétricos.html#cb1004-2" tabindex="-1"></a><span class="fu">round</span>(P, <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1007"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1007-1"><a href="métodos-não-paramétricos.html#cb1007-1" tabindex="-1"></a>P <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(Z_U, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>) <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb1007-2"><a href="métodos-não-paramétricos.html#cb1007-2" tabindex="-1"></a><span class="fu">round</span>(P, <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## [1] 8e-04</code></pre>
 <p>Na prática, não há necessidade de fazer todos esses cálculos, pois o <em>R</em> calcula facilmente o teste. Os cálculos foram mostrados para melhorar o entendimento de como o teste de Mann-Whitney funciona.</p>
 </div>
 <div id="cálculo-do-u-de-mann-whitney-no-r" class="section level4 hasAnchor" number="17.4.4.2">
 <h4><span class="header-section-number">17.4.4.2</span> Cálculo do U de Mann-Whitney no R<a href="#c%C3%A1lculo-do-u-de-mann-whitney-no-r" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>O teste pode ser realizado com a função <code>wilcox_test()</code> <a href="#fn66" class="footnote-ref" id="fnref66"><sup>66</sup></a> do pacote <code>rstatix</code>:</p>
-<div class="sourceCode" id="cb1006"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1006-1"><a href="métodos-não-paramétricos.html#cb1006-1" tabindex="-1"></a>teste <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">wilcox_test</span>(<span class="at">formula =</span> tempohosp <span class="sc">~</span> infec, <span class="at">data =</span> cirurgia)</span>
-<span id="cb1006-2"><a href="métodos-não-paramétricos.html#cb1006-2" tabindex="-1"></a>teste</span></code></pre></div>
+<div class="sourceCode" id="cb1009"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1009-1"><a href="métodos-não-paramétricos.html#cb1009-1" tabindex="-1"></a>teste <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">wilcox_test</span>(<span class="at">formula =</span> tempohosp <span class="sc">~</span> infec, <span class="at">data =</span> cirurgia)</span>
+<span id="cb1009-2"><a href="métodos-não-paramétricos.html#cb1009-2" tabindex="-1"></a>teste</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 7
 ##   .y.       group1 group2    n1    n2 statistic       p
 ## * &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;
-## 1 tempohosp não    sim       88    56     1648. 0.00083</code></pre>
-<p>Assim como no cálculo manual, o teste no R, mostra uma diferença estatisticamente significativa (<em>P</em> = 0,00083) entre os tempos de hospitalização dos recém-nascidos que realizaram cirurgia no período neonatal que se infectaram ou não (diferença mediana = 14 dias; IC95% : 5,0 – 19,5).</p>
+## 1 tempohosp sim    não       56    88     3280. 0.00083</code></pre>
+<p>Assim como no cálculo manual, o teste com a função do <code>rstatix</code>, mostra uma diferença estatisticamente significativa (<em>P</em> = 8.3^{-4}) entre os tempos de hospitalização dos recém-nascidos que realizaram cirurgia no período neonatal que se infectaram ou não (diferença mediana = 14 dias; IC95% : 5,0 – 19,5).</p>
 </div>
 </div>
 <div id="sec-tefMW" class="section level3 hasAnchor" number="17.4.5">
@@ -1039,18 +1044,18 @@ Z_{U}= \frac{(T -0,5) - \mu_{U}}{\sigma_{U}}
 r = \frac {Z_{U}}{\sqrt{n}}
 \]</span></p>
 <p>O valor de <span class="math inline">\(Z_{U}\)</span> é igual a 3.3398648, logo</p>
-<div class="sourceCode" id="cb1008"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1008-1"><a href="métodos-não-paramétricos.html#cb1008-1" tabindex="-1"></a>r <span class="ot">&lt;-</span> Z_U<span class="sc">/</span><span class="fu">sqrt</span>(n1<span class="sc">+</span>n2)</span>
-<span id="cb1008-2"><a href="métodos-não-paramétricos.html#cb1008-2" tabindex="-1"></a><span class="fu">round</span>(r,<span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1011"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1011-1"><a href="métodos-não-paramétricos.html#cb1011-1" tabindex="-1"></a>r <span class="ot">&lt;-</span> Z_U<span class="sc">/</span><span class="fu">sqrt</span>(n1<span class="sc">+</span>n2)</span>
+<span id="cb1011-2"><a href="métodos-não-paramétricos.html#cb1011-2" tabindex="-1"></a><span class="fu">round</span>(r,<span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 0.278</code></pre>
-<p>O R possui a função <code>wilcox_effsize()</code> do pacote <code>rstatix</code> e necessita também do pacote <code>coin</code> <span class="citation">(147)</span> , instalado para calcular a estatística <em>r</em>.<a href="#fn67" class="footnote-ref" id="fnref67"><sup>67</sup></a> A saída exibirá junto a magnitude o efeito, que no caso é pequena (veja Tabela <a href="métodos-não-paramétricos.html#tab:wilcoxef">17.3</a>).</p>
-<div class="sourceCode" id="cb1010"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1010-1"><a href="métodos-não-paramétricos.html#cb1010-1" tabindex="-1"></a><span class="fu">wilcox_effsize</span>(cirurgia, tempohosp<span class="sc">~</span>infec)</span></code></pre></div>
+<p>O <em>R</em> possui a função <code>wilcox_effsize()</code> do pacote <code>rstatix</code> e necessita também do pacote <code>coin</code> <span class="citation">(147)</span> instalado para calcular a estatística <em>r</em>.<a href="#fn67" class="footnote-ref" id="fnref67"><sup>67</sup></a> A saída exibirá junto a magnitude o efeito, que no caso é pequena (veja Tabela <a href="métodos-não-paramétricos.html#tab:wilcoxef">17.2</a>).</p>
+<div class="sourceCode" id="cb1013"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1013-1"><a href="métodos-não-paramétricos.html#cb1013-1" tabindex="-1"></a><span class="fu">wilcox_effsize</span>(cirurgia, tempohosp<span class="sc">~</span>infec)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 7
 ##   .y.       group1 group2 effsize    n1    n2 magnitude
 ## * &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;ord&gt;    
-## 1 tempohosp não    sim      0.279    88    56 small</code></pre>
+## 1 tempohosp sim    não      0.279    56    88 small</code></pre>
 <table class="table lightable-classic" style="width: auto !important; margin-left: auto; margin-right: auto; font-family: Cambria; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:wilcoxef">Tabela 17.3: </span><span id="tab:wilcoxef">Tabela 17.4: </span>Interpretação do valor r (sem considerar o sinal)
+<span id="tab:wilcoxef">Tabela 17.2: </span>Interpretação do valor r (sem considerar o sinal)
 </caption>
 <thead>
 <tr>
@@ -1094,18 +1099,18 @@ grande
 <h3><span class="header-section-number">17.4.6</span> Conclusão<a href="#conclus%C3%A3o-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>O valor <span class="math inline">\(P&lt;0,0001\)</span>, bem abaixo do nível de significância estabelecido (<span class="math inline">\(\alpha = 0,05)\)</span>. Pode-se concluir que o tempo de hospitalização nos dois grupos é estatisticamente diferente. Entretanto, a magnitude dessa diferença é pequena.</p>
 <p>Isto pode ser visualizado no gráfico (Figura <a href="métodos-não-paramétricos.html#fig:bpres">17.2</a>):</p>
-<div class="sourceCode" id="cb1012"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1012-1"><a href="métodos-não-paramétricos.html#cb1012-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span>(cirurgia,</span>
-<span id="cb1012-2"><a href="métodos-não-paramétricos.html#cb1012-2" tabindex="-1"></a>                   <span class="at">x =</span> <span class="st">&quot;infec&quot;</span>,</span>
-<span id="cb1012-3"><a href="métodos-não-paramétricos.html#cb1012-3" tabindex="-1"></a>                   <span class="at">y =</span> <span class="st">&quot;tempohosp&quot;</span>,</span>
-<span id="cb1012-4"><a href="métodos-não-paramétricos.html#cb1012-4" tabindex="-1"></a>                   <span class="at">bxp.errorbar =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1012-5"><a href="métodos-não-paramétricos.html#cb1012-5" tabindex="-1"></a>                   <span class="at">bxp.errorbar.width =</span> <span class="fl">0.1</span>,</span>
-<span id="cb1012-6"><a href="métodos-não-paramétricos.html#cb1012-6" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">&quot;infec&quot;</span>,</span>
-<span id="cb1012-7"><a href="métodos-não-paramétricos.html#cb1012-7" tabindex="-1"></a>                   <span class="at">palette =</span> <span class="st">&quot;nejm&quot;</span>,</span>
-<span id="cb1012-8"><a href="métodos-não-paramétricos.html#cb1012-8" tabindex="-1"></a>                   <span class="at">legend =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb1012-9"><a href="métodos-não-paramétricos.html#cb1012-9" tabindex="-1"></a>                   <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>(),</span>
-<span id="cb1012-10"><a href="métodos-não-paramétricos.html#cb1012-10" tabindex="-1"></a>                   <span class="at">xlab =</span> <span class="st">&quot;Presença de infecção&quot;</span> ,</span>
-<span id="cb1012-11"><a href="métodos-não-paramétricos.html#cb1012-11" tabindex="-1"></a>                   <span class="at">ylab =</span> <span class="st">&quot;Tempo de hospitalização (dias)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb1012-12"><a href="métodos-não-paramétricos.html#cb1012-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> rstatix<span class="sc">::</span><span class="fu">get_test_label</span>(teste, <span class="at">detailed =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1015"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1015-1"><a href="métodos-não-paramétricos.html#cb1015-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span>(cirurgia,</span>
+<span id="cb1015-2"><a href="métodos-não-paramétricos.html#cb1015-2" tabindex="-1"></a>                   <span class="at">x =</span> <span class="st">&quot;infec&quot;</span>,</span>
+<span id="cb1015-3"><a href="métodos-não-paramétricos.html#cb1015-3" tabindex="-1"></a>                   <span class="at">y =</span> <span class="st">&quot;tempohosp&quot;</span>,</span>
+<span id="cb1015-4"><a href="métodos-não-paramétricos.html#cb1015-4" tabindex="-1"></a>                   <span class="at">bxp.errorbar =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1015-5"><a href="métodos-não-paramétricos.html#cb1015-5" tabindex="-1"></a>                   <span class="at">bxp.errorbar.width =</span> <span class="fl">0.1</span>,</span>
+<span id="cb1015-6"><a href="métodos-não-paramétricos.html#cb1015-6" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">&quot;infec&quot;</span>,</span>
+<span id="cb1015-7"><a href="métodos-não-paramétricos.html#cb1015-7" tabindex="-1"></a>                   <span class="at">palette =</span> <span class="st">&quot;nejm&quot;</span>,</span>
+<span id="cb1015-8"><a href="métodos-não-paramétricos.html#cb1015-8" tabindex="-1"></a>                   <span class="at">legend =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb1015-9"><a href="métodos-não-paramétricos.html#cb1015-9" tabindex="-1"></a>                   <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>(),</span>
+<span id="cb1015-10"><a href="métodos-não-paramétricos.html#cb1015-10" tabindex="-1"></a>                   <span class="at">xlab =</span> <span class="st">&quot;Presença de infecção&quot;</span> ,</span>
+<span id="cb1015-11"><a href="métodos-não-paramétricos.html#cb1015-11" tabindex="-1"></a>                   <span class="at">ylab =</span> <span class="st">&quot;Tempo de hospitalização (dias)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1015-12"><a href="métodos-não-paramétricos.html#cb1015-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> rstatix<span class="sc">::</span><span class="fu">get_test_label</span>(teste, <span class="at">detailed =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:bpres"></span>
 <img src="bookdownproj_files/figure-html/bpres-1.png" alt="Impacto da infecção no tempo de hopsitalização." width="70%" height="70%" />
 <p class="caption">
@@ -1120,13 +1125,13 @@ Figura 17.2: Impacto da infecção no tempo de hopsitalização.
 <div id="dados-usados-nesta-seção-12" class="section level3 hasAnchor" number="17.5.1">
 <h3><span class="header-section-number">17.5.1</span> Dados usados nesta seção<a href="#dados-usados-nesta-se%C3%A7%C3%A3o-12" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Pata verificar se a realização de exercícios aeróbicos modifica a função respiratória de 10 escolares asmáticos, foi medido o Pico de Fluxo Expiratório Máximo (<em>Peak Flow Meter</em>) no início e no final do programa, após 120 dias. O Pico de Fluxo Expiratório Máximo (PFE) serve como uma forma simples de avaliar a força e a velocidade de saída do ar de dentro dos pulmões. É medido em L/min. Os resultados do estudo tem apenas três variáveis, <code>id</code>, <code>basal</code> e <code>final</code>.</p>
-<div class="sourceCode" id="cb1013"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1013-1"><a href="métodos-não-paramétricos.html#cb1013-1" tabindex="-1"></a>id <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb1013-2"><a href="métodos-não-paramétricos.html#cb1013-2" tabindex="-1"></a>basal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">200</span>, <span class="dv">140</span>, <span class="dv">200</span>, <span class="dv">110</span>, <span class="dv">240</span>, <span class="dv">150</span>, <span class="dv">120</span>, <span class="dv">250</span>, <span class="dv">190</span>)</span>
-<span id="cb1013-3"><a href="métodos-não-paramétricos.html#cb1013-3" tabindex="-1"></a>final <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">220</span>, <span class="dv">300</span>, <span class="dv">230</span>, <span class="dv">180</span>, <span class="dv">300</span>, <span class="dv">330</span>, <span class="dv">230</span>, <span class="dv">250</span>, <span class="dv">300</span>, <span class="dv">200</span>)</span>
-<span id="cb1013-4"><a href="métodos-não-paramétricos.html#cb1013-4" tabindex="-1"></a></span>
-<span id="cb1013-5"><a href="métodos-não-paramétricos.html#cb1013-5" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">tibble</span>(id, basal, final)</span>
-<span id="cb1013-6"><a href="métodos-não-paramétricos.html#cb1013-6" tabindex="-1"></a></span>
-<span id="cb1013-7"><a href="métodos-não-paramétricos.html#cb1013-7" tabindex="-1"></a><span class="fu">head</span> (dados)</span></code></pre></div>
+<div class="sourceCode" id="cb1016"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1016-1"><a href="métodos-não-paramétricos.html#cb1016-1" tabindex="-1"></a>id <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb1016-2"><a href="métodos-não-paramétricos.html#cb1016-2" tabindex="-1"></a>basal <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">200</span>, <span class="dv">140</span>, <span class="dv">200</span>, <span class="dv">110</span>, <span class="dv">240</span>, <span class="dv">150</span>, <span class="dv">120</span>, <span class="dv">250</span>, <span class="dv">190</span>)</span>
+<span id="cb1016-3"><a href="métodos-não-paramétricos.html#cb1016-3" tabindex="-1"></a>final <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">220</span>, <span class="dv">300</span>, <span class="dv">230</span>, <span class="dv">180</span>, <span class="dv">300</span>, <span class="dv">330</span>, <span class="dv">230</span>, <span class="dv">250</span>, <span class="dv">300</span>, <span class="dv">200</span>)</span>
+<span id="cb1016-4"><a href="métodos-não-paramétricos.html#cb1016-4" tabindex="-1"></a></span>
+<span id="cb1016-5"><a href="métodos-não-paramétricos.html#cb1016-5" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">tibble</span>(id, basal, final)</span>
+<span id="cb1016-6"><a href="métodos-não-paramétricos.html#cb1016-6" tabindex="-1"></a></span>
+<span id="cb1016-7"><a href="métodos-não-paramétricos.html#cb1016-7" tabindex="-1"></a><span class="fu">head</span> (dados)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 3
 ##      id basal final
 ##   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1143,11 +1148,11 @@ Figura 17.2: Impacto da infecção no tempo de hopsitalização.
 <div id="exploração-e-transformação-dos-dados-2" class="section level4 hasAnchor" number="17.5.1.1">
 <h4><span class="header-section-number">17.5.1.1</span> Exploração e transformação dos dados<a href="#explora%C3%A7%C3%A3o-e-transforma%C3%A7%C3%A3o-dos-dados-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Os dados estão no formato amplo com as variáveis basal e final classificadas como númericas. Será transformado para o formato longo, usando a função <code>pivot_longer()</code> do pacote <code>tidyr</code>. Este processo é opcional, mas, como foi feito com o teste <em>t</em> pareado, será repetido aqui como treinamento:</p>
-<div class="sourceCode" id="cb1015"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1015-1"><a href="métodos-não-paramétricos.html#cb1015-1" tabindex="-1"></a>dadosL <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
-<span id="cb1015-2"><a href="métodos-não-paramétricos.html#cb1015-2" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="fu">c</span>(basal, final), </span>
-<span id="cb1015-3"><a href="métodos-não-paramétricos.html#cb1015-3" tabindex="-1"></a>                      <span class="at">names_to =</span> <span class="st">&quot;momento&quot;</span>, </span>
-<span id="cb1015-4"><a href="métodos-não-paramétricos.html#cb1015-4" tabindex="-1"></a>                      <span class="at">values_to =</span> <span class="st">&quot;medidas&quot;</span>)</span>
-<span id="cb1015-5"><a href="métodos-não-paramétricos.html#cb1015-5" tabindex="-1"></a><span class="fu">str</span>(dadosL)</span></code></pre></div>
+<div class="sourceCode" id="cb1018"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1018-1"><a href="métodos-não-paramétricos.html#cb1018-1" tabindex="-1"></a>dadosL <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
+<span id="cb1018-2"><a href="métodos-não-paramétricos.html#cb1018-2" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(<span class="fu">c</span>(basal, final), </span>
+<span id="cb1018-3"><a href="métodos-não-paramétricos.html#cb1018-3" tabindex="-1"></a>                      <span class="at">names_to =</span> <span class="st">&quot;momento&quot;</span>, </span>
+<span id="cb1018-4"><a href="métodos-não-paramétricos.html#cb1018-4" tabindex="-1"></a>                      <span class="at">values_to =</span> <span class="st">&quot;medidas&quot;</span>)</span>
+<span id="cb1018-5"><a href="métodos-não-paramétricos.html#cb1018-5" tabindex="-1"></a><span class="fu">str</span>(dadosL)</span></code></pre></div>
 <pre><code>## tibble [20 × 3] (S3: tbl_df/tbl/data.frame)
 ##  $ id     : int [1:20] 1 1 2 2 3 3 4 4 5 5 ...
 ##  $ momento: chr [1:20] &quot;basal&quot; &quot;final&quot; &quot;basal&quot; &quot;final&quot; ...
@@ -1156,17 +1161,17 @@ Figura 17.2: Impacto da infecção no tempo de hopsitalização.
 <div id="medidas-resumidoras-3" class="section level4 hasAnchor" number="17.5.1.2">
 <h4><span class="header-section-number">17.5.1.2</span> Medidas resumidoras<a href="métodos-não-paramétricos.html#medidas-resumidoras-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Como o número de participantes é de apenas 10, a medida de posição mais adequada para resumir os dados é mediana e a medida de dispersão é o intervalo interquartil (IIQ). Para isso, se fará uso das funções <code>group_by()</code> e <code>summarise()</code> do pacote <code>dplyr</code>:</p>
-<div class="sourceCode" id="cb1017"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1017-1"><a href="métodos-não-paramétricos.html#cb1017-1" tabindex="-1"></a>resumo <span class="ot">&lt;-</span> dadosL <span class="sc">%&gt;%</span> </span>
-<span id="cb1017-2"><a href="métodos-não-paramétricos.html#cb1017-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(momento) <span class="sc">%&gt;%</span> </span>
-<span id="cb1017-3"><a href="métodos-não-paramétricos.html#cb1017-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb1017-4"><a href="métodos-não-paramétricos.html#cb1017-4" tabindex="-1"></a>                   <span class="at">mediana =</span> <span class="fu">median</span> (medidas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1017-5"><a href="métodos-não-paramétricos.html#cb1017-5" tabindex="-1"></a>                   <span class="at">p25=</span><span class="fu">quantile</span>(medidas, <span class="at">probs =</span> <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1017-6"><a href="métodos-não-paramétricos.html#cb1017-6" tabindex="-1"></a>                   <span class="at">p75=</span><span class="fu">quantile</span>(medidas, <span class="at">probs =</span> <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1017-7"><a href="métodos-não-paramétricos.html#cb1017-7" tabindex="-1"></a>                   <span class="at">media =</span> <span class="fu">mean</span> (medidas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1017-8"><a href="métodos-não-paramétricos.html#cb1017-8" tabindex="-1"></a>                   <span class="at">dp =</span> <span class="fu">sd</span> (medidas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1017-9"><a href="métodos-não-paramétricos.html#cb1017-9" tabindex="-1"></a>                   <span class="at">ep =</span> dp<span class="sc">/</span><span class="fu">sqrt</span>(n),</span>
-<span id="cb1017-10"><a href="métodos-não-paramétricos.html#cb1017-10" tabindex="-1"></a>                   <span class="at">me =</span> ep <span class="sc">*</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>), n <span class="sc">-</span> <span class="dv">1</span>))</span>
-<span id="cb1017-11"><a href="métodos-não-paramétricos.html#cb1017-11" tabindex="-1"></a>resumo</span></code></pre></div>
+<div class="sourceCode" id="cb1020"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1020-1"><a href="métodos-não-paramétricos.html#cb1020-1" tabindex="-1"></a>resumo <span class="ot">&lt;-</span> dadosL <span class="sc">%&gt;%</span> </span>
+<span id="cb1020-2"><a href="métodos-não-paramétricos.html#cb1020-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(momento) <span class="sc">%&gt;%</span> </span>
+<span id="cb1020-3"><a href="métodos-não-paramétricos.html#cb1020-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb1020-4"><a href="métodos-não-paramétricos.html#cb1020-4" tabindex="-1"></a>                   <span class="at">mediana =</span> <span class="fu">median</span> (medidas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1020-5"><a href="métodos-não-paramétricos.html#cb1020-5" tabindex="-1"></a>                   <span class="at">p25=</span><span class="fu">quantile</span>(medidas, <span class="at">probs =</span> <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1020-6"><a href="métodos-não-paramétricos.html#cb1020-6" tabindex="-1"></a>                   <span class="at">p75=</span><span class="fu">quantile</span>(medidas, <span class="at">probs =</span> <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1020-7"><a href="métodos-não-paramétricos.html#cb1020-7" tabindex="-1"></a>                   <span class="at">media =</span> <span class="fu">mean</span> (medidas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1020-8"><a href="métodos-não-paramétricos.html#cb1020-8" tabindex="-1"></a>                   <span class="at">dp =</span> <span class="fu">sd</span> (medidas, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1020-9"><a href="métodos-não-paramétricos.html#cb1020-9" tabindex="-1"></a>                   <span class="at">ep =</span> dp<span class="sc">/</span><span class="fu">sqrt</span>(n),</span>
+<span id="cb1020-10"><a href="métodos-não-paramétricos.html#cb1020-10" tabindex="-1"></a>                   <span class="at">me =</span> ep <span class="sc">*</span> <span class="fu">qt</span>(<span class="dv">1</span> <span class="sc">-</span> (<span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>), n <span class="sc">-</span> <span class="dv">1</span>))</span>
+<span id="cb1020-11"><a href="métodos-não-paramétricos.html#cb1020-11" tabindex="-1"></a>resumo</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 9
 ##   momento     n mediana   p25   p75 media    dp    ep    me
 ##   &lt;chr&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1177,19 +1182,19 @@ Figura 17.2: Impacto da infecção no tempo de hopsitalização.
 <h4><span class="header-section-number">17.5.1.3</span> Visualização dos dados<a href="#visualiza%C3%A7%C3%A3o-dos-dados-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Pode-se fazer visualização gráfica dos dados usando um boxplot (Figura <a href="métodos-não-paramétricos.html#fig:aero">17.3</a> ou um gráfico de linha (Figura <a href="métodos-não-paramétricos.html#fig:aero1">17.4</a>).</p>
 <p><u>Boxplot</u></p>
-<div class="sourceCode" id="cb1019"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1019-1"><a href="métodos-não-paramétricos.html#cb1019-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span>(dadosL,</span>
-<span id="cb1019-2"><a href="métodos-não-paramétricos.html#cb1019-2" tabindex="-1"></a>                  <span class="at">x =</span> <span class="st">&quot;momento&quot;</span>,</span>
-<span id="cb1019-3"><a href="métodos-não-paramétricos.html#cb1019-3" tabindex="-1"></a>                  <span class="at">y =</span> <span class="st">&quot;medidas&quot;</span>,</span>
-<span id="cb1019-4"><a href="métodos-não-paramétricos.html#cb1019-4" tabindex="-1"></a>                  <span class="at">bxp.errorbar =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1019-5"><a href="métodos-não-paramétricos.html#cb1019-5" tabindex="-1"></a>                  <span class="at">bxp.errorbar.width =</span> <span class="fl">0.1</span>,</span>
-<span id="cb1019-6"><a href="métodos-não-paramétricos.html#cb1019-6" tabindex="-1"></a>                  <span class="at">fill =</span> <span class="st">&quot;momento&quot;</span>,</span>
-<span id="cb1019-7"><a href="métodos-não-paramétricos.html#cb1019-7" tabindex="-1"></a>                  <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;cyan4&quot;</span>, <span class="st">&quot;cyan3&quot;</span>),</span>
-<span id="cb1019-8"><a href="métodos-não-paramétricos.html#cb1019-8" tabindex="-1"></a>                  <span class="at">legend =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb1019-9"><a href="métodos-não-paramétricos.html#cb1019-9" tabindex="-1"></a>                  <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>(),</span>
-<span id="cb1019-10"><a href="métodos-não-paramétricos.html#cb1019-10" tabindex="-1"></a>                  <span class="at">xlab =</span> <span class="st">&quot;Momento&quot;</span> ,</span>
-<span id="cb1019-11"><a href="métodos-não-paramétricos.html#cb1019-11" tabindex="-1"></a>                  <span class="at">ylab =</span> <span class="st">&quot;PEF (L/min) &quot;</span>)<span class="sc">+</span></span>
-<span id="cb1019-12"><a href="métodos-não-paramétricos.html#cb1019-12" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">13</span>),</span>
-<span id="cb1019-13"><a href="métodos-não-paramétricos.html#cb1019-13" tabindex="-1"></a>         <span class="at">axis.text.x=</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb1022"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1022-1"><a href="métodos-não-paramétricos.html#cb1022-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span>(dadosL,</span>
+<span id="cb1022-2"><a href="métodos-não-paramétricos.html#cb1022-2" tabindex="-1"></a>                  <span class="at">x =</span> <span class="st">&quot;momento&quot;</span>,</span>
+<span id="cb1022-3"><a href="métodos-não-paramétricos.html#cb1022-3" tabindex="-1"></a>                  <span class="at">y =</span> <span class="st">&quot;medidas&quot;</span>,</span>
+<span id="cb1022-4"><a href="métodos-não-paramétricos.html#cb1022-4" tabindex="-1"></a>                  <span class="at">bxp.errorbar =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1022-5"><a href="métodos-não-paramétricos.html#cb1022-5" tabindex="-1"></a>                  <span class="at">bxp.errorbar.width =</span> <span class="fl">0.1</span>,</span>
+<span id="cb1022-6"><a href="métodos-não-paramétricos.html#cb1022-6" tabindex="-1"></a>                  <span class="at">fill =</span> <span class="st">&quot;momento&quot;</span>,</span>
+<span id="cb1022-7"><a href="métodos-não-paramétricos.html#cb1022-7" tabindex="-1"></a>                  <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;cyan4&quot;</span>, <span class="st">&quot;cyan3&quot;</span>),</span>
+<span id="cb1022-8"><a href="métodos-não-paramétricos.html#cb1022-8" tabindex="-1"></a>                  <span class="at">legend =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb1022-9"><a href="métodos-não-paramétricos.html#cb1022-9" tabindex="-1"></a>                  <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>(),</span>
+<span id="cb1022-10"><a href="métodos-não-paramétricos.html#cb1022-10" tabindex="-1"></a>                  <span class="at">xlab =</span> <span class="st">&quot;Momento&quot;</span> ,</span>
+<span id="cb1022-11"><a href="métodos-não-paramétricos.html#cb1022-11" tabindex="-1"></a>                  <span class="at">ylab =</span> <span class="st">&quot;PEF (L/min) &quot;</span>)<span class="sc">+</span></span>
+<span id="cb1022-12"><a href="métodos-não-paramétricos.html#cb1022-12" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">13</span>),</span>
+<span id="cb1022-13"><a href="métodos-não-paramétricos.html#cb1022-13" tabindex="-1"></a>         <span class="at">axis.text.x=</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)) </span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:aero"></span>
 <img src="bookdownproj_files/figure-html/aero-1.png" alt="Impacto de exercícios aeróbicos na função respiratória de 10 escolares asmáticos." width="70%" height="70%" />
 <p class="caption">
@@ -1197,19 +1202,19 @@ Figura 17.3: Impacto de exercícios aeróbicos na função respiratória de 10 e
 </p>
 </div>
 <p><u>Gráfico de linha</u></p>
-<div class="sourceCode" id="cb1020"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1020-1"><a href="métodos-não-paramétricos.html#cb1020-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggline</span>(dadosL,</span>
-<span id="cb1020-2"><a href="métodos-não-paramétricos.html#cb1020-2" tabindex="-1"></a>               <span class="at">x =</span> <span class="st">&quot;momento&quot;</span>,</span>
-<span id="cb1020-3"><a href="métodos-não-paramétricos.html#cb1020-3" tabindex="-1"></a>               <span class="at">y =</span> <span class="st">&quot;medidas&quot;</span>,</span>
-<span id="cb1020-4"><a href="métodos-não-paramétricos.html#cb1020-4" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">&quot;cyan4&quot;</span>,</span>
-<span id="cb1020-5"><a href="métodos-não-paramétricos.html#cb1020-5" tabindex="-1"></a>               <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>,</span>
-<span id="cb1020-6"><a href="métodos-não-paramétricos.html#cb1020-6" tabindex="-1"></a>               <span class="at">size =</span> <span class="fl">0.7</span>,</span>
-<span id="cb1020-7"><a href="métodos-não-paramétricos.html#cb1020-7" tabindex="-1"></a>               <span class="at">add =</span> <span class="st">&quot;mean_ci&quot;</span>,</span>
-<span id="cb1020-8"><a href="métodos-não-paramétricos.html#cb1020-8" tabindex="-1"></a>               <span class="at">point.size =</span> <span class="dv">2</span>,</span>
-<span id="cb1020-9"><a href="métodos-não-paramétricos.html#cb1020-9" tabindex="-1"></a>               <span class="at">xlab =</span> <span class="st">&quot;Momento&quot;</span> ,</span>
-<span id="cb1020-10"><a href="métodos-não-paramétricos.html#cb1020-10" tabindex="-1"></a>               <span class="at">ylab =</span> <span class="st">&quot;PEF (L/min) &quot;</span>,</span>
-<span id="cb1020-11"><a href="métodos-não-paramétricos.html#cb1020-11" tabindex="-1"></a>               <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>()) <span class="sc">+</span></span>
-<span id="cb1020-12"><a href="métodos-não-paramétricos.html#cb1020-12" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">13</span>),</span>
-<span id="cb1020-13"><a href="métodos-não-paramétricos.html#cb1020-13" tabindex="-1"></a>         <span class="at">axis.text.x=</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1023"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1023-1"><a href="métodos-não-paramétricos.html#cb1023-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggline</span>(dadosL,</span>
+<span id="cb1023-2"><a href="métodos-não-paramétricos.html#cb1023-2" tabindex="-1"></a>               <span class="at">x =</span> <span class="st">&quot;momento&quot;</span>,</span>
+<span id="cb1023-3"><a href="métodos-não-paramétricos.html#cb1023-3" tabindex="-1"></a>               <span class="at">y =</span> <span class="st">&quot;medidas&quot;</span>,</span>
+<span id="cb1023-4"><a href="métodos-não-paramétricos.html#cb1023-4" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">&quot;cyan4&quot;</span>,</span>
+<span id="cb1023-5"><a href="métodos-não-paramétricos.html#cb1023-5" tabindex="-1"></a>               <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>,</span>
+<span id="cb1023-6"><a href="métodos-não-paramétricos.html#cb1023-6" tabindex="-1"></a>               <span class="at">size =</span> <span class="fl">0.7</span>,</span>
+<span id="cb1023-7"><a href="métodos-não-paramétricos.html#cb1023-7" tabindex="-1"></a>               <span class="at">add =</span> <span class="st">&quot;mean_ci&quot;</span>,</span>
+<span id="cb1023-8"><a href="métodos-não-paramétricos.html#cb1023-8" tabindex="-1"></a>               <span class="at">point.size =</span> <span class="dv">2</span>,</span>
+<span id="cb1023-9"><a href="métodos-não-paramétricos.html#cb1023-9" tabindex="-1"></a>               <span class="at">xlab =</span> <span class="st">&quot;Momento&quot;</span> ,</span>
+<span id="cb1023-10"><a href="métodos-não-paramétricos.html#cb1023-10" tabindex="-1"></a>               <span class="at">ylab =</span> <span class="st">&quot;PEF (L/min) &quot;</span>,</span>
+<span id="cb1023-11"><a href="métodos-não-paramétricos.html#cb1023-11" tabindex="-1"></a>               <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>()) <span class="sc">+</span></span>
+<span id="cb1023-12"><a href="métodos-não-paramétricos.html#cb1023-12" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">13</span>),</span>
+<span id="cb1023-13"><a href="métodos-não-paramétricos.html#cb1023-13" tabindex="-1"></a>         <span class="at">axis.text.x=</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:aero1"></span>
 <img src="bookdownproj_files/figure-html/aero1-1.png" alt="Impacto de exercícios aeróbicos na função respiratória de 10 escolares asmáticos." width="70%" height="70%" />
 <p class="caption">
@@ -1220,8 +1225,8 @@ Figura 17.4: Impacto de exercícios aeróbicos na função respiratória de 10 e
 <div id="criação-de-uma-variável-que-represente-a-diferença-entre-os-momentos" class="section level4 hasAnchor" number="17.5.1.4">
 <h4><span class="header-section-number">17.5.1.4</span> Criação de uma variável que represente a diferença entre os momentos<a href="#cria%C3%A7%C3%A3o-de-uma-vari%C3%A1vel-que-represente-a-diferen%C3%A7a-entre-os-momentos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A diferença entre as média basal e final será atribuída ao nome <code>D</code>. Esta ação será realizada, utilizando o banco de dados amplo (<code>dados</code>):</p>
-<div class="sourceCode" id="cb1021"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1021-1"><a href="métodos-não-paramétricos.html#cb1021-1" tabindex="-1"></a>dados<span class="sc">$</span>D <span class="ot">&lt;-</span> dados<span class="sc">$</span>basal <span class="sc">-</span> dados<span class="sc">$</span>final</span>
-<span id="cb1021-2"><a href="métodos-não-paramétricos.html#cb1021-2" tabindex="-1"></a><span class="fu">head</span> (dados)</span></code></pre></div>
+<div class="sourceCode" id="cb1024"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1024-1"><a href="métodos-não-paramétricos.html#cb1024-1" tabindex="-1"></a>dados<span class="sc">$</span>D <span class="ot">&lt;-</span> dados<span class="sc">$</span>basal <span class="sc">-</span> dados<span class="sc">$</span>final</span>
+<span id="cb1024-2"><a href="métodos-não-paramétricos.html#cb1024-2" tabindex="-1"></a><span class="fu">head</span> (dados)</span></code></pre></div>
 <pre><code>## # A tibble: 6 × 4
 ##      id basal final     D
 ##   &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1233,12 +1238,12 @@ Figura 17.4: Impacto de exercícios aeróbicos na função respiratória de 10 e
 ## 6     6   240   330   -90</code></pre>
 <p><strong>Resumo da variável D</strong></p>
 <p>Ao resumo será atribuído ao nome <code>resumo2</code>:</p>
-<div class="sourceCode" id="cb1023"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1023-1"><a href="métodos-não-paramétricos.html#cb1023-1" tabindex="-1"></a>resumo2 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
-<span id="cb1023-2"><a href="métodos-não-paramétricos.html#cb1023-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span> (),</span>
-<span id="cb1023-3"><a href="métodos-não-paramétricos.html#cb1023-3" tabindex="-1"></a>                   <span class="at">mediana =</span> <span class="fu">median</span> (D, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1023-4"><a href="métodos-não-paramétricos.html#cb1023-4" tabindex="-1"></a>                   <span class="at">p25=</span><span class="fu">quantile</span>(D, <span class="at">probs =</span> <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1023-5"><a href="métodos-não-paramétricos.html#cb1023-5" tabindex="-1"></a>                   <span class="at">p75=</span><span class="fu">quantile</span>(D, <span class="at">probs =</span> <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb1023-6"><a href="métodos-não-paramétricos.html#cb1023-6" tabindex="-1"></a>resumo2</span></code></pre></div>
+<div class="sourceCode" id="cb1026"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1026-1"><a href="métodos-não-paramétricos.html#cb1026-1" tabindex="-1"></a>resumo2 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
+<span id="cb1026-2"><a href="métodos-não-paramétricos.html#cb1026-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span> (),</span>
+<span id="cb1026-3"><a href="métodos-não-paramétricos.html#cb1026-3" tabindex="-1"></a>                   <span class="at">mediana =</span> <span class="fu">median</span> (D, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1026-4"><a href="métodos-não-paramétricos.html#cb1026-4" tabindex="-1"></a>                   <span class="at">p25=</span><span class="fu">quantile</span>(D, <span class="at">probs =</span> <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1026-5"><a href="métodos-não-paramétricos.html#cb1026-5" tabindex="-1"></a>                   <span class="at">p75=</span><span class="fu">quantile</span>(D, <span class="at">probs =</span> <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1026-6"><a href="métodos-não-paramétricos.html#cb1026-6" tabindex="-1"></a>resumo2</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 4
 ##       n mediana   p25   p75
 ##   &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1263,13 +1268,13 @@ O teste de Wilcoxon é usado para avaliar a hipótese nula de que a distribuiç�
 <ol style="list-style-type: decimal">
 <li>A ideia do teste é verificar se as diferenças positivas são maiores ou menores, em grandeza absoluta, que as diferenças negativas. Para isso, foi criada, anteriormente, a variável <code>D</code>. Agora, será criada outra variável, iguala a variável <code>D</code>, apenas ignorando o sinal, denominada <code>D_abs</code>, diferença absoluta entre as variáveis <code>final</code> e <code>basal</code>.</li>
 </ol>
-<div class="sourceCode" id="cb1025"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1025-1"><a href="métodos-não-paramétricos.html#cb1025-1" tabindex="-1"></a>dados<span class="sc">$</span>D_abs <span class="ot">&lt;-</span> <span class="fu">abs</span>(dados<span class="sc">$</span>basal <span class="sc">-</span> dados<span class="sc">$</span>final)</span></code></pre></div>
+<div class="sourceCode" id="cb1028"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1028-1"><a href="métodos-não-paramétricos.html#cb1028-1" tabindex="-1"></a>dados<span class="sc">$</span>D_abs <span class="ot">&lt;-</span> <span class="fu">abs</span>(dados<span class="sc">$</span>basal <span class="sc">-</span> dados<span class="sc">$</span>final)</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Excluir os casos com diferença igual a 0 (zero). Para isso, uma maneira possível é extrair um subconjunto de dados do conjunto principal (<code>dados</code>), criando um conjunto de dados com a função <code>filter()</code> do pacote <code>dplyr</code>, que receberá o nome de <code>dados1</code>. O argumento <code>D_absbs != 0</code> significa todas as diferenças absolutas diferentes de 0:</li>
 </ol>
-<div class="sourceCode" id="cb1026"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1026-1"><a href="métodos-não-paramétricos.html#cb1026-1" tabindex="-1"></a>dados1 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(D_abs <span class="sc">!=</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1029"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1029-1"><a href="métodos-não-paramétricos.html#cb1029-1" tabindex="-1"></a>dados1 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(D_abs <span class="sc">!=</span> <span class="dv">0</span>)</span></code></pre></div>
 <p>Observe que como não há diferenças zeradas. Ou seja, o novo conjunto de dados continua o mesmo. O que pode ser confirmado, executando a função <code>str()</code>:</p>
-<div class="sourceCode" id="cb1027"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1027-1"><a href="métodos-não-paramétricos.html#cb1027-1" tabindex="-1"></a><span class="fu">str</span> (dados1)</span></code></pre></div>
+<div class="sourceCode" id="cb1030"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1030-1"><a href="métodos-não-paramétricos.html#cb1030-1" tabindex="-1"></a><span class="fu">str</span> (dados1)</span></code></pre></div>
 <pre><code>## tibble [10 × 5] (S3: tbl_df/tbl/data.frame)
 ##  $ id   : int [1:10] 1 2 3 4 5 6 7 8 9 10
 ##  $ basal: num [1:10] 120 200 140 200 110 240 150 120 250 190
@@ -1279,28 +1284,28 @@ O teste de Wilcoxon é usado para avaliar a hipótese nula de que a distribuiç�
 <ol start="3" style="list-style-type: decimal">
 <li>Ordenar de forma crescente todos os valores da variável <code>D_abs</code> do banco de dados <code>dados1</code>, usando a função <code>arrange()</code> do pacote <code>dplyr</code>:</li>
 </ol>
-<div class="sourceCode" id="cb1029"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1029-1"><a href="métodos-não-paramétricos.html#cb1029-1" tabindex="-1"></a>dados1 <span class="ot">&lt;-</span> dados1 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">arrange</span>(dados1<span class="sc">$</span>D_abs)</span></code></pre></div>
+<div class="sourceCode" id="cb1032"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1032-1"><a href="métodos-não-paramétricos.html#cb1032-1" tabindex="-1"></a>dados1 <span class="ot">&lt;-</span> dados1 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">arrange</span>(dados1<span class="sc">$</span>D_abs)</span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>Estabelecer postos para os valores ordenados da variável <code>D_abs</code>, do conjunto de dados <code>dados1</code>, fazendo a média das ordens quando houver empate. A execução deste comando cria uma nova variável, chamada <code>postos</code>:</li>
 </ol>
-<div class="sourceCode" id="cb1030"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1030-1"><a href="métodos-não-paramétricos.html#cb1030-1" tabindex="-1"></a>dados1<span class="sc">$</span>postos <span class="ot">&lt;-</span> <span class="fu">rank</span>(dados1<span class="sc">$</span>D_abs)</span></code></pre></div>
+<div class="sourceCode" id="cb1033"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1033-1"><a href="métodos-não-paramétricos.html#cb1033-1" tabindex="-1"></a>dados1<span class="sc">$</span>postos <span class="ot">&lt;-</span> <span class="fu">rank</span>(dados1<span class="sc">$</span>D_abs)</span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>Estabelecer sinais para os postos, criando dois subconjuntos de dados do conjuntos dados1, um com os escolares com postos positivos (<code>pos</code>) e outros com postos negativos(<code>neg</code>):</li>
 </ol>
-<div class="sourceCode" id="cb1031"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1031-1"><a href="métodos-não-paramétricos.html#cb1031-1" tabindex="-1"></a>neg <span class="ot">&lt;-</span> dados1 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(D <span class="sc">&lt;</span> <span class="dv">0</span>)</span>
-<span id="cb1031-2"><a href="métodos-não-paramétricos.html#cb1031-2" tabindex="-1"></a>pos <span class="ot">&lt;-</span> dados1 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(D <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1034"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1034-1"><a href="métodos-não-paramétricos.html#cb1034-1" tabindex="-1"></a>neg <span class="ot">&lt;-</span> dados1 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(D <span class="sc">&lt;</span> <span class="dv">0</span>)</span>
+<span id="cb1034-2"><a href="métodos-não-paramétricos.html#cb1034-2" tabindex="-1"></a>pos <span class="ot">&lt;-</span> dados1 <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(D <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code></pre></div>
 <ol start="6" style="list-style-type: decimal">
 <li>Somar todos os postos (variável <code>posto</code>) em cada um dos subconjuntos criados (<code>neg</code> e <code>pos</code>):</li>
 </ol>
-<div class="sourceCode" id="cb1032"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1032-1"><a href="métodos-não-paramétricos.html#cb1032-1" tabindex="-1"></a>soma_neg <span class="ot">&lt;-</span> <span class="fu">sum</span>(neg<span class="sc">$</span>postos)</span>
-<span id="cb1032-2"><a href="métodos-não-paramétricos.html#cb1032-2" tabindex="-1"></a>soma_pos <span class="ot">&lt;-</span> <span class="fu">sum</span>(pos<span class="sc">$</span>postos)</span>
-<span id="cb1032-3"><a href="métodos-não-paramétricos.html#cb1032-3" tabindex="-1"></a><span class="fu">print</span> (<span class="fu">c</span>(soma_neg, soma_pos))</span></code></pre></div>
+<div class="sourceCode" id="cb1035"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1035-1"><a href="métodos-não-paramétricos.html#cb1035-1" tabindex="-1"></a>soma_neg <span class="ot">&lt;-</span> <span class="fu">sum</span>(neg<span class="sc">$</span>postos)</span>
+<span id="cb1035-2"><a href="métodos-não-paramétricos.html#cb1035-2" tabindex="-1"></a>soma_pos <span class="ot">&lt;-</span> <span class="fu">sum</span>(pos<span class="sc">$</span>postos)</span>
+<span id="cb1035-3"><a href="métodos-não-paramétricos.html#cb1035-3" tabindex="-1"></a><span class="fu">print</span> (<span class="fu">c</span>(soma_neg, soma_pos))</span></code></pre></div>
 <pre><code>## [1] 53  2</code></pre>
 <ol start="7" style="list-style-type: decimal">
 <li>Atribuir a menor soma à estatística do teste, denotada <em>T</em>:</li>
 </ol>
-<div class="sourceCode" id="cb1034"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1034-1"><a href="métodos-não-paramétricos.html#cb1034-1" tabindex="-1"></a>T <span class="ot">&lt;-</span> <span class="fu">min</span> (soma_neg <span class="sc">:</span> soma_pos)</span>
-<span id="cb1034-2"><a href="métodos-não-paramétricos.html#cb1034-2" tabindex="-1"></a>T</span></code></pre></div>
+<div class="sourceCode" id="cb1037"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1037-1"><a href="métodos-não-paramétricos.html#cb1037-1" tabindex="-1"></a>T <span class="ot">&lt;-</span> <span class="fu">min</span> (soma_neg <span class="sc">:</span> soma_pos)</span>
+<span id="cb1037-2"><a href="métodos-não-paramétricos.html#cb1037-2" tabindex="-1"></a>T</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <ol start="8" style="list-style-type: decimal">
 <li>Para dados com tamanhos grandes (&gt; 20 pares), a significância de <em>T</em> pode ser determinada <span class="citation">(148)</span>, considerando que a distribuição de <em>T</em> tem aproximadamente distribuição normal com média igual a</li>
@@ -1309,40 +1314,40 @@ O teste de Wilcoxon é usado para avaliar a hipótese nula de que a distribuiç�
 \mu_{T} =\frac{n \times \left (n + 1  \right )}{4}
 \]</span></p>
 <p>onde <em>n</em> é o tamanho da amostra.</p>
-<div class="sourceCode" id="cb1036"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1036-1"><a href="métodos-não-paramétricos.html#cb1036-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(dados<span class="sc">$</span>D)</span>
-<span id="cb1036-2"><a href="métodos-não-paramétricos.html#cb1036-2" tabindex="-1"></a>mu_T <span class="ot">&lt;-</span> (n <span class="sc">*</span> (n <span class="sc">+</span> <span class="dv">1</span>))<span class="sc">/</span><span class="dv">4</span></span>
-<span id="cb1036-3"><a href="métodos-não-paramétricos.html#cb1036-3" tabindex="-1"></a>mu_T</span></code></pre></div>
+<div class="sourceCode" id="cb1039"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1039-1"><a href="métodos-não-paramétricos.html#cb1039-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(dados<span class="sc">$</span>D)</span>
+<span id="cb1039-2"><a href="métodos-não-paramétricos.html#cb1039-2" tabindex="-1"></a>mu_T <span class="ot">&lt;-</span> (n <span class="sc">*</span> (n <span class="sc">+</span> <span class="dv">1</span>))<span class="sc">/</span><span class="dv">4</span></span>
+<span id="cb1039-3"><a href="métodos-não-paramétricos.html#cb1039-3" tabindex="-1"></a>mu_T</span></code></pre></div>
 <pre><code>## [1] 27.5</code></pre>
 <p>E desvio padrão igual a:</p>
 <p><span class="math display">\[
 \sigma_{T}= \sqrt {\frac{n\left (n + 1  \right )\times \left (2n + 1  \right )}{24}}
 \]</span></p>
-<div class="sourceCode" id="cb1038"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1038-1"><a href="métodos-não-paramétricos.html#cb1038-1" tabindex="-1"></a>dp_T <span class="ot">&lt;-</span> <span class="fu">sqrt</span> ((n<span class="sc">*</span>(n <span class="sc">+</span> <span class="dv">1</span>)) <span class="sc">*</span> (<span class="dv">2</span> <span class="sc">*</span> n <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span><span class="dv">24</span>) </span>
-<span id="cb1038-2"><a href="métodos-não-paramétricos.html#cb1038-2" tabindex="-1"></a>dp_T</span></code></pre></div>
+<div class="sourceCode" id="cb1041"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1041-1"><a href="métodos-não-paramétricos.html#cb1041-1" tabindex="-1"></a>dp_T <span class="ot">&lt;-</span> <span class="fu">sqrt</span> ((n<span class="sc">*</span>(n <span class="sc">+</span> <span class="dv">1</span>)) <span class="sc">*</span> (<span class="dv">2</span> <span class="sc">*</span> n <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">/</span><span class="dv">24</span>) </span>
+<span id="cb1041-2"><a href="métodos-não-paramétricos.html#cb1041-2" tabindex="-1"></a>dp_T</span></code></pre></div>
 <pre><code>## [1] 9.810708</code></pre>
 <p>Os resultados da execução das equações fornecem os dados para calcular a estatística Z_T com correção de continuidade e, a partir dela, calcular o valor <em>P</em>.</p>
 <p><span class="math display">\[
 Z_{T}= \frac{\left |T - \mu_{T}  \right | - 0,5}{\sigma_{T}}
 \]</span></p>
-<div class="sourceCode" id="cb1040"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1040-1"><a href="métodos-não-paramétricos.html#cb1040-1" tabindex="-1"></a>Z_T <span class="ot">&lt;-</span> (<span class="fu">abs</span>(T <span class="sc">-</span> mu_T)<span class="sc">-</span> <span class="fl">0.5</span>)<span class="sc">/</span>dp_T</span>
-<span id="cb1040-2"><a href="métodos-não-paramétricos.html#cb1040-2" tabindex="-1"></a>Z_T</span></code></pre></div>
+<div class="sourceCode" id="cb1043"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1043-1"><a href="métodos-não-paramétricos.html#cb1043-1" tabindex="-1"></a>Z_T <span class="ot">&lt;-</span> (<span class="fu">abs</span>(T <span class="sc">-</span> mu_T)<span class="sc">-</span> <span class="fl">0.5</span>)<span class="sc">/</span>dp_T</span>
+<span id="cb1043-2"><a href="métodos-não-paramétricos.html#cb1043-2" tabindex="-1"></a>Z_T</span></code></pre></div>
 <pre><code>## [1] 2.548236</code></pre>
 <ol start="9" style="list-style-type: decimal">
 <li><p>Concluindo, o valor da estatística de teste <em>T</em> é superior ao <span class="math inline">\(Z_{crítico} = 1,96\)</span>, para um <span class="math inline">\(\alpha = 0,05\)</span>. Dessa forma, a <span class="math inline">\(H_{0}\)</span> é rejeitada. Existe uma diferença significativa entre o PFE basal e o PFE final, neste grupo de escolares asmáticos.</p></li>
 <li><p>O valor <em>P</em> pode ser obtido com a função <code>pnorm()</code> e multiplicando o resultado por 2, pois o teste é bilateral.</p></li>
 </ol>
-<div class="sourceCode" id="cb1042"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1042-1"><a href="métodos-não-paramétricos.html#cb1042-1" tabindex="-1"></a>P <span class="ot">&lt;-</span> <span class="fu">pnorm</span> (Z_T, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>) <span class="sc">*</span> <span class="dv">2</span></span>
-<span id="cb1042-2"><a href="métodos-não-paramétricos.html#cb1042-2" tabindex="-1"></a>P</span></code></pre></div>
+<div class="sourceCode" id="cb1045"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1045-1"><a href="métodos-não-paramétricos.html#cb1045-1" tabindex="-1"></a>P <span class="ot">&lt;-</span> <span class="fu">pnorm</span> (Z_T, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>) <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb1045-2"><a href="métodos-não-paramétricos.html#cb1045-2" tabindex="-1"></a>P</span></code></pre></div>
 <pre><code>## [1] 0.01082692</code></pre>
 <p>Como já dito anteriormente, na prática, não há necessidade de fazer todos esses cálculos, pois o R calcula facilmente o teste. Eles são apenas uma demonstração de como o teste funciona.</p>
 </div>
 <div id="cálculo-do-teste-de-wilcoxon-no-r" class="section level4 hasAnchor" number="17.5.3.2">
 <h4><span class="header-section-number">17.5.3.2</span> Cálculo do teste de Wilcoxon no R<a href="#c%C3%A1lculo-do-teste-de-wilcoxon-no-r" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Usando o conjunto de dados no formato longo (<code>dadosL</code>), calcula-se o teste com a função <code>wilcox_test()</code> do pacote <code>rstatix</code>. É a mesma função utilizada para o teste de U de Mann-Whitney, mudando apenas o argumento <code>paired=FALSE</code> para <code>paired=TRUE</code>:</p>
-<div class="sourceCode" id="cb1044"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1044-1"><a href="métodos-não-paramétricos.html#cb1044-1" tabindex="-1"></a>teste1 <span class="ot">&lt;-</span> dadosL <span class="sc">%&gt;%</span> </span>
-<span id="cb1044-2"><a href="métodos-não-paramétricos.html#cb1044-2" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">wilcox_test</span>(medidas <span class="sc">~</span> momento, <span class="at">paired =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb1044-3"><a href="métodos-não-paramétricos.html#cb1044-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">add_significance</span>()</span>
-<span id="cb1044-4"><a href="métodos-não-paramétricos.html#cb1044-4" tabindex="-1"></a>teste1</span></code></pre></div>
+<div class="sourceCode" id="cb1047"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1047-1"><a href="métodos-não-paramétricos.html#cb1047-1" tabindex="-1"></a>teste1 <span class="ot">&lt;-</span> dadosL <span class="sc">%&gt;%</span> </span>
+<span id="cb1047-2"><a href="métodos-não-paramétricos.html#cb1047-2" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">wilcox_test</span>(medidas <span class="sc">~</span> momento, <span class="at">paired =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1047-3"><a href="métodos-não-paramétricos.html#cb1047-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">add_significance</span>()</span>
+<span id="cb1047-4"><a href="métodos-não-paramétricos.html#cb1047-4" tabindex="-1"></a>teste1</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 8
 ##   .y.     group1 group2    n1    n2 statistic      p p.signif
 ##   &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   
@@ -1356,9 +1361,9 @@ Z_{T}= \frac{\left |T - \mu_{T}  \right | - 0,5}{\sigma_{T}}
 <p><span class="math display">\[
 r = \frac {Z_{T}}{\sqrt{n}}
 \]</span></p>
-<p>Pode-se usar também a função <code>wilcox_effsize()</code> para calcular a estatística <em>r</em>. A Saída exibe junto a magnitude o efeito, que no caso é grande (&gt; 0,5 como mostra a Tabela <a href="métodos-não-paramétricos.html#tab:wilcoxef">17.3</a> do teste de Mann-Whitney).</p>
-<div class="sourceCode" id="cb1046"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1046-1"><a href="métodos-não-paramétricos.html#cb1046-1" tabindex="-1"></a>dadosL <span class="sc">%&gt;%</span> </span>
-<span id="cb1046-2"><a href="métodos-não-paramétricos.html#cb1046-2" tabindex="-1"></a>  <span class="fu">wilcox_effsize</span>(medidas <span class="sc">~</span> momento, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Pode-se usar também a função <code>wilcox_effsize()</code> para calcular a estatística <em>r</em>. A Saída exibe junto a magnitude o efeito, que no caso é grande (&gt; 0,5 como mostra a Tabela <a href="métodos-não-paramétricos.html#tab:wilcoxef">17.2</a> do teste de Mann-Whitney).</p>
+<div class="sourceCode" id="cb1049"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1049-1"><a href="métodos-não-paramétricos.html#cb1049-1" tabindex="-1"></a>dadosL <span class="sc">%&gt;%</span> </span>
+<span id="cb1049-2"><a href="métodos-não-paramétricos.html#cb1049-2" tabindex="-1"></a>  <span class="fu">wilcox_effsize</span>(medidas <span class="sc">~</span> momento, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 7
 ##   .y.     group1 group2 effsize    n1    n2 magnitude
 ## * &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;ord&gt;    
@@ -1369,30 +1374,30 @@ r = \frac {Z_{T}}{\sqrt{n}}
 <p>Assumindo um <span class="math inline">\(\alpha = 0,05\)</span>, se o valor <em>P</em>, obtido pelo teste, for menor do que 0,05, rejeita-se a hipótese nula (V = 2, <em>P</em> = 0,01, <em>n</em> = 10).</p>
 <p>Pode-se concluir que existe diferença nas medidas do pico de fluxo expiratório máximo no início e no fim do programa de exercícios aeróbicos realizados pelos escolares asmáticos e a magnitude do efeito foi grande (<em>r</em> = 0,82).</p>
 <p>Isto pode ser visualizado na Figura <a href="métodos-não-paramétricos.html#fig:aero2">17.5</a>:</p>
-<div class="sourceCode" id="cb1048"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1048-1"><a href="métodos-não-paramétricos.html#cb1048-1" tabindex="-1"></a>bxp <span class="ot">&lt;-</span> ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span>(dadosL,</span>
-<span id="cb1048-2"><a href="métodos-não-paramétricos.html#cb1048-2" tabindex="-1"></a>                         <span class="at">x =</span> <span class="st">&quot;momento&quot;</span>,</span>
-<span id="cb1048-3"><a href="métodos-não-paramétricos.html#cb1048-3" tabindex="-1"></a>                         <span class="at">y =</span> <span class="st">&quot;medidas&quot;</span>,</span>
-<span id="cb1048-4"><a href="métodos-não-paramétricos.html#cb1048-4" tabindex="-1"></a>                         <span class="at">bxp.errorbar =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1048-5"><a href="métodos-não-paramétricos.html#cb1048-5" tabindex="-1"></a>                         <span class="at">bxp.errorbar.width =</span> <span class="fl">0.1</span>,</span>
-<span id="cb1048-6"><a href="métodos-não-paramétricos.html#cb1048-6" tabindex="-1"></a>                         <span class="at">fill =</span> <span class="st">&quot;momento&quot;</span>,</span>
-<span id="cb1048-7"><a href="métodos-não-paramétricos.html#cb1048-7" tabindex="-1"></a>                         <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;cyan4&quot;</span>, <span class="st">&quot;cyan3&quot;</span>),</span>
-<span id="cb1048-8"><a href="métodos-não-paramétricos.html#cb1048-8" tabindex="-1"></a>                         <span class="at">legend =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb1048-9"><a href="métodos-não-paramétricos.html#cb1048-9" tabindex="-1"></a>                         <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>(),</span>
-<span id="cb1048-10"><a href="métodos-não-paramétricos.html#cb1048-10" tabindex="-1"></a>                         <span class="at">xlab =</span> <span class="st">&quot;Momento&quot;</span> ,</span>
-<span id="cb1048-11"><a href="métodos-não-paramétricos.html#cb1048-11" tabindex="-1"></a>                         <span class="at">ylab =</span> <span class="st">&quot;PEF (L/min) &quot;</span>) <span class="sc">+</span></span>
-<span id="cb1048-12"><a href="métodos-não-paramétricos.html#cb1048-12" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">13</span>),</span>
-<span id="cb1048-13"><a href="métodos-não-paramétricos.html#cb1048-13" tabindex="-1"></a>         <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>))</span>
-<span id="cb1048-14"><a href="métodos-não-paramétricos.html#cb1048-14" tabindex="-1"></a></span>
-<span id="cb1048-15"><a href="métodos-não-paramétricos.html#cb1048-15" tabindex="-1"></a>teste <span class="ot">&lt;-</span> dadosL <span class="sc">%&gt;%</span> </span>
-<span id="cb1048-16"><a href="métodos-não-paramétricos.html#cb1048-16" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">wilcox_test</span> (medidas <span class="sc">~</span> momento, <span class="at">paired =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1048-17"><a href="métodos-não-paramétricos.html#cb1048-17" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">add_significance</span> ()</span>
-<span id="cb1048-18"><a href="métodos-não-paramétricos.html#cb1048-18" tabindex="-1"></a>teste <span class="ot">&lt;-</span> teste <span class="sc">%&gt;%</span> rstatix<span class="sc">::</span><span class="fu">add_xy_position</span> ()</span>
-<span id="cb1048-19"><a href="métodos-não-paramétricos.html#cb1048-19" tabindex="-1"></a></span>
-<span id="cb1048-20"><a href="métodos-não-paramétricos.html#cb1048-20" tabindex="-1"></a>bxp <span class="sc">+</span> </span>
-<span id="cb1048-21"><a href="métodos-não-paramétricos.html#cb1048-21" tabindex="-1"></a>  <span class="fu">stat_pvalue_manual</span> (teste, </span>
-<span id="cb1048-22"><a href="métodos-não-paramétricos.html#cb1048-22" tabindex="-1"></a>                      <span class="at">tip.length =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb1048-23"><a href="métodos-não-paramétricos.html#cb1048-23" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">subtitle =</span> <span class="fu">get_test_label</span> (<span class="at">stat.test =</span> teste, </span>
-<span id="cb1048-24"><a href="métodos-não-paramétricos.html#cb1048-24" tabindex="-1"></a>                                   <span class="at">detailed =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1051"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1051-1"><a href="métodos-não-paramétricos.html#cb1051-1" tabindex="-1"></a>bxp <span class="ot">&lt;-</span> ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span>(dadosL,</span>
+<span id="cb1051-2"><a href="métodos-não-paramétricos.html#cb1051-2" tabindex="-1"></a>                         <span class="at">x =</span> <span class="st">&quot;momento&quot;</span>,</span>
+<span id="cb1051-3"><a href="métodos-não-paramétricos.html#cb1051-3" tabindex="-1"></a>                         <span class="at">y =</span> <span class="st">&quot;medidas&quot;</span>,</span>
+<span id="cb1051-4"><a href="métodos-não-paramétricos.html#cb1051-4" tabindex="-1"></a>                         <span class="at">bxp.errorbar =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1051-5"><a href="métodos-não-paramétricos.html#cb1051-5" tabindex="-1"></a>                         <span class="at">bxp.errorbar.width =</span> <span class="fl">0.1</span>,</span>
+<span id="cb1051-6"><a href="métodos-não-paramétricos.html#cb1051-6" tabindex="-1"></a>                         <span class="at">fill =</span> <span class="st">&quot;momento&quot;</span>,</span>
+<span id="cb1051-7"><a href="métodos-não-paramétricos.html#cb1051-7" tabindex="-1"></a>                         <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">&quot;cyan4&quot;</span>, <span class="st">&quot;cyan3&quot;</span>),</span>
+<span id="cb1051-8"><a href="métodos-não-paramétricos.html#cb1051-8" tabindex="-1"></a>                         <span class="at">legend =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb1051-9"><a href="métodos-não-paramétricos.html#cb1051-9" tabindex="-1"></a>                         <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>(),</span>
+<span id="cb1051-10"><a href="métodos-não-paramétricos.html#cb1051-10" tabindex="-1"></a>                         <span class="at">xlab =</span> <span class="st">&quot;Momento&quot;</span> ,</span>
+<span id="cb1051-11"><a href="métodos-não-paramétricos.html#cb1051-11" tabindex="-1"></a>                         <span class="at">ylab =</span> <span class="st">&quot;PEF (L/min) &quot;</span>) <span class="sc">+</span></span>
+<span id="cb1051-12"><a href="métodos-não-paramétricos.html#cb1051-12" tabindex="-1"></a>  <span class="fu">theme</span> (<span class="at">text =</span> <span class="fu">element_text</span> (<span class="at">size =</span> <span class="dv">13</span>),</span>
+<span id="cb1051-13"><a href="métodos-não-paramétricos.html#cb1051-13" tabindex="-1"></a>         <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>))</span>
+<span id="cb1051-14"><a href="métodos-não-paramétricos.html#cb1051-14" tabindex="-1"></a></span>
+<span id="cb1051-15"><a href="métodos-não-paramétricos.html#cb1051-15" tabindex="-1"></a>teste <span class="ot">&lt;-</span> dadosL <span class="sc">%&gt;%</span> </span>
+<span id="cb1051-16"><a href="métodos-não-paramétricos.html#cb1051-16" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">wilcox_test</span> (medidas <span class="sc">~</span> momento, <span class="at">paired =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1051-17"><a href="métodos-não-paramétricos.html#cb1051-17" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">add_significance</span> ()</span>
+<span id="cb1051-18"><a href="métodos-não-paramétricos.html#cb1051-18" tabindex="-1"></a>teste <span class="ot">&lt;-</span> teste <span class="sc">%&gt;%</span> rstatix<span class="sc">::</span><span class="fu">add_xy_position</span> ()</span>
+<span id="cb1051-19"><a href="métodos-não-paramétricos.html#cb1051-19" tabindex="-1"></a></span>
+<span id="cb1051-20"><a href="métodos-não-paramétricos.html#cb1051-20" tabindex="-1"></a>bxp <span class="sc">+</span> </span>
+<span id="cb1051-21"><a href="métodos-não-paramétricos.html#cb1051-21" tabindex="-1"></a>  <span class="fu">stat_pvalue_manual</span> (teste, </span>
+<span id="cb1051-22"><a href="métodos-não-paramétricos.html#cb1051-22" tabindex="-1"></a>                      <span class="at">tip.length =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb1051-23"><a href="métodos-não-paramétricos.html#cb1051-23" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">subtitle =</span> <span class="fu">get_test_label</span> (<span class="at">stat.test =</span> teste, </span>
+<span id="cb1051-24"><a href="métodos-não-paramétricos.html#cb1051-24" tabindex="-1"></a>                                   <span class="at">detailed =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:aero2"></span>
 <img src="bookdownproj_files/figure-html/aero2-1.png" alt="Impacto de exercícios aeróbicos na função respiratória de 10 escolares asmáticos." width="70%" height="70%" />
 <p class="caption">
@@ -1403,7 +1408,7 @@ Figura 17.5: Impacto de exercícios aeróbicos na função respiratória de 10 e
 </div>
 <div id="sec-kuskalwallis" class="section level2 hasAnchor" number="17.6">
 <h2><span class="header-section-number">17.6</span> Teste de Kruskal-Wallis<a href="métodos-não-paramétricos.html#sec-kuskalwallis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Quando os pressupostos subjacentes a ANOVA não são atendidos, é possível usar o teste não paramétrico de Kruskal-Wallis (KW) para testar a hipótese de que os parâmetros de localização são iguais. Pode ser considerado uma extensão do teste de Wilcoxon-Mann-Whitney.</p>
+<p>Quando os pressupostos subjacentes à ANOVA não são atendidos, é possível usar o teste não paramétrico de Kruskal-Wallis (KW) para testar a hipótese de que os parâmetros de localização são iguais. Pode ser considerado uma extensão do teste de Wilcoxon-Mann-Whitney.</p>
 <p>Enquanto a ANOVA depende da hipótese de que todas as populações são independentes e normalmente distribuídas, o teste de Kruskal-Wallis exige apenas amostras aleatórias independentes provenientes de suas respectivas populações. Entretanto, este teste somente deve ser aplicado se a amostra for pequena e/ou os pressupostos para a ANOVA forem seriamente violados.</p>
 <p>O teste não usa diretamente medições de quantidade conhecida, utiliza, como outros testes não paramétricos, os postos dos valores analisados. Em função disso, é também conhecido como <em>análise de variância de um fator em postos</em>.</p>
 <div id="dados-usados-nesta-seção-13" class="section level3 hasAnchor" number="17.6.1">
@@ -1412,46 +1417,46 @@ Figura 17.5: Impacto de exercícios aeróbicos na função respiratória de 10 e
 <p>Os dados encontram-se no arquivo <code>dadosResposta.xlsx</code>. Clique <a href="https://github.com/petronioliveira/Arquivos/blob/main/dadosResposta.xlsx"><strong>aqui</strong></a> para baixar e, após, salve o mesmo no seu diretório de trabalho.</p>
 <p>As variáveis são:</p>
 <ul>
-<li><em>id</em> <span class="math inline">\(\to\)</span> identificação do participante;</li>
-<li><em>tempo</em> <span class="math inline">\(\to\)</span> tempo de reação na simulação de direção em segundos;</li>
-<li><em>bebida</em> <span class="math inline">\(\to\)</span> três grupo: água, álcool e café.</li>
+<li><strong>id</strong> <span class="math inline">\(\to\)</span> identificação do participante;</li>
+<li><strong>tempo</strong> <span class="math inline">\(\to\)</span> tempo de reação na simulação de direção em segundos;</li>
+<li><strong>bebida</strong> <span class="math inline">\(\to\)</span> três grupo: água, álcool e café.</li>
 </ul>
 <p>O estudo pretende verificar se existe diferença no tempo de reação dos participantes em um teste de direção com a ingesta de água, café e álcool.</p>
 <div id="leitura-e-exploração-dos-dados-1" class="section level4 hasAnchor" number="17.6.1.1">
 <h4><span class="header-section-number">17.6.1.1</span> Leitura e exploração dos dados<a href="#leitura-e-explora%C3%A7%C3%A3o-dos-dados-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Como o dados estão contidos em um arquivo Excel (<em>.xlsx</em>), serão lidos com a função <code>read_excel()</code> do pacote <code>readxl</code> e a sua estrutura será observada com função <code>str()</code>:</p>
-<div class="sourceCode" id="cb1049"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1049-1"><a href="métodos-não-paramétricos.html#cb1049-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_excel</span> (<span class="st">&quot;Arquivos/dadosResposta.xlsx&quot;</span>)</span>
-<span id="cb1049-2"><a href="métodos-não-paramétricos.html#cb1049-2" tabindex="-1"></a><span class="fu">str</span>(dados)</span></code></pre></div>
+<div class="sourceCode" id="cb1052"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1052-1"><a href="métodos-não-paramétricos.html#cb1052-1" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_excel</span> (<span class="st">&quot;Arquivos/dadosResposta.xlsx&quot;</span>)</span>
+<span id="cb1052-2"><a href="métodos-não-paramétricos.html#cb1052-2" tabindex="-1"></a><span class="fu">str</span>(dados)</span></code></pre></div>
 <pre><code>## tibble [30 × 3] (S3: tbl_df/tbl/data.frame)
 ##  $ id    : num [1:30] 1 2 3 4 5 6 7 8 9 10 ...
 ##  $ tempo : num [1:30] 0.37 0.38 0.61 0.78 0.83 0.86 0.9 0.95 1.63 1.97 ...
 ##  $ bebida: chr [1:30] &quot;agua&quot; &quot;agua&quot; &quot;agua&quot; &quot;agua&quot; ...</code></pre>
 <p>O formato do arquivo é o longo. A variável bebida encontra-se como caracter e deve ser transformada em fator e as categorias na sequência: <code>agua</code>, <code>cafe</code> e <code>alcool</code>.</p>
-<div class="sourceCode" id="cb1051"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1051-1"><a href="métodos-não-paramétricos.html#cb1051-1" tabindex="-1"></a>dados<span class="sc">$</span>bebida <span class="ot">&lt;-</span> <span class="fu">factor</span>(dados<span class="sc">$</span>bebida, </span>
-<span id="cb1051-2"><a href="métodos-não-paramétricos.html#cb1051-2" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;agua&quot;</span>, <span class="st">&quot;cafe&quot;</span>, <span class="st">&quot;alcool&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1054"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1054-1"><a href="métodos-não-paramétricos.html#cb1054-1" tabindex="-1"></a>dados<span class="sc">$</span>bebida <span class="ot">&lt;-</span> <span class="fu">factor</span>(dados<span class="sc">$</span>bebida, </span>
+<span id="cb1054-2"><a href="métodos-não-paramétricos.html#cb1054-2" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;agua&quot;</span>, <span class="st">&quot;cafe&quot;</span>, <span class="st">&quot;alcool&quot;</span>))</span></code></pre></div>
 <p>Os dados serão observados visualmente através de boxplots (Figura <a href="métodos-não-paramétricos.html#fig:bebida">17.6</a>), usando a função <code>ggplot()</code> do pacote <code>ggplot2</code>, com cores do <code>nejm</code> (<em>New England Journal of Medicine</em>) o pacote <code>ggsci</code>.</p>
-<div class="sourceCode" id="cb1052"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1052-1"><a href="métodos-não-paramétricos.html#cb1052-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span>(dados,</span>
-<span id="cb1052-2"><a href="métodos-não-paramétricos.html#cb1052-2" tabindex="-1"></a>                   <span class="at">x =</span> <span class="st">&quot;bebida&quot;</span>,</span>
-<span id="cb1052-3"><a href="métodos-não-paramétricos.html#cb1052-3" tabindex="-1"></a>                   <span class="at">y =</span> <span class="st">&quot;tempo&quot;</span>,</span>
-<span id="cb1052-4"><a href="métodos-não-paramétricos.html#cb1052-4" tabindex="-1"></a>                   <span class="at">bxp.errorbar =</span> T,</span>
-<span id="cb1052-5"><a href="métodos-não-paramétricos.html#cb1052-5" tabindex="-1"></a>                   <span class="at">bxp.errorbar.width =</span> <span class="fl">0.1</span>,</span>
-<span id="cb1052-6"><a href="métodos-não-paramétricos.html#cb1052-6" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">&quot;bebida&quot;</span>,</span>
-<span id="cb1052-7"><a href="métodos-não-paramétricos.html#cb1052-7" tabindex="-1"></a>                   <span class="at">palette =</span> <span class="st">&quot;nejm&quot;</span>,</span>
-<span id="cb1052-8"><a href="métodos-não-paramétricos.html#cb1052-8" tabindex="-1"></a>                   <span class="at">legend =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb1052-9"><a href="métodos-não-paramétricos.html#cb1052-9" tabindex="-1"></a>                   <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>(),</span>
-<span id="cb1052-10"><a href="métodos-não-paramétricos.html#cb1052-10" tabindex="-1"></a>                   <span class="at">xlab =</span> <span class="st">&quot;Tipo de bebida&quot;</span> ,</span>
-<span id="cb1052-11"><a href="métodos-não-paramétricos.html#cb1052-11" tabindex="-1"></a>                   <span class="at">ylab =</span> <span class="st">&quot;Tempo de reação (seg)&quot;</span>) <span class="sc">+</span></span>
-<span id="cb1052-12"><a href="métodos-não-paramétricos.html#cb1052-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb1055"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1055-1"><a href="métodos-não-paramétricos.html#cb1055-1" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span>(dados,</span>
+<span id="cb1055-2"><a href="métodos-não-paramétricos.html#cb1055-2" tabindex="-1"></a>                   <span class="at">x =</span> <span class="st">&quot;bebida&quot;</span>,</span>
+<span id="cb1055-3"><a href="métodos-não-paramétricos.html#cb1055-3" tabindex="-1"></a>                   <span class="at">y =</span> <span class="st">&quot;tempo&quot;</span>,</span>
+<span id="cb1055-4"><a href="métodos-não-paramétricos.html#cb1055-4" tabindex="-1"></a>                   <span class="at">bxp.errorbar =</span> T,</span>
+<span id="cb1055-5"><a href="métodos-não-paramétricos.html#cb1055-5" tabindex="-1"></a>                   <span class="at">bxp.errorbar.width =</span> <span class="fl">0.1</span>,</span>
+<span id="cb1055-6"><a href="métodos-não-paramétricos.html#cb1055-6" tabindex="-1"></a>                   <span class="at">fill =</span> <span class="st">&quot;bebida&quot;</span>,</span>
+<span id="cb1055-7"><a href="métodos-não-paramétricos.html#cb1055-7" tabindex="-1"></a>                   <span class="at">palette =</span> <span class="st">&quot;nejm&quot;</span>,</span>
+<span id="cb1055-8"><a href="métodos-não-paramétricos.html#cb1055-8" tabindex="-1"></a>                   <span class="at">legend =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb1055-9"><a href="métodos-não-paramétricos.html#cb1055-9" tabindex="-1"></a>                   <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>(),</span>
+<span id="cb1055-10"><a href="métodos-não-paramétricos.html#cb1055-10" tabindex="-1"></a>                   <span class="at">xlab =</span> <span class="st">&quot;Tipo de bebida&quot;</span> ,</span>
+<span id="cb1055-11"><a href="métodos-não-paramétricos.html#cb1055-11" tabindex="-1"></a>                   <span class="at">ylab =</span> <span class="st">&quot;Tempo de reação (seg)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1055-12"><a href="métodos-não-paramétricos.html#cb1055-12" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:bebida"></span>
 <img src="bookdownproj_files/figure-html/bebida-1.png" alt="Impacto do tipo de bebida no tempo de reação ao dirigir." width="70%" height="70%" />
 <p class="caption">
 Figura 17.6: Impacto do tipo de bebida no tempo de reação ao dirigir.
 </p>
 </div>
-<p>Os boxplots exibem dados com medianas visualmente diferentes, bigodes diferentes e grupos com presença de <em>outliers</em>. Para verificar o impacto desses achados, pode-se usar a função <code>identify_outliers()</code>, do pacote <code>rstatix</code> que confirma na sua Saída a presença de <em>outliers</em> no grupo agua e cafe, sendo dois extremos.</p>
-<div class="sourceCode" id="cb1053"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1053-1"><a href="métodos-não-paramétricos.html#cb1053-1" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> </span>
-<span id="cb1053-2"><a href="métodos-não-paramétricos.html#cb1053-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(bebida) <span class="sc">%&gt;%</span> </span>
-<span id="cb1053-3"><a href="métodos-não-paramétricos.html#cb1053-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">identify_outliers</span>(tempo)</span></code></pre></div>
+<p>Os boxplots exibem dados com medianas visualmente diferentes, bigodes diferentes e grupos com presença de <em>outliers</em>. Para verificar o impacto desses achados, pode-se usar a função <code>identify_outliers()</code>, do pacote <code>rstatix</code> que confirma, na sua Saída, a presença de <em>outliers</em> no grupo <code>agua</code> e <code>cafe</code>, sendo dois extremos.</p>
+<div class="sourceCode" id="cb1056"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1056-1"><a href="métodos-não-paramétricos.html#cb1056-1" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> </span>
+<span id="cb1056-2"><a href="métodos-não-paramétricos.html#cb1056-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(bebida) <span class="sc">%&gt;%</span> </span>
+<span id="cb1056-3"><a href="métodos-não-paramétricos.html#cb1056-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">identify_outliers</span>(tempo)</span></code></pre></div>
 <pre><code>## # A tibble: 4 × 5
 ##   bebida    id tempo is.outlier is.extreme
 ##   &lt;fct&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;      &lt;lgl&gt;     
@@ -1460,9 +1465,9 @@ Figura 17.6: Impacto do tipo de bebida no tempo de reação ao dirigir.
 ## 3 cafe      19  2.56 TRUE       FALSE     
 ## 4 cafe      20  3.07 TRUE       TRUE</code></pre>
 <p>Para avaliar a normalidade será usado o teste de Shapiro-Wilk, com a função <code>shapiro_test()</code> e a função <code>group_by()</code> do pacote <code>dplyr</code>:</p>
-<div class="sourceCode" id="cb1055"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1055-1"><a href="métodos-não-paramétricos.html#cb1055-1" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> </span>
-<span id="cb1055-2"><a href="métodos-não-paramétricos.html#cb1055-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span> (bebida) <span class="sc">%&gt;%</span> </span>
-<span id="cb1055-3"><a href="métodos-não-paramétricos.html#cb1055-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">shapiro_test</span> (tempo) </span></code></pre></div>
+<div class="sourceCode" id="cb1058"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1058-1"><a href="métodos-não-paramétricos.html#cb1058-1" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> </span>
+<span id="cb1058-2"><a href="métodos-não-paramétricos.html#cb1058-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span> (bebida) <span class="sc">%&gt;%</span> </span>
+<span id="cb1058-3"><a href="métodos-não-paramétricos.html#cb1058-3" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">shapiro_test</span> (tempo) </span></code></pre></div>
 <pre><code>## # A tibble: 3 × 4
 ##   bebida variable statistic      p
 ##   &lt;fct&gt;  &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;
@@ -1471,13 +1476,13 @@ Figura 17.6: Impacto do tipo de bebida no tempo de reação ao dirigir.
 ## 3 alcool tempo        0.875 0.114</code></pre>
 <p>A variável <code>cafe</code> tem uma distribuição que não se ajusta a distribuição normal.</p>
 <p>Para completar a exploração dos dados, será solicitado, usando as funções <code>group_by ()</code> e <code>summarise</code>, do pacote <code>dplyr</code>, medidas de localização e dispersão adquadas para variáveis bem assimétricas.</p>
-<div class="sourceCode" id="cb1057"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1057-1"><a href="métodos-não-paramétricos.html#cb1057-1" tabindex="-1"></a>resumo <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
-<span id="cb1057-2"><a href="métodos-não-paramétricos.html#cb1057-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(bebida) <span class="sc">%&gt;%</span> </span>
-<span id="cb1057-3"><a href="métodos-não-paramétricos.html#cb1057-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb1057-4"><a href="métodos-não-paramétricos.html#cb1057-4" tabindex="-1"></a>                   <span class="at">mediana =</span> <span class="fu">median</span> (tempo, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1057-5"><a href="métodos-não-paramétricos.html#cb1057-5" tabindex="-1"></a>                   <span class="at">p25=</span><span class="fu">quantile</span>(tempo, <span class="at">probs =</span> <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1057-6"><a href="métodos-não-paramétricos.html#cb1057-6" tabindex="-1"></a>                   <span class="at">p75=</span><span class="fu">quantile</span>(tempo, <span class="at">probs =</span> <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb1057-7"><a href="métodos-não-paramétricos.html#cb1057-7" tabindex="-1"></a>resumo</span></code></pre></div>
+<div class="sourceCode" id="cb1060"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1060-1"><a href="métodos-não-paramétricos.html#cb1060-1" tabindex="-1"></a>resumo <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
+<span id="cb1060-2"><a href="métodos-não-paramétricos.html#cb1060-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(bebida) <span class="sc">%&gt;%</span> </span>
+<span id="cb1060-3"><a href="métodos-não-paramétricos.html#cb1060-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb1060-4"><a href="métodos-não-paramétricos.html#cb1060-4" tabindex="-1"></a>                   <span class="at">mediana =</span> <span class="fu">median</span> (tempo, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1060-5"><a href="métodos-não-paramétricos.html#cb1060-5" tabindex="-1"></a>                   <span class="at">p25=</span><span class="fu">quantile</span>(tempo, <span class="at">probs =</span> <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1060-6"><a href="métodos-não-paramétricos.html#cb1060-6" tabindex="-1"></a>                   <span class="at">p75=</span><span class="fu">quantile</span>(tempo, <span class="at">probs =</span> <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1060-7"><a href="métodos-não-paramétricos.html#cb1060-7" tabindex="-1"></a>resumo</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 5
 ##   bebida     n mediana   p25   p75
 ##   &lt;fct&gt;  &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -1517,8 +1522,8 @@ H =\frac {12}{N \times \left (N + 1  \right )} \sum_{i=1}^{k} \frac {R_{i}^{2}}{
 <ol style="list-style-type: decimal">
 <li>Criar a variável <code>posto</code> com os postos ordenados de forma crescente, independente do grupo, como realizado no teste de Mann-Whitney:</li>
 </ol>
-<div class="sourceCode" id="cb1059"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1059-1"><a href="métodos-não-paramétricos.html#cb1059-1" tabindex="-1"></a>dados<span class="sc">$</span>posto <span class="ot">&lt;-</span> <span class="fu">rank</span>(dados<span class="sc">$</span>tempo, <span class="at">ties.method =</span> <span class="st">&quot;average&quot;</span>)</span>
-<span id="cb1059-2"><a href="métodos-não-paramétricos.html#cb1059-2" tabindex="-1"></a><span class="fu">str</span>(dados)</span></code></pre></div>
+<div class="sourceCode" id="cb1062"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1062-1"><a href="métodos-não-paramétricos.html#cb1062-1" tabindex="-1"></a>dados<span class="sc">$</span>posto <span class="ot">&lt;-</span> <span class="fu">rank</span>(dados<span class="sc">$</span>tempo, <span class="at">ties.method =</span> <span class="st">&quot;average&quot;</span>)</span>
+<span id="cb1062-2"><a href="métodos-não-paramétricos.html#cb1062-2" tabindex="-1"></a><span class="fu">str</span>(dados)</span></code></pre></div>
 <pre><code>## tibble [30 × 4] (S3: tbl_df/tbl/data.frame)
 ##  $ id    : num [1:30] 1 2 3 4 5 6 7 8 9 10 ...
 ##  $ tempo : num [1:30] 0.37 0.38 0.61 0.78 0.83 0.86 0.9 0.95 1.63 1.97 ...
@@ -1527,11 +1532,11 @@ H =\frac {12}{N \times \left (N + 1  \right )} \sum_{i=1}^{k} \frac {R_{i}^{2}}{
 <ol start="2" style="list-style-type: decimal">
 <li>Somar os postos de cada grupo separadamente:</li>
 </ol>
-<div class="sourceCode" id="cb1061"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1061-1"><a href="métodos-não-paramétricos.html#cb1061-1" tabindex="-1"></a>resumo1 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
-<span id="cb1061-2"><a href="métodos-não-paramétricos.html#cb1061-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(bebida) <span class="sc">%&gt;%</span> </span>
-<span id="cb1061-3"><a href="métodos-não-paramétricos.html#cb1061-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
-<span id="cb1061-4"><a href="métodos-não-paramétricos.html#cb1061-4" tabindex="-1"></a>                   <span class="at">soma =</span> <span class="fu">sum</span>(posto))</span>
-<span id="cb1061-5"><a href="métodos-não-paramétricos.html#cb1061-5" tabindex="-1"></a>resumo1</span></code></pre></div>
+<div class="sourceCode" id="cb1064"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1064-1"><a href="métodos-não-paramétricos.html#cb1064-1" tabindex="-1"></a>resumo1 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
+<span id="cb1064-2"><a href="métodos-não-paramétricos.html#cb1064-2" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(bebida) <span class="sc">%&gt;%</span> </span>
+<span id="cb1064-3"><a href="métodos-não-paramétricos.html#cb1064-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb1064-4"><a href="métodos-não-paramétricos.html#cb1064-4" tabindex="-1"></a>                   <span class="at">soma =</span> <span class="fu">sum</span>(posto))</span>
+<span id="cb1064-5"><a href="métodos-não-paramétricos.html#cb1064-5" tabindex="-1"></a>resumo1</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 3
 ##   bebida     n  soma
 ##   &lt;fct&gt;  &lt;int&gt; &lt;dbl&gt;
@@ -1541,37 +1546,37 @@ H =\frac {12}{N \times \left (N + 1  \right )} \sum_{i=1}^{k} \frac {R_{i}^{2}}{
 <ol start="3" style="list-style-type: decimal">
 <li>Cálculo da estatística do teste <em>H</em></li>
 </ol>
-<div class="sourceCode" id="cb1063"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1063-1"><a href="métodos-não-paramétricos.html#cb1063-1" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">30</span></span>
-<span id="cb1063-2"><a href="métodos-não-paramétricos.html#cb1063-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb1063-3"><a href="métodos-não-paramétricos.html#cb1063-3" tabindex="-1"></a>R_agua <span class="ot">&lt;-</span> resumo1[<span class="dv">1</span>,<span class="dv">3</span>]</span>
-<span id="cb1063-4"><a href="métodos-não-paramétricos.html#cb1063-4" tabindex="-1"></a>R_alcool <span class="ot">&lt;-</span> resumo1[<span class="dv">2</span>,<span class="dv">3</span>]</span>
-<span id="cb1063-5"><a href="métodos-não-paramétricos.html#cb1063-5" tabindex="-1"></a>R_cafe <span class="ot">&lt;-</span> resumo1[<span class="dv">3</span>,<span class="dv">3</span>]</span>
-<span id="cb1063-6"><a href="métodos-não-paramétricos.html#cb1063-6" tabindex="-1"></a></span>
-<span id="cb1063-7"><a href="métodos-não-paramétricos.html#cb1063-7" tabindex="-1"></a>H <span class="ot">&lt;-</span> (<span class="dv">12</span><span class="sc">/</span>(N<span class="sc">*</span>(N<span class="sc">+</span><span class="dv">1</span>))) <span class="sc">*</span> ((R_agua<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n) <span class="sc">+</span> (R_alcool<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n) <span class="sc">+</span> (R_cafe<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n)) <span class="sc">-</span> (<span class="dv">3</span><span class="sc">*</span>(N<span class="sc">+</span><span class="dv">1</span>))</span>
-<span id="cb1063-8"><a href="métodos-não-paramétricos.html#cb1063-8" tabindex="-1"></a>H</span></code></pre></div>
+<div class="sourceCode" id="cb1066"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1066-1"><a href="métodos-não-paramétricos.html#cb1066-1" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb1066-2"><a href="métodos-não-paramétricos.html#cb1066-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb1066-3"><a href="métodos-não-paramétricos.html#cb1066-3" tabindex="-1"></a>R_agua <span class="ot">&lt;-</span> resumo1[<span class="dv">1</span>,<span class="dv">3</span>]</span>
+<span id="cb1066-4"><a href="métodos-não-paramétricos.html#cb1066-4" tabindex="-1"></a>R_alcool <span class="ot">&lt;-</span> resumo1[<span class="dv">2</span>,<span class="dv">3</span>]</span>
+<span id="cb1066-5"><a href="métodos-não-paramétricos.html#cb1066-5" tabindex="-1"></a>R_cafe <span class="ot">&lt;-</span> resumo1[<span class="dv">3</span>,<span class="dv">3</span>]</span>
+<span id="cb1066-6"><a href="métodos-não-paramétricos.html#cb1066-6" tabindex="-1"></a></span>
+<span id="cb1066-7"><a href="métodos-não-paramétricos.html#cb1066-7" tabindex="-1"></a>H <span class="ot">&lt;-</span> (<span class="dv">12</span><span class="sc">/</span>(N<span class="sc">*</span>(N<span class="sc">+</span><span class="dv">1</span>))) <span class="sc">*</span> ((R_agua<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n) <span class="sc">+</span> (R_alcool<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n) <span class="sc">+</span> (R_cafe<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n)) <span class="sc">-</span> (<span class="dv">3</span><span class="sc">*</span>(N<span class="sc">+</span><span class="dv">1</span>))</span>
+<span id="cb1066-8"><a href="métodos-não-paramétricos.html#cb1066-8" tabindex="-1"></a>H</span></code></pre></div>
 <pre><code>##       soma
 ## 1 16.31806</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Cálculo do Valor <em>P</em></li>
 </ol>
 <p>Se existir três grupos, com cinco ou menos participantes em cada grupo, há necessidade de usar a tabela especial para tamanhos de amostra pequenos <span class="citation">(151)</span>. Se você tiver mais de cinco participantes por grupo, trate <em>H</em> como qui-quadrado. A estatística <em>H</em> é estatisticamente significativo se for igual ou maior que o valor crítico qui-quadrado para o grau de liberdade específico, igual a <span class="math inline">\(k - 1\)</span>. Aqui, tem-se 10 participantes por grupo e, assumindo um <span class="math inline">\(\alpha = 0,05\)</span>, o <span class="math inline">\(H_{crítico}\)</span> é igual a:</p>
-<div class="sourceCode" id="cb1065"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1065-1"><a href="métodos-não-paramétricos.html#cb1065-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb1065-2"><a href="métodos-não-paramétricos.html#cb1065-2" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">3</span></span>
-<span id="cb1065-3"><a href="métodos-não-paramétricos.html#cb1065-3" tabindex="-1"></a>gl <span class="ot">=</span> k <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb1065-4"><a href="métodos-não-paramétricos.html#cb1065-4" tabindex="-1"></a>H_critico <span class="ot">&lt;-</span> <span class="fu">qchisq</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, gl)</span>
-<span id="cb1065-5"><a href="métodos-não-paramétricos.html#cb1065-5" tabindex="-1"></a>H_critico</span></code></pre></div>
+<div class="sourceCode" id="cb1068"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1068-1"><a href="métodos-não-paramétricos.html#cb1068-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb1068-2"><a href="métodos-não-paramétricos.html#cb1068-2" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb1068-3"><a href="métodos-não-paramétricos.html#cb1068-3" tabindex="-1"></a>gl <span class="ot">=</span> k <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb1068-4"><a href="métodos-não-paramétricos.html#cb1068-4" tabindex="-1"></a>H_critico <span class="ot">&lt;-</span> <span class="fu">qchisq</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, gl)</span>
+<span id="cb1068-5"><a href="métodos-não-paramétricos.html#cb1068-5" tabindex="-1"></a>H_critico</span></code></pre></div>
 <pre><code>## [1] 5.991465</code></pre>
 <p>Uma vez que o <span class="math inline">\(H_{calculado} = 16,3\)</span> é maior que <span class="math inline">\(H_{crítico} = 6,0\)</span> , rejeita-se a <span class="math inline">\(H_{0}\)</span>. O valor <em>P</em>é obtido através da função pchisq():</p>
-<div class="sourceCode" id="cb1067"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1067-1"><a href="métodos-não-paramétricos.html#cb1067-1" tabindex="-1"></a>H <span class="ot">&lt;-</span> <span class="fl">16.32</span></span>
-<span id="cb1067-2"><a href="métodos-não-paramétricos.html#cb1067-2" tabindex="-1"></a><span class="fu">pchisq</span>(H, <span class="dv">2</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1070"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1070-1"><a href="métodos-não-paramétricos.html#cb1070-1" tabindex="-1"></a>H <span class="ot">&lt;-</span> <span class="fl">16.32</span></span>
+<span id="cb1070-2"><a href="métodos-não-paramétricos.html#cb1070-2" tabindex="-1"></a><span class="fu">pchisq</span>(H, <span class="dv">2</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## [1] 0.0002858624</code></pre>
 <p>O R tem funções que fazem facilmente esses cálculos enfadonhos. Eles são colocados aqui apenas para ilustrar o raciocínio de como o teste de Kruskal-Wallis funciona. Sempre existem curiosos lendo o livro!</p>
 </div>
 <div id="teste-de-kruskal-wallis-no-r" class="section level4 hasAnchor" number="17.6.4.2">
 <h4><span class="header-section-number">17.6.4.2</span> Teste de Kruskal-Wallis no R<a href="métodos-não-paramétricos.html#teste-de-kruskal-wallis-no-r" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>No R, pode-se calcular o teste, usando a função <code>kruskal_test()</code> do pacote <code>rstatix</code>, cujos argumentos podem ser consultados na ajuda do <em>RStudio</em>.</p>
-<div class="sourceCode" id="cb1069"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1069-1"><a href="métodos-não-paramétricos.html#cb1069-1" tabindex="-1"></a>teste <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">kruskal_test</span> (<span class="at">data =</span> dados, <span class="at">formula =</span> tempo <span class="sc">~</span> bebida)</span>
-<span id="cb1069-2"><a href="métodos-não-paramétricos.html#cb1069-2" tabindex="-1"></a>teste</span></code></pre></div>
+<div class="sourceCode" id="cb1072"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1072-1"><a href="métodos-não-paramétricos.html#cb1072-1" tabindex="-1"></a>teste <span class="ot">&lt;-</span> rstatix<span class="sc">::</span><span class="fu">kruskal_test</span> (<span class="at">data =</span> dados, <span class="at">formula =</span> tempo <span class="sc">~</span> bebida)</span>
+<span id="cb1072-2"><a href="métodos-não-paramétricos.html#cb1072-2" tabindex="-1"></a>teste</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 6
 ##   .y.       n statistic    df        p method        
 ## * &lt;chr&gt; &lt;int&gt;     &lt;dbl&gt; &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;         
@@ -1586,7 +1591,7 @@ H =\frac {12}{N \times \left (N + 1  \right )} \sum_{i=1}^{k} \frac {R_{i}^{2}}{
 \]</span></p>
 <p>onde <em>H</em> é a estatística obtida no teste de Kruskal-Wallis; <em>k</em> é o número de grupos; N é o número total de observações <span class="citation">(152)</span>.</p>
 <p>A estimativa eta ao quadrado assume valores de 0 a 1 e, multiplicada por 100, indica a porcentagem de variância na variável dependente explicada pela variável independente. Pode ser obtido no R com a função <code>kruskal_effsize()</code> do pacote <code>rstatix:</code></p>
-<div class="sourceCode" id="cb1071"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1071-1"><a href="métodos-não-paramétricos.html#cb1071-1" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> <span class="fu">kruskal_effsize</span> (tempo<span class="sc">~</span>bebida)</span></code></pre></div>
+<div class="sourceCode" id="cb1074"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1074-1"><a href="métodos-não-paramétricos.html#cb1074-1" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> <span class="fu">kruskal_effsize</span> (tempo<span class="sc">~</span>bebida)</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
 ##   .y.       n effsize method  magnitude
 ## * &lt;chr&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;ord&gt;    
@@ -1598,40 +1603,40 @@ H =\frac {12}{N \times \left (N + 1  \right )} \sum_{i=1}^{k} \frac {R_{i}^{2}}{
 <p>A partir do resultado do teste de Kruskal-Wallis, sabe-se que há uma diferença significativa entre os grupos, mas não se sabe quais pares de grupos são diferentes.</p>
 <p>Um teste de Kruskal-Wallis significativo é geralmente seguido pelo teste de Dunn <span class="citation">(153)</span> para identificar quais grupos são diferentes.</p>
 <p>Para realizar as múltiplas comparações, no R, pode ser usada a função <code>dunn_test()</code>, incluído no pacote <code>rstatix</code>. O ajuste de <em>P</em> é feito pelo método de Bonferroni:</p>
-<div class="sourceCode" id="cb1073"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1073-1"><a href="métodos-não-paramétricos.html#cb1073-1" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
-<span id="cb1073-2"><a href="métodos-não-paramétricos.html#cb1073-2" tabindex="-1"></a>  <span class="fu">dunn_test</span> (tempo <span class="sc">~</span> bebida, <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>) </span>
-<span id="cb1073-3"><a href="métodos-não-paramétricos.html#cb1073-3" tabindex="-1"></a>pwc</span></code></pre></div>
+<div class="sourceCode" id="cb1076"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1076-1"><a href="métodos-não-paramétricos.html#cb1076-1" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> </span>
+<span id="cb1076-2"><a href="métodos-não-paramétricos.html#cb1076-2" tabindex="-1"></a>  <span class="fu">dunn_test</span> (tempo <span class="sc">~</span> bebida, <span class="at">p.adjust.method =</span> <span class="st">&quot;bonferroni&quot;</span>) </span>
+<span id="cb1076-3"><a href="métodos-não-paramétricos.html#cb1076-3" tabindex="-1"></a>pwc</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 9
 ##   .y.   group1 group2    n1    n2 statistic         p    p.adj p.adj.signif
 ## * &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       
 ## 1 tempo agua   cafe      10    10      2.10 0.0361    0.108    ns          
 ## 2 tempo agua   alcool    10    10      4.04 0.0000537 0.000161 ***         
 ## 3 tempo cafe   alcool    10    10      1.94 0.0520    0.156    ns</code></pre>
-<p>A saída do teste de Dunn, mostra que existe uma diferença estatisticamente significativa apenas entre a água e o álcool.</p>
+<p>A saída do teste de Dunn, mostra que existe uma diferença estatisticamente significativa apenas entre a água e o álcool, valor <em>P</em> ajustado igual a 1.61^{-4}.</p>
 </div>
 <div id="conclusão-9" class="section level3 hasAnchor" number="17.6.7">
 <h3><span class="header-section-number">17.6.7</span> Conclusão<a href="#conclus%C3%A3o-9" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Um teste de Kruskal-Wallis foi realizado para comparar os tempos de reação em uma simulação de direção após beber água, café ou álcool. Houve evidência de uma diferença (<em>P</em> = 0,00029) de pelo menos um par de grupos (Figura <a href="métodos-não-paramétricos.html#fig:bebida1">17.7</a>).</p>
 <p>O teste de comparações de pares, usando o teste de Dunn, foi realizado para os três pares de grupos. Houve evidencia de diferença entre o grupo que consumiu duas unidades de álcool e o grupo que ingeriu água (<em>P</em> ajustado (Bonferroni) = 0,00016). Entre os demais pares não houve diferença significativa. O tempo mediano de reação para o grupo que recebeu água foi de 0,84 (0,65 – 0,94) segundos, em comparação com 2,25(1,77 – 2,85) segundos no grupo que bebeu cerveja equivalente a duas unidades de álcool, enquanto para o café foi de 1,45(1,28 – 1,69) segundos.</p>
-<div class="sourceCode" id="cb1075"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1075-1"><a href="métodos-não-paramétricos.html#cb1075-1" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> pwc <span class="sc">%&gt;%</span> rstatix<span class="sc">::</span><span class="fu">add_xy_position</span>(<span class="at">x=</span> <span class="st">&quot;bebida&quot;</span>)</span>
-<span id="cb1075-2"><a href="métodos-não-paramétricos.html#cb1075-2" tabindex="-1"></a></span>
-<span id="cb1075-3"><a href="métodos-não-paramétricos.html#cb1075-3" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span>(dados,</span>
-<span id="cb1075-4"><a href="métodos-não-paramétricos.html#cb1075-4" tabindex="-1"></a>                  <span class="at">x =</span> <span class="st">&quot;bebida&quot;</span>,</span>
-<span id="cb1075-5"><a href="métodos-não-paramétricos.html#cb1075-5" tabindex="-1"></a>                  <span class="at">y =</span> <span class="st">&quot;tempo&quot;</span>,</span>
-<span id="cb1075-6"><a href="métodos-não-paramétricos.html#cb1075-6" tabindex="-1"></a>                  <span class="at">bxp.errorbar =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1075-7"><a href="métodos-não-paramétricos.html#cb1075-7" tabindex="-1"></a>                  <span class="at">bxp.errorbar.width =</span> <span class="fl">0.1</span>,</span>
-<span id="cb1075-8"><a href="métodos-não-paramétricos.html#cb1075-8" tabindex="-1"></a>                  <span class="at">fill =</span> <span class="st">&quot;bebida&quot;</span>,</span>
-<span id="cb1075-9"><a href="métodos-não-paramétricos.html#cb1075-9" tabindex="-1"></a>                  <span class="at">palette =</span> <span class="st">&quot;nejm&quot;</span>,</span>
-<span id="cb1075-10"><a href="métodos-não-paramétricos.html#cb1075-10" tabindex="-1"></a>                  <span class="at">legend =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb1075-11"><a href="métodos-não-paramétricos.html#cb1075-11" tabindex="-1"></a>                  <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>())<span class="sc">+</span></span>
-<span id="cb1075-12"><a href="métodos-não-paramétricos.html#cb1075-12" tabindex="-1"></a>  ggpubr<span class="sc">::</span><span class="fu">stat_pvalue_manual</span> (pwc,</span>
-<span id="cb1075-13"><a href="métodos-não-paramétricos.html#cb1075-13" tabindex="-1"></a>                              <span class="at">label =</span> <span class="st">&quot;p = {scales::pvalue(p.adj)}&quot;</span>,</span>
-<span id="cb1075-14"><a href="métodos-não-paramétricos.html#cb1075-14" tabindex="-1"></a>                              <span class="at">label.size =</span> <span class="fl">3.2</span>,</span>
-<span id="cb1075-15"><a href="métodos-não-paramétricos.html#cb1075-15" tabindex="-1"></a>                              <span class="at">hide.ns =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb1075-16"><a href="métodos-não-paramétricos.html#cb1075-16" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Tipo de bebida&quot;</span>, </span>
-<span id="cb1075-17"><a href="métodos-não-paramétricos.html#cb1075-17" tabindex="-1"></a>                <span class="at">y =</span> <span class="st">&quot;Tempo de reação (seg)&quot;</span>,</span>
-<span id="cb1075-18"><a href="métodos-não-paramétricos.html#cb1075-18" tabindex="-1"></a>                <span class="at">subtitle =</span> <span class="fu">get_test_label</span> (teste, <span class="at">detailed =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1075-19"><a href="métodos-não-paramétricos.html#cb1075-19" tabindex="-1"></a>                <span class="at">caption =</span> <span class="fu">get_pwc_label</span>(pwc))</span></code></pre></div>
+<div class="sourceCode" id="cb1078"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1078-1"><a href="métodos-não-paramétricos.html#cb1078-1" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> pwc <span class="sc">%&gt;%</span> rstatix<span class="sc">::</span><span class="fu">add_xy_position</span>(<span class="at">x=</span> <span class="st">&quot;bebida&quot;</span>)</span>
+<span id="cb1078-2"><a href="métodos-não-paramétricos.html#cb1078-2" tabindex="-1"></a></span>
+<span id="cb1078-3"><a href="métodos-não-paramétricos.html#cb1078-3" tabindex="-1"></a>ggpubr<span class="sc">::</span><span class="fu">ggboxplot</span>(dados,</span>
+<span id="cb1078-4"><a href="métodos-não-paramétricos.html#cb1078-4" tabindex="-1"></a>                  <span class="at">x =</span> <span class="st">&quot;bebida&quot;</span>,</span>
+<span id="cb1078-5"><a href="métodos-não-paramétricos.html#cb1078-5" tabindex="-1"></a>                  <span class="at">y =</span> <span class="st">&quot;tempo&quot;</span>,</span>
+<span id="cb1078-6"><a href="métodos-não-paramétricos.html#cb1078-6" tabindex="-1"></a>                  <span class="at">bxp.errorbar =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1078-7"><a href="métodos-não-paramétricos.html#cb1078-7" tabindex="-1"></a>                  <span class="at">bxp.errorbar.width =</span> <span class="fl">0.1</span>,</span>
+<span id="cb1078-8"><a href="métodos-não-paramétricos.html#cb1078-8" tabindex="-1"></a>                  <span class="at">fill =</span> <span class="st">&quot;bebida&quot;</span>,</span>
+<span id="cb1078-9"><a href="métodos-não-paramétricos.html#cb1078-9" tabindex="-1"></a>                  <span class="at">palette =</span> <span class="st">&quot;nejm&quot;</span>,</span>
+<span id="cb1078-10"><a href="métodos-não-paramétricos.html#cb1078-10" tabindex="-1"></a>                  <span class="at">legend =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb1078-11"><a href="métodos-não-paramétricos.html#cb1078-11" tabindex="-1"></a>                  <span class="at">ggtheme =</span> <span class="fu">theme_bw</span>())<span class="sc">+</span></span>
+<span id="cb1078-12"><a href="métodos-não-paramétricos.html#cb1078-12" tabindex="-1"></a>  ggpubr<span class="sc">::</span><span class="fu">stat_pvalue_manual</span> (pwc,</span>
+<span id="cb1078-13"><a href="métodos-não-paramétricos.html#cb1078-13" tabindex="-1"></a>                              <span class="at">label =</span> <span class="st">&quot;p = {scales::pvalue(p.adj)}&quot;</span>,</span>
+<span id="cb1078-14"><a href="métodos-não-paramétricos.html#cb1078-14" tabindex="-1"></a>                              <span class="at">label.size =</span> <span class="fl">3.2</span>,</span>
+<span id="cb1078-15"><a href="métodos-não-paramétricos.html#cb1078-15" tabindex="-1"></a>                              <span class="at">hide.ns =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb1078-16"><a href="métodos-não-paramétricos.html#cb1078-16" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Tipo de bebida&quot;</span>, </span>
+<span id="cb1078-17"><a href="métodos-não-paramétricos.html#cb1078-17" tabindex="-1"></a>                <span class="at">y =</span> <span class="st">&quot;Tempo de reação (seg)&quot;</span>,</span>
+<span id="cb1078-18"><a href="métodos-não-paramétricos.html#cb1078-18" tabindex="-1"></a>                <span class="at">subtitle =</span> <span class="fu">get_test_label</span> (teste, <span class="at">detailed =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1078-19"><a href="métodos-não-paramétricos.html#cb1078-19" tabindex="-1"></a>                <span class="at">caption =</span> <span class="fu">get_pwc_label</span>(pwc))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:bebida1"></span>
 <img src="bookdownproj_files/figure-html/bebida1-1.png" alt="Impacto do tipo de bebida no tempo de reação ao dirigir." width="70%" height="70%" />
 <p class="caption">
