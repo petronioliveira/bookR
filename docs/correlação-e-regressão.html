@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2025-05-18" />
+<meta name="date" content="2025-05-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -627,13 +627,10 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="18.8" data-path="15-correlacao_regressao.html"><a href="#regress%C3%A3o-log%C3%ADstica-bin%C3%A1ria"><i class="fa fa-check"></i><b>18.8</b> Regressão logística binária</a>
 <ul>
-<li class="chapter" data-level="18.8.1" data-path="15-correlacao_regressao.html"><a href="#pressupostos-da-regress%C3%A3o-log%C3%ADstica"><i class="fa fa-check"></i><b>18.8.1</b> Pressupostos da regressão logística</a></li>
-<li class="chapter" data-level="18.8.2" data-path="15-correlacao_regressao.html"><a href="#dados-para-a-regress%C3%A3o-log%C3%ADstica"><i class="fa fa-check"></i><b>18.8.2</b> Dados para a regressão logística</a></li>
-<li class="chapter" data-level="18.8.3" data-path="15-correlacao_regressao.html"><a href="#prepara%C3%A7%C3%A3o-dos-dados"><i class="fa fa-check"></i><b>18.8.3</b> Preparação dos dados</a></li>
-<li class="chapter" data-level="18.8.4" data-path="15-correlacao_regressao.html"><a href="#cria%C3%A7%C3%A3o-do-modelo-de-regress%C3%A3o-enter"><i class="fa fa-check"></i><b>18.8.4</b> Criação do modelo de regressão (<em>enter</em>)</a></li>
-<li class="chapter" data-level="18.8.5" data-path="15-correlacao_regressao.html"><a href="#cria%C3%A7%C3%A3o-do-modelo-passo-a-passo-stepwise"><i class="fa fa-check"></i><b>18.8.5</b> Criação do modelo passo a passo (<em>stepwise</em>)</a></li>
-<li class="chapter" data-level="18.8.6" data-path="15-correlacao_regressao.html"><a href="#uso-do-modelo-para-fazer-predi%C3%A7%C3%B5es"><i class="fa fa-check"></i><b>18.8.6</b> Uso do modelo para fazer predições</a></li>
-<li class="chapter" data-level="18.8.7" data-path="15-correlacao_regressao.html"><a href="#avalia%C3%A7%C3%A3o-do-modelo"><i class="fa fa-check"></i><b>18.8.7</b> Avaliação do modelo</a></li>
+<li class="chapter" data-level="18.8.1" data-path="15-correlacao_regressao.html"><a href="#fun%C3%A7%C3%A3o-logistica"><i class="fa fa-check"></i><b>18.8.1</b> Função Logistica</a></li>
+<li class="chapter" data-level="18.8.2" data-path="15-correlacao_regressao.html"><a href="#pressupostos-da-regress%C3%A3o-log%C3%ADstica"><i class="fa fa-check"></i><b>18.8.2</b> Pressupostos da regressão logística</a></li>
+<li class="chapter" data-level="18.8.3" data-path="15-correlacao_regressao.html"><a href="#dados-para-a-regress%C3%A3o-log%C3%ADstica"><i class="fa fa-check"></i><b>18.8.3</b> Dados para a regressão logística</a></li>
+<li class="chapter" data-level="18.8.4" data-path="15-correlacao_regressao.html"><a href="#constru%C3%A7%C3%A3o-do-modelo-de-regress%C3%A3o-log%C3%ADstica"><i class="fa fa-check"></i><b>18.8.4</b> Construção do Modelo de Regressão Logística</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path=""><a href="#refer%C3%AAncias"><i class="fa fa-check"></i>Referências</a></li>
@@ -1127,13 +1124,13 @@ Figura 15.10: Gráfico QQ mostrando a normalidade dos resíduos do modelo de reg
 <p>Portanto, resíduos padronizados com um valor absoluto maior que 3 são motivo de preocupação porque em uma amostra média é improvável que aconteça um valor tão alto por acaso <span class="citation">(135)</span>.<br />
 Se a saída da função <code>rstandard()</code> for comparada com o eixo <em>y</em> do gráfico <code>Residuals vs Leverage</code>, dos gráficos diagnósticos, verifica-se valores semelhantes que variam abaixo de 3 e acima de -3, indicando que não há <code>outliers</code> influenciando e a mediana está próxima de zero.</p>
 </div>
-<div id="homocedasticidade-dos-resíduos" class="section level4 hasAnchor" number="15.3.2.4">
-<h4><span class="header-section-number">15.3.2.4</span> Homocedasticidade dos resíduos<a href="#homocedasticidade-dos-res%C3%ADduos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="sec-BP" class="section level4 hasAnchor" number="15.3.2.4">
+<h4><span class="header-section-number">15.3.2.4</span> Homocedasticidade dos resíduos<a href="correlação-e-regressão.html#sec-BP" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Na Seção <a href="correlação-e-regressão.html#sec-corpre">15.2.3</a>, foi analisada a homocedasticidade , onde se viu que o teste de Breusch-Pagan, retornou um resultado de <em>P</em> = 0,8231, indicando que a variância permanece praticamente constante, havendo homocedasticidade nos resíduos.</p>
 <p>O problema mais sério associado à heterocedasticidade é o fato de que os erros padrão são tendenciosos. Como o erro padrão é fundamental para a realização de testes de significância e cálculo de intervalos de confiança, os erros padrão tendenciosos levam a conclusões incorretas sobre a significância dos coeficientes de regressão. No geral, no entanto, a violação da suposição de homocedasticidade deve ser bastante grave para apresentar um grande problema, dada a natureza robusta da regressão pelo método <code>ordinary least-squares</code>. No entanto, é importante que a equação final de predição seja aplicada apenas a populações com as mesmas características da amostra do estudo.</p>
 </div>
-<div id="independência-dos-resíduos" class="section level4 hasAnchor" number="15.3.2.5">
-<h4><span class="header-section-number">15.3.2.5</span> Independência dos resíduos<a href="#independ%C3%AAncia-dos-res%C3%ADduos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="sec-dw" class="section level4 hasAnchor" number="15.3.2.5">
+<h4><span class="header-section-number">15.3.2.5</span> Independência dos resíduos<a href="correlação-e-regressão.html#sec-dw" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Os resíduos no modelo devem ser independentes, ou seja, não devem ser correlacionados entre si. Para verificar isso, pode-se executar o <em>teste Durbin-Watson</em> (<code>teste dw</code>), utilizando a função <code>durbinWatsonTest()</code> do pacote ´car`. O teste retorna um valor entre 0 e 4. Um valor maior que 2 indica uma correlação negativa entre resíduos adjacentes, enquanto um valor menor que 2 indica uma correlação positiva. Se o valor for dois, é provável que exista independência. Existe uma sugestão de que valores abaixo de 1 ou mais de 3 são um motivo definitivo de preocupação <span class="citation">(135)</span>. É importante mencionar que o teste tem como pressuposto a normalidade dos dados.</p>
 <div class="sourceCode" id="cb876"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb876-1"><a href="correlação-e-regressão.html#cb876-1" tabindex="-1"></a><span class="fu">durbinWatsonTest</span>(mod_reg)</span></code></pre></div>
 <pre><code>##  lag Autocorrelation D-W Statistic p-value

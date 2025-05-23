@@ -444,13 +444,13 @@ Em uma amostra normalmente distribuída, ao redor de 95% dos valores estão entr
 Portanto, resíduos padronizados com um valor absoluto maior que 3 são motivo de preocupação porque em uma amostra média é improvável que aconteça um valor tão alto por acaso [@field2012regression].  
 Se a saída da função `rstandard()` for comparada com o eixo *y* do gráfico `Residuals vs Leverage`, dos gráficos diagnósticos, verifica-se valores semelhantes que variam abaixo de 3 e acima de -3, indicando que não há `outliers` influenciando e a mediana está próxima de zero.
 
-#### Homocedasticidade dos resíduos  
+#### Homocedasticidade dos resíduos   {#sec-BP}
 
 Na Seção \@ref(sec-corpre), foi analisada a homocedasticidade , onde se viu que o teste de Breusch-Pagan, retornou um resultado de *P* = 0,8231, indicando que a variância permanece praticamente constante, havendo homocedasticidade nos resíduos.   
 
 O problema mais sério associado à heterocedasticidade é o fato de que os erros padrão são tendenciosos. Como o erro padrão é fundamental para a realização de testes de significância e cálculo de intervalos de confiança, os erros padrão tendenciosos levam a conclusões incorretas sobre a significância dos coeficientes de regressão. No geral, no entanto, a violação da suposição de homocedasticidade deve ser bastante grave para apresentar um grande problema, dada a natureza robusta da regressão pelo método `ordinary least-squares`. No entanto, é importante que a equação final de predição seja aplicada apenas a populações com as mesmas características da amostra do estudo.  
 
-#### Independência dos resíduos  
+#### Independência dos resíduos  {#sec-dw}
 
 Os resíduos no modelo devem ser independentes, ou seja, não devem ser correlacionados entre si. Para verificar isso, pode-se executar o *teste Durbin-Watson* (`teste dw`), utilizando a função `durbinWatsonTest()` do pacote ´car`. O teste retorna um valor entre 0 e 4. Um valor maior que 2 indica uma correlação negativa entre resíduos adjacentes, enquanto um valor menor que 2 indica uma correlação positiva. Se o valor for dois, é provável que exista independência. Existe uma sugestão de que valores abaixo de 1 ou mais de 3 são um motivo definitivo de preocupação [@field2012regression]. É importante  mencionar que o teste tem como pressuposto a normalidade dos dados.
 
