@@ -376,7 +376,7 @@ Como se observa, a soma dos residuos é praticamente iguais a zero ($-3,54 \time
 
 A análise exploratória do conjunto de dados foi feita quando do estudo da Correlação. Assim como a correlação, a regressão linear faz várias suposições sobre os dados.
 
-#### Gráficos diagnósticos  
+#### Gráficos diagnóstico  {#sec-graphdiag}
 
 Os gráficos de diagnóstico da regressão (Figura \@ref(fig:diagreg)) podem ser criados usando a função `plot()` do R base, como mostrado para a correlação. O modelo de regressão, anteriormente criado, mod_reg, entra como argumento da função. A função `par(mfrow = 2, 2)` foi utilizada, como de outras vezes, para colocar os gráficos em duas linhas e duas colunas: 
 

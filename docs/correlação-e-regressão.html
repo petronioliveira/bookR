@@ -23,7 +23,7 @@
 <meta name="author" content="Petrônio Fagundes de Oliveira Filho" />
 
 
-<meta name="date" content="2025-05-23" />
+<meta name="date" content="2025-06-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -627,10 +627,11 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="18.8" data-path="15-correlacao_regressao.html"><a href="#regress%C3%A3o-log%C3%ADstica-bin%C3%A1ria"><i class="fa fa-check"></i><b>18.8</b> Regressão logística binária</a>
 <ul>
-<li class="chapter" data-level="18.8.1" data-path="15-correlacao_regressao.html"><a href="#fun%C3%A7%C3%A3o-logistica"><i class="fa fa-check"></i><b>18.8.1</b> Função Logistica</a></li>
+<li class="chapter" data-level="18.8.1" data-path="sec-cap18.html"><a href="sec-cap18.html#sec-logisticfunction"><i class="fa fa-check"></i><b>18.8.1</b> Função Logistica</a></li>
 <li class="chapter" data-level="18.8.2" data-path="15-correlacao_regressao.html"><a href="#pressupostos-da-regress%C3%A3o-log%C3%ADstica"><i class="fa fa-check"></i><b>18.8.2</b> Pressupostos da regressão logística</a></li>
 <li class="chapter" data-level="18.8.3" data-path="15-correlacao_regressao.html"><a href="#dados-para-a-regress%C3%A3o-log%C3%ADstica"><i class="fa fa-check"></i><b>18.8.3</b> Dados para a regressão logística</a></li>
 <li class="chapter" data-level="18.8.4" data-path="15-correlacao_regressao.html"><a href="#constru%C3%A7%C3%A3o-do-modelo-de-regress%C3%A3o-log%C3%ADstica"><i class="fa fa-check"></i><b>18.8.4</b> Construção do Modelo de Regressão Logística</a></li>
+<li class="chapter" data-level="18.8.5" data-path="15-correlacao_regressao.html"><a href="#avalia%C3%A7%C3%A3o-do-modelo-de-regress%C3%A3o-log%C3%ADstica"><i class="fa fa-check"></i><b>18.8.5</b> Avaliação do Modelo de Regressão Logística</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path=""><a href="#refer%C3%AAncias"><i class="fa fa-check"></i>Referências</a></li>
@@ -1062,8 +1063,8 @@ Figura 15.8: Resíduos
 <div id="análise-dos-pressupostos-do-modelo-de-regressão" class="section level3 hasAnchor" number="15.3.2">
 <h3><span class="header-section-number">15.3.2</span> Análise dos pressupostos do modelo de regressão<a href="#an%C3%A1lise-dos-pressupostos-do-modelo-de-regress%C3%A3o" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A análise exploratória do conjunto de dados foi feita quando do estudo da Correlação. Assim como a correlação, a regressão linear faz várias suposições sobre os dados.</p>
-<div id="gráficos-diagnósticos" class="section level4 hasAnchor" number="15.3.2.1">
-<h4><span class="header-section-number">15.3.2.1</span> Gráficos diagnósticos<a href="#gr%C3%A1ficos-diagn%C3%B3sticos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="sec-graphdiag" class="section level4 hasAnchor" number="15.3.2.1">
+<h4><span class="header-section-number">15.3.2.1</span> Gráficos diagnóstico<a href="correlação-e-regressão.html#sec-graphdiag" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Os gráficos de diagnóstico da regressão (Figura <a href="correlação-e-regressão.html#fig:diagreg">15.9</a>) podem ser criados usando a função <code>plot()</code> do R base, como mostrado para a correlação. O modelo de regressão, anteriormente criado, mod_reg, entra como argumento da função. A função <code>par(mfrow = 2, 2)</code> foi utilizada, como de outras vezes, para colocar os gráficos em duas linhas e duas colunas:</p>
 <p>O modelo de regressão, anteriormente criado, <code>mod_reg</code>, entra como argumento da função:</p>
 <div class="sourceCode" id="cb867"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb867-1"><a href="correlação-e-regressão.html#cb867-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
